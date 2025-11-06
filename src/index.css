@@ -131,4 +131,8 @@ All colors MUST be HSL.
   .text-accent-light {
     @apply text-sm md:text-base font-light tracking-wide;
   }
+
+  .pause-animation {
+    animation-play-state: paused;
+  }
 }

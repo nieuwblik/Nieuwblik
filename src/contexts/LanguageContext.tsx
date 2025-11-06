@@ -91,6 +91,9 @@ const translations: Record<Language, Record<string, string>> = {
     "about.cta.description": "Let's connect and create something that makes you proud. I can't wait to hear about your vision!",
     "about.cta.button": "Get in touch",
 
+    // Tools
+    "tools.title": "Trusted tools we work with",
+
     // Footer
     "footer.description": "Premium web design and digital solutions for ambitious businesses.",
     "footer.links": "Quick links",
@@ -179,6 +182,9 @@ const translations: Record<Language, Record<string, string>> = {
     "about.cta.title": "Klaar om iets geweldigs te starten?",
     "about.cta.description": "Laten we contact maken en iets creëren waar je trots op bent. Ik kan niet wachten om over jouw visie te horen!",
     "about.cta.button": "Neem contact op",
+
+    // Tools
+    "tools.title": "Vertrouwde tools waarmee we werken",
 
     // Footer
     "footer.description": "Premium webdesign en digitale oplossingen voor ambitieuze bedrijven.",

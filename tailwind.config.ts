@@ -109,12 +109,21 @@ export default {
             boxShadow: "0 0 30px rgba(22, 119, 85, 0.5), 0 0 60px rgba(22, 119, 85, 0.2)",
           },
         },
+        "infinite-scroll": {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(-50%)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "gradient-shift": "gradient-shift 8s ease infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "infinite-scroll": "infinite-scroll 30s linear infinite",
       },
     },
   },
