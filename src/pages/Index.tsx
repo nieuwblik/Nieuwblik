@@ -6,12 +6,14 @@ import { ArrowRight, Globe, Palette, ShoppingBag, Pen } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 
 const Index = () => {
   const { t } = useLanguage();
   const heroAnimation = useScrollAnimation();
   const servicesAnimation = useScrollAnimation();
   const projectsAnimation = useScrollAnimation();
+  const testimonialsAnimation = useScrollAnimation();
   const ctaAnimation = useScrollAnimation();
 
   const services = [
@@ -172,6 +174,26 @@ const Index = () => {
               <Link to="/portfolio">{t("projects.cta")}</Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section 
+        ref={testimonialsAnimation.ref}
+        className={`py-20 md:py-32 bg-secondary transition-all duration-1000 delay-500 ${
+          testimonialsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="text-accent-light text-accent mb-4">{t("testimonials.label")}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">{t("testimonials.title")}</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
+              {t("testimonials.description")}
+            </p>
+          </div>
+          
+          <TestimonialsCarousel />
         </div>
       </section>
 
