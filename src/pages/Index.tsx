@@ -241,18 +241,18 @@ const Index = () => {
       {/* CTA Section */}
       <section 
         ref={ctaAnimation.ref}
-        className={`py-20 md:py-32 bg-primary text-primary-foreground transition-all duration-1000 delay-400 ${
+        className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent transition-all duration-1000 delay-400 ${
           ctaAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary-foreground">
             {t("cta.title")}
           </h2>
-          <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light opacity-90">
+          <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-primary-foreground/90">
             {t("cta.description")}
           </p>
-          <Button asChild size="lg" variant="secondary" className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button asChild size="lg" variant="secondary">
             <Link to="/contact">
               {t("cta.button")}
               <ArrowRight className="ml-2 h-5 w-5" />

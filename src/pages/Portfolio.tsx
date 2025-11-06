@@ -213,15 +213,15 @@ const Portfolio = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-secondary">
+      <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground">
             {t("portfolio.cta.title")}
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-light">
+          <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light">
             {t("portfolio.cta.description")}
           </p>
-          <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button asChild size="lg" variant="secondary">
             <Link to="/contact">{t("portfolio.cta.button")}</Link>
           </Button>
         </div>
