@@ -114,7 +114,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent">
+      <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground">
             Ready to Elevate Your Brand?
@@ -122,7 +122,7 @@ const Services = () => {
           <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light">
             Let's discuss how our services can help you achieve your business goals.
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
             <Link to="/contact">Start Your Project</Link>
           </Button>
         </div>

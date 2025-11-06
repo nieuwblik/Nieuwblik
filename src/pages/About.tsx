@@ -143,7 +143,7 @@ const About = () => {
       {/* CTA Section */}
       <section
         ref={ctaAnimation.ref}
-        className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent transition-all duration-1000 ${
+        className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift transition-all duration-1000 ${
           ctaAnimation.isVisible 
             ? "opacity-100 translate-y-0" 
             : "opacity-0 translate-y-10"
@@ -156,7 +156,7 @@ const About = () => {
           <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light">
             {t("about.cta.description")}
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
             <Link to="/contact">{t("about.cta.button")}</Link>
           </Button>
         </div>

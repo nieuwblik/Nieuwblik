@@ -241,7 +241,7 @@ const Index = () => {
       {/* CTA Section */}
       <section 
         ref={ctaAnimation.ref}
-        className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent transition-all duration-1000 delay-400 ${
+        className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift transition-all duration-1000 delay-400 ${
           ctaAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
@@ -252,7 +252,7 @@ const Index = () => {
           <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-primary-foreground/90">
             {t("cta.description")}
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
             <Link to="/contact">
               {t("cta.button")}
               <ArrowRight className="ml-2 h-5 w-5" />
