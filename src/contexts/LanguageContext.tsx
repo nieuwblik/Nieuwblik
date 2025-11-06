@@ -16,85 +16,85 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.portfolio": "Portfolio",
     "nav.about": "About",
     "nav.contact": "Contact",
-    "nav.cta": "Start Your Project",
+    "nav.cta": "Start your project",
     
     // Hero
     "hero.subtitle": "PREMIUM WEB DESIGN",
-    "hero.title": "Crafting Digital Excellence",
+    "hero.title": "Crafting digital excellence",
     "hero.description": "We design and build luxurious websites and brand identities that elevate your business and captivate your audience.",
-    "hero.cta": "Start Your Project",
-    "hero.secondary": "View Our Work",
+    "hero.cta": "Start your project",
+    "hero.secondary": "View our work",
     
     // Services Section
     "services.label": "WHAT WE DO",
-    "services.title": "Our Core Services",
+    "services.title": "Our core services",
     "services.description": "Comprehensive digital solutions designed to elevate your brand and drive results.",
-    "services.cta": "Explore All Services",
+    "services.cta": "Explore all services",
     
-    "service.web.title": "Website Design & Development",
+    "service.web.title": "Website design & development",
     "service.web.desc": "Custom-built, responsive websites that combine stunning aesthetics with powerful functionality.",
-    "service.brand.title": "Brand Identity & Kits",
+    "service.brand.title": "Brand identity & kits",
     "service.brand.desc": "Comprehensive brand systems that establish your unique visual language and market presence.",
-    "service.ecommerce.title": "E-commerce Solutions",
+    "service.ecommerce.title": "E-commerce solutions",
     "service.ecommerce.desc": "Full-service e-commerce design including product listings, banners, and complete shop experiences.",
-    "service.custom.title": "Custom Design Services",
+    "service.custom.title": "Custom design services",
     "service.custom.desc": "From e-books to vehicle wrapping, we deliver tailored design solutions for every need.",
     
     // Projects
     "projects.label": "RECENT WORK",
-    "projects.title": "Featured Projects",
+    "projects.title": "Featured projects",
     "projects.description": "A glimpse into our recent work, showcasing our commitment to excellence.",
-    "projects.cta": "View Full Portfolio",
+    "projects.cta": "View full portfolio",
     
     // CTA Section
-    "cta.title": "Ready to Transform Your Digital Presence?",
+    "cta.title": "Ready to transform your digital presence?",
     "cta.description": "Let's collaborate to create something extraordinary that sets you apart from the competition.",
-    "cta.button": "Request a Quote",
+    "cta.button": "Request a quote",
     
     // Testimonials
     "testimonials.label": "CLIENT REVIEWS",
-    "testimonials.title": "What Our Clients Say",
+    "testimonials.title": "What our clients say",
     "testimonials.description": "Don't just take our word for it – hear from the businesses we've helped transform.",
-    "testimonials.cta": "Explore All Reviews",
+    "testimonials.cta": "Explore all reviews",
     
     // Portfolio
     "portfolio.label": "OUR WORK",
-    "portfolio.title": "Selected Projects",
+    "portfolio.title": "Selected projects",
     "portfolio.description": "A showcase of our recent work, demonstrating our commitment to excellence in design and functionality.",
-    "portfolio.viewWebsite": "Visit Website",
-    "portfolio.cta.title": "Let's Create Something Remarkable",
+    "portfolio.viewWebsite": "Visit website",
+    "portfolio.cta.title": "Let's create something remarkable",
     "portfolio.cta.description": "Your project could be our next success story.",
-    "portfolio.cta.button": "Start Your Project",
+    "portfolio.cta.button": "Start your project",
 
     // About
     "about.label": "ABOUT ME",
     "about.hero.title": "Hey, I'm Justin Slok!",
-    "about.hero.subtitle": "Designer, Developer & Brand Enthusiast from Enkhuizen, Netherlands",
+    "about.hero.subtitle": "Designer, developer & brand enthusiast from Enkhuizen, Netherlands",
     "about.hero.description": "With boundless enthusiasm and a genuine love for creativity, I transform ideas into stunning digital experiences. Every project is an opportunity to build something amazing together!",
-    "about.hero.cta": "Let's Create Together",
-    "about.story.title": "My Story",
+    "about.hero.cta": "Let's create together",
+    "about.story.title": "My story",
     "about.story.paragraph1": "Based in the beautiful town of Enkhuizen in the Netherlands, I've turned my passion for design and technology into a career that brings me pure joy every single day. There's nothing quite like the energy of collaborating with clients who are as excited about their vision as I am!",
     "about.story.paragraph2": "What drives me? The thrill of designing fresh brands, crafting beautiful websites, and watching businesses flourish online. But more than the pixels and code, it's the relationships I build along the way. I don't just create projects—I create partnerships that last.",
     "about.story.paragraph3": "Whether you're launching a new brand, refreshing your online presence, or dreaming up something entirely unique, I'm here to bring that same enthusiasm and dedication to your project. Let's make something incredible together!",
     "about.values.label": "MY VALUES",
-    "about.values.title": "What I Bring to the Table",
+    "about.values.title": "What I bring to the table",
     "about.values.description": "The principles that guide every collaboration and project",
-    "about.values.passion.title": "Infectious Enthusiasm",
+    "about.values.passion.title": "Infectious enthusiasm",
     "about.values.passion.description": "I pour my heart into every project, bringing energy and excitement that makes the creative process genuinely fun.",
-    "about.values.collaboration.title": "True Partnership",
+    "about.values.collaboration.title": "True partnership",
     "about.values.collaboration.description": "Working with people is what I love most. Your success is my success, and I'm committed to being there for the long haul.",
-    "about.values.creativity.title": "Fresh Perspectives",
+    "about.values.creativity.title": "Fresh perspectives",
     "about.values.creativity.description": "Every brand has a unique story. I bring innovative ideas and creative solutions that make yours stand out.",
-    "about.values.growth.title": "Continuous Evolution",
+    "about.values.growth.title": "Continuous evolution",
     "about.values.growth.description": "I'm constantly learning and growing, ensuring your project benefits from the latest trends and technologies.",
-    "about.cta.title": "Ready to Start Something Amazing?",
+    "about.cta.title": "Ready to start something amazing?",
     "about.cta.description": "Let's connect and create something that makes you proud. I can't wait to hear about your vision!",
-    "about.cta.button": "Get in Touch",
+    "about.cta.button": "Get in touch",
 
     // Footer
     "footer.description": "Premium web design and digital solutions for ambitious businesses.",
-    "footer.links": "Quick Links",
-    "footer.ready": "Ready to Start?",
+    "footer.links": "Quick links",
+    "footer.ready": "Ready to start?",
     "footer.ready.desc": "Let's discuss your project and bring your vision to life.",
     "footer.copyright": "All rights reserved.",
   },
@@ -193,14 +193,25 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("en");
+  const [isChanging, setIsChanging] = useState(false);
+
+  const handleLanguageChange = (lang: Language) => {
+    setIsChanging(true);
+    setTimeout(() => {
+      setLanguage(lang);
+      setTimeout(() => setIsChanging(false), 50);
+    }, 150);
+  };
 
   const t = (key: string): string => {
     return translations[language][key] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      {children}
+    <LanguageContext.Provider value={{ language, setLanguage: handleLanguageChange, t }}>
+      <div className={`transition-opacity duration-150 ${isChanging ? 'opacity-0' : 'opacity-100'}`}>
+        {children}
+      </div>
     </LanguageContext.Provider>
   );
 };
