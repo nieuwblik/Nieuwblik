@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useState } from "react";
 
 // Import project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
@@ -24,11 +25,13 @@ import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 
 const Portfolio = () => {
   const { t } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const projects = [
     {
       title: "Bushido Shop",
       category: "E-commerce",
+      filterCategory: "e-commerce",
       description: "E-commerce platform for Japanese martial arts equipment and authentic cultural items.",
       tags: ["E-commerce", "Web Design", "Branding"],
       image: bushidoshopImg,
@@ -37,6 +40,7 @@ const Portfolio = () => {
     {
       title: "Carbon6",
       category: "Real Estate",
+      filterCategory: "websites",
       description: "Modern property listing platform with advanced search and room browsing features.",
       tags: ["Web Development", "Real Estate", "UI/UX"],
       image: carbon6Img,
@@ -45,6 +49,7 @@ const Portfolio = () => {
     {
       title: "Casper Nieskens PT",
       category: "Personal Training",
+      filterCategory: "brands",
       description: "Professional fitness coaching platform with personalized training programs.",
       tags: ["Web Design", "Fitness", "Branding"],
       image: caspernieskensptImg,
@@ -53,6 +58,7 @@ const Portfolio = () => {
     {
       title: "Edventure Boats",
       category: "Adventure & Tourism",
+      filterCategory: "websites",
       description: "Water adventure booking platform for thrilling boat experiences.",
       tags: ["Web Design", "Booking System", "Tourism"],
       image: edventureboatsImg,
@@ -61,6 +67,7 @@ const Portfolio = () => {
     {
       title: "Esveld Installatie",
       category: "Installation Services",
+      filterCategory: "websites",
       description: "Professional HVAC and installation services website with client portal.",
       tags: ["Web Design", "Service Business", "Contact Forms"],
       image: esveldinstallatieImg,
@@ -69,6 +76,7 @@ const Portfolio = () => {
     {
       title: "Interieur Studio Laan",
       category: "Interior Design",
+      filterCategory: "brands",
       description: "Elegant interior design showcase with portfolio gallery and consultation booking.",
       tags: ["Web Design", "Interior Design", "Portfolio"],
       image: interieurstudiolaan,
@@ -77,6 +85,7 @@ const Portfolio = () => {
     {
       title: "Karate School Cor Slok",
       category: "Martial Arts",
+      filterCategory: "websites",
       description: "Dynamic karate school website with class schedules and member portal.",
       tags: ["Web Design", "Sports", "Community"],
       image: karateschoolcorslokImg,
@@ -85,6 +94,7 @@ const Portfolio = () => {
     {
       title: "Kyodai Originals",
       category: "E-commerce",
+      filterCategory: "e-commerce",
       description: "Specialized e-commerce platform for authentic Japanese collectibles and originals.",
       tags: ["E-commerce", "Product Showcase", "Branding"],
       image: kyodaioriginalsImg,
@@ -93,6 +103,7 @@ const Portfolio = () => {
     {
       title: "Lashlution",
       category: "Beauty & Wellness",
+      filterCategory: "brands",
       description: "Premium lash extensions and beauty services booking platform.",
       tags: ["Web Design", "Beauty", "Booking System"],
       image: lashlutionImg,
@@ -101,6 +112,7 @@ const Portfolio = () => {
     {
       title: "MHB Techniek",
       category: "Technical Services",
+      filterCategory: "websites",
       description: "Smart home technology solutions with service booking and consultation features.",
       tags: ["Web Development", "Technology", "Service Business"],
       image: mhbtechniekImg,
@@ -109,6 +121,7 @@ const Portfolio = () => {
     {
       title: "Feitsma Dakwerken",
       category: "Roofing Services",
+      filterCategory: "custom-designs",
       description: "Premium roofing services website with project showcase and consultation booking.",
       tags: ["Web Design", "Construction", "Service Business"],
       image: feitsmadakwerkenImg,
@@ -117,6 +130,7 @@ const Portfolio = () => {
     {
       title: "Green Profit",
       category: "Sustainable Solutions",
+      filterCategory: "websites",
       description: "Sustainable building and energy solutions platform with comprehensive service offerings.",
       tags: ["Web Design", "Sustainability", "Services"],
       image: greenProfitImg,
@@ -125,6 +139,7 @@ const Portfolio = () => {
     {
       title: "VdV Tuinen",
       category: "Landscaping & Gardens",
+      filterCategory: "custom-designs",
       description: "Professional garden design and landscaping services with portfolio showcase.",
       tags: ["Web Design", "Landscaping", "Portfolio"],
       image: vdvtuinenImg,
@@ -133,6 +148,7 @@ const Portfolio = () => {
     {
       title: "Pride Mobility",
       category: "Mobility Solutions",
+      filterCategory: "e-commerce",
       description: "Quality mobility products and services for enhanced independence and lifestyle.",
       tags: ["E-commerce", "Healthcare", "Accessibility"],
       image: prideMobilityImg,
@@ -141,12 +157,25 @@ const Portfolio = () => {
     {
       title: "RRS Royal",
       category: "Construction Partner",
+      filterCategory: "websites",
       description: "Complete construction partnership website with project management features.",
       tags: ["Web Design", "Construction", "Business"],
       image: rrsroyalImg,
       url: "https://rrsroyal.nl"
     }
   ];
+
+  const filters = [
+    { id: "all", label: t("portfolio.filter.all") },
+    { id: "websites", label: t("portfolio.filter.websites") },
+    { id: "e-commerce", label: t("portfolio.filter.ecommerce") },
+    { id: "brands", label: t("portfolio.filter.brands") },
+    { id: "custom-designs", label: t("portfolio.filter.custom") },
+  ];
+
+  const filteredProjects = activeFilter === "all" 
+    ? projects 
+    : projects.filter(project => project.filterCategory === activeFilter);
 
   return (
     <div className="min-h-screen bg-background">
@@ -165,11 +194,32 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Filter Section */}
+      <section className="pb-12">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-wrap gap-3 justify-center">
+            {filters.map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeFilter === filter.id
+                    ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                    : "bg-secondary text-muted-foreground hover:bg-secondary/80 hover:scale-105"
+                }`}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Portfolio Grid */}
       <section className="pb-20 md:pb-32">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <a 
                 key={index}
                 href={project.url}
