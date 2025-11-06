@@ -24,6 +24,7 @@ const Navigation = () => {
     { name: t("nav.home"), path: "/" },
     { name: t("nav.services"), path: "/services" },
     { name: t("nav.portfolio"), path: "/portfolio" },
+    { name: t("nav.about"), path: "/about" },
     { name: t("nav.contact"), path: "/contact" },
   ];
 
