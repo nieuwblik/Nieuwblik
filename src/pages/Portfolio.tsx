@@ -16,6 +16,11 @@ import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png
 import kyodaioriginalsImg from "@/assets/projects/kyodaioriginals.nl.png";
 import lashlutionImg from "@/assets/projects/lashlution.nl.png";
 import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.png";
+import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
+import greenProfitImg from "@/assets/projects/green-profit.nl.png";
+import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
+import prideMobilityImg from "@/assets/projects/pride-mobility.nl.png";
+import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 
 const Portfolio = () => {
   const { t } = useLanguage();
@@ -100,6 +105,46 @@ const Portfolio = () => {
       tags: ["Web Development", "Technology", "Service Business"],
       image: mhbtechniekImg,
       url: "https://mhbtechniek.nl"
+    },
+    {
+      title: "Feitsma Dakwerken",
+      category: "Roofing Services",
+      description: "Premium roofing services website with project showcase and consultation booking.",
+      tags: ["Web Design", "Construction", "Service Business"],
+      image: feitsmadakwerkenImg,
+      url: "https://feitsmadakwerken.nl"
+    },
+    {
+      title: "Green Profit",
+      category: "Sustainable Solutions",
+      description: "Sustainable building and energy solutions platform with comprehensive service offerings.",
+      tags: ["Web Design", "Sustainability", "Services"],
+      image: greenProfitImg,
+      url: "https://green-profit.nl"
+    },
+    {
+      title: "VdV Tuinen",
+      category: "Landscaping & Gardens",
+      description: "Professional garden design and landscaping services with portfolio showcase.",
+      tags: ["Web Design", "Landscaping", "Portfolio"],
+      image: vdvtuinenImg,
+      url: "https://vdvtuinen.nl"
+    },
+    {
+      title: "Pride Mobility",
+      category: "Mobility Solutions",
+      description: "Quality mobility products and services for enhanced independence and lifestyle.",
+      tags: ["E-commerce", "Healthcare", "Accessibility"],
+      image: prideMobilityImg,
+      url: "https://pride-mobility.nl"
+    },
+    {
+      title: "RRS Royal",
+      category: "Construction Partner",
+      description: "Complete construction partnership website with project management features.",
+      tags: ["Web Design", "Construction", "Business"],
+      image: rrsroyalImg,
+      url: "https://rrsroyal.nl"
     }
   ];
 
