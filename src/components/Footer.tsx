@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
-            <h3 className="text-2xl font-bold mb-4">NIEUWBLIK</h3>
+            <img src={logo} alt="Nieuwblik" className="h-8 mb-4" />
             <p className="text-muted-foreground text-sm">
               Premium web design and digital solutions for ambitious businesses.
             </p>
