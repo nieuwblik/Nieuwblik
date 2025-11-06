@@ -2,44 +2,104 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+// Import project images
+import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
+import carbon6Img from "@/assets/projects/carbon6.nl.png";
+import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.png";
+import edventureboatsImg from "@/assets/projects/edventureboats.nl.png";
+import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
+import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.png";
+import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
+import kyodaioriginalsImg from "@/assets/projects/kyodaioriginals.nl.png";
+import lashlutionImg from "@/assets/projects/lashlution.nl.png";
+import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.png";
 
 const Portfolio = () => {
+  const { t } = useLanguage();
+
   const projects = [
     {
-      title: "Luxury Fashion Boutique",
-      category: "E-commerce & Branding",
-      description: "Complete brand identity and e-commerce platform for a high-end fashion retailer.",
-      tags: ["Web Design", "Branding", "E-commerce"]
+      title: "Bushido Shop",
+      category: "E-commerce",
+      description: "E-commerce platform for Japanese martial arts equipment and authentic cultural items.",
+      tags: ["E-commerce", "Web Design", "Branding"],
+      image: bushidoshopImg,
+      url: "https://bushidoshop.nl"
     },
     {
-      title: "Tech Startup Platform",
-      category: "Web Application",
-      description: "Sophisticated web application with custom dashboard and analytics.",
-      tags: ["Web Development", "UI/UX", "Custom Design"]
+      title: "Carbon6",
+      category: "Real Estate",
+      description: "Modern property listing platform with advanced search and room browsing features.",
+      tags: ["Web Development", "Real Estate", "UI/UX"],
+      image: carbon6Img,
+      url: "https://carbon6.nl"
     },
     {
-      title: "Restaurant Chain Rebrand",
-      category: "Brand Identity",
-      description: "Full rebranding including logo, menu design, and marketing materials.",
-      tags: ["Branding", "Print Design", "Marketing"]
+      title: "Casper Nieskens PT",
+      category: "Personal Training",
+      description: "Professional fitness coaching platform with personalized training programs.",
+      tags: ["Web Design", "Fitness", "Branding"],
+      image: caspernieskensptImg,
+      url: "https://caspernieskenspt.nl"
     },
     {
-      title: "Professional Services Firm",
-      category: "Corporate Website",
-      description: "Premium corporate website with client portal and case study showcase.",
-      tags: ["Web Design", "Development", "Content Strategy"]
+      title: "Edventure Boats",
+      category: "Adventure & Tourism",
+      description: "Water adventure booking platform for thrilling boat experiences.",
+      tags: ["Web Design", "Booking System", "Tourism"],
+      image: edventureboatsImg,
+      url: "https://edventureboats.nl"
     },
     {
-      title: "Fitness Equipment Brand",
-      category: "E-commerce & Graphics",
-      description: "Product listing optimization and branded marketing assets.",
-      tags: ["E-commerce", "Product Design", "Graphics"]
+      title: "Esveld Installatie",
+      category: "Installation Services",
+      description: "Professional HVAC and installation services website with client portal.",
+      tags: ["Web Design", "Service Business", "Contact Forms"],
+      image: esveldinstallatieImg,
+      url: "https://esveldinstallatie.nl"
     },
     {
-      title: "Creative Agency Portfolio",
-      category: "Portfolio Website",
-      description: "Minimalist portfolio showcasing work with smooth animations and transitions.",
-      tags: ["Web Design", "Animation", "Portfolio"]
+      title: "Interieur Studio Laan",
+      category: "Interior Design",
+      description: "Elegant interior design showcase with portfolio gallery and consultation booking.",
+      tags: ["Web Design", "Interior Design", "Portfolio"],
+      image: interieurstudiolaan,
+      url: "https://interieurstudiolaan.nl"
+    },
+    {
+      title: "Karate School Cor Slok",
+      category: "Martial Arts",
+      description: "Dynamic karate school website with class schedules and member portal.",
+      tags: ["Web Design", "Sports", "Community"],
+      image: karateschoolcorslokImg,
+      url: "https://karateschoolcorslok.nl"
+    },
+    {
+      title: "Kyodai Originals",
+      category: "E-commerce",
+      description: "Specialized e-commerce platform for authentic Japanese collectibles and originals.",
+      tags: ["E-commerce", "Product Showcase", "Branding"],
+      image: kyodaioriginalsImg,
+      url: "https://kyodaioriginals.nl"
+    },
+    {
+      title: "Lashlution",
+      category: "Beauty & Wellness",
+      description: "Premium lash extensions and beauty services booking platform.",
+      tags: ["Web Design", "Beauty", "Booking System"],
+      image: lashlutionImg,
+      url: "https://lashlution.nl"
+    },
+    {
+      title: "MHB Techniek",
+      category: "Technical Services",
+      description: "Smart home technology solutions with service booking and consultation features.",
+      tags: ["Web Development", "Technology", "Service Business"],
+      image: mhbtechniekImg,
+      url: "https://mhbtechniek.nl"
     }
   ];
 
@@ -50,12 +110,12 @@ const Portfolio = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="container mx-auto px-6">
-          <p className="text-accent-light text-accent mb-6">OUR WORK</p>
+          <p className="text-accent mb-6">{t("portfolio.label")}</p>
           <h1 className="text-display mb-6">
-            Selected Projects
+            {t("portfolio.title")}
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light">
-            A showcase of our recent work, demonstrating our commitment to excellence in design and functionality.
+            {t("portfolio.description")}
           </p>
         </div>
       </section>
@@ -65,21 +125,30 @@ const Portfolio = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {projects.map((project, index) => (
-              <div 
+              <a 
                 key={index}
-                className="group cursor-pointer"
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group cursor-pointer block"
               >
                 <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-sm font-medium bg-background px-4 py-2 rounded-full">
-                      View Case Study
+                    <span className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg">
+                      {t("portfolio.viewWebsite")}
+                      <ExternalLink className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
                 <div>
                   <p className="text-sm text-accent font-light mb-2">{project.category}</p>
-                  <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
+                  <h3 className="text-2xl font-semibold mb-2 group-hover:text-accent transition-colors">{project.title}</h3>
                   <p className="text-muted-foreground mb-4 font-light">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, idx) => (
@@ -92,7 +161,7 @@ const Portfolio = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -102,13 +171,13 @@ const Portfolio = () => {
       <section className="py-20 md:py-32 bg-secondary">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Let's Create Something Remarkable
+            {t("portfolio.cta.title")}
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-light">
-            Your project could be our next success story.
+            {t("portfolio.cta.description")}
           </p>
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-            <Link to="/contact">Start Your Project</Link>
+            <Link to="/contact">{t("portfolio.cta.button")}</Link>
           </Button>
         </div>
       </section>

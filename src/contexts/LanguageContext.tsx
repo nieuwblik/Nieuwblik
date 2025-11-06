@@ -56,6 +56,15 @@ const translations: Record<Language, Record<string, string>> = {
     "testimonials.description": "Don't just take our word for it – hear from the businesses we've helped transform.",
     "testimonials.cta": "Explore All Reviews",
     
+    // Portfolio
+    "portfolio.label": "OUR WORK",
+    "portfolio.title": "Selected Projects",
+    "portfolio.description": "A showcase of our recent work, demonstrating our commitment to excellence in design and functionality.",
+    "portfolio.viewWebsite": "Visit Website",
+    "portfolio.cta.title": "Let's Create Something Remarkable",
+    "portfolio.cta.description": "Your project could be our next success story.",
+    "portfolio.cta.button": "Start Your Project",
+
     // Footer
     "footer.description": "Premium web design and digital solutions for ambitious businesses.",
     "footer.links": "Quick Links",
@@ -110,6 +119,15 @@ const translations: Record<Language, Record<string, string>> = {
     "testimonials.description": "Geloof ons niet zomaar – hoor van de bedrijven die we hebben helpen transformeren.",
     "testimonials.cta": "Bekijk Alle Reviews",
     
+    // Portfolio
+    "portfolio.label": "ONS WERK",
+    "portfolio.title": "Geselecteerde Projecten",
+    "portfolio.description": "Een showcase van ons recente werk, wat onze toewijding aan excellentie in design en functionaliteit toont.",
+    "portfolio.viewWebsite": "Bezoek Website",
+    "portfolio.cta.title": "Laten We Iets Opmerkelijks Creëren",
+    "portfolio.cta.description": "Uw project zou ons volgende succesverhaal kunnen zijn.",
+    "portfolio.cta.button": "Start Uw Project",
+
     // Footer
     "footer.description": "Premium webdesign en digitale oplossingen voor ambitieuze bedrijven.",
     "footer.links": "Snelle Links",
