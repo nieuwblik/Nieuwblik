@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -12,9 +12,11 @@ interface Testimonial {
   date?: string;
 }
 
+const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sca_esv=8d0681f1a4a4235b&rlz=1C1GCEA_enNL1027NL1027&sxsrf=AE3TifMLcYtBEKpUaNhMYnjtbFJY4DDtZQ:1762430304800&q=nieuwblik&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E41TwuCziL3w73Kt8XMVdkOUPgIOr_b4h6IupuYh4m-qki5ZJ8eFVpL-yBW3eH9arT0bBhs%3D&uds=AOm0WdH6nlfKCX7KLFCq2cu8xOlC0TOV5ueG1dqxqYrC2916mj2v379G3lTv03EdiMAnQ7XDxhytKFxL5sLr_Tibq423KhN3_WHZz9I5Psb6mNkNionJJ8Y&sa=X&ved=2ahUKEwjEhInCvN2QAxVt2QIHHan6LMMQ3PALegQINhAF&biw=2560&bih=1305&dpr=1";
+
 const TestimonialsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   // Add your actual Google reviews here
   const testimonials: Testimonial[] = [
@@ -145,6 +147,26 @@ const TestimonialsCarousel = () => {
           className="rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
         >
           <ChevronRight className="w-5 h-5" />
+        </Button>
+      </div>
+
+      {/* All Reviews Button */}
+      <div className="text-center mt-8">
+        <Button 
+          asChild 
+          variant="outline" 
+          size="lg"
+          className="group"
+        >
+          <a 
+            href={GOOGLE_REVIEWS_URL} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2"
+          >
+            {t("testimonials.cta")}
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
         </Button>
       </div>
     </div>

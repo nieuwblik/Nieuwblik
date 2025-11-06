@@ -54,6 +54,7 @@ const translations: Record<Language, Record<string, string>> = {
     "testimonials.label": "CLIENT REVIEWS",
     "testimonials.title": "What Our Clients Say",
     "testimonials.description": "Don't just take our word for it – hear from the businesses we've helped transform.",
+    "testimonials.cta": "Explore All Reviews",
     
     // Footer
     "footer.description": "Premium web design and digital solutions for ambitious businesses.",
@@ -107,6 +108,7 @@ const translations: Record<Language, Record<string, string>> = {
     "testimonials.label": "KLANTBEOORDELINGEN",
     "testimonials.title": "Wat Onze Klanten Zeggen",
     "testimonials.description": "Geloof ons niet zomaar – hoor van de bedrijven die we hebben helpen transformeren.",
+    "testimonials.cta": "Bekijk Alle Reviews",
     
     // Footer
     "footer.description": "Premium webdesign en digitale oplossingen voor ambitieuze bedrijven.",
