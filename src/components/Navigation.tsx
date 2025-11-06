@@ -39,7 +39,7 @@ const Navigation = () => {
               src={logo} 
               alt="Nieuwblik" 
               className={`h-8 md:h-10 transition-all duration-300 ${
-                isScrolled ? "brightness-0 invert" : ""
+                isScrolled ? "brightness-0 invert" : "brightness-0"
               }`}
             />
           </Link>
