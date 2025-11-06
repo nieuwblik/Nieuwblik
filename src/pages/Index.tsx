@@ -4,28 +4,36 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Index = () => {
+  const { t } = useLanguage();
+  const heroAnimation = useScrollAnimation();
+  const servicesAnimation = useScrollAnimation();
+  const projectsAnimation = useScrollAnimation();
+  const ctaAnimation = useScrollAnimation();
+
   const services = [
     {
       icon: Globe,
-      title: "Website Design & Development",
-      description: "Custom-built, responsive websites that combine stunning aesthetics with powerful functionality."
+      title: t("service.web.title"),
+      description: t("service.web.desc")
     },
     {
       icon: Palette,
-      title: "Brand Identity & Kits",
-      description: "Comprehensive brand systems that establish your unique visual language and market presence."
+      title: t("service.brand.title"),
+      description: t("service.brand.desc")
     },
     {
       icon: ShoppingBag,
-      title: "E-commerce Solutions",
-      description: "Full-service e-commerce design including product listings, banners, and complete shop experiences."
+      title: t("service.ecommerce.title"),
+      description: t("service.ecommerce.desc")
     },
     {
       icon: Pen,
-      title: "Custom Design Services",
-      description: "From e-books to vehicle wrapping, we deliver tailored design solutions for every need."
+      title: t("service.custom.title"),
+      description: t("service.custom.desc")
     }
   ];
 
@@ -47,26 +55,31 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+      <section 
+        ref={heroAnimation.ref}
+        className={`relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden transition-all duration-1000 ${
+          heroAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-accent-light text-accent mb-6 tracking-widest">PREMIUM WEB DESIGN</p>
+              <p className="text-accent-light text-accent mb-6 tracking-widest">{t("hero.subtitle")}</p>
               <h1 className="text-display mb-8">
-                Crafting Digital Excellence
+                {t("hero.title")}
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground mb-10 font-light leading-relaxed">
-                We design and build luxurious websites and brand identities that elevate your business and captivate your audience.
+                {t("hero.description")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
                   <Link to="/contact">
-                    Start Your Project
+                    {t("hero.cta")}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <Link to="/portfolio">View Our Work</Link>
+                  <Link to="/portfolio">{t("hero.secondary")}</Link>
                 </Button>
               </div>
             </div>
@@ -84,13 +97,18 @@ const Index = () => {
       </section>
 
       {/* Services Overview */}
-      <section className="py-20 md:py-32 bg-secondary">
+      <section 
+        ref={servicesAnimation.ref}
+        className={`py-20 md:py-32 bg-secondary transition-all duration-1000 delay-200 ${
+          servicesAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-accent-light text-accent mb-4">WHAT WE DO</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Core Services</h2>
+            <p className="text-accent-light text-accent mb-4">{t("services.label")}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">{t("services.title")}</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
-              Comprehensive digital solutions designed to elevate your brand and drive results.
+              {t("services.description")}
             </p>
           </div>
           
@@ -98,7 +116,10 @@ const Index = () => {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="bg-background p-8 rounded-lg transition-all hover:shadow-lg"
+                className="bg-background p-8 rounded-lg transition-all hover:shadow-lg hover:-translate-y-1 duration-300"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
               >
                 <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-secondary mb-6">
                   <service.icon className="w-7 h-7" />
@@ -111,27 +132,32 @@ const Index = () => {
           
           <div className="text-center mt-12">
             <Button asChild variant="outline" size="lg">
-              <Link to="/services">Explore All Services</Link>
+              <Link to="/services">{t("services.cta")}</Link>
             </Button>
           </div>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="py-20 md:py-32">
+      <section 
+        ref={projectsAnimation.ref}
+        className={`py-20 md:py-32 transition-all duration-1000 delay-300 ${
+          projectsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-accent-light text-accent mb-4">RECENT WORK</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Featured Projects</h2>
+            <p className="text-accent-light text-accent mb-4">{t("projects.label")}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">{t("projects.title")}</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
-              A glimpse into our recent work, showcasing our commitment to excellence.
+              {t("projects.description")}
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
             {featuredProjects.map((project, index) => (
               <div key={index} className="group cursor-pointer">
-                <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
+                <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative transition-transform duration-300 hover:scale-105">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <p className="text-sm text-accent font-light mb-2">{project.category}</p>
@@ -143,24 +169,29 @@ const Index = () => {
           
           <div className="text-center">
             <Button asChild variant="outline" size="lg">
-              <Link to="/portfolio">View Full Portfolio</Link>
+              <Link to="/portfolio">{t("projects.cta")}</Link>
             </Button>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-primary text-primary-foreground">
+      <section 
+        ref={ctaAnimation.ref}
+        className={`py-20 md:py-32 bg-primary text-primary-foreground transition-all duration-1000 delay-400 ${
+          ctaAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Ready to Transform Your Digital Presence?
+            {t("cta.title")}
           </h2>
           <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light opacity-90">
-            Let's collaborate to create something extraordinary that sets you apart from the competition.
+            {t("cta.description")}
           </p>
           <Button asChild size="lg" variant="secondary" className="bg-accent text-accent-foreground hover:bg-accent/90">
             <Link to="/contact">
-              Request a Quote
+              {t("cta.button")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

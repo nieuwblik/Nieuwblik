@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,10 +21,10 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Contact", path: "/contact" },
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.services"), path: "/services" },
+    { name: t("nav.portfolio"), path: "/portfolio" },
+    { name: t("nav.contact"), path: "/contact" },
   ];
 
   return (
@@ -63,8 +65,19 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <button
+              onClick={() => setLanguage(language === "en" ? "nl" : "en")}
+              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
+                isScrolled
+                  ? "text-primary-foreground/70 hover:text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground/80"
+              }`}
+            >
+              <Globe size={16} />
+              {language === "en" ? "NL" : "EN"}
+            </button>
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">Start Your Project</Link>
+              <Link to="/contact">{t("nav.cta")}</Link>
             </Button>
           </div>
 
@@ -97,9 +110,16 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <button
+              onClick={() => setLanguage(language === "en" ? "nl" : "en")}
+              className="flex items-center gap-2 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
+            >
+              <Globe size={16} />
+              {language === "en" ? "NL" : "EN"}
+            </button>
             <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
               <Link to="/contact" onClick={() => setIsOpen(false)}>
-                Start Your Project
+                {t("nav.cta")}
               </Link>
             </Button>
           </div>
