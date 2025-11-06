@@ -11,28 +11,45 @@ import webflowLogo from "@/assets/tools/webflow.svg";
 import figmaLogo from "@/assets/tools/figma.svg";
 import githubLogo from "@/assets/tools/github.svg";
 import supabaseLogo from "@/assets/tools/supabase.svg";
-
 const ToolsSlider = () => {
-  const { t } = useLanguage();
-
-  const tools = [
-    { name: "Lovable", logo: lovableLogo },
-    { name: "Canva", logo: canvaLogo },
-    { name: "Shopify", logo: shopifyLogo },
-    { name: "Elementor", logo: elementorLogo },
-    { name: "WordPress", logo: wordpressLogo },
-    { name: "Framer", logo: framerLogo },
-    { name: "Webflow", logo: webflowLogo },
-    { name: "Figma", logo: figmaLogo },
-    { name: "GitHub", logo: githubLogo },
-    { name: "Supabase", logo: supabaseLogo },
-  ];
+  const {
+    t
+  } = useLanguage();
+  const tools = [{
+    name: "Lovable",
+    logo: lovableLogo
+  }, {
+    name: "Canva",
+    logo: canvaLogo
+  }, {
+    name: "Shopify",
+    logo: shopifyLogo
+  }, {
+    name: "Elementor",
+    logo: elementorLogo
+  }, {
+    name: "WordPress",
+    logo: wordpressLogo
+  }, {
+    name: "Framer",
+    logo: framerLogo
+  }, {
+    name: "Webflow",
+    logo: webflowLogo
+  }, {
+    name: "Figma",
+    logo: figmaLogo
+  }, {
+    name: "GitHub",
+    logo: githubLogo
+  }, {
+    name: "Supabase",
+    logo: supabaseLogo
+  }];
 
   // Duplicate tools for seamless infinite scroll
   const duplicatedTools = [...tools, ...tools];
-
-  return (
-    <section className="py-12 md:py-16 bg-secondary overflow-hidden">
+  return <section className="py-12 md:py-16 bg-secondary overflow-hidden">
       <div className="container mx-auto px-6 mb-8">
         <p className="text-center text-muted-foreground text-sm md:text-base font-light">
           {t("tools.title")}
@@ -46,23 +63,14 @@ const ToolsSlider = () => {
         
         {/* Scrolling container */}
         <div className="flex animate-infinite-scroll hover:pause-animation">
-          {duplicatedTools.map((tool, index) => (
-            <div
-              key={`${tool.name}-${index}`}
-              className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center"
-              style={{ width: "120px", height: "60px" }}
-            >
-              <img
-                src={tool.logo}
-                alt={tool.name}
-                className="max-w-full max-h-full object-contain opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
-              />
-            </div>
-          ))}
+          {duplicatedTools.map((tool, index) => <div key={`${tool.name}-${index}`} className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center" style={{
+          width: "120px",
+          height: "60px"
+        }}>
+              
+            </div>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ToolsSlider;
