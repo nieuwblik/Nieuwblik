@@ -51,7 +51,7 @@ const Portfolio = () => {
       description: "Water adventure booking platform for thrilling boat experiences.",
       tags: ["Web Design", "Booking System", "Tourism"],
       image: edventureboatsImg,
-      url: "https://edventureboats.nl"
+      url: "https://edventureboats.com"
     },
     {
       title: "Esveld Installatie",
