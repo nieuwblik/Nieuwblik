@@ -31,7 +31,7 @@ const Portfolio = () => {
     {
       title: "Bushido Shop",
       category: "E-commerce",
-      filterCategory: "e-commerce",
+      filterCategory: "websites",
       description: "E-commerce platform for Japanese martial arts equipment and authentic cultural items.",
       tags: ["E-commerce", "Web Design", "Branding"],
       image: bushidoshopImg,
@@ -49,7 +49,7 @@ const Portfolio = () => {
     {
       title: "Casper Nieskens PT",
       category: "Personal Training",
-      filterCategory: "brands",
+      filterCategory: "websites",
       description: "Professional fitness coaching platform with personalized training programs.",
       tags: ["Web Design", "Fitness", "Branding"],
       image: caspernieskensptImg,
@@ -76,7 +76,7 @@ const Portfolio = () => {
     {
       title: "Interieur Studio Laan",
       category: "Interior Design",
-      filterCategory: "brands",
+      filterCategory: "websites",
       description: "Elegant interior design showcase with portfolio gallery and consultation booking.",
       tags: ["Web Design", "Interior Design", "Portfolio"],
       image: interieurstudiolaan,
@@ -94,7 +94,7 @@ const Portfolio = () => {
     {
       title: "Kyodai Originals",
       category: "E-commerce",
-      filterCategory: "e-commerce",
+      filterCategory: "websites",
       description: "Specialized e-commerce platform for authentic Japanese collectibles and originals.",
       tags: ["E-commerce", "Product Showcase", "Branding"],
       image: kyodaioriginalsImg,
@@ -103,7 +103,7 @@ const Portfolio = () => {
     {
       title: "Lashlution",
       category: "Beauty & Wellness",
-      filterCategory: "brands",
+      filterCategory: "websites",
       description: "Premium lash extensions and beauty services booking platform.",
       tags: ["Web Design", "Beauty", "Booking System"],
       image: lashlutionImg,
@@ -121,7 +121,7 @@ const Portfolio = () => {
     {
       title: "Feitsma Dakwerken",
       category: "Roofing Services",
-      filterCategory: "custom-designs",
+      filterCategory: "websites",
       description: "Premium roofing services website with project showcase and consultation booking.",
       tags: ["Web Design", "Construction", "Service Business"],
       image: feitsmadakwerkenImg,
@@ -139,7 +139,7 @@ const Portfolio = () => {
     {
       title: "VdV Tuinen",
       category: "Landscaping & Gardens",
-      filterCategory: "custom-designs",
+      filterCategory: "websites",
       description: "Professional garden design and landscaping services with portfolio showcase.",
       tags: ["Web Design", "Landscaping", "Portfolio"],
       image: vdvtuinenImg,
@@ -148,7 +148,7 @@ const Portfolio = () => {
     {
       title: "Pride Mobility",
       category: "Mobility Solutions",
-      filterCategory: "e-commerce",
+      filterCategory: "websites",
       description: "Quality mobility products and services for enhanced independence and lifestyle.",
       tags: ["E-commerce", "Healthcare", "Accessibility"],
       image: prideMobilityImg,
