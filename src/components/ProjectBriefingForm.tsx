@@ -15,6 +15,7 @@ interface FormData {
   email: string;
   phone: string;
   projectTypes: string[];
+  otherProjectType: string;
   projectGoal: string;
   currentWebsite: string;
   inspirationWebsite: string;
@@ -23,6 +24,7 @@ interface FormData {
   contentReady: string;
   brandKitAvailable: string;
   portfolioAppeal: string;
+  howDidYouFindUs: string;
   additionalNotes: string;
 }
 
@@ -36,6 +38,7 @@ const ProjectBriefingForm = () => {
     email: "",
     phone: "",
     projectTypes: [],
+    otherProjectType: "",
     projectGoal: "",
     currentWebsite: "",
     inspirationWebsite: "",
@@ -44,6 +47,7 @@ const ProjectBriefingForm = () => {
     contentReady: "",
     brandKitAvailable: "",
     portfolioAppeal: "",
+    howDidYouFindUs: "",
     additionalNotes: "",
   });
 
@@ -84,24 +88,8 @@ const ProjectBriefingForm = () => {
       if (error) throw error;
 
       toast.success("Bedankt! We nemen binnen 48 uur contact met je op.");
-      setFormData({
-        fullName: "",
-        companyName: "",
-        position: "",
-        email: "",
-        phone: "",
-        projectTypes: [],
-        projectGoal: "",
-        currentWebsite: "",
-        inspirationWebsite: "",
-        budget: "",
-        timeline: "",
-        contentReady: "",
-        brandKitAvailable: "",
-        portfolioAppeal: "",
-        additionalNotes: "",
-      });
-      setStep(1);
+      // Redirect to thank you page
+      window.location.href = '/bedankt';
     } catch (error: any) {
       console.error("Error:", error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op.");
@@ -216,6 +204,14 @@ const ProjectBriefingForm = () => {
                 </div>
               ))}
             </div>
+            {formData.projectTypes.includes("Ander") && (
+              <Input
+                placeholder="Specificeer wat je nodig hebt..."
+                value={formData.otherProjectType}
+                onChange={(e) => setFormData({ ...formData, otherProjectType: e.target.value })}
+                className="mt-3"
+              />
+            )}
           </div>
           <div>
             <Label htmlFor="projectGoal">Belangrijkste doel van dit project *</Label>
@@ -257,17 +253,15 @@ const ProjectBriefingForm = () => {
           <h3 className="text-2xl font-semibold">Stap 3: Omvang & specificaties</h3>
           <div>
             <Label htmlFor="budget">Budget *</Label>
-            <Select required value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-              <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Selecteer budget" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5-10k">€ 5.000 – € 10.000</SelectItem>
-                <SelectItem value="10-20k">€ 10.000 – € 20.000</SelectItem>
-                <SelectItem value="20k+">€ 20.000+</SelectItem>
-                <SelectItem value="unsure">Nog onzeker / Ik wil advies over investering</SelectItem>
-              </SelectContent>
-            </Select>
+            <Input
+              id="budget"
+              required
+              type="text"
+              placeholder="Bijvoorbeeld: €3.500 of €10.000"
+              value={formData.budget}
+              onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+              className="mt-2"
+            />
           </div>
           <div>
             <Label htmlFor="timeline">Wanneer wil je dat het project live gaat? *</Label>
@@ -276,6 +270,7 @@ const ProjectBriefingForm = () => {
                 <SelectValue placeholder="Selecteer tijdlijn" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="1week">Binnen 1 week (Zeer spoed)</SelectItem>
                 <SelectItem value="1month">Binnen 1 maand (Spoed)</SelectItem>
                 <SelectItem value="1-3months">1 tot 3 maanden</SelectItem>
                 <SelectItem value="3-6months">3 tot 6 maanden</SelectItem>
@@ -315,6 +310,23 @@ const ProjectBriefingForm = () => {
       {step === 4 && (
         <div className="space-y-6">
           <h3 className="text-2xl font-semibold">Stap 4: Match & afronding</h3>
+          <div>
+            <Label htmlFor="howDidYouFindUs">Hoe ben je op ons gekomen? *</Label>
+            <Select required value={formData.howDidYouFindUs} onValueChange={(value) => setFormData({ ...formData, howDidYouFindUs: value })}>
+              <SelectTrigger className="mt-2">
+                <SelectValue placeholder="Selecteer optie" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="social">Social media</SelectItem>
+                <SelectItem value="internet">Internet / Zoekmachine</SelectItem>
+                <SelectItem value="chatgpt">ChatGPT</SelectItem>
+                <SelectItem value="friends">Vrienden</SelectItem>
+                <SelectItem value="family">Familie</SelectItem>
+                <SelectItem value="neighbors">Buren</SelectItem>
+                <SelectItem value="business">Bedrijven / Netwerk</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <div>
             <Label htmlFor="portfolioAppeal">Wat spreekt je het meest aan in de portfolio of stijl van Nieuwblik?</Label>
             <Textarea

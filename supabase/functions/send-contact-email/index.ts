@@ -15,6 +15,7 @@ interface ProjectBriefingRequest {
   email: string;
   phone?: string;
   projectTypes: string[];
+  otherProjectType?: string;
   projectGoal: string;
   currentWebsite?: string;
   inspirationWebsite?: string;
@@ -22,6 +23,7 @@ interface ProjectBriefingRequest {
   timeline: string;
   contentReady: string;
   brandKitAvailable: string;
+  howDidYouFindUs: string;
   portfolioAppeal?: string;
   additionalNotes?: string;
 }
@@ -46,6 +48,7 @@ const handler = async (req: Request): Promise<Response> => {
       
       <h2>Stap 2: Projectkern</h2>
       <p><strong>Hoofdreden voor project:</strong> ${data.projectTypes.join(', ')}</p>
+      ${data.otherProjectType ? `<p><strong>Andere specificatie:</strong> ${data.otherProjectType}</p>` : ''}
       <p><strong>Belangrijkste doel:</strong> ${data.projectGoal}</p>
       ${data.currentWebsite ? `<p><strong>Huidige website:</strong> ${data.currentWebsite}</p>` : ''}
       ${data.inspirationWebsite ? `<p><strong>Inspiratie website:</strong> ${data.inspirationWebsite}</p>` : ''}
@@ -57,6 +60,7 @@ const handler = async (req: Request): Promise<Response> => {
       <p><strong>Brandkit beschikbaar:</strong> ${data.brandKitAvailable}</p>
       
       <h2>Stap 4: Match & Afronding</h2>
+      <p><strong>Hoe gevonden:</strong> ${data.howDidYouFindUs}</p>
       ${data.portfolioAppeal ? `<p><strong>Wat spreekt aan in portfolio:</strong> ${data.portfolioAppeal}</p>` : ''}
       ${data.additionalNotes ? `<p><strong>Overige opmerkingen:</strong> ${data.additionalNotes}</p>` : ''}
     `;
@@ -69,7 +73,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Nieuwblik Contact <onboarding@resend.dev>",
-        to: ["justin@nieuwblik.com"],
+        to: ["justinsloksen@gmail.com"],
         reply_to: data.email,
         subject: `Nieuwe Project Briefing van ${data.fullName} - ${data.companyName}`,
         html: emailHtml,
