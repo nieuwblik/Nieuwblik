@@ -102,6 +102,10 @@ const translations: Record<Language, Record<string, string>> = {
     // Footer
     "footer.description": "Premium web design and digital solutions for ambitious businesses.",
     "footer.links": "Quick links",
+    "footer.company": "Company",
+    "footer.kvk": "KvK",
+    "footer.btw": "VAT",
+    "footer.whatsapp": "WhatsApp",
     "footer.ready": "Ready to start?",
     "footer.ready.desc": "Let's discuss your project and bring your vision to life.",
     "footer.copyright": "All rights reserved.",
@@ -199,6 +203,10 @@ const translations: Record<Language, Record<string, string>> = {
     // Footer
     "footer.description": "Premium webdesign en digitale oplossingen voor ambitieuze bedrijven.",
     "footer.links": "Snelle links",
+    "footer.company": "Bedrijf",
+    "footer.kvk": "KvK",
+    "footer.btw": "BTW",
+    "footer.whatsapp": "WhatsApp",
     "footer.ready": "Klaar om te beginnen?",
     "footer.ready.desc": "Laten we uw project bespreken en uw visie tot leven brengen.",
     "footer.copyright": "Alle rechten voorbehouden.",
