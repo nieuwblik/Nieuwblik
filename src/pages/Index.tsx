@@ -5,11 +5,10 @@ import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink } from "lucide-react";
-import heroImage from "@/assets/hero-image.jpg";
+import justinImage from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
-
 // Import featured project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
 import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.png";
@@ -111,8 +110,14 @@ const Index = () => {
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-[4/3] rounded-lg overflow-hidden">
-                <img src={heroImage} alt="Premium web design showcase" className="w-full h-full object-cover" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-accent via-primary to-accent opacity-75 blur-2xl animate-pulse"></div>
+              <div className="absolute -inset-2 bg-gradient-to-br from-accent/40 to-primary/40 rounded-lg transform rotate-3 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                <img 
+                  src={justinImage} 
+                  alt="Justin Slok - Nieuwblik" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
