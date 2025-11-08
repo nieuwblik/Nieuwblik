@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import SocialContentSection from "@/components/SocialContentSection";
 
@@ -25,7 +24,6 @@ import prideMobilityImg from "@/assets/projects/pride-mobility.nl.png";
 import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 
 const Portfolio = () => {
-  const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const projects = [
@@ -33,17 +31,17 @@ const Portfolio = () => {
       title: "Bushido Shop",
       category: "E-commerce",
       filterCategory: "websites",
-      description: "E-commerce platform for Japanese martial arts equipment and authentic cultural items.",
+      description: "E-commerce platform voor Japanse vechtsportartikelen en authentieke culturele items.",
       tags: ["E-commerce", "Web Design", "Branding"],
       image: bushidoshopImg,
       url: "https://bushidoshop.nl"
     },
     {
       title: "Carbon6",
-      category: "Real Estate",
+      category: "Vastgoed",
       filterCategory: "websites",
-      description: "Modern property listing platform with advanced search and room browsing features.",
-      tags: ["Web Development", "Real Estate", "UI/UX"],
+      description: "Modern vastgoed platform met geavanceerde zoekfunctie en kamer browse features.",
+      tags: ["Web Development", "Vastgoed", "UI/UX"],
       image: carbon6Img,
       url: "https://carbon6.nl"
     },
@@ -51,44 +49,44 @@ const Portfolio = () => {
       title: "Casper Nieskens PT",
       category: "Personal Training",
       filterCategory: "websites",
-      description: "Professional fitness coaching platform with personalized training programs.",
+      description: "Professioneel fitness coaching platform met gepersonaliseerde trainingsprogramma's.",
       tags: ["Web Design", "Fitness", "Branding"],
       image: caspernieskensptImg,
       url: "https://caspernieskenspt.nl"
     },
     {
       title: "Edventure Boats",
-      category: "Adventure & Tourism",
+      category: "Avontuur & Toerisme",
       filterCategory: "websites",
-      description: "Water adventure booking platform for thrilling boat experiences.",
-      tags: ["Web Design", "Booking System", "Tourism"],
+      description: "Water avontuur boekingsplatform voor spannende boot ervaringen.",
+      tags: ["Web Design", "Boekingssysteem", "Toerisme"],
       image: edventureboatsImg,
       url: "https://edventureboats.com"
     },
     {
       title: "Esveld Installatie",
-      category: "Installation Services",
+      category: "Installatiediensten",
       filterCategory: "websites",
-      description: "Professional HVAC and installation services website with client portal.",
-      tags: ["Web Design", "Service Business", "Contact Forms"],
+      description: "Professionele HVAC en installatiediensten website met klant portal.",
+      tags: ["Web Design", "Dienstverlening", "Contact Formulieren"],
       image: esveldinstallatieImg,
       url: "https://esveldinstallatie.nl"
     },
     {
       title: "Interieur Studio Laan",
-      category: "Interior Design",
+      category: "Interieur Design",
       filterCategory: "websites",
-      description: "Elegant interior design showcase with portfolio gallery and consultation booking.",
-      tags: ["Web Design", "Interior Design", "Portfolio"],
+      description: "Elegante interieur design showcase met portfolio galerij en consultatieaanvraag.",
+      tags: ["Web Design", "Interieur Design", "Portfolio"],
       image: interieurstudiolaan,
       url: "https://interieurstudiolaan.nl"
     },
     {
       title: "Karate School Cor Slok",
-      category: "Martial Arts",
+      category: "Vechtsport",
       filterCategory: "websites",
-      description: "Dynamic karate school website with class schedules and member portal.",
-      tags: ["Web Design", "Sports", "Community"],
+      description: "Dynamische karateschool website met lesroosters en leden portal.",
+      tags: ["Web Design", "Sport", "Community"],
       image: karateschoolcorslokImg,
       url: "https://karateschoolcorslok.nl"
     },
@@ -96,7 +94,7 @@ const Portfolio = () => {
       title: "Kyodai Originals",
       category: "E-commerce",
       filterCategory: "websites",
-      description: "Specialized e-commerce platform for authentic Japanese collectibles and originals.",
+      description: "Gespecialiseerd e-commerce platform voor authentieke Japanse verzamelobjecten.",
       tags: ["E-commerce", "Product Showcase", "Branding"],
       image: kyodaioriginalsImg,
       url: "https://kyodaioriginals.nl"
@@ -105,74 +103,74 @@ const Portfolio = () => {
       title: "Lashlution",
       category: "Beauty & Wellness",
       filterCategory: "websites",
-      description: "Premium lash extensions and beauty services booking platform.",
-      tags: ["Web Design", "Beauty", "Booking System"],
+      description: "Premium lash extensions en beauty services boekingsplatform.",
+      tags: ["Web Design", "Beauty", "Boekingssysteem"],
       image: lashlutionImg,
       url: "https://lashlution.nl"
     },
     {
       title: "MHB Techniek",
-      category: "Technical Services",
+      category: "Technische Diensten",
       filterCategory: "websites",
-      description: "Smart home technology solutions with service booking and consultation features.",
-      tags: ["Web Development", "Technology", "Service Business"],
+      description: "Smart home technologie oplossingen met service boeking en consultatie features.",
+      tags: ["Web Development", "Technologie", "Dienstverlening"],
       image: mhbtechniekImg,
       url: "https://mhbtechniek.nl"
     },
     {
       title: "Feitsma Dakwerken",
-      category: "Roofing Services",
+      category: "Dakdekkersdiensten",
       filterCategory: "websites",
-      description: "Premium roofing services website with project showcase and consultation booking.",
-      tags: ["Web Design", "Construction", "Service Business"],
+      description: "Premium dakdekkersdiensten website met project showcase en consultatieaanvraag.",
+      tags: ["Web Design", "Bouw", "Dienstverlening"],
       image: feitsmadakwerkenImg,
       url: "https://feitsmadakwerken.nl"
     },
     {
       title: "Green Profit",
-      category: "Sustainable Solutions",
+      category: "Duurzame Oplossingen",
       filterCategory: "websites",
-      description: "Sustainable building and energy solutions platform with comprehensive service offerings.",
-      tags: ["Web Design", "Sustainability", "Services"],
+      description: "Duurzaam bouwen en energie oplossingen platform met uitgebreid dienstenaanbod.",
+      tags: ["Web Design", "Duurzaamheid", "Diensten"],
       image: greenProfitImg,
       url: "https://green-profit.nl"
     },
     {
       title: "VdV Tuinen",
-      category: "Landscaping & Gardens",
+      category: "Tuinaanleg & Tuinen",
       filterCategory: "websites",
-      description: "Professional garden design and landscaping services with portfolio showcase.",
-      tags: ["Web Design", "Landscaping", "Portfolio"],
+      description: "Professioneel tuinontwerp en tuinaanlegdiensten met portfolio showcase.",
+      tags: ["Web Design", "Tuinaanleg", "Portfolio"],
       image: vdvtuinenImg,
       url: "https://vdvtuinen.nl"
     },
     {
       title: "Pride Mobility",
-      category: "Mobility Solutions",
+      category: "Mobiliteitsoplossingen",
       filterCategory: "websites",
-      description: "Quality mobility products and services for enhanced independence and lifestyle.",
-      tags: ["E-commerce", "Healthcare", "Accessibility"],
+      description: "Kwaliteit mobiliteitsproducten en diensten voor verbeterde onafhankelijkheid en levensstijl.",
+      tags: ["E-commerce", "Gezondheidszorg", "Toegankelijkheid"],
       image: prideMobilityImg,
       url: "https://pride-mobility.nl"
     },
     {
       title: "RRS Royal",
-      category: "Construction Partner",
+      category: "Bouwpartner",
       filterCategory: "websites",
-      description: "Complete construction partnership website with project management features.",
-      tags: ["Web Design", "Construction", "Business"],
+      description: "Complete bouwpartnership website met projectmanagement features.",
+      tags: ["Web Design", "Bouw", "Zakelijk"],
       image: rrsroyalImg,
       url: "https://rrsroyal.nl"
     }
   ];
 
   const filters = [
-    { id: "all", label: t("portfolio.filter.all") },
-    { id: "websites", label: t("portfolio.filter.websites") },
-    { id: "e-commerce", label: t("portfolio.filter.ecommerce") },
-    { id: "brands", label: t("portfolio.filter.brands") },
-    { id: "custom-designs", label: t("portfolio.filter.custom") },
-    { id: "videos", label: "Videos" },
+    { id: "all", label: "Alles" },
+    { id: "websites", label: "Websites" },
+    { id: "e-commerce", label: "E-commerce" },
+    { id: "brands", label: "Branding" },
+    { id: "custom-designs", label: "Custom Design" },
+    { id: "videos", label: "Video's" },
   ];
 
   const filteredProjects = activeFilter === "all" 
@@ -189,12 +187,12 @@ const Portfolio = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="container mx-auto px-6">
-          <p className="text-accent mb-6">{t("portfolio.label")}</p>
+          <p className="text-accent mb-6">ONS PORTFOLIO</p>
           <h1 className="text-display mb-6">
-            {t("portfolio.title")}
+            Bewezen successen die spreken
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light">
-            {t("portfolio.description")}
+            Elk project vertelt een uniek verhaal van groei, creativiteit en resultaat. Ontdek hoe wij bedrijven helpen hun digitale doelen te bereiken.
           </p>
         </div>
       </section>
@@ -242,7 +240,7 @@ const Portfolio = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <span className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg">
-                        {t("portfolio.viewWebsite")}
+                        Bekijk website
                         <ExternalLink className="w-4 h-4" />
                       </span>
                     </div>
@@ -276,13 +274,13 @@ const Portfolio = () => {
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground">
-            {t("portfolio.cta.title")}
+            Klaar om jouw succesverhaal te schrijven?
           </h2>
           <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light">
-            {t("portfolio.cta.description")}
+            Laten we samen werken aan een project waar jij net zo trots op bent als wij.
           </p>
           <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
-            <Link to="/contact">{t("portfolio.cta.button")}</Link>
+            <Link to="/contact">Start je project</Link>
           </Button>
         </div>
       </section>

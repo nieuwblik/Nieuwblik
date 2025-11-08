@@ -10,49 +10,49 @@ const Services = () => {
     {
       icon: Globe,
       title: "Website Design & Development",
-      description: "Custom-built, responsive websites that combine stunning design with powerful functionality. From corporate sites to complex web applications, we craft digital experiences that convert visitors into customers.",
+      description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
       features: [
         "Responsive & Mobile-First Design",
-        "SEO Optimization",
-        "Performance & Speed Optimization",
-        "CMS Integration",
-        "E-commerce Solutions"
+        "SEO Optimalisatie",
+        "Prestatie & Snelheidsoptimalisatie",
+        "CMS Integratie",
+        "E-commerce Oplossingen"
       ]
     },
     {
       icon: Palette,
-      title: "Brand Identity & Kits",
-      description: "Comprehensive brand identity systems that establish your unique visual language. We create cohesive brand kits that ensure consistency across all touchpoints.",
+      title: "Merkidentiteit & Brand Kits",
+      description: "Complete merkidentiteitssystemen die jouw unieke visuele taal vastleggen. Wij creëren samenhangende brand kits die consistentie garanderen op alle contactpunten met je klanten.",
       features: [
-        "Logo Design & Variations",
-        "Color Palette Development",
-        "Typography System",
-        "Brand Guidelines",
-        "Marketing Collateral"
+        "Logo Design & Variaties",
+        "Kleurenpalet Ontwikkeling",
+        "Typografie Systeem",
+        "Brand Richtlijnen",
+        "Marketing Materialen"
       ]
     },
     {
       icon: ShoppingBag,
-      title: "E-commerce Solutions",
-      description: "Full-service e-commerce design including product listings, banners, and complete shop designs that drive sales and enhance user experience.",
+      title: "E-commerce Oplossingen",
+      description: "Full-service e-commerce design inclusief productlijsten, banners en complete shop designs die verkoop stimuleren en gebruikerservaring verbeteren.",
       features: [
-        "Product Listing Design",
+        "Productlijst Design",
         "Custom Banners & Graphics",
-        "Shop Page Layouts",
-        "Conversion Optimization",
-        "Mobile Shopping Experience"
+        "Shop Pagina Layouts",
+        "Conversie Optimalisatie",
+        "Mobiele Shopping Ervaring"
       ]
     },
     {
       icon: Pen,
       title: "Custom Design Services",
-      description: "From e-books to vehicle wrapping, we deliver high-quality custom designs tailored to your specific needs and brand identity.",
+      description: "Van e-books tot autobelettering - wij leveren hoogwaardige custom designs op maat, perfect afgestemd op jouw specifieke wensen en merkidentiteit.",
       features: [
         "E-book Design & Layout",
-        "Vehicle Wrapping Graphics",
-        "Print Materials",
+        "Voertuigbelettering Graphics",
+        "Drukwerk Materialen",
         "Social Media Graphics",
-        "Custom Illustrations"
+        "Custom Illustraties"
       ]
     }
   ];
@@ -64,12 +64,12 @@ const Services = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="container mx-auto px-6">
-          <p className="text-accent-light text-accent mb-6">OUR SERVICES</p>
+          <p className="text-accent mb-6">ONZE DIENSTEN</p>
           <h1 className="text-display mb-6">
-            Comprehensive Digital Solutions
+            Complete digitale oplossingen die groeien met jouw ambities
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light">
-            We specialize in creating premium digital experiences that elevate your brand and drive measurable results.
+            Wij specialiseren ons in het creëren van premium digitale ervaringen die jouw merk naar een hoger niveau tillen en meetbare resultaten opleveren.
           </p>
         </div>
       </section>
@@ -92,12 +92,12 @@ const Services = () => {
                     {service.description}
                   </p>
                   <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-                    <Link to="/contact">Get Started</Link>
+                    <Link to="/contact">Start je project</Link>
                   </Button>
                 </div>
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                   <div className="bg-secondary p-8 rounded-lg">
-                    <h3 className="font-semibold mb-4">What's Included:</h3>
+                    <h3 className="font-semibold mb-4">Wat je krijgt:</h3>
                     <ul className="space-y-3">
                       {service.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-3">
@@ -121,13 +121,13 @@ const Services = () => {
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground">
-            Ready to Elevate Your Brand?
+            Klaar om jouw merk te laten schitteren?
           </h2>
           <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light">
-            Let's discuss how our services can help you achieve your business goals.
+            Laten we bespreken hoe onze diensten jou kunnen helpen je bedrijfsdoelen te bereiken.
           </p>
           <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
-            <Link to="/contact">Start Your Project</Link>
+            <Link to="/contact">Start vandaag</Link>
           </Button>
         </div>
       </section>

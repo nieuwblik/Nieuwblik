@@ -3,11 +3,9 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Clock } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Blog = () => {
-  const { t, language } = useLanguage();
   const heroAnimation = useScrollAnimation(0.1);
 
   return (
@@ -25,12 +23,12 @@ const Blog = () => {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <p className="text-accent mb-6">{t("blog.label")}</p>
+            <p className="text-accent mb-6">ONZE BLOG</p>
             <h1 className="text-display mb-6">
-              {t("blog.title")}
+              Inzichten die je verder brengen
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-light">
-              {t("blog.subtitle")}
+              Ontdek waardevolle tips, trends en strategieën die jouw digitale aanwezigheid naar een hoger niveau tillen. Van design tot marketing - we delen onze kennis graag met je.
             </p>
           </div>
         </div>
@@ -57,7 +55,7 @@ const Blog = () => {
                   <div className="p-8 flex-1 flex flex-col">
                     <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                       <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString(language === 'nl' ? 'nl-NL' : 'en-US', {
+                        {new Date(post.date).toLocaleDateString('nl-NL', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric'
@@ -65,20 +63,20 @@ const Blog = () => {
                       </time>
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        {post.readingTime} {t("blog.readingTime")}
+                        {post.readingTime} min
                       </span>
                     </div>
                     
                     <h2 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">
-                      {post.title[language]}
+                      {post.title.nl}
                     </h2>
                     
                     <p className="text-muted-foreground font-light mb-6 flex-1">
-                      {post.excerpt[language]}
+                      {post.excerpt.nl}
                     </p>
                     
                     <span className="text-accent font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-                      {t("blog.readMore")}
+                      Lees verder
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>

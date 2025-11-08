@@ -12,12 +12,12 @@ const Contact = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="container mx-auto px-6">
-          <p className="text-accent mb-6">START UW PROJECT</p>
+          <p className="text-accent mb-6">START JOUW PROJECT</p>
           <h1 className="text-display mb-6">
-            Project briefing
+            Laten we jouw visie werkelijkheid maken
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light">
-            Vul het formulier in zodat we jouw project perfect kunnen voorbereiden. Of neem direct contact op.
+            Vertel ons over jouw project en wat je wilt bereiken. Wij nemen binnen 24 uur contact op voor een persoonlijk gesprek.
           </p>
         </div>
       </section>
