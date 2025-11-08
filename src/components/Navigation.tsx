@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, Check } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,17 +75,40 @@ const Navigation = () => {
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Link to="/contact">{t("nav.cta")}</Link>
             </Button>
-            <button
-              onClick={() => setLanguage(language === "en" ? "nl" : "en")}
-              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                isScrolled
-                  ? "text-primary-foreground/70 hover:text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground/80"
-              }`}
-            >
-              <Globe size={16} />
-              {language === "en" ? "NL" : "EN"}
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`flex items-center gap-2 text-sm font-medium transition-all duration-200 hover:scale-105 ${
+                    isScrolled
+                      ? "text-primary-foreground/70 hover:text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground/80"
+                  }`}
+                >
+                  <Globe size={16} className="transition-transform duration-200 group-hover:rotate-12" />
+                  {language.toUpperCase()}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-32 bg-background border-border">
+                <DropdownMenuItem 
+                  onClick={() => setLanguage("en")}
+                  className="cursor-pointer hover:bg-accent/50 transition-colors"
+                >
+                  <span className="flex items-center justify-between w-full">
+                    English
+                    {language === "en" && <Check size={16} className="text-primary" />}
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => setLanguage("nl")}
+                  className="cursor-pointer hover:bg-accent/50 transition-colors"
+                >
+                  <span className="flex items-center justify-between w-full">
+                    Nederlands
+                    {language === "nl" && <Check size={16} className="text-primary" />}
+                  </span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile Menu Button */}
