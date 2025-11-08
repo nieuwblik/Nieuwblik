@@ -1,21 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, Check } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
-import { useLanguage } from "@/contexts/LanguageContext";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +19,12 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: t("nav.home"), path: "/" },
-    { name: t("nav.services"), path: "/services" },
-    { name: t("nav.portfolio"), path: "/portfolio" },
-    { name: t("nav.about"), path: "/about" },
-    { name: t("nav.blog"), path: "/blog" },
-    { name: t("nav.contact"), path: "/contact" },
+    { name: "Home", path: "/" },
+    { name: "Diensten", path: "/services" },
+    { name: "Portfolio", path: "/portfolio" },
+    { name: "Over Ons", path: "/about" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -74,42 +66,8 @@ const Navigation = () => {
               </Link>
             ))}
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">{t("nav.cta")}</Link>
+              <Link to="/contact">Start je Project</Link>
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button
-                  className={`flex items-center gap-2 text-sm font-medium transition-all duration-200 hover:scale-105 ${
-                    isScrolled
-                      ? "text-primary-foreground/70 hover:text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground/80"
-                  }`}
-                >
-                  <Globe size={16} className="transition-transform duration-200 group-hover:rotate-12" />
-                  {language.toUpperCase()}
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-32 bg-background border-border">
-                <DropdownMenuItem 
-                  onClick={() => setLanguage("en")}
-                  className="cursor-pointer hover:bg-accent/50 transition-colors"
-                >
-                  <span className="flex items-center justify-between w-full">
-                    English
-                    {language === "en" && <Check size={16} className="text-primary" />}
-                  </span>
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  onClick={() => setLanguage("nl")}
-                  className="cursor-pointer hover:bg-accent/50 transition-colors"
-                >
-                  <span className="flex items-center justify-between w-full">
-                    Nederlands
-                    {language === "nl" && <Check size={16} className="text-primary" />}
-                  </span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
 
           {/* Mobile Menu Button */}
@@ -143,54 +101,10 @@ const Navigation = () => {
                 </Link>
               ))}
               
-              <div className="px-6 py-3 mt-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      className="flex items-center justify-between w-full px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground bg-secondary rounded-lg transition-colors"
-                    >
-                      <span className="flex items-center gap-2">
-                        <Globe size={18} />
-                        {language === "en" ? "English" : "Nederlands"}
-                      </span>
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-full min-w-[200px] bg-background border-border z-50">
-                    <DropdownMenuItem 
-                      onClick={() => {
-                        setLanguage("en");
-                        setIsOpen(false);
-                      }}
-                      className="cursor-pointer hover:bg-accent/50 transition-colors"
-                    >
-                      <span className="flex items-center justify-between w-full">
-                        English
-                        {language === "en" && <Check size={16} className="text-accent" />}
-                      </span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem 
-                      onClick={() => {
-                        setLanguage("nl");
-                        setIsOpen(false);
-                      }}
-                      className="cursor-pointer hover:bg-accent/50 transition-colors"
-                    >
-                      <span className="flex items-center justify-between w-full">
-                        Nederlands
-                        {language === "nl" && <Check size={16} className="text-accent" />}
-                      </span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              
               <div className="px-6 py-3">
                 <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
                   <Link to="/contact" onClick={() => setIsOpen(false)}>
-                    {t("nav.cta")}
+                    Start je Project
                   </Link>
                 </Button>
               </div>

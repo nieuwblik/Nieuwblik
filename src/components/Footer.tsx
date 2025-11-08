@@ -2,19 +2,17 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logo from "@/assets/logo.png";
-import { useLanguage } from "@/contexts/LanguageContext";
 import { Linkedin } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
 
 const Footer = () => {
-  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast.success(t("footer.newsletter.button"));
+      toast.success("Bedankt voor je aanmelding!");
       setEmail("");
     }
   };
@@ -26,30 +24,30 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <img src={logo} alt="Nieuwblik" className="h-8 mb-4 brightness-0" />
             <p className="text-muted-foreground text-sm mb-6">
-              {t("footer.description")}
+              Wij zijn Nieuwblik - jouw partner in digitale groei. Met passie en expertise creëren we websites en designs die niet alleen prachtig zijn, maar ook echt resultaat opleveren.
             </p>
             
             <div className="space-y-4">
-              <h4 className="font-semibold">{t("footer.newsletter")}</h4>
+              <h4 className="font-semibold">Blijf op de hoogte</h4>
               <p className="text-sm text-muted-foreground">
-                {t("footer.newsletter.desc")}
+                Ontvang tips, trends en inspiratie direct in je inbox
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                 <Input 
                   type="email" 
-                  placeholder={t("footer.newsletter.placeholder")}
+                  placeholder="jouw@email.nl"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="bg-background"
                 />
                 <Button type="submit" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  {t("footer.newsletter.button")}
+                  Aanmelden
                 </Button>
               </form>
               
               <div className="pt-4">
-                <h4 className="font-semibold mb-3">{t("footer.social")}</h4>
+                <h4 className="font-semibold mb-3">Volg ons</h4>
                 <div className="flex gap-3">
                   <a 
                     href="https://www.linkedin.com/company/nieuwblik" 
@@ -86,57 +84,57 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">{t("footer.links")}</h4>
+            <h4 className="font-semibold mb-4">Navigatie</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t("nav.home")}
+                  Home
                 </Link>
               </li>
               <li>
                 <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t("nav.services")}
+                  Diensten
                 </Link>
               </li>
               <li>
                 <Link to="/portfolio" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t("nav.portfolio")}
+                  Portfolio
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t("nav.about")}
+                  Over Ons
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  {t("nav.contact")}
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">{t("footer.company")}</h4>
+            <h4 className="font-semibold mb-4">Bedrijf</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>{t("footer.kvk")}: 88304604</li>
-              <li>{t("footer.btw")}: NL864572311b01</li>
+              <li>KVK: 88304604</li>
+              <li>BTW: NL864572311b01</li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">{t("footer.ready")}</h4>
+            <h4 className="font-semibold mb-4">Klaar voor de volgende stap?</h4>
             <p className="text-sm text-muted-foreground mb-4">
-              {t("footer.ready.desc")}
+              Laten we samen jouw digitale succes realiseren
             </p>
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">{t("cta.button")}</Link>
+              <Link to="/contact">Neem contact op</Link>
             </Button>
           </div>
         </div>
         
         <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Nieuwblik. {t("footer.copyright")}</p>
+          <p>© {new Date().getFullYear()} Nieuwblik. Alle rechten voorbehouden.</p>
         </div>
       </div>
     </footer>
