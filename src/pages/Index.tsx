@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ToolsSlider from "@/components/ToolsSlider";
+import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink } from "lucide-react";
@@ -190,6 +191,9 @@ const Index = () => {
           <TestimonialsCarousel />
         </div>
       </section>
+
+      {/* Featured Blog Posts */}
+      <FeaturedBlogPosts />
 
       {/* CTA Section */}
       <section ref={ctaAnimation.ref} className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift transition-all duration-1000 delay-400 ${ctaAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
