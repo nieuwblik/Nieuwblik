@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logo from "@/assets/logo.png";
-import { Linkedin } from "lucide-react";
+import { Linkedin, ArrowUp } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -15,6 +15,13 @@ const Footer = () => {
       toast.success("Bedankt voor je aanmelding!");
       setEmail("");
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
   
   return (
@@ -110,6 +117,15 @@ const Footer = () => {
                 <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact
                 </Link>
+              </li>
+              <li>
+                <button
+                  onClick={scrollToTop}
+                  className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 group"
+                >
+                  <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+                  Terug naar boven
+                </button>
               </li>
             </ul>
           </div>

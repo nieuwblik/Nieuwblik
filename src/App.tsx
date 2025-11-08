@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import CookieConsent from "./components/CookieConsent";
+import PageTransition from "./components/PageTransition";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
@@ -26,7 +28,9 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <PageTransition />
           <ScrollToTopButton />
+          <CookieConsent />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<Services />} />
