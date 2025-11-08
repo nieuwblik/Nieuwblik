@@ -15,8 +15,21 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.services": "Services",
     "nav.portfolio": "Portfolio",
     "nav.about": "About",
+    "nav.blog": "Blog",
     "nav.contact": "Contact",
     "nav.cta": "Start your project",
+    
+    // Blog
+    "blog.label": "INSIGHTS & EXPERTISE",
+    "blog.title": "Our Blog",
+    "blog.subtitle": "Discover the latest trends in web design, branding and digital strategy.",
+    "blog.readMore": "Read more",
+    "blog.readingTime": "min read",
+    "blog.backToBlog": "Back to blog",
+    "blog.author": "Justin Slok | Owner Nieuwblik.com",
+    "blog.contact.title": "Inspired?",
+    "blog.contact.description": "Start your digital transformation today.",
+    "blog.contact.cta": "Start your project",
     
     // Hero
     "hero.subtitle": "PREMIUM WEB DESIGN",
@@ -121,8 +134,21 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.services": "Diensten",
     "nav.portfolio": "Portfolio",
     "nav.about": "Over mij",
+    "nav.blog": "Blog",
     "nav.contact": "Contact",
     "nav.cta": "Start uw project",
+    
+    // Blog
+    "blog.label": "INZICHTEN & EXPERTISE",
+    "blog.title": "Onze Blog",
+    "blog.subtitle": "Ontdek de laatste trends in webdesign, branding en digitale strategie.",
+    "blog.readMore": "Lees verder",
+    "blog.readingTime": "min leestijd",
+    "blog.backToBlog": "Terug naar blog",
+    "blog.author": "Justin Slok | Eigenaar Nieuwblik.com",
+    "blog.contact.title": "Geïnspireerd?",
+    "blog.contact.description": "Start vandaag nog met jouw digitale transformatie.",
+    "blog.contact.cta": "Start uw project",
     
     // Hero
     "hero.subtitle": "PREMIUM WEBDESIGN",
