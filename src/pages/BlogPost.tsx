@@ -18,7 +18,6 @@ const BlogPost = () => {
   }
 
   const formatContent = (content: string) => {
-    // Split content by headers and paragraphs
     const sections = content.trim().split('\n\n');
     
     return sections.map((section, index) => {
@@ -63,34 +62,28 @@ const BlogPost = () => {
         const items = section.split('\n').filter(line => line.startsWith('- '));
         return (
           <ul key={index} className="list-disc list-inside space-y-2 my-6 text-lg">
-            {items.map((item, i) => (
-              <li key={i} className="text-muted-foreground font-light">
-                {item.replace('- ', '')}
-              </li>
-            ))}
+            {items.map((item, i) => {
+              const text = item.replace('- ', '');
+              const parts = text.split('**');
+              return (
+                <li key={i} className="text-foreground font-light">
+                  {parts.map((part, j) => 
+                    j % 2 === 1 ? <strong key={j} className="font-semibold">{part}</strong> : part
+                  )}
+                </li>
+              );
+            })}
           </ul>
         );
       }
       
       // Code block
-      if (section.startsWith('```')) {
-        const code = section.replace(/```/g, '').trim();
+      if (section.startsWith('```') || section.startsWith('`')) {
+        const code = section.replace(/```/g, '').replace(/`/g, '').trim();
         return (
           <pre key={index} className="bg-secondary p-6 rounded-lg my-6 overflow-x-auto">
             <code className="text-sm font-mono">{code}</code>
           </pre>
-        );
-      }
-      
-      // Bold markers
-      if (section.includes('**')) {
-        const parts = section.split('**');
-        return (
-          <p key={index} className="text-lg text-foreground font-light leading-relaxed my-6">
-            {parts.map((part, i) => 
-              i % 2 === 1 ? <strong key={i} className="font-semibold">{part}</strong> : part
-            )}
-          </p>
         );
       }
       
@@ -99,20 +92,31 @@ const BlogPost = () => {
         const lines = section.split('\n');
         return (
           <ul key={index} className="space-y-3 my-6">
-            {lines.map((line, i) => (
-              <li key={i} className="text-lg flex items-start gap-3">
-                <span className="text-2xl">{line.charAt(0)}</span>
-                <span className="text-muted-foreground font-light flex-1">{line.slice(2)}</span>
-              </li>
-            ))}
+            {lines.map((line, i) => {
+              const text = line.slice(2);
+              const parts = text.split('**');
+              return (
+                <li key={i} className="text-lg flex items-start gap-3">
+                  <span className="text-2xl flex-shrink-0">{line.charAt(0)}</span>
+                  <span className="text-foreground font-light flex-1">
+                    {parts.map((part, j) => 
+                      j % 2 === 1 ? <strong key={j} className="font-semibold">{part}</strong> : part
+                    )}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         );
       }
       
-      // Regular paragraph
+      // Regular paragraph with bold support
+      const parts = section.split('**');
       return (
         <p key={index} className="text-lg text-foreground font-light leading-relaxed my-6">
-          {section}
+          {parts.map((part, i) => 
+            i % 2 === 1 ? <strong key={i} className="font-semibold">{part}</strong> : part
+          )}
         </p>
       );
     });
