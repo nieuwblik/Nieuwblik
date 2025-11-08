@@ -66,6 +66,9 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <Link to="/contact">{t("nav.cta")}</Link>
+            </Button>
             <button
               onClick={() => setLanguage(language === "en" ? "nl" : "en")}
               className={`flex items-center gap-2 text-sm font-medium transition-colors ${
@@ -77,9 +80,6 @@ const Navigation = () => {
               <Globe size={16} />
               {language === "en" ? "NL" : "EN"}
             </button>
-            <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">{t("nav.cta")}</Link>
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -111,6 +111,11 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                {t("nav.cta")}
+              </Link>
+            </Button>
             <button
               onClick={() => setLanguage(language === "en" ? "nl" : "en")}
               className="flex items-center gap-2 py-2 text-sm font-medium transition-colors text-muted-foreground hover:text-foreground"
@@ -118,11 +123,6 @@ const Navigation = () => {
               <Globe size={16} />
               {language === "en" ? "NL" : "EN"}
             </button>
-            <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
-                {t("nav.cta")}
-              </Link>
-            </Button>
           </div>
         )}
       </div>
