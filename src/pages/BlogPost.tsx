@@ -1,21 +1,75 @@
 import { useParams, Link, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Clock, ArrowLeft, Phone } from "lucide-react";
+import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import justinImg from "@/assets/justin-slok.png";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
+interface TocItem {
+  id: string;
+  text: string;
+  level: number;
+}
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { t, language } = useLanguage();
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState("");
+  const [tocItems, setTocItems] = useState<TocItem[]>([]);
   
   const post = blogPosts.find(p => p.slug === slug);
 
-  if (!post) {
-    return <Navigate to="/blog" replace />;
-  }
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight - windowHeight;
+      const scrolled = window.scrollY;
+      const progress = (scrolled / documentHeight) * 100;
+      setScrollProgress(Math.min(progress, 100));
+
+      // Update active section based on scroll position
+      const headings = document.querySelectorAll('h2[id], h3[id]');
+      let current = "";
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top <= 100) {
+          current = heading.id;
+        }
+      });
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (post) {
+      const content = post.content[language];
+      const headings: TocItem[] = [];
+      const lines = content.split('\n');
+      
+      lines.forEach((line) => {
+        if (line.startsWith('## ')) {
+          const text = line.replace('## ', '');
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          headings.push({ id, text, level: 2 });
+        } else if (line.startsWith('### ')) {
+          const text = line.replace('### ', '');
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          headings.push({ id, text, level: 3 });
+        }
+      });
+      
+      setTocItems(headings);
+    }
+  }, [post, language]);
 
   const formatContent = (content: string) => {
     const sections = content.trim().split('\n\n');
@@ -30,20 +84,24 @@ const BlogPost = () => {
         );
       }
       
-      // H2
+      // H2 with anchor
       if (section.startsWith('## ')) {
+        const text = section.replace('## ', '');
+        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return (
-          <h2 key={index} className="text-3xl md:text-4xl font-bold mb-6 mt-12">
-            {section.replace('## ', '')}
+          <h2 key={index} id={id} className="text-3xl md:text-4xl font-bold mb-6 mt-12 scroll-mt-24">
+            {text}
           </h2>
         );
       }
       
-      // H3
+      // H3 with anchor
       if (section.startsWith('### ')) {
+        const text = section.replace('### ', '');
+        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return (
-          <h3 key={index} className="text-2xl md:text-3xl font-semibold mb-4 mt-8">
-            {section.replace('### ', '')}
+          <h3 key={index} id={id} className="text-2xl md:text-3xl font-semibold mb-4 mt-8 scroll-mt-24">
+            {text}
           </h3>
         );
       }
@@ -122,9 +180,57 @@ const BlogPost = () => {
     });
   };
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const TableOfContents = () => (
+    <nav className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto">
+      <h3 className="text-lg font-semibold mb-4">
+        {language === 'nl' ? 'Inhoudsopgave' : 'Table of contents'}
+      </h3>
+      <ul className="space-y-2 text-sm">
+        {tocItems.map((item) => (
+          <li key={item.id} className={item.level === 3 ? "ml-4" : ""}>
+            <button
+              onClick={() => scrollToSection(item.id)}
+              className={`text-left w-full py-1 px-2 rounded transition-colors ${
+                activeSection === item.id
+                  ? "text-accent font-semibold bg-accent/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+              }`}
+            >
+              {item.text}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+
+  if (!post) {
+    return <Navigate to="/blog" replace />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      
+      {/* Reading Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50">
+        <div
+          className="h-full bg-accent transition-all duration-150"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
       
       {/* Back to Blog */}
       <section className="pt-32 pb-8">
@@ -142,8 +248,30 @@ const BlogPost = () => {
       {/* Article */}
       <article className="pb-20 md:pb-32">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
             
+            {/* Table of Contents - Desktop */}
+            <div className="hidden lg:block lg:col-span-1">
+              <TableOfContents />
+            </div>
+
+            {/* Table of Contents - Mobile */}
+            <div className="lg:hidden fixed bottom-6 right-6 z-40">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button
+                    size="lg"
+                    className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90"
+                  >
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-80">
+                  <TableOfContents />
+                </SheetContent>
+              </Sheet>
+            </div>
+
             {/* Main Content */}
             <div className="lg:col-span-2">
               <div className="max-w-3xl">
