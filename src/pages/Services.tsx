@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Globe, Palette, ShoppingBag, Pen } from "lucide-react";
+import SocialContentSection from "@/components/SocialContentSection";
 
 const Services = () => {
   const services = [
@@ -112,6 +113,9 @@ const Services = () => {
           </div>
         </div>
       </section>
+
+      {/* Social Content Section */}
+      <SocialContentSection />
 
       {/* CTA Section */}
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">

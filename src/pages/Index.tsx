@@ -8,6 +8,7 @@ import heroImage from "@/assets/hero-image.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import SocialContentSection from "@/components/SocialContentSection";
 
 // Import featured project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
@@ -171,6 +172,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Social Content Section */}
+      <SocialContentSection />
 
       {/* Testimonials Section */}
       <section ref={testimonialsAnimation.ref} className={`py-20 md:py-32 bg-secondary transition-all duration-1000 delay-500 ${testimonialsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>

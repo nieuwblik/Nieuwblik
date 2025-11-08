@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
+import SocialContentSection from "@/components/SocialContentSection";
 
 // Import project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
@@ -261,6 +262,9 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+
+      {/* Social Content Section */}
+      <SocialContentSection />
 
       {/* CTA Section */}
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
