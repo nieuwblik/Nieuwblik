@@ -21,8 +21,8 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "psychologie-van-kleur-in-webdesign",
     title: {
-      nl: "De Psychologie van Kleur in Webdesign: Waarom Forest Green Werkt",
-      en: "The Psychology of Color in Web Design: Why Forest Green Works"
+      nl: "De psychologie van kleur in webdesign: waarom forest green werkt",
+      en: "The psychology of color in web design: why forest green works"
     },
     excerpt: {
       nl: "Ontdek hoe ons gekozen kleurenpalet vertrouwen en professionaliteit uitstraalt en hoe jij dit kunt toepassen in jouw merk.",
@@ -30,11 +30,11 @@ export const blogPosts: BlogPost[] = [
     },
     content: {
       nl: `
-# De Psychologie van Kleur in Webdesign: Waarom Forest Green Werkt
+# De psychologie van kleur in webdesign: waarom forest green werkt
 
 Kleur is veel meer dan een esthetische keuze. Het is een krachtig psychologisch instrument dat de perceptie van jouw merk direct beïnvloedt. Bij Nieuwblik hebben we bewust gekozen voor een kleurenpalet met Forest Green als accent, gecombineerd met luxueus zwart en minimalistisch wit. Maar waarom werkt dit zo goed?
 
-## De Kracht van Groen in Branding
+## De kracht van groen in branding
 
 Groen wordt universeel geassocieerd met:
 - Vertrouwen en stabiliteit. Het is de kleur van natuurlijke groei
@@ -44,7 +44,7 @@ Groen wordt universeel geassocieerd met:
 
 Forest Green neemt deze eigenschappen en voegt een luxe dimensie toe. Donkerder dan standaard groen, straalt het diepgang, verfijning en exclusiviteit uit. Perfect voor merken die zich willen onderscheiden zonder schreeuwerig te zijn.
 
-## Waarom Wij Forest Green Gebruiken
+## Waarom wij forest green gebruiken
 
 Bij Nieuwblik draait alles om luxury minimalism. Design dat ademt, impact maakt, en onthouden wordt. Forest Green speelt hierin een cruciale rol:
 
@@ -52,7 +52,7 @@ Bij Nieuwblik draait alles om luxury minimalism. Design dat ademt, impact maakt,
 2. Contrast met zwart/wit. Het creëert een harmonieuze maar opvallende visuele identiteit
 3. Psychologische trigger. Het geeft bezoekers het gevoel dat ze met een betrouwbaar, premium merk te maken hebben
 
-## Hoe Pas Je Dit Toe in Jouw Merk?
+## Hoe pas je dit toe in jouw merk?
 
 Het kiezen van de juiste merkkleur vereist strategisch denken:
 
@@ -71,7 +71,7 @@ Het kiezen van de juiste merkkleur vereist strategisch denken:
 - Documenteer je kleurenpalet in een brandkit
 - Train je team om de kleuren correct te gebruiken
 
-## De Nieuwblik Benadering
+## De Nieuwblik benadering
 
 Wij bouwen elk kleurenpalet met aandacht voor:
 - HSL-waarden voor perfecte consistentie
@@ -87,11 +87,11 @@ Kleur is geen detail. Het is de emotionele taal van je merk. Forest Green werkt 
 Wil je een kleurenpalet dat jouw merkidentiteit versterkt en conversie stimuleert? Start een project met ons en ontdek de kracht van strategisch kleurgebruik.
       `,
       en: `
-# The Psychology of Color in Web Design: Why Forest Green Works
+# The psychology of color in web design: why forest green works
 
 Color is much more than an aesthetic choice. It's a powerful psychological tool that directly influences the perception of your brand. At Nieuwblik, we've deliberately chosen a color palette with Forest Green as an accent, combined with luxurious black and minimalist white. But why does this work so well?
 
-## The Power of Green in Branding
+## The power of green in branding
 
 Green is universally associated with:
 - Trust and stability. It's the color of natural growth
@@ -101,7 +101,7 @@ Green is universally associated with:
 
 Forest Green takes these properties and adds a luxury dimension. Darker than standard green, it radiates depth, refinement, and exclusivity. Perfect for brands that want to stand out without being loud.
 
-## Why We Use Forest Green
+## Why we use forest green
 
 At Nieuwblik, everything revolves around luxury minimalism. Design that breathes, makes impact, and is remembered. Forest Green plays a crucial role in this:
 
@@ -109,7 +109,7 @@ At Nieuwblik, everything revolves around luxury minimalism. Design that breathes
 2. Contrast with black/white. It creates a harmonious yet striking visual identity
 3. Psychological trigger. It gives visitors the feeling they're dealing with a trustworthy, premium brand
 
-## How to Apply This to Your Brand?
+## How to apply this to your brand?
 
 Choosing the right brand color requires strategic thinking:
 
@@ -128,7 +128,7 @@ Choosing the right brand color requires strategic thinking:
 - Document your color palette in a brand kit
 - Train your team to use colors correctly
 
-## The Nieuwblik Approach
+## The Nieuwblik approach
 
 We build every color palette with attention to:
 - HSL values for perfect consistency
@@ -150,8 +150,8 @@ Want a color palette that strengthens your brand identity and stimulates convers
   {
     slug: "kunst-van-witruimte",
     title: {
-      nl: "De Kunst van Witruimte (Negative Space) in Luxe Websites",
-      en: "The Art of White Space (Negative Space) in Luxury Websites"
+      nl: "De kunst van witruimte (negative space) in luxe websites",
+      en: "The art of white space (negative space) in luxury websites"
     },
     excerpt: {
       nl: "Leer hoe minimalistisch design en strategisch gebruik van witruimte de luxe uitstraling versterkt en conversie verhoogt.",
@@ -159,11 +159,11 @@ Want a color palette that strengthens your brand identity and stimulates convers
     },
     content: {
       nl: `
-# De Kunst van Witruimte (Negative Space) in Luxe Websites
+# De kunst van witruimte (negative space) in luxe websites
 
 In een wereld vol visuele overload is witruimte (ook wel negative space) het geheime wapen van luxe webdesign. Het is niet gewoon "lege ruimte". Het is een bewuste designkeuze die jouw content laat ademen, focus creëert, en een premium gevoel uitstraalt.
 
-## Wat is Witruimte Eigenlijk?
+## Wat is witruimte eigenlijk?
 
 Witruimte is de ruimte tussen elementen in een ontwerp. Het hoeft niet letterlijk wit te zijn. Het gaat om de afwezigheid van content, waardoor de aanwezige elementen des te sterker spreken.
 
@@ -173,20 +173,20 @@ Denk aan:
 - Padding binnen secties
 - Ruimte tussen navigatie-items
 
-## Waarom Witruimte Cruciaal is voor Luxe Merken
+## Waarom witruimte cruciaal is voor luxe merken
 
-### 1. Het Creëert Hiërarchie
+### 1. Het creëert hiërarchie
 Witruimte leidt het oog naar wat belangrijk is. Door meer ruimte rondom een element te geven, trek je automatisch aandacht.
 
 Voorbeeld: Een call-to-action knop met veel witruimte eromheen converteert tot 232% beter dan een knop die in een drukke sectie staat.
 
-### 2. Het Verhoogt Leesbaarheid
+### 2. Het verhoogt leesbaarheid
 Tekst met voldoende line-height en paragraph spacing is tot 20% makkelijker te lezen. Dit betekent dat bezoekers langer blijven en meer content consumeren.
 
-### 3. Het Straalt Exclusiviteit Uit
+### 3. Het straalt exclusiviteit uit
 Luxe merken zoals Apple, Tesla, en high-end fashion labels gebruiken extreem veel witruimte. Waarom? Omdat het vertrouwen en verfijning communiceert. Het tegenovergestelde van "billig en vol".
 
-## De Nieuwblik Filosofie: Luxury Minimalism
+## De Nieuwblik filosofie: luxury minimalism
 
 Bij Nieuwblik hanteren we een strikte design filosofie:
 
@@ -197,9 +197,9 @@ Dit betekent:
 - Strategic spacing. Meer ruimte = meer focus op conversie-elementen
 - Typografie met ruimte. Line-height van minimaal 1.6 voor body text
 
-## Praktische Witruimte Strategieën
+## Praktische witruimte strategieën
 
-### 1. Macro vs. Micro Witruimte
+### 1. Macro vs. micro witruimte
 - Macro: Grote afstanden tussen secties (denk 6rem padding)
 - Micro: Kleine afstanden tussen elementen binnen een component
 
@@ -211,20 +211,20 @@ Voor luxe websites adviseren we:
 - 30% is content (tekst, afbeeldingen)
 - 10% is actie-elementen (knoppen, formulieren)
 
-### 3. Mobile-First Witruimte
+### 3. Mobile-first witruimte
 Op mobiel is witruimte nog belangrijker. We gebruiken:
 - Grotere tap targets (48x48px minimum)
 - Meer verticale spacing tussen secties
 - Minder elementen per viewport
 
-## Witruimte en Conversie: De Data
+## Witruimte en conversie: de data
 
 Studies tonen aan dat:
 - Websites met veel witruimte hebben 38% hogere comprehensie
 - Luxury e-commerce sites met minimalistisch design converteren 24% beter
 - Bounce rates dalen met 15-20% bij optimale spacing
 
-## Veelgemaakte Fouten
+## Veelgemaakte fouten
 
 ❌ Te weinig ruimte rondom CTAs. Je belangrijkste knop verdrinkt in de content
 ❌ Inconsistente spacing. Gebruikt geen design system met vaste spacing units
@@ -234,7 +234,7 @@ Studies tonen aan dat:
 ✅ Gebruik een spacing scale (bijv. 4px, 8px, 16px, 24px, 32px, 48px, 64px)
 ✅ Durf leeg te laten
 
-## De Nieuwblik Aanpak
+## De Nieuwblik aanpak
 
 Wij implementeren witruimte via:
 - Design tokens. Voorgedefinieerde spacing variabelen
@@ -250,11 +250,11 @@ Witruimte is geen verspilde ruimte. Het is strategische ruimte die jouw merk laa
 Wil je een website die ademt en converteert? Start een project en ontdek hoe luxury minimalism jouw digitale identiteit transformeert.
       `,
       en: `
-# The Art of White Space (Negative Space) in Luxury Websites
+# The art of white space (negative space) in luxury websites
 
 In a world full of visual overload, white space (also known as negative space) is the secret weapon of luxury web design. It's not just "empty space". It's a deliberate design choice that lets your content breathe, creates focus, and radiates a premium feel.
 
-## What is White Space Actually?
+## What is white space actually?
 
 White space is the space between elements in a design. It doesn't have to be literally white. It's about the absence of content, which makes the present elements speak all the more powerfully.
 
@@ -264,20 +264,20 @@ Think of:
 - Padding within sections
 - Space between navigation items
 
-## Why White Space is Crucial for Luxury Brands
+## Why white space is crucial for luxury brands
 
-### 1. It Creates Hierarchy
+### 1. It creates hierarchy
 White space guides the eye to what's important. By giving more space around an element, you automatically attract attention.
 
 Example: A call-to-action button with plenty of white space around it converts up to 232% better than a button in a busy section.
 
-### 2. It Increases Readability
+### 2. It increases readability
 Text with sufficient line-height and paragraph spacing is up to 20% easier to read. This means visitors stay longer and consume more content.
 
-### 3. It Radiates Exclusivity
+### 3. It radiates exclusivity
 Luxury brands like Apple, Tesla, and high-end fashion labels use extreme amounts of white space. Why? Because it communicates trust and refinement. The opposite of "cheap and cluttered".
 
-## The Nieuwblik Philosophy: Luxury Minimalism
+## The Nieuwblik philosophy: luxury minimalism
 
 At Nieuwblik, we follow a strict design philosophy:
 
@@ -288,9 +288,9 @@ This means:
 - Strategic spacing. More space = more focus on conversion elements
 - Typography with space. Line-height of at least 1.6 for body text
 
-## Practical White Space Strategies
+## Practical white space strategies
 
-### 1. Macro vs. Micro White Space
+### 1. Macro vs. micro white space
 - Macro: Large distances between sections (think 6rem padding)
 - Micro: Small distances between elements within a component
 
@@ -302,20 +302,20 @@ For luxury websites, we recommend:
 - 30% is content (text, images)
 - 10% is action elements (buttons, forms)
 
-### 3. Mobile-First White Space
+### 3. Mobile-first white space
 On mobile, white space is even more important. We use:
 - Larger tap targets (48x48px minimum)
 - More vertical spacing between sections
 - Fewer elements per viewport
 
-## White Space and Conversion: The Data
+## White space and conversion: the data
 
 Studies show that:
 - Websites with plenty of white space have 38% higher comprehension
 - Luxury e-commerce sites with minimalist design convert 24% better
 - Bounce rates drop by 15-20% with optimal spacing
 
-## Common Mistakes
+## Common mistakes
 
 ❌ Too little space around CTAs. Your most important button drowns in content
 ❌ Inconsistent spacing. No design system with fixed spacing units
@@ -325,7 +325,7 @@ Studies show that:
 ✅ Use a spacing scale (e.g., 4px, 8px, 16px, 24px, 32px, 48px, 64px)
 ✅ Dare to leave empty
 
-## The Nieuwblik Approach
+## The Nieuwblik approach
 
 We implement white space via:
 - Design tokens. Predefined spacing variables
@@ -347,8 +347,8 @@ Want a website that breathes and converts? Start a project and discover how luxu
   {
     slug: "beyond-the-logo-complete-brandkit",
     title: {
-      nl: "Beyond the Logo: Een Complete Brandkit opzetten voor Digitale Groei",
-      en: "Beyond the Logo: Setting Up a Complete Brand Kit for Digital Growth"
+      nl: "Beyond the logo: een complete brandkit opzetten voor digitale groei",
+      en: "Beyond the logo: setting up a complete brand kit for digital growth"
     },
     excerpt: {
       nl: "Ontdek waarom een sterk brandkit cruciaal is voordat je begint met je website, en welke componenten essentieel zijn.",
@@ -356,13 +356,13 @@ Want a website that breathes and converts? Start a project and discover how luxu
     },
     content: {
       nl: `
-# Beyond the Logo: Een Complete Brandkit opzetten voor Digitale Groei
+# Beyond the logo: een complete brandkit opzetten voor digitale groei
 
 Een logo is slechts het begin. Voor een consistente, herkenbare en schaalbare merkidentiteit heb je een complete brandkit nodig. Bij Nieuwblik zien we dit keer op keer: merken die investeren in een professionele brandkit groeien sneller, converteren beter, en stralen meer vertrouwen uit.
 
 Maar wat maakt een brandkit compleet? En waarom is het cruciaal om dit voor je website op te zetten?
 
-## Wat is een Brandkit?
+## Wat is een brandkit?
 
 Een brandkit (ook wel brand guidelines of design system) is een gedocumenteerde verzameling van alle visuele en tonale elementen die jouw merk definiëren. Denk aan:
 
@@ -374,7 +374,7 @@ Een brandkit (ook wel brand guidelines of design system) is een gedocumenteerde 
 - Tone of voice (hoe schrijf en spreek je als merk?)
 - Spacing & Layout (marges, padding, grid systemen)
 
-## Waarom Voor de Website?
+## Waarom voor de website?
 
 ### 1. Efficiëntie
 Met een brandkit kunnen designers en developers 3x sneller werken. Geen eindeloos heen-en-weer over "welk groen gebruiken we ook alweer?". Alles staat vast.
@@ -388,9 +388,9 @@ Als je groeit (nieuwe pagina's, campagnes, team members), blijft je merk consist
 ### 4. Professionaliteit
 Merken met een strakke visuele identiteit worden als 47% betrouwbaarder ervaren (volgens Lucidpress research).
 
-## De Nieuwblik Brandkit: 7 Essentiële Componenten
+## De Nieuwblik brandkit: 7 essentiële componenten
 
-### 1. Logo Systeem
+### 1. Logo systeem
 - Primair logo. De hoofdversie
 - Secundair logo. Voor kleinere ruimtes (favicon, app icons)
 - Logo mark. Alleen het symbool zonder tekst
@@ -441,7 +441,7 @@ Definieer hoe je belangrijkste UI-elementen eruitzien:
 - Cards (shadows, borders, padding)
 - Badges (kleuren, groottes)
 
-### 7. Tone of Voice
+### 7. Tone of voice
 Hoe klinkt jouw merk?
 - Formeel vs. Casual
 - Speels vs. Serieus
@@ -449,7 +449,7 @@ Hoe klinkt jouw merk?
 
 Bij Nieuwblik: Professioneel maar toegankelijk, direct maar respectvol.
 
-## Van Brandkit naar Website: Het Nieuwblik Proces
+## Van brandkit naar website: het Nieuwblik proces
 
 1. Discovery. We beginnen met jouw visie, waarden, en doelgroep
 2. Brandkit ontwikkeling. Logo, kleuren, typografie, componenten
@@ -457,14 +457,14 @@ Bij Nieuwblik: Professioneel maar toegankelijk, direct maar respectvol.
 4. Website development. Elke pagina volgt het design system automatisch
 5. Documentatie. Je krijgt een complete brand guideline voor intern gebruik
 
-## ROI van een Professionele Brandkit
+## ROI van een professionele brandkit
 
 - 60% sneller development bij toekomstige projecten
 - Hogere conversie door consistente, professionele uitstraling
 - Lagere kosten op lange termijn (geen redesigns om de 2 jaar)
 - Sterkere merkherkenning in een competitieve markt
 
-## Veelgemaakte Fouten
+## Veelgemaakte fouten
 
 ❌ Alleen een logo laten maken zonder verder systeem
 ❌ Kleuren kiezen zonder contrast/accessibility te testen
@@ -483,13 +483,13 @@ Een logo is je gezicht. Een brandkit is je hele identiteit. Het is de fundering 
 Wil je een brandkit die jouw digitale groei versnelt? Start een project en laat ons een systeem bouwen dat met je merk meegroeit.
       `,
       en: `
-# Beyond the Logo: Setting Up a Complete Brand Kit for Digital Growth
+# Beyond the logo: setting up a complete brand kit for digital growth
 
 A logo is just the beginning. For a consistent, recognizable, and scalable brand identity, you need a complete brand kit. At Nieuwblik, we see this time and again: brands that invest in a professional brand kit grow faster, convert better, and radiate more trust.
 
 But what makes a brand kit complete? And why is it crucial to set this up before your website?
 
-## What is a Brand Kit?
+## What is a brand kit?
 
 A brand kit (also known as brand guidelines or design system) is a documented collection of all visual and tonal elements that define your brand. Think of:
 
@@ -501,7 +501,7 @@ A brand kit (also known as brand guidelines or design system) is a documented co
 - Tone of voice (how do you write and speak as a brand?)
 - Spacing & Layout (margins, padding, grid systems)
 
-## Why Before the Website?
+## Why before the website?
 
 ### 1. Efficiency
 With a brand kit, designers and developers can work 3x faster. No endless back-and-forth about "which green do we use again?". Everything is defined.
@@ -515,9 +515,9 @@ As you grow (new pages, campaigns, team members), your brand remains consistent.
 ### 4. Professionalism
 Brands with a tight visual identity are perceived as 47% more trustworthy (according to Lucidpress research).
 
-## The Nieuwblik Brand Kit: 7 Essential Components
+## The Nieuwblik brand kit: 7 essential components
 
-### 1. Logo System
+### 1. Logo system
 - Primary logo. The main version
 - Secondary logo. For smaller spaces (favicon, app icons)
 - Logo mark. Just the symbol without text
@@ -568,7 +568,7 @@ Define how your most important UI elements look:
 - Cards (shadows, borders, padding)
 - Badges (colors, sizes)
 
-### 7. Tone of Voice
+### 7. Tone of voice
 How does your brand sound?
 - Formal vs. Casual
 - Playful vs. Serious
@@ -576,7 +576,7 @@ How does your brand sound?
 
 At Nieuwblik: Professional but accessible, direct but respectful.
 
-## From Brand Kit to Website: The Nieuwblik Process
+## From brand kit to website: the Nieuwblik process
 
 1. Discovery. We start with your vision, values, and target audience
 2. Brand kit development. Logo, colors, typography, components
@@ -584,14 +584,14 @@ At Nieuwblik: Professional but accessible, direct but respectful.
 4. Website development. Every page follows the design system automatically
 5. Documentation. You receive complete brand guidelines for internal use
 
-## ROI of a Professional Brand Kit
+## ROI of a professional brand kit
 
 - 60% faster development for future projects
 - Higher conversion through consistent, professional appearance
 - Lower costs in the long term (no redesigns every 2 years)
 - Stronger brand recognition in a competitive market
 
-## Common Mistakes
+## Common mistakes
 
 ❌ Only getting a logo made without a further system
 ❌ Choosing colors without testing contrast/accessibility
