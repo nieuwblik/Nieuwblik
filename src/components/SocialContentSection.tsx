@@ -1,6 +1,10 @@
 import { Play } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const SocialContentSection = () => {
+  const sectionAnimation = useScrollAnimation();
+  const videosAnimation = useScrollAnimation();
+  
   const videos = [
     { id: "Xdi3lZXIAQ0", title: "Social Content 1" },
     { id: "JlfYFuFOl1A", title: "Social Content 2" },
@@ -12,13 +16,18 @@ const SocialContentSection = () => {
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/20">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div 
+          ref={sectionAnimation.ref}
+          className={`text-center mb-16 transition-all duration-1000 ${
+            sectionAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
             <Play size={20} />
             <span className="font-semibold">Social Content</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-            Visuele Content Die Converteert
+            Visuele content die converteert
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Wij nemen professionele social media content op voor jouw advertisements, 
@@ -27,7 +36,12 @@ const SocialContentSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <div 
+          ref={videosAnimation.ref}
+          className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 transition-all duration-1000 delay-200 ${
+            videosAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           {videos.map((video, index) => (
             <div
               key={video.id}
