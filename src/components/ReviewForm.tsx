@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { reviewSchema, type ReviewFormData } from "@/lib/validationSchemas";
 
 const ReviewForm = () => {
   const [rating, setRating] = useState(0);
@@ -20,28 +21,35 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (rating === 0) {
-      toast.error("Selecteer een beoordeling");
-      return;
-    }
-
-    if (formData.review_text.length < 10) {
-      toast.error("Je review moet minimaal 10 karakters bevatten");
-      return;
-    }
 
     setIsSubmitting(true);
 
     try {
+      // Validate form data
+      const validationData: ReviewFormData = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || undefined,
+        rating,
+        review_text: formData.review_text,
+      };
+
+      const validationResult = reviewSchema.safeParse(validationData);
+      
+      if (!validationResult.success) {
+        const firstError = Object.values(validationResult.error.flatten().fieldErrors)[0]?.[0];
+        toast.error(firstError || "Controleer je invoer");
+        return;
+      }
+
       const { error } = await supabase
         .from('reviews')
         .insert({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          company: formData.company.trim() || null,
-          rating,
-          review_text: formData.review_text.trim()
+          name: validationResult.data.name,
+          email: validationResult.data.email,
+          company: validationResult.data.company || null,
+          rating: validationResult.data.rating,
+          review_text: validationResult.data.review_text
         });
 
       if (error) throw error;
@@ -52,7 +60,6 @@ const ReviewForm = () => {
       setFormData({ name: "", email: "", company: "", review_text: "" });
       setRating(0);
     } catch (error) {
-      console.error('Error submitting review:', error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw.");
     } finally {
       setIsSubmitting(false);

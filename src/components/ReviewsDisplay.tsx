@@ -23,9 +23,8 @@ const ReviewsDisplay = () => {
   const fetchReviews = async () => {
     try {
       const { data, error } = await supabase
-        .from('reviews')
+        .from('reviews_public')
         .select('*')
-        .eq('is_approved', true)
         .order('created_at', { ascending: false })
         .limit(6);
 

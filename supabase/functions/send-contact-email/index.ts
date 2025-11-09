@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
@@ -8,25 +9,25 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-interface ProjectBriefingRequest {
-  fullName: string;
-  companyName: string;
-  position: string;
-  email: string;
-  phone?: string;
-  projectTypes: string[];
-  otherProjectType?: string;
-  projectGoal: string;
-  currentWebsite?: string;
-  inspirationWebsite?: string;
-  budget: string;
-  timeline: string;
-  contentReady: string;
-  brandKitAvailable: string;
-  howDidYouFindUs: string;
-  portfolioAppeal?: string;
-  additionalNotes?: string;
-}
+const projectBriefingSchema = z.object({
+  fullName: z.string().trim().min(1).max(100),
+  companyName: z.string().trim().min(1).max(100),
+  position: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(255),
+  phone: z.string().trim().max(20).optional(),
+  projectTypes: z.array(z.string()).min(1).max(10),
+  otherProjectType: z.string().trim().max(200).optional(),
+  projectGoal: z.string().trim().min(1).max(1000),
+  currentWebsite: z.string().trim().url().max(500).optional().or(z.literal("")),
+  inspirationWebsite: z.string().trim().url().max(500).optional().or(z.literal("")),
+  budget: z.string().trim().min(1).max(100),
+  timeline: z.string().trim().min(1).max(100),
+  contentReady: z.string().trim().min(1).max(100),
+  brandKitAvailable: z.string().trim().min(1).max(100),
+  howDidYouFindUs: z.string().trim().min(1).max(200),
+  portfolioAppeal: z.string().trim().max(500).optional(),
+  additionalNotes: z.string().trim().max(1000).optional(),
+});
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
@@ -34,7 +35,21 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const data: ProjectBriefingRequest = await req.json();
+    const rawData = await req.json();
+    
+    // Validate input
+    const validationResult = projectBriefingSchema.safeParse(rawData);
+    if (!validationResult.success) {
+      return new Response(
+        JSON.stringify({ error: "Invalid input data", details: validationResult.error.format() }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+    
+    const data = validationResult.data;
 
     const emailHtml = `
       <h1>Nieuwe Project Briefing van ${data.fullName}</h1>
@@ -96,9 +111,9 @@ const handler = async (req: Request): Promise<Response> => {
       },
     });
   } catch (error: any) {
-    console.error("Error in send-contact-email function:", error);
+    console.error("Error in send-contact-email function");
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Failed to send email. Please try again later." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
