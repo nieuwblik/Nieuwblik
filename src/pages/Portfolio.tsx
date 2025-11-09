@@ -52,7 +52,7 @@ const Portfolio = () => {
       description: "Professioneel fitness coaching platform met gepersonaliseerde trainingsprogramma's.",
       tags: ["Web Design", "Fitness", "Branding"],
       image: caspernieskensptImg,
-      url: "https://caspernieskenspt.nl"
+      url: "https://caspernieskenspt.com"
     },
     {
       title: "Edventure Boats",

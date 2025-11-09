@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import ReviewBar from "./ReviewBar";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,12 +29,14 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-      isScrolled 
-        ? "bg-primary border-primary" 
-        : "bg-background/95 backdrop-blur-sm border-border"
-    }`}>
-      <div className="container mx-auto px-6 py-4">
+    <>
+      <ReviewBar />
+      <nav className={`fixed top-[40px] left-0 right-0 z-50 transition-all duration-300 border-b ${
+        isScrolled 
+          ? "bg-primary border-primary" 
+          : "bg-background/95 backdrop-blur-sm border-border"
+      }`}>
+        <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
@@ -113,6 +116,7 @@ const Navigation = () => {
         )}
       </div>
     </nav>
+    </>
   );
 };
 

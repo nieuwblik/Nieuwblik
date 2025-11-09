@@ -65,7 +65,7 @@ const Index = () => {
       category: "Personal Training",
       description: "Professioneel fitness coaching platform met gepersonaliseerde trainingsprogramma's.",
       image: caspernieskensptImg,
-      url: "https://caspernieskenspt.nl"
+      url: "https://caspernieskenspt.com"
     },
     {
       title: "Lashlution",
