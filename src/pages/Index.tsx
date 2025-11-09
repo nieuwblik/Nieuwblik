@@ -6,13 +6,14 @@ import FAQSection from "@/components/FAQSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink } from "lucide-react";
+import { Twitter, Linkedin, MessageCircle } from "lucide-react";
 import justinImage from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
 // Import featured project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
-import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.png";
+import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
 import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.png";
 import lashlutionImg from "@/assets/projects/lashlution.nl.png";
 
@@ -55,11 +56,11 @@ const Index = () => {
       url: "https://bushidoshop.nl"
     },
     {
-      title: "Interieur Studio Laan",
-      category: "Interieur Design",
-      description: "Elegante interieur design showcase met portfolio galerij en consultatieaanvraag.",
-      image: interieurstudiolaan,
-      url: "https://interieurstudiolaan.nl"
+      title: "Karateschool Cor Slok",
+      category: "Vechtsport & Training",
+      description: "Professionele karateschool website met lesrooster, inschrijvingen en informatie over trainingen.",
+      image: karateschoolcorslokImg,
+      url: "https://karateschoolcorslok.nl"
     },
     {
       title: "Casper Nieskens PT",
@@ -113,12 +114,43 @@ const Index = () => {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-accent via-primary to-accent opacity-75 blur-2xl animate-pulse"></div>
               <div className="absolute -inset-2 bg-gradient-to-br from-accent/40 to-primary/40 rounded-lg transform rotate-3 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-              <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                <img 
-                  src={justinImage} 
-                  alt="Justin Slok - Nieuwblik" 
-                  className="w-full h-full object-cover"
-                />
+              <div className="flex items-center gap-6">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 flex-1">
+                  <img 
+                    src={justinImage} 
+                    alt="Justin Slok - Nieuwblik" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex flex-col gap-4">
+                  <a
+                    href="https://twitter.com/nieuwblik"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-background hover:bg-accent hover:text-accent-foreground p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+                    aria-label="Twitter"
+                  >
+                    <Twitter className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/nieuwblik"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-background hover:bg-accent hover:text-accent-foreground p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://wa.me/31646253607"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-background hover:bg-accent hover:text-accent-foreground p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+                    aria-label="WhatsApp"
+                  >
+                    <MessageCircle className="w-6 h-6" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -158,7 +190,7 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Button asChild variant="outline" size="lg">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Link to="/services">Ontdek alle mogelijkheden</Link>
             </Button>
           </div>
@@ -214,7 +246,7 @@ const Index = () => {
           </div>
           
           <div className="text-center">
-            <Button asChild variant="outline" size="lg">
+            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Link to="/portfolio">Alle projecten bekijken</Link>
             </Button>
           </div>

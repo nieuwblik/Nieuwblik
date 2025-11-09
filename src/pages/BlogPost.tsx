@@ -78,7 +78,7 @@ const BlogPost = () => {
       // Main title (H1)
       if (section.startsWith('# ')) {
         return (
-          <h1 key={index} className="text-4xl md:text-5xl font-bold mb-8 mt-12 first:mt-0">
+          <h1 key={index} className="text-3xl md:text-4xl font-bold mb-6 mt-8 first:mt-0">
             {section.replace('# ', '')}
           </h1>
         );
@@ -89,7 +89,7 @@ const BlogPost = () => {
         const text = section.replace('## ', '');
         const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return (
-          <h2 key={index} id={id} className="text-3xl md:text-4xl font-bold mb-6 mt-12 scroll-mt-24">
+          <h2 key={index} id={id} className="text-2xl md:text-3xl font-bold mb-4 mt-8 scroll-mt-24">
             {text}
           </h2>
         );
@@ -100,7 +100,7 @@ const BlogPost = () => {
         const text = section.replace('### ', '');
         const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return (
-          <h3 key={index} id={id} className="text-2xl md:text-3xl font-semibold mb-4 mt-8 scroll-mt-24">
+          <h3 key={index} id={id} className="text-xl md:text-2xl font-semibold mb-3 mt-6 scroll-mt-24">
             {text}
           </h3>
         );
@@ -109,7 +109,7 @@ const BlogPost = () => {
       // Blockquote
       if (section.startsWith('> ')) {
         return (
-          <blockquote key={index} className="border-l-4 border-accent pl-6 italic text-xl my-8 text-muted-foreground">
+          <blockquote key={index} className="border-l-4 border-accent pl-4 italic text-base md:text-lg my-6 text-muted-foreground">
             {section.replace('> ', '')}
           </blockquote>
         );
@@ -119,7 +119,7 @@ const BlogPost = () => {
       if (section.includes('\n- ')) {
         const items = section.split('\n').filter(line => line.startsWith('- '));
         return (
-          <ul key={index} className="list-disc list-inside space-y-2 my-6 text-lg">
+          <ul key={index} className="list-disc list-inside space-y-2 my-4 text-base">
             {items.map((item, i) => {
               const text = item.replace('- ', '');
               const parts = text.split('**');
@@ -171,7 +171,7 @@ const BlogPost = () => {
       // Regular paragraph with bold support
       const parts = section.split('**');
       return (
-        <p key={index} className="text-lg text-foreground font-light leading-relaxed my-6">
+        <p key={index} className="text-base text-foreground font-light leading-relaxed my-4">
           {parts.map((part, i) => 
             i % 2 === 1 ? <strong key={i} className="font-semibold">{part}</strong> : part
           )}
