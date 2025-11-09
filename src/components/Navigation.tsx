@@ -30,8 +30,8 @@ const Navigation = () => {
 
   return (
     <>
-      <ReviewBar />
-      <nav className={`fixed top-[40px] left-0 right-0 z-50 transition-all duration-300 border-b ${
+      <ReviewBar isScrolled={isScrolled} />
+      <nav className={`fixed ${isScrolled ? 'top-0' : 'top-[40px]'} left-0 right-0 z-50 transition-all duration-300 border-b ${
         isScrolled 
           ? "bg-primary border-primary" 
           : "bg-background/95 backdrop-blur-sm border-border"

@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ToolsSlider from "@/components/ToolsSlider";
 import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
+import FAQSection from "@/components/FAQSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink } from "lucide-react";
@@ -245,6 +246,9 @@ const Index = () => {
 
       {/* Featured Blog Posts */}
       <FeaturedBlogPosts />
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* CTA Section */}
       <section
