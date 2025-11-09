@@ -51,7 +51,8 @@ const BlogPost = () => {
 
   useEffect(() => {
     if (post) {
-      const content = post.content[language];
+      // Altijd Nederlandse content gebruiken
+      const content = post.content.nl;
       const headings: TocItem[] = [];
       const lines = content.split('\n');
       
@@ -69,7 +70,7 @@ const BlogPost = () => {
       
       setTocItems(headings);
     }
-  }, [post, language]);
+  }, [post]);
 
   const formatContent = (content: string) => {
     const sections = content.trim().split('\n\n');
@@ -195,7 +196,7 @@ const BlogPost = () => {
   const TableOfContents = () => (
     <nav className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto">
       <h3 className="text-lg font-semibold mb-4">
-        {language === 'nl' ? 'Inhoudsopgave' : 'Table of contents'}
+        Inhoudsopgave
       </h3>
       <ul className="space-y-2 text-sm">
         {tocItems.map((item) => (
@@ -278,7 +279,7 @@ const BlogPost = () => {
                 {/* Meta */}
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8">
                   <time dateTime={post.date}>
-                    {new Date(post.date).toLocaleDateString(language === 'nl' ? 'nl-NL' : 'en-US', {
+                    {new Date(post.date).toLocaleDateString('nl-NL', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
@@ -286,13 +287,13 @@ const BlogPost = () => {
                   </time>
                   <span className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
-                    {post.readingTime} {t("blog.readingTime")}
+                    {post.readingTime} min leestijd
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="prose prose-lg max-w-none">
-                  {formatContent(post.content[language])}
+                  {formatContent(post.content.nl)}
                 </div>
 
                 {/* Author */}
