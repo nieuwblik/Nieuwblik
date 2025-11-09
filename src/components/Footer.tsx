@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import logo from "@/assets/logo.png";
-import { Linkedin, ArrowUp } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -15,13 +15,6 @@ const Footer = () => {
       toast.success("Bedankt voor je aanmelding!");
       setEmail("");
     }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
   
   return (
@@ -57,7 +50,7 @@ const Footer = () => {
                 <h4 className="font-semibold mb-3">Volg ons</h4>
                 <div className="flex gap-3">
                   <a 
-                    href="https://www.linkedin.com/company/nieuwblik" 
+                    href="https://www.linkedin.com/in/justin-slok-b8a3011b2/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="h-10 w-10 rounded-full bg-background flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -65,7 +58,7 @@ const Footer = () => {
                     <Linkedin className="h-5 w-5" />
                   </a>
                   <a 
-                    href="https://x.com/nieuwblik" 
+                    href="https://x.com/justin_slok" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="h-10 w-10 rounded-full bg-background flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -119,13 +112,30 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <button
-                  onClick={scrollToTop}
-                  className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 group"
-                >
-                  <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-                  Terug naar boven
-                </button>
+                <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-4">Juridisch</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link to="/cookies" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Cookies
+                </Link>
+              </li>
+              <li>
+                <Link to="/algemene-voorwaarden" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Algemene Voorwaarden
+                </Link>
               </li>
             </ul>
           </div>
@@ -133,6 +143,16 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Bedrijf</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <a 
+                  href="https://www.google.com/maps/dir//De+Trompet+18H,+1601+MK+Enkhuizen/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x47c8a3932165dee3:0xecaa07e808a362fc?sa=X&ved=1t:707&ictx=111"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  De Trompet 18H<br />1601 MK Enkhuizen
+                </a>
+              </li>
               <li>KVK: 88304604</li>
               <li>BTW: NL864572311b01</li>
             </ul>
