@@ -20,6 +20,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "waarom-snelle-websites-meer-verkopen",
+    image: "/src/assets/blog/snelle-websites.jpg",
     title: {
       nl: "Waarom snelle websites meer verkopen: de impact van laadtijd op conversie",
       en: "Why fast websites sell more: the impact of loading time on conversion"
@@ -37,6 +38,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "van-bezoeker-naar-klant-conversie-optimalisatie",
+    image: "/src/assets/blog/conversie-optimalisatie.jpg",
     title: {
       nl: "Van bezoeker naar klant: conversie-optimalisatie die écht werkt",
       en: "From visitor to customer: conversion optimization that actually works"
@@ -54,6 +56,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "seo-fundamentals-gevonden-worden",
+    image: "/src/assets/blog/seo-fundamentals.jpg",
     title: {
       nl: "SEO fundamentals: hoe je gevonden wordt door je ideale klant",
       en: "SEO fundamentals: how to be found by your ideal customer"
