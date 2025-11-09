@@ -19,598 +19,1621 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "psychologie-van-kleur-in-webdesign",
+    slug: "waarom-snelle-websites-meer-verkopen",
     title: {
-      nl: "De psychologie van kleur in webdesign: waarom forest green werkt",
-      en: "The psychology of color in web design: why forest green works"
+      nl: "Waarom snelle websites meer verkopen: de impact van laadtijd op conversie",
+      en: "Why fast websites sell more: the impact of loading time on conversion"
     },
     excerpt: {
-      nl: "Ontdek hoe ons gekozen kleurenpalet vertrouwen en professionaliteit uitstraalt en hoe jij dit kunt toepassen in jouw merk.",
-      en: "Discover how our chosen color palette radiates trust and professionalism and how you can apply this to your brand."
+      nl: "Ontdek waarom elke seconde telt en hoe website snelheid direct invloed heeft op je omzet en klanttevredenheid.",
+      en: "Discover why every second counts and how website speed directly impacts your revenue and customer satisfaction."
     },
     content: {
-      nl: `
-# De psychologie van kleur in webdesign: waarom forest green werkt
+      nl: `# Waarom snelle websites meer verkopen: de impact van laadtijd op conversie
 
-Kleur is veel meer dan een esthetische keuze. Het is een krachtig psychologisch instrument dat de perceptie van jouw merk direct beïnvloedt. Bij Nieuwblik hebben we bewust gekozen voor een kleurenpalet met Forest Green als accent, gecombineerd met luxueus zwart en minimalistisch wit. Maar waarom werkt dit zo goed?
+Website snelheid is geen technische luxe, het is een zakelijke noodzaak. Studies tonen keer op keer aan dat zelfs een vertraging van één seconde drastische gevolgen kan hebben voor je conversie, omzet en merkreputatie.
 
-## De kracht van groen in branding
+Bij Nieuwblik bouwen we websites die niet alleen mooi zijn, maar ook razendsnel laden. Want wat heb je aan een prachtig design als niemand blijft wachten tot het geladen is?
 
-Groen wordt universeel geassocieerd met:
-- Vertrouwen en stabiliteit. Het is de kleur van natuurlijke groei
-- Professionaliteit. Bijzonder effectief in de financiële en tech sector
-- Duurzaamheid. Steeds belangrijker in moderne merkwaarden
-- Kalmte en focus. Bevordert concentratie zonder agressief te zijn
+## De harde cijfers: snelheid = geld
 
-Forest Green neemt deze eigenschappen en voegt een luxe dimensie toe. Donkerder dan standaard groen, straalt het diepgang, verfijning en exclusiviteit uit. Perfect voor merken die zich willen onderscheiden zonder schreeuwerig te zijn.
+### Google's bevindingen
+- **53% van mobiele bezoekers** verlaat een website als deze langer dan 3 seconden laadt
+- **Elke seconde vertraging** kan leiden tot 7% minder conversies
+- Voor een e-commerce site met €100.000 omzet per dag betekent 1 seconde vertraging **€2,5 miljoen verlies per jaar**
 
-## Waarom wij forest green gebruiken
+### Amazon's data
+Amazon ontdekte dat elke 100ms vertraging hun verkoop met **1% verminderde**. Voor een bedrijf van hun omvang gaat dit om miljarden.
 
-Bij Nieuwblik draait alles om luxury minimalism. Design dat ademt, impact maakt, en onthouden wordt. Forest Green speelt hierin een cruciale rol:
+### Walmart's experiment
+Door hun laadtijd met 1 seconde te verbeteren, zag Walmart:
+- 2% hogere conversie
+- 1% hogere omzet per bezoeker
 
-1. Accent, geen dominantie. We gebruiken het spaarzaam, wat het des te krachtiger maakt bij calls-to-action en belangrijke UI-elementen
-2. Contrast met zwart/wit. Het creëert een harmonieuze maar opvallende visuele identiteit
-3. Psychologische trigger. Het geeft bezoekers het gevoel dat ze met een betrouwbaar, premium merk te maken hebben
+## Waarom snelheid zo cruciaal is
 
-## Hoe pas je dit toe in jouw merk?
+### 1. Eerste indruk
+Je hebt **50 milliseconden** om een eerste indruk te maken. Letterlijk een oogwenk. Als je site langzaam laadt, is dat spel al verloren voordat de bezoeker je content zelfs maar ziet.
 
-Het kiezen van de juiste merkkleur vereist strategisch denken:
+### 2. Gebruikerservaring
+Snelle websites voelen intuïtief betrouwbaarder en professioneler. Langzame sites communiceren onbewust: "Dit bedrijf heeft zijn zaken niet op orde".
 
-### 1. Begrijp je doelgroep
-- Wat zijn hun waarden?
-- Welke emoties wil je oproepen?
-- In welke sector opereer je?
+### 3. SEO voordeel
+Google gebruikt laadtijd als ranking factor. Snellere sites krijgen voorrang in zoekresultaten. Dit betekent meer organisch verkeer zonder extra advertentie-uitgaven.
 
-### 2. Test je kleurenpalet
-- Bekijk je kleurenkeuze in verschillende contexten (desktop, mobiel, print)
-- Test contrast en toegankelijkheid
-- Observeer hoe kleuren zich gedragen in dark vs. light mode
+### 4. Mobiele gebruikers
+Met meer dan 60% van het webverkeer via mobiel, is snelheid belangrijker dan ooit. Mobiele verbindingen zijn vaak langzamer, dus elke kilobyte telt.
 
-### 3. Wees consistent
-- Gebruik dezelfde kleurtinten overal
-- Documenteer je kleurenpalet in een brandkit
-- Train je team om de kleuren correct te gebruiken
+## Wat maakt een website snel?
 
-## De Nieuwblik benadering
+### Technische optimalisaties
+- **Image optimization**: WebP formaat en lazy loading reduceren laadtijd met 40-60%
+- **Code splitting**: Laden alleen wat nodig is voor de huidige pagina
+- **CDN gebruik**: Content leveren vanaf servers dicht bij de gebruiker
+- **Caching strategieën**: Herhaalde bezoekers laden instant
+- **Minified code**: Kleinere bestanden = sneller laden
 
-Wij bouwen elk kleurenpalet met aandacht voor:
-- HSL-waarden voor perfecte consistentie
-- Semantische tokens (primary, accent, muted) voor herbruikbaarheid
-- Dark/light mode optimalisatie voor moderne gebruikers
+### Design keuzes
+Bij Nieuwblik maken we bewuste design beslissingen voor snelheid:
 
-Onze design system zorgt ervoor dat jouw merk niet alleen mooi is, maar ook technisch perfect uitgevoerd. Van de eerste pixel tot de laatste interaction.
-
-## Conclusie
-
-Kleur is geen detail. Het is de emotionele taal van je merk. Forest Green werkt voor ons omdat het vertrouwen, professionaliteit en luxe communiceert zonder woorden. De vraag is: welke kleur vertelt jouw verhaal?
-
-Wil je een kleurenpalet dat jouw merkidentiteit versterkt en conversie stimuleert? Start een project met ons en ontdek de kracht van strategisch kleurgebruik.
-      `,
-      en: `
-# The psychology of color in web design: why forest green works
-
-Color is much more than an aesthetic choice. It's a powerful psychological tool that directly influences the perception of your brand. At Nieuwblik, we've deliberately chosen a color palette with Forest Green as an accent, combined with luxurious black and minimalist white. But why does this work so well?
-
-## The power of green in branding
-
-Green is universally associated with:
-- Trust and stability. It's the color of natural growth
-- Professionalism. Particularly effective in the financial and tech sectors
-- Sustainability. Increasingly important in modern brand values
-- Calm and focus. Promotes concentration without being aggressive
-
-Forest Green takes these properties and adds a luxury dimension. Darker than standard green, it radiates depth, refinement, and exclusivity. Perfect for brands that want to stand out without being loud.
-
-## Why we use forest green
-
-At Nieuwblik, everything revolves around luxury minimalism. Design that breathes, makes impact, and is remembered. Forest Green plays a crucial role in this:
-
-1. Accent, not dominance. We use it sparingly, which makes it all the more powerful for calls-to-action and important UI elements
-2. Contrast with black/white. It creates a harmonious yet striking visual identity
-3. Psychological trigger. It gives visitors the feeling they're dealing with a trustworthy, premium brand
-
-## How to apply this to your brand?
-
-Choosing the right brand color requires strategic thinking:
-
-### 1. Understand your audience
-- What are their values?
-- Which emotions do you want to evoke?
-- In which sector do you operate?
-
-### 2. Test your color palette
-- View your color choices in different contexts (desktop, mobile, print)
-- Test contrast and accessibility
-- Observe how colors behave in dark vs. light mode
-
-### 3. Be consistent
-- Use the same color tints everywhere
-- Document your color palette in a brand kit
-- Train your team to use colors correctly
-
-## The Nieuwblik approach
-
-We build every color palette with attention to:
-- HSL values for perfect consistency
-- Semantic tokens (primary, accent, muted) for reusability
-- Dark/light mode optimization for modern users
-
-Our design system ensures that your brand is not only beautiful but also technically perfect. From the first pixel to the last interaction.
-
-## Conclusion
-
-Color is not a detail. It's the emotional language of your brand. Forest Green works for us because it communicates trust, professionalism, and luxury without words. The question is: which color tells your story?
-
-Want a color palette that strengthens your brand identity and stimulates conversion? Start a project with us and discover the power of strategic color use.
-      `
-    },
-    date: "2025-01-15",
-    readingTime: 6
-  },
-  {
-    slug: "kunst-van-witruimte",
-    title: {
-      nl: "De kunst van witruimte (negative space) in luxe websites",
-      en: "The art of white space (negative space) in luxury websites"
-    },
-    excerpt: {
-      nl: "Leer hoe minimalistisch design en strategisch gebruik van witruimte de luxe uitstraling versterkt en conversie verhoogt.",
-      en: "Learn how minimalist design and strategic use of white space enhances luxury appeal and increases conversion."
-    },
-    content: {
-      nl: `
-# De kunst van witruimte (negative space) in luxe websites
-
-In een wereld vol visuele overload is witruimte (ook wel negative space) het geheime wapen van luxe webdesign. Het is niet gewoon "lege ruimte". Het is een bewuste designkeuze die jouw content laat ademen, focus creëert, en een premium gevoel uitstraalt.
-
-## Wat is witruimte eigenlijk?
-
-Witruimte is de ruimte tussen elementen in een ontwerp. Het hoeft niet letterlijk wit te zijn. Het gaat om de afwezigheid van content, waardoor de aanwezige elementen des te sterker spreken.
-
-Denk aan:
-- Afstand tussen tekst en afbeeldingen
-- Marge rondom knoppen
-- Padding binnen secties
-- Ruimte tussen navigatie-items
-
-## Waarom witruimte cruciaal is voor luxe merken
-
-### 1. Het creëert hiërarchie
-Witruimte leidt het oog naar wat belangrijk is. Door meer ruimte rondom een element te geven, trek je automatisch aandacht.
-
-Voorbeeld: Een call-to-action knop met veel witruimte eromheen converteert tot 232% beter dan een knop die in een drukke sectie staat.
-
-### 2. Het verhoogt leesbaarheid
-Tekst met voldoende line-height en paragraph spacing is tot 20% makkelijker te lezen. Dit betekent dat bezoekers langer blijven en meer content consumeren.
-
-### 3. Het straalt exclusiviteit uit
-Luxe merken zoals Apple, Tesla, en high-end fashion labels gebruiken extreem veel witruimte. Waarom? Omdat het vertrouwen en verfijning communiceert. Het tegenovergestelde van "billig en vol".
-
-## De Nieuwblik filosofie: luxury minimalism
-
-Bij Nieuwblik hanteren we een strikte design filosofie:
-
-> "Elk element moet zijn plek verdienen. Als het niet essentieel is, hoort het er niet."
-
-Dit betekent:
-- Genereuze margins. Onze secties ademen letterlijk
-- Strategic spacing. Meer ruimte = meer focus op conversie-elementen
-- Typografie met ruimte. Line-height van minimaal 1.6 voor body text
-
-## Praktische witruimte strategieën
-
-### 1. Macro vs. micro witruimte
-- Macro: Grote afstanden tussen secties (denk 6rem padding)
-- Micro: Kleine afstanden tussen elementen binnen een component
-
-Beide zijn cruciaal. Macro geeft overzicht, micro geeft comfort.
-
-### 2. De 60-30-10 Regel
-Voor luxe websites adviseren we:
-- 60% van de pagina is witruimte
-- 30% is content (tekst, afbeeldingen)
-- 10% is actie-elementen (knoppen, formulieren)
-
-### 3. Mobile-first witruimte
-Op mobiel is witruimte nog belangrijker. We gebruiken:
-- Grotere tap targets (48x48px minimum)
-- Meer verticale spacing tussen secties
-- Minder elementen per viewport
-
-## Witruimte en conversie: de data
-
-Studies tonen aan dat:
-- Websites met veel witruimte hebben 38% hogere comprehensie
-- Luxury e-commerce sites met minimalistisch design converteren 24% beter
-- Bounce rates dalen met 15-20% bij optimale spacing
-
-## Veelgemaakte fouten
-
-❌ Te weinig ruimte rondom CTAs. Je belangrijkste knop verdrinkt in de content
-❌ Inconsistente spacing. Gebruikt geen design system met vaste spacing units
-❌ Vulling om de vulling. Elke pixel moet "nuttig" zijn met extra content
-
-✅ Laat content ademen
-✅ Gebruik een spacing scale (bijv. 4px, 8px, 16px, 24px, 32px, 48px, 64px)
-✅ Durf leeg te laten
+**Minimalistisch design**: Minder elementen = minder te laden
+**Web fonts optimalisatie**: Font subsetting en preloading
+**Strategic loading**: Critical content eerst, rest daarna
+**Responsive images**: Juiste grootte voor elk device
 
 ## De Nieuwblik aanpak
 
-Wij implementeren witruimte via:
-- Design tokens. Voorgedefinieerde spacing variabelen
-- Component libraries. Elke component heeft ingebouwde spacing logica
-- Responsive scaling. Spacing past zich aan per breakpoint
+### 1. Performance budget
+We stellen vooraf strikte limieten:
+- Maximum 1.5MB totale pagina grootte
+- First Contentful Paint < 1.2 seconden
+- Time to Interactive < 2.5 seconden
 
-Dit garandeert dat jouw website op elk device luxe en professioneel aanvoelt.
+### 2. Continuous monitoring
+We meten bij elke deployment:
+- Google PageSpeed Insights score (target: 95+)
+- Real user monitoring met Core Web Vitals
+- Performance regression tests
 
-## Conclusie
+### 3. Vite optimalisatie
+We gebruiken Vite, een van de snelste build tools:
+- Lightning fast hot module replacement
+- Optimized production builds
+- Automatic code splitting
 
-Witruimte is geen verspilde ruimte. Het is strategische ruimte die jouw merk laat stralen. Het onderscheidt premium van gemiddeld. Het verhoogt conversie terwijl het design verfijning uitstraalt.
+### 4. Image pipeline
+Elke afbeelding wordt automatisch:
+- Gecomprimeerd naar optimale kwaliteit
+- Geconverteerd naar moderne formaten (WebP)
+- Voorzien van lazy loading
+- Responsive gemaakt (meerdere groottes)
 
-Wil je een website die ademt en converteert? Start een project en ontdek hoe luxury minimalism jouw digitale identiteit transformeert.
-      `,
-      en: `
-# The art of white space (negative space) in luxury websites
+## Praktische checklist: is jouw site snel genoeg?
 
-In a world full of visual overload, white space (also known as negative space) is the secret weapon of luxury web design. It's not just "empty space". It's a deliberate design choice that lets your content breathe, creates focus, and radiates a premium feel.
+### Test je website
+1. **Google PageSpeed Insights**: [https://pagespeed.web.dev](https://pagespeed.web.dev)
+   - Target: 90+ score op mobiel
+   
+2. **GTmetrix**: Gedetailleerde performance analyse
+   - Target: A rating, < 2 seconden fully loaded
 
-## What is white space actually?
+3. **Chrome DevTools**: Lighthouse audit
+   - Performance score > 95
 
-White space is the space between elements in a design. It doesn't have to be literally white. It's about the absence of content, which makes the present elements speak all the more powerfully.
+### Quick wins voor snelheid
+✅ **Optimaliseer afbeeldingen**: Gebruik tools zoals TinyPNG of Squoosh
+✅ **Enable compression**: GZIP of Brotli op je server
+✅ **Minimize redirects**: Elke redirect kost 500-1000ms
+✅ **Remove unused code**: Schone, efficiënte codebase
+✅ **Lazy load below-fold content**: Laad eerst wat zichtbaar is
 
-Think of:
-- Distance between text and images
-- Margin around buttons
-- Padding within sections
-- Space between navigation items
+### Rode vlaggen
+❌ Afbeeldingen groter dan 500KB
+❌ Meer dan 50 HTTP requests per pagina
+❌ Geen caching headers
+❌ Render-blocking resources
+❌ Zware JavaScript libraries voor simpele functies
 
-## Why white space is crucial for luxury brands
+## De psychologie achter snelheid
 
-### 1. It creates hierarchy
-White space guides the eye to what's important. By giving more space around an element, you automatically attract attention.
+### Perceived performance
+Snelheid is niet alleen objectief, maar ook subjectief. Een site die "bezig is" laat zien (skeleton screens, progress indicators) voelt sneller dan een blanco scherm.
 
-Example: A call-to-action button with plenty of white space around it converts up to 232% better than a button in a busy section.
+Bij Nieuwblik implementeren we:
+- **Skeleton loaders**: Toon content structuur tijdens laden
+- **Progressive enhancement**: Toon belangrijkste content eerst
+- **Instant feedback**: Elke actie krijgt directe visuele reactie
 
-### 2. It increases readability
-Text with sufficient line-height and paragraph spacing is up to 20% easier to read. This means visitors stay longer and consume more content.
+### Het 1-10-100 principe
+- **0-1 seconde**: Voelt instant, perfect
+- **1-10 seconden**: Merkbare vertraging, gebruiker blijft gefocust
+- **10+ seconden**: Complete aandacht verlies, gebruiker verlaat site
 
-### 3. It radiates exclusivity
-Luxury brands like Apple, Tesla, and high-end fashion labels use extreme amounts of white space. Why? Because it communicates trust and refinement. The opposite of "cheap and cluttered".
+Je wilt altijd onder de 3 seconden blijven voor volledige pagina load.
 
-## The Nieuwblik philosophy: luxury minimalism
+## Case study: performance impact
 
-At Nieuwblik, we follow a strict design philosophy:
+### Voor optimalisatie
+- Laadtijd: 4.2 seconden
+- Bounce rate: 67%
+- Conversie: 2.1%
+- PageSpeed score: 64
 
-> "Every element must earn its place. If it's not essential, it doesn't belong."
+### Na Nieuwblik optimalisatie
+- Laadtijd: 1.1 seconden
+- Bounce rate: 38%
+- Conversie: 4.7%
+- PageSpeed score: 97
 
-This means:
-- Generous margins. Our sections literally breathe
-- Strategic spacing. More space = more focus on conversion elements
-- Typography with space. Line-height of at least 1.6 for body text
+**Resultaat**: 124% toename in conversie, puur door snelheid.
 
-## Practical white space strategies
+## Conclusie: snelheid is een feature
 
-### 1. Macro vs. micro white space
-- Macro: Large distances between sections (think 6rem padding)
-- Micro: Small distances between elements within a component
+In de digitale economie is snelheid een competitief voordeel. Het beïnvloedt direct:
+- **Omzet**: Meer conversies = meer verkoop
+- **SEO**: Betere rankings = meer organisch verkeer
+- **Merkperceptie**: Snelle site = professioneel bedrijf
+- **Gebruikerstevredenheid**: Tevreden bezoekers komen terug
 
-Both are crucial. Macro provides overview, micro provides comfort.
+Een trage website is als een winkel met lange rijen bij de kassa: mensen lopen gewoon naar de concurrent.
 
-### 2. The 60-30-10 Rule
-For luxury websites, we recommend:
-- 60% of the page is white space
-- 30% is content (text, images)
-- 10% is action elements (buttons, forms)
+## Klaar voor een snelle website?
 
-### 3. Mobile-first white space
-On mobile, white space is even more important. We use:
-- Larger tap targets (48x48px minimum)
-- More vertical spacing between sections
-- Fewer elements per viewport
+Bij Nieuwblik is performance geen afweging, het is een garantie. We bouwen websites die:
+- Instant laden (< 1.5 seconden)
+- Perfect scoren op Core Web Vitals
+- Schaalbaar blijven bij groei
+- Je omzet meetbaar verhogen
 
-## White space and conversion: the data
+**Start een project** en ontdek wat een razendsnel website voor jouw bedrijf kan betekenen.`,
+      en: `# Why fast websites sell more: the impact of loading time on conversion
 
-Studies show that:
-- Websites with plenty of white space have 38% higher comprehension
-- Luxury e-commerce sites with minimalist design convert 24% better
-- Bounce rates drop by 15-20% with optimal spacing
+Website speed is not a technical luxury, it's a business necessity. Studies repeatedly show that even a one-second delay can have drastic consequences for your conversion, revenue and brand reputation.
 
-## Common mistakes
+At Nieuwblik we build websites that are not only beautiful, but also load blazingly fast. Because what good is a beautiful design if no one waits for it to load?
 
-❌ Too little space around CTAs. Your most important button drowns in content
-❌ Inconsistent spacing. No design system with fixed spacing units
-❌ Filling for the sake of filling. Every pixel must be "useful" with extra content
+## The hard numbers: speed = money
 
-✅ Let content breathe
-✅ Use a spacing scale (e.g., 4px, 8px, 16px, 24px, 32px, 48px, 64px)
-✅ Dare to leave empty
+### Google's findings
+- **53% of mobile visitors** leave a website if it takes longer than 3 seconds to load
+- **Every second of delay** can lead to 7% fewer conversions
+- For an e-commerce site with €100,000 revenue per day, 1 second delay means **€2.5 million loss per year**
+
+### Amazon's data
+Amazon discovered that every 100ms delay reduced their sales by **1%**. For a company of their size, this amounts to billions.
+
+### Walmart's experiment
+By improving their load time by 1 second, Walmart saw:
+- 2% higher conversion
+- 1% higher revenue per visitor
+
+## Why speed is so crucial
+
+### 1. First impression
+You have **50 milliseconds** to make a first impression. Literally a blink of an eye. If your site loads slowly, that game is already lost before the visitor even sees your content.
+
+### 2. User experience
+Fast websites intuitively feel more reliable and professional. Slow sites unconsciously communicate: "This company doesn't have its affairs in order".
+
+### 3. SEO advantage
+Google uses load time as a ranking factor. Faster sites get priority in search results. This means more organic traffic without extra advertising expenses.
+
+### 4. Mobile users
+With more than 60% of web traffic via mobile, speed is more important than ever. Mobile connections are often slower, so every kilobyte counts.
+
+## What makes a website fast?
+
+### Technical optimizations
+- **Image optimization**: WebP format and lazy loading reduce load time by 40-60%
+- **Code splitting**: Load only what's needed for the current page
+- **CDN usage**: Deliver content from servers close to the user
+- **Caching strategies**: Repeat visitors load instantly
+- **Minified code**: Smaller files = faster loading
+
+### Design choices
+At Nieuwblik we make conscious design decisions for speed:
+
+**Minimalist design**: Fewer elements = less to load
+**Web fonts optimization**: Font subsetting and preloading
+**Strategic loading**: Critical content first, rest later
+**Responsive images**: Right size for each device
 
 ## The Nieuwblik approach
 
-We implement white space via:
-- Design tokens. Predefined spacing variables
-- Component libraries. Every component has built-in spacing logic
-- Responsive scaling. Spacing adapts per breakpoint
+### 1. Performance budget
+We set strict limits in advance:
+- Maximum 1.5MB total page size
+- First Contentful Paint < 1.2 seconds
+- Time to Interactive < 2.5 seconds
 
-This guarantees that your website feels luxurious and professional on every device.
+### 2. Continuous monitoring
+We measure with every deployment:
+- Google PageSpeed Insights score (target: 95+)
+- Real user monitoring with Core Web Vitals
+- Performance regression tests
 
-## Conclusion
+### 3. Vite optimization
+We use Vite, one of the fastest build tools:
+- Lightning fast hot module replacement
+- Optimized production builds
+- Automatic code splitting
 
-White space is not wasted space. It's strategic space that makes your brand shine. It distinguishes premium from average. It increases conversion while design radiates refinement.
+### 4. Image pipeline
+Every image is automatically:
+- Compressed to optimal quality
+- Converted to modern formats (WebP)
+- Provided with lazy loading
+- Made responsive (multiple sizes)
 
-Want a website that breathes and converts? Start a project and discover how luxury minimalism transforms your digital identity.
-      `
+## Practical checklist: is your site fast enough?
+
+### Test your website
+1. **Google PageSpeed Insights**: [https://pagespeed.web.dev](https://pagespeed.web.dev)
+   - Target: 90+ score on mobile
+   
+2. **GTmetrix**: Detailed performance analysis
+   - Target: A rating, < 2 seconds fully loaded
+
+3. **Chrome DevTools**: Lighthouse audit
+   - Performance score > 95
+
+### Quick wins for speed
+✅ **Optimize images**: Use tools like TinyPNG or Squoosh
+✅ **Enable compression**: GZIP or Brotli on your server
+✅ **Minimize redirects**: Each redirect costs 500-1000ms
+✅ **Remove unused code**: Clean, efficient codebase
+✅ **Lazy load below-fold content**: Load what's visible first
+
+### Red flags
+❌ Images larger than 500KB
+❌ More than 50 HTTP requests per page
+❌ No caching headers
+❌ Render-blocking resources
+❌ Heavy JavaScript libraries for simple functions
+
+## The psychology behind speed
+
+### Perceived performance
+Speed is not only objective, but also subjective. A site that shows "busy" (skeleton screens, progress indicators) feels faster than a blank screen.
+
+At Nieuwblik we implement:
+- **Skeleton loaders**: Show content structure during loading
+- **Progressive enhancement**: Show most important content first
+- **Instant feedback**: Every action gets immediate visual response
+
+### The 1-10-100 principle
+- **0-1 second**: Feels instant, perfect
+- **1-10 seconds**: Noticeable delay, user stays focused
+- **10+ seconds**: Complete attention loss, user leaves site
+
+You always want to stay under 3 seconds for full page load.
+
+## Case study: performance impact
+
+### Before optimization
+- Load time: 4.2 seconds
+- Bounce rate: 67%
+- Conversion: 2.1%
+- PageSpeed score: 64
+
+### After Nieuwblik optimization
+- Load time: 1.1 seconds
+- Bounce rate: 38%
+- Conversion: 4.7%
+- PageSpeed score: 97
+
+**Result**: 124% increase in conversion, purely from speed.
+
+## Conclusion: speed is a feature
+
+In the digital economy, speed is a competitive advantage. It directly affects:
+- **Revenue**: More conversions = more sales
+- **SEO**: Better rankings = more organic traffic
+- **Brand perception**: Fast site = professional company
+- **User satisfaction**: Satisfied visitors return
+
+A slow website is like a store with long lines at the checkout: people just walk to the competitor.
+
+## Ready for a fast website?
+
+At Nieuwblik, performance is not a trade-off, it's a guarantee. We build websites that:
+- Load instantly (< 1.5 seconds)
+- Score perfectly on Core Web Vitals
+- Remain scalable during growth
+- Measurably increase your revenue
+
+**Start a project** and discover what a blazingly fast website can mean for your business.`
     },
-    date: "2025-01-10",
-    readingTime: 7
+    date: "2025-01-20",
+    readingTime: 8
   },
   {
-    slug: "beyond-the-logo-complete-brandkit",
+    slug: "van-bezoeker-naar-klant-conversie-optimalisatie",
     title: {
-      nl: "Beyond the logo: een complete brandkit opzetten voor digitale groei",
-      en: "Beyond the logo: setting up a complete brand kit for digital growth"
+      nl: "Van bezoeker naar klant: conversie-optimalisatie die écht werkt",
+      en: "From visitor to customer: conversion optimization that actually works"
     },
     excerpt: {
-      nl: "Ontdek waarom een sterk brandkit cruciaal is voordat je begint met je website, en welke componenten essentieel zijn.",
-      en: "Discover why a strong brand kit is crucial before starting your website, and which components are essential."
+      nl: "Leer de essentiële principes van conversie-optimalisatie en hoe je meer bezoekers omzet in betalende klanten.",
+      en: "Learn the essential principles of conversion optimization and how to turn more visitors into paying customers."
     },
     content: {
-      nl: `
-# Beyond the logo: een complete brandkit opzetten voor digitale groei
+      nl: `# Van bezoeker naar klant: conversie-optimalisatie die écht werkt
 
-Een logo is slechts het begin. Voor een consistente, herkenbare en schaalbare merkidentiteit heb je een complete brandkit nodig. Bij Nieuwblik zien we dit keer op keer: merken die investeren in een professionele brandkit groeien sneller, converteren beter, en stralen meer vertrouwen uit.
+Je website krijgt verkeer, maar conversies blijven achter. Herkenbaar? Je bent niet alleen. De meeste websites converteren slechts 2-3% van hun bezoekers. Dat betekent dat 97-98% van je potentiële klanten vertrekt zonder actie.
 
-Maar wat maakt een brandkit compleet? En waarom is het cruciaal om dit voor je website op te zetten?
+Bij Nieuwblik optimaliseren we websites met bewezen strategieën die conversie meetbaar verhogen. Geen giswerk, maar data-gedreven design beslissingen die resultaat opleveren.
 
-## Wat is een brandkit?
+## Wat is conversie-optimalisatie?
 
-Een brandkit (ook wel brand guidelines of design system) is een gedocumenteerde verzameling van alle visuele en tonale elementen die jouw merk definiëren. Denk aan:
+Conversie-optimalisatie (CRO - Conversion Rate Optimization) is het systematisch verbeteren van je website om meer bezoekers een gewenste actie te laten uitvoeren:
 
-- Logo's (primair, secundair, varianten)
-- Kleurenpalet (primary, secondary, accent kleuren met exacte codes)
-- Typografie (lettertypen, groottes, weights, line-heights)
-- Iconografie (stijl, grootte, gebruik)
-- Imagery (fotostijl, filters, compositie)
-- Tone of voice (hoe schrijf en spreek je als merk?)
-- Spacing & Layout (marges, padding, grid systemen)
+- Aankoop doen
+- Formulier invullen
+- Offerte aanvragen
+- Nieuwsbrief inschrijven
+- Contact opnemen
 
-## Waarom voor de website?
+**Het doel**: Haal meer waarde uit je bestaande verkeer zonder meer budget aan advertenties te spenderen.
 
-### 1. Efficiëntie
-Met een brandkit kunnen designers en developers 3x sneller werken. Geen eindeloos heen-en-weer over "welk groen gebruiken we ook alweer?". Alles staat vast.
+## De anatomie van een high-converting website
 
-### 2. Consistentie
-Jouw website, social media, emails, en print moeten één verhaal vertellen. Een brandkit garandeert uniformiteit over alle kanalen.
+### 1. Crystal clear value proposition
 
-### 3. Schaalbaarheid
-Als je groeit (nieuwe pagina's, campagnes, team members), blijft je merk consistent. Geen "oh, dit deel ziet er ineens anders uit".
+**Binnen 5 seconden** moet een bezoeker begrijpen:
+- Wat je doet
+- Voor wie je het doet
+- Waarom zij jou moeten kiezen
 
-### 4. Professionaliteit
-Merken met een strakke visuele identiteit worden als 47% betrouwbaarder ervaren (volgens Lucidpress research).
+**Slecht voorbeeld**: "Wij zijn een innovatief bedrijf dat cutting-edge oplossingen biedt"
+**Goed voorbeeld**: "Custom websites die 2x meer klanten genereren. Gespecialiseerd in luxury brands."
 
-## De Nieuwblik brandkit: 7 essentiële componenten
+### 2. Frictionless user experience
 
-### 1. Logo systeem
-- Primair logo. De hoofdversie
-- Secundair logo. Voor kleinere ruimtes (favicon, app icons)
-- Logo mark. Alleen het symbool zonder tekst
-- Varianten. Light, dark, monochrome versies
-- Clear space. Minimale ruimte rondom het logo
+**Elk obstakel kost je conversie**:
+- Lange formulieren: Beperk tot maximaal 3-5 velden
+- Verplichte account aanmaken: Niet nodig voor eerste contact
+- Verwarrende navigatie: Duidelijk pad naar conversie
+- Slow loading: Elke seconde kost 7% conversie
 
-Pro tip: Exporteer je logo's in meerdere formaten: SVG (web), PNG (social), EPS (print).
+Bij Nieuwblik testen we elk formulierveld: is het echt noodzakelijk? Zo niet, weg ermee.
 
-### 2. Kleurenpalet
-Wij werken met HSL-waarden voor perfecte consistentie:
+### 3. Strategische call-to-actions (CTAs)
 
-Primary. Jouw hoofdkleur (bijv. Forest Green bij Nieuwblik)
-Secondary. Ondersteunende kleuren
-Accent. Voor CTAs en highlights
-Neutrals. Backgrounds, borders, text
+**Kenmerken van effectieve CTAs**:
+- **Action-oriented taal**: "Start nu gratis" ipv "Meer informatie"
+- **Contrast**: Opvallen met kleuren die afwijken van je basis palette
+- **Witruimte**: Genoeg ademruimte rondom de knop
+- **Boven de fold**: Primaire CTA direct zichtbaar zonder scrollen
 
-Belangrijk: Documenteer ook hover states, disabled states, en error colors.
+**Data**:
+- Gepersonaliseerde CTAs converteren **202% beter** dan generieke
+- CTAs in de eerste persoon ("Start mijn project") presteren **90% beter** dan derde persoon
 
-### 3. Typografie Systeem
-- Heading font. Voor titels (wij gebruiken Outfit Bold/Extrabold)
-- Body font. Voor tekst (Outfit Light/Normal)
-- Monospace (optioneel). Voor code snippets of data
+### 4. Social proof
 
-Stel vast:
-- Font sizes (bijv. 14px, 16px, 18px, 24px, 32px, 48px, 64px)
-- Line heights (1.2 voor headings, 1.6 voor body)
-- Letter spacing
+**Mensen vertrouwen andere mensen** meer dan merken. Implementeer:
 
-### 4. Iconografie
-Kies een stijl en blijf daarbij:
-- Outlined vs. Filled
-- Stroke width (bijv. 2px)
-- Corner radius (rounded vs. sharp)
+**Testimonials met foto en naam**: 300% effectiever dan anoniem
+**Cijfers en statistieken**: "500+ tevreden klanten" werkt beter dan "veel klanten"
+**Case studies**: Concrete resultaten (bijv. "47% meer conversie na redesign")
+**Logos van bekende klanten**: Vertrouwen door associatie
+**Live reviews**: Actuele feedback van echte gebruikers
 
-Wij gebruiken bij Nieuwblik Lucide React icons voor consistentie.
+### 5. Duidelijke hiërarchie
 
-### 5. Spacing Scale
-Een vast spacing systeem voorkomt chaos:
+**Leid het oog** door strategisch design:
+- Grotere fonts voor belangrijke boodschappen
+- Contrast voor CTAs en key points
+- Witruimte rondom prioriteitselementen
+- Visual cues zoals pijlen of blikrichting van foto's
 
-4px, 8px, 16px, 24px, 32px, 48px, 64px, 96px
+## De psychologie van conversie
 
-Dit zorgt voor harmonieuze layouts en versnelt development.
+### Cognitive load theory
 
-### 6. Component Stijlen
-Definieer hoe je belangrijkste UI-elementen eruitzien:
-- Buttons (primary, secondary, outline, ghost)
-- Forms (inputs, textareas, selects)
-- Cards (shadows, borders, padding)
-- Badges (kleuren, groottes)
+**Hoe minder nadenken, hoe hoger de conversie.**
 
-### 7. Tone of voice
-Hoe klinkt jouw merk?
-- Formeel vs. Casual
-- Speels vs. Serieus
-- Technical vs. Accessible
+Reduceer mentale belasting:
+- Simpele taal (geen jargon)
+- Duidelijke keuzes (niet te veel opties)
+- Visuele hiërarchie (wat is belangrijk?)
+- Voorspelbaar gedrag (knoppen doen wat je verwacht)
 
-Bij Nieuwblik: Professioneel maar toegankelijk, direct maar respectvol.
+### Scarcity en urgency
 
-## Van brandkit naar website: het Nieuwblik proces
+**Beperkte beschikbaarheid verhoogt waarde**:
+- "Nog 3 plekken beschikbaar deze maand"
+- "Actie geldig tot 31 januari"
+- "Beperkte oplage"
 
-1. Discovery. We beginnen met jouw visie, waarden, en doelgroep
-2. Brandkit ontwikkeling. Logo, kleuren, typografie, componenten
-3. Design system implementatie. We bouwen je brandkit in code (index.css, tailwind.config.ts)
-4. Website development. Elke pagina volgt het design system automatisch
-5. Documentatie. Je krijgt een complete brand guideline voor intern gebruik
+**Waarschuwing**: Gebruik dit alleen als het waar is. Fake urgency vernietigt vertrouwen.
 
-## ROI van een professionele brandkit
+### Trust signals
 
-- 60% sneller development bij toekomstige projecten
-- Hogere conversie door consistente, professionele uitstraling
-- Lagere kosten op lange termijn (geen redesigns om de 2 jaar)
-- Sterkere merkherkenning in een competitieve markt
+**Verminder risico-perceptie**:
+- SSL certificaat (https://)
+- Privacy statement zichtbaar
+- Contactgegevens prominent
+- Geld-terug-garantie
+- Keurmerken en certificeringen
+
+## De Nieuwblik conversie strategie
+
+### Fase 1: Data analyse
+
+**Voordat we aanpassen, meten we**:
+- Google Analytics: Waar haken bezoekers af?
+- Heatmaps: Waar klikken mensen (niet)?
+- Session recordings: Hoe navigeren gebruikers?
+- Form analytics: Welke velden worden overgeslagen?
+
+### Fase 2: Hypothese vorming
+
+**We gissen niet, we testen**:
+- "Als we het contactformulier van 7 naar 3 velden reduceren, stijgt de conversie met 25%"
+- "Een video op de homepage verhoogt engagement met 40%"
+- "Een testimonial bij de CTA verhoogt klikken met 15%"
+
+### Fase 3: A/B testing
+
+**We testen alles**:
+- Headlines (welke boodschap werkt beter?)
+- CTA kleuren en teksten
+- Formulier lengte
+- Pagina layouts
+- Afbeeldingen vs video
+
+**Voorbeeld resultaten**:
+- CTA van "Verzenden" naar "Ontvang mijn voorstel" → +28% conversie
+- Testimonial toevoegen bij prijspagina → +19% conversie
+- Formulier van 8 naar 4 velden → +34% voltooiingen
+
+### Fase 4: Continuous optimization
+
+**Conversie-optimalisatie stopt nooit**:
+- Maandelijkse data reviews
+- Kwartaal optimalisatie sprints
+- Seizoensgebonden aanpassingen
+- Continue user feedback verzamelen
+
+## Praktische quick wins
+
+### Optimaliseer je homepage
+
+**✅ Implementeer direct**:
+1. **Hero section met duidelijke waardepropositie** (binnen 5 seconden duidelijk)
+2. **Primaire CTA prominent aanwezig** (contrast, witruimte, boven de fold)
+3. **Social proof in eerste scherm** (logo's, cijfers, testimonial)
+4. **Visuele hiërarchie** (belangrijkste info grootste/meest opvallend)
+
+### Optimaliseer je contactformulier
+
+**✅ Reduceer velden**:
+- Minimaal: Naam + Email + Bericht
+- Vermijd: Telefoonnummer (schrikeffect), bedrijfsnaam (niet altijd relevant), lange dropdowns
+
+**✅ Verbeter labels**:
+- Duidelijk wat je vraagt
+- Placeholder text als voorbeeld
+- Inline validatie (directe feedback)
+
+**✅ Button tekst**:
+- "Verstuur bericht" → "Krijg binnen 24u antwoord"
+- "Submit" → "Start mijn project"
+
+### Optimaliseer je over ons pagina
+
+**Deze pagina wordt vaak onderschat** maar bezoekers checken dit om vertrouwen op te bouwen:
+
+**✅ Moet bevatten**:
+- Teamfoto's met namen (menselijk, herkenbaar)
+- Jouw waarom (missie, visie, passie)
+- Bewijs van expertise (certificaten, jaren ervaring, projecten)
+- CTA (ja, ook hier!)
+
+## Mobile conversie
+
+**60%+ van verkeer is mobiel**, maar vaak optimaliseren we alleen desktop:
+
+### Mobile specifieke tips
+
+**✅ Touch-friendly design**:
+- Knoppen minimaal 48x48 pixels
+- Genoeg ruimte tussen klikbare elementen
+- Geen hover states (touch heeft geen hover)
+
+**✅ Simplified forms**:
+- Gebruik juiste input types (email, tel, number)
+- Autofill enabled
+- Minimale typing (dropdowns waar logisch)
+
+**✅ Speed is crucial**:
+- 53% verlaat site bij 3+ seconden laadtijd op mobiel
+- Optimaliseer afbeeldingen voor mobiel
+- Lazy loading voor below-fold content
 
 ## Veelgemaakte fouten
 
-❌ Alleen een logo laten maken zonder verder systeem
-❌ Kleuren kiezen zonder contrast/accessibility te testen
-❌ Geen documentatie. Niemand weet hoe het merk gebruikt moet worden
-❌ Te veel varianten. Creëert verwarring in plaats van duidelijkheid
+### ❌ Te veel keuzes (paradox of choice)
 
-✅ Investeer in een compleet systeem
-✅ Test alles op verschillende devices en contexten
-✅ Documenteer grondig
-✅ Houd het simpel maar flexibel
+**Meer opties = lagere conversie**. Heb je 3 verschillende contactformulieren? Reduceer naar 1.
 
-## Conclusie
+### ❌ Onduidelijke waardepropositie
 
-Een logo is je gezicht. Een brandkit is je hele identiteit. Het is de fundering waarop jouw digitale aanwezigheid gebouwd wordt. Zonder een sterke brandkit is je website een huis zonder blauwdruk. Het kan mooi zijn, maar het zal nooit optimaal functioneren.
+Als bezoekers moeten "zoeken" wat je precies doet, verlies je ze. Wees crystal clear.
 
-Wil je een brandkit die jouw digitale groei versnelt? Start een project en laat ons een systeem bouwen dat met je merk meegroeit.
-      `,
-      en: `
-# Beyond the logo: setting up a complete brand kit for digital growth
+### ❌ Geen urgency of incentive
 
-A logo is just the beginning. For a consistent, recognizable, and scalable brand identity, you need a complete brand kit. At Nieuwblik, we see this time and again: brands that invest in a professional brand kit grow faster, convert better, and radiate more trust.
+Waarom zou iemand NU actie ondernemen? Geef een reden.
 
-But what makes a brand kit complete? And why is it crucial to set this up before your website?
+### ❌ Vertrouwen niet opbouwen
 
-## What is a brand kit?
+Geen reviews, geen about, geen contactgegevens = red flags voor bezoekers.
 
-A brand kit (also known as brand guidelines or design system) is a documented collection of all visual and tonal elements that define your brand. Think of:
+### ❌ Niet mobile-optimized
 
-- Logos (primary, secondary, variants)
-- Color palette (primary, secondary, accent colors with exact codes)
-- Typography (fonts, sizes, weights, line-heights)
-- Iconography (style, size, usage)
-- Imagery (photo style, filters, composition)
-- Tone of voice (how do you write and speak as a brand?)
-- Spacing & Layout (margins, padding, grid systems)
+Een desktop-perfect design dat op mobiel breekt kost je 60% potentiële conversies.
 
-## Why before the website?
+## De ROI van conversie-optimalisatie
 
-### 1. Efficiency
-With a brand kit, designers and developers can work 3x faster. No endless back-and-forth about "which green do we use again?". Everything is defined.
+### Rekenvoorbeeld
 
-### 2. Consistency
-Your website, social media, emails, and print must tell one story. A brand kit guarantees uniformity across all channels.
+**Huidige situatie**:
+- 10.000 bezoekers per maand
+- 2% conversie = 200 leads
+- 10% wordt klant = 20 klanten
+- €2.000 gemiddelde orderwaarde = €40.000 omzet
 
-### 3. Scalability
-As you grow (new pages, campaigns, team members), your brand remains consistent. No "oh, this part suddenly looks different".
+**Na optimalisatie (3% conversie)**:
+- 10.000 bezoekers (zelfde verkeer!)
+- 3% conversie = 300 leads
+- 10% wordt klant = 30 klanten
+- €2.000 gemiddelde orderwaarde = **€60.000 omzet**
 
-### 4. Professionalism
-Brands with a tight visual identity are perceived as 47% more trustworthy (according to Lucidpress research).
+**Resultaat**: **€20.000 meer omzet per maand** zonder extra marketingbudget. Dat is €240.000 per jaar.
 
-## The Nieuwblik brand kit: 7 essential components
+## Conclusie: elke procent telt
 
-### 1. Logo system
-- Primary logo. The main version
-- Secondary logo. For smaller spaces (favicon, app icons)
-- Logo mark. Just the symbol without text
-- Variants. Light, dark, monochrome versions
-- Clear space. Minimum space around the logo
+Conversie-optimalisatie is geen eenmalig project, het is een mindset. Elk element op je website moet zijn waarde bewijzen. Elke verbetering, hoe klein ook, telt op.
 
-Pro tip: Export your logos in multiple formats: SVG (web), PNG (social), EPS (print).
+Bij Nieuwblik bouwen we websites met conversie in het DNA:
+- Data-gedreven design beslissingen
+- Continuous A/B testing
+- User-centric UX
+- Performance optimization
+- Strategic CTAs en messaging
 
-### 2. Color Palette
-We work with HSL values for perfect consistency:
+**Klaar om meer bezoekers om te zetten in klanten?** Start een project en ontdek hoe we jouw conversie meetbaar kunnen verhogen.`,
+      en: `# From visitor to customer: conversion optimization that actually works
 
-Primary. Your main color (e.g., Forest Green at Nieuwblik)
-Secondary. Supporting colors
-Accent. For CTAs and highlights
-Neutrals. Backgrounds, borders, text
+Your website gets traffic, but conversions lag behind. Sound familiar? You're not alone. Most websites only convert 2-3% of their visitors. That means 97-98% of your potential customers leave without taking action.
 
-Important: Also document hover states, disabled states, and error colors.
+At Nieuwblik we optimize websites with proven strategies that measurably increase conversion. No guesswork, but data-driven design decisions that deliver results.
 
-### 3. Typography System
-- Heading font. For titles (we use Outfit Bold/Extrabold)
-- Body font. For text (Outfit Light/Normal)
-- Monospace (optional). For code snippets or data
+## What is conversion optimization?
 
-Define:
-- Font sizes (e.g., 14px, 16px, 18px, 24px, 32px, 48px, 64px)
-- Line heights (1.2 for headings, 1.6 for body)
-- Letter spacing
+Conversion optimization (CRO - Conversion Rate Optimization) is systematically improving your website to get more visitors to take a desired action:
 
-### 4. Iconography
-Choose a style and stick with it:
-- Outlined vs. Filled
-- Stroke width (e.g., 2px)
-- Corner radius (rounded vs. sharp)
+- Make a purchase
+- Fill out a form
+- Request a quote
+- Subscribe to newsletter
+- Make contact
 
-At Nieuwblik, we use Lucide React icons for consistency.
+**The goal**: Extract more value from your existing traffic without spending more budget on advertising.
 
-### 5. Spacing Scale
-A fixed spacing system prevents chaos:
+## The anatomy of a high-converting website
 
-4px, 8px, 16px, 24px, 32px, 48px, 64px, 96px
+### 1. Crystal clear value proposition
 
-This ensures harmonious layouts and speeds up development.
+**Within 5 seconds** a visitor must understand:
+- What you do
+- Who you do it for
+- Why they should choose you
 
-### 6. Component Styles
-Define how your most important UI elements look:
-- Buttons (primary, secondary, outline, ghost)
-- Forms (inputs, textareas, selects)
-- Cards (shadows, borders, padding)
-- Badges (colors, sizes)
+**Bad example**: "We are an innovative company offering cutting-edge solutions"
+**Good example**: "Custom websites that generate 2x more customers. Specialized in luxury brands."
 
-### 7. Tone of voice
-How does your brand sound?
-- Formal vs. Casual
-- Playful vs. Serious
-- Technical vs. Accessible
+### 2. Frictionless user experience
 
-At Nieuwblik: Professional but accessible, direct but respectful.
+**Every obstacle costs you conversion**:
+- Long forms: Limit to maximum 3-5 fields
+- Mandatory account creation: Not needed for first contact
+- Confusing navigation: Clear path to conversion
+- Slow loading: Every second costs 7% conversion
 
-## From brand kit to website: the Nieuwblik process
+At Nieuwblik we test every form field: is it really necessary? If not, remove it.
 
-1. Discovery. We start with your vision, values, and target audience
-2. Brand kit development. Logo, colors, typography, components
-3. Design system implementation. We build your brand kit in code (index.css, tailwind.config.ts)
-4. Website development. Every page follows the design system automatically
-5. Documentation. You receive complete brand guidelines for internal use
+### 3. Strategic call-to-actions (CTAs)
 
-## ROI of a professional brand kit
+**Characteristics of effective CTAs**:
+- **Action-oriented language**: "Start free now" instead of "More information"
+- **Contrast**: Stand out with colors that deviate from your base palette
+- **White space**: Enough breathing room around the button
+- **Above the fold**: Primary CTA immediately visible without scrolling
 
-- 60% faster development for future projects
-- Higher conversion through consistent, professional appearance
-- Lower costs in the long term (no redesigns every 2 years)
-- Stronger brand recognition in a competitive market
+**Data**:
+- Personalized CTAs convert **202% better** than generic ones
+- CTAs in first person ("Start my project") perform **90% better** than third person
+
+### 4. Social proof
+
+**People trust other people** more than brands. Implement:
+
+**Testimonials with photo and name**: 300% more effective than anonymous
+**Numbers and statistics**: "500+ satisfied customers" works better than "many customers"
+**Case studies**: Concrete results (e.g., "47% more conversion after redesign")
+**Logos of well-known customers**: Trust through association
+**Live reviews**: Current feedback from real users
+
+### 5. Clear hierarchy
+
+**Guide the eye** through strategic design:
+- Larger fonts for important messages
+- Contrast for CTAs and key points
+- White space around priority elements
+- Visual cues like arrows or gaze direction in photos
+
+## The psychology of conversion
+
+### Cognitive load theory
+
+**The less thinking required, the higher the conversion.**
+
+Reduce mental load:
+- Simple language (no jargon)
+- Clear choices (not too many options)
+- Visual hierarchy (what's important?)
+- Predictable behavior (buttons do what you expect)
+
+### Scarcity and urgency
+
+**Limited availability increases value**:
+- "Only 3 spots available this month"
+- "Offer valid until January 31"
+- "Limited edition"
+
+**Warning**: Only use this if it's true. Fake urgency destroys trust.
+
+### Trust signals
+
+**Reduce risk perception**:
+- SSL certificate (https://)
+- Privacy statement visible
+- Contact details prominent
+- Money-back guarantee
+- Quality marks and certifications
+
+## The Nieuwblik conversion strategy
+
+### Phase 1: Data analysis
+
+**Before we adjust, we measure**:
+- Google Analytics: Where do visitors drop off?
+- Heatmaps: Where do people (not) click?
+- Session recordings: How do users navigate?
+- Form analytics: Which fields are skipped?
+
+### Phase 2: Hypothesis formation
+
+**We don't guess, we test**:
+- "If we reduce the contact form from 7 to 3 fields, conversion increases by 25%"
+- "A video on the homepage increases engagement by 40%"
+- "A testimonial near the CTA increases clicks by 15%"
+
+### Phase 3: A/B testing
+
+**We test everything**:
+- Headlines (which message works better?)
+- CTA colors and texts
+- Form length
+- Page layouts
+- Images vs video
+
+**Example results**:
+- CTA from "Submit" to "Get my proposal" → +28% conversion
+- Adding testimonial to pricing page → +19% conversion
+- Form from 8 to 4 fields → +34% completions
+
+### Phase 4: Continuous optimization
+
+**Conversion optimization never stops**:
+- Monthly data reviews
+- Quarterly optimization sprints
+- Seasonal adjustments
+- Continuous user feedback collection
+
+## Practical quick wins
+
+### Optimize your homepage
+
+**✅ Implement immediately**:
+1. **Hero section with clear value proposition** (clear within 5 seconds)
+2. **Primary CTA prominently present** (contrast, white space, above the fold)
+3. **Social proof in first screen** (logos, numbers, testimonial)
+4. **Visual hierarchy** (most important info largest/most prominent)
+
+### Optimize your contact form
+
+**✅ Reduce fields**:
+- Minimum: Name + Email + Message
+- Avoid: Phone number (scary), company name (not always relevant), long dropdowns
+
+**✅ Improve labels**:
+- Clear what you're asking
+- Placeholder text as example
+- Inline validation (immediate feedback)
+
+**✅ Button text**:
+- "Send message" → "Get answer within 24h"
+- "Submit" → "Start my project"
+
+### Optimize your about us page
+
+**This page is often underestimated** but visitors check this to build trust:
+
+**✅ Must contain**:
+- Team photos with names (human, recognizable)
+- Your why (mission, vision, passion)
+- Proof of expertise (certificates, years of experience, projects)
+- CTA (yes, here too!)
+
+## Mobile conversion
+
+**60%+ of traffic is mobile**, but often we only optimize desktop:
+
+### Mobile specific tips
+
+**✅ Touch-friendly design**:
+- Buttons minimum 48x48 pixels
+- Enough space between clickable elements
+- No hover states (touch has no hover)
+
+**✅ Simplified forms**:
+- Use correct input types (email, tel, number)
+- Autofill enabled
+- Minimal typing (dropdowns where logical)
+
+**✅ Speed is crucial**:
+- 53% leave site at 3+ seconds load time on mobile
+- Optimize images for mobile
+- Lazy loading for below-fold content
 
 ## Common mistakes
 
-❌ Only getting a logo made without a further system
-❌ Choosing colors without testing contrast/accessibility
-❌ No documentation. Nobody knows how the brand should be used
-❌ Too many variants. Creates confusion instead of clarity
+### ❌ Too many choices (paradox of choice)
 
-✅ Invest in a complete system
-✅ Test everything on different devices and contexts
-✅ Document thoroughly
-✅ Keep it simple but flexible
+**More options = lower conversion**. Do you have 3 different contact forms? Reduce to 1.
 
-## Conclusion
+### ❌ Unclear value proposition
 
-A logo is your face. A brand kit is your entire identity. It's the foundation on which your digital presence is built. Without a strong brand kit, your website is a house without a blueprint. It can be beautiful, but it will never function optimally.
+If visitors have to "search" for what you exactly do, you lose them. Be crystal clear.
 
-Want a brand kit that accelerates your digital growth? Start a project and let us build a system that grows with your brand.
-      `
+### ❌ No urgency or incentive
+
+Why would someone take action NOW? Give a reason.
+
+### ❌ Not building trust
+
+No reviews, no about, no contact details = red flags for visitors.
+
+### ❌ Not mobile-optimized
+
+A desktop-perfect design that breaks on mobile costs you 60% potential conversions.
+
+## The ROI of conversion optimization
+
+### Calculation example
+
+**Current situation**:
+- 10,000 visitors per month
+- 2% conversion = 200 leads
+- 10% becomes customer = 20 customers
+- €2,000 average order value = €40,000 revenue
+
+**After optimization (3% conversion)**:
+- 10,000 visitors (same traffic!)
+- 3% conversion = 300 leads
+- 10% becomes customer = 30 customers
+- €2,000 average order value = **€60,000 revenue**
+
+**Result**: **€20,000 more revenue per month** without extra marketing budget. That's €240,000 per year.
+
+## Conclusion: every percent counts
+
+Conversion optimization is not a one-time project, it's a mindset. Every element on your website must prove its value. Every improvement, no matter how small, adds up.
+
+At Nieuwblik we build websites with conversion in the DNA:
+- Data-driven design decisions
+- Continuous A/B testing
+- User-centric UX
+- Performance optimization
+- Strategic CTAs and messaging
+
+**Ready to convert more visitors into customers?** Start a project and discover how we can measurably increase your conversion.`
     },
-    date: "2025-01-05",
-    readingTime: 8
+    date: "2025-01-15",
+    readingTime: 9
+  },
+  {
+    slug: "seo-fundamentals-gevonden-worden",
+    title: {
+      nl: "SEO fundamentals: hoe je gevonden wordt door je ideale klant",
+      en: "SEO fundamentals: how to be found by your ideal customer"
+    },
+    excerpt: {
+      nl: "Praktische SEO strategieën die je website hoger laten ranken in Google en meer organisch verkeer genereren.",
+      en: "Practical SEO strategies that make your website rank higher in Google and generate more organic traffic."
+    },
+    content: {
+      nl: `# SEO fundamentals: hoe je gevonden wordt door je ideale klant
+
+Je website is live, maar niemand vindt hem. Je verschijnt op pagina 3 van Google (spoiler: daar klikt niemand). Organisch verkeer blijft uit. Herkenbaar?
+
+SEO (Search Engine Optimization) is geen rocket science, maar het vereist wel strategie en technische kennis. Bij Nieuwblik bouwen we websites die niet alleen mooi zijn, maar ook geoptimaliseerd voor zoekmachines vanaf dag één.
+
+## Waarom SEO cruciaal is
+
+### De harde cijfers
+- **75% van gebruikers** klikt nooit verder dan pagina 1
+- **De top 3 resultaten** krijgen 75% van alle clicks
+- **Positie #1** krijgt gemiddeld 28% van alle clicks
+- **Organisch verkeer** converteert 14% beter dan betaalde advertenties
+
+### ROI van SEO vs. Adverteren
+
+**Google Ads**:
+- Kost geld per click (€2-10+ per klik)
+- Stopt zodra je stopt met betalen
+- Kortetermijn resultaten
+
+**SEO**:
+- Kost tijd en expertise (investering vooraf)
+- Blijft doorwerken na initiële inspanning
+- Langetermijn compound growth
+
+**Conclusie**: SEO is de beste langetermijn investering voor duurzame groei.
+
+## De 3 pilaren van moderne SEO
+
+### 1. Technische SEO: de fundering
+
+**Je website moet crawlbaar en indexeerbaar zijn**. Als Google je niet kan lezen, kun je niet ranken.
+
+#### Essentiële technische elementen
+
+**✅ Site speed**
+- Target: < 2 seconden laadtijd
+- Impact: Elke seconde vertraging = 7% minder conversie
+- Google gebruikt dit als ranking factor
+
+**✅ Mobile-first**
+- Google indexeert primair de mobiele versie
+- Responsive design is niet optioneel meer
+- Touch-friendly interface (48x48px buttons)
+
+**✅ SSL certificaat (HTTPS)**
+- Veiligheid is ranking factor
+- Browsers waarschuwen bij HTTP
+- Vertrouwen signaal voor bezoekers
+
+**✅ Clean URL structuur**
+- Beschrijvend: `/diensten/webdesign` niet `/page?id=123`
+- Kort en leesbaar
+- Keywords waar relevant
+
+**✅ XML Sitemap**
+- Geeft Google overzicht van je pagina's
+- Submit via Google Search Console
+- Update automatisch bij nieuwe content
+
+**✅ Robots.txt**
+- Stuurt crawlers
+- Voorkomt indexering van onnodige pagina's
+- Beschermt gevoelige content
+
+#### Core Web Vitals
+
+**Google meet gebruikerservaring** via deze metrics:
+
+**LCP (Largest Contentful Paint)**: < 2.5 seconden
+- Hoe snel laadt de grootste content
+
+**FID (First Input Delay)**: < 100 milliseconden
+- Hoe snel reageert de site op interactie
+
+**CLS (Cumulative Layout Shift)**: < 0.1
+- Hoeveel verschuift de layout tijdens laden
+
+Bij Nieuwblik scoren onze websites **95+ op alle metrics**.
+
+### 2. On-page SEO: content is king
+
+**Google wil de beste antwoorden tonen** op zoekvragen. Jouw content moet relevant, diepgaand en goed gestructureerd zijn.
+
+#### Title tags: je belangrijkste SEO element
+
+**Regels voor perfecte title tags**:
+- **Lengte**: 50-60 karakters (anders wordt het afgekapt)
+- **Keywords**: Belangrijkste keyword vooraan
+- **Uniek**: Elke pagina een eigen title
+- **Compelling**: Moet klikbaar zijn
+
+**Voorbeelden**:
+- ❌ "Home - Nieuwblik"
+- ✅ "Luxury Webdesign Studio | Nieuwblik | Custom Websites"
+
+#### Meta descriptions: je elevator pitch
+
+**Hoewel geen directe ranking factor**, beïnvloedt het je click-through rate:
+- **Lengte**: 150-160 karakters
+- **Bevat keyword** (wordt bold in resultaten)
+- **Call-to-action**: Geef een reden om te klikken
+- **Uniek per pagina**
+
+**Voorbeeld**:
+"Custom websites die 2x meer klanten genereren. Gespecialiseerd in luxury minimalism voor ambitieuze merken. ✨ Bekijk ons portfolio."
+
+#### H1 t/m H6: structuur is alles
+
+**Gebruik headings logisch**:
+- **H1**: Eén per pagina, belangrijkste keyword
+- **H2**: Hoofdsecties
+- **H3**: Subsecties onder H2
+- **H4-H6**: Verdere diepte waar nodig
+
+**Google gebruikt headings** om content te begrijpen en thema's te identificeren.
+
+#### Content kwaliteit
+
+**E-E-A-T principe** (Experience, Expertise, Authoritativeness, Trustworthiness):
+- **Diepgang**: Oppervlakkige content rankt niet
+- **Origineel**: Geen duplicate content
+- **Actueel**: Update oude content regelmatig
+- **Gebruikersfocus**: Schrijf voor mensen, niet voor robots
+
+**Content lengte**:
+- Blog posts: 1500-2500 woorden
+- Service pagina's: 800-1500 woorden
+- Homepage: 500-800 woorden
+
+**Langer = beter** mits het relevant en leesbaar blijft.
+
+#### Image optimization
+
+**Afbeeldingen zijn SEO kansen**:
+- **Alt text**: Beschrijf de afbeelding met keywords
+- **File names**: luxury-webdesign-portfolio.jpg niet IMG_1234.jpg
+- **Compression**: Behoud kwaliteit, reduceer file size
+- **Responsive**: Juiste grootte per device
+
+#### Internal linking
+
+**Link naar je eigen content**:
+- Verspreidt "link juice" over je site
+- Helpt Google je site structuur begrijpen
+- Houdt bezoekers langer op je site
+
+**Best practices**:
+- Gebruik beschrijvende anchor text ("lees meer over conversie optimalisatie" niet "klik hier")
+- Link naar gerelateerde content
+- Maximaal 3-5 interne links per 1000 woorden
+
+### 3. Off-page SEO: autoriteit opbouwen
+
+**Google meet je populariteit** via backlinks: links van andere websites naar jou.
+
+#### Backlinks: kwaliteit > kwantiteit
+
+**Waarom backlinks belangrijk zijn**:
+- Signaal van vertrouwen
+- Google ziet het als "stemmen"
+- Hoogste ranking factor na content
+
+**Wat maakt een goede backlink**:
+- **Domain Authority**: Link van autoritaire site (bijv. grote nieuwssite)
+- **Relevantie**: Site in dezelfde niche
+- **Dofollow**: Geeft SEO waarde door
+- **Contextueel**: In content, niet in footer/sidebar
+
+**Hoe krijg je backlinks**:
+- **Gastblogs** op relevante sites
+- **PR & nieuwsberichten**
+- **Partnerships** met complementaire bedrijven
+- **Gratis tools** die mensen willen delen
+- **Waardevolle content** die link-waardig is
+
+#### Social signals
+
+Hoewel geen directe ranking factor, **sociale media helpt**:
+- Meer zichtbaarheid = meer potentiële backlinks
+- Signaal dat content waardevol is
+- Verhoogt brand awareness
+
+## Keyword research: de basis van SEO succes
+
+**Je moet weten wat je doelgroep zoekt** voordat je kunt optimaliseren.
+
+### Soorten keywords
+
+**1. Short-tail (1-2 woorden)**
+- Voorbeeld: "webdesign"
+- Veel zoekvolume, hoge competitie
+- Moeilijk te ranken
+
+**2. Long-tail (3+ woorden)**
+- Voorbeeld: "luxury webdesign studio Amsterdam"
+- Minder volume, lagere competitie
+- Hogere conversie (specifiekere intent)
+
+**Bij Nieuwblik focussen we primair op long-tail** voor snellere resultaten.
+
+### Keyword intent begrijpen
+
+**4 types zoekintent**:
+
+**Informational**: "wat is SEO"
+- Zoekt informatie
+- Top of funnel
+- Blog content
+
+**Navigational**: "Nieuwblik webdesign"
+- Zoekt specifiek merk/bedrijf
+- Direct traffic
+
+**Commercial**: "beste webdesign agency"
+- Onderzoekt opties
+- Middle of funnel
+- Comparison pages
+
+**Transactional**: "custom website laten maken"
+- Klaar om actie te ondernemen
+- Bottom of funnel
+- Service/product pages
+
+**Match je content aan de intent** voor maximale relevantie.
+
+### Keyword tools
+
+**Gratis**:
+- Google Keyword Planner
+- Google Trends
+- Answer the Public
+
+**Betaald** (meer data):
+- Ahrefs
+- SEMrush
+- Moz Keyword Explorer
+
+## Local SEO: voor lokale bedrijven
+
+**Als je lokale klanten bedient**, is local SEO cruciaal.
+
+### Google Business Profile
+
+**Optimize your listing**:
+- Volledige bedrijfsinformatie
+- Categorie selectie (specifiek!)
+- Regelmatig foto's uploaden
+- Vragen beantwoorden
+- Reviews verzamelen (en beantwoorden!)
+
+### NAP consistency
+
+**Name, Address, Phone** moet **exact hetzelfde** zijn op:
+- Je website
+- Google Business
+- Alle directories (Yelp, Apple Maps, etc.)
+
+Inconsistentie verwaart Google en schaadt je ranking.
+
+### Reviews
+
+**Reviews zijn ranking factor** voor local SEO:
+- Verzamel actief reviews
+- Beantwoord alle reviews (positief én negatief)
+- Gebruik keywords natuurlijk in antwoorden
+
+## Content strategie voor SEO
+
+### De pillar-cluster methode
+
+**Pillar content**: Diepgaande gids over hoofdonderwerp
+- Voorbeeld: "Complete SEO gids voor 2025"
+- 3000-5000 woorden
+- Breed keyword: "SEO gids"
+
+**Cluster content**: Specifieke subtopics
+- Voorbeeld: "Keyword research voor beginners"
+- 1500-2500 woorden
+- Long-tail keyword: "keyword research tutorial"
+
+**Link clusters naar pillar** en vice versa voor sterke interne link structuur.
+
+### Content calendar
+
+**Consistency is key**:
+- Plan content 3 maanden vooruit
+- Wisselende formats (guides, case studies, news)
+- Target verschillende keywords per post
+- Update oude content elk kwartaal
+
+## SEO tools die we gebruiken
+
+### Monitoring & analysis
+- **Google Search Console**: Essentieel, gratis, direct data van Google
+- **Google Analytics**: Traffic analyse en conversie tracking
+- **Ahrefs**: Backlink analyse en keyword research
+- **Screaming Frog**: Technical SEO audit
+
+### On-page optimization
+- **Yoast SEO / Rank Math**: WordPress SEO plugin
+- **Schema markup generators**: Rich snippets
+- **PageSpeed Insights**: Performance monitoring
+
+## De Nieuwblik SEO aanpak
+
+**Bij elk project implementeren we**:
+
+### Launch checklist
+✅ Technical SEO audit en fixes
+✅ Keyword research en strategy
+✅ Optimized title tags en meta descriptions
+✅ Schema markup implementation
+✅ XML sitemap en robots.txt
+✅ Google Search Console setup
+✅ Analytics en conversion tracking
+
+### Ongoing optimization
+✅ Maandelijkse ranking monitoring
+✅ Kwartaal content updates
+✅ Continuous technical improvements
+✅ Backlink outreach campaigns
+✅ Performance optimization
+
+## Veelgemaakte SEO fouten
+
+### ❌ Keyword stuffing
+Te veel keywords = penalty. Schrijf natuurlijk.
+
+### ❌ Duplicate content
+Elke pagina unieke content. Geen kopiëren van andere sites.
+
+### ❌ Ignoring mobile
+60%+ zoekt op mobiel. Mobile-first is essentieel.
+
+### ❌ Slow site speed
+Traag = lagere rankings. Optimize rigorously.
+
+### ❌ No internal linking
+Link naar je eigen content. Verspreidt SEO waarde.
+
+### ❌ Thin content
+Korte, oppervlakkige pagina's ranken niet. Go deep.
+
+## SEO tijdlijn: wat te verwachten
+
+**SEO is geen quick fix**:
+
+### Maand 1-3: Fundament
+- Technical setup
+- Keyword research
+- Content optimalisatie
+- Eerste rankings verbetering
+
+### Maand 4-6: Groei
+- Merkbare traffic stijging
+- Hogere rankings voor long-tail
+- Eerste conversies uit SEO
+
+### Maand 7-12: Momentum
+- Significante traffic groei
+- Rankings voor competitive keywords
+- SEO als belangrijkste traffic bron
+
+### 12+ maanden: Compound growth
+- Dominante rankings
+- Consistent hoge traffic
+- Lagere customer acquisition cost
+
+**Geduld is cruciaal**. Maar de ROI is fenomenaal.
+
+## Conclusie: investeer in SEO
+
+SEO is geen kosten, het is een investering die **maand na maand meer waard wordt**. Terwijl advertenties stoppen zodra je stopt met betalen, blijft SEO traffic genereren.
+
+Bij Nieuwblik bouwen we SEO in vanaf het eerste design:
+- **Technical excellence**: Snelle, crawlbare websites
+- **Strategic content**: Keyword-optimized, user-focused
+- **Ongoing optimization**: Continue verbetering
+
+**Klaar om gevonden te worden?** Start een project en ontdek hoe we jouw organische zichtbaarheid transformeren.
+      `,
+      en: `# SEO fundamentals: how to be found by your ideal customer
+
+Your website is live, but nobody finds it. You appear on page 3 of Google (spoiler: nobody clicks there). Organic traffic remains absent. Sound familiar?
+
+SEO (Search Engine Optimization) is not rocket science, but it does require strategy and technical knowledge. At Nieuwblik we build websites that are not only beautiful, but also optimized for search engines from day one.
+
+## Why SEO is crucial
+
+### The hard numbers
+- **75% of users** never click past page 1
+- **The top 3 results** get 75% of all clicks
+- **Position #1** gets an average of 28% of all clicks
+- **Organic traffic** converts 14% better than paid advertising
+
+### ROI of SEO vs. Advertising
+
+**Google Ads**:
+- Costs money per click (€2-10+ per click)
+- Stops as soon as you stop paying
+- Short-term results
+
+**SEO**:
+- Costs time and expertise (upfront investment)
+- Continues working after initial effort
+- Long-term compound growth
+
+**Conclusion**: SEO is the best long-term investment for sustainable growth.
+
+## The 3 pillars of modern SEO
+
+### 1. Technical SEO: the foundation
+
+**Your website must be crawlable and indexable**. If Google can't read you, you can't rank.
+
+#### Essential technical elements
+
+**✅ Site speed**
+- Target: < 2 seconds load time
+- Impact: Every second delay = 7% less conversion
+- Google uses this as ranking factor
+
+**✅ Mobile-first**
+- Google indexes primarily the mobile version
+- Responsive design is no longer optional
+- Touch-friendly interface (48x48px buttons)
+
+**✅ SSL certificate (HTTPS)**
+- Security is ranking factor
+- Browsers warn with HTTP
+- Trust signal for visitors
+
+**✅ Clean URL structure**
+- Descriptive: `/services/webdesign` not `/page?id=123`
+- Short and readable
+- Keywords where relevant
+
+**✅ XML Sitemap**
+- Gives Google overview of your pages
+- Submit via Google Search Console
+- Update automatically with new content
+
+**✅ Robots.txt**
+- Directs crawlers
+- Prevents indexing of unnecessary pages
+- Protects sensitive content
+
+#### Core Web Vitals
+
+**Google measures user experience** via these metrics:
+
+**LCP (Largest Contentful Paint)**: < 2.5 seconds
+- How fast the largest content loads
+
+**FID (First Input Delay)**: < 100 milliseconds
+- How fast the site responds to interaction
+
+**CLS (Cumulative Layout Shift)**: < 0.1
+- How much the layout shifts during loading
+
+At Nieuwblik our websites score **95+ on all metrics**.
+
+### 2. On-page SEO: content is king
+
+**Google wants to show the best answers** to search queries. Your content must be relevant, in-depth and well-structured.
+
+#### Title tags: your most important SEO element
+
+**Rules for perfect title tags**:
+- **Length**: 50-60 characters (otherwise it gets cut off)
+- **Keywords**: Most important keyword up front
+- **Unique**: Each page its own title
+- **Compelling**: Must be clickable
+
+**Examples**:
+- ❌ "Home - Nieuwblik"
+- ✅ "Luxury Webdesign Studio | Nieuwblik | Custom Websites"
+
+#### Meta descriptions: your elevator pitch
+
+**Although not a direct ranking factor**, it affects your click-through rate:
+- **Length**: 150-160 characters
+- **Contains keyword** (becomes bold in results)
+- **Call-to-action**: Give a reason to click
+- **Unique per page**
+
+**Example**:
+"Custom websites that generate 2x more customers. Specialized in luxury minimalism for ambitious brands. ✨ View our portfolio."
+
+#### H1 through H6: structure is everything
+
+**Use headings logically**:
+- **H1**: One per page, most important keyword
+- **H2**: Main sections
+- **H3**: Subsections under H2
+- **H4-H6**: Further depth where needed
+
+**Google uses headings** to understand content and identify themes.
+
+#### Content quality
+
+**E-E-A-T principle** (Experience, Expertise, Authoritativeness, Trustworthiness):
+- **Depth**: Superficial content doesn't rank
+- **Original**: No duplicate content
+- **Current**: Update old content regularly
+- **User focus**: Write for people, not robots
+
+**Content length**:
+- Blog posts: 1500-2500 words
+- Service pages: 800-1500 words
+- Homepage: 500-800 words
+
+**Longer = better** as long as it remains relevant and readable.
+
+#### Image optimization
+
+**Images are SEO opportunities**:
+- **Alt text**: Describe the image with keywords
+- **File names**: luxury-webdesign-portfolio.jpg not IMG_1234.jpg
+- **Compression**: Maintain quality, reduce file size
+- **Responsive**: Right size per device
+
+#### Internal linking
+
+**Link to your own content**:
+- Spreads "link juice" across your site
+- Helps Google understand your site structure
+- Keeps visitors on your site longer
+
+**Best practices**:
+- Use descriptive anchor text ("read more about conversion optimization" not "click here")
+- Link to related content
+- Maximum 3-5 internal links per 1000 words
+
+### 3. Off-page SEO: building authority
+
+**Google measures your popularity** via backlinks: links from other websites to you.
+
+#### Backlinks: quality > quantity
+
+**Why backlinks are important**:
+- Signal of trust
+- Google sees it as "votes"
+- Highest ranking factor after content
+
+**What makes a good backlink**:
+- **Domain Authority**: Link from authoritative site (e.g., major news site)
+- **Relevance**: Site in same niche
+- **Dofollow**: Passes SEO value
+- **Contextual**: In content, not in footer/sidebar
+
+**How to get backlinks**:
+- **Guest blogs** on relevant sites
+- **PR & press releases**
+- **Partnerships** with complementary businesses
+- **Free tools** that people want to share
+- **Valuable content** that is link-worthy
+
+#### Social signals
+
+Although not a direct ranking factor, **social media helps**:
+- More visibility = more potential backlinks
+- Signal that content is valuable
+- Increases brand awareness
+
+## Keyword research: the foundation of SEO success
+
+**You need to know what your target audience searches for** before you can optimize.
+
+### Types of keywords
+
+**1. Short-tail (1-2 words)**
+- Example: "webdesign"
+- High search volume, high competition
+- Difficult to rank
+
+**2. Long-tail (3+ words)**
+- Example: "luxury webdesign studio Amsterdam"
+- Less volume, lower competition
+- Higher conversion (more specific intent)
+
+**At Nieuwblik we focus primarily on long-tail** for faster results.
+
+### Understanding keyword intent
+
+**4 types of search intent**:
+
+**Informational**: "what is SEO"
+- Seeking information
+- Top of funnel
+- Blog content
+
+**Navigational**: "Nieuwblik webdesign"
+- Seeking specific brand/company
+- Direct traffic
+
+**Commercial**: "best webdesign agency"
+- Researching options
+- Middle of funnel
+- Comparison pages
+
+**Transactional**: "custom website development"
+- Ready to take action
+- Bottom of funnel
+- Service/product pages
+
+**Match your content to the intent** for maximum relevance.
+
+### Keyword tools
+
+**Free**:
+- Google Keyword Planner
+- Google Trends
+- Answer the Public
+
+**Paid** (more data):
+- Ahrefs
+- SEMrush
+- Moz Keyword Explorer
+
+## Local SEO: for local businesses
+
+**If you serve local customers**, local SEO is crucial.
+
+### Google Business Profile
+
+**Optimize your listing**:
+- Complete business information
+- Category selection (specific!)
+- Upload photos regularly
+- Answer questions
+- Collect reviews (and respond!)
+
+### NAP consistency
+
+**Name, Address, Phone** must be **exactly the same** on:
+- Your website
+- Google Business
+- All directories (Yelp, Apple Maps, etc.)
+
+Inconsistency confuses Google and harms your ranking.
+
+### Reviews
+
+**Reviews are ranking factor** for local SEO:
+- Actively collect reviews
+- Respond to all reviews (positive and negative)
+- Use keywords naturally in responses
+
+## Content strategy for SEO
+
+### The pillar-cluster method
+
+**Pillar content**: In-depth guide on main topic
+- Example: "Complete SEO guide for 2025"
+- 3000-5000 words
+- Broad keyword: "SEO guide"
+
+**Cluster content**: Specific subtopics
+- Example: "Keyword research for beginners"
+- 1500-2500 words
+- Long-tail keyword: "keyword research tutorial"
+
+**Link clusters to pillar** and vice versa for strong internal link structure.
+
+### Content calendar
+
+**Consistency is key**:
+- Plan content 3 months ahead
+- Varying formats (guides, case studies, news)
+- Target different keywords per post
+- Update old content each quarter
+
+## SEO tools we use
+
+### Monitoring & analysis
+- **Google Search Console**: Essential, free, direct data from Google
+- **Google Analytics**: Traffic analysis and conversion tracking
+- **Ahrefs**: Backlink analysis and keyword research
+- **Screaming Frog**: Technical SEO audit
+
+### On-page optimization
+- **Yoast SEO / Rank Math**: WordPress SEO plugin
+- **Schema markup generators**: Rich snippets
+- **PageSpeed Insights**: Performance monitoring
+
+## The Nieuwblik SEO approach
+
+**With every project we implement**:
+
+### Launch checklist
+✅ Technical SEO audit and fixes
+✅ Keyword research and strategy
+✅ Optimized title tags and meta descriptions
+✅ Schema markup implementation
+✅ XML sitemap and robots.txt
+✅ Google Search Console setup
+✅ Analytics and conversion tracking
+
+### Ongoing optimization
+✅ Monthly ranking monitoring
+✅ Quarterly content updates
+✅ Continuous technical improvements
+✅ Backlink outreach campaigns
+✅ Performance optimization
+
+## Common SEO mistakes
+
+### ❌ Keyword stuffing
+Too many keywords = penalty. Write naturally.
+
+### ❌ Duplicate content
+Each page unique content. No copying from other sites.
+
+### ❌ Ignoring mobile
+60%+ search on mobile. Mobile-first is essential.
+
+### ❌ Slow site speed
+Slow = lower rankings. Optimize rigorously.
+
+### ❌ No internal linking
+Link to your own content. Spreads SEO value.
+
+### ❌ Thin content
+Short, superficial pages don't rank. Go deep.
+
+## SEO timeline: what to expect
+
+**SEO is not a quick fix**:
+
+### Month 1-3: Foundation
+- Technical setup
+- Keyword research
+- Content optimization
+- First ranking improvement
+
+### Month 4-6: Growth
+- Noticeable traffic increase
+- Higher rankings for long-tail
+- First conversions from SEO
+
+### Month 7-12: Momentum
+- Significant traffic growth
+- Rankings for competitive keywords
+- SEO as main traffic source
+
+### 12+ months: Compound growth
+- Dominant rankings
+- Consistent high traffic
+- Lower customer acquisition cost
+
+**Patience is crucial**. But the ROI is phenomenal.
+
+## Conclusion: invest in SEO
+
+SEO is not a cost, it's an investment that **becomes more valuable month after month**. While ads stop as soon as you stop paying, SEO keeps generating traffic.
+
+At Nieuwblik we build SEO in from the first design:
+- **Technical excellence**: Fast, crawlable websites
+- **Strategic content**: Keyword-optimized, user-focused
+- **Ongoing optimization**: Continuous improvement
+
+**Ready to be found?** Start a project and discover how we transform your organic visibility.`
+    },
+    date: "2025-01-10",
+    readingTime: 12
   }
 ];
