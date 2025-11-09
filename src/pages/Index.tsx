@@ -111,8 +111,8 @@ const Index = () => {
               </div>
             </div>
             <div className="relative flex flex-col lg:flex-row items-center gap-6">
-              <div className="absolute -inset-4 bg-gradient-to-r from-accent via-primary to-accent opacity-75 blur-2xl animate-pulse"></div>
-              <div className="absolute -inset-2 bg-gradient-to-br from-accent/40 to-primary/40 rounded-lg transform rotate-3 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-accent via-primary to-accent opacity-75 blur-2xl animate-pulse pointer-events-none"></div>
+              <div className="absolute -inset-2 bg-gradient-to-br from-accent/40 to-primary/40 rounded-lg transform rotate-3 animate-pulse pointer-events-none" style={{ animationDelay: '0.5s' }}></div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 w-full lg:flex-1">
                 <img 
                   src={justinImage} 
@@ -120,7 +120,7 @@ const Index = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="flex flex-row lg:flex-col gap-4 justify-center lg:justify-start">
+              <div className="relative z-10 flex flex-row lg:flex-col gap-4 justify-center lg:justify-start">
                 <a
                   href="https://x.com/justin_slok"
                   target="_blank"
