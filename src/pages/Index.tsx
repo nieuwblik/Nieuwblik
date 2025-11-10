@@ -70,9 +70,9 @@ const Index = () => {
       url: "https://esveldinstallatie.nl"
     },
     {
-      title: "Feits Madakwerken",
-      category: "Bouwbedrijf",
-      description: "Modern bouwbedrijf platform met showcases van metselwerk en aannemingsprojecten.",
+      title: "Feitsma Dakwerken",
+      category: "Dakdekkers & Aannemers",
+      description: "Professioneel dakdekkersbedrijf platform met showcases van dakwerkzaamheden en aannemingsprojecten.",
       image: feitsmadakwerkenImg,
       url: "https://feitsmadakwerken.nl"
     }
