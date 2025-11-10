@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
@@ -228,12 +230,44 @@ const Portfolio = () => {
   const showEcommerce = activeFilter === "all" || activeFilter === "e-commerce";
   const showProjects = activeFilter !== "videos" && activeFilter !== "e-commerce";
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Portfolio - Nieuwblik",
+    "description": "Bekijk onze portfolio met succesvolle webdesign projecten, e-commerce oplossingen en branding cases.",
+    "url": "https://www.nieuwblik.com/portfolio",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": projects.slice(0, 6).map((project, index) => ({
+        "@type": "CreativeWork",
+        "position": index + 1,
+        "name": project.title,
+        "description": project.description,
+        "url": project.url
+      }))
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Portfolio | Succesvolle Webdesign Projecten - Nieuwblik"
+        description="Bekijk onze portfolio met prachtige websites, sterke merkidentiteiten en krachtige e-commerce oplossingen. Van startups tot gevestigde bedrijven - zie wat we kunnen!"
+        keywords="webdesign portfolio, website voorbeelden, branding cases, e-commerce projecten, design portfolio"
+        canonicalUrl="https://www.nieuwblik.com/portfolio"
+        structuredData={structuredData}
+      />
       <Navigation />
       
+      {/* Breadcrumb */}
+      <section className="pt-32 pb-0">
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={[{ label: "Portfolio", path: "/portfolio" }]} />
+        </div>
+      </section>
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6">
           <p className="text-accent mb-6">ONS PORTFOLIO</p>
           <h1 className="text-display mb-6">
@@ -280,11 +314,12 @@ const Portfolio = () => {
                   className="group cursor-pointer block"
                 >
                   <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <span className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg">
@@ -336,6 +371,7 @@ const Portfolio = () => {
                     <img 
                       src={listing.image} 
                       alt={listing.title}
+                      loading="lazy"
                       className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

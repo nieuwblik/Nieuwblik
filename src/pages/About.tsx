@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Users, Sparkles, Rocket } from "lucide-react";
@@ -34,12 +36,42 @@ const About = () => {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "Over Ons - Nieuwblik",
+    "description": "Leer meer over Nieuwblik, jouw partner in digitale groei. Onze missie, waarden en passie voor het creëren van digitale oplossingen die echt impact maken.",
+    "url": "https://www.nieuwblik.com/over-ons",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Nieuwblik",
+      "founder": {
+        "@type": "Person",
+        "name": "Justin Slok"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Over Ons | Passie voor Digitaal Design - Nieuwblik"
+        description="Gedreven door passie, geleid door resultaat. Ontdek het verhaal achter Nieuwblik en waarom we doen wat we doen. Jouw digitale succes is onze missie!"
+        keywords="over ons, webdesign bureau, digitale agency, nieuwblik team, webdesign enkhuizen"
+        canonicalUrl="https://www.nieuwblik.com/over-ons"
+        structuredData={structuredData}
+      />
       <Navigation />
       
+      {/* Breadcrumb */}
+      <section className="pt-32 pb-0">
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={[{ label: "Over Ons", path: "/over-ons" }]} />
+        </div>
+      </section>
+      
       {/* Hero Section with Image */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div
@@ -75,7 +107,8 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg transform rotate-3"></div>
                 <img 
                   src={justinImg} 
-                  alt="Justin Slok" 
+                  alt="Justin Slok"
+                  loading="lazy"
                   className="relative rounded-lg shadow-2xl w-full object-cover transform -rotate-2 hover:rotate-0 transition-transform duration-500"
                 />
               </div>

@@ -2,6 +2,8 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
+import SEOHead from "@/components/SEOHead";
 import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -23,6 +25,33 @@ const BlogPost = () => {
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
   
   const post = blogPosts.find(p => p.slug === slug);
+
+  const structuredData = post ? {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title.nl,
+    "description": post.excerpt.nl,
+    "image": `https://www.nieuwblik.com/blog/${slug}.jpg`,
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": {
+      "@type": "Person",
+      "name": "Justin Slok",
+      "url": "https://www.nieuwblik.com/over-ons"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nieuwblik",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.nieuwblik.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.nieuwblik.com/blog/${slug}`
+    }
+  } : null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -223,7 +252,26 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {post && (
+        <SEOHead 
+          title={`${post.title.nl} | Blog - Nieuwblik`}
+          description={post.excerpt.nl}
+          keywords="webdesign, SEO, conversie, digitale marketing, website optimalisatie"
+          canonicalUrl={`https://www.nieuwblik.com/blog/${slug}`}
+          structuredData={structuredData || undefined}
+        />
+      )}
       <Navigation />
+      
+      {/* Breadcrumb */}
+      <section className="pt-32 pb-4">
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={[
+            { label: "Blog", path: "/blog" },
+            { label: post?.title.nl || "Blog Post", path: `/blog/${slug}` }
+          ]} />
+        </div>
+      </section>
       
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50">
@@ -234,7 +282,7 @@ const BlogPost = () => {
       </div>
       
       {/* Back to Blog */}
-      <section className="pt-32 pb-8">
+      <section className="pb-8">
         <div className="container mx-auto px-6">
           <Link 
             to="/blog" 
@@ -301,7 +349,8 @@ const BlogPost = () => {
                   <div className="flex items-center gap-4">
                     <img 
                       src={justinImg} 
-                      alt="Justin Slok" 
+                      alt="Justin Slok"
+                      loading="lazy"
                       className="w-16 h-16 rounded-full object-cover"
                     />
                     <div>
@@ -319,7 +368,8 @@ const BlogPost = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <img 
                     src={justinImg} 
-                    alt="Justin Slok - Nieuwblik" 
+                    alt="Justin Slok - Nieuwblik"
+                    loading="lazy"
                     className="w-20 h-20 rounded-full object-cover border-4 border-accent-foreground/20"
                   />
                   <div>

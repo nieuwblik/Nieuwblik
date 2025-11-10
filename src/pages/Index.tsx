@@ -116,7 +116,8 @@ const Index = () => {
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 w-full lg:flex-1">
                 <img 
                   src={justinImage} 
-                  alt="Justin Slok - Nieuwblik" 
+                  alt="Justin Slok - Nieuwblik"
+                  loading="eager"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -228,6 +229,7 @@ const Index = () => {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

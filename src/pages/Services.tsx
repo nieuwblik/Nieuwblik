@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Globe, Palette, ShoppingBag, Pen } from "lucide-react";
@@ -57,12 +59,51 @@ const Services = () => {
     }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Digitale Diensten - Nieuwblik",
+    "provider": {
+      "@type": "Organization",
+      "name": "Nieuwblik",
+      "url": "https://www.nieuwblik.com"
+    },
+    "serviceType": "Webdesign & Digitale Marketing",
+    "areaServed": "Nederland",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Digitale Diensten",
+      "itemListElement": services.map((service, index) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.title,
+          "description": service.description
+        }
+      }))
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Digitale Diensten die Groeien | Webdesign & Branding - Nieuwblik"
+        description="Ontdek onze premium digitale diensten: webdesign, merkidentiteit, e-commerce en custom design. Wij creëren oplossingen die jouw bedrijf laten groeien. Start vandaag!"
+        keywords="webdesign diensten, merkidentiteit, branding, e-commerce oplossingen, custom design, digitale diensten, website ontwikkeling"
+        canonicalUrl="https://www.nieuwblik.com/diensten"
+        structuredData={structuredData}
+      />
       <Navigation />
       
+      {/* Breadcrumb */}
+      <section className="pt-32 pb-0">
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={[{ label: "Diensten", path: "/diensten" }]} />
+        </div>
+      </section>
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6">
           <p className="text-accent mb-6">ONZE DIENSTEN</p>
           <h1 className="text-display mb-6">

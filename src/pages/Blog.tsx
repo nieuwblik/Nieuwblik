@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
+import SEOHead from "@/components/SEOHead";
 import { Link } from "react-router-dom";
 import { Clock, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
@@ -17,12 +19,44 @@ const Blog = () => {
     "seo-fundamentals-gevonden-worden": seoFundamentals,
   };
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Nieuwblik Blog",
+    "description": "Ontdek waardevolle inzichten over webdesign, SEO, conversie optimalisatie en digitale marketing.",
+    "url": "https://www.nieuwblik.com/blog",
+    "blogPost": blogPosts.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title.nl,
+      "description": post.excerpt.nl,
+      "datePublished": post.date,
+      "author": {
+        "@type": "Person",
+        "name": "Justin Slok"
+      }
+    }))
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Blog | Digitale Marketing & Webdesign Tips - Nieuwblik"
+        description="Leer alles over webdesign, SEO, conversie optimalisatie en digitale marketing. Praktische tips en inzichten die je bedrijf laten groeien. Start vandaag!"
+        keywords="webdesign blog, SEO tips, conversie optimalisatie, digitale marketing, webdesign tips"
+        canonicalUrl="https://www.nieuwblik.com/blog"
+        structuredData={structuredData}
+      />
       <Navigation />
       
+      {/* Breadcrumb */}
+      <section className="pt-32 pb-0">
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={[{ label: "Blog", path: "/blog" }]} />
+        </div>
+      </section>
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6">
           <div
             ref={heroAnimation.ref}
@@ -66,6 +100,7 @@ const Blog = () => {
                     <img 
                       src={blogImages[post.slug]} 
                       alt={post.title.nl}
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

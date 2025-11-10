@@ -1,16 +1,40 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle } from "lucide-react";
 import ProjectBriefingForm from "@/components/ProjectBriefingForm";
 
 const Contact = () => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact - Nieuwblik",
+    "description": "Neem contact op met Nieuwblik voor jouw digitale project. Wij staan klaar om je te helpen!",
+    "url": "https://www.nieuwblik.com/contact"
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Start Je Project | Direct Contact met Nieuwblik"
+        description="Klaar om jouw digitale droom waar te maken? Neem vandaag nog contact op voor een vrijblijvend gesprek. Binnen 24 uur reactie gegarandeerd!"
+        keywords="contact webdesign, offerte aanvragen, website laten maken, digitaal bureau contact"
+        canonicalUrl="https://www.nieuwblik.com/contact"
+        structuredData={structuredData}
+      />
       <Navigation />
       
+      {/* Breadcrumb */}
+      <section className="pt-32 pb-0">
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={[{ label: "Contact", path: "/contact" }]} />
+        </div>
+      </section>
+      
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6">
           <p className="text-accent mb-6">START JOUW PROJECT</p>
           <h1 className="text-display mb-6">
