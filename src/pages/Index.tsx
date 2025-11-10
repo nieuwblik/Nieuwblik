@@ -348,7 +348,7 @@ const Index = () => {
             <Button asChild size="lg" variant="secondary" className={`transition-all duration-700 delay-700 group ${
               seoAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}>
-              <Link to="/start-je-project" className="flex items-center gap-2">
+              <Link to="/contact" className="flex items-center gap-2">
                 Boost mijn vindbaarheid
                 <span className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">🚀</span>
               </Link>
