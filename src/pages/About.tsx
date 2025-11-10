@@ -61,7 +61,7 @@ const About = () => {
                 Bij Nieuwblik combineren we creatieve visie met strategisch denken. We luisteren naar jouw verhaal, begrijpen je doelen en vertalen dat naar digitale oplossingen die niet alleen opvallen, maar ook converteren. Elk project is een nieuwe kans om iets bijzonders te creëren.
               </p>
               <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link to="/contact">Laten we kennismaken</Link>
+                <Link to="/start-je-project">Laten we kennismaken</Link>
               </Button>
             </div>
             <div
@@ -161,7 +161,7 @@ const About = () => {
             We horen graag jouw verhaal en helpen je graag om je digitale dromen waar te maken.
           </p>
           <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
-            <Link to="/contact">Neem contact op</Link>
+            <Link to="/start-je-project">Neem contact op</Link>
           </Button>
         </div>
       </section>

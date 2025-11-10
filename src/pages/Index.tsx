@@ -100,7 +100,7 @@ const Index = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Link to="/contact">
+                  <Link to="/start-je-project">
                     Start je transformatie
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -192,9 +192,9 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/services">Ontdek alle mogelijkheden</Link>
-            </Button>
+                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                  <Link to="/diensten">Ontdek alle mogelijkheden</Link>
+                </Button>
           </div>
         </div>
       </section>
@@ -299,7 +299,7 @@ const Index = () => {
             Laat je verhaal horen. Samen bouwen we een digitale aanwezigheid die niet alleen opvalt, maar ook converteert. De eerste stap? Een vrijblijvend gesprek.
           </p>
           <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
-            <Link to="/contact">
+            <Link to="/start-je-project">
               Start vandaag je groeiverhaal
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

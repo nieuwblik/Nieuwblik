@@ -313,12 +313,23 @@ const BlogPost = () => {
               </div>
             </div>
 
-            {/* Sidebar - Contact */}
+            {/* Sidebar - Inspired Contact */}
             <div className="lg:col-span-1">
               <div className="bg-accent text-accent-foreground p-8 rounded-lg sticky top-32">
-                <h3 className="text-2xl font-semibold mb-4">{t("blog.contact.title")}</h3>
+                <div className="flex items-center gap-4 mb-6">
+                  <img 
+                    src={justinImg} 
+                    alt="Justin Slok - Nieuwblik" 
+                    className="w-20 h-20 rounded-full object-cover border-4 border-accent-foreground/20"
+                  />
+                  <div>
+                    <h3 className="text-2xl font-semibold">Geïnspireerd?</h3>
+                    <p className="text-sm opacity-80">Justin Slok</p>
+                  </div>
+                </div>
+                
                 <p className="mb-6 opacity-90">
-                  {t("blog.contact.description")}
+                  Heb je ideeën gekregen voor je eigen project? Laten we samen iets moois bouwen dat jouw merk laat schitteren.
                 </p>
                 
                 <div className="space-y-4">
@@ -352,12 +363,12 @@ const BlogPost = () => {
                     </Button>
                   </a>
 
-                  <Link to="/contact" className="w-full block">
+                  <Link to="/start-je-project" className="w-full block">
                     <Button 
                       className="w-full bg-background text-foreground hover:bg-background/90"
                       size="lg"
                     >
-                      {t("blog.contact.cta")}
+                      Start je project
                     </Button>
                   </Link>
                 </div>

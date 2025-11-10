@@ -39,12 +39,13 @@ const App = () => (
           <CookieConsent />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/services" element={<Services />} />
+            <Route path="/diensten" element={<Services />} />
             <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/over-ons" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/start-je-project" element={<Contact />} />
             <Route path="/bedankt" element={<ThankYou />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/cookies" element={<Cookies />} />

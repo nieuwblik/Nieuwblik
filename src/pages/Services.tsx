@@ -94,7 +94,7 @@ const Services = () => {
                     </p>
                   </div>
                   <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 mt-auto">
-                    <Link to="/contact">Start je project</Link>
+                    <Link to="/start-je-project">Start je project</Link>
                   </Button>
                 </div>
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
@@ -129,7 +129,7 @@ const Services = () => {
             Laten we bespreken hoe onze diensten jou kunnen helpen je bedrijfsdoelen te bereiken.
           </p>
           <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
-            <Link to="/contact">Start vandaag</Link>
+            <Link to="/start-je-project">Start vandaag</Link>
           </Button>
         </div>
       </section>
