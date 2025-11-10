@@ -1,0 +1,53 @@
+[[redirects]]
+  from = "https://nieuwblik.nl/*"
+  to = "https://www.nieuwblik.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.nieuwblik.nl/*"
+  to = "https://www.nieuwblik.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://nieuwblik.com/*"
+  to = "https://www.nieuwblik.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.nieuwblik.com/*"
+  to = "https://www.nieuwblik.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://nieuwblik.com/*"
+  to = "https://www.nieuwblik.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services"
+  to = "/diensten"
+  status = 301
+
+[[redirects]]
+  from = "/about"
+  to = "/over-ons"
+  status = 301
+
+[[redirects]]
+  from = "/start-your-project"
+  to = "/start-je-project"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

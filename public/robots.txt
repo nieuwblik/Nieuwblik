@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.nieuwblik.nl/sitemap.xml
+Sitemap: https://www.nieuwblik.com/sitemap.xml
