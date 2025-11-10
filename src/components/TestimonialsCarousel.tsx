@@ -164,7 +164,7 @@ const TestimonialsCarousel = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2"
           >
-            {t("testimonials.cta")}
+            Bekijk alle recensies
             <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </Button>
