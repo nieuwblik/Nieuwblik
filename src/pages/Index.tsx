@@ -13,8 +13,8 @@ import SocialContentSection from "@/components/SocialContentSection";
 // Import featured project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
 import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
-import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.png";
-import lashlutionImg from "@/assets/projects/lashlution.nl.png";
+import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
+import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
 
 const Index = () => {
   const heroAnimation = useScrollAnimation();
@@ -63,18 +63,18 @@ const Index = () => {
       url: "https://karateschoolcorslok.nl"
     },
     {
-      title: "Casper Nieskens PT",
-      category: "Personal Training",
-      description: "Professioneel fitness coaching platform met gepersonaliseerde trainingsprogramma's.",
-      image: caspernieskensptImg,
-      url: "https://caspernieskenspt.com"
+      title: "Esveld Installatie",
+      category: "Installatiebedrijf",
+      description: "Professionele installatie website met projectportfolio en direct contact voor offertes.",
+      image: esveldinstallatieImg,
+      url: "https://esveldinstallatie.nl"
     },
     {
-      title: "Lashlution",
-      category: "Beauty & Wellness",
-      description: "Premium lash extensions en beauty services boekingsplatform.",
-      image: lashlutionImg,
-      url: "https://lashlution.nl"
+      title: "Feits Madakwerken",
+      category: "Bouwbedrijf",
+      description: "Modern bouwbedrijf platform met showcases van metselwerk en aannemingsprojecten.",
+      image: feitsmadakwerkenImg,
+      url: "https://feitsmadakwerken.nl"
     }
   ];
 
