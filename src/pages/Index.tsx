@@ -279,12 +279,12 @@ const Index = () => {
           </div>
           
           {/* Search Engine Logos */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 lg:gap-12 items-center justify-items-center mt-16">
             {/* Google */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-100 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110`}>
-              <svg className="w-24 h-24" viewBox="0 0 272 92" fill="none">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+              <svg className="w-20 h-20 md:w-24 md:h-24" viewBox="0 0 272 92" fill="none">
                 <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="white"/>
                 <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="white"/>
                 <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="white"/>
@@ -297,8 +297,8 @@ const Index = () => {
             {/* OpenAI */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-200 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110`}>
-              <svg className="w-16 h-16" viewBox="0 0 24 24" fill="white">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
                 <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
               </svg>
             </div>
@@ -306,8 +306,8 @@ const Index = () => {
             {/* Perplexity */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-300 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110`}>
-              <svg className="w-16 h-16" viewBox="0 0 24 24" fill="white">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" strokeWidth="2" fill="none"/>
               </svg>
             </div>
@@ -315,8 +315,8 @@ const Index = () => {
             {/* Grok (X AI) */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-400 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110`}>
-              <svg className="w-16 h-16" viewBox="0 0 24 24" fill="white">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </div>
@@ -324,8 +324,8 @@ const Index = () => {
             {/* Claude (Anthropic) */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-500 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110`}>
-              <svg className="w-16 h-16" viewBox="0 0 24 24" fill="white">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
                 <path d="M14.5 2.5L9.5 21.5M19 6.5L5 6.5M18 17.5L6 17.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
               </svg>
             </div>
@@ -333,24 +333,24 @@ const Index = () => {
             {/* Copilot (Microsoft) */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-600 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110`}>
-              <svg className="w-16 h-16" viewBox="0 0 24 24" fill="white">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
                 <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/>
               </svg>
             </div>
           </div>
           
-          <div className="text-center mt-16">
-            <p className="text-lg md:text-xl text-accent-foreground/80 max-w-3xl mx-auto font-light italic mb-8">
+          <div className="text-center mt-12 md:mt-16">
+            <p className="text-base md:text-lg lg:text-xl text-accent-foreground/80 max-w-3xl mx-auto font-light italic mb-6 md:mb-8 px-4">
               "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat jouw website de juiste vindbaarheid krijgt - vandaag, morgen, en in de toekomst."
             </p>
             
-            <Button asChild size="lg" variant="secondary" className={`transition-all duration-700 delay-700 ${
+            <Button asChild size="lg" variant="secondary" className={`transition-all duration-700 delay-700 group ${
               seoAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}>
-              <Link to="/start-je-project">
+              <Link to="/start-je-project" className="flex items-center gap-2">
                 Boost mijn vindbaarheid
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <span className="text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">🚀</span>
               </Link>
             </Button>
           </div>
