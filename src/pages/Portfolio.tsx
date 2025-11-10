@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import SocialContentSection from "@/components/SocialContentSection";
 
 // Import project images
@@ -32,6 +33,7 @@ import compressorListingImg from "@/assets/projects/compressor-listing.png";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const projects = [
     {
@@ -328,6 +330,7 @@ const Portfolio = () => {
                 <div 
                   key={index}
                   className="group cursor-pointer block"
+                  onClick={() => setSelectedImage(listing.image)}
                 >
                   <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
                     <img 
@@ -335,7 +338,11 @@ const Portfolio = () => {
                       alt={listing.title}
                       className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="text-sm font-medium bg-background px-6 py-3 rounded-full shadow-lg">
+                        Klik om te vergroten
+                      </span>
+                    </div>
                   </div>
                   <div>
                     <p className="text-sm text-accent font-light mb-2">{listing.category}</p>
@@ -361,6 +368,19 @@ const Portfolio = () => {
 
       {/* Social Content Section / Videos */}
       {showVideos && <SocialContentSection />}
+
+      {/* Image Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 overflow-hidden">
+          {selectedImage && (
+            <img 
+              src={selectedImage} 
+              alt="E-commerce listing"
+              className="w-full h-full object-contain"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* CTA Section */}
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
