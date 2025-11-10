@@ -283,22 +283,22 @@ const Index = () => {
             {/* Google */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-100 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(66,133,244,0.5)] cursor-pointer`}>
               <svg className="w-20 h-20 md:w-24 md:h-24" viewBox="0 0 272 92" fill="none">
-                <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="white"/>
-                <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="white"/>
-                <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="white"/>
-                <path d="M225 3v65h-9.5V3h9.5z" fill="white"/>
-                <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="white"/>
-                <path d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z" fill="white"/>
+                <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+                <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+                <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
+                <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
+                <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
+                <path d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z" fill="#4285F4"/>
               </svg>
             </div>
             
             {/* OpenAI */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-200 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(16,163,127,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="#10A37F">
                 <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
               </svg>
             </div>
@@ -306,9 +306,15 @@ const Index = () => {
             {/* Perplexity */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-300 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" strokeWidth="2" fill="none"/>
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(32,160,224,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="none">
+                <defs>
+                  <linearGradient id="perplexityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#20A0E0', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#1B8AC7', stopOpacity: 1 }} />
+                  </linearGradient>
+                </defs>
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#perplexityGradient)" strokeWidth="2" fill="none"/>
               </svg>
             </div>
             
@@ -316,7 +322,7 @@ const Index = () => {
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-400 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
             } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="#FFFFFF">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </div>
@@ -324,18 +330,27 @@ const Index = () => {
             {/* Claude (Anthropic) */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-500 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
-                <path d="M14.5 2.5L9.5 21.5M19 6.5L5 6.5M18 17.5L6 17.5" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(204,127,96,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="none">
+                <defs>
+                  <linearGradient id="claudeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#CC7F60', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#D4927A', stopOpacity: 1 }} />
+                  </linearGradient>
+                </defs>
+                <path d="M14.5 2.5L9.5 21.5M19 6.5L5 6.5M18 17.5L6 17.5" stroke="url(#claudeGradient)" strokeWidth="2.5" strokeLinecap="round"/>
               </svg>
             </div>
             
             {/* Copilot (Microsoft) */}
             <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-600 ${
               seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="white">
-                <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/>
+            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(0,120,212,0.5)] cursor-pointer`}>
+              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="8" height="8" fill="#F25022"/>
+                <rect x="13" y="3" width="8" height="8" fill="#7FBA00"/>
+                <rect x="3" y="13" width="8" height="8" fill="#00A4EF"/>
+                <rect x="13" y="13" width="8" height="8" fill="#FFB900"/>
               </svg>
             </div>
           </div>
