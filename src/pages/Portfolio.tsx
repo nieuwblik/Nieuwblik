@@ -168,51 +168,44 @@ const Portfolio = () => {
       tags: ["Web Design", "Bouw", "Zakelijk"],
       image: rrsroyalImg,
       url: "https://rrsroyal.nl"
-    },
+    }
+  ];
+
+  const ecommerceListings = [
     {
       title: "Kattenbak - Movendo",
-      category: "E-commerce",
-      filterCategory: "e-commerce",
+      category: "E-commerce Listing",
       description: "Professionele Amazon product listings voor slimme kattenbakken met complete product features en USP's.",
       tags: ["E-commerce", "Product Listing", "Amazon Marketing"],
       image: kattenbakListingImg,
-      url: "#"
+    },
+    {
+      title: "Q-mate - Drogerballen",
+      category: "E-commerce Listing",
+      description: "Aantrekkelijke product listings voor duurzame drogerballen met focus op energiebesparing en kwaliteit.",
+      tags: ["E-commerce", "Product Listing", "Duurzaam"],
+      image: hamburgerPressListingImg,
     },
     {
       title: "Hamburgerpers - Kitchenz",
-      category: "E-commerce",
-      filterCategory: "e-commerce",
-      description: "Aantrekkelijke product listings voor premium keukenartikelen met focus op kwaliteit en gebruiksgemak.",
+      category: "E-commerce Listing",
+      description: "Visueel sterke Amazon listings voor premium hamburgerpers met duidelijke voordelen en gebruiksgemak.",
       tags: ["E-commerce", "Product Listing", "Keukenartikelen"],
-      image: hamburgerPressListingImg,
-      url: "#"
-    },
-    {
-      title: "Schoenenreiniger - Grobbie",
-      category: "E-commerce",
-      filterCategory: "e-commerce",
-      description: "Visueel sterke Amazon listings voor innovatieve schoenverzorgingsproducten met duidelijke voordelen.",
-      tags: ["E-commerce", "Product Listing", "Amazon Marketing"],
       image: schoenenWolListingImg,
-      url: "#"
     },
     {
       title: "Pastamachine - Kitchenz",
-      category: "E-commerce",
-      filterCategory: "e-commerce",
+      category: "E-commerce Listing",
       description: "Complete product story voor premium pastamachines met gedetailleerde USP's en visuele features.",
       tags: ["E-commerce", "Product Listing", "Premium Keuken"],
       image: pastamachineListingImg,
-      url: "#"
     },
     {
       title: "Compressor - Grobbie",
-      category: "E-commerce",
-      filterCategory: "e-commerce",
+      category: "E-commerce Listing",
       description: "Technische product listings voor draagbare compressoren met focus op specificaties en gebruikstoepassingen.",
       tags: ["E-commerce", "Product Listing", "Technologie"],
       image: compressorListingImg,
-      url: "#"
     }
   ];
 
@@ -230,7 +223,8 @@ const Portfolio = () => {
     : projects.filter(project => project.filterCategory === activeFilter);
 
   const showVideos = activeFilter === "all" || activeFilter === "videos";
-  const showProjects = activeFilter !== "videos";
+  const showEcommerce = activeFilter === "all" || activeFilter === "e-commerce";
+  const showProjects = activeFilter !== "videos" && activeFilter !== "e-commerce";
 
   return (
     <div className="min-h-screen bg-background">
@@ -313,6 +307,52 @@ const Portfolio = () => {
                     </div>
                   </div>
                 </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* E-commerce Listings Section */}
+      {showEcommerce && (
+        <section className="pb-20 md:pb-32">
+          <div className="container mx-auto px-6">
+            <div className="mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">E-commerce Listings</h2>
+              <p className="text-muted-foreground text-lg font-light">
+                Professionele productpresentaties die verkopen stimuleren
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              {ecommerceListings.map((listing, index) => (
+                <div 
+                  key={index}
+                  className="group cursor-pointer block"
+                >
+                  <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
+                    <img 
+                      src={listing.image} 
+                      alt={listing.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-accent font-light mb-2">{listing.category}</p>
+                    <h3 className="text-2xl font-semibold mb-2 group-hover:text-accent transition-colors">{listing.title}</h3>
+                    <p className="text-muted-foreground mb-4 font-light">{listing.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {listing.tags.map((tag, idx) => (
+                        <span 
+                          key={idx}
+                          className="text-xs px-3 py-1 bg-secondary rounded-full text-muted-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
