@@ -81,22 +81,24 @@ const Services = () => {
             {services.map((service, index) => (
               <div 
                 key={index}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch"
               >
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-6">
-                    <service.icon className="w-8 h-8" />
+                <div className={`flex flex-col ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                  <div className="flex-grow">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-6">
+                      <service.icon className="w-8 h-8" />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{service.title}</h2>
+                    <p className="text-muted-foreground text-lg mb-8 font-light">
+                      {service.description}
+                    </p>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">{service.title}</h2>
-                  <p className="text-muted-foreground text-lg mb-8 font-light">
-                    {service.description}
-                  </p>
-                  <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+                  <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 mt-auto">
                     <Link to="/contact">Start je project</Link>
                   </Button>
                 </div>
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="bg-secondary p-8 rounded-lg">
+                  <div className="bg-secondary p-8 rounded-lg h-full">
                     <h3 className="font-semibold mb-4">Wat je krijgt:</h3>
                     <ul className="space-y-3">
                       {service.features.map((feature, idx) => (
