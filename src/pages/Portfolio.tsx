@@ -23,6 +23,13 @@ import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
 import prideMobilityImg from "@/assets/projects/pride-mobility.nl.png";
 import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 
+// Import e-commerce listing images
+import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
+import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.png";
+import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.png";
+import pastamachineListingImg from "@/assets/projects/pastamachine-listing.png";
+import compressorListingImg from "@/assets/projects/compressor-listing.png";
+
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
@@ -161,6 +168,51 @@ const Portfolio = () => {
       tags: ["Web Design", "Bouw", "Zakelijk"],
       image: rrsroyalImg,
       url: "https://rrsroyal.nl"
+    },
+    {
+      title: "Kattenbak - Movendo",
+      category: "E-commerce",
+      filterCategory: "e-commerce",
+      description: "Professionele Amazon product listings voor slimme kattenbakken met complete product features en USP's.",
+      tags: ["E-commerce", "Product Listing", "Amazon Marketing"],
+      image: kattenbakListingImg,
+      url: "#"
+    },
+    {
+      title: "Hamburgerpers - Kitchenz",
+      category: "E-commerce",
+      filterCategory: "e-commerce",
+      description: "Aantrekkelijke product listings voor premium keukenartikelen met focus op kwaliteit en gebruiksgemak.",
+      tags: ["E-commerce", "Product Listing", "Keukenartikelen"],
+      image: hamburgerPressListingImg,
+      url: "#"
+    },
+    {
+      title: "Schoenenreiniger - Grobbie",
+      category: "E-commerce",
+      filterCategory: "e-commerce",
+      description: "Visueel sterke Amazon listings voor innovatieve schoenverzorgingsproducten met duidelijke voordelen.",
+      tags: ["E-commerce", "Product Listing", "Amazon Marketing"],
+      image: schoenenWolListingImg,
+      url: "#"
+    },
+    {
+      title: "Pastamachine - Kitchenz",
+      category: "E-commerce",
+      filterCategory: "e-commerce",
+      description: "Complete product story voor premium pastamachines met gedetailleerde USP's en visuele features.",
+      tags: ["E-commerce", "Product Listing", "Premium Keuken"],
+      image: pastamachineListingImg,
+      url: "#"
+    },
+    {
+      title: "Compressor - Grobbie",
+      category: "E-commerce",
+      filterCategory: "e-commerce",
+      description: "Technische product listings voor draagbare compressoren met focus op specificaties en gebruikstoepassingen.",
+      tags: ["E-commerce", "Product Listing", "Technologie"],
+      image: compressorListingImg,
+      url: "#"
     }
   ];
 
