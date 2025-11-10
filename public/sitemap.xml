@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.nieuwblik.nl/</loc>
+    <loc>https://www.nieuwblik.com/</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/services</loc>
+    <loc>https://www.nieuwblik.com/diensten</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/portfolio</loc>
+    <loc>https://www.nieuwblik.com/portfolio</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/about</loc>
+    <loc>https://www.nieuwblik.com/over-ons</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/blog</loc>
+    <loc>https://www.nieuwblik.com/blog</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/contact</loc>
+    <loc>https://www.nieuwblik.com/contact</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/privacy</loc>
+    <loc>https://www.nieuwblik.com/privacy</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/cookies</loc>
+    <loc>https://www.nieuwblik.com/cookies</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.nieuwblik.nl/algemene-voorwaarden</loc>
+    <loc>https://www.nieuwblik.com/algemene-voorwaarden</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.nieuwblik.com/blog/waarom-snelle-websites-meer-verkopen</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.nieuwblik.com/blog/van-bezoeker-naar-klant-conversie-optimalisatie</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.nieuwblik.com/blog/seo-fundamentals-gevonden-worden</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
