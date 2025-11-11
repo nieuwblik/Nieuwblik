@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import viteCompression from 'vite-plugin-compression';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -13,6 +14,22 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(), 
     mode === "development" && componentTagger(),
+    // Image optimization - converts to WebP and optimizes
+    ViteImageOptimizer({
+      png: {
+        quality: 80,
+      },
+      jpeg: {
+        quality: 80,
+      },
+      jpg: {
+        quality: 80,
+      },
+      webp: {
+        lossless: false,
+        quality: 80,
+      },
+    }),
     // Gzip compression for production
     viteCompression({
       algorithm: 'gzip',
@@ -53,7 +70,13 @@ export default defineConfig(({ mode }) => ({
     minify: 'esbuild',
     // Additional esbuild options for production
     target: 'es2015',
+    // Enable CSS code splitting
+    cssCodeSplit: true,
   },
-  // Image optimization
+  // Image optimization - inline small images, lazy load others
   assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+  },
 }));

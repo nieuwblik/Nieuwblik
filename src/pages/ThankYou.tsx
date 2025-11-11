@@ -15,6 +15,9 @@ const ThankYou = () => {
             <img 
               src={justinImage} 
               alt="Justin Slok" 
+              width="192"
+              height="192"
+              loading="eager"
               className="w-48 h-48 mx-auto rounded-full object-cover mb-8 shadow-lg"
             />
             

@@ -12,7 +12,7 @@ interface OptimizedImageProps {
 }
 
 /**
- * Optimized image component with lazy loading and responsive sizes
+ * Optimized image component with lazy loading, WebP support, and responsive sizes
  */
 export const OptimizedImage = ({
   src,
@@ -53,18 +53,37 @@ export const OptimizedImage = ({
     };
   }, [priority]);
 
+  // Generate WebP source if original is PNG/JPG
+  const getWebPSource = (srcPath: string): string | null => {
+    if (srcPath.match(/\.(png|jpg|jpeg)$/i)) {
+      return srcPath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+    }
+    return null;
+  };
+
+  const webpSrc = getWebPSource(src);
+
   return (
-    <img
-      ref={imgRef}
-      src={isInView ? src : undefined}
-      alt={alt}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
-      className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-      onLoad={() => setIsLoaded(true)}
-      width={width}
-      height={height}
-      sizes={getImageSizes(type)}
-    />
+    <picture>
+      {webpSrc && isInView && (
+        <source 
+          srcSet={webpSrc} 
+          type="image/webp"
+          sizes={getImageSizes(type)}
+        />
+      )}
+      <img
+        ref={imgRef}
+        src={isInView ? src : undefined}
+        alt={alt}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+        onLoad={() => setIsLoaded(true)}
+        width={width}
+        height={height}
+        sizes={getImageSizes(type)}
+      />
+    </picture>
   );
 };

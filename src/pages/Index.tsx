@@ -336,7 +336,14 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '200ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '400ms' }}>
-                      <img src={perplexityLogo} alt="Perplexity AI" className="w-full h-full object-contain" />
+                      <img 
+                        src={perplexityLogo} 
+                        alt="Perplexity AI" 
+                        width="80" 
+                        height="80"
+                        loading="lazy"
+                        className="w-full h-full object-contain" 
+                      />
                     </div>
                   </div>
                 </TooltipTrigger>
@@ -352,7 +359,14 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '300ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '600ms' }}>
-                      <img src={grokLogo} alt="Grok (X AI)" className="w-full h-full object-contain" />
+                      <img 
+                        src={grokLogo} 
+                        alt="Grok (X AI)" 
+                        width="80" 
+                        height="80"
+                        loading="lazy"
+                        className="w-full h-full object-contain" 
+                      />
                     </div>
                   </div>
                 </TooltipTrigger>
@@ -368,7 +382,14 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '400ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '800ms' }}>
-                      <img src={claudeLogo} alt="Claude AI" className="w-full h-full object-contain" />
+                      <img 
+                        src={claudeLogo} 
+                        alt="Claude AI" 
+                        width="80" 
+                        height="80"
+                        loading="lazy"
+                        className="w-full h-full object-contain" 
+                      />
                     </div>
                   </div>
                 </TooltipTrigger>
@@ -384,7 +405,14 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '500ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '1000ms' }}>
-                      <img src={copilotLogo} alt="Microsoft Copilot" className="w-full h-full object-contain" />
+                      <img 
+                        src={copilotLogo} 
+                        alt="Microsoft Copilot" 
+                        width="80" 
+                        height="80"
+                        loading="lazy"
+                        className="w-full h-full object-contain" 
+                      />
                     </div>
                   </div>
                 </TooltipTrigger>

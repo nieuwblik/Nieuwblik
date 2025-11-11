@@ -1,5 +1,5 @@
-import { Play } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { LazyYouTube } from "@/utils/lazyYouTube";
 const SocialContentSection = () => {
   const sectionAnimation = useScrollAnimation();
   const videosAnimation = useScrollAnimation();
@@ -34,12 +34,19 @@ const SocialContentSection = () => {
         </div>
 
         <div ref={videosAnimation.ref} className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 transition-all duration-1000 delay-200 ${videosAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          {videos.map((video, index) => <div key={video.id} className="group relative aspect-[9/16] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105" style={{
-          animationDelay: `${index * 0.1}s`
-        }}>
-              <iframe src={`https://www.youtube.com/embed/${video.id}`} title={video.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="absolute inset-0 w-full h-full" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>)}
+          {videos.map((video, index) => (
+            <div 
+              key={video.id} 
+              className="group relative aspect-[9/16] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105" 
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <LazyYouTube 
+                videoId={video.id}
+                title={video.title}
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          ))}
         </div>
 
         <div className="mt-12 text-center">
