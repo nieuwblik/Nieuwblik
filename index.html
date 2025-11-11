@@ -64,16 +64,17 @@
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DLGZ42KPP"></script>
 
-    <!-- Preconnect to critical origins -->
+    <!-- Preconnect to critical origins for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://i.ytimg.com" />
     
     <!-- Preload critical images for LCP optimization -->
     <link rel="preload" as="image" href="/src/assets/logo.png" fetchpriority="high">
     <link rel="preload" as="image" href="/src/assets/justin-slok.png" fetchpriority="high">
     
-    <!-- Optimized font loading with font-display and preload -->
+    <!-- Optimized font loading - async with fallback -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=optional">
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=optional"
@@ -83,6 +84,7 @@
     />
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=optional" rel="stylesheet" />
+    </noscript>
     </noscript>
 
     <!-- Open Graph Meta Tags -->
