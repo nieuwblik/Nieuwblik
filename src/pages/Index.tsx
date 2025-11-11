@@ -11,6 +11,11 @@ import justinImage from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
+// Import AI logos
+import claudeLogo from "@/assets/ai/claude-logo.png";
+import copilotLogo from "@/assets/ai/copilot-logo.png";
+import grokLogo from "@/assets/ai/grok-logo.png";
+import perplexityLogo from "@/assets/ai/perplexity-logo.png";
 // Import featured project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
 import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
@@ -326,15 +331,7 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '200ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '400ms' }}>
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <defs>
-                          <linearGradient id="perplexityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#20808D" />
-                            <stop offset="100%" stopColor="#5BA8B8" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L19.82 8 12 11.82 4.18 8 12 4.18zM4 9.48l7 3.51v7.03l-7-3.51V9.48zm16 0v7.03l-7 3.51v-7.03l7-3.51z" fill="url(#perplexityGradient)"/>
-                      </svg>
+                      <img src={perplexityLogo} alt="Perplexity AI" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </TooltipTrigger>
@@ -350,9 +347,7 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '300ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '600ms' }}>
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/>
-                      </svg>
+                      <img src={grokLogo} alt="Grok (X AI)" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </TooltipTrigger>
@@ -368,16 +363,7 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '400ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '800ms' }}>
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <defs>
-                          <linearGradient id="claudeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#CC9B7A" />
-                            <stop offset="100%" stopColor="#D4A574" />
-                          </linearGradient>
-                        </defs>
-                        <rect x="3" y="3" width="18" height="18" rx="4" fill="url(#claudeGradient)"/>
-                        <path d="M12 6v12M6 12h12" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
+                      <img src={claudeLogo} alt="Claude AI" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </TooltipTrigger>
@@ -393,16 +379,7 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '500ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '1000ms' }}>
-                      <svg viewBox="0 0 24 24" className="w-full h-full">
-                        <defs>
-                          <linearGradient id="copilotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#0078D4" />
-                            <stop offset="100%" stopColor="#00BCF2" />
-                          </linearGradient>
-                        </defs>
-                        <circle cx="12" cy="12" r="10" fill="url(#copilotGradient)"/>
-                        <path d="M12 7l-5 5 5 5 5-5-5-5z" fill="#FFFFFF"/>
-                      </svg>
+                      <img src={copilotLogo} alt="Microsoft Copilot" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </TooltipTrigger>
