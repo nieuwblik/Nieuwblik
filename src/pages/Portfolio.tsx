@@ -5,8 +5,9 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import SocialContentSection from "@/components/SocialContentSection";
 
 // Import project images
@@ -36,6 +37,13 @@ import compressorListingImg from "@/assets/projects/compressor-listing.png";
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const projects = [
     {
@@ -304,8 +312,25 @@ const Portfolio = () => {
       {showProjects && (
         <section className="pb-20 md:pb-32">
           <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {filteredProjects.map((project, index) => (
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="space-y-4">
+                    <Skeleton className="aspect-[4/3] rounded-lg" />
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-8 w-3/4" />
+                    <Skeleton className="h-20 w-full" />
+                    <div className="flex gap-2">
+                      <Skeleton className="h-6 w-20" />
+                      <Skeleton className="h-6 w-24" />
+                      <Skeleton className="h-6 w-16" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                {filteredProjects.map((project, index) => (
                 <a 
                   key={index}
                   href={project.url}
@@ -348,7 +373,8 @@ const Portfolio = () => {
                   </div>
                 </a>
               ))}
-            </div>
+              </div>
+            )}
           </div>
         </section>
       )}

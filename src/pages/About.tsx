@@ -104,8 +104,8 @@ const About = () => {
               }`}
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg transform rotate-3"></div>
-                <img 
+                <div className="absolute inset-0 bg-accent/10 rounded-lg transform rotate-3"></div>
+                <img
                   src={justinImg} 
                   alt="Justin Slok - Oprichter van Nieuwblik"
                   loading="lazy"

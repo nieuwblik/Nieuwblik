@@ -118,8 +118,7 @@ const Index = () => {
               </div>
             </div>
             <div className="relative flex flex-col lg:flex-row items-center gap-6">
-              <div className="absolute -inset-4 bg-gradient-to-r from-accent via-primary to-accent opacity-75 blur-2xl animate-pulse pointer-events-none"></div>
-              <div className="absolute -inset-2 bg-gradient-to-br from-accent/40 to-primary/40 rounded-lg transform rotate-3 animate-pulse pointer-events-none" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute -inset-2 bg-gradient-to-br from-accent/30 to-primary/30 rounded-lg transform rotate-3 pointer-events-none"></div>
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 w-full lg:flex-1">
                 <img 
                   src={justinImage} 

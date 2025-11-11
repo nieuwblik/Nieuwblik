@@ -3,10 +3,18 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Skeleton } from "@/components/ui/skeleton";
 import { BookOpen, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Blog = () => {
   const heroAnimation = useScrollAnimation(0.1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 600);
+    return () => clearTimeout(timer);
+  }, []);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -37,14 +45,23 @@ const Blog = () => {
       {/* Coming Soon Section */}
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-6">
-          <div
-            ref={heroAnimation.ref}
-            className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
-              heroAnimation.isVisible 
-                ? "opacity-100 translate-y-0" 
-                : "opacity-0 translate-y-10"
-            }`}
-          >
+          {isLoading ? (
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+              <Skeleton className="h-20 w-20 md:h-24 md:w-24 rounded-full mx-auto" />
+              <Skeleton className="h-6 w-32 mx-auto" />
+              <Skeleton className="h-12 w-3/4 mx-auto" />
+              <Skeleton className="h-24 w-full" />
+              <Skeleton className="h-64 w-full rounded-2xl" />
+            </div>
+          ) : (
+            <div
+              ref={heroAnimation.ref}
+              className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
+                heroAnimation.isVisible 
+                  ? "opacity-100 translate-y-0" 
+                  : "opacity-0 translate-y-10"
+              }`}
+            >
             <div className="mb-8 inline-block relative">
               <BookOpen className="w-20 h-20 md:w-24 md:h-24 text-accent mx-auto animate-pulse" />
               <Sparkles className="w-8 h-8 text-accent/60 absolute -top-2 -right-2 animate-pulse" style={{ animationDelay: '500ms' }} />
@@ -88,7 +105,8 @@ const Blog = () => {
             <p className="text-muted-foreground mt-12 font-light">
               Houd deze ruimte in de gaten voor nieuwe artikelen!
             </p>
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
