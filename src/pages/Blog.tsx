@@ -2,46 +2,25 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { Link } from "react-router-dom";
-import { Clock, ArrowRight } from "lucide-react";
-import { blogPosts } from "@/data/blogPosts";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import snelleWebsites from "@/assets/blog/snelle-websites.jpg";
-import conversieOptimalisatie from "@/assets/blog/conversie-optimalisatie.jpg";
-import seoFundamentals from "@/assets/blog/seo-fundamentals.jpg";
+import { BookOpen, Sparkles } from "lucide-react";
 
 const Blog = () => {
   const heroAnimation = useScrollAnimation(0.1);
-
-  const blogImages: Record<string, string> = {
-    "waarom-snelle-websites-meer-verkopen": snelleWebsites,
-    "van-bezoeker-naar-klant-conversie-optimalisatie": conversieOptimalisatie,
-    "seo-fundamentals-gevonden-worden": seoFundamentals,
-  };
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Nieuwblik Blog",
-    "description": "Ontdek waardevolle inzichten over webdesign, SEO, conversie optimalisatie en digitale marketing.",
-    "url": "https://www.nieuwblik.com/blog",
-    "blogPost": blogPosts.map(post => ({
-      "@type": "BlogPosting",
-      "headline": post.title.nl,
-      "description": post.excerpt.nl,
-      "datePublished": post.date,
-      "author": {
-        "@type": "Person",
-        "name": "Justin Slok"
-      }
-    }))
+    "description": "Binnenkort nieuwe artikelen over webdesign, SEO, conversie optimalisatie en digitale marketing.",
+    "url": "https://www.nieuwblik.com/blog"
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Blog | Digitale Marketing & Webdesign Tips - Nieuwblik"
-        description="Leer alles over webdesign, SEO, conversie optimalisatie en digitale marketing. Praktische tips en inzichten die je bedrijf laten groeien. Start vandaag!"
+        title="Blog | Binnenkort Nieuwe Artikelen - Nieuwblik"
+        description="Binnenkort vind je hier waardevolle inzichten over webdesign, SEO, conversie optimalisatie en digitale marketing. Blijf op de hoogte!"
         keywords="webdesign blog, SEO tips, conversie optimalisatie, digitale marketing, webdesign tips"
         canonicalUrl="https://www.nieuwblik.com/blog"
         structuredData={structuredData}
@@ -55,88 +34,60 @@ const Blog = () => {
         </div>
       </section>
       
-      {/* Hero Section */}
-      <section className="pb-20 md:pb-28">
+      {/* Coming Soon Section */}
+      <section className="py-20 md:py-32">
         <div className="container mx-auto px-6">
           <div
             ref={heroAnimation.ref}
-            className={`max-w-4xl transition-all duration-1000 ${
+            className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
               heroAnimation.isVisible 
                 ? "opacity-100 translate-y-0" 
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <p className="text-accent mb-6">ONZE BLOG</p>
+            <div className="mb-8 inline-block relative">
+              <BookOpen className="w-20 h-20 md:w-24 md:h-24 text-accent mx-auto animate-pulse" />
+              <Sparkles className="w-8 h-8 text-accent/60 absolute -top-2 -right-2 animate-pulse" style={{ animationDelay: '500ms' }} />
+            </div>
+            
+            <p className="text-accent mb-6 font-semibold text-sm tracking-wider">BINNENKORT</p>
+            
             <h1 className="text-display mb-6">
-              Inzichten die je verder brengen
+              Nieuwe blog artikelen komen eraan
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground font-light">
-              Ontdek waardevolle tips, trends en strategieën die jouw digitale aanwezigheid naar een hoger niveau tillen. Van design tot marketing - we delen onze kennis graag met je.
+            
+            <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed mb-8">
+              We zijn bezig met het creëren van waardevolle content vol tips, inzichten en strategieën 
+              om jouw digitale aanwezigheid naar een hoger niveau te tillen.
             </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Blog Posts Grid */}
-      <section className="pb-20 md:pb-32">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {blogPosts.map((post, index) => (
-              <Link
-                key={post.slug}
-                to={`/blog/${post.slug}`}
-                className="group"
-              >
-                <article
-                  className="bg-card rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 h-full flex flex-col border border-border/50 hover:border-accent/50"
-                  style={{ 
-                    transitionDelay: `${index * 100}ms`,
-                    opacity: heroAnimation.isVisible ? 1 : 0,
-                    transform: heroAnimation.isVisible ? 'translateY(0)' : 'translateY(20px)'
-                  }}
-                >
-                  {/* Blog Image */}
-                  <div className="relative h-56 overflow-hidden bg-muted">
-                    <img 
-                      src={blogImages[post.slug]} 
-                      alt={post.title.nl}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
+            <div className="bg-secondary/50 border border-border rounded-2xl p-8 md:p-12 backdrop-blur-sm">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                Waar kun je op rekenen?
+              </h2>
+              <ul className="text-left max-w-2xl mx-auto space-y-4 text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">✓</span>
+                  <span className="font-light">Praktische webdesign tips die direct toepasbaar zijn</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">✓</span>
+                  <span className="font-light">SEO strategieën om hoger te ranken in Google</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">✓</span>
+                  <span className="font-light">Conversie optimalisatie technieken die werken</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">✓</span>
+                  <span className="font-light">Digitale marketing trends en inzichten</span>
+                </li>
+              </ul>
+            </div>
 
-                  <div className="p-6 flex-1 flex flex-col">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                      <time dateTime={post.date} className="font-medium">
-                        {new Date(post.date).toLocaleDateString('nl-NL', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </time>
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" />
-                        {post.readingTime} min leestijd
-                      </span>
-                    </div>
-                    
-                    <h2 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-300 line-clamp-2">
-                      {post.title.nl}
-                    </h2>
-                    
-                    <p className="text-muted-foreground font-light text-sm mb-6 flex-1 line-clamp-3 leading-relaxed">
-                      {post.excerpt.nl}
-                    </p>
-                    
-                    <div className="flex items-center text-accent font-semibold text-sm group-hover:gap-2 transition-all duration-300">
-                      Lees het volledige artikel
-                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </article>
-              </Link>
-            ))}
+            <p className="text-muted-foreground mt-12 font-light">
+              Houd deze ruimte in de gaten voor nieuwe artikelen!
+            </p>
           </div>
         </div>
       </section>
