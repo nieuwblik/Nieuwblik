@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 import { Linkedin } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
