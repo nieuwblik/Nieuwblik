@@ -6,6 +6,7 @@ import FAQSection from "@/components/FAQSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink, Linkedin } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import justinImage from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
@@ -279,80 +280,137 @@ const Index = () => {
           </div>
           
           {/* Search Engine Logos */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8 lg:gap-12 items-center justify-items-center mt-16">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
             {/* Google */}
-            <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-100 ${
-              seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(66,133,244,0.5)] cursor-pointer`}>
-              <svg className="w-20 h-20 md:w-24 md:h-24" viewBox="0 0 272 92" fill="none">
-                <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
-                <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
-                <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
-                <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
-                <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
-                <path d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z" fill="#4285F4"/>
-              </svg>
-            </div>
-            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '0ms' }}>
+                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '0ms' }}>
+                      <svg viewBox="0 0 24 24" className="w-full h-full">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Google</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
             {/* OpenAI */}
-            <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-200 ${
-              seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(16,163,127,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="#10A37F">
-                <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
-              </svg>
-            </div>
-            
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '100ms' }}>
+                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '200ms' }}>
+                      <svg viewBox="0 0 24 24" className="w-full h-full">
+                        <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#10A37F"/>
+                      </svg>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>OpenAI</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
             {/* Perplexity */}
-            <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-300 ${
-              seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(32,160,224,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="none">
-                <defs>
-                  <linearGradient id="perplexityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#20A0E0', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#1B8AC7', stopOpacity: 1 }} />
-                  </linearGradient>
-                </defs>
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#perplexityGradient)" strokeWidth="2" fill="none"/>
-              </svg>
-            </div>
-            
-            {/* Grok (X AI) */}
-            <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-400 ${
-              seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="#FFFFFF">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </div>
-            
-            {/* Claude (Anthropic) */}
-            <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-500 ${
-              seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(204,127,96,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="none">
-                <defs>
-                  <linearGradient id="claudeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#CC7F60', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#D4927A', stopOpacity: 1 }} />
-                  </linearGradient>
-                </defs>
-                <path d="M14.5 2.5L9.5 21.5M19 6.5L5 6.5M18 17.5L6 17.5" stroke="url(#claudeGradient)" strokeWidth="2.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-            
-            {/* Copilot (Microsoft) */}
-            <div className={`flex items-center justify-center w-full h-20 transition-all duration-500 delay-600 ${
-              seoAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            } hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_0_15px_rgba(0,120,212,0.5)] cursor-pointer`}>
-              <svg className="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="3" width="8" height="8" fill="#F25022"/>
-                <rect x="13" y="3" width="8" height="8" fill="#7FBA00"/>
-                <rect x="3" y="13" width="8" height="8" fill="#00A4EF"/>
-                <rect x="13" y="13" width="8" height="8" fill="#FFB900"/>
-              </svg>
-            </div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '200ms' }}>
+                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '400ms' }}>
+                      <svg viewBox="0 0 24 24" className="w-full h-full">
+                        <defs>
+                          <linearGradient id="perplexityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#20808D" />
+                            <stop offset="100%" stopColor="#5BA8B8" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L19.82 8 12 11.82 4.18 8 12 4.18zM4 9.48l7 3.51v7.03l-7-3.51V9.48zm16 0v7.03l-7 3.51v-7.03l7-3.51z" fill="url(#perplexityGradient)"/>
+                      </svg>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Perplexity AI</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Grok */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '300ms' }}>
+                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '600ms' }}>
+                      <svg viewBox="0 0 24 24" className="w-full h-full">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#000000"/>
+                      </svg>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Grok (X AI)</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Claude */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '400ms' }}>
+                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '800ms' }}>
+                      <svg viewBox="0 0 24 24" className="w-full h-full">
+                        <defs>
+                          <linearGradient id="claudeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#CC9B7A" />
+                            <stop offset="100%" stopColor="#D4A574" />
+                          </linearGradient>
+                        </defs>
+                        <rect x="3" y="3" width="18" height="18" rx="4" fill="url(#claudeGradient)"/>
+                        <path d="M12 6v12M6 12h12" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Claude AI</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Copilot */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '500ms' }}>
+                    <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '1000ms' }}>
+                      <svg viewBox="0 0 24 24" className="w-full h-full">
+                        <defs>
+                          <linearGradient id="copilotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#0078D4" />
+                            <stop offset="100%" stopColor="#00BCF2" />
+                          </linearGradient>
+                        </defs>
+                        <circle cx="12" cy="12" r="10" fill="url(#copilotGradient)"/>
+                        <path d="M12 7l-5 5 5 5 5-5-5-5z" fill="#FFFFFF"/>
+                      </svg>
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Microsoft Copilot</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           
           <div className="text-center mt-12 md:mt-16">

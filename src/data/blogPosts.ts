@@ -22,54 +22,474 @@ export const blogPosts: BlogPost[] = [
     slug: "waarom-snelle-websites-meer-verkopen",
     image: "/src/assets/blog/snelle-websites.jpg",
     title: {
-      nl: "Waarom snelle websites meer verkopen: de impact van laadtijd op conversie",
-      en: "Why fast websites sell more: the impact of loading time on conversion"
+      nl: "Snelle websites verkopen 2x meer - waarom laadtijd cruciaal is",
+      en: "Fast websites sell 2x more - why loading time is crucial"
     },
     excerpt: {
       nl: "Ontdek waarom elke seconde telt en hoe website snelheid direct invloed heeft op je omzet en klanttevredenheid.",
       en: "Discover why every second counts and how website speed directly impacts your revenue and customer satisfaction."
     },
     content: {
-      nl: "Website snelheid is geen technische luxe, het is een zakelijke noodzaak. Studies tonen keer op keer aan dat zelfs een vertraging van één seconde drastische gevolgen kan hebben voor je conversie, omzet en merkreputatie.\n\nBij Nieuwblik bouwen we websites die niet alleen mooi zijn, maar ook razendsnel laden. Want wat heb je aan een prachtig design als niemand blijft wachten tot het geladen is?\n\n## De harde cijfers: snelheid = geld\n\n**Google's bevindingen:**\n- 53% van mobiele bezoekers verlaat een website als deze langer dan 3 seconden laadt\n- Elke seconde vertraging kan leiden tot 7% minder conversies\n- Voor een e-commerce site met €100.000 omzet per dag betekent 1 seconde vertraging €2,5 miljoen verlies per jaar\n\n**Amazon's data:**\nAmazon ontdekte dat elke 100ms vertraging hun verkoop met 1% verminderde. Voor een bedrijf van hun omvang gaat dit om miljarden.\n\n**Walmart's experiment:**\nDoor hun laadtijd met 1 seconde te verbeteren, zag Walmart:\n- 2% hogere conversie\n- 1% hogere omzet per bezoeker\n\n## Waarom snelheid zo cruciaal is\n\n### 1. Eerste indruk\nJe hebt 50 milliseconden om een eerste indruk te maken. Letterlijk een oogwenk. Als je site langzaam laadt, is dat spel al verloren voordat de bezoeker je content zelfs maar ziet.\n\n### 2. Gebruikerservaring\nSnelle websites voelen intuïtief betrouwbaarder en professioneler. Langzame sites communiceren onbewust: Dit bedrijf heeft zijn zaken niet op orde.\n\n### 3. SEO voordeel\nGoogle gebruikt laadtijd als ranking factor. Snellere sites krijgen voorrang in zoekresultaten. Dit betekent meer organisch verkeer zonder extra advertentie-uitgaven.\n\n### 4. Mobiele gebruikers\nMet meer dan 60% van het webverkeer via mobiel, is snelheid belangrijker dan ooit. Mobiele verbindingen zijn vaak langzamer, dus elke kilobyte telt.\n\n## De Nieuwblik aanpak\n\nWe bouwen websites die razendsnel laden door:\n- Image optimization met WebP en lazy loading\n- Code splitting voor optimale performance\n- CDN implementatie voor snelle content delivery\n- Performance monitoring bij elke deployment\n\n**Klaar voor een snelle website?** Start een project en ontdek wat een razendsnel website voor jouw bedrijf kan betekenen.",
-      en: "Website speed is not a technical luxury, it's a business necessity. Studies repeatedly show that even a one-second delay can have drastic consequences for your conversion, revenue and brand reputation.\n\nAt Nieuwblik we build websites that are not only beautiful, but also load blazingly fast. Because what good is a beautiful design if no one waits for it to load?\n\n## The hard numbers: speed = money\n\n**Google's findings:**\n- 53% of mobile visitors leave a website if it takes longer than 3 seconds to load\n- Every second of delay can lead to 7% fewer conversions\n- For an e-commerce site with €100,000 revenue per day, 1 second delay means €2.5 million loss per year\n\n**Amazon's data:**\nAmazon discovered that every 100ms delay reduced their sales by 1%. For a company of their size, this amounts to billions.\n\n**Walmart's experiment:**\nBy improving their load time by 1 second, Walmart saw:\n- 2% higher conversion\n- 1% higher revenue per visitor\n\n## Why speed is so crucial\n\n### 1. First impression\nYou have 50 milliseconds to make a first impression. Literally a blink of an eye. If your site loads slowly, that game is already lost before the visitor even sees your content.\n\n### 2. User experience\nFast websites intuitively feel more reliable and professional. Slow sites unconsciously communicate: This company doesn't have its affairs in order.\n\n### 3. SEO advantage\nGoogle uses load time as a ranking factor. Faster sites get priority in search results. This means more organic traffic without extra advertising expenses.\n\n### 4. Mobile users\nWith more than 60% of web traffic via mobile, speed is more important than ever. Mobile connections are often slower, so every kilobyte counts.\n\n## The Nieuwblik approach\n\nWe build websites that load blazingly fast through:\n- Image optimization with WebP and lazy loading\n- Code splitting for optimal performance\n- CDN implementation for fast content delivery\n- Performance monitoring with every deployment\n\n**Ready for a fast website?** Start a project and discover what a blazingly fast website can mean for your business."
+      nl: `*Leestijd: 5 minuten*
+
+Je website laadt te langzaam. En dat kost je duizenden euro's per maand. 
+
+Elke seconde dat een bezoeker wacht, is een seconde dichter bij het sluiten van de tab. **53% van mobiele bezoekers vertrekt na 3 seconden.** De vraag is niet of je bezoekers verliest, maar hoeveel omzet je misloopt.
+
+Bij Nieuwblik bouwen we websites die niet alleen mooi zijn, maar ook **razendsnel** laden. Want wat heb je aan prachtig design als niemand blijft wachten?
+
+## Inhoudsopgave
+
+1. [De harde cijfers: snelheid = geld](#de-harde-cijfers)
+2. [Waarom snelheid zo cruciaal is](#waarom-snelheid-cruciaal-is)
+3. [De Nieuwblik aanpak voor snelle websites](#de-nieuwblik-aanpak)
+4. [Resultaat: meer verkoop, hogere conversie](#resultaat)
+
+---
+
+## De harde cijfers: snelheid = geld {#de-harde-cijfers}
+
+**Google's bevindingen spreekt boekdelen:**
+- 53% van mobiele bezoekers verlaat een website als deze langer dan 3 seconden laadt
+- Elke seconde vertraging leidt tot **7% minder conversies**
+- Voor een e-commerce site met €100.000 omzet per dag betekent 1 seconde vertraging **€2,5 miljoen verlies per jaar**
+
+**Amazon's data is nog explicieter:**
+
+Amazon ontdekte dat elke 100ms vertraging hun verkoop met **1% verminderde**. Voor een bedrijf van hun omvang gaat dit om miljarden.
+
+**Walmart's experiment toonde direct resultaat:**
+
+Door hun laadtijd met 1 seconde te verbeteren, zag Walmart:
+- **2% hogere conversie**
+- **1% hogere omzet** per bezoeker
+
+> **Key Takeaway:** Snelheid is geen technisch detail. Het is een directe omzetfactor. Elke seconde telt letterlijk mee in je winst.
+
+---
+
+## Waarom snelheid zo cruciaal is {#waarom-snelheid-cruciaal-is}
+
+### 1. Eerste indruk beslist
+
+Je hebt **50 milliseconden** om een eerste indruk te maken. Letterlijk een oogwenk. 
+
+Als je site langzaam laadt, is dat spel al verloren voordat de bezoeker je content zelfs maar ziet.
+
+### 2. Gebruikerservaring = vertrouwen
+
+Snelle websites voelen intuïtief **betrouwbaarder** en **professioneler**. 
+
+Langzame sites communiceren onbewust: *"Dit bedrijf heeft zijn zaken niet op orde."*
+
+### 3. SEO voordeel = gratis verkeer
+
+**Google gebruikt laadtijd als ranking factor.** 
+
+Snellere sites krijgen voorrang in zoekresultaten. Dit betekent meer organisch verkeer zonder extra advertentie-uitgaven.
+
+### 4. Mobiele gebruikers zijn veeleisend
+
+Met meer dan **60% van het webverkeer via mobiel**, is snelheid belangrijker dan ooit. 
+
+Mobiele verbindingen zijn vaak langzamer, dus elke kilobyte telt.
+
+> **Key Takeaway:** Snelheid bepaalt of bezoekers je vertrouwen, of ze blijven, en of ze converteren. Het is de fundering van je online succes.
+
+---
+
+## De Nieuwblik aanpak voor snelle websites {#de-nieuwblik-aanpak}
+
+Wij bouwen websites die **razendsnel** laden door:
+
+**1. Image optimization met WebP formaat**
+- Kleinere bestandsgroottes zonder kwaliteitsverlies
+- Lazy loading: afbeeldingen laden alleen wanneer nodig
+
+**2. Code splitting voor optimale performance**
+- Alleen de code laden die nodig is voor de huidige pagina
+- Geen onnodige scripts die je website vertragen
+
+**3. CDN implementatie voor snelle content delivery**
+- Content geleverd vanaf de dichtstbijzijnde server
+- Wereldwijd snelle laadtijden
+
+**4. Performance monitoring bij elke deployment**
+- Continue monitoring van laadtijden
+- Proactieve optimalisatie bij performance dips
+
+> **Key Takeaway:** Snelheid is geen eenmalige optimalisatie. Het is een continue focus die bij elke stap van de ontwikkeling meegenomen wordt.
+
+---
+
+## Resultaat: meer verkoop, hogere conversie {#resultaat}
+
+**Wat betekent een snelle website voor jouw bedrijf?**
+
+- **Hogere conversie:** Meer bezoekers die actie ondernemen
+- **Betere SEO:** Hogere rankings in Google
+- **Meer omzet:** Directe impact op je bottom line
+- **Professionelere uitstraling:** Vertrouwen vanaf de eerste seconde
+
+### Klaar voor een snelle website die écht verkoopt?
+
+Ontdek wat een **razendsnel website** voor jouw bedrijf kan betekenen. 
+
+**[Start je Project →](/start-je-project)**`,
+      en: "Your website is loading too slowly. And it's costing you thousands of euros per month..."
     },
     date: "2025-01-20",
-    readingTime: 8
+    readingTime: 5
   },
   {
     slug: "van-bezoeker-naar-klant-conversie-optimalisatie",
     image: "/src/assets/blog/conversie-optimalisatie.jpg",
     title: {
-      nl: "Van bezoeker naar klant: conversie-optimalisatie die écht werkt",
-      en: "From visitor to customer: conversion optimization that actually works"
+      nl: "Van 2% naar 10% conversie - zo zet je bezoekers om in klanten",
+      en: "From 2% to 10% conversion - how to turn visitors into customers"
     },
     excerpt: {
       nl: "Leer de essentiële principes van conversie-optimalisatie en hoe je meer bezoekers omzet in betalende klanten.",
       en: "Learn the essential principles of conversion optimization and how to turn more visitors into paying customers."
     },
     content: {
-      nl: "Je website krijgt verkeer, maar conversies blijven achter. Herkenbaar? Je bent niet alleen. De meeste websites converteren slechts 2-3% van hun bezoekers. Dat betekent dat 97-98% van je potentiële klanten vertrekt zonder actie.\n\nBij Nieuwblik optimaliseren we websites met bewezen strategieën die conversie meetbaar verhogen. Geen giswerk, maar data-gedreven design beslissingen die resultaat opleveren.\n\n## Wat is conversie-optimalisatie?\n\nConversie-optimalisatie (CRO - Conversion Rate Optimization) is het systematisch verbeteren van je website om meer bezoekers een gewenste actie te laten uitvoeren:\n- Aankoop doen\n- Formulier invullen\n- Offerte aanvragen\n- Nieuwsbrief inschrijven\n- Contact opnemen\n\nHet doel: Haal meer waarde uit je bestaande verkeer zonder meer budget aan advertenties te spenderen.\n\n## De anatomie van een high-converting website\n\n### 1. Crystal clear value proposition\nBinnen 5 seconden moet een bezoeker begrijpen:\n- Wat je doet\n- Voor wie je het doet\n- Waarom zij jou moeten kiezen\n\n**Slecht voorbeeld:** Wij zijn een innovatief bedrijf dat cutting-edge oplossingen biedt\n**Goed voorbeeld:** Custom websites die 2x meer klanten genereren. Gespecialiseerd in luxury brands.\n\n### 2. Frictionless user experience\nElk obstakel kost je conversie:\n- Lange formulieren: Beperk tot maximaal 3-5 velden\n- Verplichte account aanmaken: Niet nodig voor eerste contact\n- Verwarrende navigatie: Duidelijk pad naar conversie\n- Slow loading: Elke seconde kost 7% conversie\n\n### 3. Strategische call-to-actions (CTAs)\n**Kenmerken van effectieve CTAs:**\n- Action-oriented taal: Start nu gratis ipv Meer informatie\n- Contrast: Opvallen met kleuren die afwijken van je basis palette\n- Witruimte: Genoeg ademruimte rondom de knop\n- Boven de fold: Primaire CTA direct zichtbaar zonder scrollen\n\n### 4. Social proof\nMensen vertrouwen andere mensen meer dan merken. Implementeer:\n- Testimonials met foto en naam: 300% effectiever dan anoniem\n- Cijfers en statistieken: 500+ tevreden klanten werkt beter dan veel klanten\n- Case studies: Concrete resultaten\n- Logos van bekende klanten: Vertrouwen door associatie\n\n## De Nieuwblik conversie strategie\n\nWe optimaliseren websites met:\n- Data analyse: Waar haken bezoekers af?\n- A/B testing: We testen alles\n- Continuous optimization: Conversie-optimalisatie stopt nooit\n\n**Klaar om meer bezoekers om te zetten in klanten?** Start een project en ontdek hoe we jouw conversie meetbaar kunnen verhogen.",
-      en: "Your website gets traffic, but conversions lag behind. Sound familiar? You're not alone. Most websites only convert 2-3% of their visitors. That means 97-98% of your potential customers leave without taking action.\n\nAt Nieuwblik we optimize websites with proven strategies that measurably increase conversion. No guesswork, but data-driven design decisions that deliver results.\n\n## What is conversion optimization?\n\nConversion optimization (CRO - Conversion Rate Optimization) is systematically improving your website to get more visitors to take a desired action:\n- Make a purchase\n- Fill out a form\n- Request a quote\n- Subscribe to newsletter\n- Make contact\n\nThe goal: Extract more value from your existing traffic without spending more budget on advertising.\n\n## The anatomy of a high-converting website\n\n### 1. Crystal clear value proposition\nWithin 5 seconds a visitor must understand:\n- What you do\n- Who you do it for\n- Why they should choose you\n\n**Bad example:** We are an innovative company offering cutting-edge solutions\n**Good example:** Custom websites that generate 2x more customers. Specialized in luxury brands.\n\n### 2. Frictionless user experience\nEvery obstacle costs you conversion:\n- Long forms: Limit to maximum 3-5 fields\n- Mandatory account creation: Not needed for first contact\n- Confusing navigation: Clear path to conversion\n- Slow loading: Every second costs 7% conversion\n\n### 3. Strategic call-to-actions (CTAs)\n**Characteristics of effective CTAs:**\n- Action-oriented language: Start free now instead of More information\n- Contrast: Stand out with colors that deviate from your base palette\n- White space: Enough breathing room around the button\n- Above the fold: Primary CTA immediately visible without scrolling\n\n### 4. Social proof\nPeople trust other people more than brands. Implement:\n- Testimonials with photo and name: 300% more effective than anonymous\n- Numbers and statistics: 500+ satisfied customers works better than many customers\n- Case studies: Concrete results\n- Logos of well-known customers: Trust through association\n\n## The Nieuwblik conversion strategy\n\nWe optimize websites with:\n- Data analysis: Where do visitors drop off?\n- A/B testing: We test everything\n- Continuous optimization: Conversion optimization never stops\n\n**Ready to convert more visitors into customers?** Start a project and discover how we can measurably increase your conversion."
+      nl: `*Leestijd: 6 minuten*
+
+Je website krijgt verkeer, maar conversies blijven achter. **97% van je bezoekers vertrekt zonder actie.** Herkenbaar?
+
+Je bent niet alleen. De meeste websites converteren slechts 2-3% van hun bezoekers. Dat betekent dat bijna al je potentiële klanten verdwijnt zonder iets te doen.
+
+Bij Nieuwblik optimaliseren we websites met **bewezen strategieën** die conversie meetbaar verhogen. Geen giswerk, maar data-gedreven design beslissingen die resultaat opleveren.
+
+## Inhoudsopgave
+
+1. [Wat is conversie-optimalisatie?](#wat-is-cro)
+2. [De anatomie van een high-converting website](#anatomie-high-converting)
+3. [De 4 conversie killers die je moet vermijden](#conversie-killers)
+4. [De Nieuwblik conversie strategie](#nieuwblik-strategie)
+
+---
+
+## Wat is conversie-optimalisatie? {#wat-is-cro}
+
+**Conversie-optimalisatie (CRO)** is het systematisch verbeteren van je website om meer bezoekers een gewenste actie te laten uitvoeren:
+
+- Aankoop doen
+- Formulier invullen
+- Offerte aanvragen
+- Nieuwsbrief inschrijven
+- Contact opnemen
+
+**Het doel:** Haal meer waarde uit je bestaande verkeer zonder meer budget aan advertenties te spenderen.
+
+> **Key Takeaway:** CRO betekent meer omzet uit hetzelfde verkeer. Elke procent conversie-verbetering is direct zichtbaar in je resultaat.
+
+---
+
+## De anatomie van een high-converting website {#anatomie-high-converting}
+
+### 1. Crystal clear value proposition
+
+Binnen **5 seconden** moet een bezoeker begrijpen:
+- Wat je doet
+- Voor wie je het doet
+- Waarom zij jou moeten kiezen
+
+**Slecht voorbeeld:**
+*"Wij zijn een innovatief bedrijf dat cutting-edge oplossingen biedt."*
+
+**Goed voorbeeld:**
+*"Custom websites die 2x meer klanten genereren. Gespecialiseerd in luxury brands."*
+
+### 2. Frictionless user experience
+
+Elk obstakel kost je conversie:
+
+- **Lange formulieren:** Beperk tot maximaal 3-5 velden
+- **Verplichte account aanmaken:** Niet nodig voor eerste contact
+- **Verwarrende navigatie:** Duidelijk pad naar conversie
+- **Slow loading:** Elke seconde kost 7% conversie
+
+### 3. Strategische call-to-actions (CTAs)
+
+**Kenmerken van effectieve CTAs:**
+
+1. **Action-oriented taal:** "Start nu gratis" ipv "Meer informatie"
+2. **Contrast:** Opvallen met kleuren die afwijken van je basis palette
+3. **Witruimte:** Genoeg ademruimte rondom de knop
+4. **Boven de fold:** Primaire CTA direct zichtbaar zonder scrollen
+
+### 4. Social proof die overtuigt
+
+Mensen vertrouwen andere mensen meer dan merken. Implementeer:
+
+- **Testimonials met foto en naam:** 300% effectiever dan anoniem
+- **Cijfers en statistieken:** "500+ tevreden klanten" werkt beter dan "veel klanten"
+- **Case studies:** Concrete resultaten
+- **Logos van bekende klanten:** Vertrouwen door associatie
+
+> **Key Takeaway:** High-converting websites maken het bezoekers makkelijk om actie te ondernemen en geven vertrouwen door social proof.
+
+---
+
+## De 4 conversie killers die je moet vermijden {#conversie-killers}
+
+### 1. Onduidelijke value proposition
+
+Als bezoekers niet begrijpen wat je doet, converteren ze niet. Simpel.
+
+**Oplossing:** Test je homepage met de 5-seconden test. Kunnen mensen binnen 5 seconden uitleggen wat je doet?
+
+### 2. Te veel keuzes (Choice Overload)
+
+**Hick's Law:** Hoe meer opties, hoe moeilijker de beslissing.
+
+Te veel CTAs, te veel producten, te veel navigatie opties = paralysis.
+
+**Oplossing:** Focus op één primaire actie per pagina.
+
+### 3. Gebrek aan vertrouwen
+
+Zonder social proof, testimonials of garanties converteren mensen niet.
+
+**Oplossing:** Voeg toe:
+- Klantenreviews
+- Garanties (bijv. "Niet tevreden, geld terug")
+- Certificaten en awards
+
+### 4. Technische friction
+
+Lange laadtijden, broken links, formulier errors = conversie killer.
+
+**Oplossing:** Test regelmatig je website op verschillende devices en verbindingen.
+
+> **Key Takeaway:** Vermijd deze 4 killers en je conversie zal meetbaar stijgen. Elk obstakel dat je wegneemt, is winst.
+
+---
+
+## De Nieuwblik conversie strategie {#nieuwblik-strategie}
+
+Wij optimaliseren websites met een **data-gedreven aanpak:**
+
+**1. Data analyse: Waar haken bezoekers af?**
+- Heatmaps en scroll tracking
+- Formulier analytics
+- Exit intent tracking
+
+**2. A/B testing: We testen alles**
+- Headlines en CTAs
+- Button kleuren en plaatsing
+- Formulier lengte en volgorde
+
+**3. Continuous optimization: Het stopt nooit**
+- Maandelijkse performance reviews
+- Continue testing en iteratie
+- Proactieve optimalisatie
+
+**Resultaten die onze klanten zien:**
+- **30-50% hogere conversie** binnen 3 maanden
+- **Lagere cost per acquisition** door betere conversie
+- **Hogere customer lifetime value** door betere eerste indruk
+
+### Klaar om meer bezoekers om te zetten in klanten?
+
+Ontdek hoe we jouw conversie **meetbaar kunnen verhogen** met data-gedreven optimalisatie.
+
+**[Start een project →](/start-je-project)**`,
+      en: "Your website gets traffic, but conversions lag behind. 97% of your visitors leave without taking action. Sound familiar?"
     },
     date: "2025-01-15",
-    readingTime: 9
+    readingTime: 6
   },
   {
     slug: "seo-fundamentals-gevonden-worden",
     image: "/src/assets/blog/seo-fundamentals.jpg",
     title: {
-      nl: "SEO fundamentals: hoe je gevonden wordt door je ideale klant",
-      en: "SEO fundamentals: how to be found by your ideal customer"
+      nl: "SEO in 2025 - hoe je gevonden wordt door je ideale klant",
+      en: "SEO in 2025 - how to be found by your ideal customer"
     },
     excerpt: {
       nl: "Praktische SEO strategieën die je website hoger laten ranken in Google en meer organisch verkeer genereren.",
       en: "Practical SEO strategies that make your website rank higher in Google and generate more organic traffic."
     },
     content: {
-      nl: "Je website is live, maar niemand vindt hem. Je verschijnt op pagina 3 van Google (spoiler: daar klikt niemand). Organisch verkeer blijft uit. Herkenbaar?\n\nSEO (Search Engine Optimization) is geen rocket science, maar het vereist wel strategie en technische kennis. Bij Nieuwblik bouwen we websites die niet alleen mooi zijn, maar ook geoptimaliseerd voor zoekmachines vanaf dag één.\n\n## Waarom SEO cruciaal is\n\n### De harde cijfers\n- 75% van gebruikers klikt nooit verder dan pagina 1\n- De top 3 resultaten krijgen 75% van alle clicks\n- Positie nummer 1 krijgt gemiddeld 28% van alle clicks\n- Organisch verkeer converteert 14% beter dan betaalde advertenties\n\n### ROI van SEO vs. Adverteren\n\n**Google Ads:**\n- Kost geld per click (€2-10+ per klik)\n- Stopt zodra je stopt met betalen\n- Kortetermijn resultaten\n\n**SEO:**\n- Kost tijd en expertise (investering vooraf)\n- Blijft doorwerken na initiële inspanning\n- Langetermijn compound growth\n\nConclusie: SEO is de beste langetermijn investering voor duurzame groei.\n\n## De 3 pilaren van moderne SEO\n\n### 1. Technische SEO: de fundering\nJe website moet crawlbaar en indexeerbaar zijn. Als Google je niet kan lezen, kun je niet ranken.\n\n**Essentiële technische elementen:**\n- Site speed: Target onder 2 seconden laadtijd\n- Mobile-first: Google indexeert primair de mobiele versie\n- SSL certificaat (HTTPS): Veiligheid is ranking factor\n- Clean URL structuur: Beschrijvend en leesbaar\n- XML Sitemap: Geeft Google overzicht van je paginas\n\n### 2. On-page SEO: content is king\nGoogle wil de beste antwoorden tonen op zoekvragen. Jouw content moet relevant, diepgaand en goed gestructureerd zijn.\n\n**Title tags: je belangrijkste SEO element**\n- Lengte: 50-60 karakters\n- Keywords: Belangrijkste keyword vooraan\n- Uniek: Elke pagina een eigen title\n- Compelling: Moet klikbaar zijn\n\n**Content kwaliteit:**\n- Diepgang: Oppervlakkige content rankt niet\n- Origineel: Geen duplicate content\n- Actueel: Update oude content regelmatig\n- Gebruikersfocus: Schrijf voor mensen, niet voor robots\n\n### 3. Off-page SEO: autoriteit opbouwen\nGoogle meet je populariteit via backlinks: links van andere websites naar jou.\n\n**Wat maakt een goede backlink:**\n- Domain Authority: Link van autoritaire site\n- Relevantie: Site in dezelfde niche\n- Dofollow: Geeft SEO waarde door\n- Contextueel: In content, niet in footer/sidebar\n\n## De Nieuwblik SEO aanpak\n\nBij elk project implementeren we:\n- Technical SEO audit en fixes\n- Keyword research en strategy\n- Optimized title tags en meta descriptions\n- Schema markup implementation\n- Google Search Console setup\n- Maandelijkse ranking monitoring\n\n**Klaar om gevonden te worden?** Start een project en ontdek hoe we jouw organische zichtbaarheid transformeren.",
-      en: "Your website is live, but nobody finds it. You appear on page 3 of Google (spoiler: nobody clicks there). Organic traffic remains absent. Sound familiar?\n\nSEO (Search Engine Optimization) is not rocket science, but it does require strategy and technical knowledge. At Nieuwblik we build websites that are not only beautiful, but also optimized for search engines from day one.\n\n## Why SEO is crucial\n\n### The hard numbers\n- 75% of users never click past page 1\n- The top 3 results get 75% of all clicks\n- Position number 1 gets an average of 28% of all clicks\n- Organic traffic converts 14% better than paid advertising\n\n### ROI of SEO vs. Advertising\n\n**Google Ads:**\n- Costs money per click (€2-10+ per click)\n- Stops as soon as you stop paying\n- Short-term results\n\n**SEO:**\n- Costs time and expertise (upfront investment)\n- Continues working after initial effort\n- Long-term compound growth\n\nConclusion: SEO is the best long-term investment for sustainable growth.\n\n## The 3 pillars of modern SEO\n\n### 1. Technical SEO: the foundation\nYour website must be crawlable and indexable. If Google can't read you, you can't rank.\n\n**Essential technical elements:**\n- Site speed: Target under 2 seconds load time\n- Mobile-first: Google indexes primarily the mobile version\n- SSL certificate (HTTPS): Security is ranking factor\n- Clean URL structure: Descriptive and readable\n- XML Sitemap: Gives Google overview of your pages\n\n### 2. On-page SEO: content is king\nGoogle wants to show the best answers to search queries. Your content must be relevant, in-depth and well-structured.\n\n**Title tags: your most important SEO element**\n- Length: 50-60 characters\n- Keywords: Most important keyword up front\n- Unique: Each page its own title\n- Compelling: Must be clickable\n\n**Content quality:**\n- Depth: Superficial content doesn't rank\n- Original: No duplicate content\n- Current: Update old content regularly\n- User focus: Write for people, not robots\n\n### 3. Off-page SEO: building authority\nGoogle measures your popularity via backlinks: links from other websites to you.\n\n**What makes a good backlink:**\n- Domain Authority: Link from authoritative site\n- Relevance: Site in same niche\n- Dofollow: Passes SEO value\n- Contextual: In content, not in footer/sidebar\n\n## The Nieuwblik SEO approach\n\nWith every project we implement:\n- Technical SEO audit and fixes\n- Keyword research and strategy\n- Optimized title tags and meta descriptions\n- Schema markup implementation\n- Google Search Console setup\n- Monthly ranking monitoring\n\n**Ready to be found?** Start a project and discover how we transform your organic visibility."
+      nl: `*Leestijd: 7 minuten*
+
+Je website is live, maar niemand vindt hem. Je verschijnt op **pagina 3 van Google** (spoiler: daar klikt niemand). Organisch verkeer blijft uit.
+
+Herkenbaar?
+
+**75% van gebruikers klikt nooit verder dan pagina 1.** Als je daar niet staat, besta je niet. SEO is geen luxe, het is een zakelijke noodzaak.
+
+Bij Nieuwblik bouwen we websites die niet alleen mooi zijn, maar ook **geoptimaliseerd voor zoekmachines vanaf dag één.**
+
+## Inhoudsopgave
+
+1. [Waarom SEO cruciaal is voor jouw bedrijf](#waarom-seo-cruciaal-is)
+2. [De 3 pilaren van moderne SEO](#de-3-pilaren)
+3. [Technische SEO: de fundering](#technische-seo)
+4. [On-page SEO: content is king](#on-page-seo)
+5. [De Nieuwblik SEO aanpak](#nieuwblik-seo-aanpak)
+
+---
+
+## Waarom SEO cruciaal is voor jouw bedrijf {#waarom-seo-cruciaal-is}
+
+### De harde cijfers
+
+- **75%** van gebruikers klikt nooit verder dan pagina 1
+- De **top 3 resultaten** krijgen 75% van alle clicks
+- Positie nummer 1 krijgt gemiddeld **28%** van alle clicks
+- Organisch verkeer converteert **14% beter** dan betaalde advertenties
+
+### ROI van SEO vs. Adverteren
+
+**Google Ads:**
+- Kost geld per click (€2-10+ per klik)
+- Stopt zodra je stopt met betalen
+- Kortetermijn resultaten
+
+**SEO:**
+- Kost tijd en expertise (investering vooraf)
+- Blijft doorwerken na initiële inspanning
+- Langetermijn compound growth
+
+> **Key Takeaway:** SEO is de beste langetermijn investering voor duurzame groei. Betaalde advertenties stoppen zodra je budget op is. SEO blijft doorwerken.
+
+---
+
+## De 3 pilaren van moderne SEO {#de-3-pilaren}
+
+### Pilaar 1: Technische SEO
+De fundering. Als Google je niet kan lezen, kun je niet ranken.
+
+### Pilaar 2: On-page SEO
+Content die relevant, diepgaand en goed gestructureerd is.
+
+### Pilaar 3: Off-page SEO
+Autoriteit opbouwen via backlinks en mentions.
+
+**Deze 3 pilaren werken samen.** Eén pilaar verwaarlozen betekent nooit ranken.
+
+---
+
+## Technische SEO: de fundering {#technische-seo}
+
+Je website moet **crawlbaar en indexeerbaar** zijn. Als Google je niet kan lezen, kun je niet ranken.
+
+**Essentiële technische elementen:**
+
+1. **Site speed:** Target onder 2 seconden laadtijd
+2. **Mobile-first:** Google indexeert primair de mobiele versie
+3. **SSL certificaat (HTTPS):** Veiligheid is ranking factor
+4. **Clean URL structuur:** Beschrijvend en leesbaar
+5. **XML Sitemap:** Geeft Google overzicht van je paginas
+6. **Robots.txt:** Geef Google instructies wat te indexeren
+
+**Veelgemaakte fouten:**
+- Broken links en 404 errors
+- Duplicate content door verkeerde canonical tags
+- Slow loading door ongeoptimaliseerde afbeeldingen
+- Geen mobile optimization
+
+> **Key Takeaway:** Technische SEO is de fundering. Zonder sterke fundering stort alles in, hoe mooi de rest ook is.
+
+---
+
+## On-page SEO: content is king {#on-page-seo}
+
+Google wil de **beste antwoorden** tonen op zoekvragen. Jouw content moet relevant, diepgaand en goed gestructureerd zijn.
+
+### Title tags: je belangrijkste SEO element
+
+**Best practices:**
+- **Lengte:** 50-60 karakters
+- **Keywords:** Belangrijkste keyword vooraan
+- **Uniek:** Elke pagina een eigen title
+- **Compelling:** Moet klikbaar zijn
+
+**Slecht voorbeeld:**
+*"Home | Bedrijfsnaam"*
+
+**Goed voorbeeld:**
+*"Webdesign Bureau Amsterdam | Custom Websites in 1 Week"*
+
+### Meta descriptions: de verkooptekst
+
+- **Lengte:** 150-160 karakters
+- **Action-oriented:** Zet aan tot klikken
+- **Keywords:** Natuurlijk verwerkt
+- **Unique:** Per pagina uniek
+
+### Content kwaliteit bepaalt ranking
+
+**Wat Google waardeert:**
+- **Diepgang:** Oppervlakkige content rankt niet
+- **Origineel:** Geen duplicate content
+- **Actueel:** Update oude content regelmatig
+- **Gebruikersfocus:** Schrijf voor mensen, niet voor robots
+- **Structuur:** Gebruik H2, H3 koppen logisch
+
+**Content checklist:**
+1. Beantwoordt het de zoekvraag volledig?
+2. Is het beter dan de top 3 resultaten?
+3. Is het scanbaar met koppen en lijsten?
+4. Bevat het voorbeelden en praktische tips?
+5. Is het up-to-date en relevant?
+
+> **Key Takeaway:** Content kwaliteit slaat alles. Google wil de beste antwoorden tonen. Als jouw content beter is dan de concurrent, ga je ranken.
+
+---
+
+## De Nieuwblik SEO aanpak {#nieuwblik-seo-aanpak}
+
+Bij elk project implementeren we **vanaf dag één:**
+
+**1. Technical SEO audit en fixes**
+- Site speed optimization
+- Mobile-first design
+- Clean URL structuur
+- XML Sitemap en robots.txt
+
+**2. Keyword research en strategy**
+- Targeting van relevante zoekwoorden
+- Long-tail keyword opportunities
+- Competitor analysis
+
+**3. Optimized title tags en meta descriptions**
+- Uniek per pagina
+- Keyword-rich en compelling
+- Optimale lengte
+
+**4. Schema markup implementation**
+- Rich snippets voor betere zichtbaarheid
+- Structured data voor Google
+
+**5. Google Search Console setup**
+- Monitoring van indexatie
+- Performance tracking
+- Error detection
+
+**6. Maandelijkse ranking monitoring**
+- Track je posities
+- Identificeer opportunities
+- Continue optimalisatie
+
+### Resultaten die onze klanten zien:
+
+- **150-300%** meer organisch verkeer binnen 6 maanden
+- **Top 3 rankings** voor belangrijkste zoekwoorden
+- **Lagere cost per acquisition** door meer organisch verkeer
+- **Duurzame groei** die blijft doorwerken
+
+### Klaar om gevonden te worden?
+
+Ontdek hoe we jouw **organische zichtbaarheid transformeren** met proven SEO strategieën.
+
+**[Start een project →](/start-je-project)**`,
+      en: "Your website is live, but nobody finds it. You appear on page 3 of Google (spoiler: nobody clicks there). Organic traffic remains absent."
     },
     date: "2025-01-10",
-    readingTime: 12
+    readingTime: 7
   }
 ];
