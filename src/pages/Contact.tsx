@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle } from "lucide-react";
-import ProjectBriefingForm from "@/components/ProjectBriefingForm";
+import ContactForm from "@/components/ContactForm";
 
 const Contact = () => {
   const structuredData = {
@@ -107,7 +107,7 @@ const Contact = () => {
                   Help ons jouw project te begrijpen door de onderstaande vragen te beantwoorden.
                 </p>
                 
-                <ProjectBriefingForm />
+                <ContactForm />
               </div>
             </div>
           </div>
