@@ -10,7 +10,6 @@ import { lazy, Suspense } from "react";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
-import PageTransition from "./components/PageTransition";
 
 // Eager load critical pages (above the fold)
 import Index from "./pages/Index";
@@ -48,7 +47,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <PageTransition />
           <ScrollToTopButton />
           <CookieConsent />
           <Suspense fallback={<PageLoader />}>
