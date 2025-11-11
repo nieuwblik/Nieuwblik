@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Users, Sparkles, Rocket } from "lucide-react";
-import justinImg from "@/assets/justin-slok.webp";
+import justinImg from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const About = () => {

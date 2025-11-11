@@ -7,7 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
 import { useLanguage } from "@/contexts/LanguageContext";
-import justinImg from "@/assets/justin-slok.webp";
+import justinImg from "@/assets/justin-slok.png";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 

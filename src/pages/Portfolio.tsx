@@ -11,28 +11,28 @@ import { Skeleton } from "@/components/ui/skeleton";
 import SocialContentSection from "@/components/SocialContentSection";
 
 // Import project images
-import bushidoshopImg from "@/assets/projects/bushidoshop.nl.webp";
-import carbon6Img from "@/assets/projects/carbon6.nl.webp";
-import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.webp";
-import edventureboatsImg from "@/assets/projects/edventureboats.nl.webp";
-import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.webp";
-import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.webp";
-import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.webp";
-import kyodaioriginalsImg from "@/assets/projects/kyodaioriginals.nl.webp";
-import lashlutionImg from "@/assets/projects/lashlution.nl.webp";
-import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.webp";
-import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.webp";
-import greenProfitImg from "@/assets/projects/green-profit.nl.webp";
-import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.webp";
-import prideMobilityImg from "@/assets/projects/pride-mobility.nl.webp";
-import rrsroyalImg from "@/assets/projects/rrsroyal.nl.webp";
+import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
+import carbon6Img from "@/assets/projects/carbon6.nl.png";
+import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.png";
+import edventureboatsImg from "@/assets/projects/edventureboats.nl.png";
+import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
+import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.png";
+import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
+import kyodaioriginalsImg from "@/assets/projects/kyodaioriginals.nl.png";
+import lashlutionImg from "@/assets/projects/lashlution.nl.png";
+import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.png";
+import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
+import greenProfitImg from "@/assets/projects/green-profit.nl.png";
+import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
+import prideMobilityImg from "@/assets/projects/pride-mobility.nl.png";
+import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 
 // Import e-commerce listing images
-import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
-import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.webp";
-import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.webp";
-import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp";
-import compressorListingImg from "@/assets/projects/compressor-listing.webp";
+import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
+import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.png";
+import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.png";
+import pastamachineListingImg from "@/assets/projects/pastamachine-listing.png";
+import compressorListingImg from "@/assets/projects/compressor-listing.png";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("all");

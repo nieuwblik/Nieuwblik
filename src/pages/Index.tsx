@@ -7,20 +7,20 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink, Linkedin } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import justinImage from "@/assets/justin-slok.webp";
+import justinImage from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
 // Import AI logos
-import claudeLogo from "@/assets/ai/claude-logo.webp";
-import copilotLogo from "@/assets/ai/copilot-logo.webp";
-import grokLogo from "@/assets/ai/grok-logo.webp";
-import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
+import claudeLogo from "@/assets/ai/claude-logo.png";
+import copilotLogo from "@/assets/ai/copilot-logo.png";
+import grokLogo from "@/assets/ai/grok-logo.png";
+import perplexityLogo from "@/assets/ai/perplexity-logo.png";
 // Import featured project images
-import bushidoshopImg from "@/assets/projects/bushidoshop.nl.webp";
-import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.webp";
-import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.webp";
-import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.webp";
+import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
+import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
+import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
+import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
 
 const Index = () => {
   const heroAnimation = useScrollAnimation();
