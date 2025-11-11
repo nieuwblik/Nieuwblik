@@ -13,6 +13,7 @@ interface ContactRequest {
   companyName?: string;
   email: string;
   phone: string;
+  notes?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -30,6 +31,7 @@ const handler = async (req: Request): Promise<Response> => {
       ${data.companyName ? `<p><strong>Bedrijfsnaam:</strong> ${data.companyName}</p>` : ''}
       <p><strong>E-mailadres:</strong> ${data.email}</p>
       <p><strong>Telefoonnummer:</strong> ${data.phone}</p>
+      ${data.notes ? `<p><strong>Opmerkingen:</strong></p><p>${data.notes}</p>` : ''}
     `;
 
     const emailResponse = await fetch("https://api.resend.com/emails", {

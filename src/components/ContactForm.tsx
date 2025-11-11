@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,6 +21,7 @@ const ContactForm = () => {
       companyName: formData.get("companyName") as string,
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
+      notes: formData.get("notes") as string,
     };
 
     try {
@@ -31,6 +35,7 @@ const ContactForm = () => {
       }
 
       toast.success("Bedankt! We nemen binnen 48 uur contact met je op.");
+      navigate("/bedankt");
     } catch (error: any) {
       console.error("Form submission error:", error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
@@ -91,6 +96,18 @@ const ContactForm = () => {
           maxLength={20}
           className="mt-2"
           placeholder="+31 6 12345678"
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="notes">Aanvullende opmerkingen</Label>
+        <Textarea
+          id="notes"
+          name="notes"
+          maxLength={1000}
+          className="mt-2"
+          placeholder="Vertel ons meer over je project... (optioneel)"
+          rows={4}
         />
       </div>
 
