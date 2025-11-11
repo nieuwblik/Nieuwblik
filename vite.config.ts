@@ -49,14 +49,10 @@ export default defineConfig(({ mode }) => ({
     },
     // Increase chunk size warning limit for production
     chunkSizeWarningLimit: 1000,
-    // Minify for production
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
-      },
-    },
+    // Use esbuild for minification (faster than terser, included with Vite)
+    minify: 'esbuild',
+    // Additional esbuild options for production
+    target: 'es2015',
   },
   // Image optimization
   assetsInlineLimit: 4096, // Inline assets smaller than 4kb
