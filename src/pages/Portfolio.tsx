@@ -318,6 +318,9 @@ const Portfolio = () => {
                     src={project.image} 
                     alt={project.title}
                     loading="lazy"
+                    decoding="async"
+                    width="800"
+                    height="600"
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -372,6 +375,9 @@ const Portfolio = () => {
                       src={listing.image} 
                       alt={listing.title}
                       loading="lazy"
+                      decoding="async"
+                      width="800"
+                      height="600"
                       className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

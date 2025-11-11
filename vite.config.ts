@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    warmup: {
+      clientFiles: ['./src/main.tsx', './src/App.tsx', './src/pages/Index.tsx'],
+    },
   },
   plugins: [
     react(), 
@@ -66,17 +69,20 @@ export default defineConfig(({ mode }) => ({
     },
     // Increase chunk size warning limit for production
     chunkSizeWarningLimit: 1000,
-    // Use esbuild for minification (faster than terser, included with Vite)
+    // Use esbuild for minification (faster than terser)
     minify: 'esbuild',
     // Additional esbuild options for production
     target: 'es2015',
     // Enable CSS code splitting
     cssCodeSplit: true,
+    // Optimize asset output
+    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+    reportCompressedSize: false, // Faster builds
+    sourcemap: false, // Disable sourcemaps in production for smaller files
   },
-  // Image optimization - inline small images, lazy load others
-  assetsInlineLimit: 4096, // Inline assets smaller than 4kb
   // Optimize dependencies
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
+    exclude: [], // Exclude large deps from pre-bundling if needed
   },
 }));

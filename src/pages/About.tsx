@@ -107,8 +107,11 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg transform rotate-3"></div>
                 <img 
                   src={justinImg} 
-                  alt="Justin Slok"
+                  alt="Justin Slok - Oprichter van Nieuwblik"
                   loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="800"
                   className="relative rounded-lg shadow-2xl w-full object-cover transform -rotate-2 hover:rotate-0 transition-transform duration-500"
                 />
               </div>

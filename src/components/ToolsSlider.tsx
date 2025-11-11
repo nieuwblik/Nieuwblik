@@ -67,7 +67,15 @@ const ToolsSlider = () => {
           width: "120px",
           height: "60px"
         }}>
-              
+              <img 
+                src={tool.logo} 
+                alt={`${tool.name} logo`} 
+                loading="lazy"
+                decoding="async"
+                width="120"
+                height="60"
+                className="max-w-full max-h-full object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
+              />
             </div>)}
         </div>
       </div>

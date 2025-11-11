@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import logo from "@/assets/logo.png";
 import { Linkedin } from "lucide-react";
 import { toast } from "sonner";
@@ -22,7 +23,14 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           <div className="lg:col-span-2">
-            <img src={logo} alt="Nieuwblik" className="h-8 mb-4 brightness-0" />
+            <OptimizedImage 
+              src={logo} 
+              alt="Nieuwblik logo" 
+              className="h-8 mb-4 brightness-0" 
+              type="logo"
+              width={150}
+              height={32}
+            />
             <p className="text-muted-foreground text-sm mb-6">
               Wij zijn Nieuwblik - jouw partner in digitale groei. Met passie en expertise creëren we websites en designs die niet alleen prachtig zijn, maar ook echt resultaat opleveren.
             </p>
