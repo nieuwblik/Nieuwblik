@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,8 +50,10 @@ interface FormData {
 }
 
 const ProjectBriefingForm = () => {
+  const STORAGE_KEY = 'nieuwblik-contact-form-draft';
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     companyName: "",
@@ -71,6 +73,35 @@ const ProjectBriefingForm = () => {
     howDidYouFindUs: "",
     additionalNotes: "",
   });
+
+  // Load saved form data on mount
+  useEffect(() => {
+    try {
+      const savedData = localStorage.getItem(STORAGE_KEY);
+      if (savedData) {
+        const parsed = JSON.parse(savedData);
+        setFormData(parsed.formData);
+        setStep(parsed.step || 1);
+        toast.info("Je eerder begonnen formulier is hersteld");
+      }
+    } catch (error) {
+      console.error("Error loading saved form data:", error);
+    }
+  }, []);
+
+  // Auto-save form data when it changes
+  useEffect(() => {
+    const saveData = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ formData, step }));
+        setLastSaved(new Date());
+      } catch (error) {
+        console.error("Error saving form data:", error);
+      }
+    }, 1000); // Debounce save by 1 second
+
+    return () => clearTimeout(saveData);
+  }, [formData, step]);
 
   const projectTypeOptions = [
     "Nieuwe Website (vanaf nul)",
@@ -121,6 +152,8 @@ const ProjectBriefingForm = () => {
         throw error;
       }
 
+      // Clear saved form data after successful submission
+      localStorage.removeItem(STORAGE_KEY);
       toast.success("Bedankt! We nemen binnen 48 uur contact met je op.");
       window.location.href = '/bedankt';
     } catch (error: any) {
@@ -133,6 +166,13 @@ const ProjectBriefingForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Auto-save indicator */}
+      {lastSaved && (
+        <div className="text-xs text-muted-foreground text-right">
+          💾 Automatisch opgeslagen om {lastSaved.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}
+        </div>
+      )}
+      
       {/* Progress indicator */}
       <div className="flex items-center justify-between mb-8">
         {[1, 2, 3, 4].map((s) => (
