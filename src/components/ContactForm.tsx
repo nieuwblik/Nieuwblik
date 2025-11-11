@@ -14,15 +14,15 @@ const ContactForm = () => {
 
     const formData = new FormData(e.currentTarget);
     const data = {
-      fullName: formData.get('fullName') as string,
-      companyName: formData.get('companyName') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
+      fullName: formData.get("fullName") as string,
+      companyName: formData.get("companyName") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
     };
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: data
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: data,
       });
 
       if (error) {
@@ -31,8 +31,6 @@ const ContactForm = () => {
       }
 
       toast.success("Bedankt! We nemen binnen 48 uur contact met je op.");
-      e.currentTarget.reset();
-      window.location.href = '/bedankt';
     } catch (error: any) {
       console.error("Form submission error:", error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
@@ -96,9 +94,9 @@ const ContactForm = () => {
         />
       </div>
 
-      <Button 
-        type="submit" 
-        disabled={isSubmitting} 
+      <Button
+        type="submit"
+        disabled={isSubmitting}
         className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
       >
         {isSubmitting ? "Verzenden..." : "Verstuur aanvraag"}
