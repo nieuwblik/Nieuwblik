@@ -124,7 +124,10 @@ const Index = () => {
                 <img 
                   src={justinImage} 
                   alt="Justin Slok - Nieuwblik"
+                  width="800"
+                  height="600"
                   loading="eager"
+                  fetchPriority="high"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -236,6 +239,8 @@ const Index = () => {
                   <img
                     src={project.image}
                     alt={project.title}
+                    width="800"
+                    height="600"
                     loading="lazy"
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />

@@ -43,6 +43,9 @@ const Navigation = () => {
             <img 
               src={logo} 
               alt="Nieuwblik" 
+              width="160"
+              height="40"
+              fetchPriority="high"
               className={`h-8 md:h-10 transition-all duration-300 ${
                 isScrolled ? "brightness-0 invert" : "brightness-0"
               }`}
