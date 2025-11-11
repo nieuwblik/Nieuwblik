@@ -7,6 +7,27 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const projectBriefingSchema = z.object({
+  fullName: z.string().trim().min(1, "Naam is verplicht").max(100),
+  companyName: z.string().trim().min(1, "Bedrijfsnaam is verplicht").max(100),
+  position: z.string().trim().min(1, "Functie is verplicht").max(100),
+  email: z.string().trim().email("Ongeldig e-mailadres").max(255),
+  phone: z.string().trim().max(20).optional(),
+  projectTypes: z.array(z.string()).min(1, "Selecteer minimaal één projecttype").max(10),
+  otherProjectType: z.string().trim().max(200).optional(),
+  projectGoal: z.string().trim().min(1, "Projectdoel is verplicht").max(1000),
+  currentWebsite: z.string().trim().url("Ongeldige URL").max(500).optional().or(z.literal("")),
+  inspirationWebsite: z.string().trim().url("Ongeldige URL").max(500).optional().or(z.literal("")),
+  budget: z.string().trim().min(1, "Budget is verplicht").max(100),
+  timeline: z.string().trim().min(1, "Timeline is verplicht").max(100),
+  contentReady: z.string().trim().min(1, "Selecteer een optie").max(100),
+  brandKitAvailable: z.string().trim().min(1, "Selecteer een optie").max(100),
+  howDidYouFindUs: z.string().trim().min(1, "Selecteer hoe je ons hebt gevonden").max(200),
+  portfolioAppeal: z.string().trim().max(500).optional(),
+  additionalNotes: z.string().trim().max(1000).optional(),
+});
 
 interface FormData {
   fullName: string;
@@ -81,18 +102,30 @@ const ProjectBriefingForm = () => {
     setIsSubmitting(true);
 
     try {
+      // Validate form data
+      const validationResult = projectBriefingSchema.safeParse(formData);
+      
+      if (!validationResult.success) {
+        const firstError = Object.values(validationResult.error.flatten().fieldErrors)[0]?.[0];
+        toast.error(firstError || "Controleer alle verplichte velden");
+        setIsSubmitting(false);
+        return;
+      }
+
       const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData
+        body: validationResult.data
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase function error:", error);
+        throw error;
+      }
 
       toast.success("Bedankt! We nemen binnen 48 uur contact met je op.");
-      // Redirect to thank you page
       window.location.href = '/bedankt';
     } catch (error: any) {
-      console.error("Error:", error);
-      toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op.");
+      console.error("Form submission error:", error);
+      toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
     } finally {
       setIsSubmitting(false);
     }
