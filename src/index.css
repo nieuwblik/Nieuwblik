@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance: Prevent layout shifts with font-display */
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Optimize text rendering */
+  body {
+    text-rendering: optimizeSpeed;
+  }
+}
+
 /* Nieuwblik Design System - Luxury Minimalism 
 All colors MUST be HSL.
 */
