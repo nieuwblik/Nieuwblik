@@ -20,11 +20,11 @@ const projectBriefingSchema = z.object({
   projectGoal: z.string().trim().min(1, "Projectdoel is verplicht").max(1000),
   currentWebsite: z.string().trim().url("Ongeldige URL").max(500).optional().or(z.literal("")),
   inspirationWebsite: z.string().trim().url("Ongeldige URL").max(500).optional().or(z.literal("")),
-  budget: z.string().trim().min(1, "Budget is verplicht").max(100),
-  timeline: z.string().trim().min(1, "Timeline is verplicht").max(100),
-  contentReady: z.string().trim().min(1, "Selecteer een optie").max(100),
-  brandKitAvailable: z.string().trim().min(1, "Selecteer een optie").max(100),
-  howDidYouFindUs: z.string().trim().min(1, "Selecteer hoe je ons hebt gevonden").max(200),
+  // budget: z.string().trim().min(1, "Budget is verplicht").max(100),
+  // timeline: z.string().trim().min(1, "Timeline is verplicht").max(100),
+  // contentReady: z.string().trim().min(1, "Selecteer een optie").max(100),
+  // brandKitAvailable: z.string().trim().min(1, "Selecteer een optie").max(100),
+  // howDidYouFindUs: z.string().trim().min(1, "Selecteer hoe je ons hebt gevonden").max(200),
   portfolioAppeal: z.string().trim().max(500).optional(),
   additionalNotes: z.string().trim().max(1000).optional(),
 });
@@ -50,7 +50,7 @@ interface FormData {
 }
 
 const ProjectBriefingForm = () => {
-  const STORAGE_KEY = 'nieuwblik-contact-form-draft';
+  const STORAGE_KEY = "nieuwblik-contact-form-draft";
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -65,12 +65,12 @@ const ProjectBriefingForm = () => {
     projectGoal: "",
     currentWebsite: "",
     inspirationWebsite: "",
-    budget: "",
-    timeline: "",
-    contentReady: "",
-    brandKitAvailable: "",
+    // budget: "",
+    // timeline: "",
+    // contentReady: "",
+    // brandKitAvailable: "",
     portfolioAppeal: "",
-    howDidYouFindUs: "",
+    // howDidYouFindUs: "",
     additionalNotes: "",
   });
 
@@ -112,11 +112,11 @@ const ProjectBriefingForm = () => {
   ];
 
   const handleProjectTypeChange = (type: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       projectTypes: prev.projectTypes.includes(type)
-        ? prev.projectTypes.filter(t => t !== type)
-        : [...prev.projectTypes, type]
+        ? prev.projectTypes.filter((t) => t !== type)
+        : [...prev.projectTypes, type],
     }));
   };
 
@@ -135,7 +135,7 @@ const ProjectBriefingForm = () => {
     try {
       // Validate form data
       const validationResult = projectBriefingSchema.safeParse(formData);
-      
+
       if (!validationResult.success) {
         const firstError = Object.values(validationResult.error.flatten().fieldErrors)[0]?.[0];
         toast.error(firstError || "Controleer alle verplichte velden");
@@ -143,8 +143,8 @@ const ProjectBriefingForm = () => {
         return;
       }
 
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: validationResult.data
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: validationResult.data,
       });
 
       if (error) {
@@ -155,7 +155,7 @@ const ProjectBriefingForm = () => {
       // Clear saved form data after successful submission
       localStorage.removeItem(STORAGE_KEY);
       toast.success("Bedankt! We nemen binnen 48 uur contact met je op.");
-      window.location.href = '/bedankt';
+      window.location.href = "/bedankt";
     } catch (error: any) {
       console.error("Form submission error:", error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
@@ -169,10 +169,10 @@ const ProjectBriefingForm = () => {
       {/* Auto-save indicator */}
       {lastSaved && (
         <div className="text-xs text-muted-foreground text-right">
-          💾 Automatisch opgeslagen om {lastSaved.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}
+          💾 Automatisch opgeslagen om {lastSaved.toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit" })}
         </div>
       )}
-      
+
       {/* Progress indicator */}
       <div className="flex items-center justify-between mb-8">
         {[1, 2, 3, 4].map((s) => (
@@ -182,19 +182,13 @@ const ProjectBriefingForm = () => {
                 s === step
                   ? "bg-accent text-accent-foreground"
                   : s < step
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground"
               }`}
             >
               {s}
             </div>
-            {s < 4 && (
-              <div
-                className={`flex-1 h-1 mx-2 ${
-                  s < step ? "bg-primary" : "bg-muted"
-                }`}
-              />
-            )}
+            {s < 4 && <div className={`flex-1 h-1 mx-2 ${s < step ? "bg-primary" : "bg-muted"}`} />}
           </div>
         ))}
       </div>
@@ -320,72 +314,17 @@ const ProjectBriefingForm = () => {
         </div>
       )}
 
-      {/* Step 3: Omvang & Specificaties */}
+      {/* Step 3: Match & Afronding */}
       {step === 3 && (
         <div className="space-y-6">
-          <h3 className="text-2xl font-semibold">Stap 3: Omvang & specificaties</h3>
-          <div>
-            <Label htmlFor="budget">Budget *</Label>
-            <Input
-              id="budget"
-              required
-              type="text"
-              placeholder="Bijvoorbeeld: €3.500 of €10.000"
-              value={formData.budget}
-              onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-              className="mt-2"
-            />
-          </div>
-          <div>
-            <Label htmlFor="timeline">Wanneer wil je dat het project live gaat? *</Label>
-            <Select required value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-              <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Selecteer tijdlijn" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1week">Binnen 1 week (Zeer spoed)</SelectItem>
-                <SelectItem value="1month">Binnen 1 maand (Spoed)</SelectItem>
-                <SelectItem value="1-3months">1 tot 3 maanden</SelectItem>
-                <SelectItem value="3-6months">3 tot 6 maanden</SelectItem>
-                <SelectItem value="unsure">Nog niet zeker</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label htmlFor="contentReady">Is de benodigde content al beschikbaar? *</Label>
-            <Select required value={formData.contentReady} onValueChange={(value) => setFormData({ ...formData, contentReady: value })}>
-              <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Selecteer optie" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="yes">Ja, alles is klaar</SelectItem>
-                <SelectItem value="no">Nee, we hebben hulp nodig met content/copywriting</SelectItem>
-                <SelectItem value="partial">Gedeeltelijk</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label htmlFor="brandKitAvailable">Is er al een bestaande huisstijl/brandkit? *</Label>
-            <Select required value={formData.brandKitAvailable} onValueChange={(value) => setFormData({ ...formData, brandKitAvailable: value })}>
-              <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Selecteer optie" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="yes">Ja</SelectItem>
-                <SelectItem value="no">Nee</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      )}
-
-      {/* Step 4: Match & Afronding */}
-      {step === 4 && (
-        <div className="space-y-6">
-          <h3 className="text-2xl font-semibold">Stap 4: Match & afronding</h3>
+          <h3 className="text-2xl font-semibold">Stap 3: Match & afronding</h3>
           <div>
             <Label htmlFor="howDidYouFindUs">Hoe ben je op ons gekomen? *</Label>
-            <Select required value={formData.howDidYouFindUs} onValueChange={(value) => setFormData({ ...formData, howDidYouFindUs: value })}>
+            <Select
+              required
+              value={formData.howDidYouFindUs}
+              onValueChange={(value) => setFormData({ ...formData, howDidYouFindUs: value })}
+            >
               <SelectTrigger className="mt-2">
                 <SelectValue placeholder="Selecteer optie" />
               </SelectTrigger>
@@ -401,7 +340,9 @@ const ProjectBriefingForm = () => {
             </Select>
           </div>
           <div>
-            <Label htmlFor="portfolioAppeal">Wat spreekt je het meest aan in de portfolio of stijl van Nieuwblik?</Label>
+            <Label htmlFor="portfolioAppeal">
+              Wat spreekt je het meest aan in de portfolio of stijl van Nieuwblik?
+            </Label>
             <Textarea
               id="portfolioAppeal"
               value={formData.portfolioAppeal}
@@ -429,11 +370,19 @@ const ProjectBriefingForm = () => {
           </Button>
         )}
         {step < 4 ? (
-          <Button type="button" onClick={handleNext} className="ml-auto bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button
+            type="button"
+            onClick={handleNext}
+            className="ml-auto bg-accent text-accent-foreground hover:bg-accent/90"
+          >
             Volgende
           </Button>
         ) : (
-          <Button type="submit" disabled={isSubmitting} className="ml-auto bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="ml-auto bg-accent text-accent-foreground hover:bg-accent/90"
+          >
             {isSubmitting ? "Verzenden..." : "Versturen"}
           </Button>
         )}
