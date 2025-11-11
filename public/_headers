@@ -1,9 +1,9 @@
 # Cache headers for Netlify
 # https://docs.netlify.com/routing/headers/
 
-# Cache static assets for 1 year
+# Cache static assets for 1 year with immutable flag
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=31536000, immutable, stale-while-revalidate=86400
 
 # Cache images for 1 year
 *.png

@@ -23,7 +23,23 @@ De Vite Image Optimizer plugin is geconfigureerd om automatisch:
 
 ## 🔧 Wat JIJ Moet Doen voor Optimale Performance
 
-### 1. **Deploy naar Netlify/Production**
+### 1. **Geautomatiseerde Image Optimalisatie (AANBEVOLEN)**
+
+**Gebruik het optimize script:**
+```bash
+# Run het optimalisatie script
+node scripts/optimize-images.js
+```
+
+Dit script:
+- ✅ Converteert automatisch alle PNG/JPG naar WebP formaat
+- ✅ Comprimeert met 80% quality voor optimale balans
+- ✅ Toont exact hoeveel ruimte je bespaart per afbeelding
+- ✅ Behoudt originele bestanden als backup
+
+**Alternatief: Handmatige optimalisatie** (zie sectie 3 hieronder)
+
+### 2. **Deploy naar Netlify/Production**
 De cache headers werken NIET in development (localhost). Je moet:
 ```bash
 npm run build
@@ -35,7 +51,7 @@ En vervolgens deployen naar Netlify om de cache headers actief te krijgen.
 - Kijk naar Response Headers bij images
 - Je zou moeten zien: `Cache-Control: public, max-age=31536000, immutable`
 
-### 2. **Afbeeldingen Handmatig Optimaliseren (Optioneel maar Aanbevolen)**
+### 3. **Afbeeldingen Handmatig Optimaliseren (Alleen als Alternatief)**
 
 Je huidige grote afbeeldingen:
 - **justin-slok.png** (181 KiB) → moet ~40-60 KiB zijn

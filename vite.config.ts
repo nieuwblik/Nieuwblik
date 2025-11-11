@@ -20,17 +20,18 @@ export default defineConfig(({ mode }) => ({
     // Image optimization - converts to WebP and optimizes
     ViteImageOptimizer({
       png: {
-        quality: 70, // Verlaagd voor betere compressie
+        quality: 80,
       },
       jpeg: {
-        quality: 70,
+        quality: 80,
       },
       jpg: {
-        quality: 70,
+        quality: 80,
       },
       webp: {
         lossless: false,
-        quality: 75,
+        quality: 85,
+        effort: 6, // Maximum compression effort (0-6)
       },
       // Optimize SVGs too
       svg: {
