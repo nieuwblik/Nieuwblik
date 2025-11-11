@@ -331,7 +331,7 @@ const Index = () => {
                 <TooltipTrigger asChild>
                   <div className="flex flex-col items-center gap-2 group animate-fade-in hover:scale-110 transition-all duration-300" style={{ animationDelay: '200ms' }}>
                     <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float" style={{ animationDelay: '400ms' }}>
-                      <img src={perplexityLogo} alt="Perplexity AI" className="w-full h-full object-contain bg-transparent mix-blend-multiply dark:mix-blend-normal dark:invert" />
+                      <img src={perplexityLogo} alt="Perplexity AI" className="w-full h-full object-contain" />
                     </div>
                   </div>
                 </TooltipTrigger>
