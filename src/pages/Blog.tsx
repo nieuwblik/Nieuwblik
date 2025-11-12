@@ -8,7 +8,6 @@ import { BookOpen, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Blog = () => {
-  const heroAnimation = useScrollAnimation(0.1, { startVisible: true });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,12 +53,7 @@ const Blog = () => {
               <Skeleton className="h-64 w-full rounded-2xl" />
             </div>
           ) : (
-            <div
-              ref={heroAnimation.ref}
-              className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
-                heroAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-            >
+            <div className="max-w-4xl mx-auto text-center transition-all duration-1000">
               <div className="mb-8 inline-block relative">
                 <BookOpen className="w-20 h-20 md:w-24 md:h-24 text-accent mx-auto animate-pulse" />
                 <Sparkles
