@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import ClientTooltipProvider from "./components/ClientTooltipProvider";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -39,6 +40,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ClientTooltipProvider>
     
       <Toaster />
       <Sonner />
@@ -68,6 +70,7 @@ const App = () => (
           </Routes>
         </Suspense>
       </BrowserRouter>
+    </ClientTooltipProvider>
     
   </QueryClientProvider>
 );
