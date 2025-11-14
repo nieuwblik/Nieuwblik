@@ -105,7 +105,14 @@ export default defineConfig(({ mode }) => ({
   },
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom',
+      'react/jsx-runtime',
+      '@radix-ui/react-tooltip',
+    ],
     exclude: [], // Exclude large deps from pre-bundling if needed
+    force: true, // Force re-optimization to fix multiple React instances
   },
 }));
