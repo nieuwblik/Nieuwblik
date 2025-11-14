@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Star, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Testimonial {
   name: string;
   company?: string;
   rating: number;
   text: string;
-  textNl: string;
   date?: string;
 }
 
@@ -16,7 +14,6 @@ const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sca_esv=8d0681f1a4a423
 
 const TestimonialsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { language, t } = useLanguage();
 
   // Add your actual Google reviews here
   const testimonials: Testimonial[] = [
@@ -24,40 +21,35 @@ const TestimonialsCarousel = () => {
       name: "Sarah Johnson",
       company: "Boutique Fashion",
       rating: 5,
-      text: "Nieuwblik transformed our online presence completely. Their attention to detail and understanding of luxury branding is exceptional. Our website now perfectly represents our high-end fashion boutique.",
-      textNl: "Nieuwblik heeft onze online aanwezigheid volledig getransformeerd. Hun aandacht voor detail en begrip van luxe branding is uitzonderlijk. Onze website vertegenwoordigt nu perfect onze high-end modewinkel.",
+      text: "Nieuwblik heeft onze online aanwezigheid volledig getransformeerd. Hun aandacht voor detail en begrip van luxe branding is uitzonderlijk. Onze website vertegenwoordigt nu perfect onze high-end modewinkel.",
       date: "2 weeks ago"
     },
     {
       name: "Mark van den Berg",
       company: "Tech Innovations B.V.",
       rating: 5,
-      text: "Working with Nieuwblik was a game-changer for our startup. They delivered a sophisticated web application that exceeded our expectations. Professional, creative, and incredibly responsive.",
-      textNl: "Samenwerken met Nieuwblik was een gamechanger voor onze startup. Ze leverden een geavanceerde webapplicatie die onze verwachtingen overtrof. Professioneel, creatief en ongelooflijk responsief.",
+      text: "Samenwerken met Nieuwblik was een gamechanger voor onze startup. Ze leverden een geavanceerde webapplicatie die onze verwachtingen overtrof. Professioneel, creatief en ongelooflijk responsief.",
       date: "1 month ago"
     },
     {
       name: "Emma de Vries",
       company: "Wellness Studio",
       rating: 5,
-      text: "The branding kit they created for us is absolutely stunning. Every element feels cohesive and premium. Our clients constantly compliment our visual identity. Highly recommend!",
-      textNl: "De branding kit die ze voor ons hebben gemaakt is absoluut prachtig. Elk element voelt samenhangend en premium aan. Onze klanten complimenteren voortdurend onze visuele identiteit. Een echte aanrader!",
+      text: "De branding kit die ze voor ons hebben gemaakt is absoluut prachtig. Elk element voelt samenhangend en premium aan. Onze klanten complimenteren voortdurend onze visuele identiteit. Een echte aanrader!",
       date: "3 weeks ago"
     },
     {
       name: "Robert Jansen",
       company: "AutoDeluxe",
       rating: 5,
-      text: "From website design to vehicle wrapping graphics, Nieuwblik handled everything with exceptional professionalism. They truly understand how to elevate a brand's visual presence.",
-      textNl: "Van websiteontwerp tot autobelettering, Nieuwblik heeft alles met uitzonderlijk professionalisme afgehandeld. Ze begrijpen echt hoe je de visuele aanwezigheid van een merk kunt verheffen.",
+      text: "Van websiteontwerp tot autobelettering, Nieuwblik heeft alles met uitzonderlijk professionalisme afgehandeld. Ze begrijpen echt hoe je de visuele aanwezigheid van een merk kunt verheffen.",
       date: "2 months ago"
     },
     {
       name: "Lisa Vermeulen",
       company: "E-commerce Solutions",
       rating: 5,
-      text: "Our e-commerce platform is now a work of art. Nieuwblik's design expertise combined with technical excellence resulted in a website that converts beautifully. Worth every euro!",
-      textNl: "Ons e-commerce platform is nu een kunstwerk. De ontwerpexpertise van Nieuwblik gecombineerd met technische excellentie resulteerde in een website die prachtig converteert. Elke euro waard!",
+      text: "Ons e-commerce platform is nu een kunstwerk. De ontwerpexpertise van Nieuwblik gecombineerd met technische excellentie resulteerde in een website die prachtig converteert. Elke euro waard!",
       date: "1 week ago"
     }
   ];
@@ -96,7 +88,7 @@ const TestimonialsCarousel = () => {
 
         {/* Review Text */}
         <blockquote className="text-lg md:text-xl text-foreground mb-8 font-light leading-relaxed flex-grow">
-          "{language === "en" ? currentTestimonial.text : currentTestimonial.textNl}"
+          "{currentTestimonial.text}"
         </blockquote>
 
         {/* Author Info */}
