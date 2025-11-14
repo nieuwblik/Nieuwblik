@@ -114,7 +114,6 @@ export default defineConfig(({ mode }) => ({
       'react/jsx-runtime',
       '@radix-ui/react-tooltip',
     ],
-    exclude: [], // Exclude large deps from pre-bundling if needed
-    force: true, // Force re-optimization to fix multiple React instances
+    exclude: [],
   },
 }));
