@@ -11,7 +11,6 @@ import CookieConsent from "./components/CookieConsent";
 // Eager load critical pages
 import Index from "./pages/Index";
 import Services from "./pages/Services";
-import Prijzen from "./pages/Prijzen";
 
 // Lazy load non-critical pages
 const Portfolio = lazy(() => import("./pages/Portfolio"));
@@ -50,7 +49,6 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/diensten" element={<Services />} />
-            <Route path="/prijzen" element={<Prijzen />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/over-ons" element={<About />} />
             <Route path="/blog" element={<Blog />} />
