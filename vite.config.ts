@@ -73,6 +73,8 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    // Force Vite to use single React instance - fixes "Invalid hook call" errors
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime'],
   },
   build: {
     // Optimize chunk splitting for better caching
