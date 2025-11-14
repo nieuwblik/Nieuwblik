@@ -1,4 +1,4 @@
-import { useLanguage } from "@/contexts/LanguageContext";
+// Import tool logos
 
 // Import tool logos
 import lovableLogo from "@/assets/tools/lovable.svg";
@@ -52,7 +52,7 @@ const ToolsSlider = () => {
   return <section className="py-12 md:py-16 bg-secondary overflow-hidden">
       <div className="container mx-auto px-6 mb-8">
         <p className="text-center text-muted-foreground text-sm md:text-base font-light">
-          {t("tools.title")}
+          Tools en Technologieën die Wij Gebruiken
         </p>
       </div>
       

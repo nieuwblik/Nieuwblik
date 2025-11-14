@@ -6,7 +6,6 @@ import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
-import { useLanguage } from "@/contexts/LanguageContext";
 import justinImg from "@/assets/justin-slok.png";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -19,7 +18,6 @@ interface TocItem {
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { t, language } = useLanguage();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
@@ -289,7 +287,7 @@ const BlogPost = () => {
             className="inline-flex items-center gap-2 text-accent hover:gap-3 transition-all font-semibold"
           >
             <ArrowLeft className="w-5 h-5" />
-            {t("blog.backToBlog")}
+            Terug naar Blog
           </Link>
         </div>
       </section>
@@ -357,7 +355,7 @@ const BlogPost = () => {
                       className="w-16 h-16 rounded-full object-cover"
                     />
                     <div>
-                      <p className="font-semibold text-lg">{t("blog.author")}</p>
+                      <p className="font-semibold text-lg">Auteur</p>
                       <p className="text-muted-foreground text-sm">Nieuwblik.com</p>
                     </div>
                   </div>
