@@ -1,11 +1,11 @@
-import Navigation from "@/components/Navigation";
+
 import Footer from "@/components/Footer";
 import { Shield } from "lucide-react";
 
 const Privacy = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
+      
       <main className="flex-1 bg-background">
         <div className="container mx-auto px-6 py-24">
           <div className="max-w-4xl mx-auto">

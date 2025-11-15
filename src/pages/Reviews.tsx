@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+
 import Footer from "@/components/Footer";
 import ReviewsDisplay from "@/components/ReviewsDisplay";
 import ReviewForm from "@/components/ReviewForm";
@@ -6,8 +6,8 @@ import ReviewForm from "@/components/ReviewForm";
 const Reviews = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
       
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="container mx-auto px-6">

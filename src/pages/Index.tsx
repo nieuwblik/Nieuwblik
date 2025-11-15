@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+
 import Footer from "@/components/Footer";
 import ToolsSlider from "@/components/ToolsSlider";
 import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
@@ -86,8 +86,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
       
+
       {/* Hero Section */}
       <section
         ref={heroAnimation.ref}
