@@ -1,4 +1,4 @@
-
+import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -61,8 +61,8 @@ const About = () => {
         canonicalUrl="https://www.nieuwblik.com/over-ons"
         structuredData={structuredData}
       />
+      <Navigation />
       
-
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
         <div className="container mx-auto px-6">

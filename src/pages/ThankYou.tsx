@@ -1,4 +1,4 @@
-
+import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -7,8 +7,8 @@ import justinImage from "@/assets/justin-slok.png";
 const ThankYou = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       
-
       <section className="pt-32 pb-20 md:pt-40 md:pb-32">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">

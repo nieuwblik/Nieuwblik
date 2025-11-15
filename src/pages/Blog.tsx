@@ -1,4 +1,4 @@
-
+import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -32,6 +32,7 @@ const Blog = () => {
         canonicalUrl="https://www.nieuwblik.com/blog"
         structuredData={structuredData}
       />
+      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
