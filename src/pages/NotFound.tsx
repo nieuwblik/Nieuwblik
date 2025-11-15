@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { Home, Search, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Navigation from "@/components/Navigation";
+
 import Footer from "@/components/Footer";
 
 const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
+      
       <main className="flex-1 flex items-center justify-center bg-background px-6 py-24">
         <div className="max-w-2xl w-full text-center space-y-8">
           <div className="space-y-4">

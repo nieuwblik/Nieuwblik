@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
+import { Header } from "./components/ui/header-3";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -45,6 +46,7 @@ const App = () => (
         <ScrollToTop />
         <ScrollToTopButton />
         <CookieConsent />
+        <Header />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />
