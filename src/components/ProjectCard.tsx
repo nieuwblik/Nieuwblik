@@ -79,12 +79,12 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
 
       {/* Details Dialog */}
       <Dialog open={showDetails} onOpenChange={setShowDetails}>
-        <DialogContent className="max-w-2xl w-[95vw] animate-scale-in">
-          <div className="space-y-6">
+        <DialogContent className="max-w-xl w-[90vw] max-h-[85vh] overflow-y-auto animate-scale-in">
+          <div className="space-y-4">
             {/* Header */}
             <div>
-              <h2 className="text-3xl font-bold mb-2">{title}</h2>
-              <p className="text-accent font-light">{category}</p>
+              <h2 className="text-2xl font-bold mb-1">{title}</h2>
+              <p className="text-accent font-light text-sm">{category}</p>
             </div>
             
             {/* Image */}
@@ -98,8 +98,8 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
             
             {/* Description */}
             <div>
-              <h3 className="text-xl font-semibold mb-3">Over dit project</h3>
-              <p className="text-muted-foreground font-light leading-relaxed">
+              <h3 className="text-lg font-semibold mb-2">Over dit project</h3>
+              <p className="text-muted-foreground font-light text-sm leading-relaxed">
                 {description}
               </p>
             </div>
@@ -107,12 +107,12 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
             {/* Tags */}
             {tags && tags.length > 0 && (
               <div>
-                <h3 className="text-xl font-semibold mb-3">Diensten</h3>
+                <h3 className="text-lg font-semibold mb-2">Diensten</h3>
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag, idx) => (
                     <span 
                       key={idx}
-                      className="text-sm px-4 py-2 bg-secondary rounded-full text-muted-foreground font-medium"
+                      className="text-xs px-3 py-1.5 bg-secondary rounded-full text-muted-foreground font-medium"
                     >
                       {tag}
                     </span>
@@ -122,7 +122,7 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
             )}
             
             {/* CTA Button */}
-            <div className="pt-4 border-t border-border">
+            <div className="pt-3 border-t border-border">
               <Button asChild className="w-full" size="lg">
                 <Link to="/contact">Offerte aanvragen</Link>
               </Button>
