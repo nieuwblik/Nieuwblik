@@ -32,11 +32,7 @@ const Navigation = () => {
   return (
     <>
       <ReviewBar isScrolled={isScrolled} />
-      <nav className={`fixed ${isScrolled ? 'top-0' : 'top-[40px]'} left-0 right-0 z-50 transition-all duration-300 border-b ${
-        isScrolled 
-          ? "bg-primary border-primary" 
-          : "bg-background/95 backdrop-blur-sm border-border"
-      }`}>
+      <nav className={`fixed ${isScrolled ? 'top-0' : 'top-[40px]'} left-0 right-0 z-50 transition-all duration-300 border-b bg-background/95 backdrop-blur-sm border-border`}>
         <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -44,12 +40,10 @@ const Navigation = () => {
             <img 
               src={logo} 
               alt="Nieuwblik" 
-              width="160"
-              height="40"
+              width="120"
+              height="30"
               fetchPriority="high"
-              className={`h-8 md:h-10 transition-all duration-300 ${
-                isScrolled ? "brightness-0 invert" : "brightness-0"
-              }`}
+              className="h-6 md:h-7.5 transition-all duration-300 brightness-0"
             />
           </Link>
 
@@ -60,13 +54,9 @@ const Navigation = () => {
                 key={item.path}
                 to={item.path}
                 className={`text-sm font-medium transition-colors ${
-                  isScrolled
-                    ? location.pathname === item.path
-                      ? "text-primary-foreground"
-                      : "text-primary-foreground/70 hover:text-primary-foreground"
-                    : location.pathname === item.path
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground/80"
+                  location.pathname === item.path
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground/80"
                 }`}
               >
                 {item.name}
@@ -81,9 +71,7 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 transition-colors ${
-              isScrolled ? "text-primary-foreground" : ""
-            }`}
+            className="md:hidden p-2 transition-colors"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
