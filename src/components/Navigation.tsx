@@ -43,7 +43,7 @@ const Navigation = () => {
               width="120"
               height="30"
               fetchPriority="high"
-              className="h-6 md:h-7.5 transition-all duration-300 brightness-0"
+              className="w-[120px] h-auto transition-all duration-300 brightness-0"
             />
           </Link>
 
