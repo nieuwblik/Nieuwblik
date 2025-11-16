@@ -2,9 +2,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
+import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -331,48 +331,16 @@ const Portfolio = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 {filteredProjects.map((project, index) => (
-                <a 
-                  key={index}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group cursor-pointer block"
-                >
-                  <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    loading="lazy"
-                    decoding="async"
-                    width="800"
-                    height="600"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  <ProjectCard
+                    key={index}
+                    title={project.title}
+                    category={project.category}
+                    description={project.description}
+                    image={project.image}
+                    url={project.url}
+                    tags={project.tags}
                   />
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg">
-                        Bekijk website
-                        <ExternalLink className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-sm text-accent font-light mb-2">{project.category}</p>
-                    <h3 className="text-2xl font-semibold mb-2 group-hover:text-accent transition-colors">{project.title}</h3>
-                    <p className="text-muted-foreground mb-4 font-light">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, idx) => (
-                        <span 
-                          key={idx}
-                          className="text-xs px-3 py-1 bg-secondary rounded-full text-muted-foreground"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </a>
-              ))}
+                ))}
               </div>
             )}
           </div>
