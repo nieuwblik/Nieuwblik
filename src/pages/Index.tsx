@@ -3,9 +3,10 @@ import Footer from "@/components/Footer";
 import ToolsSlider from "@/components/ToolsSlider";
 import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
 import FAQSection from "@/components/FAQSection";
+import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe, Palette, ShoppingBag, Pen, ExternalLink, Linkedin } from "lucide-react";
+import { ArrowRight, Globe, Palette, ShoppingBag, Pen, Linkedin } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import justinImage from "@/assets/justin-slok.png";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -58,6 +59,7 @@ const Index = () => {
       title: "Bushido Shop",
       category: "E-commerce",
       description: "E-commerce platform voor Japanse vechtsportartikelen en authentieke culturele items.",
+      tags: ["E-commerce", "Web Design", "Branding"],
       image: bushidoshopImg,
       url: "https://bushidoshop.nl"
     },
@@ -65,6 +67,7 @@ const Index = () => {
       title: "Karateschool Cor Slok",
       category: "Vechtsport & Training",
       description: "Professionele karateschool website met lesrooster, inschrijvingen en informatie over trainingen.",
+      tags: ["Web Design", "Sport", "Community"],
       image: karateschoolcorslokImg,
       url: "https://karateschoolcorslok.nl"
     },
@@ -72,6 +75,7 @@ const Index = () => {
       title: "Esveld Installatie",
       category: "Installatiebedrijf",
       description: "Professionele installatie website met projectportfolio en direct contact voor offertes.",
+      tags: ["Web Design", "Dienstverlening", "Contact Formulieren"],
       image: esveldinstallatieImg,
       url: "https://esveldinstallatie.nl"
     },
@@ -79,6 +83,7 @@ const Index = () => {
       title: "Feitsma Dakwerken",
       category: "Dakdekkers & Aannemers",
       description: "Professioneel dakdekkersbedrijf platform met showcases van dakwerkzaamheden en aannemingsprojecten.",
+      tags: ["Web Design", "Bouw", "Dienstverlening"],
       image: feitsmadakwerkenImg,
       url: "https://feitsmadakwerken.nl"
     }
@@ -227,36 +232,15 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
             {featuredProjects.map((project, index) => (
-              <a
+              <ProjectCard
                 key={index}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group cursor-pointer block"
-              >
-                <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    width="800"
-                    height="600"
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg">
-                      Bekijk website
-                      <ExternalLink className="w-4 h-4" />
-                    </span>
-                  </div>
-                </div>
-                <p className="text-sm text-accent font-light mb-2">{project.category}</p>
-                <h3 className="text-2xl font-semibold mb-2 group-hover:text-accent transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground font-light">{project.description}</p>
-              </a>
+                title={project.title}
+                category={project.category}
+                description={project.description}
+                image={project.image}
+                url={project.url}
+                tags={project.tags}
+              />
             ))}
           </div>
           
