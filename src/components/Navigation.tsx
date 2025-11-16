@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 import ReviewBar from "./ReviewBar";
+import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,6 +72,7 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <ThemeToggle />
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Link to="/contact">Start je Project</Link>
             </Button>
