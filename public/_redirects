@@ -1,5 +1,14 @@
 # Netlify redirects file
+# Redirect .nl domain to .com domain
+https://nieuwblik.nl/* https://www.nieuwblik.com/:splat 301!
+https://www.nieuwblik.nl/* https://www.nieuwblik.com/:splat 301!
+
 # Redirect old English slugs to new Dutch slugs
 /services /diensten 301
 /about /over-ons 301
 /start-your-project /start-je-project 301
+
+# Force HTTPS and www
+http://nieuwblik.com/* https://www.nieuwblik.com/:splat 301!
+http://www.nieuwblik.com/* https://www.nieuwblik.com/:splat 301!
+https://nieuwblik.com/* https://www.nieuwblik.com/:splat 301!
