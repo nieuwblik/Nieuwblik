@@ -1,34 +1,4 @@
 [[redirects]]
-  from = "https://nieuwblik.nl/*"
-  to = "https://www.nieuwblik.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://www.nieuwblik.nl/*"
-  to = "https://www.nieuwblik.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://nieuwblik.com/*"
-  to = "https://www.nieuwblik.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://www.nieuwblik.com/*"
-  to = "https://www.nieuwblik.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://nieuwblik.com/*"
-  to = "https://www.nieuwblik.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
   from = "/services"
   to = "/diensten"
   status = 301
