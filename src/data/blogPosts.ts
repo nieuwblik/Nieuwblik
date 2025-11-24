@@ -36,11 +36,11 @@ Welkom bij de toekomst: **VibeCode + HadoSEO.com** - de perfecte combinatie voor
 
 ## Inhoudsopgave
 
-1. [Wat maakt VibeCode revolutionair?](#wat-maakt-vibecode-revolutionair)
-2. [De kracht van HadoSEO.com](#de-kracht-van-hadoseo)
-3. [Waarom deze combinatie de toekomst is](#waarom-deze-combinatie-toekomst-is)
-4. [Concrete voordelen voor jouw bedrijf](#concrete-voordelen)
-5. [De toekomst begint nu](#de-toekomst-begint-nu)
+1. Wat maakt VibeCode revolutionair?
+2. De kracht van HadoSEO.com
+3. Waarom deze combinatie de toekomst is
+4. Concrete voordelen voor jouw bedrijf
+5. De toekomst begint nu
 
 ---
 
