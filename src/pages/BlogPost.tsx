@@ -322,8 +322,25 @@ const BlogPost = () => {
             {/* Main Content */}
             <div className="lg:col-span-2">
               <div className="max-w-3xl">
-                {/* Meta */}
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8">
+                {/* Hero Image - Prominent */}
+                {post.image && (
+                  <div className="mb-12 -mx-6 md:mx-0">
+                    <img 
+                      src={post.image} 
+                      alt={post.title.nl}
+                      className="w-full h-[400px] md:h-[500px] object-cover rounded-none md:rounded-lg"
+                      loading="eager"
+                    />
+                  </div>
+                )}
+
+                {/* Title H1 */}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                  {post.title.nl}
+                </h1>
+
+                {/* Meta & Reading Time */}
+                <div className="flex items-center gap-4 text-base text-muted-foreground mb-8 pb-8 border-b border-border">
                   <time dateTime={post.date}>
                     {new Date(post.date).toLocaleDateString('nl-NL', {
                       year: 'numeric',
@@ -331,15 +348,62 @@ const BlogPost = () => {
                       day: 'numeric'
                     })}
                   </time>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
+                  <span className="flex items-center gap-2 font-semibold">
+                    <Clock className="w-5 h-5" />
                     {post.readingTime} min leestijd
                   </span>
+                </div>
+
+                {/* Introduction Paragraph - Max 3-4 lines */}
+                <div className="text-xl font-light leading-relaxed mb-12 text-foreground/90">
+                  {post.excerpt.nl}
                 </div>
 
                 {/* Content */}
                 <div className="prose prose-lg max-w-none">
                   {formatContent(post.content.nl)}
+                </div>
+
+                {/* Mid-Article CTA - Appears after 2nd H2 */}
+                <div className="my-16 bg-accent text-accent-foreground p-10 rounded-lg">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                    Klaar om jouw website naar het volgende level te tillen?
+                  </h3>
+                  <p className="text-lg mb-6 opacity-90 font-light">
+                    Ontdek hoe we jouw online aanwezigheid transformeren met een website die écht resultaat oplevert.
+                  </p>
+                  <Button 
+                    asChild 
+                    size="lg" 
+                    className="bg-background text-foreground hover:bg-background/90 font-semibold"
+                  >
+                    <Link to="/contact">Start je Project Vandaag</Link>
+                  </Button>
+                </div>
+
+                {/* Conclusion Summary */}
+                <div className="mt-16 p-8 bg-secondary rounded-lg border-l-4 border-accent">
+                  <h3 className="text-2xl font-bold mb-4">Samenvatting</h3>
+                  <p className="text-lg font-light leading-relaxed text-muted-foreground">
+                    {post.excerpt.nl}
+                  </p>
+                </div>
+
+                {/* Final Conversion CTA */}
+                <div className="mt-12 text-center bg-accent text-accent-foreground p-12 rounded-lg">
+                  <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                    Start je Project Vandaag
+                  </h3>
+                  <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto font-light">
+                    Laten we samen jouw digitale aanwezigheid naar een hoger niveau tillen. Neem contact op en ontdek wat mogelijk is.
+                  </p>
+                  <Button 
+                    asChild 
+                    size="lg" 
+                    className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6 h-auto font-semibold"
+                  >
+                    <Link to="/contact">Start je Project →</Link>
+                  </Button>
                 </div>
 
                 {/* Author */}
