@@ -44,7 +44,7 @@ Welkom bij de toekomst: **VibeCode + HadoSEO.com** - de perfecte combinatie voor
 
 ---
 
-## Wat maakt VibeCode revolutionair? {#wat-maakt-vibecode-revolutionair}
+## Wat maakt VibeCode revolutionair?
 
 **VibeCode is geen traditionele website builder.** Het is een visueel ontwikkelplatform dat de kracht van code combineert met de snelheid van no-code tools.
 
@@ -74,7 +74,7 @@ Welkom bij de toekomst: **VibeCode + HadoSEO.com** - de perfecte combinatie voor
 
 ---
 
-## De kracht van HadoSEO.com {#de-kracht-van-hadoseo}
+## De kracht van HadoSEO.com
 
 Een mooie website is waardeloos als niemand hem vindt. **HadoSEO.com** specialiseert zich in geavanceerde SEO-strategieën die écht resultaat opleveren.
 
@@ -114,7 +114,7 @@ Klanten van HadoSEO.com zien gemiddeld:
 
 ---
 
-## Waarom deze combinatie de toekomst is {#waarom-deze-combinatie-toekomst-is}
+## Waarom deze combinatie de toekomst is
 
 **VibeCode + HadoSEO** vormen samen het perfecte ecosysteem voor moderne bedrijven:
 
@@ -176,7 +176,7 @@ Alles mogelijk binnen hetzelfde ecosysteem, zonder migratie-gedoe.
 
 ---
 
-## Concrete voordelen voor jouw bedrijf {#concrete-voordelen}
+## Concrete voordelen voor jouw bedrijf
 
 ### Voor startups en scale-ups
 
@@ -222,7 +222,7 @@ Alles mogelijk binnen hetzelfde ecosysteem, zonder migratie-gedoe.
 
 ---
 
-## De toekomst begint nu {#de-toekomst-begint-nu}
+## De toekomst begint nu
 
 **De vraag is niet of, maar wanneer.**
 
