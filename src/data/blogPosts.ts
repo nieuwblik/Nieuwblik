@@ -1,3 +1,5 @@
+import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.png";
+
 export interface BlogPost {
   slug: string;
   title: {
@@ -20,7 +22,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "vibecode-hadoseo-toekomst-websites",
-    image: "/src/assets/blog/vibecode-hadoseo.png",
+    image: vibeCodeHadoSeoImg,
     title: {
       nl: "Waarom VibeCode websites de toekomst zijn in combinatie met HadoSEO.com",
       en: "Why VibeCode websites are the future combined with HadoSEO.com"
