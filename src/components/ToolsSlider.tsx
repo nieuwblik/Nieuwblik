@@ -1,27 +1,29 @@
 // Import tool logos
-import lovableLogo from "@/assets/tools/lovable.svg";
-import canvaLogo from "@/assets/tools/canva.svg";
-import shopifyLogo from "@/assets/tools/shopify.svg";
-import elementorLogo from "@/assets/tools/elementor.svg";
 import wordpressLogo from "@/assets/tools/wordpress.svg";
+import woocommerceLogo from "@/assets/tools/woocommerce.svg";
+import canvaLogo from "@/assets/tools/canva.svg";
+import lovableLogo from "@/assets/tools/lovable.svg";
+import boltLogo from "@/assets/tools/bolt.svg";
+import hadoseoLogo from "@/assets/tools/hadoseo.svg";
+import shopifyLogo from "@/assets/tools/shopify.svg";
+import replitLogo from "@/assets/tools/replit.svg";
 import framerLogo from "@/assets/tools/framer.svg";
 import webflowLogo from "@/assets/tools/webflow.svg";
 import figmaLogo from "@/assets/tools/figma.svg";
-import githubLogo from "@/assets/tools/github.svg";
-import supabaseLogo from "@/assets/tools/supabase.svg";
 
 const ToolsSlider = () => {
   const tools = [
-    { name: "Lovable", logo: lovableLogo },
-    { name: "Canva", logo: canvaLogo },
-    { name: "Shopify", logo: shopifyLogo },
-    { name: "Elementor", logo: elementorLogo },
-    { name: "WordPress", logo: wordpressLogo },
-    { name: "Framer", logo: framerLogo },
-    { name: "Webflow", logo: webflowLogo },
-    { name: "Figma", logo: figmaLogo },
-    { name: "GitHub", logo: githubLogo },
-    { name: "Supabase", logo: supabaseLogo }
+    { name: "WordPress", logo: wordpressLogo, alt: "WordPress CMS platform - professionele website ontwikkeling en contentbeheer" },
+    { name: "WooCommerce", logo: woocommerceLogo, alt: "WooCommerce e-commerce oplossing - online winkel en webshop ontwikkeling" },
+    { name: "Canva", logo: canvaLogo, alt: "Canva design tool - grafisch ontwerp en visuele content creatie" },
+    { name: "Lovable", logo: lovableLogo, alt: "Lovable development platform - snelle website en app ontwikkeling" },
+    { name: "Bolt", logo: boltLogo, alt: "Bolt development tool - moderne web applicatie ontwikkeling" },
+    { name: "HadoSEO", logo: hadoseoLogo, alt: "HadoSEO tool - zoekmachine optimalisatie en SEO analyse" },
+    { name: "Shopify", logo: shopifyLogo, alt: "Shopify e-commerce platform - professionele webshop en online verkoop" },
+    { name: "Replit", logo: replitLogo, alt: "Replit development environment - collaborative coding en web development" },
+    { name: "Framer", logo: framerLogo, alt: "Framer design tool - interactieve website prototypes en design" },
+    { name: "Webflow", logo: webflowLogo, alt: "Webflow website builder - visueel webdesign zonder code" },
+    { name: "Figma", logo: figmaLogo, alt: "Figma design software - UI/UX design en collaborative prototyping" }
   ];
 
   // Duplicate tools for seamless infinite scroll
@@ -50,7 +52,7 @@ const ToolsSlider = () => {
             >
               <img 
                 src={tool.logo} 
-                alt={`${tool.name} logo`} 
+                alt={tool.alt} 
                 loading="lazy"
                 decoding="async"
                 width="120"
