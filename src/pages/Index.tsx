@@ -164,7 +164,7 @@ const Index = () => {
       <section ref={projectsAnimation.ref} className={`py-20 md:py-32 transition-all duration-1000 delay-300 ${projectsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-accent mb-4">ONS WERK</p>
+            <p className="text-accent mb-4">ERVARING SPREEKT</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Projecten waar we trots op zijn</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
               Van startups tot gevestigde namen - wij helpen bedrijven hun digitale dromen waar te maken met designs die indruk maken en resultaten leveren.
