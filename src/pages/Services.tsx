@@ -9,18 +9,20 @@ import { Globe, Palette, ShoppingBag, Pen, ArrowRight } from "lucide-react";
 import SocialContentSection from "@/components/SocialContentSection";
 import ToolsSlider from "@/components/ToolsSlider";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-
-const ServiceCard = ({ service, index }: { service: any; index: number }) => {
-  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
-      style={{ transitionDelay: `${index * 150}ms` }}
-    >
+const ServiceCard = ({
+  service,
+  index
+}: {
+  service: any;
+  index: number;
+}) => {
+  const [ref, isVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+  return <div ref={ref} className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{
+    transitionDelay: `${index * 150}ms`
+  }}>
       <Card className="h-full group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-border/50 hover:border-accent/50 bg-card/50 backdrop-blur-sm overflow-hidden">
         <CardHeader>
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-4 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
@@ -38,12 +40,10 @@ const ServiceCard = ({ service, index }: { service: any; index: number }) => {
           <div className="bg-secondary/50 p-6 rounded-lg backdrop-blur-sm border border-border/30">
             <h4 className="font-semibold mb-4 text-sm uppercase tracking-wide text-accent">Wat je krijgt:</h4>
             <ul className="space-y-3">
-              {service.features.map((feature: string, idx: number) => (
-                <li key={idx} className="flex items-start gap-3 group/item">
+              {service.features.map((feature: string, idx: number) => <li key={idx} className="flex items-start gap-3 group/item">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0 group-hover/item:scale-150 transition-transform duration-300" />
                   <span className="text-sm text-muted-foreground">{feature}</span>
-                </li>
-              ))}
+                </li>)}
             </ul>
           </div>
         </CardContent>
@@ -57,62 +57,30 @@ const ServiceCard = ({ service, index }: { service: any; index: number }) => {
           </Button>
         </CardFooter>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 const Services = () => {
-  const services = [
-    {
-      icon: Globe,
-      title: "Website Design & Development",
-      description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
-      features: [
-        "Responsive & Mobile-First Design",
-        "SEO Optimalisatie",
-        "Prestatie & Snelheidsoptimalisatie",
-        "CMS Integratie",
-        "E-commerce Oplossingen"
-      ]
-    },
-    {
-      icon: Palette,
-      title: "Merkidentiteit & Brand Kits",
-      description: "Complete merkidentiteitssystemen die jouw unieke visuele taal vastleggen. Wij creëren samenhangende brand kits die consistentie garanderen op alle contactpunten met je klanten.",
-      features: [
-        "Logo Design & Variaties",
-        "Kleurenpalet Ontwikkeling",
-        "Typografie Systeem",
-        "Brand Richtlijnen",
-        "Marketing Materialen"
-      ]
-    },
-    {
-      icon: ShoppingBag,
-      title: "E-commerce Oplossingen",
-      description: "Full-service e-commerce design inclusief productlijsten, banners en complete shop designs die verkoop stimuleren en gebruikerservaring verbeteren.",
-      features: [
-        "Productlijst Design",
-        "Custom Banners & Graphics",
-        "Shop Pagina Layouts",
-        "Conversie Optimalisatie",
-        "Mobiele Shopping Ervaring"
-      ]
-    },
-    {
-      icon: Pen,
-      title: "Custom Design Services",
-      description: "Van e-books tot autobelettering - wij leveren hoogwaardige custom designs op maat, perfect afgestemd op jouw specifieke wensen en merkidentiteit.",
-      features: [
-        "E-book Design & Layout",
-        "Voertuigbelettering Graphics",
-        "Drukwerk Materialen",
-        "Social Media Graphics",
-        "Custom Illustraties"
-      ]
-    }
-  ];
-
+  const services = [{
+    icon: Globe,
+    title: "Website Design & Development",
+    description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
+    features: ["Responsive & Mobile-First Design", "SEO Optimalisatie", "Prestatie & Snelheidsoptimalisatie", "CMS Integratie", "E-commerce Oplossingen"]
+  }, {
+    icon: Palette,
+    title: "Merkidentiteit & Brand Kits",
+    description: "Complete merkidentiteitssystemen die jouw unieke visuele taal vastleggen. Wij creëren samenhangende brand kits die consistentie garanderen op alle contactpunten met je klanten.",
+    features: ["Logo Design & Variaties", "Kleurenpalet Ontwikkeling", "Typografie Systeem", "Brand Richtlijnen", "Marketing Materialen"]
+  }, {
+    icon: ShoppingBag,
+    title: "E-commerce Oplossingen",
+    description: "Full-service e-commerce design inclusief productlijsten, banners en complete shop designs die verkoop stimuleren en gebruikerservaring verbeteren.",
+    features: ["Productlijst Design", "Custom Banners & Graphics", "Shop Pagina Layouts", "Conversie Optimalisatie", "Mobiele Shopping Ervaring"]
+  }, {
+    icon: Pen,
+    title: "Custom Design Services",
+    description: "Van e-books tot autobelettering - wij leveren hoogwaardige custom designs op maat, perfect afgestemd op jouw specifieke wensen en merkidentiteit.",
+    features: ["E-book Design & Layout", "Voertuigbelettering Graphics", "Drukwerk Materialen", "Social Media Graphics", "Custom Illustraties"]
+  }];
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -137,22 +105,17 @@ const Services = () => {
       }))
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Digitale Diensten die Groeien | Webdesign & Branding - Nieuwblik"
-        description="Ontdek onze premium digitale diensten: webdesign, merkidentiteit, e-commerce en custom design. Wij creëren oplossingen die jouw bedrijf laten groeien. Start vandaag!"
-        keywords="webdesign diensten, merkidentiteit, branding, e-commerce oplossingen, custom design, digitale diensten, website ontwikkeling"
-        canonicalUrl="https://www.nieuwblik.com/diensten"
-        structuredData={structuredData}
-      />
+  return <div className="min-h-screen bg-background">
+      <SEOHead title="Digitale Diensten die Groeien | Webdesign & Branding - Nieuwblik" description="Ontdek onze premium digitale diensten: webdesign, merkidentiteit, e-commerce en custom design. Wij creëren oplossingen die jouw bedrijf laten groeien. Start vandaag!" keywords="webdesign diensten, merkidentiteit, branding, e-commerce oplossingen, custom design, digitale diensten, website ontwikkeling" canonicalUrl="https://www.nieuwblik.com/diensten" structuredData={structuredData} />
       <Navigation />
       
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
         <div className="container mx-auto px-6">
-          <Breadcrumb items={[{ label: "Diensten", path: "/diensten" }]} />
+          <Breadcrumb items={[{
+          label: "Diensten",
+          path: "/diensten"
+        }]} />
         </div>
       </section>
       
@@ -173,15 +136,13 @@ const Services = () => {
       <section className="pb-20 md:pb-32">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
-            ))}
+            {services.map((service, index) => <ServiceCard key={index} service={service} index={index} />)}
           </div>
         </div>
       </section>
 
       {/* Tools Slider */}
-      <ToolsSlider />
+      
 
       {/* Social Content Section */}
       <SocialContentSection />
@@ -202,8 +163,6 @@ const Services = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Services;
