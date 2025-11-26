@@ -166,9 +166,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <p className="text-accent mb-4">ERVARING SPREEKT</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Projecten waar we trots op zijn</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">
-              Van startups tot gevestigde namen - wij helpen bedrijven hun digitale dromen waar te maken met designs die indruk maken en resultaten leveren.
-            </p>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light">Van startups tot gevestigde namen, wij helpen bedrijven hun digitale dromen waar te maken met designs die indruk maken en resultaten leveren.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
@@ -193,9 +191,7 @@ const Index = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-accent-foreground">
               Jouw website vindbaar in alle zoekmachines
             </h2>
-            <p className="text-xl md:text-2xl text-accent-foreground/90 max-w-4xl mx-auto font-light leading-relaxed">
-              Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude - jouw website wordt gevonden. Wij zorgen dat je zichtbaar bent waar jouw klanten zoeken. Geen gemiste kansen, alleen groei.
-            </p>
+            <p className="text-xl md:text-2xl text-accent-foreground/90 max-w-4xl mx-auto font-light leading-relaxed">Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude, jouw website wordt gevonden. Wij zorgen dat je zichtbaar bent waar jouw klanten zoeken. Geen gemiste kansen, alleen groei.</p>
           </div>
           
           {/* Search Engine Logos */}
