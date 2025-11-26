@@ -400,23 +400,6 @@ const BlogPost = () => {
                   </p>
                 </div>
 
-                {/* Final Conversion CTA */}
-                <div className="mt-12 text-center bg-accent text-accent-foreground p-12 rounded-lg">
-                  <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                    Start je Project Vandaag
-                  </h3>
-                  <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto font-light">
-                    Laten we samen jouw digitale aanwezigheid naar een hoger niveau tillen. Neem contact op en ontdek wat mogelijk is.
-                  </p>
-                  <Button 
-                    asChild 
-                    size="lg" 
-                    className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6 h-auto font-semibold"
-                  >
-                    <Link to="/contact">Start je Project →</Link>
-                  </Button>
-                </div>
-
                 {/* Author */}
                 <div className="mt-16 pt-8 border-t border-border">
                   <div className="flex items-center gap-4">
