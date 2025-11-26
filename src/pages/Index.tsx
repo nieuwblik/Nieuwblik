@@ -154,7 +154,7 @@ const Index = () => {
           
           <div className="text-center mt-12">
                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Link to="/diensten">Ontdek alle mogelijkheden</Link>
+                  <Link to="/diensten">​Kies hier jouw service       </Link>
                 </Button>
           </div>
         </div>
