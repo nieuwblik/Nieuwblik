@@ -3,9 +3,62 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Globe, Palette, ShoppingBag, Pen } from "lucide-react";
+import { Globe, Palette, ShoppingBag, Pen, ArrowRight } from "lucide-react";
 import SocialContentSection from "@/components/SocialContentSection";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+
+const ServiceCard = ({ service, index }: { service: any; index: number }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+      style={{ transitionDelay: `${index * 150}ms` }}
+    >
+      <Card className="h-full group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-border/50 hover:border-accent/50 bg-card/50 backdrop-blur-sm overflow-hidden">
+        <CardHeader>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-4 group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+            <service.icon className="w-8 h-8 text-accent group-hover:scale-110 transition-transform duration-300" />
+          </div>
+          <CardTitle className="text-2xl md:text-3xl mb-3 group-hover:text-accent transition-colors duration-300">
+            {service.title}
+          </CardTitle>
+          <CardDescription className="text-base text-muted-foreground font-light leading-relaxed">
+            {service.description}
+          </CardDescription>
+        </CardHeader>
+        
+        <CardContent>
+          <div className="bg-secondary/50 p-6 rounded-lg backdrop-blur-sm border border-border/30">
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wide text-accent">Wat je krijgt:</h4>
+            <ul className="space-y-3">
+              {service.features.map((feature: string, idx: number) => (
+                <li key={idx} className="flex items-start gap-3 group/item">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0 group-hover/item:scale-150 transition-transform duration-300" />
+                  <span className="text-sm text-muted-foreground">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </CardContent>
+        
+        <CardFooter>
+          <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90 group-hover:shadow-lg transition-all duration-300">
+            <Link to="/start-je-project" className="flex items-center justify-center gap-2">
+              Start je project
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+};
 
 const Services = () => {
   const services = [
@@ -118,40 +171,9 @@ const Services = () => {
       {/* Services Grid */}
       <section className="pb-20 md:pb-32">
         <div className="container mx-auto px-6">
-          <div className="space-y-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {services.map((service, index) => (
-              <div 
-                key={index}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch"
-              >
-                <div className={`flex flex-col ${index % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <div className="flex-grow">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary mb-6">
-                      <service.icon className="w-8 h-8" />
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{service.title}</h2>
-                    <p className="text-muted-foreground text-lg mb-8 font-light">
-                      {service.description}
-                    </p>
-                  </div>
-                  <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 mt-auto">
-                    <Link to="/start-je-project">Start je project</Link>
-                  </Button>
-                </div>
-                <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="bg-secondary p-8 rounded-lg h-full">
-                    <h3 className="font-semibold mb-4">Wat je krijgt:</h3>
-                    <ul className="space-y-3">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0" />
-                          <span className="text-muted-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <ServiceCard key={index} service={service} index={index} />
             ))}
           </div>
         </div>
