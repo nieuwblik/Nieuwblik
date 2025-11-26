@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Link } from "react-router-dom";
 import { Globe, Palette, ShoppingBag, Pen, ArrowRight } from "lucide-react";
 import SocialContentSection from "@/components/SocialContentSection";
+import ToolsSlider from "@/components/ToolsSlider";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const ServiceCard = ({ service, index }: { service: any; index: number }) => {
@@ -178,6 +179,9 @@ const Services = () => {
           </div>
         </div>
       </section>
+
+      {/* Tools Slider */}
+      <ToolsSlider />
 
       {/* Social Content Section */}
       <SocialContentSection />
