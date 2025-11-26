@@ -24,7 +24,6 @@ import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.png";
 import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
 import greenProfitImg from "@/assets/projects/green-profit.nl.png";
 import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
-import prideMobilityImg from "@/assets/projects/pride-mobility.nl.png";
 import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 
 // Import e-commerce listing images
@@ -162,15 +161,6 @@ const Portfolio = () => {
       tags: ["Web Design", "Tuinaanleg", "Portfolio"],
       image: vdvtuinenImg,
       url: "https://vdvtuinen.nl"
-    },
-    {
-      title: "Pride Mobility",
-      category: "Mobiliteitsoplossingen",
-      filterCategory: "websites",
-      description: "Kwaliteit mobiliteitsproducten en diensten voor verbeterde onafhankelijkheid en levensstijl.",
-      tags: ["E-commerce", "Gezondheidszorg", "Toegankelijkheid"],
-      image: prideMobilityImg,
-      url: "https://pride-mobility.nl"
     },
     {
       title: "RRS Royal",
