@@ -196,6 +196,17 @@ const BlogPost = () => {
         );
       }
       
+      // HTML content (for Discord buttons, etc.)
+      if (section.includes('<div') || section.includes('<a')) {
+        return (
+          <div 
+            key={index} 
+            dangerouslySetInnerHTML={{ __html: section }}
+            className="my-6"
+          />
+        );
+      }
+      
       // Regular paragraph with bold support
       const parts = section.split('**');
       return (
