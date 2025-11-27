@@ -1,6 +1,6 @@
 import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.png";
 import lovableLogoImg from "@/assets/blog/lovable-logo.png";
-
+import boltLogoImg from "@/assets/blog/bolt-logo.png";
 export interface BlogPost {
   slug: string;
   title: {
@@ -21,6 +21,333 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "bolt-new-ai-website-builder",
+    image: boltLogoImg,
+    title: {
+      nl: "Bolt.new: Bouw websites en apps met AI in je browser",
+      en: "Bolt.new: Build websites and apps with AI in your browser"
+    },
+    excerpt: {
+      nl: "Alles wat je moet weten over Bolt.new - de AI-gedreven website builder die de tech-wereld stormenderhand verovert. Van pricing tot features en hoe je ermee aan de slag gaat.",
+      en: "Everything you need to know about Bolt.new - the AI-powered website builder taking the tech world by storm. From pricing to features and how to get started."
+    },
+    content: {
+      nl: `# Bolt.new: Bouw websites en apps met AI in je browser
+
+**Wil je een website of app bouwen zonder te coderen?** Bolt.new belooft precies dat: AI-gedreven development direct in je browser. Maar wat is het precies? Is het de investering waard? En hoe begin je ermee?
+
+**In dit artikel krijg je alle antwoorden.**
+
+## Inhoudsopgave
+
+1. Wat is Bolt.new?
+2. Hoe werkt Bolt.new?
+3. Bolt.new pricing: kosten en abonnementen
+4. Voordelen en nadelen
+5. Bolt.new vs alternatieven
+6. Aan de slag met Bolt.new
+
+---
+
+## Wat is Bolt.new?
+
+Bolt.new is een **AI-gedreven ontwikkelplatform** waarmee je volledige websites en web applicaties kunt bouwen door simpelweg te chatten met AI.
+
+### De kernbelofte
+
+**Geen code schrijven. Geen technische kennis nodig.**
+
+Je vertelt Bolt wat je wilt bouwen, en de AI genereert de complete code voor je - real-time, direct in je browser.
+
+### Voor wie is Bolt.new?
+
+**Bolt.new is ideaal voor:**
+
+- ✅ **Ondernemers** die snel een MVP willen lanceren
+- ✅ **Designers** die prototypes willen bouwen
+- ✅ **Marketeers** die landing pages nodig hebben
+- ✅ **Beginners** die willen leren hoe apps werken
+- ✅ **Developers** die sneller willen prototypen
+
+### Wat kun je bouwen?
+
+**Met Bolt.new maak je:**
+
+- Websites en landing pages
+- Web applicaties en dashboards
+- SaaS producten en tools
+- Portfolio sites
+- E-commerce frontends
+- En nog veel meer
+
+---
+
+## Hoe werkt Bolt.new?
+
+**Het proces is verrassend simpel:**
+
+### Stap 1: Beschrijf je project
+
+Open bolt.new en vertel de AI wat je wilt bouwen. Bijvoorbeeld:
+
+*"Bouw een modern portfolio voor een fotograaf met een gallerij, over mij sectie, en contactformulier. Gebruik een donker thema met minimalistische stijl."*
+
+### Stap 2: AI genereert de code
+
+Bolt's AI analyseert je beschrijving en genereert **volledige, werkende code** - inclusief:
+
+- Frontend (React, Vue, of vanilla)
+- Styling (CSS/Tailwind)
+- Interactiviteit (JavaScript)
+- Responsive design
+
+### Stap 3: Live preview en aanpassen
+
+Je ziet **direct een live preview** van je project. Niet tevreden? Vraag de AI om aanpassingen:
+
+- *"Maak de header kleiner"*
+- *"Voeg een donkere modus toe"*
+- *"Verander de kleur naar blauw"*
+
+### Stap 4: Deployen
+
+Wanneer je tevreden bent, kun je je project **met één klik deployen** naar een live URL.
+
+### AI Agents: de kracht achter Bolt
+
+**Bolt gebruikt meerdere AI agents die samenwerken:**
+
+- **Planning agent** - Begrijpt je verzoek en maakt een plan
+- **Coding agent** - Schrijft de daadwerkelijke code
+- **Debug agent** - Lost problemen op als ze ontstaan
+
+**Dit zorgt voor betere resultaten dan simpele code-generatie.**
+
+---
+
+## Bolt.new pricing: kosten en abonnementen
+
+**Wat kost Bolt.new?**
+
+### Gratis plan - $0/maand
+
+**Perfect om te starten:**
+
+- Publieke en private projecten
+- 1 miljoen tokens per maand
+- 150.000 tokens dagelijkse limiet
+
+**Ideaal voor:** Testen, kleine projecten, leren.
+
+### Pro plan - $20/maand
+
+**De populairste keuze:**
+
+- Start met 10 miljoen tokens per maand
+- Geen dagelijkse limiet
+- Hogere file upload limiet
+- Ongebruikte tokens rollen over naar volgende maand
+
+**Ideaal voor:** Serieuze gebruikers, freelancers, kleine projecten.
+
+### Teams plan - $30/maand per lid
+
+**Voor samenwerking:**
+
+- Alles van Pro
+- Team collaboration features
+- Gedeelde projecten
+- Admin tools
+
+**Ideaal voor:** Agencies, startups, development teams.
+
+### Wat zijn tokens?
+
+**Tokens zijn de "brandstof" van Bolt.**
+
+Elke interactie met de AI verbruikt tokens. Complexere verzoeken gebruiken meer tokens. Het gratis plan is voldoende voor kleine projecten, maar voor serieus werk heb je Pro nodig.
+
+> **Tip:** Start gratis om Bolt te leren kennen. Upgrade naar Pro wanneer je serieus aan de slag gaat.
+
+---
+
+## Voordelen en nadelen
+
+### Voordelen van Bolt.new
+
+**1. Ongelofelijk snel**
+
+Wat normaal dagen of weken kost, bouw je in uren. Van idee naar werkend prototype in een middag.
+
+**2. Geen technische kennis vereist**
+
+Je hoeft geen code te kunnen lezen of schrijven. De AI doet het zware werk.
+
+**3. Alles in de browser**
+
+Geen software installeren. Geen development environment opzetten. Gewoon openen en bouwen.
+
+**4. Live preview**
+
+Je ziet direct wat je bouwt. Geen compileren, geen wachten.
+
+**5. One-click deployment**
+
+Van code naar live website in seconden.
+
+### Nadelen van Bolt.new
+
+**1. Token limiet kan beperkend zijn**
+
+Complexe projecten verbruiken snel tokens. Het gratis plan raakt snel op.
+
+**2. Beperkte controle**
+
+Voor complexe, custom functionaliteit heb je uiteindelijk toch code-kennis nodig.
+
+**3. Afhankelijk van AI kwaliteit**
+
+De output is zo goed als de AI. Soms zijn meerdere iteraties nodig.
+
+**4. Geen backend out-of-the-box**
+
+Voor databases en server-logica heb je extra tools nodig.
+
+---
+
+## Bolt.new vs alternatieven
+
+**Hoe verhoudt Bolt.new zich tot andere AI-builders?**
+
+### Bolt.new vs Lovable
+
+| Aspect | Bolt.new | Lovable |
+|--------|----------|---------|
+| **Focus** | Snelle prototypes | Productie-ready websites |
+| **Backend** | Beperkt | Ingebouwde Supabase integratie |
+| **Community** | Groeiend | Zeer actieve Discord |
+| **Pricing** | Tokens | Credits |
+| **Output** | Code export | Deploy direct |
+
+**Conclusie:** Bolt is sterker voor snelle prototypes, Lovable voor complete websites met backend.
+
+### Bolt.new vs Cursor
+
+| Aspect | Bolt.new | Cursor |
+|--------|----------|--------|
+| **Doelgroep** | Non-coders | Developers |
+| **Interface** | Chat-based | Code editor |
+| **Leercurve** | Laag | Medium |
+| **Flexibiliteit** | Medium | Hoog |
+
+**Conclusie:** Bolt voor beginners, Cursor voor developers die AI-assistentie willen.
+
+### Bolt.new vs v0 (Vercel)
+
+| Aspect | Bolt.new | v0 |
+|--------|----------|-----|
+| **Specialty** | Full apps | UI componenten |
+| **Framework** | Meerdere | React/Next.js |
+| **Deployment** | Eigen | Vercel |
+| **Pricing** | Tokens | Credits |
+
+**Conclusie:** v0 focust op UI componenten, Bolt op complete applicaties.
+
+---
+
+## Aan de slag met Bolt.new
+
+**Klaar om te beginnen? Hier is hoe:**
+
+### Stap 1: Account aanmaken
+
+1. Ga naar **bolt.new**
+2. Klik op "Get started"
+3. Maak een account aan (gratis)
+
+### Stap 2: Je eerste project
+
+**Begin simpel.** Probeer bijvoorbeeld:
+
+*"Bouw een persoonlijke portfolio website met een hero sectie, projecten grid, en contactformulier. Gebruik een moderne, minimalistische stijl met blauwe accenten."*
+
+### Stap 3: Itereren en verfijnen
+
+**De kunst zit in de iteratie:**
+
+- Wees specifiek in je verzoeken
+- Vraag om kleine aanpassingen
+- Test op verschillende schermformaten
+- Controleer de functionaliteit
+
+### Tips voor betere resultaten
+
+**1. Wees specifiek**
+
+❌ *"Maak een website"*
+✅ *"Maak een landing page voor een fitness app met een hero sectie, 3 features, testimonials, en een sign-up formulier"*
+
+**2. Beschrijf de stijl**
+
+Vermeld kleuren, sfeer, en voorbeelden van websites die je mooi vindt.
+
+**3. Bouw stap voor stap**
+
+Begin met de structuur, voeg dan styling toe, en daarna interactiviteit.
+
+**4. Gebruik voorbeelden**
+
+*"Bouw iets zoals [bekende website], maar dan voor [jouw niche]"*
+
+---
+
+## Conclusie
+
+**Bolt.new maakt AI-gedreven development toegankelijk voor iedereen.**
+
+Het is perfect voor:
+
+- ✅ **Snelle prototypes** in minuten
+- ✅ **MVP's testen** zonder developer kosten
+- ✅ **Leren** hoe web development werkt
+- ✅ **Side projects** snel realiseren
+
+**Maar onthoud:** Voor complexe, schaalbare applicaties met backend functionaliteit heb je mogelijk meer nodig.
+
+### De toekomst van web development
+
+**Bolt.new is een glimp van de toekomst.** AI-gedreven tools worden alleen maar beter. De vraag is niet óf je ze gaat gebruiken, maar wanneer.
+
+**Start vandaag nog gratis op bolt.new en ontdek wat AI voor jouw projecten kan betekenen.**
+
+---
+
+## Veelgestelde vragen over Bolt.new
+
+**Is Bolt.new gratis?**
+Ja, er is een gratis plan met 1 miljoen tokens per maand. Voor serieus gebruik is Pro ($20/maand) aangeraden.
+
+**Heb ik programmeerkennis nodig?**
+Nee, je communiceert in natuurlijke taal met de AI. Technische kennis helpt wel bij complexere projecten.
+
+**Kan ik de code exporteren?**
+Ja, je kunt de gegenereerde code downloaden en elders gebruiken.
+
+**Werkt Bolt.new met backend/databases?**
+Beperkt. Voor volledige backend functionaliteit heb je aanvullende tools nodig.
+
+**Is Bolt.new goed voor productie websites?**
+Voor eenvoudige sites ja. Voor complexe applicaties overweeg alternatieven zoals Lovable.
+
+---
+
+**Klaar om te bouwen?** Probeer Bolt.new gratis en transformeer je ideeën in werkende websites.`,
+      en: "Want to build a website or app without coding? Bolt.new promises exactly that: AI-powered development right in your browser."
+    },
+    date: "2025-01-29",
+    readingTime: 10
+  },
   {
     slug: "lovable-websites-bouwen",
     image: lovableLogoImg,
