@@ -1,6 +1,7 @@
 import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.png";
 import lovableLogoImg from "@/assets/blog/lovable-logo.png";
 import boltLogoImg from "@/assets/blog/bolt-logo.png";
+import replitLogoImg from "@/assets/blog/replit-logo.png";
 export interface BlogPost {
   slug: string;
   title: {
@@ -996,5 +997,393 @@ Zie je in de Discord! 🚀`,
     },
     date: "2025-01-28",
     readingTime: 12
+  },
+  {
+    slug: "replit-online-code-editor-ai",
+    image: replitLogoImg,
+    title: {
+      nl: "Replit: De Complete Gids voor Online Coderen met AI",
+      en: "Replit: The Complete Guide to Online Coding with AI"
+    },
+    excerpt: {
+      nl: "Ontdek alles over Replit: wat het is, hoe het werkt, prijzen, AI Agent functies en of het de juiste tool is voor jouw projecten in 2025.",
+      en: "Discover everything about Replit: what it is, how it works, pricing, AI Agent features and whether it's the right tool for your projects in 2025."
+    },
+    content: {
+      nl: `Wil je leren programmeren of snel een app bouwen zonder complexe setup? **Replit is een browser-based development platform dat de drempel naar coderen dramatisch verlaagt.**
+
+In deze uitgebreide gids ontdek je alles over Replit: van de basis tot geavanceerde AI-functies, prijzen en praktische tips.
+
+**Leestijd: 10 minuten**
+
+## Inhoudsopgave
+
+1. Wat is Replit?
+2. Hoe werkt Replit?
+3. Replit AI Agent: Bouwen met prompts
+4. Replit prijzen 2025
+5. Voor- en nadelen
+6. Replit vs alternatieven
+
+---
+
+## Wat is Replit?
+
+**Replit is een online integrated development environment (IDE)** die volledig in je browser draait. Je hebt geen installaties, geen configuratie en geen technische setup nodig.
+
+### De kernfuncties van Replit
+
+**1. Browser-based coding**
+- Code schrijven in 50+ programmeertalen
+- Python, JavaScript, TypeScript, Go, Rust, en meer
+- Geen lokale installatie vereist
+- Werkt op elk apparaat met een browser
+
+**2. Instant deployment**
+- Je code is direct live op internet
+- Automatische hosting inbegrepen
+- Custom domains mogelijk
+- SSL certificaten standaard
+
+**3. Real-time collaboration**
+- Samen coderen met teamleden
+- Google Docs-achtige samenwerking
+- Live cursor tracking
+- Geïntegreerde chat
+
+**4. Replit AI**
+- AI-powered code completion
+- Replit Agent voor app building
+- Ghostwriter voor code suggesties
+- Debug assistance
+
+> **Fun fact:** Replit heeft meer dan 30 miljoen gebruikers wereldwijd en wordt gebruikt door zowel beginners als professionele developers.
+
+---
+
+## Hoe werkt Replit?
+
+Replit maakt coderen **toegankelijk en instant**. Hier is hoe het werkt:
+
+### Stap 1: Maak een Repl aan
+
+Een "Repl" is een project in Replit. Je kiest:
+- De programmeertaal (Python, Node.js, etc.)
+- Een template of blanco project
+- De naam van je project
+
+**Binnen seconden heb je een volledige development environment.**
+
+### Stap 2: Schrijf je code
+
+De Replit editor biedt:
+- **Syntax highlighting** voor leesbaarheid
+- **Auto-complete** voor sneller typen
+- **Error detection** in real-time
+- **File management** voor projectstructuur
+
+### Stap 3: Run en test
+
+- Klik op "Run" om je code uit te voeren
+- Bekijk output direct in de console
+- Test je applicatie in het preview venster
+- Debug met ingebouwde tools
+
+### Stap 4: Deploy en deel
+
+- Je app krijgt automatisch een URL
+- Deel met iedereen via de link
+- Geen extra hosting setup nodig
+- Custom domains voor Pro gebruikers
+
+---
+
+## Replit AI Agent: Bouwen met prompts
+
+**Dit is waar Replit echt interessant wordt.** De Replit AI Agent kan complete applicaties bouwen vanuit natuurlijke taal prompts.
+
+### Wat kan Replit Agent?
+
+**1. App generatie**
+- Beschrijf wat je wilt bouwen
+- Agent schrijft de code
+- Maakt bestanden en structuur
+- Installeert dependencies
+
+**2. Code editing**
+- Vraag om wijzigingen in plain text
+- Agent past code aan
+- Behoudt context van je project
+- Iteratief verbeteren
+
+**3. Debugging**
+- Beschrijf het probleem
+- Agent analyseert de code
+- Stelt oplossingen voor
+- Implementeert fixes
+
+### Voorbeeld prompt voor Replit Agent
+
+> Bouw een todo-app met de volgende features:
+> - Taken toevoegen en verwijderen
+> - Taken markeren als voltooid
+> - Lokale opslag zodat taken bewaard blijven
+> - Modern, donker design
+
+**De Agent bouwt dit volledig voor je**, inclusief HTML, CSS, JavaScript en alle benodigde functionaliteit.
+
+### Beperkingen van Replit Agent
+
+- **Credits verbruik**: AI-functies kosten credits
+- **Complexiteit**: Zeer complexe apps vereisen meer iteraties
+- **Nauwkeurigheid**: Soms zijn aanpassingen nodig
+- **Learning curve**: Goede prompts schrijven is een skill
+
+---
+
+## Replit prijzen 2025
+
+Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
+
+### Gratis plan
+
+**$0/maand**
+- Basis IDE functionaliteit
+- Beperkte compute resources
+- Publieke Repls
+- Community support
+
+### Replit Core
+
+**$20/maand** (of $15/maand jaarlijks)
+- $25 aan AI credits inbegrepen
+- 4 vCPUs, 8 GiB RAM per app
+- 50 GiB storage
+- Private Repls
+- Custom domains
+
+### Replit Teams
+
+**$40/gebruiker/maand**
+- Alles van Core
+- Team collaboration features
+- Centralized billing
+- Priority support
+- Advanced permissions
+
+### Credit-based AI kosten
+
+| Functie | Credit verbruik |
+|---------|-----------------|
+| Replit Agent | ~0.30-0.50 per interactie |
+| Code completion | ~0.01 per suggestie |
+| Debugging | ~0.10-0.20 per sessie |
+
+> **Let op:** Credits kunnen snel op zijn bij intensief AI gebruik. Monitor je verbruik regelmatig.
+
+---
+
+## Voor- en nadelen van Replit
+
+### Voordelen ✅
+
+**1. Zero setup**
+- Direct beginnen met coderen
+- Geen installaties of configuratie
+- Werkt op elk apparaat
+
+**2. Learning-friendly**
+- Perfect voor beginners
+- Ingebouwde tutorials en templates
+- Grote community voor hulp
+
+**3. Collaboration**
+- Real-time samenwerken
+- Easy sharing via links
+- Multiplayer coding
+
+**4. AI-powered development**
+- Agent voor rapid prototyping
+- Code suggestions
+- Debugging hulp
+
+**5. Instant deployment**
+- Je app is direct live
+- Geen hosting gedoe
+- SSL inbegrepen
+
+### Nadelen ❌
+
+**1. Performance limitaties**
+- Beperkte resources op gratis plan
+- Kan traag zijn voor grote projecten
+- Wake-up time voor idle Repls
+
+**2. Credit verbruik**
+- AI features kosten snel credits
+- Kan duur worden bij intensief gebruik
+- Pricing kan verwarrend zijn
+
+**3. Niet voor alles geschikt**
+- Complexe enterprise apps beter lokaal
+- Beperkte database opties
+- Vendor lock-in risico
+
+**4. Internet afhankelijk**
+- Geen offline werken mogelijk
+- Afhankelijk van Replit servers
+- Latency bij trage verbinding
+
+---
+
+## Replit vs alternatieven
+
+### Replit vs CodeSandbox
+
+| Aspect | Replit | CodeSandbox |
+|--------|--------|-------------|
+| Talen | 50+ talen | Focus op web |
+| AI | Replit Agent | Niet ingebouwd |
+| Prijs | $20/maand Core | $12/maand Pro |
+| Deployment | Ingebouwd | Via Vercel/Netlify |
+
+**Verdict:** Replit voor polyglot development en AI, CodeSandbox voor pure frontend.
+
+### Replit vs GitHub Codespaces
+
+| Aspect | Replit | Codespaces |
+|--------|--------|------------|
+| Setup | Instant | VS Code based |
+| AI | Replit Agent | Copilot (apart) |
+| Prijs | $20/maand | Usage-based |
+| Target | Beginners + snelle builds | Pro developers |
+
+**Verdict:** Replit voor snelheid, Codespaces voor VS Code power users.
+
+### Replit vs Lovable
+
+| Aspect | Replit | Lovable |
+|--------|--------|---------|
+| Focus | General coding | Web apps |
+| Output | Alle soorten code | React/TypeScript |
+| AI | Agent | Volledig AI-native |
+| Deployment | Ingebouwd | Ingebouwd |
+
+**Verdict:** Replit voor diverse projecten, Lovable voor snelle web apps met AI.
+
+### Replit vs Bolt.new
+
+| Aspect | Replit | Bolt.new |
+|--------|--------|----------|
+| Snelheid | Snel | Zeer snel |
+| Complexiteit | Hoog | Medium |
+| Learning curve | Steiler | Eenvoudiger |
+| Prijs | $20/maand | $20/maand |
+
+**Verdict:** Replit voor meer controle, Bolt.new voor maximale snelheid.
+
+---
+
+## Voor wie is Replit geschikt?
+
+### Perfect voor:
+
+**Beginners**
+- Leren programmeren zonder setup
+- Tutorials direct uitproberen
+- Fouten maken zonder gevolgen
+
+**Studenten**
+- Schoolprojecten snel maken
+- Samenwerken aan opdrachten
+- Portfolio bouwen
+
+**Prototypers**
+- Ideeën snel testen
+- MVP's bouwen
+- Proof of concepts
+
+**Freelancers**
+- Kleine projecten snel opleveren
+- Klanten demos tonen
+- Flexibel werken
+
+### Minder geschikt voor:
+
+- **Enterprise applicaties** (beter lokaal of cloud-native)
+- **Data-intensieve projecten** (resource limieten)
+- **Offline development** (internet vereist)
+- **Teams met eigen infrastructure** (vendor lock-in)
+
+---
+
+## Tips voor effectief Replit gebruik
+
+### 1. Optimaliseer je Repls
+
+- Verwijder ongebruikte dependencies
+- Gebruik .replit config voor performance
+- Clean up oude bestanden regelmatig
+
+### 2. Beheer je credits slim
+
+- Monitor verbruik in dashboard
+- Gebruik AI strategisch
+- Overweeg jaarabonnement voor korting
+
+### 3. Leer goede prompts schrijven
+
+- Wees specifiek in je requests
+- Geef context over je project
+- Itereer op basis van output
+
+### 4. Gebruik templates
+
+- Start met bestaande templates
+- Bespaar tijd op setup
+- Leer van best practices
+
+---
+
+## Conclusie
+
+**Replit heeft de manier waarop we coderen fundamenteel veranderd.**
+
+Het platform biedt:
+- ✅ **Instant setup** voor direct beginnen
+- ✅ **Krachtige AI** met Replit Agent
+- ✅ **Collaboration** voor teamwerk
+- ✅ **Deployment** zonder gedoe
+
+**Is Replit de juiste keuze voor jou?**
+
+- **Ja**, als je snel wilt prototypen, leren, of kleine projecten bouwen
+- **Nee**, als je enterprise-grade applicaties bouwt of offline moet werken
+
+### Aan de slag
+
+1. **Maak een gratis account** op replit.com
+2. **Probeer de AI Agent** met een simpel project
+3. **Evalueer of Core** past bij je behoeften
+4. **Vergelijk met alternatieven** zoals Lovable of Bolt.new
+
+**De toekomst van development is browser-based, AI-powered en toegankelijk voor iedereen.**
+
+---
+
+## Heb je hulp nodig met je website?
+
+**Replit is geweldig voor leren en prototypen**, maar voor een professionele, SEO-geoptimaliseerde website die écht resultaat oplevert, helpen wij je graag.
+
+Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om websites te bouwen die:
+- **Snel laden** en hoog scoren in Google
+- **Conversie-geoptimaliseerd** zijn voor meer klanten
+- **Professioneel** ogen en je merk versterken
+
+**Klaar voor een website die werkt?**`,
+      en: "Want to learn programming or quickly build an app without complex setup? Replit is a browser-based development platform that dramatically lowers the barrier to coding."
+    },
+    date: "2025-01-29",
+    readingTime: 10
   }
 ];
