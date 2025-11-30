@@ -2,6 +2,7 @@ import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.png";
 import lovableLogoImg from "@/assets/blog/lovable-logo.png";
 import boltLogoImg from "@/assets/blog/bolt-logo.png";
 import replitLogoImg from "@/assets/blog/replit-logo.png";
+import cursorLogoImg from "@/assets/blog/cursor-logo.png";
 export interface BlogPost {
   slug: string;
   title: {
@@ -1385,5 +1386,329 @@ Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om web
     },
     date: "2025-01-29",
     readingTime: 10
+  },
+  {
+    slug: "cursor-ai-code-editor",
+    image: cursorLogoImg,
+    title: {
+      nl: "Cursor AI: De Slimste Code Editor van 2025",
+      en: "Cursor AI: The Smartest Code Editor of 2025"
+    },
+    excerpt: {
+      nl: "Ontdek alles over Cursor AI - de AI-powered code editor die developers helpt sneller en slimmer te coderen. Inclusief prijzen, features en vergelijkingen.",
+      en: "Discover everything about Cursor AI - the AI-powered code editor that helps developers code faster and smarter. Including pricing, features and comparisons."
+    },
+    content: {
+      nl: `Cursor AI is de **meest besproken code editor van 2025**. Maar wat maakt Cursor zo bijzonder? Waarom stappen duizenden developers over van VS Code naar Cursor? En is het de investering waard?
+
+In deze uitgebreide gids ontdek je alles over Cursor AI - van **prijzen en features** tot **praktische tips** en eerlijke vergelijkingen.
+
+## Inhoudsopgave
+
+1. Wat is Cursor AI?
+2. Hoe werkt Cursor?
+3. Cursor prijzen en abonnementen
+4. Belangrijkste features
+5. Cursor vs VS Code vs GitHub Copilot
+6. Voor- en nadelen
+7. Is Cursor geschikt voor jou?
+
+---
+
+## Wat is Cursor AI?
+
+**Cursor is een AI-native code editor** gebouwd op de VS Code foundation. Het combineert de vertrouwde VS Code interface met **diep geïntegreerde AI-functionaliteit**.
+
+### Waarom Cursor anders is
+
+Waar tools zoals GitHub Copilot een **add-on** zijn voor bestaande editors, is Cursor **vanaf de grond opgebouwd** met AI in gedachten:
+
+- **Native AI integratie** - geen plugins nodig
+- **VS Code compatible** - je extensies werken gewoon
+- **Codebase-aware** - AI begrijpt je hele project
+- **Multi-model support** - kies je favoriete AI model
+
+**Cursor is gebouwd door een team in San Francisco** en heeft al **miljoenen developers** aangetrokken sinds de lancering.
+
+---
+
+## Hoe werkt Cursor?
+
+Cursor werkt als een **intelligente coding partner** die meekijkt terwijl je codeert:
+
+### 1. Tab Autocomplete
+
+De **Tab completion** van Cursor is veel slimmer dan traditionele autocomplete:
+
+- **Multi-line suggestions** - hele functies in één keer
+- **Context-aware** - begrijpt wat je probeert te bouwen
+- **Learns your style** - past zich aan jouw code style aan
+
+### 2. AI Chat (Cmd+L)
+
+Chat direct met AI over je code:
+
+- **Vraag uitleg** over complexe code
+- **Debug problemen** door te beschrijven wat er mis gaat
+- **Genereer code** op basis van beschrijvingen
+- **Refactor** met natuurlijke taal instructies
+
+### 3. Composer (Cmd+I)
+
+De **Composer** is Cursor's krachtigste feature:
+
+- **Multi-file editing** - wijzig meerdere bestanden tegelijk
+- **Project-wide changes** - implementeer features across je codebase
+- **Agentic mode** - laat AI zelfstandig complexe taken uitvoeren
+
+### 4. Codebase Indexing
+
+Cursor **indexeert je hele codebase** zodat AI:
+
+- Relevante code kan vinden
+- Consistent blijft met je patterns
+- Accurate suggesties geeft
+
+---
+
+## Cursor prijzen en abonnementen
+
+Cursor biedt **drie abonnementen** met verschillende limieten:
+
+### Hobby (Gratis)
+
+**€0/maand** - Perfect om te proberen
+
+- ✅ 1 week Pro trial
+- ✅ Beperkte Agent requests
+- ✅ Beperkte Tab completions
+- ❌ Geen Background Agents
+
+### Pro
+
+**$20/maand** ($192/jaar bij jaarabonnement)
+
+- ✅ Extended Agent limits
+- ✅ **Onbeperkte Tab completions**
+- ✅ Background Agents
+- ✅ Maximum context windows
+- ✅ Alle premium models
+
+### Ultra
+
+**$200/maand** - Voor heavy users
+
+- ✅ Alles van Pro
+- ✅ **10x meer Agent requests**
+- ✅ Onbeperkt gebruik van premium models
+- ✅ Priority support
+
+### Business
+
+**$40/gebruiker/maand** - Voor teams
+
+- ✅ Alles van Pro
+- ✅ Centralized billing
+- ✅ Admin dashboard
+- ✅ Team analytics
+- ✅ SSO/SAML support
+- ✅ Enforce privacy mode
+
+### Credits systeem (nieuw in 2025)
+
+Cursor is overgestapt naar een **credit-based systeem**:
+
+- Requests kosten credits afhankelijk van model en complexity
+- Premium models (GPT-4, Claude) kosten meer credits
+- Snelle models (GPT-4o mini) kosten minder
+
+---
+
+## Belangrijkste Cursor features
+
+### Feature 1: AI Agent
+
+De **AI Agent** kan zelfstandig complexe taken uitvoeren:
+
+- Maak een complete feature van prompt tot PR
+- Voer terminal commands uit
+- Fix bugs automatisch
+- Implementeer hele user stories
+
+### Feature 2: Background Agents
+
+**Background Agents** werken door terwijl jij andere dingen doet:
+
+- Start een agent voor een lange taak
+- Werk aan iets anders
+- Krijg een notificatie als het klaar is
+- Review en merge de wijzigingen
+
+### Feature 3: Multi-model support
+
+Kies uit **meerdere AI models**:
+
+- **GPT-4o** - OpenAI's krachtigste
+- **Claude 3.5 Sonnet** - Anthropic's beste voor coding
+- **Gemini Pro** - Google's snelle model
+- **cursor-small** - Cursor's eigen snelle model
+
+### Feature 4: Privacy Mode
+
+Voor gevoelige projecten:
+
+- **Zero data retention** - je code wordt niet opgeslagen
+- **SOC 2 certified** - enterprise security
+- **GDPR compliant** - voldoet aan EU regelgeving
+
+### Feature 5: @ Mentions
+
+Reference specifieke context met **@ mentions**:
+
+- @file - verwijs naar specifieke bestanden
+- @folder - hele mappen als context
+- @docs - documentatie doorzoeken
+- @web - zoek op het internet
+
+---
+
+## Cursor vs VS Code vs GitHub Copilot
+
+| Feature | Cursor | VS Code + Copilot | VS Code |
+|---------|--------|-------------------|---------|
+| **Prijs** | $0-200/mo | $10-19/mo | Gratis |
+| **AI Chat** | ✅ Native | ✅ Via Copilot | ❌ |
+| **Multi-file edit** | ✅ Composer | ⚠️ Beperkt | ❌ |
+| **Codebase aware** | ✅ Ja | ⚠️ Beperkt | ❌ |
+| **Agent mode** | ✅ Ja | ⚠️ Preview | ❌ |
+| **Model keuze** | ✅ Veel | ❌ Alleen OpenAI | N/A |
+| **VS Code extensies** | ✅ Ja | ✅ Ja | ✅ Ja |
+
+### Wanneer Cursor kiezen?
+
+- Je wilt de **meest geavanceerde AI coding** ervaring
+- Je werkt aan **complexe projecten** waar codebase-aware AI helpt
+- Je wilt **keuze in AI models**
+
+### Wanneer VS Code + Copilot kiezen?
+
+- Je hebt een **lager budget**
+- Je wilt bij de **officiële Microsoft stack** blijven
+- Simple autocomplete is voldoende
+
+---
+
+## Voor- en nadelen van Cursor
+
+### Voordelen
+
+✅ **Beste AI integratie** - native, niet als plugin
+
+✅ **Codebase-aware** - begrijpt je hele project
+
+✅ **Multi-model** - kies je favoriete AI
+
+✅ **VS Code compatible** - easy switch
+
+✅ **Composer** - multi-file editing is game-changing
+
+✅ **Active development** - constant nieuwe features
+
+### Nadelen
+
+❌ **Prijs** - $20/mo is duurder dan sommige alternatieven
+
+❌ **Credit systeem** - kan verwarrend zijn
+
+❌ **Internet vereist** - geen offline modus
+
+❌ **Learning curve** - maximaal profiteren kost tijd
+
+❌ **Resource heavy** - kan traag zijn op oudere machines
+
+---
+
+## Populaire zoekvragen over Cursor
+
+### "Is Cursor gratis?"
+
+**Ja en nee.** Er is een gratis Hobby tier met beperkte features en een 1-week Pro trial. Voor serieus gebruik heb je Pro ($20/mo) nodig.
+
+### "Is Cursor beter dan Copilot?"
+
+**Voor de meeste developers: ja.** Cursor biedt diepere AI integratie, codebase awareness en multi-file editing. Copilot is goedkoper en simpeler.
+
+### "Cursor vs VS Code - wat is het verschil?"
+
+Cursor **is gebaseerd op VS Code** maar met native AI features. Je kunt dezelfde extensies gebruiken, maar krijgt veel betere AI assistance.
+
+### "Is Cursor veilig voor bedrijfscode?"
+
+**Ja, met Privacy Mode.** In privacy mode wordt je code niet opgeslagen of gebruikt voor training. Cursor is SOC 2 certified.
+
+### "Cursor student discount?"
+
+**Ja!** Studenten krijgen **gratis Cursor Pro voor 1 jaar** met een geldige .edu email.
+
+---
+
+## Is Cursor geschikt voor jou?
+
+### Cursor is perfect voor:
+
+- **Professional developers** die sneller willen coderen
+- **Freelancers** die meer projecten willen aannemen
+- **Teams** die consistent willen werken
+- **Learners** die willen begrijpen hoe code werkt
+
+### Cursor is minder geschikt voor:
+
+- **Beginners** zonder enige code kennis
+- **Offline workers** zonder stabiele internet
+- **Budget-conscious** users die $20/mo te veel vinden
+- **Non-coders** - gebruik dan liever Lovable of Bolt.new
+
+---
+
+## Conclusie
+
+**Cursor heeft de manier waarop we coderen veranderd.**
+
+Het platform biedt:
+- ✅ **Native AI** die écht begrijpt wat je doet
+- ✅ **Multi-file editing** via Composer
+- ✅ **Model keuze** voor verschillende use cases
+- ✅ **VS Code compatibility** voor easy switching
+
+**Is Cursor de juiste keuze voor jou?**
+
+- **Ja**, als je serieus bent over productiviteit en bereid bent te investeren
+- **Nee**, als je budget beperkt is of je geen code schrijft
+
+### Aan de slag
+
+1. **Download Cursor gratis** op cursor.com
+2. **Importeer je VS Code settings** met één klik
+3. **Probeer de Pro trial** van 1 week
+4. **Evalueer of het je workflow verbetert**
+
+**De toekomst van coding is AI-assisted, en Cursor loopt voorop.**
+
+---
+
+## Heb je hulp nodig met je website?
+
+**Cursor is geweldig voor developers**, maar voor een professionele, SEO-geoptimaliseerde website die écht resultaat oplevert, helpen wij je graag.
+
+Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om websites te bouwen die:
+- **Snel laden** en hoog scoren in Google
+- **Conversie-geoptimaliseerd** zijn voor meer klanten
+- **Professioneel** ogen en je merk versterken
+
+**Klaar voor een website die werkt?**`,
+      en: "Cursor AI is the most talked about code editor of 2025. Discover everything about Cursor AI - from pricing and features to practical tips and honest comparisons."
+    },
+    date: "2025-01-30",
+    readingTime: 12
   }
 ];
