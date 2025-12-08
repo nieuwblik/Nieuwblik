@@ -310,7 +310,7 @@ const WebsiteOpMaat = () => {
               "Nieuwblik heeft onze website binnen een week live gezet. De snelheid en professionaliteit zijn ongekend. 
               We krijgen nu dagelijks nieuwe aanvragen via de site!"
             </blockquote>
-            <p className="font-bold">— Rick Esveld, Esveld Installatie</p>
+            <p className="font-bold">— Niels van Esveld, Esveld Installatie</p>
           </div>
         </div>
       </section>
