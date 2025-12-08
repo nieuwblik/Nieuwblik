@@ -40,7 +40,7 @@ const Blog = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Digitale Groei Insights
+              Digitale groei insights
             </h1>
             <p className="text-xl text-muted-foreground font-light leading-relaxed">
               Waardevolle tips, strategieën en inzichten om jouw digitale aanwezigheid naar een hoger niveau te tillen.
@@ -123,7 +123,7 @@ const Blog = () => {
               size="lg" 
               className="bg-background text-foreground hover:bg-background/90 font-semibold"
             >
-              <Link to="/contact">Start je Project Vandaag</Link>
+              <Link to="/contact">Start je project vandaag</Link>
             </Button>
           </div>
         </div>
