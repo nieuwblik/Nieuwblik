@@ -50,8 +50,8 @@ const ServiceCard = ({
         
         <CardFooter>
           <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90 group-hover:shadow-lg transition-all duration-300">
-            <Link to="/start-je-project" className="flex items-center justify-center gap-2">
-              Start je project
+            <Link to={service.link || "/start-je-project"} className="flex items-center justify-center gap-2">
+              {service.linkText || "Start je project"}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </Button>
@@ -64,7 +64,9 @@ const Services = () => {
     icon: Globe,
     title: "Website Design & Development",
     description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
-    features: ["Responsive & Mobile-First Design", "SEO Optimalisatie", "Prestatie & Snelheidsoptimalisatie", "CMS Integratie", "E-commerce Oplossingen"]
+    features: ["Responsive & Mobile-First Design", "SEO Optimalisatie", "Prestatie & Snelheidsoptimalisatie", "CMS Integratie", "E-commerce Oplossingen"],
+    link: "/diensten/website-op-maat",
+    linkText: "Bekijk Website Dienst"
   }, {
     icon: Palette,
     title: "Merkidentiteit & Brand Kits",
