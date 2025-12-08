@@ -55,14 +55,30 @@
       @keyframes spin{to{transform:rotate(360deg)}}
     </style>
 
-    <!-- Google Analytics - Async loading -->
+    <!-- Google Analytics - Deferred loading for better performance -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-8DLGZ42KPP');
+      
+      // Defer GA loading until browser is idle or after 3 seconds
+      function loadGA() {
+        if (window.gaLoaded) return;
+        window.gaLoaded = true;
+        gtag('js', new Date());
+        gtag('config', 'G-8DLGZ42KPP', { send_page_view: true });
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DLGZ42KPP';
+        script.async = true;
+        document.head.appendChild(script);
+      }
+      
+      // Load when browser is idle, or fallback to 3s timeout
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGA, { timeout: 3000 });
+      } else {
+        setTimeout(loadGA, 3000);
+      }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DLGZ42KPP"></script>
 
     <!-- Preconnect to critical origins for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
