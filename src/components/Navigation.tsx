@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo.png";
 import ReviewBar from "./ReviewBar";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -21,11 +28,15 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Diensten", path: "/diensten" },
     { name: "Portfolio", path: "/portfolio" },
     { name: "Over Ons", path: "/over-ons" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
+  ];
+
+  const serviceItems = [
+    { name: "Alle Diensten", path: "/diensten" },
+    { name: "Website op Maat", path: "/diensten/website-op-maat" },
   ];
 
   return (
@@ -48,7 +59,45 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
+            {navItems.slice(0, 1).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`text-sm font-medium transition-colors ${
+                  location.pathname === item.path
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground/80"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            {/* Services Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                location.pathname.startsWith("/diensten")
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground/80"
+              }`}>
+                Diensten
+                <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {serviceItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link 
+                      to={item.path}
+                      className={`w-full ${location.pathname === item.path ? "text-accent" : ""}`}
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {navItems.slice(1).map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
@@ -80,7 +129,51 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg">
             <div className="flex flex-col py-4">
-              {navItems.map((item) => (
+              <Link
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className={`px-6 py-3 text-base font-medium transition-colors border-l-4 ${
+                  location.pathname === "/"
+                    ? "text-foreground border-accent bg-accent/5"
+                    : "text-muted-foreground border-transparent hover:text-foreground hover:bg-secondary"
+                }`}
+              >
+                Home
+              </Link>
+              
+              {/* Mobile Services Submenu */}
+              <button
+                onClick={() => setServicesOpen(!servicesOpen)}
+                className={`px-6 py-3 text-base font-medium transition-colors border-l-4 flex items-center justify-between ${
+                  location.pathname.startsWith("/diensten")
+                    ? "text-foreground border-accent bg-accent/5"
+                    : "text-muted-foreground border-transparent hover:text-foreground hover:bg-secondary"
+                }`}
+              >
+                Diensten
+                <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+              </button>
+              
+              {servicesOpen && (
+                <div className="bg-secondary/50">
+                  {serviceItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setIsOpen(false)}
+                      className={`px-10 py-2 text-sm font-medium transition-colors block ${
+                        location.pathname === item.path
+                          ? "text-accent"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              {navItems.slice(1).map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}

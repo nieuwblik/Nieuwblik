@@ -28,6 +28,9 @@ const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// Service pages
+const WebsiteOpMaat = lazy(() => import("./pages/services/WebsiteOpMaat"));
+
 // Loading fallback
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -61,6 +64,7 @@ const AnimatedRoutes = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
           <Route path="/diensten" element={<PageTransition><Services /></PageTransition>} />
+          <Route path="/diensten/website-op-maat" element={<PageTransition><WebsiteOpMaat /></PageTransition>} />
           <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
           <Route path="/over-ons" element={<PageTransition><About /></PageTransition>} />
           <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
