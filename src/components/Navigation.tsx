@@ -2,12 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo.png";
 import ReviewBar from "./ReviewBar";
 
@@ -15,6 +9,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -73,29 +68,41 @@ const Navigation = () => {
               </Link>
             ))}
             
-            {/* Services Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-                location.pathname.startsWith("/diensten")
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground/80"
-              }`}>
+            {/* Services Dropdown - CSS-based for better performance */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setDesktopServicesOpen(true)}
+              onMouseLeave={() => setDesktopServicesOpen(false)}
+            >
+              <button 
+                className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                  location.pathname.startsWith("/diensten")
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground/80"
+                }`}
+                onClick={() => setDesktopServicesOpen(!desktopServicesOpen)}
+              >
                 Diensten
-                <ChevronDown className="w-4 h-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48">
-                {serviceItems.map((item) => (
-                  <DropdownMenuItem key={item.path} asChild>
+                <ChevronDown className={`w-4 h-4 transition-transform ${desktopServicesOpen ? "rotate-180" : ""}`} />
+              </button>
+              
+              {desktopServicesOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg py-1 z-50">
+                  {serviceItems.map((item) => (
                     <Link 
+                      key={item.path}
                       to={item.path}
-                      className={`w-full ${location.pathname === item.path ? "text-accent" : ""}`}
+                      className={`block px-4 py-2 text-sm transition-colors hover:bg-secondary ${
+                        location.pathname === item.path ? "text-accent" : "text-muted-foreground"
+                      }`}
+                      onClick={() => setDesktopServicesOpen(false)}
                     >
                       {item.name}
                     </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {navItems.slice(1).map((item) => (
               <Link
