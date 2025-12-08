@@ -30,6 +30,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Service pages
 const WebsiteOpMaat = lazy(() => import("./pages/services/WebsiteOpMaat"));
+const Webshops = lazy(() => import("./pages/services/Webshops"));
+const Ecommerce = lazy(() => import("./pages/services/Ecommerce"));
 
 // Loading fallback
 const PageLoader = () => (
@@ -65,6 +67,8 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />
           <Route path="/diensten" element={<PageTransition><Services /></PageTransition>} />
           <Route path="/diensten/website-op-maat" element={<PageTransition><WebsiteOpMaat /></PageTransition>} />
+          <Route path="/diensten/webshops" element={<PageTransition><Webshops /></PageTransition>} />
+          <Route path="/diensten/e-commerce" element={<PageTransition><Ecommerce /></PageTransition>} />
           <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
           <Route path="/over-ons" element={<PageTransition><About /></PageTransition>} />
           <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
