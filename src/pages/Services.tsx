@@ -62,26 +62,26 @@ const ServiceCard = ({
 const Services = () => {
   const services = [{
     icon: Globe,
-    title: "Website Design & Development",
+    title: "Website design & development",
     description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
-    features: ["Responsive & Mobile-First Design", "SEO Optimalisatie", "Prestatie & Snelheidsoptimalisatie", "CMS Integratie", "E-commerce Oplossingen"],
+    features: ["Responsive & mobile-first design", "SEO optimalisatie", "Prestatie & snelheidsoptimalisatie", "CMS integratie", "E-commerce oplossingen"],
     link: "/diensten/website-op-maat",
-    linkText: "Bekijk Website Dienst"
+    linkText: "Bekijk website dienst"
   }, {
     icon: Palette,
-    title: "Merkidentiteit & Brand Kits",
+    title: "Merkidentiteit & brand kits",
     description: "Complete merkidentiteitssystemen die jouw unieke visuele taal vastleggen. Wij creëren samenhangende brand kits die consistentie garanderen op alle contactpunten met je klanten.",
-    features: ["Logo Design & Variaties", "Kleurenpalet Ontwikkeling", "Typografie Systeem", "Brand Richtlijnen", "Marketing Materialen"]
+    features: ["Logo design & variaties", "Kleurenpalet ontwikkeling", "Typografie systeem", "Brand richtlijnen", "Marketing materialen"]
   }, {
     icon: ShoppingBag,
-    title: "E-commerce Oplossingen",
+    title: "E-commerce oplossingen",
     description: "Full-service e-commerce design inclusief productlijsten, banners en complete shop designs die verkoop stimuleren en gebruikerservaring verbeteren.",
-    features: ["Productlijst Design", "Custom Banners & Graphics", "Shop Pagina Layouts", "Conversie Optimalisatie", "Mobiele Shopping Ervaring"]
+    features: ["Productlijst design", "Custom banners & graphics", "Shop pagina layouts", "Conversie optimalisatie", "Mobiele shopping ervaring"]
   }, {
     icon: Pen,
-    title: "Custom Design Services",
+    title: "Custom design services",
     description: "Van e-books tot autobelettering - wij leveren hoogwaardige custom designs op maat, perfect afgestemd op jouw specifieke wensen en merkidentiteit.",
-    features: ["E-book Design & Layout", "Voertuigbelettering Graphics", "Drukwerk Materialen", "Social Media Graphics", "Custom Illustraties"]
+    features: ["E-book design & layout", "Voertuigbelettering graphics", "Drukwerk materialen", "Social media graphics", "Custom illustraties"]
   }];
   const structuredData = {
     "@context": "https://schema.org",

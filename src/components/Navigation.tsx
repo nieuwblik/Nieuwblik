@@ -68,38 +68,40 @@ const Navigation = () => {
               </Link>
             ))}
             
-            {/* Services Dropdown - CSS-based for better performance */}
+            {/* Services Dropdown */}
             <div 
-              className="relative"
+              className="relative group"
               onMouseEnter={() => setDesktopServicesOpen(true)}
               onMouseLeave={() => setDesktopServicesOpen(false)}
             >
-              <button 
+              <Link 
+                to="/diensten"
                 className={`text-sm font-medium transition-colors flex items-center gap-1 ${
                   location.pathname.startsWith("/diensten")
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground/80"
                 }`}
-                onClick={() => setDesktopServicesOpen(!desktopServicesOpen)}
               >
                 Diensten
                 <ChevronDown className={`w-4 h-4 transition-transform ${desktopServicesOpen ? "rotate-180" : ""}`} />
-              </button>
+              </Link>
               
               {desktopServicesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg py-1 z-50">
-                  {serviceItems.map((item) => (
-                    <Link 
-                      key={item.path}
-                      to={item.path}
-                      className={`block px-4 py-2 text-sm transition-colors hover:bg-secondary ${
-                        location.pathname === item.path ? "text-accent" : "text-muted-foreground"
-                      }`}
-                      onClick={() => setDesktopServicesOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
+                <div className="absolute top-full left-0 pt-2 w-48 z-50">
+                  <div className="bg-background border border-border rounded-md shadow-lg py-1">
+                    {serviceItems.map((item) => (
+                      <Link 
+                        key={item.path}
+                        to={item.path}
+                        className={`block px-4 py-2 text-sm transition-colors hover:bg-secondary ${
+                          location.pathname === item.path ? "text-accent" : "text-muted-foreground"
+                        }`}
+                        onClick={() => setDesktopServicesOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
