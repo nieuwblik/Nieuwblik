@@ -36,20 +36,20 @@ const WebsiteOpMaat = () => {
   const usps = [
     {
       icon: Palette,
-      title: "Design Excellence",
-      subtitle: "Luxe en Branding",
+      title: "Design excellence",
+      subtitle: "Luxe en branding",
       description: "Elk ontwerp begint in Figma waar we jouw unieke merkidentiteit tot leven brengen met oog voor detail en luxe uitstraling."
     },
     {
       icon: Zap,
-      title: "Technische Fundering",
-      subtitle: "Snelheid en Schone Code",
+      title: "Technische fundering",
+      subtitle: "Snelheid en schone code",
       description: "Gebouwd met Lovable en moderne technologie voor bliksemsnelle laadtijden en perfecte Google scores."
     },
     {
       icon: Bot,
-      title: "AI & Automatisering",
-      subtitle: "Efficiëntie en Funneling",
+      title: "AI & automatisering",
+      subtitle: "Efficiëntie en funneling",
       description: "Slimme integraties via HadoSEO zorgen voor optimale vindbaarheid en automatische lead-generatie."
     }
   ];
@@ -57,42 +57,42 @@ const WebsiteOpMaat = () => {
   const steps = [
     {
       number: "01",
-      title: "Concept & Strategie",
-      description: "We starten met jouw Project Briefing om doelen, doelgroep en merkidentiteit in kaart te brengen."
+      title: "Concept & strategie",
+      description: "We starten met jouw project briefing om doelen, doelgroep en merkidentiteit in kaart te brengen."
     },
     {
       number: "02",
-      title: "Luxe Design & UX",
+      title: "Luxe design & UX",
       description: "In Figma creëren we wireframes en het visuele ontwerp dat jouw merk perfect representeert."
     },
     {
       number: "03",
-      title: "Technische Development",
+      title: "Technische development",
       description: "Met Lovable en Gemini AI bouwen we een ultra-snelle, SEO-geoptimaliseerde website."
     },
     {
       number: "04",
-      title: "Livegang & Optimalisatie",
+      title: "Livegang & optimalisatie",
       description: "Na de lancering optimaliseren we continu voor prestaties en koppelen we Google Business voor reviews."
     }
   ];
 
   const includedStandard = [
-    "Responsive & Mobile-First Design",
+    "Responsive & mobile-first design",
     "SEO-fundament met HadoSEO koppeling",
     "Google Analytics 4 integratie",
     "Google Business koppeling voor reviews",
     "SSL-certificaat & beveiliging",
     "Laadtijd onder 2 seconden",
-    "Contact formulieren met automatisering",
+    "Contactformulieren met automatisering",
     "3 revisierondes inbegrepen"
   ];
 
   const optionalModules = [
-    "Custom AI Chatbot integratie",
+    "Custom AI chatbot integratie",
     "E-commerce functionaliteit",
     "Meertalige website opties",
-    "Premium CMS Licenties",
+    "Premium CMS licenties",
     "Geavanceerde animaties",
     "Lead generation funnels"
   ];
@@ -157,9 +157,9 @@ const WebsiteOpMaat = () => {
         className={`py-16 md:py-24 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       >
         <div className="container mx-auto px-6">
-          <p className="text-accent mb-6 uppercase tracking-wide font-medium">Website op Maat</p>
+          <p className="text-accent mb-6 uppercase tracking-wide font-medium">Website op maat</p>
           <h1 className="text-display mb-6">
-            Luxe Websites & Digitale Architectuur op Maat
+            Luxe websites & digitale architectuur op maat
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-10">
             Wij bouwen ultra-snelle websites met AI-automatisering en meetbare groei. 
@@ -168,14 +168,14 @@ const WebsiteOpMaat = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
               <Link to="/contact" className="flex items-center gap-2">
-                Start Je Website Project
+                Start je website project
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-lg px-8">
               <a href="https://wa.me/31681762670" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 <MessageCircle className="w-5 h-5" />
-                WhatsApp Direct
+                WhatsApp direct
               </a>
             </Button>
           </div>
@@ -223,7 +223,7 @@ const WebsiteOpMaat = () => {
       >
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Het Website Project Stappenplan
+            Het website project stappenplan
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             Transparant en efficiënt: zo bouwen wij jouw website
@@ -261,7 +261,7 @@ const WebsiteOpMaat = () => {
       >
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Wat is Inbegrepen?
+            Wat is inbegrepen?
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             Heldere scope en verwachtingen voor jouw project
@@ -276,7 +276,7 @@ const WebsiteOpMaat = () => {
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
                   <Check className="w-5 h-5 text-accent-foreground" />
                 </div>
-                <h3 className="text-xl font-bold">Inbegrepen Standaard</h3>
+                <h3 className="text-xl font-bold">Inbegrepen standaard</h3>
               </div>
               <ul className="space-y-4">
                 {includedStandard.map((item, index) => (
@@ -297,7 +297,7 @@ const WebsiteOpMaat = () => {
                 <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
                   <Plus className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold">Optionele Modules</h3>
+                <h3 className="text-xl font-bold">Optionele modules</h3>
               </div>
               <ul className="space-y-4">
                 {optionalModules.map((item, index) => (
@@ -325,7 +325,7 @@ const WebsiteOpMaat = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary" className="text-lg px-8">
               <Link to="/contact" className="flex items-center gap-2">
-                Ontvang een Offerte
+                Ontvang een offerte
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
@@ -340,7 +340,7 @@ const WebsiteOpMaat = () => {
       >
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Recente Website Projecten
+            Recente website projecten
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             Bekijk enkele van onze meest recente succesvolle website projecten
@@ -407,7 +407,7 @@ const WebsiteOpMaat = () => {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Gebouwd met de Beste Tools
+            Gebouwd met de beste tools
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             We gebruiken moderne technologie voor maximale snelheid en vindbaarheid
