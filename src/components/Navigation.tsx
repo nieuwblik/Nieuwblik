@@ -30,8 +30,9 @@ const Navigation = () => {
   ];
 
   const serviceItems = [
-    { name: "Alle Diensten", path: "/diensten" },
-    { name: "Website op Maat", path: "/diensten/website-op-maat" },
+    { name: "Website op maat", path: "/diensten/website-op-maat" },
+    { name: "Webshops", path: "/diensten/webshops" },
+    { name: "E-commerce", path: "/diensten/e-commerce" },
   ];
 
   return (
