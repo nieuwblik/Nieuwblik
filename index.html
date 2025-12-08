@@ -86,21 +86,11 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://i.ytimg.com" />
     
-    <!-- Preload critical images for LCP optimization -->
-    <link rel="preload" as="image" href="/src/assets/logo.png" fetchpriority="high">
-    <link rel="preload" as="image" href="/src/assets/justin-slok.png" fetchpriority="high">
-    
-    <!-- Optimized font loading - async with fallback -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=optional">
+    <!-- Optimized font loading - use swap for faster text rendering -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
       rel="stylesheet"
-      media="print" 
-      onload="this.media='all';this.onload=null"
     />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=optional" rel="stylesheet" />
-    </noscript>
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website" />
