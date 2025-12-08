@@ -5,113 +5,79 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { 
-  Palette, 
-  Zap, 
-  Bot, 
-  FileText, 
-  PenTool, 
-  Code2, 
-  Rocket,
-  Check,
-  Plus,
-  ArrowRight,
-  Phone,
-  MessageCircle,
-  Star
-} from "lucide-react";
+import { Palette, Zap, Bot, FileText, PenTool, Code2, Rocket, Check, Plus, ArrowRight, Phone, MessageCircle, Star } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 // Project images for cases
 import esveldImg from "@/assets/projects/esveldinstallatie.nl.png";
 import feitsmaImg from "@/assets/projects/feitsmadakwerken.nl.png";
-
 const WebsiteOpMaat = () => {
-  const [heroRef, heroVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
-  const [uspRef, uspVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
-  const [stepsRef, stepsVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
-  const [includedRef, includedVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
-  const [casesRef, casesVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
-
-  const usps = [
-    {
-      icon: Palette,
-      title: "Design excellence",
-      subtitle: "Luxe en branding",
-      description: "Elk ontwerp begint in Figma waar we jouw unieke merkidentiteit tot leven brengen met oog voor detail en luxe uitstraling."
-    },
-    {
-      icon: Zap,
-      title: "Technische fundering",
-      subtitle: "Snelheid en schone code",
-      description: "Gebouwd met Lovable en moderne technologie voor bliksemsnelle laadtijden en perfecte Google scores."
-    },
-    {
-      icon: Bot,
-      title: "AI & automatisering",
-      subtitle: "Efficiëntie en funneling",
-      description: "Slimme integraties via HadoSEO zorgen voor optimale vindbaarheid en automatische lead-generatie."
-    }
-  ];
-
-  const steps = [
-    {
-      number: "01",
-      title: "Concept & strategie",
-      description: "We starten met jouw project briefing om doelen, doelgroep en merkidentiteit in kaart te brengen."
-    },
-    {
-      number: "02",
-      title: "Luxe design & UX",
-      description: "In Figma creëren we wireframes en het visuele ontwerp dat jouw merk perfect representeert."
-    },
-    {
-      number: "03",
-      title: "Technische development",
-      description: "Met Lovable en Gemini AI bouwen we een ultra-snelle, SEO-geoptimaliseerde website."
-    },
-    {
-      number: "04",
-      title: "Livegang & optimalisatie",
-      description: "Na de lancering optimaliseren we continu voor prestaties en koppelen we Google Business voor reviews."
-    }
-  ];
-
-  const includedStandard = [
-    "Responsive & mobile-first design",
-    "SEO-fundament met HadoSEO koppeling",
-    "Google Analytics 4 integratie",
-    "Google Business koppeling voor reviews",
-    "SSL-certificaat & beveiliging",
-    "Laadtijd onder 2 seconden",
-    "Contactformulieren met automatisering",
-    "3 revisierondes inbegrepen"
-  ];
-
-  const optionalModules = [
-    "Custom AI chatbot integratie",
-    "E-commerce functionaliteit",
-    "Meertalige website opties",
-    "Premium CMS licenties",
-    "Geavanceerde animaties",
-    "Lead generation funnels"
-  ];
-
-  const cases = [
-    {
-      title: "Esveld Installatie",
-      category: "Installatiebedrijf",
-      image: esveldImg,
-      url: "https://esveldinstallatie.nl"
-    },
-    {
-      title: "Feitsma Dakwerken",
-      category: "Dakdekkers & Aannemers",
-      image: feitsmaImg,
-      url: "https://feitsmadakwerken.nl"
-    }
-  ];
-
+  const [heroRef, heroVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+  const [uspRef, uspVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+  const [stepsRef, stepsVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+  const [includedRef, includedVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+  const [casesRef, casesVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+  const usps = [{
+    icon: Palette,
+    title: "Design excellence",
+    subtitle: "Luxe en branding",
+    description: "Elk ontwerp begint in Figma waar we jouw unieke merkidentiteit tot leven brengen met oog voor detail en luxe uitstraling."
+  }, {
+    icon: Zap,
+    title: "Technische fundering",
+    subtitle: "Snelheid en schone code",
+    description: "Gebouwd met Lovable en moderne technologie voor bliksemsnelle laadtijden en perfecte Google scores."
+  }, {
+    icon: Bot,
+    title: "AI & automatisering",
+    subtitle: "Efficiëntie en funneling",
+    description: "Slimme integraties via HadoSEO zorgen voor optimale vindbaarheid en automatische lead-generatie."
+  }];
+  const steps = [{
+    number: "01",
+    title: "Concept & strategie",
+    description: "We starten met jouw project briefing om doelen, doelgroep en merkidentiteit in kaart te brengen."
+  }, {
+    number: "02",
+    title: "Luxe design & UX",
+    description: "In Figma creëren we wireframes en het visuele ontwerp dat jouw merk perfect representeert."
+  }, {
+    number: "03",
+    title: "Technische development",
+    description: "Met Lovable en Gemini AI bouwen we een ultra-snelle, SEO-geoptimaliseerde website."
+  }, {
+    number: "04",
+    title: "Livegang & optimalisatie",
+    description: "Na de lancering optimaliseren we continu voor prestaties en koppelen we Google Business voor reviews."
+  }];
+  const includedStandard = ["Responsive & mobile-first design", "SEO-fundament met HadoSEO koppeling", "Google Analytics 4 integratie", "Google Business koppeling voor reviews", "SSL-certificaat & beveiliging", "Laadtijd onder 2 seconden", "Contactformulieren met automatisering", "3 revisierondes inbegrepen"];
+  const optionalModules = ["Custom AI chatbot integratie", "E-commerce functionaliteit", "Meertalige website opties", "Premium CMS licenties", "Geavanceerde animaties", "Lead generation funnels"];
+  const cases = [{
+    title: "Esveld Installatie",
+    category: "Installatiebedrijf",
+    image: esveldImg,
+    url: "https://esveldinstallatie.nl"
+  }, {
+    title: "Feitsma Dakwerken",
+    category: "Dakdekkers & Aannemers",
+    image: feitsmaImg,
+    url: "https://feitsmadakwerken.nl"
+  }];
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -129,33 +95,25 @@ const WebsiteOpMaat = () => {
       "availability": "https://schema.org/InStock"
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Website op Maat | Luxe Webdesign & Development - Nieuwblik"
-        description="Laat een luxe website op maat bouwen. Ultra-snelle laadtijden, SEO-geoptimaliseerd via HadoSEO, Google Business reviews. Binnen een week live!"
-        keywords="website op maat, webdesign bureau, website laten maken, luxe website, custom website, SEO website, snelle website"
-        canonicalUrl="https://www.nieuwblik.com/diensten/website-op-maat"
-        structuredData={structuredData}
-      />
+  return <div className="min-h-screen bg-background">
+      <SEOHead title="Website op Maat | Luxe Webdesign & Development - Nieuwblik" description="Laat een luxe website op maat bouwen. Ultra-snelle laadtijden, SEO-geoptimaliseerd via HadoSEO, Google Business reviews. Binnen een week live!" keywords="website op maat, webdesign bureau, website laten maken, luxe website, custom website, SEO website, snelle website" canonicalUrl="https://www.nieuwblik.com/diensten/website-op-maat" structuredData={structuredData} />
       <Navigation />
       
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
         <div className="container mx-auto px-6">
-          <Breadcrumb items={[
-            { label: "Diensten", path: "/diensten" },
-            { label: "Website op Maat", path: "/diensten/website-op-maat" }
-          ]} />
+          <Breadcrumb items={[{
+          label: "Diensten",
+          path: "/diensten"
+        }, {
+          label: "Website op Maat",
+          path: "/diensten/website-op-maat"
+        }]} />
         </div>
       </section>
 
       {/* Hero Section */}
-      <section 
-        ref={heroRef as React.RefObject<HTMLElement>}
-        className={`py-16 md:py-24 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      >
+      <section ref={heroRef as React.RefObject<HTMLElement>} className={`py-16 md:py-24 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         <div className="container mx-auto px-6">
           <p className="text-accent mb-6 uppercase tracking-wide font-medium">Website op maat</p>
           <h1 className="text-display mb-6">
@@ -183,10 +141,7 @@ const WebsiteOpMaat = () => {
       </section>
 
       {/* Why Nieuwblik - 3 USPs */}
-      <section 
-        ref={uspRef as React.RefObject<HTMLElement>}
-        className="py-16 md:py-24 bg-secondary/50"
-      >
+      <section ref={uspRef as React.RefObject<HTMLElement>} className="py-16 md:py-24 bg-secondary/50">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Waarom Nieuwblik?
@@ -196,12 +151,9 @@ const WebsiteOpMaat = () => {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {usps.map((usp, index) => (
-              <Card 
-                key={index}
-                className={`text-center p-8 border-border/50 hover:border-accent/50 hover:shadow-xl transition-all duration-500 ${uspVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
+            {usps.map((usp, index) => <Card key={index} className={`text-center p-8 border-border/50 hover:border-accent/50 hover:shadow-xl transition-all duration-500 ${uspVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{
+            transitionDelay: `${index * 150}ms`
+          }}>
                 <CardContent className="pt-6">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6">
                     <usp.icon className="w-8 h-8 text-accent" />
@@ -210,17 +162,13 @@ const WebsiteOpMaat = () => {
                   <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
                   <p className="text-muted-foreground">{usp.description}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
 
       {/* Project Steps Timeline */}
-      <section 
-        ref={stepsRef as React.RefObject<HTMLElement>}
-        className="py-16 md:py-24"
-      >
+      <section ref={stepsRef as React.RefObject<HTMLElement>} className="py-16 md:py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Het website project stappenplan
@@ -230,12 +178,9 @@ const WebsiteOpMaat = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((step, index) => (
-              <div 
-                key={index}
-                className={`relative transition-all duration-700 ${stepsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
+            {steps.map((step, index) => <div key={index} className={`relative transition-all duration-700 ${stepsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{
+            transitionDelay: `${index * 150}ms`
+          }}>
                 <div className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 hover:shadow-lg transition-all duration-300">
                   <span className="text-5xl font-extrabold text-accent/20 absolute top-4 right-4">
                     {step.number}
@@ -245,20 +190,14 @@ const WebsiteOpMaat = () => {
                     <p className="text-muted-foreground text-sm">{step.description}</p>
                   </div>
                 </div>
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30" />
-                )}
-              </div>
-            ))}
+                {index < steps.length - 1 && <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30" />}
+              </div>)}
           </div>
         </div>
       </section>
 
       {/* What's Included */}
-      <section 
-        ref={includedRef as React.RefObject<HTMLElement>}
-        className="py-16 md:py-24 bg-secondary/50"
-      >
+      <section ref={includedRef as React.RefObject<HTMLElement>} className="py-16 md:py-24 bg-secondary/50">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Wat is inbegrepen?
@@ -269,9 +208,7 @@ const WebsiteOpMaat = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Standard Included */}
-            <div 
-              className={`bg-card border border-border rounded-xl p-8 transition-all duration-700 ${includedVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}
-            >
+            <div className={`bg-card border border-border rounded-xl p-8 transition-all duration-700 ${includedVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
                   <Check className="w-5 h-5 text-accent-foreground" />
@@ -279,20 +216,17 @@ const WebsiteOpMaat = () => {
                 <h3 className="text-xl font-bold">Inbegrepen standaard</h3>
               </div>
               <ul className="space-y-4">
-                {includedStandard.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {includedStandard.map((item, index) => <li key={index} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
 
             {/* Optional Modules */}
-            <div 
-              className={`bg-card border border-border rounded-xl p-8 transition-all duration-700 ${includedVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
-              style={{ transitionDelay: "150ms" }}
-            >
+            <div className={`bg-card border border-border rounded-xl p-8 transition-all duration-700 ${includedVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`} style={{
+            transitionDelay: "150ms"
+          }}>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
                   <Plus className="w-5 h-5 text-accent" />
@@ -300,12 +234,10 @@ const WebsiteOpMaat = () => {
                 <h3 className="text-xl font-bold">Optionele modules</h3>
               </div>
               <ul className="space-y-4">
-                {optionalModules.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                {optionalModules.map((item, index) => <li key={index} className="flex items-start gap-3">
                     <Plus className="w-5 h-5 text-accent/60 flex-shrink-0 mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
           </div>
@@ -318,10 +250,7 @@ const WebsiteOpMaat = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Elk project is uniek
           </h2>
-          <p className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto">
-            Laten we samen de scope bepalen en een offerte op maat maken. 
-            Websites vanaf €997 - binnen een week live.
-          </p>
+          <p className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto">Laten we samen de scope bepalen en een offerte op maat maken. Websites vanaf €497 - binnen een week live.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary" className="text-lg px-8">
               <Link to="/contact" className="flex items-center gap-2">
@@ -334,10 +263,7 @@ const WebsiteOpMaat = () => {
       </section>
 
       {/* Relevant Cases */}
-      <section 
-        ref={casesRef as React.RefObject<HTMLElement>}
-        className="py-16 md:py-24"
-      >
+      <section ref={casesRef as React.RefObject<HTMLElement>} className="py-16 md:py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Recente website projecten
@@ -347,22 +273,11 @@ const WebsiteOpMaat = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {cases.map((project, index) => (
-              <a
-                key={index}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group block transition-all duration-700 ${casesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
+            {cases.map((project, index) => <a key={index} href={project.url} target="_blank" rel="noopener noreferrer" className={`group block transition-all duration-700 ${casesVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{
+            transitionDelay: `${index * 150}ms`
+          }}>
                 <div className="relative overflow-hidden rounded-xl border border-border hover:border-accent/50 transition-all duration-300">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                  <img src={project.image} alt={project.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div>
                       <p className="text-accent text-sm font-medium mb-1">{project.category}</p>
@@ -370,8 +285,7 @@ const WebsiteOpMaat = () => {
                     </div>
                   </div>
                 </div>
-              </a>
-            ))}
+              </a>)}
           </div>
 
           <div className="text-center mt-10">
@@ -390,9 +304,7 @@ const WebsiteOpMaat = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex justify-center gap-1 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-accent text-accent" />
-              ))}
+              {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 fill-accent text-accent" />)}
             </div>
             <blockquote className="text-xl md:text-2xl text-muted-foreground italic mb-6">
               "Nieuwblik heeft onze website binnen een week live gezet. De snelheid en professionaliteit zijn ongekend. 
@@ -484,8 +396,6 @@ const WebsiteOpMaat = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default WebsiteOpMaat;
