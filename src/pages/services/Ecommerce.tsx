@@ -329,11 +329,8 @@ const Ecommerce = () => {
             <div className="flex justify-center gap-1 mb-6">
               {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 fill-accent text-accent" />)}
             </div>
-            <blockquote className="text-xl md:text-2xl text-muted-foreground italic mb-6">
-              "Door de multichannel aanpak van Nieuwblik zijn we nu ook succesvol op Bol.com en Amazon. 
-              Onze omzet is in 6 maanden verdrievoudigd!"
-            </blockquote>
-            <p className="font-bold">— Tevreden e-commerce klant</p>
+            <blockquote className="text-xl md:text-2xl text-muted-foreground italic mb-6">"Door de multichannel aanpak van Nieuwblik zijn we nu ook succesvol op Bol.com en Amazon. Onze omzet is in 6 maanden met 140% gestegen!"</blockquote>
+            <p className="font-bold">— Maarten, Kitchenz</p>
           </div>
         </div>
       </section>
