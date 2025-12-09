@@ -374,10 +374,7 @@ const WebsiteOpMaat = () => {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-lg px-8 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-              <a href="https://wa.me/31681762670" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp
-              </a>
+              
             </Button>
           </div>
 
