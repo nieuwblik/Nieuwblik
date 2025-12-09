@@ -5,9 +5,19 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Globe, TrendingUp, Layers, Target, Repeat, Users, Check, Plus, ArrowRight, MessageCircle, Star, ShoppingBag, Megaphone } from "lucide-react";
+import { useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Globe, TrendingUp, Layers, Target, Repeat, Users, Check, Plus, ArrowRight, MessageCircle, Star, ShoppingBag, Megaphone, Image, Package, BookOpen } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+
+// Import e-commerce listing images
+import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
+import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.png";
+import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.png";
+import pastamachineListingImg from "@/assets/projects/pastamachine-listing.png";
+import compressorListingImg from "@/assets/projects/compressor-listing.png";
 const Ecommerce = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [heroRef, heroVisible] = useIntersectionObserver({
     threshold: 0.1,
     triggerOnce: true
@@ -28,53 +38,85 @@ const Ecommerce = () => {
     threshold: 0.1,
     triggerOnce: true
   });
+  const [portfolioRef, portfolioVisible] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
+  const ecommerceListings = [
+    {
+      title: "Kattenbak - Movendo",
+      description: "Professionele Amazon product listing met complete USP's en feature highlights.",
+      image: kattenbakListingImg,
+    },
+    {
+      title: "Q-mate - Drogerballen",
+      description: "Aantrekkelijke listing voor duurzame drogerballen met focus op kwaliteit.",
+      image: hamburgerPressListingImg,
+    },
+    {
+      title: "Hamburgerpers - Kitchenz",
+      description: "Visueel sterke Amazon listing met duidelijke voordelen en gebruiksgemak.",
+      image: schoenenWolListingImg,
+    },
+    {
+      title: "Pastamachine - Kitchenz",
+      description: "Complete product story voor premium pastamachines met gedetailleerde features.",
+      image: pastamachineListingImg,
+    },
+    {
+      title: "Compressor - Grobbie",
+      description: "Technische product listing met focus op specificaties en toepassingen.",
+      image: compressorListingImg,
+    }
+  ];
   const usps = [{
-    icon: Globe,
-    title: "Multichannel verkoop",
-    subtitle: "Overal aanwezig",
-    description: "Verkoop naadloos op je eigen webshop, Amazon, Bol.com en social media vanuit één centraal systeem."
+    icon: Image,
+    title: "Professionele listings",
+    subtitle: "Visueel verkopen",
+    description: "Wij maken overtuigende product listings voor Amazon, Bol.com en andere marketplaces die je conversie verhogen."
   }, {
-    icon: TrendingUp,
-    title: "Conversie optimalisatie",
-    subtitle: "Meer verkopen",
-    description: "Data-gedreven aanpak die bezoekers omzet in kopers met A/B testing en slimme upsells."
+    icon: Package,
+    title: "Productverpakkingen",
+    subtitle: "Premium uitstraling",
+    description: "Van concept tot print-ready ontwerp: verpakkingen die opvallen in het schap én bij de klant thuis."
   }, {
-    icon: Repeat,
-    title: "Automatisering",
-    subtitle: "Schaalbaar groeien",
-    description: "Van voorraadbeheer tot marketing automation: bespaar tijd en verhoog je omzet automatisch."
+    icon: BookOpen,
+    title: "Extra waarde producten",
+    subtitle: "E-books & meer",
+    description: "Creëer aanvullende producten zoals e-books, handleidingen en digital downloads die je marge verhogen."
   }];
   const steps = [{
     number: "01",
-    title: "E-commerce audit",
-    description: "Diepgaande analyse van je huidige situatie, markt en groeimogelijkheden."
+    title: "Briefing & research",
+    description: "We analyseren je product, doelgroep en concurrentie voor de beste aanpak."
   }, {
     number: "02",
-    title: "Strategie & roadmap",
-    description: "Concrete actieplannen voor omzetgroei, inclusief kanaalstrategie en marketing."
+    title: "Concept & design",
+    description: "Eerste concepten voor listings, verpakkingen of e-books ter beoordeling."
   }, {
     number: "03",
-    title: "Implementatie",
-    description: "Technische opzet van alle systemen, koppelingen en automatiseringen."
+    title: "Revisierondes",
+    description: "Feedback verwerken tot je 100% tevreden bent met het eindresultaat."
   }, {
     number: "04",
-    title: "Groei & optimalisatie",
-    description: "Continue verbetering op basis van data, nieuwe kanalen en conversie-optimalisatie."
+    title: "Oplevering",
+    description: "Alle bestanden in de juiste formaten, klaar voor upload of productie."
   }];
-  const includedStandard = ["Complete e-commerce strategie", "Multichannel verkoop setup", "Marketplace integraties (Bol, Amazon)", "Marketing automation", "Voorraad & orderbeheer", "Conversie tracking & analytics", "Email marketing flows", "Performance dashboards"];
-  const optionalModules = ["Social commerce (Instagram, TikTok)", "Internationaal uitbreiden", "ERP & boekhoud koppelingen", "Geavanceerde personalisatie", "Subscription & recurring billing", "Custom productconfigurator"];
+  const includedStandard = ["Professionele product listings", "Marketplace-ready afbeeldingen", "Conversiegerichte productbeschrijvingen", "A+ content / Enhanced Brand Content", "Productverpakking design", "E-books en digital downloads", "Print-ready bestanden", "Revisierondes inbegrepen"];
+  const optionalModules = ["3D product visualisaties", "Video productpresentaties", "Lifestyle fotografie", "Meertalige listings", "Brandbook & richtlijnen", "Maandelijkse optimalisatie"];
   const faqs = [{
-    question: "Wat is het verschil tussen een webshop en e-commerce?",
-    answer: "Een webshop is je online winkel. E-commerce omvat de complete strategie: multichannel verkoop, marketing, automatisering en groei over alle kanalen."
+    question: "Wat maken jullie precies voor e-commerce?",
+    answer: "Wij maken professionele product listings (tekst + afbeeldingen), productverpakkingen en extra waarde producten zoals e-books. De webshop, verkoop en logistiek regel je zelf."
   }, {
-    question: "Kunnen jullie helpen met verkopen op Bol.com of Amazon?",
-    answer: "Absoluut! We helpen bij de complete setup: van accountopening tot productoptimalisatie, voorraadbeheer en advertenties op marketplaces."
+    question: "Kunnen jullie ook mijn hele webshop bouwen?",
+    answer: "Voor complete webshops verwijzen we je naar onze Webshops dienst. Hier focussen we puur op de content die je producten laat verkopen."
   }, {
-    question: "Hoe snel kan ik resultaten verwachten?",
-    answer: "De technische setup duurt 4-8 weken. Eerste resultaten zie je vaak binnen 3 maanden, met continue groei daarna door optimalisatie."
+    question: "Hoe lang duurt het om een listing te maken?",
+    answer: "Een complete product listing is meestal binnen 1-2 weken klaar, inclusief revisierondes. Bij grotere aantallen maken we een passende planning."
   }, {
-    question: "Is dit geschikt voor mijn bedrijfsgrootte?",
-    answer: "Of je nu net start of al miljoenen omzet draait, e-commerce oplossingen schalen mee. We adviseren altijd passend bij jouw situatie."
+    question: "Leveren jullie print-ready bestanden?",
+    answer: "Ja! Verpakkingsdesigns leveren we altijd print-ready aan, inclusief de juiste snijmarges en kleurprofielen voor jouw drukker."
   }];
   const structuredData = {
     "@context": "https://schema.org",
@@ -113,10 +155,16 @@ const Ecommerce = () => {
           <h1 className="text-display mb-6">
             E-commerce die echt groeit
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-10">
-            Niet zomaar een webshop, maar een complete groeistrategie. 
-            Van je eigen website tot Amazon en Bol.com – overal verkopen, centraal beheren.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-6">
+            Wij maken professionele product listings, verpakkingsdesigns en extra waarde producten zoals e-books. 
+            De verkoop, logistiek en klantenservice? Dat is voor jou – wij focussen op wat je verkoopt.
           </p>
+          <div className="bg-secondary/80 border border-border rounded-lg p-4 mb-10 max-w-2xl">
+            <p className="text-muted-foreground text-sm">
+              <strong className="text-foreground">Onze focus:</strong> Wij creëren de visuele en tekstuele content die jouw producten laat verkopen. 
+              De webshop, marketplace accounts, fulfillment en klantcontact regel jij zelf of via een andere partner.
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
               <Link to="/contact" className="flex items-center gap-2">
@@ -161,50 +209,58 @@ const Ecommerce = () => {
         </div>
       </section>
 
-      {/* E-commerce ecosystem visual */}
-      <section className="py-16 md:py-24">
+      {/* Portfolio Section */}
+      <section ref={portfolioRef as React.RefObject<HTMLElement>} className="py-16 md:py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Jouw complete e-commerce ecosysteem
+            Onze e-commerce projecten
           </h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Alle kanalen verbonden, alle data gecentraliseerd
+            Professionele listings die daadwerkelijk verkopen
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {[{
-            icon: ShoppingBag,
-            label: "Eigen webshop"
-          }, {
-            icon: Globe,
-            label: "Bol.com"
-          }, {
-            icon: Layers,
-            label: "Amazon"
-          }, {
-            icon: Users,
-            label: "Social selling"
-          }, {
-            icon: Megaphone,
-            label: "Marketing"
-          }, {
-            icon: Target,
-            label: "Retargeting"
-          }, {
-            icon: TrendingUp,
-            label: "Analytics"
-          }, {
-            icon: Repeat,
-            label: "Automatisering"
-          }].map((item, index) => <div key={index} className="text-center group">
-                <div className="w-20 h-20 mx-auto rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 group-hover:shadow-lg transition-all duration-300">
-                  <item.icon className="w-10 h-10 text-muted-foreground group-hover:text-accent transition-colors" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {ecommerceListings.map((listing, index) => (
+              <div 
+                key={index}
+                className={`group cursor-pointer transition-all duration-700 ${portfolioVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+                onClick={() => setSelectedImage(listing.image)}
+              >
+                <div className="aspect-[4/3] bg-secondary rounded-lg mb-4 overflow-hidden relative">
+                  <img 
+                    src={listing.image} 
+                    alt={listing.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-sm font-medium bg-background px-4 py-2 rounded-full shadow-lg">
+                      Bekijk groter
+                    </span>
+                  </div>
                 </div>
-                <p className="text-sm font-medium">{item.label}</p>
-              </div>)}
+                <h3 className="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">{listing.title}</h3>
+                <p className="text-muted-foreground text-sm">{listing.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Image Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 overflow-hidden">
+          {selectedImage && (
+            <img 
+              src={selectedImage} 
+              alt="E-commerce listing"
+              className="w-full h-full object-contain"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Steps */}
       <section ref={stepsRef as React.RefObject<HTMLElement>} className="py-16 md:py-24 bg-secondary/50">
