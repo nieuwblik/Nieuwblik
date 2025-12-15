@@ -3,6 +3,8 @@ import lovableLogoImg from "@/assets/blog/lovable-logo.png";
 import boltLogoImg from "@/assets/blog/bolt-logo.png";
 import replitLogoImg from "@/assets/blog/replit-logo.png";
 import cursorLogoImg from "@/assets/blog/cursor-logo.png";
+import supabaseLogoImg from "@/assets/blog/supabase-logo.png";
+
 export interface BlogPost {
   slug: string;
   title: {
@@ -1710,5 +1712,390 @@ Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om web
     },
     date: "2025-01-30",
     readingTime: 12
+  },
+  {
+    slug: "supabase",
+    image: supabaseLogoImg,
+    title: {
+      nl: "Supabase: de open-source Firebase alternatief die developers verkiezen",
+      en: "Supabase: the open-source Firebase alternative developers prefer"
+    },
+    excerpt: {
+      nl: "Ontdek alles over Supabase - de snelst groeiende open-source backend-as-a-service. Van database tot authenticatie, storage en realtime functies.",
+      en: "Discover everything about Supabase - the fastest growing open-source backend-as-a-service. From database to authentication, storage and realtime features."
+    },
+    content: {
+      nl: `Ben je op zoek naar een **krachtige, schaalbare backend** voor je web- of mobiele applicatie? Dan is **Supabase** waarschijnlijk precies wat je nodig hebt.
+
+Supabase is een open-source alternatief voor Firebase dat in razend tempo de harten van developers wereldwijd verovert. **Maar wat maakt Supabase zo bijzonder?** En hoe kun je het gebruiken voor jouw projecten?
+
+## Inhoudsopgave
+
+1. Wat is Supabase?
+2. De kernfuncties van Supabase
+3. Supabase prijzen en plannen
+4. Voordelen en nadelen
+5. Supabase vs Firebase vergelijking
+6. Aan de slag met Supabase
+
+---
+
+## Wat is Supabase?
+
+**Supabase** is een open-source Backend-as-a-Service (BaaS) platform dat je alle tools geeft om snel een volledige backend te bouwen. Het is gebouwd bovenop bewezen technologieën zoals **PostgreSQL**, de krachtigste open-source database ter wereld.
+
+### De visie van Supabase
+
+> "We're building the features of Firebase using enterprise-grade, open source tools."
+
+Supabase wil developers de kracht geven van enterprise-niveau tools, maar dan:
+- **Open-source** - geen vendor lock-in
+- **Betaalbaar** - genereus gratis tier
+- **Schaalbaar** - van prototype tot miljoenen gebruikers
+- **Flexibel** - direct SQL toegang tot je data
+
+### Wie gebruikt Supabase?
+
+Supabase wordt gebruikt door:
+- **Startups** die snel willen bouwen
+- **Solo developers** en indie hackers
+- **Enterprises** die zoeken naar schaalbare oplossingen
+- **Agencies** die client projecten efficiënt willen leveren
+
+---
+
+## De kernfuncties van Supabase
+
+Supabase biedt een complete suite van backend-tools:
+
+### 1. Database (PostgreSQL)
+
+De kern van Supabase is een **volledig beheerde PostgreSQL database**:
+
+**Kenmerken:**
+- Volledige SQL functionaliteit
+- Row Level Security (RLS) voor data beveiliging
+- Realtime subscriptions
+- Database functies en triggers
+- Automatische API generatie
+
+**Voordelen van PostgreSQL:**
+- 30+ jaar ontwikkeling en stabiliteit
+- ACID compliant transacties
+- JSON/JSONB ondersteuning
+- Full-text search ingebouwd
+- Extensies zoals PostGIS voor geo-data
+
+### 2. Authentication
+
+**Out-of-the-box authenticatie** die gewoon werkt:
+
+**Ondersteunde methodes:**
+- Email/wachtwoord
+- Magic links (passwordless)
+- Social logins (Google, GitHub, Apple, etc.)
+- Phone/SMS authenticatie
+- SAML en SSO voor enterprises
+
+**Features:**
+- JWT tokens automatisch beheerd
+- Session management
+- Multi-factor authenticatie (MFA)
+- Custom claims en metadata
+- Row Level Security integratie
+
+### 3. Storage
+
+**Bestandsopslag** voor alle types content:
+
+**Mogelijkheden:**
+- Upload afbeeldingen, video's, documenten
+- Public en private buckets
+- Image transformaties (resize, crop, format)
+- CDN caching voor snelle levering
+- Resumable uploads voor grote bestanden
+
+**Beveiligingsopties:**
+- Per-bucket access policies
+- Signed URLs voor tijdelijke toegang
+- Size en type restricties
+- Integratie met RLS policies
+
+### 4. Realtime
+
+**Live updates** via WebSocket subscriptions:
+
+**Use cases:**
+- Chat applicaties
+- Live dashboards
+- Collaborative editing
+- Notificaties
+- Gaming leaderboards
+
+**Hoe het werkt:**
+\`\`\`javascript
+// Luister naar database veranderingen
+supabase
+  .channel('public:messages')
+  .on('postgres_changes', 
+    { event: 'INSERT', schema: 'public', table: 'messages' },
+    (payload) => console.log('Nieuw bericht:', payload.new)
+  )
+  .subscribe()
+\`\`\`
+
+### 5. Edge Functions
+
+**Serverless functies** dichtbij je gebruikers:
+
+**Kenmerken:**
+- Geschreven in TypeScript/JavaScript
+- Draaien op Deno runtime
+- Global edge deployment
+- Sub-milliseconde cold starts
+- Volledige API toegang
+
+**Wanneer te gebruiken:**
+- Custom business logic
+- Third-party integraties
+- Webhooks verwerking
+- Betalingsafhandeling
+- AI/ML endpoints
+
+### 6. Vector Database (AI Ready)
+
+**Ingebouwde vector embeddings** voor AI applicaties:
+
+**Features:**
+- pgvector extensie geïntegreerd
+- Similarity search
+- AI embeddings opslag
+- RAG (Retrieval Augmented Generation) ondersteuning
+
+---
+
+## Supabase prijzen en plannen
+
+Supabase biedt transparante, voorspelbare prijzen:
+
+### Free Plan - €0/maand
+
+Perfect voor:
+- Hobby projecten
+- Prototypes
+- Leren en experimenteren
+
+**Wat je krijgt:**
+- 500 MB database
+- 1 GB file storage
+- 50.000 monthly active users
+- 500.000 edge function invocations
+- 2 GB bandwidth
+
+### Pro Plan - $25/maand
+
+Voor productie applicaties:
+
+**Wat je krijgt:**
+- 8 GB database
+- 100 GB file storage
+- Onbeperkte monthly active users
+- 2 miljoen edge function invocations
+- 250 GB bandwidth
+- Daily backups (7 dagen)
+- Email support
+
+### Team Plan - $599/maand
+
+Voor teams en grotere projecten:
+
+**Extra features:**
+- 28 dagen backup retentie
+- SOC2 compliance
+- Priority support
+- SSO voor dashboard
+- Hogere limieten
+
+### Enterprise
+
+Custom pricing voor:
+- SLA garanties
+- Dedicated support
+- Custom contracts
+- On-premise opties
+
+---
+
+## Voordelen en nadelen
+
+### Voordelen van Supabase
+
+**1. Open-source vrijheid**
+- Geen vendor lock-in
+- Self-hosting mogelijk
+- Transparante codebase
+- Community contributions
+
+**2. PostgreSQL power**
+- Volledige SQL toegang
+- Bewezen technologie
+- Extensies ecosysteem
+- Geen NoSQL beperkingen
+
+**3. Developer experience**
+- Intuïtieve dashboard
+- Uitstekende documentatie
+- Type-safe client libraries
+- Real-time out-of-the-box
+
+**4. Genereuze free tier**
+- Meer dan genoeg voor prototypes
+- Geen credit card nodig
+- Onbeperkt pauseren mogelijk
+- Gratis SSL certificaten
+
+**5. All-in-one platform**
+- Database, auth, storage, functions
+- Alles geïntegreerd
+- Minder complexiteit
+- Snellere development
+
+### Nadelen van Supabase
+
+**1. Nog relatief jong**
+- Minder mature dan Firebase
+- Sommige features in beta
+- Kleinere community (groeit snel)
+
+**2. PostgreSQL learning curve**
+- SQL kennis vereist
+- Complexer dan NoSQL voor beginners
+- RLS kan verwarrend zijn
+
+**3. Region beperkingen**
+- Minder regio's dan grote cloud providers
+- Latency kan issue zijn voor sommige locaties
+
+**4. Vendor-specifieke features**
+- Sommige tools zijn Supabase-specifiek
+- Migratie naar andere platforms kan werk zijn
+
+---
+
+## Supabase vs Firebase vergelijking
+
+| Feature | Supabase | Firebase |
+|---------|----------|----------|
+| **Database** | PostgreSQL (SQL) | Firestore (NoSQL) |
+| **Open-source** | ✅ Ja | ❌ Nee |
+| **Self-hosting** | ✅ Ja | ❌ Nee |
+| **Realtime** | ✅ Ja | ✅ Ja |
+| **Authentication** | ✅ Ja | ✅ Ja |
+| **Storage** | ✅ Ja | ✅ Ja |
+| **Functions** | Edge Functions | Cloud Functions |
+| **Gratis tier** | Genereus | Genereus |
+| **Pricing model** | Voorspelbaar | Usage-based |
+| **Vendor lock-in** | Minimaal | Significant |
+
+### Wanneer kies je Supabase?
+
+Kies Supabase als je:
+- SQL en relationele data prefereert
+- Open-source waardeert
+- Vendor lock-in wilt vermijden
+- Complex queries nodig hebt
+- Self-hosting overweegt
+
+### Wanneer kies je Firebase?
+
+Kies Firebase als je:
+- Al in het Google ecosysteem zit
+- NoSQL prefereert
+- Uitgebreide mobile SDK's nodig hebt
+- Machine Learning features wilt gebruiken
+
+---
+
+## Aan de slag met Supabase
+
+### Stap 1: Account aanmaken
+
+Ga naar [supabase.com](https://supabase.com) en maak een gratis account aan. Je kunt inloggen met GitHub.
+
+### Stap 2: Project aanmaken
+
+1. Klik op "New Project"
+2. Kies een naam en wachtwoord
+3. Selecteer een regio (kies dichtbij je gebruikers)
+4. Wacht tot je database klaar is (~2 minuten)
+
+### Stap 3: Tabellen aanmaken
+
+Gebruik de Table Editor of SQL:
+
+\`\`\`sql
+CREATE TABLE posts (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  content TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+\`\`\`
+
+### Stap 4: Client library installeren
+
+\`\`\`bash
+npm install @supabase/supabase-js
+\`\`\`
+
+### Stap 5: Verbinden met je app
+
+\`\`\`javascript
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  'YOUR_SUPABASE_URL',
+  'YOUR_SUPABASE_ANON_KEY'
+)
+
+// Data ophalen
+const { data, error } = await supabase
+  .from('posts')
+  .select('*')
+
+// Data toevoegen
+const { data, error } = await supabase
+  .from('posts')
+  .insert({ title: 'Mijn eerste post', content: 'Hallo wereld!' })
+\`\`\`
+
+---
+
+## Conclusie
+
+**Supabase is een game-changer** voor moderne web development. Het combineert de kracht van PostgreSQL met een developer-friendly platform dat alles biedt wat je nodig hebt voor een volledige backend.
+
+Of je nu een **startup bent die snel wil lanceren**, een **developer die een side project bouwt**, of een **enterprise die zoekt naar schaalbare oplossingen** - Supabase verdient een serieuze overweging.
+
+**De open-source aanpak**, gecombineerd met **enterprise-grade technologie** en een **genereuze free tier**, maakt Supabase tot een van de meest interessante platforms in de moderne development stack.
+
+---
+
+## Hulp nodig met je backend?
+
+Bij Nieuwblik hebben we uitgebreide ervaring met Supabase en bouwen we schaalbare, veilige backends voor onze klanten.
+
+**Wij helpen je met:**
+- Database architectuur en optimalisatie
+- Row Level Security configuratie
+- Edge Functions development
+- Authenticatie implementatie
+- Realtime features
+
+**Klaar om te starten?**`,
+      en: "Discover everything about Supabase - the fastest growing open-source backend-as-a-service. From database to authentication, storage and realtime features."
+    },
+    date: "2025-02-15",
+    readingTime: 10
   }
 ];
