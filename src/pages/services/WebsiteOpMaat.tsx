@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Palette, Zap, Bot, FileText, PenTool, Code2, Rocket, Check, Plus, ArrowRight, Phone, MessageCircle, Star } from "lucide-react";
+import { Palette, Zap, Bot, Check, Plus, ArrowRight, MessageCircle, Star, Phone } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 // Project images for cases
@@ -13,6 +13,10 @@ import esveldImg from "@/assets/projects/esveldinstallatie.nl.png";
 import feitsmaImg from "@/assets/projects/feitsmadakwerken.nl.png";
 
 // Tool logos
+import lovableLogo from "@/assets/tools/lovable-logo.png";
+import figmaLogo from "@/assets/tools/figma-logo.png";
+import geminiLogo from "@/assets/tools/gemini-logo.png";
+import hadoseoLogo from "@/assets/tools/hadoseo-logo.png";
 import wordpressLogo from "@/assets/tools/wordpress.svg";
 import elementorLogo from "@/assets/tools/elementor.svg";
 import woocommerceLogo from "@/assets/tools/woocommerce.svg";
@@ -331,48 +335,48 @@ const WebsiteOpMaat = () => {
             We gebruiken moderne technologie voor maximale snelheid en vindbaarheid
           </p>
 
-          <div className="flex flex-wrap justify-center items-center gap-8 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center items-center gap-6 max-w-5xl mx-auto">
             <div className="text-center group">
-              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                <PenTool className="w-10 h-10 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-medium">Figma</p>
-            </div>
-            <div className="text-center group">
-              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                <Bot className="w-10 h-10 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-medium">Gemini AI</p>
-            </div>
-            <div className="text-center group">
-              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                <Code2 className="w-10 h-10 text-muted-foreground" />
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                <img src={lovableLogo} alt="Lovable" className="w-12 h-12 object-contain" />
               </div>
               <p className="text-sm font-medium">Lovable</p>
             </div>
             <div className="text-center group">
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                <img src={figmaLogo} alt="Figma" className="w-12 h-12 object-contain" />
+              </div>
+              <p className="text-sm font-medium">Figma</p>
+            </div>
+            <div className="text-center group">
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                <img src={geminiLogo} alt="Gemini AI" className="w-12 h-12 object-contain" />
+              </div>
+              <p className="text-sm font-medium">Gemini AI</p>
+            </div>
+            <div className="text-center group">
               <a href="https://www.hadoseo.com" target="_blank" rel="noopener noreferrer">
-                <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                  <Rocket className="w-10 h-10 text-muted-foreground" />
+                <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                  <img src={hadoseoLogo} alt="HadoSEO" className="w-12 h-12 object-contain" />
                 </div>
                 <p className="text-sm font-medium text-accent">HadoSEO</p>
               </a>
             </div>
             <div className="text-center group">
-              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                <img src={wordpressLogo} alt="WordPress" className="w-10 h-10" />
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                <img src={wordpressLogo} alt="WordPress" className="w-12 h-12 object-contain" />
               </div>
               <p className="text-sm font-medium">WordPress</p>
             </div>
             <div className="text-center group">
-              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                <img src={elementorLogo} alt="Elementor Pro" className="w-10 h-10" />
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                <img src={elementorLogo} alt="Elementor Pro" className="w-12 h-12 object-contain" />
               </div>
               <p className="text-sm font-medium">Elementor Pro</p>
             </div>
             <div className="text-center group">
-              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
-                <img src={woocommerceLogo} alt="WooCommerce" className="w-10 h-10" />
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3">
+                <img src={woocommerceLogo} alt="WooCommerce" className="w-12 h-12 object-contain" />
               </div>
               <p className="text-sm font-medium">WooCommerce</p>
             </div>
