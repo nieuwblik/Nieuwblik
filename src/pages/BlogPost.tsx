@@ -136,8 +136,67 @@ const BlogPost = () => {
           </blockquote>;
       }
 
+      // Markdown table
+      if (section.includes('|') && section.includes('---')) {
+        const lines = section.split('\n').filter(line => line.trim());
+        if (lines.length >= 2) {
+          const headerLine = lines[0];
+          const dataLines = lines.slice(2); // Skip header and separator
+          
+          const headers = headerLine.split('|').map(h => h.trim()).filter(h => h);
+          
+          return (
+            <div key={index} className="my-6 overflow-x-auto">
+              <table className="w-full border-collapse border border-border rounded-lg overflow-hidden">
+                <thead>
+                  <tr className="bg-secondary">
+                    {headers.map((header, i) => (
+                      <th key={i} className="border border-border px-4 py-3 text-left font-semibold text-sm">
+                        {header.replace(/\*\*/g, '')}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataLines.map((line, rowIndex) => {
+                    const cells = line.split('|').map(c => c.trim()).filter(c => c);
+                    return (
+                      <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-background' : 'bg-secondary/30'}>
+                        {cells.map((cell, cellIndex) => (
+                          <td key={cellIndex} className="border border-border px-4 py-3 text-sm">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
+      }
+
+      // Numbered list (1. 2. 3. etc)
+      if (section.match(/^\d+\.\s/m)) {
+        const items = section.split('\n').filter(line => line.match(/^\d+\.\s/));
+        return (
+          <ol key={index} className="list-decimal list-inside space-y-2 my-4 text-base">
+            {items.map((item, i) => {
+              const text = item.replace(/^\d+\.\s/, '');
+              const parts = text.split('**');
+              return (
+                <li key={i} className="text-foreground font-light">
+                  {parts.map((part, j) => j % 2 === 1 ? <strong key={j} className="font-semibold">{part}</strong> : part)}
+                </li>
+              );
+            })}
+          </ol>
+        );
+      }
+
       // Unordered list
-      if (section.includes('\n- ')) {
+      if (section.includes('\n- ') || section.startsWith('- ')) {
         const items = section.split('\n').filter(line => line.startsWith('- '));
         return <ul key={index} className="list-disc list-inside space-y-2 my-4 text-base">
             {items.map((item, i) => {
@@ -151,8 +210,18 @@ const BlogPost = () => {
       }
 
       // Code block
-      if (section.startsWith('```') || section.startsWith('`')) {
-        const code = section.replace(/```/g, '').replace(/`/g, '').trim();
+      if (section.startsWith('```')) {
+        const lines = section.split('\n');
+        const language = lines[0].replace('```', '').trim();
+        const code = lines.slice(1, -1).join('\n');
+        return <pre key={index} className="bg-secondary p-6 rounded-lg my-6 overflow-x-auto">
+            <code className="text-sm font-mono whitespace-pre">{code || section.replace(/```/g, '').trim()}</code>
+          </pre>;
+      }
+
+      // Inline code
+      if (section.startsWith('`') && section.endsWith('`')) {
+        const code = section.replace(/`/g, '').trim();
         return <pre key={index} className="bg-secondary p-6 rounded-lg my-6 overflow-x-auto">
             <code className="text-sm font-mono">{code}</code>
           </pre>;
@@ -182,10 +251,44 @@ const BlogPost = () => {
         }} className="my-6" />;
       }
 
-      // Regular paragraph with bold support
+      // Horizontal rule
+      if (section === '---') {
+        return <hr key={index} className="my-8 border-border" />;
+      }
+
+      // Regular paragraph with bold and link support
+      const formatParagraphText = (text: string) => {
+        // Handle links [text](url)
+        const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+        const parts: (string | JSX.Element)[] = [];
+        let lastIndex = 0;
+        let match;
+
+        while ((match = linkRegex.exec(text)) !== null) {
+          if (match.index > lastIndex) {
+            parts.push(text.slice(lastIndex, match.index));
+          }
+          parts.push(
+            <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+              {match[1]}
+            </a>
+          );
+          lastIndex = match.index + match[0].length;
+        }
+        if (lastIndex < text.length) {
+          parts.push(text.slice(lastIndex));
+        }
+        return parts;
+      };
+
       const parts = section.split('**');
       return <p key={index} className="text-base text-foreground font-light leading-relaxed my-4">
-          {parts.map((part, i) => i % 2 === 1 ? <strong key={i} className="font-semibold">{part}</strong> : part)}
+          {parts.map((part, i) => {
+            if (i % 2 === 1) {
+              return <strong key={i} className="font-semibold">{formatParagraphText(part)}</strong>;
+            }
+            return <span key={i}>{formatParagraphText(part)}</span>;
+          })}
         </p>;
     });
   };
