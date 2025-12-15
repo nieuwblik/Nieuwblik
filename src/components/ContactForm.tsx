@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, ArrowLeft, Globe, ShoppingCart, RefreshCw, HelpCircle, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type ProjectType = "website" | "webshop" | "refresh" | "anders";
 type BudgetRange = "tot-750" | "750-2000" | "meer-dan-2000";
@@ -170,9 +171,16 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
         </div>
       </div>
 
-      {step === 1 && (
-        <div className="space-y-8">
-          {/* Project Type */}
+      <AnimatePresence mode="wait">
+        {step === 1 && (
+          <motion.div
+            key="step1"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="space-y-8"
+          >
           <div>
             <Label className="text-lg font-semibold mb-4 block">Wat zoek je? *</Label>
             <div className="grid grid-cols-2 gap-3">
@@ -284,11 +292,19 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
             Volgende stap
             <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
-        </div>
-      )}
+          </motion.div>
+        )}
 
-      {step === 2 && (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {step === 2 && (
+          <motion.form
+            key="step2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
           {/* Summary of Step 1 */}
           <div className="p-4 rounded-lg bg-muted/50 border border-border mb-6">
             <p className="text-sm text-muted-foreground mb-1">Je selectie:</p>
@@ -395,8 +411,9 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
               {isSubmitting ? "Verzenden..." : "Verstuur aanvraag"}
             </Button>
           </div>
-        </form>
-      )}
+          </motion.form>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
