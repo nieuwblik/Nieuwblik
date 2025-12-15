@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, ArrowLeft, Globe, ShoppingCart, RefreshCw, HelpCircle, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 
 type ProjectType = "website" | "webshop" | "refresh" | "anders";
 type BudgetRange = "tot-750" | "750-2000" | "meer-dan-2000";
@@ -134,8 +135,20 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
         throw error;
       }
 
+      // Trigger confetti animation
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#16a34a', '#22c55e', '#4ade80', '#86efac', '#bbf7d0']
+      });
+
       toast.success("Bedankt! We nemen binnen 24 uur contact met je op.");
-      navigate("/bedankt");
+      
+      // Navigate after confetti
+      setTimeout(() => {
+        navigate("/bedankt");
+      }, 1500);
     } catch (error: any) {
       console.error("Form submission error:", error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
