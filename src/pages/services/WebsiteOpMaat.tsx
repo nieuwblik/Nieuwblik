@@ -11,6 +11,12 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 // Project images for cases
 import esveldImg from "@/assets/projects/esveldinstallatie.nl.png";
 import feitsmaImg from "@/assets/projects/feitsmadakwerken.nl.png";
+
+// Tool logos
+import wordpressLogo from "@/assets/tools/wordpress.svg";
+import elementorLogo from "@/assets/tools/elementor.svg";
+import woocommerceLogo from "@/assets/tools/woocommerce.svg";
+
 const WebsiteOpMaat = () => {
   const [heroRef, heroVisible] = useIntersectionObserver({
     threshold: 0.1,
@@ -352,6 +358,33 @@ const WebsiteOpMaat = () => {
                 <p className="text-sm font-medium text-accent">HadoSEO</p>
               </a>
             </div>
+            <div className="text-center group">
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
+                <img src={wordpressLogo} alt="WordPress" className="w-10 h-10" />
+              </div>
+              <p className="text-sm font-medium">WordPress</p>
+            </div>
+            <div className="text-center group">
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
+                <img src={elementorLogo} alt="Elementor Pro" className="w-10 h-10" />
+              </div>
+              <p className="text-sm font-medium">Elementor Pro</p>
+            </div>
+            <div className="text-center group">
+              <div className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors">
+                <img src={woocommerceLogo} alt="WooCommerce" className="w-10 h-10" />
+              </div>
+              <p className="text-sm font-medium">WooCommerce</p>
+            </div>
+          </div>
+
+          {/* WordPress Note */}
+          <div className="mt-12 max-w-3xl mx-auto text-center p-6 bg-secondary/50 rounded-xl border border-border">
+            <p className="text-muted-foreground">
+              <span className="font-medium text-foreground">Ook mogelijk:</span> Websites bouwen met WordPress en Elementor Pro, 
+              of complete webshops met WordPress, Elementor Pro en WooCommerce. 
+              Wij kiezen de beste oplossing voor jouw specifieke situatie.
+            </p>
           </div>
         </div>
       </section>
