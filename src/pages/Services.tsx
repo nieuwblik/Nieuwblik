@@ -108,7 +108,10 @@ const Services = () => {
     }
   };
   return <div className="min-h-screen bg-background">
-      <SEOHead title="Digitale Diensten die Groeien | Webdesign & Branding - Nieuwblik" description="Ontdek onze premium digitale diensten: webdesign, merkidentiteit, e-commerce en custom design. Wij creëren oplossingen die jouw bedrijf laten groeien. Start vandaag!" keywords="webdesign diensten, merkidentiteit, branding, e-commerce oplossingen, custom design, digitale diensten, website ontwikkeling" canonicalUrl="https://www.nieuwblik.com/diensten" structuredData={structuredData} />
+      <SEOHead title="Digitale Diensten die Groeien | Webdesign & Branding - Nieuwblik" description="Ontdek onze premium digitale diensten: webdesign, merkidentiteit, e-commerce en custom design. Wij creëren oplossingen die jouw bedrijf laten groeien. Start vandaag!" keywords="webdesign diensten, merkidentiteit, branding, e-commerce oplossingen, custom design, digitale diensten, website ontwikkeling" canonicalUrl="https://nieuwblik.com/diensten" structuredData={structuredData} breadcrumbs={[
+        { name: "Home", url: "https://nieuwblik.com" },
+        { name: "Diensten", url: "https://nieuwblik.com/diensten" }
+      ]} />
       <Navigation />
       
       {/* Breadcrumb */}

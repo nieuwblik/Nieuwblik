@@ -21,8 +21,12 @@ const Contact = () => {
         title="Start Je Project | Direct Contact met Nieuwblik"
         description="Klaar om jouw digitale droom waar te maken? Neem vandaag nog contact op voor een vrijblijvend gesprek. Binnen 24 uur reactie gegarandeerd!"
         keywords="contact webdesign, offerte aanvragen, website laten maken, digitaal bureau contact"
-        canonicalUrl="https://www.nieuwblik.com/contact"
+        canonicalUrl="https://nieuwblik.com/contact"
         structuredData={structuredData}
+        breadcrumbs={[
+          { name: "Home", url: "https://nieuwblik.com" },
+          { name: "Contact", url: "https://nieuwblik.com/contact" }
+        ]}
       />
       <Navigation />
       

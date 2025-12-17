@@ -139,8 +139,13 @@ const Webshops = () => {
         title="Webshop laten maken | Professionele webshops - Nieuwblik"
         description="Laat een professionele webshop bouwen die verkoopt. Veilige betalingen, voorraadbeheer, SEO-geoptimaliseerd. Webshops vanaf €997."
         keywords="webshop laten maken, professionele webshop, online winkel, e-commerce website, webshop bouwen, WooCommerce, Shopify"
-        canonicalUrl="https://www.nieuwblik.com/diensten/webshops"
+        canonicalUrl="https://nieuwblik.com/diensten/webshops"
         structuredData={structuredData}
+        breadcrumbs={[
+          { name: "Home", url: "https://nieuwblik.com" },
+          { name: "Diensten", url: "https://nieuwblik.com/diensten" },
+          { name: "Webshops", url: "https://nieuwblik.com/diensten/webshops" }
+        ]}
       />
       <Navigation />
 

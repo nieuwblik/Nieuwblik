@@ -23,8 +23,12 @@ const Blog = () => {
         title="Blog | Digitale Marketing & Webdesign Artikelen - Nieuwblik"
         description="Ontdek waardevolle inzichten over webdesign, SEO, conversie optimalisatie en digitale marketing. Praktische tips die direct toepasbaar zijn."
         keywords="webdesign blog, SEO tips, conversie optimalisatie, digitale marketing, webdesign tips"
-        canonicalUrl="https://www.nieuwblik.com/blog"
+        canonicalUrl="https://nieuwblik.com/blog"
         structuredData={structuredData}
+        breadcrumbs={[
+          { name: "Home", url: "https://nieuwblik.com" },
+          { name: "Blog", url: "https://nieuwblik.com/blog" }
+        ]}
       />
       <Navigation />
 
