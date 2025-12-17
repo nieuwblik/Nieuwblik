@@ -4,7 +4,7 @@ import boltLogoImg from "@/assets/blog/bolt-logo.png";
 import replitLogoImg from "@/assets/blog/replit-logo.png";
 import cursorLogoImg from "@/assets/blog/cursor-logo.png";
 import supabaseLogoImg from "@/assets/blog/supabase-logo.png";
-
+import claudeLogoImg from "@/assets/blog/claude-logo.png";
 export interface BlogPost {
   slug: string;
   title: {
@@ -2097,5 +2097,117 @@ Bij Nieuwblik hebben we uitgebreide ervaring met Supabase en bouwen we schaalbar
     },
     date: "2025-02-15",
     readingTime: 10
+  },
+  {
+    slug: "claude-ai-anthropic-complete-gids",
+    image: claudeLogoImg,
+    title: {
+      nl: "Claude AI: De complete gids voor Anthropic's AI-assistent",
+      en: "Claude AI: The Complete Guide to Anthropic's AI Assistant"
+    },
+    excerpt: {
+      nl: "Ontdek alles over Claude AI van Anthropic: wat het is, hoe het werkt, prijzen en waarom het een van de beste AI-assistenten is.",
+      en: "Discover everything about Claude AI from Anthropic: what it is, how it works, pricing and capabilities."
+    },
+    content: {
+      nl: `In de wereld van AI-assistenten is er één naam die steeds vaker opduikt: **Claude**. Gebouwd door Anthropic, een van de meest vooraanstaande AI-bedrijven ter wereld.
+
+**Leestijd: 12 minuten**
+
+## Inhoudsopgave
+
+1. Wat is Claude AI?
+2. Hoe werkt Claude?
+3. De belangrijkste mogelijkheden
+4. Claude prijzen 2025
+5. Waarvoor wordt Claude gebruikt?
+
+---
+
+## Wat is Claude AI?
+
+**Claude is een AI-assistent ontwikkeld door Anthropic**, een bedrijf opgericht door voormalige OpenAI-onderzoekers. De naam "Claude" is een verwijzing naar Claude Shannon, de vader van de informatietheorie.
+
+### De filosofie achter Claude
+
+- **Veiligheid eerst** - Constitutional AI voor ethisch gedrag
+- **Eerlijkheid** - Claude geeft toe wanneer het iets niet weet
+- **Behulpzaamheid** - Maximaal nuttig binnen veilige grenzen
+
+### De Claude modellen
+
+**Claude 3.5 Sonnet** - Beste balans tussen snelheid en intelligentie
+**Claude 3 Opus** - Het krachtigste model voor complexe taken
+**Claude 3 Haiku** - Snelste en goedkoopste model
+
+---
+
+## Hoe werkt Claude?
+
+**Claude is een Large Language Model (LLM)** getraind met Constitutional AI - een set principes die het model moet volgen voor veilig en eerlijk gedrag.
+
+### Context Window
+
+Claude heeft een enorm geheugen van **200.000 tokens** - equivalent aan 150.000+ woorden. Upload complete documenten, analyseer grote codebases, of voer lange gesprekken.
+
+### Multimodal
+
+✅ **Afbeeldingen analyseren**
+✅ **Documenten lezen** (PDF's, spreadsheets)
+✅ **Code begrijpen** in 50+ talen
+
+---
+
+## De belangrijkste mogelijkheden
+
+### 1. Schrijven en content
+Blogartikelen, marketing copy, e-mails, vertalingen in 100+ talen.
+
+### 2. Programmeren
+Code schrijven, bugs oplossen, code reviewen in Python, JavaScript, TypeScript, React, en meer.
+
+### 3. Analyse en onderzoek
+Documenten samenvatten, data analyseren, bronnen vergelijken.
+
+### 4. Brainstormen
+Ideeën genereren, problemen structureren, strategieën ontwikkelen.
+
+---
+
+## Claude prijzen 2025
+
+### Claude.ai (Consument)
+
+**Gratis plan** - Beperkt aantal berichten per dag
+**Claude Pro - $20/maand** - 5x meer berichten, prioriteit
+
+### Claude API (Developers)
+
+| Model | Input/1M tokens | Output/1M tokens |
+|-------|-----------------|------------------|
+| Claude 3.5 Sonnet | $3 | $15 |
+| Claude 3 Opus | $15 | $75 |
+| Claude 3 Haiku | $0.25 | $1.25 |
+
+---
+
+## Waarvoor wordt Claude gebruikt?
+
+- **Softwareontwikkeling** - Code genereren, debuggen, documentatie
+- **Content marketing** - Blogs, social media, email campaigns
+- **Onderzoek** - Literatuur reviews, data interpretatie
+- **Zakelijk** - Klantenservice, document analyse, meeting summaries
+
+---
+
+## Conclusie
+
+**Claude is een van de meest capabele AI-assistenten beschikbaar** met uitgebreide context window, Constitutional AI voor veiligheid, en sterke code mogelijkheden.
+
+**Probeer Claude gratis op claude.ai** en ontdek wat AI voor jou kan betekenen.`,
+      en: "Discover everything about Claude AI from Anthropic - one of the most powerful and safe AI assistants available."
+    },
+    date: "2025-12-17",
+    readingTime: 12
   }
 ];

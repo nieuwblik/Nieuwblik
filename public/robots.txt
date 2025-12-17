@@ -1,4 +1,13 @@
+# Robots.txt for Nieuwblik
+# https://nieuwblik.com
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.nieuwblik.com/sitemap.xml
+# Disallow admin and authentication pages
+Disallow: /admin/
+Disallow: /admin/login
+Disallow: /admin/dashboard
+
+# Sitemap location
+Sitemap: https://nieuwblik.com/sitemap.xml

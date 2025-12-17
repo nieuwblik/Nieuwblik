@@ -4,16 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <meta name="theme-color" content="#0f4c3a" />
-    <title>Nieuwblik - Premium Webdesign &amp;amp; Digitale Oplossingen | Enkhuizen</title>
-    <meta name="description" content="Professioneel webdesign en digitale marketing in Enkhuizen. Wij creëren websites die converteren, SEO-geoptimaliseerd en mobielvriendelijk.">
-    <meta name="keywords" content="webdesign Enkhuizen, website laten maken, SEO optimalisatie, webdevelopment Noord-Holland, digitale marketing, responsive design, WordPress ontwikkeling">
+    
+    <!-- Primary Meta Tags -->
+    <title>Nieuwblik - Premium Webdesign & Digitale Oplossingen</title>
+    <meta name="title" content="Nieuwblik - Premium Webdesign & Digitale Oplossingen" />
+    <meta name="description" content="Professioneel webdesign bureau in Enkhuizen. Wij bouwen snelle, SEO-geoptimaliseerde websites die converteren. Binnen 1 week live!" />
+    <meta name="keywords" content="webdesign, website laten maken, webbureau Enkhuizen, SEO, webshop, e-commerce, digitale marketing, responsive design" />
     <meta name="author" content="Nieuwblik" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.nieuwblik.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href="https://nieuwblik.com/" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
     
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nieuwblik.com/" />
+    <meta property="og:title" content="Nieuwblik - Premium Webdesign & Digitale Oplossingen" />
+    <meta property="og:description" content="Professioneel webdesign bureau in Enkhuizen. Wij bouwen snelle, SEO-geoptimaliseerde websites die converteren. Binnen 1 week live!" />
+    <meta property="og:image" content="https://nieuwblik.com/og-image.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:site_name" content="Nieuwblik" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@justin_slok" />
+    <meta name="twitter:creator" content="@justin_slok" />
+    <meta name="twitter:url" content="https://nieuwblik.com/" />
+    <meta name="twitter:title" content="Nieuwblik - Premium Webdesign & Digitale Oplossingen" />
+    <meta name="twitter:description" content="Professioneel webdesign bureau in Enkhuizen. Wij bouwen snelle, SEO-geoptimaliseerde websites die converteren. Binnen 1 week live!" />
+    <meta name="twitter:image" content="https://nieuwblik.com/og-image.webp" />
+
     <!-- Critical CSS for above-the-fold content -->
     <style>
       /* Reset & Base - Immediate render without FOUC */
@@ -94,30 +120,61 @@
       rel="stylesheet"
     />
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.nieuwblik.com/" />
-    
-    
-    <meta property="og:image" content="https://www.nieuwblik.com/og-image.jpg" />
-    <meta property="og:locale" content="nl_NL" />
+    <!-- Structured Data (JSON-LD) - Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Nieuwblik",
+        "url": "https://nieuwblik.com",
+        "logo": "https://nieuwblik.com/logo.png",
+        "description": "Professioneel webdesign bureau in Enkhuizen. Wij bouwen snelle, SEO-geoptimaliseerde websites die converteren.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "De Trompet 18H",
+          "addressLocality": "Enkhuizen",
+          "postalCode": "1601 MK",
+          "addressCountry": "NL"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+31646253607",
+          "contactType": "customer service",
+          "availableLanguage": ["Dutch", "English"]
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/justin-slok-b8a3011b2/",
+          "https://x.com/justin_slok"
+        ]
+      }
+    </script>
 
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@justin_slok" />
-    
-    
-    <meta name="twitter:image" content="https://www.nieuwblik.com/og-image.jpg" />
+    <!-- Structured Data (JSON-LD) - WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Nieuwblik",
+        "url": "https://nieuwblik.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://nieuwblik.com/blog?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Structured Data (JSON-LD) - LocalBusiness -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "Nieuwblik",
-        "image": "https://www.nieuwblik.com/logo.png",
-        "url": "https://www.nieuwblik.com",
+        "image": "https://nieuwblik.com/logo.png",
+        "url": "https://nieuwblik.com",
         "telephone": "+31646253607",
+        "email": "justin@nieuwblik.com",
+        "priceRange": "€€",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "De Trompet 18H",
@@ -132,29 +189,18 @@
         },
         "openingHoursSpecification": {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday"
-          ],
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
           "opens": "09:00",
           "closes": "17:00"
         },
-        "sameAs": [
-          "https://www.linkedin.com/in/justin-slok-b8a3011b2/",
-          "https://x.com/justin_slok"
-        ],
-        "priceRange": "€€",
-        "description": "Professioneel webdesign en digitale marketing in Enkhuizen. Wij creëren websites die converteren, SEO-geoptimaliseerd en mobielvriendelijk."
+        "areaServed": {
+          "@type": "Country",
+          "name": "Netherlands"
+        },
+        "serviceType": ["Webdesign", "SEO", "E-commerce", "Digitale Marketing"]
       }
     </script>
-    <meta property="og:title" content="Nieuwblik - Premium Webdesign &amp;amp; Digitale Oplossingen | Enkhuizen">
-  <meta name="twitter:title" content="Nieuwblik - Premium Webdesign &amp;amp; Digitale Oplossingen | Enkhuizen">
-  <meta property="og:description" content="Professioneel webdesign en digitale marketing in Enkhuizen. Wij creëren websites die converteren, SEO-geoptimaliseerd en mobielvriendelijk.">
-  <meta name="twitter:description" content="Professioneel webdesign en digitale marketing in Enkhuizen. Wij creëren websites die converteren, SEO-geoptimaliseerd en mobielvriendelijk.">
-</head>
+  </head>
 
   <body>
     <div id="root"></div>
