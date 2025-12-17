@@ -106,7 +106,11 @@ const WebsiteOpMaat = () => {
     }
   };
   return <div className="min-h-screen bg-background">
-      <SEOHead title="Website op Maat | Luxe Webdesign & Development - Nieuwblik" description="Laat een luxe website op maat bouwen. Ultra-snelle laadtijden, SEO-geoptimaliseerd via HadoSEO, Google Business reviews. Binnen een week live!" keywords="website op maat, webdesign bureau, website laten maken, luxe website, custom website, SEO website, snelle website" canonicalUrl="https://www.nieuwblik.com/diensten/website-op-maat" structuredData={structuredData} />
+      <SEOHead title="Website op Maat | Luxe Webdesign & Development - Nieuwblik" description="Laat een luxe website op maat bouwen. Ultra-snelle laadtijden, SEO-geoptimaliseerd via HadoSEO, Google Business reviews. Binnen een week live!" keywords="website op maat, webdesign bureau, website laten maken, luxe website, custom website, SEO website, snelle website" canonicalUrl="https://nieuwblik.com/diensten/website-op-maat" structuredData={structuredData} breadcrumbs={[
+        { name: "Home", url: "https://nieuwblik.com" },
+        { name: "Diensten", url: "https://nieuwblik.com/diensten" },
+        { name: "Website op maat", url: "https://nieuwblik.com/diensten/website-op-maat" }
+      ]} />
       <Navigation />
       
       {/* Breadcrumb */}

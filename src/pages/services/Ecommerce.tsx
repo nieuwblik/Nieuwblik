@@ -132,7 +132,11 @@ const Ecommerce = () => {
     "areaServed": "Nederland"
   };
   return <div className="min-h-screen bg-background">
-      <SEOHead title="E-commerce oplossingen | Multichannel verkoop - Nieuwblik" description="Groei je online verkoop met complete e-commerce oplossingen. Multichannel strategie, marketplace integraties en marketing automation." keywords="e-commerce, online verkoop, multichannel, Bol.com verkopen, Amazon seller, marketing automation, conversie optimalisatie" canonicalUrl="https://www.nieuwblik.com/diensten/e-commerce" structuredData={structuredData} />
+      <SEOHead title="E-commerce oplossingen | Multichannel verkoop - Nieuwblik" description="Groei je online verkoop met complete e-commerce oplossingen. Multichannel strategie, marketplace integraties en marketing automation." keywords="e-commerce, online verkoop, multichannel, Bol.com verkopen, Amazon seller, marketing automation, conversie optimalisatie" canonicalUrl="https://nieuwblik.com/diensten/ecommerce" structuredData={structuredData} breadcrumbs={[
+        { name: "Home", url: "https://nieuwblik.com" },
+        { name: "Diensten", url: "https://nieuwblik.com/diensten" },
+        { name: "E-commerce", url: "https://nieuwblik.com/diensten/ecommerce" }
+      ]} />
       <Navigation />
 
       {/* Breadcrumb */}

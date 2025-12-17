@@ -58,8 +58,12 @@ const About = () => {
         title="Over Ons | Passie voor Digitaal Design - Nieuwblik"
         description="Gedreven door passie, geleid door resultaat. Ontdek het verhaal achter Nieuwblik en waarom we doen wat we doen. Jouw digitale succes is onze missie!"
         keywords="over ons, webdesign bureau, digitale agency, nieuwblik team, webdesign enkhuizen"
-        canonicalUrl="https://www.nieuwblik.com/over-ons"
+        canonicalUrl="https://nieuwblik.com/over-ons"
         structuredData={structuredData}
+        breadcrumbs={[
+          { name: "Home", url: "https://nieuwblik.com" },
+          { name: "Over ons", url: "https://nieuwblik.com/over-ons" }
+        ]}
       />
       <Navigation />
       

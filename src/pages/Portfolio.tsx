@@ -252,8 +252,12 @@ const Portfolio = () => {
         title="Portfolio | Succesvolle Webdesign Projecten - Nieuwblik"
         description="Bekijk onze portfolio met prachtige websites, sterke merkidentiteiten en krachtige e-commerce oplossingen. Van startups tot gevestigde bedrijven - zie wat we kunnen!"
         keywords="webdesign portfolio, website voorbeelden, branding cases, e-commerce projecten, design portfolio"
-        canonicalUrl="https://www.nieuwblik.com/portfolio"
+        canonicalUrl="https://nieuwblik.com/portfolio"
         structuredData={structuredData}
+        breadcrumbs={[
+          { name: "Home", url: "https://nieuwblik.com" },
+          { name: "Portfolio", url: "https://nieuwblik.com/portfolio" }
+        ]}
       />
       <Navigation />
       
