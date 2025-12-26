@@ -3,6 +3,8 @@ import { ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { easings, modalVariants, overlayVariants, staggerContainer, staggerItem } from "@/lib/motion";
 
 interface ProjectCardProps {
   title: string;
@@ -15,121 +17,230 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ title, category, description, image, url, tags }: ProjectCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <>
-      <div className="group cursor-pointer block relative">
-        <div className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative">
-          <img 
+      <motion.div 
+        className="group cursor-pointer block relative"
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
+      >
+        <motion.div 
+          className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative"
+          variants={{
+            rest: { 
+              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" 
+            },
+            hover: shouldReduceMotion ? {} : { 
+              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+            }
+          }}
+          transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+        >
+          <motion.img 
             src={image} 
             alt={title}
             loading="lazy"
             decoding="async"
             width="800"
             height="600"
-            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover object-top"
+            variants={{
+              rest: { scale: 1 },
+              hover: shouldReduceMotion ? { scale: 1 } : { scale: 1.08 }
+            }}
+            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           />
           
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out" />
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80"
+            variants={{
+              rest: { opacity: 0 },
+              hover: { opacity: 1 }
+            }}
+            transition={{ duration: 0.25, ease: easings.easeOutQuart }}
+          />
           
           {/* Buttons */}
-          <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out">
-            <a
+          <motion.div 
+            className="absolute inset-0 flex items-center justify-center gap-4"
+            variants={{
+              rest: { opacity: 0, y: 10 },
+              hover: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 0.25, ease: easings.easeOutQuart }}
+          >
+            <motion.a
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20 hover:bg-background/90 transition-all duration-200"
+              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20"
               onClick={(e) => e.stopPropagation()}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
             >
               Bekijk website
               <ExternalLink className="w-4 h-4" />
-            </a>
-            <button
+            </motion.a>
+            <motion.button
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 setShowDetails(true);
               }}
-              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20 hover:bg-background/90 transition-all duration-200"
+              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
             >
               Details
-            </button>
-          </div>
-        </div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
         
         <div>
-          <p className="text-sm text-accent font-light mb-2">{category}</p>
-          <h3 className="text-2xl font-semibold mb-2 group-hover:text-accent transition-colors">{title}</h3>
+          <motion.p 
+            className="text-sm text-accent font-light mb-2"
+            variants={{
+              rest: { x: 0 },
+              hover: shouldReduceMotion ? { x: 0 } : { x: 4 }
+            }}
+            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+          >
+            {category}
+          </motion.p>
+          <motion.h3 
+            className="text-2xl font-semibold mb-2 transition-colors group-hover:text-accent"
+            variants={{
+              rest: { x: 0 },
+              hover: shouldReduceMotion ? { x: 0 } : { x: 4 }
+            }}
+            transition={{ duration: 0.2, ease: easings.easeOutQuart, delay: 0.02 }}
+          >
+            {title}
+          </motion.h3>
           <p className="text-muted-foreground mb-4 font-light">{description}</p>
           {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <motion.div 
+              className="flex flex-wrap gap-2"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
               {tags.map((tag, idx) => (
-                <span 
+                <motion.span 
                   key={idx}
                   className="text-xs px-3 py-1 bg-secondary rounded-full text-muted-foreground"
+                  variants={staggerItem}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.05, backgroundColor: "hsl(var(--accent) / 0.1)" }}
+                  transition={{ duration: 0.2 }}
                 >
                   {tag}
-                </span>
+                </motion.span>
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {/* Details Dialog */}
-      <Dialog open={showDetails} onOpenChange={setShowDetails}>
-        <DialogContent className="max-w-xl w-[90vw] max-h-[85vh] overflow-y-auto animate-scale-in">
-          <div className="space-y-4">
-            {/* Header */}
-            <div>
-              <h2 className="text-2xl font-bold mb-1">{title}</h2>
-              <p className="text-accent font-light text-sm">{category}</p>
-            </div>
-            
-            {/* Image */}
-            <div className="aspect-[16/10] bg-secondary rounded-lg overflow-hidden">
-              <img 
-                src={image} 
-                alt={title}
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-            
-            {/* Description */}
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Over dit project</h3>
-              <p className="text-muted-foreground font-light text-sm leading-relaxed">
-                {description}
-              </p>
-            </div>
-            
-            {/* Tags */}
-            {tags && tags.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2">Diensten</h3>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag, idx) => (
-                    <span 
-                      key={idx}
-                      className="text-xs px-3 py-1.5 bg-secondary rounded-full text-muted-foreground font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {/* CTA Button */}
-            <div className="pt-3 border-t border-border">
-              <Button asChild className="w-full" size="lg">
-                <Link to="/contact">Offerte aanvragen</Link>
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <AnimatePresence>
+        {showDetails && (
+          <Dialog open={showDetails} onOpenChange={setShowDetails}>
+            <DialogContent className="max-w-xl w-[90vw] max-h-[85vh] overflow-y-auto p-0 border-0">
+              <motion.div 
+                className="space-y-4 p-6"
+                variants={modalVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                {/* Header */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1, duration: 0.3, ease: easings.easeOutExpo }}
+                >
+                  <h2 className="text-2xl font-bold mb-1">{title}</h2>
+                  <p className="text-accent font-light text-sm">{category}</p>
+                </motion.div>
+                
+                {/* Image */}
+                <motion.div 
+                  className="aspect-[16/10] bg-secondary rounded-lg overflow-hidden"
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.15, duration: 0.4, ease: easings.easeOutExpo }}
+                >
+                  <img 
+                    src={image} 
+                    alt={title}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </motion.div>
+                
+                {/* Description */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.3, ease: easings.easeOutExpo }}
+                >
+                  <h3 className="text-lg font-semibold mb-2">Over dit project</h3>
+                  <p className="text-muted-foreground font-light text-sm leading-relaxed">
+                    {description}
+                  </p>
+                </motion.div>
+                
+                {/* Tags */}
+                {tags && tags.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.3, ease: easings.easeOutExpo }}
+                  >
+                    <h3 className="text-lg font-semibold mb-2">Diensten</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {tags.map((tag, idx) => (
+                        <motion.span 
+                          key={idx}
+                          className="text-xs px-3 py-1.5 bg-secondary rounded-full text-muted-foreground font-medium"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.3 + idx * 0.05, duration: 0.2 }}
+                        >
+                          {tag}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+                
+                {/* CTA Button */}
+                <motion.div 
+                  className="pt-3 border-t border-border"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35, duration: 0.3, ease: easings.easeOutExpo }}
+                >
+                  <motion.div
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Button asChild className="w-full" size="lg">
+                      <Link to="/contact">Offerte aanvragen</Link>
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </>
   );
 };

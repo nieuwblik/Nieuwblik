@@ -3,10 +3,14 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp, staggerContainer, slideInLeft, slideInRight, easings } from "@/lib/motion";
 
 const Contact = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
@@ -38,17 +42,33 @@ const Contact = () => {
       </section>
       
       {/* Hero Section */}
-      <section className="pb-20 md:pb-28">
+      <motion.section 
+        className="pb-20 md:pb-28"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <p className="text-accent mb-6">START JOUW PROJECT</p>
-          <h1 className="text-display mb-6">
+          <motion.p 
+            className="text-accent mb-6"
+            variants={fadeUp}
+          >
+            START JOUW PROJECT
+          </motion.p>
+          <motion.h1 
+            className="text-display mb-6"
+            variants={fadeUp}
+          >
             Laten we jouw visie werkelijkheid maken
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light">
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light"
+            variants={fadeUp}
+          >
             Vertel ons over jouw project en wat je wilt bereiken. Wij nemen binnen 24 uur contact op voor een persoonlijk gesprek.
-          </p>
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Main Content */}
       <section className="pb-20 md:pb-32">
@@ -56,17 +76,53 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
             
             {/* Direct Contact Box */}
-            <div className="lg:col-span-1">
-              <div className="bg-accent text-accent-foreground p-8 rounded-lg sticky top-32">
-                <h2 className="text-2xl font-semibold mb-4">Liever direct contact?</h2>
-                <p className="mb-6 opacity-90">
+            <motion.div 
+              className="lg:col-span-1"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={slideInLeft}
+            >
+              <motion.div 
+                className="bg-accent text-accent-foreground p-8 rounded-lg sticky top-32"
+                whileHover={shouldReduceMotion ? {} : { 
+                  y: -4,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.15)"
+                }}
+                transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+              >
+                <motion.h2 
+                  className="text-2xl font-semibold mb-4"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.1, duration: 0.4, ease: easings.easeOutExpo }}
+                >
+                  Liever direct contact?
+                </motion.h2>
+                <motion.p 
+                  className="mb-6 opacity-90"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.15, duration: 0.4, ease: easings.easeOutExpo }}
+                >
                   Geen zin in een formulier? Bel of app ons direct voor een persoonlijk gesprek.
-                </p>
+                </motion.p>
                 
-                <div className="space-y-6">
-                  <a
+                <motion.div 
+                  className="space-y-6"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.2, duration: 0.4, ease: easings.easeOutExpo }}
+                >
+                  <motion.a
                     href="tel:+31646253607"
                     className="w-full block"
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
                     <Button 
                       className="w-full bg-background text-foreground hover:bg-background/90"
@@ -75,13 +131,16 @@ const Contact = () => {
                       <Phone className="mr-2 h-5 w-5" />
                       Bel: +31 6 46 25 36 07
                     </Button>
-                  </a>
+                  </motion.a>
                   
-                  <a
+                  <motion.a
                     href="https://wa.me/31646253607"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full block"
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
                     <Button 
                       className="w-full bg-[#25D366] text-white hover:bg-[#20BA5A]"
@@ -92,28 +151,67 @@ const Contact = () => {
                       </svg>
                       WhatsApp
                     </Button>
-                  </a>
-                </div>
+                  </motion.a>
+                </motion.div>
 
-                <div className="mt-8 pt-8 border-t border-background/20">
+                <motion.div 
+                  className="mt-8 pt-8 border-t border-background/20"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.3, duration: 0.4, ease: easings.easeOutExpo }}
+                >
                   <p className="text-sm opacity-75">
                     Beschikbaar ma-vr van 9:00 - 18:00 uur
                   </p>
-                </div>
-              </div>
-            </div>
+                </motion.div>
+              </motion.div>
+            </motion.div>
             
             {/* Project Briefing Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-secondary p-8 md:p-12 rounded-lg">
-                <h2 className="text-2xl font-semibold mb-2">Project briefing formulier</h2>
-                <p className="text-muted-foreground mb-8 font-light">
+            <motion.div 
+              className="lg:col-span-2"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={slideInRight}
+            >
+              <motion.div 
+                className="bg-secondary p-8 md:p-12 rounded-lg"
+                whileHover={shouldReduceMotion ? {} : { 
+                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05)"
+                }}
+                transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+              >
+                <motion.h2 
+                  className="text-2xl font-semibold mb-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.1, duration: 0.4, ease: easings.easeOutExpo }}
+                >
+                  Project briefing formulier
+                </motion.h2>
+                <motion.p 
+                  className="text-muted-foreground mb-8 font-light"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.15, duration: 0.4, ease: easings.easeOutExpo }}
+                >
                   Help ons jouw project te begrijpen door de onderstaande vragen te beantwoorden.
-                </p>
+                </motion.p>
                 
-                <ContactForm />
-              </div>
-            </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.2, duration: 0.5, ease: easings.easeOutExpo }}
+                >
+                  <ContactForm />
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>

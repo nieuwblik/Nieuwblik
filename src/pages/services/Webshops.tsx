@@ -5,30 +5,12 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { ShoppingCart, CreditCard, Package, Truck, BarChart3, Shield, Check, Plus, ArrowRight, MessageCircle, Star, Zap, Bot } from "lucide-react";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { ShoppingCart, CreditCard, BarChart3, Check, Plus, ArrowRight, MessageCircle, Star } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
 
 const Webshops = () => {
-  const [heroRef, heroVisible] = useIntersectionObserver({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-  const [uspRef, uspVisible] = useIntersectionObserver({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-  const [stepsRef, stepsVisible] = useIntersectionObserver({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-  const [includedRef, includedVisible] = useIntersectionObserver({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-  const [faqRef, faqVisible] = useIntersectionObserver({
-    threshold: 0.1,
-    triggerOnce: true
-  });
+  const shouldReduceMotion = useReducedMotion();
 
   const usps = [
     {
@@ -162,85 +144,163 @@ const Webshops = () => {
       </section>
 
       {/* Hero Section */}
-      <section
-        ref={heroRef as React.RefObject<HTMLElement>}
-        className={`py-16 md:py-24 transition-all duration-700 ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      <motion.section
+        className="py-16 md:py-24"
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <p className="text-accent mb-6 uppercase tracking-wide font-medium">Webshops</p>
-          <h1 className="text-display mb-6">
+          <motion.p 
+            className="text-accent mb-6 uppercase tracking-wide font-medium"
+            variants={fadeUp}
+          >
+            Webshops
+          </motion.p>
+          <motion.h1 
+            className="text-display mb-6"
+            variants={fadeUp}
+          >
             Webshops die verkopen terwijl jij slaapt
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-10">
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-10"
+            variants={fadeUp}
+          >
             Van eerste bezoeker tot terugkerende klant. Wij bouwen webshops die converteren 
             met veilige betalingen, slim voorraadbeheer en een koopervaring die klanten niet vergeten.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-              <Link to="/contact" className="flex items-center gap-2">
-                Start jouw webshop
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8">
-              <a href="https://wa.me/31681762670" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp direct
-              </a>
-            </Button>
-          </div>
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4"
+            variants={fadeUp}
+          >
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+            >
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
+                <Link to="/contact" className="flex items-center gap-2">
+                  Start jouw webshop
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+            >
+              <Button asChild size="lg" variant="outline" className="text-lg px-8">
+                <a href="https://wa.me/31681762670" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp direct
+                </a>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* USPs */}
-      <section ref={uspRef as React.RefObject<HTMLElement>} className="py-16 md:py-24 bg-secondary/50">
+      <motion.section 
+        className="py-16 md:py-24 bg-secondary/50"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center mb-4"
+            variants={fadeUp}
+          >
             Waarom kiezen voor onze webshops?
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
             Alles wat je nodig hebt om succesvol online te verkopen
-          </p>
+          </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={staggerContainerSlow}
+          >
             {usps.map((usp, index) => (
-              <Card
+              <motion.div
                 key={index}
-                className={`text-center p-8 border-border/50 hover:border-accent/50 hover:shadow-xl transition-all duration-500 ${uspVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                variants={staggerItem}
               >
-                <CardContent className="pt-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6">
-                    <usp.icon className="w-8 h-8 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{usp.title}</h3>
-                  <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
-                  <p className="text-muted-foreground">{usp.description}</p>
-                </CardContent>
-              </Card>
+                <motion.div
+                  whileHover={shouldReduceMotion ? {} : { 
+                    y: -8, 
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
+                  }}
+                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+                >
+                  <Card className="text-center p-8 border-border/50 hover:border-accent/50 transition-colors h-full">
+                    <CardContent className="pt-6">
+                      <motion.div 
+                        className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6"
+                        whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+                      >
+                        <usp.icon className="w-8 h-8 text-accent" />
+                      </motion.div>
+                      <h3 className="text-xl font-bold mb-2">{usp.title}</h3>
+                      <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
+                      <p className="text-muted-foreground">{usp.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Steps */}
-      <section ref={stepsRef as React.RefObject<HTMLElement>} className="py-16 md:py-24">
+      <motion.section 
+        className="py-16 md:py-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center mb-4"
+            variants={fadeUp}
+          >
             Zo bouwen wij jouw webshop
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
             Van idee tot verkopende webshop in vier stappen
-          </p>
+          </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainerSlow}
+          >
             {steps.map((step, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`relative transition-all duration-700 ${stepsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                className="relative"
+                variants={staggerItem}
               >
-                <div className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 hover:shadow-lg transition-all duration-300">
+                <motion.div 
+                  className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
+                  whileHover={shouldReduceMotion ? {} : { 
+                    y: -4, 
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+                  }}
+                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+                >
                   <span className="text-5xl font-extrabold text-accent/20 absolute top-4 right-4">
                     {step.number}
                   </span>
@@ -248,28 +308,47 @@ const Webshops = () => {
                     <h3 className="text-lg font-bold mb-3 pr-12">{step.title}</h3>
                     <p className="text-muted-foreground text-sm">{step.description}</p>
                   </div>
-                </div>
+                </motion.div>
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30" />
                 )}
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* What's Included */}
-      <section ref={includedRef as React.RefObject<HTMLElement>} className="py-16 md:py-24 bg-secondary/50">
+      <motion.section 
+        className="py-16 md:py-24 bg-secondary/50"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center mb-4"
+            variants={fadeUp}
+          >
             Wat zit er in jouw webshop?
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
             Complete webshop oplossing zonder verborgen kosten
-          </p>
+          </motion.p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className={`bg-card border border-border rounded-xl p-8 transition-all duration-700 ${includedVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
+            <motion.div 
+              className="bg-card border border-border rounded-xl p-8"
+              variants={slideInLeft}
+              whileHover={shouldReduceMotion ? {} : { 
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+              }}
+              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+            >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
                   <Check className="w-5 h-5 text-accent-foreground" />
@@ -278,17 +357,32 @@ const Webshops = () => {
               </div>
               <ul className="space-y-4">
                 {includedStandard.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                  <motion.li 
+                    key={index} 
+                    className="flex items-start gap-3"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ 
+                      delay: shouldReduceMotion ? 0 : index * 0.05, 
+                      duration: 0.3, 
+                      ease: easings.easeOutExpo 
+                    }}
+                  >
                     <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
-            <div
-              className={`bg-card border border-border rounded-xl p-8 transition-all duration-700 ${includedVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
-              style={{ transitionDelay: "150ms" }}
+            <motion.div
+              className="bg-card border border-border rounded-xl p-8"
+              variants={slideInRight}
+              whileHover={shouldReduceMotion ? {} : { 
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+              }}
+              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
@@ -298,104 +392,218 @@ const Webshops = () => {
               </div>
               <ul className="space-y-4">
                 {optionalModules.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
+                  <motion.li 
+                    key={index} 
+                    className="flex items-start gap-3"
+                    initial={{ opacity: 0, x: 10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ 
+                      delay: shouldReduceMotion ? 0 : index * 0.05, 
+                      duration: 0.3, 
+                      ease: easings.easeOutExpo 
+                    }}
+                  >
                     <Plus className="w-5 h-5 text-accent/60 flex-shrink-0 mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-accent text-accent-foreground">
+      <motion.section 
+        className="py-16 md:py-24 bg-accent text-accent-foreground"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold mb-4"
+            variants={fadeUp}
+          >
             Klaar om online te verkopen?
-          </h2>
-          <p className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
             Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf €997.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary" className="text-lg px-8">
-              <Link to="/contact" className="flex items-center gap-2">
-                Vraag een offerte aan
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-          </div>
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            variants={fadeUp}
+          >
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+            >
+              <Button asChild size="lg" variant="secondary" className="text-lg px-8">
+                <Link to="/contact" className="flex items-center gap-2">
+                  Vraag een offerte aan
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FAQ */}
-      <section ref={faqRef as React.RefObject<HTMLElement>} className="py-16 md:py-24">
+      <motion.section 
+        className="py-16 md:py-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center mb-4"
+            variants={fadeUp}
+          >
             Veelgestelde vragen
-          </h2>
-          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
             Alles wat je wilt weten over onze webshops
-          </p>
+          </motion.p>
 
-          <div className="max-w-3xl mx-auto space-y-6">
+          <motion.div 
+            className="max-w-3xl mx-auto space-y-6"
+            variants={staggerContainerSlow}
+          >
             {faqs.map((faq, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-card border border-border rounded-lg p-6 transition-all duration-700 ${faqVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="bg-card border border-border rounded-lg p-6"
+                variants={staggerItem}
+                whileHover={shouldReduceMotion ? {} : { 
+                  y: -2, 
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+                }}
+                transition={{ duration: 0.3, ease: easings.easeOutExpo }}
               >
                 <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
                 <p className="text-muted-foreground">{faq.answer}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonial */}
-      <section className="py-16 md:py-24 bg-secondary/50">
+      <motion.section 
+        className="py-16 md:py-24 bg-secondary/50"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="flex justify-center gap-1 mb-6">
+          <motion.div 
+            className="max-w-3xl mx-auto text-center"
+            variants={scaleUp}
+          >
+            <motion.div 
+              className="flex justify-center gap-1 mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.4, ease: easings.easeOutExpo }}
+            >
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-accent text-accent" />
+                <motion.div
+                  key={i}
+                  initial={shouldReduceMotion ? {} : { scale: 0, rotate: -20 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ 
+                    delay: shouldReduceMotion ? 0 : i * 0.05, 
+                    duration: 0.3, 
+                    ease: easings.softBounce 
+                  }}
+                >
+                  <Star className="w-6 h-6 fill-accent text-accent" />
+                </motion.div>
               ))}
-            </div>
-            <blockquote className="text-xl md:text-2xl text-muted-foreground italic mb-6">
+            </motion.div>
+            <motion.blockquote 
+              className="text-xl md:text-2xl text-muted-foreground italic mb-6"
+              variants={fadeUp}
+            >
               "Onze webshop draait nu volledig automatisch. Orders komen binnen, betalingen worden verwerkt 
               en klanten krijgen automatisch hun verzendinfo. Echt ontzorgd!"
-            </blockquote>
-            <p className="font-bold">— Tevreden webshop klant</p>
-          </div>
+            </motion.blockquote>
+            <motion.p 
+              className="font-bold"
+              variants={fadeUp}
+            >
+              — Tevreden webshop klant
+            </motion.p>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer CTA */}
-      <section className="py-16 md:py-24">
+      <motion.section 
+        className="py-16 md:py-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold mb-4"
+            variants={fadeUp}
+          >
             Start vandaag met verkopen
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
             Neem contact op voor een vrijblijvend gesprek over jouw webshop wensen
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-              <Link to="/contact" className="flex items-center gap-2">
-                Neem contact op
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8">
-              <a href="tel:+31681762670" className="flex items-center gap-2">
-                Bel direct: 06 81 76 26 70
-              </a>
-            </Button>
-          </div>
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            variants={fadeUp}
+          >
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+            >
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
+                <Link to="/contact" className="flex items-center gap-2">
+                  Neem contact op
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+            >
+              <Button asChild size="lg" variant="outline" className="text-lg px-8">
+                <a href="tel:+31681762670" className="flex items-center gap-2">
+                  Bel direct: 06 81 76 26 70
+                </a>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>

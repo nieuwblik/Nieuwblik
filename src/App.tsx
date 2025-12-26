@@ -4,10 +4,11 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
+import { pageTransition, easings } from "./lib/motion";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -33,23 +34,58 @@ const WebsiteOpMaat = lazy(() => import("./pages/services/WebsiteOpMaat"));
 const Webshops = lazy(() => import("./pages/services/Webshops"));
 const Ecommerce = lazy(() => import("./pages/services/Ecommerce"));
 
-// Loading fallback
+// Loading fallback with premium animation
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-background">
-    <div className="animate-pulse text-accent">Laden...</div>
-  </div>
+  <motion.div 
+    className="min-h-screen flex items-center justify-center bg-background"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.3, ease: easings.easeOutQuart }}
+  >
+    <motion.div 
+      className="text-accent font-medium"
+      animate={{ 
+        opacity: [0.5, 1, 0.5],
+        scale: [0.98, 1, 0.98]
+      }}
+      transition={{ 
+        duration: 1.5, 
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      Laden...
+    </motion.div>
+  </motion.div>
 );
 
 const queryClient = new QueryClient();
 
-// Page transition wrapper component
+// Page transition wrapper component with reduced motion support
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  // Simplified animation for users who prefer reduced motion
+  if (shouldReduceMotion) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.15 }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
+      variants={pageTransition}
+      initial="initial"
+      animate="animate"
+      exit="exit"
     >
       {children}
     </motion.div>
@@ -61,7 +97,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={true}>
       <Suspense fallback={<PageLoader />}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Index /></PageTransition>} />

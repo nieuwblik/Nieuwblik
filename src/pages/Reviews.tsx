@@ -2,47 +2,100 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ReviewsDisplay from "@/components/ReviewsDisplay";
 import ReviewForm from "@/components/ReviewForm";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
 
 const Reviews = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const getVariants = (variants: any) => {
+    if (shouldReduceMotion) {
+      return {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.2 } }
+      };
+    }
+    return variants;
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+      <motion.section 
+        className="pt-32 pb-20 md:pt-40 md:pb-28"
+        initial="hidden"
+        animate="visible"
+        variants={getVariants(staggerContainer)}
+      >
         <div className="container mx-auto px-6">
-          <p className="text-accent mb-6">KLANTBEOORDELINGEN</p>
-          <h1 className="text-display mb-6">
+          <motion.p 
+            className="text-accent mb-6"
+            variants={getVariants(fadeUp)}
+          >
+            KLANTBEOORDELINGEN
+          </motion.p>
+          <motion.h1 
+            className="text-display mb-6"
+            variants={getVariants(fadeUp)}
+          >
             Wat onze klanten zeggen
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light">
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light"
+            variants={getVariants(fadeUp)}
+          >
             Ontdek de ervaringen van bedrijven die hun online succes hebben gerealiseerd met Nieuwblik.
-          </p>
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Reviews Display */}
-      <section className="pb-20">
+      <motion.section 
+        className="pb-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={getVariants(fadeUp)}
+      >
         <div className="container mx-auto px-6">
           <ReviewsDisplay />
         </div>
-      </section>
+      </motion.section>
 
       {/* Review Form Section */}
-      <section className="py-20 md:py-32 bg-secondary">
+      <motion.section 
+        className="py-20 md:py-32 bg-secondary"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={getVariants(staggerContainer)}
+      >
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <motion.div 
+            className="text-center mb-12"
+            variants={getVariants(fadeUp)}
+          >
+            <motion.h2 
+              className="text-4xl md:text-5xl font-bold mb-6"
+              variants={getVariants(fadeUp)}
+            >
               Deel jouw ervaring
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
+            </motion.h2>
+            <motion.p 
+              className="text-xl text-muted-foreground max-w-2xl mx-auto font-light"
+              variants={getVariants(fadeUp)}
+            >
               Heb je met ons samengewerkt? We horen graag over je ervaring!
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
           
-          <ReviewForm />
+          <motion.div variants={getVariants(scaleUp)}>
+            <ReviewForm />
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>

@@ -6,12 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Users, Sparkles, Rocket } from "lucide-react";
 import justinImg from "@/assets/justin-slok.png";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
 
 const About = () => {
-  const heroAnimation = useScrollAnimation(0.1);
-  const valuesAnimation = useScrollAnimation(0.1);
-  const ctaAnimation = useScrollAnimation(0.1);
+  const shouldReduceMotion = useReducedMotion();
 
   const values = [
     {
@@ -78,78 +77,125 @@ const About = () => {
       <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div
-              ref={heroAnimation.ref}
-              className={`transition-all duration-1000 ${
-                heroAnimation.isVisible 
-                  ? "opacity-100 translate-y-0" 
-                  : "opacity-0 translate-y-10"
-              }`}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
             >
-              <p className="text-accent mb-6">OVER ONS</p>
-              <h1 className="text-display mb-6">
+              <motion.p 
+                className="text-accent mb-6"
+                variants={fadeUp}
+              >
+                OVER ONS
+              </motion.p>
+              <motion.h1 
+                className="text-display mb-6"
+                variants={fadeUp}
+              >
                 Gedreven door passie, geleid door resultaat
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-6 font-light">
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-2xl text-muted-foreground mb-6 font-light"
+                variants={fadeUp}
+              >
                 We geloven dat design meer is dan mooi plaatjes - het is een krachtige tool die emotie wekt en actie inspireert.
-              </p>
-              <p className="text-lg text-muted-foreground mb-8 font-light leading-relaxed">
+              </motion.p>
+              <motion.p 
+                className="text-lg text-muted-foreground mb-8 font-light leading-relaxed"
+                variants={fadeUp}
+              >
                 Bij Nieuwblik combineren we creatieve visie met strategisch denken. We luisteren naar jouw verhaal, begrijpen je doelen en vertalen dat naar digitale oplossingen die niet alleen opvallen, maar ook converteren. Elk project is een nieuwe kans om iets bijzonders te creëren.
-              </p>
-              <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link to="/start-je-project">Laten we kennismaken</Link>
-              </Button>
-            </div>
-            <div
-              className={`transition-all duration-1000 delay-200 ${
-                heroAnimation.isVisible 
-                  ? "opacity-100 translate-x-0" 
-                  : "opacity-0 translate-x-10"
-              }`}
+              </motion.p>
+              <motion.div
+                variants={fadeUp}
+                whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+              >
+                <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+                  <Link to="/start-je-project">Laten we kennismaken</Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+            
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={slideInRight}
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-accent/10 rounded-lg transform rotate-3"></div>
-                <img
+                <motion.div 
+                  className="absolute inset-0 bg-accent/10 rounded-lg"
+                  initial={{ rotate: 0, opacity: 0 }}
+                  animate={{ rotate: 3, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: easings.easeOutExpo }}
+                />
+                <motion.img
                   src={justinImg} 
                   alt="Justin Slok - Oprichter van Nieuwblik"
                   loading="lazy"
                   decoding="async"
                   width="600"
                   height="800"
-                  className="relative rounded-lg shadow-2xl w-full object-cover transform -rotate-2 hover:rotate-0 transition-transform duration-500"
+                  className="relative rounded-lg shadow-2xl w-full object-cover"
+                  initial={{ rotate: 0, opacity: 0, scale: 0.95 }}
+                  animate={{ rotate: -2, opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: easings.easeOutExpo }}
+                  whileHover={shouldReduceMotion ? {} : { rotate: 0, scale: 1.02 }}
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Story Section */}
-      <section className="py-20 md:py-32 bg-secondary">
+      <motion.section 
+        className="py-20 md:py-32 bg-secondary"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8">
+          <motion.div 
+            className="max-w-4xl mx-auto text-center"
+            variants={fadeUp}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-8"
+              variants={fadeUp}
+            >
               Ons verhaal: van droom tot werkelijkheid
-            </h2>
+            </motion.h2>
             <div className="space-y-6 text-lg text-muted-foreground font-light leading-relaxed">
-              <p>
+              <motion.p variants={fadeUp}>
                 Nieuwblik is geboren uit een simpele maar krachtige overtuiging: elk bedrijf verdient een digitale aanwezigheid die hun unieke verhaal vertelt en klanten inspireert tot actie.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p variants={fadeUp}>
                 Wat begon als een passie voor design, groeide uit tot een missie om bedrijven te helpen succesvol te zijn online. We zagen te vaak dat mooie websites en sterke merken het verschil maken tussen groeien en stilstaan.
-              </p>
-              <p>
+              </motion.p>
+              <motion.p variants={fadeUp}>
                 Vandaag de dag zijn we trots op de relaties die we hebben opgebouwd en de successen die we hebben gerealiseerd. Elke tevreden klant, elk goed lopend project - dat is waar we het voor doen.
-              </p>
+              </motion.p>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Values Section */}
-      <section className="py-20 md:py-32">
+      <motion.section 
+        className="py-20 md:py-32"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            variants={fadeUp}
+          >
             <p className="text-accent mb-4">ONZE KERNWAARDEN</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Wat ons drijft en definieert
@@ -157,54 +203,71 @@ const About = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
               Deze waarden vormen de basis van alles wat we doen, van het eerste gesprek tot de eindoplevering.
             </p>
-          </div>
+          </motion.div>
           
-          <div
-            ref={valuesAnimation.ref}
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={staggerContainerSlow}
           >
             {values.map((value, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-secondary p-8 rounded-lg transition-all duration-700 hover:shadow-lg hover:transform hover:-translate-y-2 ${
-                  valuesAnimation.isVisible 
-                    ? "opacity-100 translate-y-0" 
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="bg-secondary p-8 rounded-lg"
+                variants={staggerItem}
+                whileHover={shouldReduceMotion ? {} : { 
+                  y: -8, 
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+                }}
+                transition={{ duration: 0.3, ease: easings.easeOutExpo }}
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-4">
+                <motion.div 
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mb-4"
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
+                  transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+                >
                   <value.icon className="w-6 h-6 text-accent" />
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-lg mb-3">{value.title}</h3>
                 <p className="text-muted-foreground font-light">{value.description}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Section */}
-      <section
-        ref={ctaAnimation.ref}
-        className={`py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift transition-all duration-1000 ${
-          ctaAnimation.isVisible 
-            ? "opacity-100 translate-y-0" 
-            : "opacity-0 translate-y-10"
-        }`}
+      <motion.section
+        className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
       >
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground">
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground"
+            variants={fadeUp}
+          >
             Klaar om samen iets moois te creëren?
-          </h2>
-          <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light">
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light"
+            variants={fadeUp}
+          >
             We horen graag jouw verhaal en helpen je graag om je digitale dromen waar te maken.
-          </p>
-          <Button asChild size="lg" variant="secondary" className="animate-glow-pulse">
-            <Link to="/start-je-project">Neem contact op</Link>
-          </Button>
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+          >
+            <Button asChild size="lg" variant="secondary">
+              <Link to="/start-je-project">Neem contact op</Link>
+            </Button>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>

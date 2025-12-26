@@ -1,3 +1,6 @@
+import { motion, useReducedMotion } from "framer-motion";
+import { easings, fadeUp } from "@/lib/motion";
+
 // Import tool logos
 import wordpressLogo from "@/assets/tools/wordpress.svg";
 import woocommerceLogo from "@/assets/tools/woocommerce.svg";
@@ -12,6 +15,8 @@ import webflowLogo from "@/assets/tools/webflow.svg";
 import figmaLogo from "@/assets/tools/figma.svg";
 
 const ToolsSlider = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   const tools = [
     { name: "WordPress", logo: wordpressLogo, alt: "WordPress CMS platform - professionele website ontwikkeling en contentbeheer" },
     { name: "WooCommerce", logo: woocommerceLogo, alt: "WooCommerce e-commerce oplossing - online winkel en webshop ontwikkeling" },
@@ -30,12 +35,24 @@ const ToolsSlider = () => {
   const duplicatedTools = [...tools, ...tools];
 
   return (
-    <section className="py-12 md:py-16 bg-secondary overflow-hidden">
-      <div className="container mx-auto px-6 mb-8">
+    <motion.section 
+      className="py-12 md:py-16 bg-secondary overflow-hidden"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={fadeUp}
+    >
+      <motion.div 
+        className="container mx-auto px-6 mb-8"
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.4, ease: easings.easeOutExpo }}
+      >
         <p className="text-center text-muted-foreground text-sm md:text-base font-light">
           Tools en Technologieën die Wij Gebruiken
         </p>
-      </div>
+      </motion.div>
       
       <div className="relative">
         {/* Gradient overlays for fade effect */}
@@ -43,12 +60,30 @@ const ToolsSlider = () => {
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10" />
         
         {/* Scrolling container */}
-        <div className="flex animate-infinite-scroll hover:pause-animation">
+        <motion.div 
+          className="flex"
+          animate={shouldReduceMotion ? {} : { 
+            x: [0, -1920] 
+          }}
+          transition={shouldReduceMotion ? {} : {
+            x: {
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+          whileHover={shouldReduceMotion ? {} : { animationPlayState: "paused" }}
+        >
           {duplicatedTools.map((tool, index) => (
-            <div 
+            <motion.div 
               key={`${tool.name}-${index}`} 
               className="flex-shrink-0 mx-8 md:mx-12 flex items-center justify-center"
               style={{ width: "120px", height: "60px" }}
+              whileHover={shouldReduceMotion ? {} : { 
+                scale: 1.1, 
+                opacity: 1,
+              }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
             >
               <img 
                 src={tool.logo} 
@@ -59,11 +94,11 @@ const ToolsSlider = () => {
                 height="60"
                 className="max-w-full max-h-full object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

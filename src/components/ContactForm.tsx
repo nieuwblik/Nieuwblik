@@ -8,19 +8,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, ArrowLeft, Globe, ShoppingCart, RefreshCw, HelpCircle, Check } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import confetti from "canvas-confetti";
+import { easings, staggerContainer, staggerItem } from "@/lib/motion";
 
 type ProjectType = "website" | "webshop" | "refresh" | "anders";
 type BudgetRange = "tot-750" | "750-2000" | "meer-dan-2000";
 
 interface FormData {
-  // Step 1
   projectType: ProjectType | null;
   description: string;
   extraServices: string[];
   budget: BudgetRange | null;
-  // Step 2
   fullName: string;
   companyName: string;
   email: string;
@@ -51,6 +50,7 @@ const ContactForm = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const shouldReduceMotion = useReducedMotion();
   
   const [formData, setFormData] = useState<FormData>({
     projectType: null,
@@ -145,11 +145,10 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
 
       toast.success("Bedankt! We nemen binnen 24 uur contact met je op.");
       
-      // Navigate after confetti
       setTimeout(() => {
         navigate("/bedankt");
       }, 1500);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Form submission error:", error);
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
     } finally {
@@ -157,273 +156,364 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
     }
   };
 
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 50 : -50,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: shouldReduceMotion ? 0.15 : 0.4,
+        ease: easings.easeOutExpo,
+      },
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 50 : -50,
+      opacity: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0.1 : 0.25,
+        ease: easings.easeInOutQuart,
+      },
+    }),
+  };
+
   return (
     <div className="max-w-2xl mx-auto">
       {/* Progress indicator */}
-      <div className="flex items-center justify-center mb-8">
+      <motion.div 
+        className="flex items-center justify-center mb-8"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: easings.easeOutExpo }}
+      >
         <div className="flex items-center gap-3">
-          <div className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-colors ${
-            step >= 1 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
-          }`}>
-            {step > 1 ? <Check className="w-5 h-5" /> : "1"}
-          </div>
+          <motion.div 
+            className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-colors ${
+              step >= 1 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+            }`}
+            animate={step > 1 ? { scale: [1, 1.1, 1] } : {}}
+            transition={{ duration: 0.3 }}
+          >
+            {step > 1 ? (
+              <motion.div
+                initial={{ scale: 0, rotate: -90 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.3, ease: easings.softBounce }}
+              >
+                <Check className="w-5 h-5" />
+              </motion.div>
+            ) : "1"}
+          </motion.div>
           <span className={`text-sm font-medium ${step >= 1 ? "text-foreground" : "text-muted-foreground"}`}>
             Wensen
           </span>
-          <div className="w-12 h-0.5 bg-muted mx-2">
-            <div className={`h-full transition-all ${step >= 2 ? "bg-accent w-full" : "w-0"}`} />
+          <div className="w-12 h-0.5 bg-muted mx-2 overflow-hidden">
+            <motion.div 
+              className="h-full bg-accent"
+              initial={{ width: 0 }}
+              animate={{ width: step >= 2 ? "100%" : "0%" }}
+              transition={{ duration: 0.4, ease: easings.easeOutExpo }}
+            />
           </div>
-          <div className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-colors ${
-            step >= 2 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
-          }`}>
+          <motion.div 
+            className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-colors ${
+              step >= 2 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+            }`}
+            animate={step === 2 ? { scale: [1, 1.05, 1] } : {}}
+            transition={{ duration: 0.3 }}
+          >
             2
-          </div>
+          </motion.div>
           <span className={`text-sm font-medium ${step >= 2 ? "text-foreground" : "text-muted-foreground"}`}>
             Gegevens
           </span>
         </div>
-      </div>
+      </motion.div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" custom={step}>
         {step === 1 && (
           <motion.div
             key="step1"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            custom={1}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
             className="space-y-8"
           >
-          <div>
-            <Label className="text-lg font-semibold mb-4 block">Wat zoek je? *</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {projectOptions.map((option) => {
-                const Icon = option.icon;
-                const isSelected = formData.projectType === option.value;
-                return (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => handleProjectTypeSelect(option.value)}
-                    className={`p-4 rounded-lg border-2 transition-all text-left flex items-center gap-3 ${
-                      isSelected
-                        ? "border-accent bg-accent/10"
-                        : "border-border hover:border-accent/50 hover:bg-muted/50"
-                    }`}
-                  >
-                    <Icon className={`w-5 h-5 ${isSelected ? "text-accent" : "text-muted-foreground"}`} />
-                    <span className={`font-medium ${isSelected ? "text-accent" : "text-foreground"}`}>
-                      {option.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+            {/* Project Type */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.4, ease: easings.easeOutExpo }}
+            >
+              <Label className="text-lg font-semibold mb-4 block">Wat zoek je? *</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {projectOptions.map((option, index) => {
+                  const Icon = option.icon;
+                  const isSelected = formData.projectType === option.value;
+                  return (
+                    <motion.button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleProjectTypeSelect(option.value)}
+                      className={`p-4 rounded-lg border-2 transition-colors text-left flex items-center gap-3 ${
+                        isSelected
+                          ? "border-accent bg-accent/10"
+                          : "border-border hover:border-accent/50 hover:bg-muted/50"
+                      }`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
+                      whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                    >
+                      <Icon className={`w-5 h-5 ${isSelected ? "text-accent" : "text-muted-foreground"}`} />
+                      <span className={`font-medium ${isSelected ? "text-accent" : "text-foreground"}`}>
+                        {option.label}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </motion.div>
 
-          {/* Short Description */}
-          <div>
-            <Label htmlFor="description" className="text-lg font-semibold mb-2 block">
-              Korte beschrijving
-            </Label>
-            <p className="text-sm text-muted-foreground mb-3">
-              Vertel ons in 1 zin wat je belangrijk vindt
-            </p>
-            <Input
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              maxLength={200}
-              placeholder="Bijv. Een moderne website die vertrouwen uitstraalt"
-              className="bg-background"
-            />
-          </div>
+            {/* Short Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.4, ease: easings.easeOutExpo }}
+            >
+              <Label htmlFor="description" className="text-lg font-semibold mb-2 block">
+                Korte beschrijving
+              </Label>
+              <p className="text-sm text-muted-foreground mb-3">
+                Vertel ons in 1 zin wat je belangrijk vindt
+              </p>
+              <Input
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                maxLength={200}
+                placeholder="Bijv. Een moderne website die vertrouwen uitstraalt"
+                className="bg-background"
+              />
+            </motion.div>
 
-          {/* Extra Services */}
-          <div>
-            <Label className="text-lg font-semibold mb-4 block">Extra diensten</Label>
-            <div className="space-y-3">
-              {extraServiceOptions.map((service) => {
-                const isChecked = formData.extraServices.includes(service.value);
-                return (
-                  <label
-                    key={service.value}
-                    className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      isChecked
-                        ? "border-accent bg-accent/10"
-                        : "border-border hover:border-accent/50 hover:bg-muted/50"
-                    }`}
-                  >
-                    <Checkbox
-                      checked={isChecked}
-                      onCheckedChange={() => handleExtraServiceToggle(service.value)}
-                      className="data-[state=checked]:bg-accent data-[state=checked]:border-accent"
-                    />
-                    <span className={`font-medium ${isChecked ? "text-accent" : "text-foreground"}`}>
-                      {service.label}
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
+            {/* Extra Services */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.4, ease: easings.easeOutExpo }}
+            >
+              <Label className="text-lg font-semibold mb-4 block">Extra diensten</Label>
+              <div className="space-y-3">
+                {extraServiceOptions.map((service, index) => {
+                  const isChecked = formData.extraServices.includes(service.value);
+                  return (
+                    <motion.label
+                      key={service.value}
+                      className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-colors ${
+                        isChecked
+                          ? "border-accent bg-accent/10"
+                          : "border-border hover:border-accent/50 hover:bg-muted/50"
+                      }`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
+                      whileHover={shouldReduceMotion ? {} : { x: 4 }}
+                    >
+                      <Checkbox
+                        checked={isChecked}
+                        onCheckedChange={() => handleExtraServiceToggle(service.value)}
+                        className="data-[state=checked]:bg-accent data-[state=checked]:border-accent"
+                      />
+                      <span className={`font-medium ${isChecked ? "text-accent" : "text-foreground"}`}>
+                        {service.label}
+                      </span>
+                    </motion.label>
+                  );
+                })}
+              </div>
+            </motion.div>
 
-          {/* Budget */}
-          <div>
-            <Label className="text-lg font-semibold mb-4 block">Wat is je budget? *</Label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {budgetOptions.map((option) => {
-                const isSelected = formData.budget === option.value;
-                return (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => handleBudgetSelect(option.value)}
-                    className={`p-4 rounded-lg border-2 transition-all text-center ${
-                      isSelected
-                        ? "border-accent bg-accent/10"
-                        : "border-border hover:border-accent/50 hover:bg-muted/50"
-                    }`}
-                  >
-                    <span className={`font-semibold ${isSelected ? "text-accent" : "text-foreground"}`}>
-                      {option.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+            {/* Budget */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.4, ease: easings.easeOutExpo }}
+            >
+              <Label className="text-lg font-semibold mb-4 block">Wat is je budget? *</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {budgetOptions.map((option, index) => {
+                  const isSelected = formData.budget === option.value;
+                  return (
+                    <motion.button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleBudgetSelect(option.value)}
+                      className={`p-4 rounded-lg border-2 transition-colors text-center ${
+                        isSelected
+                          ? "border-accent bg-accent/10"
+                          : "border-border hover:border-accent/50 hover:bg-muted/50"
+                      }`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
+                      whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                    >
+                      <span className={`font-semibold ${isSelected ? "text-accent" : "text-foreground"}`}>
+                        {option.label}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </motion.div>
 
-          {/* Next Button */}
-          <Button
-            type="button"
-            onClick={handleNextStep}
-            disabled={!canProceedToStep2}
-            className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
-          >
-            Volgende stap
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
+            {/* Next Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.4, ease: easings.easeOutExpo }}
+            >
+              <motion.div
+                whileHover={shouldReduceMotion || !canProceedToStep2 ? {} : { scale: 1.02 }}
+                whileTap={shouldReduceMotion || !canProceedToStep2 ? {} : { scale: 0.98 }}
+              >
+                <Button
+                  type="button"
+                  onClick={handleNextStep}
+                  disabled={!canProceedToStep2}
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                >
+                  Volgende stap
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </motion.div>
+            </motion.div>
           </motion.div>
         )}
 
         {step === 2 && (
           <motion.form
             key="step2"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            custom={2}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-          {/* Summary of Step 1 */}
-          <div className="p-4 rounded-lg bg-muted/50 border border-border mb-6">
-            <p className="text-sm text-muted-foreground mb-1">Je selectie:</p>
-            <p className="font-medium">
-              {projectOptions.find(p => p.value === formData.projectType)?.label} • {budgetOptions.find(b => b.value === formData.budget)?.label}
-              {formData.extraServices.length > 0 && (
-                <span className="text-muted-foreground">
-                  {" "}+ {formData.extraServices.length} extra {formData.extraServices.length === 1 ? "dienst" : "diensten"}
-                </span>
-              )}
-            </p>
-          </div>
-
-          <div>
-            <Label htmlFor="fullName">Volledige naam *</Label>
-            <Input
-              id="fullName"
-              name="fullName"
-              type="text"
-              required
-              minLength={2}
-              maxLength={100}
-              value={formData.fullName}
-              onChange={handleInputChange}
-              className="mt-2"
-              placeholder="Jan de Vries"
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="companyName">Bedrijfsnaam</Label>
-            <Input
-              id="companyName"
-              name="companyName"
-              type="text"
-              maxLength={100}
-              value={formData.companyName}
-              onChange={handleInputChange}
-              className="mt-2"
-              placeholder="Uw bedrijf (optioneel)"
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="email">E-mailadres *</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              required
-              maxLength={255}
-              value={formData.email}
-              onChange={handleInputChange}
-              className="mt-2"
-              placeholder="jan@voorbeeld.nl"
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="phone">Telefoonnummer *</Label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              required
-              pattern="[0-9+\s\-()]{10,20}"
-              maxLength={20}
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="mt-2"
-              placeholder="+31 6 12345678"
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="notes">Aanvullende opmerkingen</Label>
-            <Textarea
-              id="notes"
-              name="notes"
-              maxLength={1000}
-              value={formData.notes}
-              onChange={handleInputChange}
-              className="mt-2"
-              placeholder="Vertel ons meer over je project... (optioneel)"
-              rows={4}
-            />
-          </div>
-
-          <div className="flex gap-3">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handlePrevStep}
-              className="flex-1"
+            {/* Summary of Step 1 */}
+            <motion.div 
+              className="p-4 rounded-lg bg-muted/50 border border-border mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.3, ease: easings.easeOutExpo }}
             >
-              <ArrowLeft className="mr-2 w-4 h-4" />
-              Terug
-            </Button>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90"
+              <p className="text-sm text-muted-foreground mb-1">Je selectie:</p>
+              <p className="font-medium">
+                {projectOptions.find(p => p.value === formData.projectType)?.label} • {budgetOptions.find(b => b.value === formData.budget)?.label}
+                {formData.extraServices.length > 0 && (
+                  <span className="text-muted-foreground">
+                    {" "}+ {formData.extraServices.length} extra {formData.extraServices.length === 1 ? "dienst" : "diensten"}
+                  </span>
+                )}
+              </p>
+            </motion.div>
+
+            {[
+              { id: "fullName", label: "Volledige naam *", type: "text", required: true, placeholder: "Jan de Vries" },
+              { id: "companyName", label: "Bedrijfsnaam", type: "text", required: false, placeholder: "Uw bedrijf (optioneel)" },
+              { id: "email", label: "E-mailadres *", type: "email", required: true, placeholder: "jan@voorbeeld.nl" },
+              { id: "phone", label: "Telefoonnummer *", type: "tel", required: true, placeholder: "+31 6 12345678" },
+            ].map((field, index) => (
+              <motion.div
+                key={field.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
+              >
+                <Label htmlFor={field.id}>{field.label}</Label>
+                <Input
+                  id={field.id}
+                  name={field.id}
+                  type={field.type}
+                  required={field.required}
+                  value={(formData as Record<string, string>)[field.id]}
+                  onChange={handleInputChange}
+                  className="mt-2"
+                  placeholder={field.placeholder}
+                />
+              </motion.div>
+            ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.3, ease: easings.easeOutExpo }}
             >
-              {isSubmitting ? "Verzenden..." : "Verstuur aanvraag"}
-            </Button>
-          </div>
+              <Label htmlFor="notes">Aanvullende opmerkingen</Label>
+              <Textarea
+                id="notes"
+                name="notes"
+                maxLength={1000}
+                value={formData.notes}
+                onChange={handleInputChange}
+                className="mt-2"
+                placeholder="Vertel ons meer over je project... (optioneel)"
+                rows={4}
+              />
+            </motion.div>
+
+            <motion.div 
+              className="flex gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.3, ease: easings.easeOutExpo }}
+            >
+              <motion.div
+                className="flex-1"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              >
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handlePrevStep}
+                  className="w-full"
+                >
+                  <ArrowLeft className="mr-2 w-4 h-4" />
+                  Terug
+                </Button>
+              </motion.div>
+              <motion.div
+                className="flex-1"
+                whileHover={shouldReduceMotion || isSubmitting ? {} : { scale: 1.02 }}
+                whileTap={shouldReduceMotion || isSubmitting ? {} : { scale: 0.98 }}
+              >
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                >
+                  {isSubmitting ? (
+                    <motion.span
+                      animate={{ opacity: [1, 0.5, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      Verzenden...
+                    </motion.span>
+                  ) : "Verstuur aanvraag"}
+                </Button>
+              </motion.div>
+            </motion.div>
           </motion.form>
         )}
       </AnimatePresence>

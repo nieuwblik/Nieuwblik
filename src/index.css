@@ -193,3 +193,206 @@ All colors MUST be HSL.
     animation: scale-in 0.3s ease-out;
   }
 }
+
+/* Animated CTA Button Styles */
+@layer components {
+  .animated-btn {
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    background: radial-gradient(65.28% 65.28% at 50% 100%,
+        rgba(34, 197, 94, 0.7) 0%,
+        rgba(34, 197, 94, 0) 100%),
+      linear-gradient(0deg, hsl(160 84% 16%), hsl(160 84% 16%));
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .animated-btn::before,
+  .animated-btn::after {
+    content: "";
+    position: absolute;
+    transition: all 0.5s ease-in-out;
+    z-index: 0;
+  }
+
+  .animated-btn::before {
+    inset: 1px;
+    background: linear-gradient(177.95deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0) 100%);
+    border-radius: calc(0.5rem - 1px);
+  }
+
+  .animated-btn::after {
+    inset: 2px;
+    background: radial-gradient(65.28% 65.28% at 50% 100%,
+        rgba(34, 197, 94, 0.6) 0%,
+        rgba(34, 197, 94, 0) 100%),
+      linear-gradient(0deg, hsl(160 84% 16%), hsl(160 84% 16%));
+    border-radius: calc(0.5rem - 2px);
+  }
+
+  .animated-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(5, 102, 57, 0.4);
+  }
+
+  .animated-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* Floating points */
+  .animated-btn-points {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .animated-btn-points .animated-btn-point {
+    bottom: -10px;
+    position: absolute;
+    animation: animated-btn-floating infinite ease-in-out;
+    pointer-events: none;
+    width: 2px;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 9999px;
+  }
+
+  @keyframes animated-btn-floating {
+    0% {
+      transform: translateY(0);
+    }
+    85% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(-55px);
+      opacity: 0;
+    }
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(1) {
+    left: 10%;
+    opacity: 1;
+    animation-duration: 2.35s;
+    animation-delay: 0.2s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(2) {
+    left: 30%;
+    opacity: 0.7;
+    animation-duration: 2.5s;
+    animation-delay: 0.5s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(3) {
+    left: 25%;
+    opacity: 0.8;
+    animation-duration: 2.2s;
+    animation-delay: 0.1s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(4) {
+    left: 44%;
+    opacity: 0.6;
+    animation-duration: 2.05s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(5) {
+    left: 50%;
+    opacity: 1;
+    animation-duration: 1.9s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(6) {
+    left: 75%;
+    opacity: 0.5;
+    animation-duration: 1.5s;
+    animation-delay: 1.5s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(7) {
+    left: 88%;
+    opacity: 0.9;
+    animation-duration: 2.2s;
+    animation-delay: 0.2s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(8) {
+    left: 58%;
+    opacity: 0.8;
+    animation-duration: 2.25s;
+    animation-delay: 0.2s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(9) {
+    left: 98%;
+    opacity: 0.6;
+    animation-duration: 2.6s;
+    animation-delay: 0.1s;
+  }
+
+  .animated-btn-points .animated-btn-point:nth-child(10) {
+    left: 65%;
+    opacity: 1;
+    animation-duration: 2.5s;
+    animation-delay: 0.2s;
+  }
+
+  /* Inner content */
+  .animated-btn-inner {
+    z-index: 2;
+    gap: 6px;
+    position: relative;
+    width: 100%;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: color 0.2s ease-in-out;
+  }
+
+  .animated-btn-inner .animated-btn-icon {
+    transition: transform 0.3s ease;
+    stroke: white;
+    fill: none;
+    flex-shrink: 0;
+  }
+
+  .animated-btn:hover .animated-btn-icon {
+    transform: translateX(3px);
+  }
+
+  .animated-btn:hover .animated-btn-icon path {
+    animation: animated-btn-dash 0.8s linear forwards;
+  }
+
+  @keyframes animated-btn-dash {
+    0% {
+      stroke-dasharray: 0, 20;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 10, 10;
+      stroke-dashoffset: -5;
+    }
+    100% {
+      stroke-dasharray: 20, 0;
+      stroke-dashoffset: -10;
+    }
+  }
+}
