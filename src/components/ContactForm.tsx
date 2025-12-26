@@ -446,7 +446,7 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
                   name={field.id}
                   type={field.type}
                   required={field.required}
-                  value={(formData as Record<string, string>)[field.id]}
+                  value={(formData as unknown as Record<string, string>)[field.id]}
                   onChange={handleInputChange}
                   className="mt-2"
                   placeholder={field.placeholder}
