@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { MagicCard } from "@/components/ui/magic-card";
 import { Link } from "react-router-dom";
 import { Palette, Zap, Bot, Check, Plus, ArrowRight, MessageCircle, Star, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -63,7 +64,7 @@ const WebsiteOpMaat = () => {
 
   const includedStandard = ["Responsive & mobile-first design", "SEO-fundament met HadoSEO koppeling", "Google Analytics 4 integratie", "Google Business koppeling voor reviews", "SSL-certificaat & beveiliging", "Laadtijd onder 2 seconden", "Contactformulieren met automatisering", "3 revisierondes inbegrepen"];
   const optionalModules = ["Custom AI chatbot integratie", "E-commerce functionaliteit", "Meertalige website opties", "Premium CMS licenties", "Geavanceerde animaties", "Lead generation funnels"];
-  
+
   const cases = [{
     title: "Esveld Installatie",
     category: "Installatiebedrijf",
@@ -110,20 +111,20 @@ const WebsiteOpMaat = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Website op Maat | Luxe Webdesign & Development - Nieuwblik" 
-        description="Laat een luxe website op maat bouwen. Ultra-snelle laadtijden, SEO-geoptimaliseerd via HadoSEO, Google Business reviews. Binnen een week live!" 
-        keywords="website op maat, webdesign bureau, website laten maken, luxe website, custom website, SEO website, snelle website" 
-        canonicalUrl="https://nieuwblik.com/diensten/website-op-maat" 
-        structuredData={structuredData} 
+      <SEOHead
+        title="Website op Maat | Luxe Webdesign & Development - Nieuwblik"
+        description="Laat een luxe website op maat bouwen. Ultra-snelle laadtijden, SEO-geoptimaliseerd via HadoSEO, Google Business reviews. Binnen een week live!"
+        keywords="website op maat, webdesign bureau, website laten maken, luxe website, custom website, SEO website, snelle website"
+        canonicalUrl="https://nieuwblik.com/diensten/website-op-maat"
+        structuredData={structuredData}
         breadcrumbs={[
           { name: "Home", url: "https://nieuwblik.com" },
           { name: "Diensten", url: "https://nieuwblik.com/diensten" },
           { name: "Website op maat", url: "https://nieuwblik.com/diensten/website-op-maat" }
-        ]} 
+        ]}
       />
       <Navigation />
-      
+
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
         <div className="container mx-auto px-6">
@@ -138,33 +139,33 @@ const WebsiteOpMaat = () => {
       </section>
 
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.p 
+          <motion.p
             className="text-accent mb-6 uppercase tracking-wide font-medium"
             variants={fadeUp}
           >
             Website op maat
           </motion.p>
-          <motion.h1 
+          <motion.h1
             className="text-display mb-6"
             variants={fadeUp}
           >
             Luxe websites & digitale architectuur op maat
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-10"
             variants={fadeUp}
           >
-            Wij bouwen ultra-snelle websites met AI-automatisering en meetbare groei. 
+            Wij bouwen ultra-snelle websites met AI-automatisering en meetbare groei.
             Jouw website binnen een week live, perfect vindbaar in alle zoekmachines.
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4"
             variants={fadeUp}
           >
@@ -197,7 +198,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Why Nieuwblik - 3 USPs */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
@@ -205,20 +206,20 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Waarom Nieuwblik?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Drie pilaren die jouw website onderscheiden van de rest
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
             variants={staggerContainerSlow}
           >
@@ -228,15 +229,18 @@ const WebsiteOpMaat = () => {
                 variants={staggerItem}
               >
                 <motion.div
-                  whileHover={shouldReduceMotion ? {} : { 
-                    y: -8, 
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
+                  whileHover={shouldReduceMotion ? {} : {
+                    y: -8,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
                   }}
                   transition={{ duration: 0.3, ease: easings.easeOutExpo }}
                 >
-                  <Card className="text-center p-8 border-border/50 hover:border-accent/50 transition-colors h-full">
-                    <CardContent className="pt-6">
-                      <motion.div 
+                  <MagicCard
+                    className="text-center flex flex-col items-center justify-center h-full p-6 md:p-8 shadow-none hover:shadow-none"
+                    maskClassName="bg-card"
+                  >
+                    <div className="relative z-10 flex flex-col items-center">
+                      <motion.div
                         className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6"
                         whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2, ease: easings.easeOutQuart }}
@@ -246,8 +250,8 @@ const WebsiteOpMaat = () => {
                       <h3 className="text-xl font-bold mb-2">{usp.title}</h3>
                       <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
                       <p className="text-muted-foreground">{usp.description}</p>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </MagicCard>
                 </motion.div>
               </motion.div>
             ))}
@@ -256,7 +260,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Project Steps Timeline */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -264,34 +268,34 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Het website project stappenplan
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Transparant en efficiënt: zo bouwen wij jouw website
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             variants={staggerContainerSlow}
           >
             {steps.map((step, index) => (
-              <motion.div 
-                key={index} 
+              <motion.div
+                key={index}
                 className="relative"
                 variants={staggerItem}
               >
-                <motion.div 
+                <motion.div
                   className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
-                  whileHover={shouldReduceMotion ? {} : { 
-                    y: -4, 
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+                  whileHover={shouldReduceMotion ? {} : {
+                    y: -4,
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
                   }}
                   transition={{ duration: 0.3, ease: easings.easeOutExpo }}
                 >
@@ -313,7 +317,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* What's Included */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
@@ -321,13 +325,13 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Wat is inbegrepen?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
@@ -336,11 +340,11 @@ const WebsiteOpMaat = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Standard Included */}
-            <motion.div 
+            <motion.div
               className="bg-card border border-border rounded-xl p-8"
               variants={slideInLeft}
-              whileHover={shouldReduceMotion ? {} : { 
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+              whileHover={shouldReduceMotion ? {} : {
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
               }}
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}
             >
@@ -352,16 +356,16 @@ const WebsiteOpMaat = () => {
               </div>
               <ul className="space-y-4">
                 {includedStandard.map((item, index) => (
-                  <motion.li 
-                    key={index} 
+                  <motion.li
+                    key={index}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      delay: shouldReduceMotion ? 0 : index * 0.05, 
-                      duration: 0.3, 
-                      ease: easings.easeOutExpo 
+                    transition={{
+                      delay: shouldReduceMotion ? 0 : index * 0.05,
+                      duration: 0.3,
+                      ease: easings.easeOutExpo
                     }}
                   >
                     <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
@@ -372,11 +376,11 @@ const WebsiteOpMaat = () => {
             </motion.div>
 
             {/* Optional Modules */}
-            <motion.div 
+            <motion.div
               className="bg-card border border-border rounded-xl p-8"
               variants={slideInRight}
-              whileHover={shouldReduceMotion ? {} : { 
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+              whileHover={shouldReduceMotion ? {} : {
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
               }}
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}
             >
@@ -388,16 +392,16 @@ const WebsiteOpMaat = () => {
               </div>
               <ul className="space-y-4">
                 {optionalModules.map((item, index) => (
-                  <motion.li 
-                    key={index} 
+                  <motion.li
+                    key={index}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      delay: shouldReduceMotion ? 0 : index * 0.05, 
-                      duration: 0.3, 
-                      ease: easings.easeOutExpo 
+                    transition={{
+                      delay: shouldReduceMotion ? 0 : index * 0.05,
+                      duration: 0.3,
+                      ease: easings.easeOutExpo
                     }}
                   >
                     <Plus className="w-5 h-5 text-accent/60 flex-shrink-0 mt-0.5" />
@@ -411,7 +415,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Middle CTA - Pricing Transparency */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-accent text-accent-foreground"
         initial="hidden"
         whileInView="visible"
@@ -419,19 +423,19 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6 text-center">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold mb-4"
             variants={fadeUp}
           >
             Elk project is uniek
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Laten we samen de scope bepalen en een offerte op maat maken. Websites vanaf €497 - binnen een week live.
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={fadeUp}
           >
@@ -452,7 +456,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Relevant Cases - Using ProjectCard like Portfolio */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -460,20 +464,20 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Recente website projecten
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Bekijk enkele van onze meest recente succesvolle website projecten
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto"
             variants={staggerContainerSlow}
           >
@@ -494,7 +498,7 @@ const WebsiteOpMaat = () => {
             ))}
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="text-center mt-12"
             variants={fadeUp}
           >
@@ -515,7 +519,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Testimonial */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
@@ -523,11 +527,11 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.div 
+          <motion.div
             className="max-w-3xl mx-auto text-center"
             variants={scaleUp}
           >
-            <motion.div 
+            <motion.div
               className="flex justify-center gap-1 mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -540,24 +544,24 @@ const WebsiteOpMaat = () => {
                   initial={shouldReduceMotion ? {} : { scale: 0, rotate: -20 }}
                   whileInView={{ scale: 1, rotate: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ 
-                    delay: shouldReduceMotion ? 0 : i * 0.05, 
-                    duration: 0.3, 
-                    ease: easings.softBounce 
+                  transition={{
+                    delay: shouldReduceMotion ? 0 : i * 0.05,
+                    duration: 0.3,
+                    ease: easings.softBounce
                   }}
                 >
                   <Star className="w-6 h-6 fill-accent text-accent" />
                 </motion.div>
               ))}
             </motion.div>
-            <motion.blockquote 
+            <motion.blockquote
               className="text-xl md:text-2xl text-muted-foreground italic mb-6"
               variants={fadeUp}
             >
-              "Nieuwblik heeft onze website binnen een week live gezet. De snelheid en professionaliteit zijn ongekend. 
+              "Nieuwblik heeft onze website binnen een week live gezet. De snelheid en professionaliteit zijn ongekend.
               We krijgen nu dagelijks nieuwe aanvragen via de site!"
             </motion.blockquote>
-            <motion.p 
+            <motion.p
               className="font-bold"
               variants={fadeUp}
             >
@@ -568,7 +572,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Tools & Technology */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -576,32 +580,32 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Gebouwd met de beste tools
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             We gebruiken moderne technologie voor maximale snelheid en vindbaarheid
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="flex flex-wrap justify-center items-center gap-6 max-w-5xl mx-auto"
             variants={staggerContainerSlow}
           >
             {tools.map((tool, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="text-center group"
                 variants={staggerItem}
               >
                 {tool.link ? (
                   <a href={tool.link} target="_blank" rel="noopener noreferrer">
-                    <motion.div 
+                    <motion.div
                       className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.1, y: -4 }}
                       transition={{ duration: 0.2, ease: easings.easeOutQuart }}
@@ -612,7 +616,7 @@ const WebsiteOpMaat = () => {
                   </a>
                 ) : (
                   <>
-                    <motion.div 
+                    <motion.div
                       className="w-20 h-20 rounded-xl bg-card border border-border flex items-center justify-center mb-3 group-hover:border-accent/50 transition-colors p-3"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.1, y: -4 }}
                       transition={{ duration: 0.2, ease: easings.easeOutQuart }}
@@ -627,13 +631,13 @@ const WebsiteOpMaat = () => {
           </motion.div>
 
           {/* WordPress Note */}
-          <motion.div 
+          <motion.div
             className="mt-12 max-w-3xl mx-auto text-center p-6 bg-secondary/50 rounded-xl border border-border"
             variants={fadeUp}
           >
             <p className="text-muted-foreground">
-              <span className="font-medium text-foreground">Ook mogelijk:</span> Websites bouwen met WordPress en Elementor Pro, 
-              of complete webshops met WordPress, Elementor Pro en WooCommerce. 
+              <span className="font-medium text-foreground">Ook mogelijk:</span> Websites bouwen met WordPress en Elementor Pro,
+              of complete webshops met WordPress, Elementor Pro en WooCommerce.
               Wij kiezen de beste oplossing voor jouw specifieke situatie.
             </p>
           </motion.div>
@@ -641,7 +645,7 @@ const WebsiteOpMaat = () => {
       </motion.section>
 
       {/* Footer CTA */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-gradient-to-br from-primary to-accent"
         initial="hidden"
         whileInView="visible"
@@ -649,20 +653,20 @@ const WebsiteOpMaat = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6 text-center">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold mb-4 text-primary-foreground"
             variants={fadeUp}
           >
             Klaar om jouw website te laten bouwen?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Neem vandaag nog contact op en ontvang binnen 24 uur een vrijblijvende offerte.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             variants={fadeUp}
           >
@@ -680,12 +684,12 @@ const WebsiteOpMaat = () => {
             </motion.div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row items-center justify-center gap-6 text-primary-foreground/80"
             variants={fadeUp}
           >
-            <motion.a 
-              href="tel:+31681762670" 
+            <motion.a
+              href="tel:+31681762670"
               className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
               whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
               transition={{ duration: 0.2 }}
@@ -694,10 +698,10 @@ const WebsiteOpMaat = () => {
               +31 6 81762670
             </motion.a>
             <span className="hidden sm:inline">|</span>
-            <motion.a 
-              href="https://wa.me/31681762670" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <motion.a
+              href="https://wa.me/31681762670"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
               whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
               transition={{ duration: 0.2 }}

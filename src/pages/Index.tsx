@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ToolsSlider from "@/components/ToolsSlider";
+import { DesignCarousel } from "@/components/DesignCarousel";
 import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
 import FAQSection from "@/components/FAQSection";
 import ProjectCard from "@/components/ProjectCard";
@@ -16,6 +17,9 @@ import heroTeamImage from "@/assets/justin-job-min.png";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
 import { easings } from "@/lib/motion";
+import { MagicCard } from "@/components/ui/magic-card";
+import { useTheme } from "next-themes";
+import { MagicServicesCards } from "@/components/MagicServicesCards";
 
 // Import AI logos
 import claudeLogo from "@/assets/ai/claude-logo.png";
@@ -159,29 +163,9 @@ const HeroPhotoCard = ({
 
 const Index = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { theme } = useTheme();
 
-  const services = [
-    {
-      icon: Globe,
-      title: "Websites die verkopen",
-      description: "Jouw website is meer dan een digitale visitekaartje. Het is de drijvende kracht achter je groei. Wij bouwen websites die niet alleen prachtig zijn, maar ook klanten aantrekken en conversies verhogen."
-    },
-    {
-      icon: Palette,
-      title: "Merkidentiteit die raakt",
-      description: "Een sterk merk begint met een verhaal dat emotie oproept. Wij creëren merkidentiteiten die jouw unieke waarden uitdragen en een blijvende indruk achterlaten bij je doelgroep."
-    },
-    {
-      icon: ShoppingBag,
-      title: "Webshops die groeien",
-      description: "Van het eerste bezoek tot de checkout - wij bouwen e-commerce oplossingen die je klanten verleiden en je omzet laten stijgen. Elke klik is een stap naar meer succes."
-    },
-    {
-      icon: Pen,
-      title: "Design dat onderscheidt",
-      description: "Of het nu gaat om een stunning landingspagina, eye-catching social media content, of een complete visuele identiteit - wij zorgen dat je opvalt in een overvolle markt."
-    }
-  ];
+
 
   const featuredProjects = [
     {
@@ -420,30 +404,7 @@ const Index = () => {
             </AnimatedText>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <AnimatedSection key={index} delay={index * 0.15}>
-                <motion.div
-                  className="bg-background p-8 rounded-lg h-full"
-                  whileHover={shouldReduceMotion ? {} : {
-                    y: -8,
-                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                  }}
-                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-                >
-                  <motion.div
-                    className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-secondary mb-6"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                  >
-                    <service.icon className="w-7 h-7" />
-                  </motion.div>
-                  <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                  <p className="text-muted-foreground font-light">{service.description}</p>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
+          <MagicServicesCards />
 
           <AnimatedSection delay={0.4} className="text-center mt-12">
             <motion.div
@@ -500,6 +461,9 @@ const Index = () => {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Design Carousel Section */}
+      <DesignCarousel />
 
       {/* Social Content Section */}
       <SocialContentSection />

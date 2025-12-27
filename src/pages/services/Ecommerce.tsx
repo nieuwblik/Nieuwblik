@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { MagicCard } from "@/components/ui/magic-card";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -118,17 +119,17 @@ const Ecommerce = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="E-commerce oplossingen | Multichannel verkoop - Nieuwblik" 
-        description="Groei je online verkoop met complete e-commerce oplossingen. Multichannel strategie, marketplace integraties en marketing automation." 
-        keywords="e-commerce, online verkoop, multichannel, Bol.com verkopen, Amazon seller, marketing automation, conversie optimalisatie" 
-        canonicalUrl="https://nieuwblik.com/diensten/ecommerce" 
-        structuredData={structuredData} 
+      <SEOHead
+        title="E-commerce oplossingen | Multichannel verkoop - Nieuwblik"
+        description="Groei je online verkoop met complete e-commerce oplossingen. Multichannel strategie, marketplace integraties en marketing automation."
+        keywords="e-commerce, online verkoop, multichannel, Bol.com verkopen, Amazon seller, marketing automation, conversie optimalisatie"
+        canonicalUrl="https://nieuwblik.com/diensten/ecommerce"
+        structuredData={structuredData}
         breadcrumbs={[
           { name: "Home", url: "https://nieuwblik.com" },
           { name: "Diensten", url: "https://nieuwblik.com/diensten" },
           { name: "E-commerce", url: "https://nieuwblik.com/diensten/ecommerce" }
-        ]} 
+        ]}
       />
       <Navigation />
 
@@ -146,42 +147,42 @@ const Ecommerce = () => {
       </section>
 
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.p 
+          <motion.p
             className="text-accent mb-6 uppercase tracking-wide font-medium"
             variants={fadeUp}
           >
             E-commerce
           </motion.p>
-          <motion.h1 
+          <motion.h1
             className="text-display mb-6"
             variants={fadeUp}
           >
             E-commerce die echt groeit
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-6"
             variants={fadeUp}
           >
-            Wij maken professionele product listings, verpakkingsdesigns en extra waarde producten zoals e-books. 
+            Wij maken professionele product listings, verpakkingsdesigns en extra waarde producten zoals e-books.
             De verkoop, logistiek en klantenservice? Dat is voor jou – wij focussen op wat je verkoopt.
           </motion.p>
-          <motion.div 
+          <motion.div
             className="bg-secondary/80 border border-border rounded-lg p-4 mb-10 max-w-2xl"
             variants={fadeUp}
           >
             <p className="text-muted-foreground text-sm">
-              <strong className="text-foreground">Onze focus:</strong> Wij creëren de visuele en tekstuele content die jouw producten laat verkopen. 
+              <strong className="text-foreground">Onze focus:</strong> Wij creëren de visuele en tekstuele content die jouw producten laat verkopen.
               De webshop, marketplace accounts, fulfillment en klantcontact regel jij zelf of via een andere partner.
             </p>
           </motion.div>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4"
             variants={fadeUp}
           >
@@ -214,7 +215,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* USPs */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
@@ -222,20 +223,20 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Waarom onze e-commerce aanpak werkt
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Geen losse projecten, maar een strategie voor duurzame groei
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
             variants={staggerContainerSlow}
           >
@@ -243,17 +244,22 @@ const Ecommerce = () => {
               <motion.div
                 key={index}
                 variants={staggerItem}
+                className="h-full"
               >
                 <motion.div
-                  whileHover={shouldReduceMotion ? {} : { 
-                    y: -8, 
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
+                  whileHover={shouldReduceMotion ? {} : {
+                    y: -8,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
                   }}
                   transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+                  className="h-full"
                 >
-                  <Card className="text-center p-8 border-border/50 hover:border-accent/50 transition-colors h-full">
-                    <CardContent className="pt-6">
-                      <motion.div 
+                  <MagicCard
+                    className="text-center flex flex-col items-center justify-center h-full p-6 md:p-8 shadow-none hover:shadow-none"
+                    maskClassName="bg-card"
+                  >
+                    <div className="relative z-10 flex flex-col items-center">
+                      <motion.div
                         className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6"
                         whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.2, ease: easings.easeOutQuart }}
@@ -263,8 +269,8 @@ const Ecommerce = () => {
                       <h3 className="text-xl font-bold mb-2">{usp.title}</h3>
                       <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
                       <p className="text-muted-foreground">{usp.description}</p>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </MagicCard>
                 </motion.div>
               </motion.div>
             ))}
@@ -273,7 +279,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* Portfolio Section */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -281,39 +287,39 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Onze e-commerce projecten
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Professionele listings die daadwerkelijk verkopen
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={staggerContainerSlow}
           >
             {ecommerceListings.map((listing, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="group cursor-pointer"
                 variants={staggerItem}
                 onClick={() => setSelectedImage(listing.image)}
               >
-                <motion.div 
+                <motion.div
                   className="aspect-[4/3] bg-secondary rounded-lg mb-4 overflow-hidden relative"
-                  whileHover={shouldReduceMotion ? {} : { 
-                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+                  whileHover={shouldReduceMotion ? {} : {
+                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                   }}
                   transition={{ duration: 0.3, ease: easings.easeOutExpo }}
                 >
-                  <motion.img 
-                    src={listing.image} 
+                  <motion.img
+                    src={listing.image}
                     alt={listing.title}
                     loading="lazy"
                     decoding="async"
@@ -321,13 +327,13 @@ const Ecommerce = () => {
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                     transition={{ duration: 0.5, ease: easings.easeOutExpo }}
                   />
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 flex items-center justify-center"
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <motion.span 
+                    <motion.span
                       className="text-sm font-medium bg-background px-4 py-2 rounded-full shadow-lg"
                       initial={{ y: 10, opacity: 0 }}
                       whileHover={{ y: 0, opacity: 1 }}
@@ -350,8 +356,8 @@ const Ecommerce = () => {
         <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 overflow-hidden border-0">
           <AnimatePresence>
             {selectedImage && (
-              <motion.img 
-                src={selectedImage} 
+              <motion.img
+                src={selectedImage}
                 alt="E-commerce listing"
                 className="w-full h-full object-contain"
                 variants={modalVariants}
@@ -365,7 +371,7 @@ const Ecommerce = () => {
       </Dialog>
 
       {/* Steps */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
@@ -373,34 +379,34 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Onze e-commerce aanpak
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Gestructureerd naar meetbare resultaten
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             variants={staggerContainerSlow}
           >
             {steps.map((step, index) => (
-              <motion.div 
-                key={index} 
+              <motion.div
+                key={index}
                 className="relative"
                 variants={staggerItem}
               >
-                <motion.div 
+                <motion.div
                   className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
-                  whileHover={shouldReduceMotion ? {} : { 
-                    y: -4, 
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+                  whileHover={shouldReduceMotion ? {} : {
+                    y: -4,
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
                   }}
                   transition={{ duration: 0.3, ease: easings.easeOutExpo }}
                 >
@@ -422,7 +428,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* What's Included */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -430,13 +436,13 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Wat we voor je regelen
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
@@ -444,11 +450,11 @@ const Ecommerce = () => {
           </motion.p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <motion.div 
+            <motion.div
               className="bg-card border border-border rounded-xl p-8"
               variants={slideInLeft}
-              whileHover={shouldReduceMotion ? {} : { 
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+              whileHover={shouldReduceMotion ? {} : {
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
               }}
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}
             >
@@ -460,16 +466,16 @@ const Ecommerce = () => {
               </div>
               <ul className="space-y-4">
                 {includedStandard.map((item, index) => (
-                  <motion.li 
-                    key={index} 
+                  <motion.li
+                    key={index}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      delay: shouldReduceMotion ? 0 : index * 0.05, 
-                      duration: 0.3, 
-                      ease: easings.easeOutExpo 
+                    transition={{
+                      delay: shouldReduceMotion ? 0 : index * 0.05,
+                      duration: 0.3,
+                      ease: easings.easeOutExpo
                     }}
                   >
                     <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
@@ -479,11 +485,11 @@ const Ecommerce = () => {
               </ul>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="bg-card border border-border rounded-xl p-8"
               variants={slideInRight}
-              whileHover={shouldReduceMotion ? {} : { 
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+              whileHover={shouldReduceMotion ? {} : {
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
               }}
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}
             >
@@ -495,16 +501,16 @@ const Ecommerce = () => {
               </div>
               <ul className="space-y-4">
                 {optionalModules.map((item, index) => (
-                  <motion.li 
-                    key={index} 
+                  <motion.li
+                    key={index}
                     className="flex items-start gap-3"
                     initial={{ opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      delay: shouldReduceMotion ? 0 : index * 0.05, 
-                      duration: 0.3, 
-                      ease: easings.easeOutExpo 
+                    transition={{
+                      delay: shouldReduceMotion ? 0 : index * 0.05,
+                      duration: 0.3,
+                      ease: easings.easeOutExpo
                     }}
                   >
                     <Plus className="w-5 h-5 text-accent/60 flex-shrink-0 mt-0.5" />
@@ -518,7 +524,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* CTA */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-accent text-accent-foreground"
         initial="hidden"
         whileInView="visible"
@@ -526,19 +532,19 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6 text-center">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold mb-4"
             variants={fadeUp}
           >
             Klaar om je omzet te verdubbelen?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Plan een vrijblijvend strategiegesprek en ontdek de groeikansen voor jouw business.
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={fadeUp}
           >
@@ -559,7 +565,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* FAQ */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -567,31 +573,31 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-4"
             variants={fadeUp}
           >
             Veelgestelde vragen
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Antwoorden op de meest voorkomende e-commerce vragen
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className="max-w-3xl mx-auto space-y-6"
             variants={staggerContainerSlow}
           >
             {faqs.map((faq, index) => (
-              <motion.div 
-                key={index} 
+              <motion.div
+                key={index}
                 className="bg-card border border-border rounded-lg p-6"
                 variants={staggerItem}
-                whileHover={shouldReduceMotion ? {} : { 
-                  y: -2, 
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" 
+                whileHover={shouldReduceMotion ? {} : {
+                  y: -2,
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
                 }}
                 transition={{ duration: 0.3, ease: easings.easeOutExpo }}
               >
@@ -604,7 +610,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* Testimonial */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
@@ -612,11 +618,11 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.div 
+          <motion.div
             className="max-w-3xl mx-auto text-center"
             variants={scaleUp}
           >
-            <motion.div 
+            <motion.div
               className="flex justify-center gap-1 mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -629,23 +635,23 @@ const Ecommerce = () => {
                   initial={shouldReduceMotion ? {} : { scale: 0, rotate: -20 }}
                   whileInView={{ scale: 1, rotate: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ 
-                    delay: shouldReduceMotion ? 0 : i * 0.05, 
-                    duration: 0.3, 
-                    ease: easings.softBounce 
+                  transition={{
+                    delay: shouldReduceMotion ? 0 : i * 0.05,
+                    duration: 0.3,
+                    ease: easings.softBounce
                   }}
                 >
                   <Star className="w-6 h-6 fill-accent text-accent" />
                 </motion.div>
               ))}
             </motion.div>
-            <motion.blockquote 
+            <motion.blockquote
               className="text-xl md:text-2xl text-muted-foreground italic mb-6"
               variants={fadeUp}
             >
               "Door de multichannel aanpak van Nieuwblik zijn we nu ook succesvol op Bol.com en Amazon. Onze omzet is in 6 maanden met 140% gestegen!"
             </motion.blockquote>
-            <motion.p 
+            <motion.p
               className="font-bold"
               variants={fadeUp}
             >
@@ -656,7 +662,7 @@ const Ecommerce = () => {
       </motion.section>
 
       {/* Footer CTA */}
-      <motion.section 
+      <motion.section
         className="py-16 md:py-24"
         initial="hidden"
         whileInView="visible"
@@ -664,19 +670,19 @@ const Ecommerce = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6 text-center">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold mb-4"
             variants={fadeUp}
           >
             Laten we jouw e-commerce naar het volgende niveau tillen
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-muted-foreground mb-8 max-w-2xl mx-auto"
             variants={fadeUp}
           >
             Neem contact op voor een vrijblijvend gesprek over jouw groeimogelijkheden
           </motion.p>
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={fadeUp}
           >
