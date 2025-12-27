@@ -2,7 +2,7 @@
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Package, PenTool, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -267,19 +267,13 @@ export const DesignCarousel = () => {
             {isDesktop ? (
                 /* DESKTOP: Luxury Dialog with Hover Pan Effect */
                 <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-                    <AnimatePresence mode="wait">
+                    <DialogContent className="max-w-6xl p-0 overflow-hidden bg-card border-none shadow-2xl rounded-3xl">
                         {selectedProject && (
-                            <DialogContent 
-                                className="max-w-6xl p-0 overflow-hidden bg-card border-none shadow-2xl rounded-3xl"
-                                asChild
-                                forceMount
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
                             >
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                                    transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-                                >
                                     <div className="grid grid-cols-[60%_40%] h-[600px]">
                                         {/* Left Side: Interactive Image */}
                                         <div
@@ -345,23 +339,20 @@ export const DesignCarousel = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </motion.div>
-                            </DialogContent>
+                            </motion.div>
                         )}
-                    </AnimatePresence>
+                    </DialogContent>
                 </Dialog>
             ) : (
                 /* MOBILE/TABLET: Bottom Drawer optimized for screen fit */
                 <Drawer open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-                    <AnimatePresence mode="wait">
+                    <DrawerContent className="max-h-[92vh]">
                         {selectedProject && (
-                            <DrawerContent className="max-h-[92vh]" asChild forceMount>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 100 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 100 }}
-                                    transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-                                >
+                            <motion.div
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                            >
                                     <div className="mx-auto w-full max-w-lg h-full flex flex-col relative">
                                         {/* Close Button Absolute */}
                                         <DrawerClose className="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-sm transition-colors">
@@ -417,10 +408,9 @@ export const DesignCarousel = () => {
                                             </DrawerClose>
                                         </div>
                                     </div>
-                                </motion.div>
-                            </DrawerContent>
+                            </motion.div>
                         )}
-                    </AnimatePresence>
+                    </DrawerContent>
                 </Drawer>
             )}
         </section>
