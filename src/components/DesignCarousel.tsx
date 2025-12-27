@@ -267,141 +267,162 @@ export const DesignCarousel = () => {
             {isDesktop ? (
                 /* DESKTOP: Luxury Dialog with Hover Pan Effect */
                 <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-                    <DialogContent className="max-w-6xl p-0 overflow-hidden bg-card border-none shadow-2xl rounded-3xl">
-                        <div className="grid grid-cols-[60%_40%] h-[600px]">
-                            {/* Left Side: Interactive Image */}
-                            <div
-                                className="relative overflow-hidden bg-secondary cursor-move group h-full"
-                                onMouseMove={handleMouseMove}
-                                onMouseLeave={() => {
-                                    mouseX.set(0);
-                                    mouseY.set(0);
-                                }}
+                    <AnimatePresence mode="wait">
+                        {selectedProject && (
+                            <DialogContent 
+                                className="max-w-6xl p-0 overflow-hidden bg-card border-none shadow-2xl rounded-3xl"
+                                asChild
+                                forceMount
                             >
-                                {selectedProject && (
-                                    <motion.img
-                                        src={selectedProject.image}
-                                        alt={selectedProject.title}
-                                        className="w-full h-full object-cover"
-                                        style={{
-                                            scale: 1.3,
-                                            x,
-                                            y
-                                        }}
-                                    />
-                                )}
-                                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/10" />
-                                <div className="absolute bottom-6 right-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                    Beweeg om te verkennen
-                                </div>
-                            </div>
-
-                            {/* Right Side: Details */}
-                            <div className="p-10 flex flex-col justify-between overflow-y-auto">
-                                <div>
-                                    <DialogHeader>
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <Badge variant="secondary" className="px-3 py-1 text-xs uppercase tracking-wider">
-                                                {selectedProject?.category}
-                                            </Badge>
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                                    transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                                >
+                                    <div className="grid grid-cols-[60%_40%] h-[600px]">
+                                        {/* Left Side: Interactive Image */}
+                                        <div
+                                            className="relative overflow-hidden bg-secondary cursor-move group h-full"
+                                            onMouseMove={handleMouseMove}
+                                            onMouseLeave={() => {
+                                                mouseX.set(0);
+                                                mouseY.set(0);
+                                            }}
+                                        >
+                                            <motion.img
+                                                src={selectedProject.image}
+                                                alt={selectedProject.title}
+                                                className="w-full h-full object-cover"
+                                                style={{
+                                                    scale: 1.3,
+                                                    x,
+                                                    y
+                                                }}
+                                            />
+                                            <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/10" />
+                                            <div className="absolute bottom-6 right-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                                                Beweeg om te verkennen
+                                            </div>
                                         </div>
-                                        <DialogTitle className="text-4xl font-bold mb-4 leading-tight">
-                                            {selectedProject?.title}
-                                        </DialogTitle>
-                                        <div className="w-12 h-1 bg-accent mb-6 rounded-full" />
-                                        <DialogDescription className="text-lg text-muted-foreground leading-relaxed mb-8">
-                                            {selectedProject?.description}
-                                        </DialogDescription>
-                                    </DialogHeader>
 
-                                    {/* Tags */}
-                                    <div className="space-y-3 mb-8">
-                                        <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Expertises</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {selectedProject?.tags.map((tag) => (
-                                                <Badge key={tag} variant="outline" className="text-sm py-1 px-3 border-accent/20 text-foreground">
-                                                    {tag}
-                                                </Badge>
-                                            ))}
+                                        {/* Right Side: Details */}
+                                        <div className="p-10 flex flex-col justify-between overflow-y-auto">
+                                            <div>
+                                                <DialogHeader>
+                                                    <div className="flex items-center gap-2 mb-4">
+                                                        <Badge variant="secondary" className="px-3 py-1 text-xs uppercase tracking-wider">
+                                                            {selectedProject.category}
+                                                        </Badge>
+                                                    </div>
+                                                    <DialogTitle className="text-4xl font-bold mb-4 leading-tight">
+                                                        {selectedProject.title}
+                                                    </DialogTitle>
+                                                    <div className="w-12 h-1 bg-accent mb-6 rounded-full" />
+                                                    <DialogDescription className="text-lg text-muted-foreground leading-relaxed mb-8">
+                                                        {selectedProject.description}
+                                                    </DialogDescription>
+                                                </DialogHeader>
+
+                                                {/* Tags */}
+                                                <div className="space-y-3 mb-8">
+                                                    <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Expertises</h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {selectedProject.tags.map((tag) => (
+                                                            <Badge key={tag} variant="outline" className="text-sm py-1 px-3 border-accent/20 text-foreground">
+                                                                {tag}
+                                                            </Badge>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* CTA */}
+                                            <div className="mt-auto pt-6 border-t border-border/50">
+                                                <AnimatedButton to="/contact" className="w-auto">
+                                                    Start je Project
+                                                </AnimatedButton>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                {/* CTA */}
-                                <div className="mt-auto pt-6 border-t border-border/50">
-                                    <AnimatedButton to="/contact" className="w-auto">
-                                        Start je Project
-                                    </AnimatedButton>
-                                </div>
-                            </div>
-                        </div>
-                    </DialogContent>
+                                </motion.div>
+                            </DialogContent>
+                        )}
+                    </AnimatePresence>
                 </Dialog>
             ) : (
                 /* MOBILE/TABLET: Bottom Drawer optimized for screen fit */
                 <Drawer open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-                    <DrawerContent className="max-h-[92vh]">
-                        <div className="mx-auto w-full max-w-lg h-full flex flex-col relative">
-                            {/* Close Button Absolute */}
-                            <DrawerClose className="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-sm transition-colors">
-                                <X className="w-5 h-5" />
-                                <span className="sr-only">Sluiten</span>
-                            </DrawerClose>
+                    <AnimatePresence mode="wait">
+                        {selectedProject && (
+                            <DrawerContent className="max-h-[92vh]" asChild forceMount>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 100 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 100 }}
+                                    transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                                >
+                                    <div className="mx-auto w-full max-w-lg h-full flex flex-col relative">
+                                        {/* Close Button Absolute */}
+                                        <DrawerClose className="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-sm transition-colors">
+                                            <X className="w-5 h-5" />
+                                            <span className="sr-only">Sluiten</span>
+                                        </DrawerClose>
 
-                            {/* Image Header - Taller for better visibility */}
-                            <div className="relative w-full aspect-video bg-secondary shrink-0 overflow-hidden rounded-t-[10px]">
-                                {selectedProject && (
-                                    <img
-                                        src={selectedProject.image}
-                                        alt={selectedProject.title}
-                                        className="w-full h-full object-cover"
-                                    />
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                                <div className="absolute bottom-4 left-5 right-5">
-                                    <Badge variant="secondary" className="bg-white/20 text-white backdrop-blur-md mb-2 border-transparent">
-                                        {selectedProject?.category}
-                                    </Badge>
-                                    <DrawerTitle className="text-xl font-bold text-white leading-tight">
-                                        {selectedProject?.title}
-                                    </DrawerTitle>
-                                </div>
-                            </div>
+                                        {/* Image Header - Taller for better visibility */}
+                                        <div className="relative w-full aspect-video bg-secondary shrink-0 overflow-hidden rounded-t-[10px]">
+                                            <img
+                                                src={selectedProject.image}
+                                                alt={selectedProject.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                                            <div className="absolute bottom-4 left-5 right-5">
+                                                <Badge variant="secondary" className="bg-white/20 text-white backdrop-blur-md mb-2 border-transparent">
+                                                    {selectedProject.category}
+                                                </Badge>
+                                                <DrawerTitle className="text-xl font-bold text-white leading-tight">
+                                                    {selectedProject.title}
+                                                </DrawerTitle>
+                                            </div>
+                                        </div>
 
-                            {/* Scrollable Content */}
-                            <div className="p-5 overflow-y-auto flex-1">
-                                <DrawerDescription className="text-base text-muted-foreground leading-relaxed mb-6">
-                                    {selectedProject?.description}
-                                </DrawerDescription>
+                                        {/* Scrollable Content */}
+                                        <div className="p-5 overflow-y-auto flex-1">
+                                            <DrawerDescription className="text-base text-muted-foreground leading-relaxed mb-6">
+                                                {selectedProject.description}
+                                            </DrawerDescription>
 
-                                <div className="space-y-3">
-                                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Expertises</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedProject?.tags.map((tag) => (
-                                            <Badge key={tag} variant="outline" className="text-xs py-1.5 px-3 border-accent/20 text-foreground">
-                                                {tag}
-                                            </Badge>
-                                        ))}
+                                            <div className="space-y-3">
+                                                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Expertises</h4>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {selectedProject.tags.map((tag) => (
+                                                        <Badge key={tag} variant="outline" className="text-xs py-1.5 px-3 border-accent/20 text-foreground">
+                                                            {tag}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Sticky Footer */}
+                                        <div className="p-4 border-t border-border/50 bg-background/95 backdrop-blur shrink-0 grid grid-cols-[1fr,auto] gap-3">
+                                            <AnimatedButton to="/contact" className="w-full justify-center">
+                                                Start je Project
+                                            </AnimatedButton>
+                                            <DrawerClose asChild>
+                                                <Button variant="outline" size="icon" className="w-10 h-10 rounded-full shrink-0">
+                                                    <X className="w-4 h-4" />
+                                                </Button>
+                                            </DrawerClose>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Sticky Footer */}
-                            <div className="p-4 border-t border-border/50 bg-background/95 backdrop-blur shrink-0 grid grid-cols-[1fr,auto] gap-3">
-                                <AnimatedButton to="/contact" className="w-full justify-center">
-                                    Start je Project
-                                </AnimatedButton>
-                                <DrawerClose asChild>
-                                    <Button variant="outline" size="icon" className="w-10 h-10 rounded-full shrink-0">
-                                        <X className="w-4 h-4" />
-                                    </Button>
-                                </DrawerClose>
-                            </div>
-                        </div>
-                    </DrawerContent>
+                                </motion.div>
+                            </DrawerContent>
+                        )}
+                    </AnimatePresence>
                 </Drawer>
             )}
-
-        </section >
+        </section>
     );
 };
