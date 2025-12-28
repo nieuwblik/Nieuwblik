@@ -69,7 +69,7 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20"
+              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 border border-border/20"
               onClick={(e) => e.stopPropagation()}
               whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
@@ -84,7 +84,7 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
                 e.stopPropagation();
                 setShowDetails(true);
               }}
-              className="text-sm font-medium bg-primary text-primary-foreground px-6 py-3 rounded-full flex items-center gap-2 shadow-lg"
+              className="text-sm font-medium bg-accent text-accent-foreground px-6 py-3 rounded-full flex items-center gap-2"
               whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               transition={{ duration: 0.2, ease: easings.easeOutQuart }}
