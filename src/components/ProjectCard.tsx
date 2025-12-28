@@ -29,14 +29,6 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
       >
         <motion.div 
           className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative"
-          variants={{
-            rest: { 
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)" 
-            },
-            hover: shouldReduceMotion ? {} : { 
-              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
-            }
-          }}
           transition={{ duration: 0.3, ease: easings.easeOutExpo }}
         >
           <motion.img 
@@ -92,7 +84,7 @@ const ProjectCard = ({ title, category, description, image, url, tags }: Project
                 e.stopPropagation();
                 setShowDetails(true);
               }}
-              className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20"
+              className="text-sm font-medium bg-primary text-primary-foreground px-6 py-3 rounded-full flex items-center gap-2 shadow-lg"
               whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               transition={{ duration: 0.2, ease: easings.easeOutQuart }}
