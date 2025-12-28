@@ -28,7 +28,7 @@ const ProjectCard = ({
         <motion.div transition={{
         duration: 0.3,
         ease: easings.easeOutExpo
-      }} className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative shadow-2xl">
+      }} className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative shadow-none">
           <motion.img src={image} alt={title} loading="lazy" decoding="async" width="800" height="600" className="w-full h-full object-cover object-top" variants={{
           rest: {
             scale: 1
@@ -57,7 +57,7 @@ const ProjectCard = ({
         }} />
           
           {/* Buttons */}
-          <motion.div variants={{
+          <motion.div className="absolute inset-0 flex items-center justify-center gap-4" variants={{
           rest: {
             opacity: 0,
             y: 10
@@ -69,7 +69,7 @@ const ProjectCard = ({
         }} transition={{
           duration: 0.25,
           ease: easings.easeOutQuart
-        }} className="absolute inset-0 flex items-center justify-center gap-4 shadow-none border-primary border-0">
+        }}>
             <motion.a href={url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium bg-background px-6 py-3 rounded-full flex items-center gap-2 shadow-lg border border-border/20" onClick={e => e.stopPropagation()} whileHover={shouldReduceMotion ? {} : {
             scale: 1.05,
             y: -2
