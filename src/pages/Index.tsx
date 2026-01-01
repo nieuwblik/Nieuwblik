@@ -20,6 +20,7 @@ import { easings } from "@/lib/motion";
 import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
 import { MagicServicesCards } from "@/components/MagicServicesCards";
+import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 
 // Import AI logos
 import claudeLogo from "@/assets/ai/claude-logo.png";
@@ -464,6 +465,9 @@ const Index = () => {
 
       {/* Design Carousel Section */}
       <DesignCarousel />
+
+      {/* Problem vs Solution Section */}
+      <ProblemSolutionSection />
 
       {/* Social Content Section */}
       <SocialContentSection />

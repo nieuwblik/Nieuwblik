@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import { MagicCard } from "@/components/ui/magic-card";
+import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -249,6 +250,10 @@ const About = () => {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* FAQ Section */}
+      {/* FAQ Section - Integrated */}
+      <FAQSection />
 
       {/* CTA Section */}
       <motion.section

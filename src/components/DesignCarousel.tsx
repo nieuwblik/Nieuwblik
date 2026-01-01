@@ -1,12 +1,11 @@
-
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Package, PenTool, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from "@/components/ui/drawer";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Drawer, DrawerContent, DrawerTitle, DrawerDescription } from "@/components/ui/drawer";
 import { Badge } from "@/components/ui/badge";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -71,8 +70,8 @@ const items: ShowcaseItem[] = [
 ];
 
 export const DesignCarousel = () => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" }, [
-        Autoplay({ delay: 2600, stopOnInteraction: false }),
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center", skipSnaps: false }, [
+        Autoplay({ delay: 4000, stopOnInteraction: false, rootNode: (emblaRoot) => emblaRoot.parentElement }),
     ]);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedProject, setSelectedProject] = useState<ShowcaseItem | null>(null);
@@ -90,14 +89,12 @@ export const DesignCarousel = () => {
         mouseY.set(y);
     }, [mouseX, mouseY]);
 
-    const springConfig = { damping: 20, stiffness: 100 }; // Softer, luxury feel
+    const springConfig = { damping: 20, stiffness: 100 };
     const springX = useSpring(mouseX, springConfig);
     const springY = useSpring(mouseY, springConfig);
 
-    // Initial scale 1.3 allows movement to see the edges of the image.
-    // Maps mouse position -0.5 to 0.5 to translation percentages.
-    const x = useTransform(springX, [-0.5, 0.5], ["15%", "-15%"]);
-    const y = useTransform(springY, [-0.5, 0.5], ["15%", "-15%"]);
+    const x = useTransform(springX, [-0.5, 0.5], ["10%", "-10%"]);
+    const y = useTransform(springY, [-0.5, 0.5], ["10%", "-10%"]);
 
     // Stop autoplay when popup is open
     useEffect(() => {
@@ -107,10 +104,8 @@ export const DesignCarousel = () => {
         if (selectedProject) {
             autoplay.stop();
         } else {
-            // Force play with a slight delay to ensure state is settled
-            setTimeout(() => {
-                autoplay.play();
-            }, 100);
+            // Check if not interacting
+            autoplay.play();
         }
     }, [selectedProject, emblaApi]);
 
@@ -135,14 +130,14 @@ export const DesignCarousel = () => {
     }, [emblaApi, onSelect]);
 
     return (
-        <section className="py-20 bg-background overflow-hidden">
-            <div className="container mx-auto px-6">
-                <div className="text-center mb-16 max-w-3xl mx-auto">
+        <section className="py-24 bg-background overflow-hidden">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="text-center mb-20 max-w-3xl mx-auto">
                     <motion.span
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block"
+                        className="text-accent text-sm font-bold tracking-widest uppercase mb-4 block"
                     >
                         Custom Design
                     </motion.span>
@@ -151,7 +146,7 @@ export const DesignCarousel = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-bold mb-6 text-foreground"
+                        className="text-4xl md:text-6xl font-black mb-6 text-foreground tracking-tight"
                     >
                         Jouw merk verdient een verpakking die blijft hangen
                     </motion.h2>
@@ -160,41 +155,42 @@ export const DesignCarousel = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-muted-foreground font-light leading-relaxed"
+                        className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto"
                     >
-                        Elk pixel, elke vorm, elke kleur vertelt iets over jou. Wij vertalen jouw visie naar visuele taal die opvalt, onthouden wordt en mensen in beweging zet.
+                        Wij vertalen jouw visie naar visuele taal die opvalt, onthouden wordt en mensen in beweging zet.
                     </motion.p>
                 </div>
 
-                <div className="relative max-w-6xl mx-auto">
+                <div className="relative w-full">
                     {/* Carousel Viewport */}
-                    <div className="overflow-visible cursor-grab active:cursor-grabbing" ref={emblaRef}>
-                        <div className="flex -ml-4 touch-pan-y perspective-1000">
+                    <div className="overflow-visible cursor-grab active:cursor-grabbing pb-12" ref={emblaRef}>
+                        <div className="flex touch-pan-y perspective-1000 items-center">
                             {items.map((item, index) => {
                                 const isSelected = index === selectedIndex;
                                 return (
                                     <div
                                         key={item.id}
-                                        className="flex-[0_0_85%] sm:flex-[0_0_60%] md:flex-[0_0_45%] lg:flex-[0_0_40%] min-w-0 pl-8 relative py-8"
+                                        className="flex-[0_0_75%] md:flex-[0_0_30%] min-w-0 px-4 md:px-6 relative transition-[flex-basis] duration-500"
+                                        style={{ zIndex: isSelected ? 20 : 1 }}
                                     >
                                         <div
-                                            onClick={() => setSelectedProject(item)}
-                                            className="cursor-pointer group/card"
+                                            onClick={() => isSelected && setSelectedProject(item)}
+                                            className={`relative transition-all duration-500 ${isSelected ? "cursor-pointer" : "cursor-grab"}`}
                                         >
                                             <motion.div
                                                 initial={false}
                                                 animate={{
-                                                    scale: isSelected ? 1 : 0.9,
-                                                    opacity: isSelected ? 1 : 0.4,
-                                                    filter: isSelected ? "blur(0px) grayscale(0%)" : "blur(2px) grayscale(100%)",
+                                                    scale: isSelected ? 1.25 : 0.9,
+                                                    opacity: isSelected ? 1 : 0.5,
+                                                    filter: isSelected ? "blur(0px) grayscale(0%)" : "blur(1px) grayscale(100%)",
                                                     y: isSelected ? 0 : 20,
                                                 }}
-                                                whileHover={isSelected ? { y: -10 } : {}}
+                                                whileHover={isSelected ? { scale: 1.28 } : {}}
                                                 transition={{
-                                                    duration: 0.6,
-                                                    ease: [0.32, 0.72, 0, 1], // Custom apple-like ease
+                                                    duration: 0.8,
+                                                    ease: [0.25, 0.1, 0.25, 1], // Luxury cubic-bezier
                                                 }}
-                                                className={`relative aspect-[4/3] rounded-xl md:rounded-3xl overflow-hidden shadow-2xl bg-secondary transition-shadow hover:shadow-primary/20`}
+                                                className="relative aspect-[4/3] rounded-[8px] md:rounded-[10px] overflow-hidden shadow-2xl bg-secondary"
                                             >
                                                 <motion.img
                                                     src={item.image}
@@ -203,20 +199,27 @@ export const DesignCarousel = () => {
                                                     animate={{
                                                         scale: isSelected ? 1.05 : 1,
                                                     }}
-                                                    transition={{
-                                                        duration: 0.8,
-                                                    }}
+                                                    transition={{ duration: 1.2 }}
                                                 />
-                                                {/* Gradient Overlay - Always visible on selected, otherwise on hover */}
+
+                                                {/* Overlay */}
                                                 <div
-                                                    className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8 ${isSelected ? "opacity-100" : "opacity-0"}`}
+                                                    className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8 ${isSelected ? "opacity-100" : "opacity-0"}`}
                                                 >
-                                                    <h3 className="text-white text-lg md:text-3xl font-bold leading-tight decoration-clone">
+                                                    <h3 className="text-white text-xl md:text-2xl font-black leading-none mb-1">
                                                         {item.title}
                                                     </h3>
-                                                    <p className="text-white/80 text-sm mt-2 font-medium opacity-0 group-hover/card:opacity-100 transition-opacity translate-y-2 group-hover/card:translate-y-0 duration-300">
-                                                        Bekijk project <ArrowRight className="inline w-4 h-4 ml-1" />
-                                                    </p>
+                                                    <div className="overflow-hidden">
+                                                        {/* Animated 'View Project' */}
+                                                        <motion.p
+                                                            className="text-white/80 text-sm font-medium flex items-center gap-2 mt-2"
+                                                            initial={{ y: 20, opacity: 0 }}
+                                                            animate={{ y: isSelected ? 0 : 20, opacity: isSelected ? 1 : 0 }}
+                                                            transition={{ delay: 0.1, duration: 0.4 }}
+                                                        >
+                                                            Bekijk project <ArrowRight className="w-4 h-4" />
+                                                        </motion.p>
+                                                    </div>
                                                 </div>
                                             </motion.div>
                                         </div>
@@ -227,23 +230,22 @@ export const DesignCarousel = () => {
                     </div>
 
                     {/* Controls */}
-                    <div className="flex items-center justify-center gap-4 mt-10">
+                    <div className="flex items-center justify-center gap-6 mt-4">
                         <Button
                             variant="outline"
                             size="icon"
-                            className="rounded-full w-12 h-12 border-2 hover:bg-accent hover:text-white hover:border-accent transition-all"
+                            className="rounded-full w-14 h-14 border hover:bg-foreground hover:text-background transition-colors bg-background/50 backdrop-blur-sm"
                             onClick={scrollPrev}
                         >
                             <ArrowLeft className="w-5 h-5" />
-                            <span className="sr-only">Vorige</span>
                         </Button>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-3">
                             {items.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => emblaApi?.scrollTo(index)}
-                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === selectedIndex ? "bg-accent w-8" : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                                    className={`h-1.5 rounded-full transition-all duration-500 ${index === selectedIndex ? "bg-foreground w-12" : "bg-muted-foreground/30 hover:bg-muted-foreground/50 w-2"
                                         }`}
                                     aria-label={`Ga naar slide ${index + 1}`}
                                 />
@@ -253,163 +255,116 @@ export const DesignCarousel = () => {
                         <Button
                             variant="outline"
                             size="icon"
-                            className="rounded-full w-12 h-12 border-2 hover:bg-accent hover:text-white hover:border-accent transition-all"
+                            className="rounded-full w-14 h-14 border hover:bg-foreground hover:text-background transition-colors bg-background/50 backdrop-blur-sm"
                             onClick={scrollNext}
                         >
                             <ArrowRight className="w-5 h-5" />
-                            <span className="sr-only">Volgende</span>
                         </Button>
                     </div>
                 </div>
             </div>
 
-            {/* Project Details Popup - Responsive Implementation */}
+            {/* Premium Project Details Popup */}
             {isDesktop ? (
-                /* DESKTOP: Luxury Dialog with Hover Pan Effect */
                 <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-                    <DialogContent className="max-w-6xl p-0 overflow-hidden bg-card border-none shadow-2xl rounded-3xl">
+                    <DialogContent className="max-w-[85vw] w-[85vw] h-[85vh] p-0 gap-0 overflow-hidden bg-white dark:bg-zinc-900 border-none shadow-2xl rounded-[24px]">
                         {selectedProject && (
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                                className="w-full h-full flex"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.4 }}
                             >
-                                    <div className="grid grid-cols-[60%_40%] h-[600px]">
-                                        {/* Left Side: Interactive Image */}
-                                        <div
-                                            className="relative overflow-hidden bg-secondary cursor-move group h-full"
-                                            onMouseMove={handleMouseMove}
-                                            onMouseLeave={() => {
-                                                mouseX.set(0);
-                                                mouseY.set(0);
-                                            }}
-                                        >
-                                            <motion.img
-                                                src={selectedProject.image}
-                                                alt={selectedProject.title}
-                                                className="w-full h-full object-cover"
-                                                style={{
-                                                    scale: 1.3,
-                                                    x,
-                                                    y
-                                                }}
-                                            />
-                                            <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/10" />
-                                            <div className="absolute bottom-6 right-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                                Beweeg om te verkennen
-                                            </div>
+                                {/* Left: Immersive Image Area - No Parallax/Hover Movement */}
+                                <div className="w-[65%] h-full relative overflow-hidden bg-secondary">
+                                    <motion.img
+                                        src={selectedProject.image}
+                                        alt={selectedProject.title}
+                                        className="w-full h-full object-cover"
+                                        initial={{ scale: 1.1 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                                    />
+                                </div>
+
+                                {/* Right: Light Minimalist Content - Compact */}
+                                <div className="w-[35%] h-full p-8 lg:p-12 flex flex-col justify-center bg-white dark:bg-zinc-900 text-foreground relative">
+                                    <div className="space-y-6">
+                                        <div>
+                                            <Badge variant="outline" className="mb-4 px-3 py-1 text-[10px] uppercase tracking-widest border-border text-muted-foreground w-fit">
+                                                {selectedProject.category}
+                                            </Badge>
+                                            <h2 className="text-3xl lg:text-4xl font-black leading-tight mb-4 tracking-tight text-foreground">
+                                                {selectedProject.title}
+                                            </h2>
+                                            {/* Separator removed */}
+                                            <p className="text-base text-muted-foreground leading-relaxed font-light">
+                                                {selectedProject.description}
+                                            </p>
                                         </div>
 
-                                        {/* Right Side: Details */}
-                                        <div className="p-10 flex flex-col justify-between overflow-y-auto">
-                                            <div>
-                                                <DialogHeader>
-                                                    <div className="flex items-center gap-2 mb-4">
-                                                        <Badge variant="secondary" className="px-3 py-1 text-xs uppercase tracking-wider">
-                                                            {selectedProject.category}
-                                                        </Badge>
-                                                    </div>
-                                                    <DialogTitle className="text-4xl font-bold mb-4 leading-tight">
-                                                        {selectedProject.title}
-                                                    </DialogTitle>
-                                                    <div className="w-12 h-1 bg-accent mb-6 rounded-full" />
-                                                    <DialogDescription className="text-lg text-muted-foreground leading-relaxed mb-8">
-                                                        {selectedProject.description}
-                                                    </DialogDescription>
-                                                </DialogHeader>
+                                        <div className="flex flex-wrap gap-2 pt-2">
+                                            {selectedProject.tags.map((tag) => (
+                                                <Badge key={tag} variant="secondary" className="px-3 py-1 text-xs font-mono font-medium opacity-80">
+                                                    #{tag}
+                                                </Badge>
+                                            ))}
+                                        </div>
 
-                                                {/* Tags */}
-                                                <div className="space-y-3 mb-8">
-                                                    <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Expertises</h4>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {selectedProject.tags.map((tag) => (
-                                                            <Badge key={tag} variant="outline" className="text-sm py-1 px-3 border-accent/20 text-foreground">
-                                                                {tag}
-                                                            </Badge>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* CTA */}
-                                            <div className="mt-auto pt-6 border-t border-border/50">
-                                                <AnimatedButton to="/contact" className="w-auto">
-                                                    Start je Project
-                                                </AnimatedButton>
-                                            </div>
+                                        <div className="pt-6 mt-auto">
+                                            <AnimatedButton to="/contact" className="w-full justify-center">
+                                                Start je Project
+                                            </AnimatedButton>
                                         </div>
                                     </div>
+                                </div>
                             </motion.div>
                         )}
                     </DialogContent>
                 </Dialog>
             ) : (
-                /* MOBILE/TABLET: Bottom Drawer optimized for screen fit */
                 <Drawer open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-                    <DrawerContent className="max-h-[92vh]">
-                        {selectedProject && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-                            >
-                                    <div className="mx-auto w-full max-w-lg h-full flex flex-col relative">
-                                        {/* Close Button Absolute */}
-                                        <DrawerClose className="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-sm transition-colors">
-                                            <X className="w-5 h-5" />
-                                            <span className="sr-only">Sluiten</span>
-                                        </DrawerClose>
-
-                                        {/* Image Header - Taller for better visibility */}
-                                        <div className="relative w-full aspect-video bg-secondary shrink-0 overflow-hidden rounded-t-[10px]">
+                    <DrawerContent className="max-h-[90vh] bg-background">
+                        <div className="mx-auto w-full max-w-lg h-full flex flex-col relative">
+                            {selectedProject && (
+                                <>
+                                    {/* Image with padding around it */}
+                                    <div className="p-4 flex-shrink-0 relative">
+                                        <div className="relative w-full aspect-[4/3] bg-secondary overflow-hidden rounded-[16px]">
                                             <img
                                                 src={selectedProject.image}
                                                 alt={selectedProject.title}
                                                 className="w-full h-full object-cover"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                                            <div className="absolute bottom-4 left-5 right-5">
-                                                <Badge variant="secondary" className="bg-white/20 text-white backdrop-blur-md mb-2 border-transparent">
-                                                    {selectedProject.category}
-                                                </Badge>
-                                                <DrawerTitle className="text-xl font-bold text-white leading-tight">
-                                                    {selectedProject.title}
-                                                </DrawerTitle>
-                                            </div>
-                                        </div>
-
-                                        {/* Scrollable Content */}
-                                        <div className="p-5 overflow-y-auto flex-1">
-                                            <DrawerDescription className="text-base text-muted-foreground leading-relaxed mb-6">
-                                                {selectedProject.description}
-                                            </DrawerDescription>
-
-                                            <div className="space-y-3">
-                                                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Expertises</h4>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {selectedProject.tags.map((tag) => (
-                                                        <Badge key={tag} variant="outline" className="text-xs py-1.5 px-3 border-accent/20 text-foreground">
-                                                            {tag}
-                                                        </Badge>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Sticky Footer */}
-                                        <div className="p-4 border-t border-border/50 bg-background/95 backdrop-blur shrink-0 grid grid-cols-[1fr,auto] gap-3">
-                                            <AnimatedButton to="/contact" className="w-full justify-center">
-                                                Start je Project
-                                            </AnimatedButton>
-                                            <DrawerClose asChild>
-                                                <Button variant="outline" size="icon" className="w-10 h-10 rounded-full shrink-0">
-                                                    <X className="w-4 h-4" />
-                                                </Button>
-                                            </DrawerClose>
+                                            <button
+                                                onClick={() => setSelectedProject(null)}
+                                                className="absolute top-3 right-3 p-2 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-colors shadow-sm"
+                                            >
+                                                <X className="w-5 h-5" />
+                                            </button>
                                         </div>
                                     </div>
-                            </motion.div>
-                        )}
+
+                                    <div className="px-6 pb-6 overflow-y-auto flex-1">
+                                        <div className="mb-1">
+                                            <Badge variant="outline" className="px-2 py-0.5 text-[10px] uppercase tracking-wider">{selectedProject.category}</Badge>
+                                        </div>
+                                        <DrawerTitle className="text-2xl font-black mb-3">{selectedProject.title}</DrawerTitle>
+                                        <DrawerDescription className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                                            {selectedProject.description}
+                                        </DrawerDescription>
+                                        <div className="flex flex-wrap gap-2 mb-8">
+                                            {selectedProject.tags.map(tag => (
+                                                <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                                            ))}
+                                        </div>
+                                        <AnimatedButton to="/contact" className="w-full justify-center">
+                                            Start je Project
+                                        </AnimatedButton>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </DrawerContent>
                 </Drawer>
             )}
