@@ -120,9 +120,9 @@ const Ecommerce = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="E-commerce oplossingen | Multichannel verkoop - Nieuwblik"
-        description="Groei je online verkoop met complete e-commerce oplossingen. Multichannel strategie, marketplace integraties en marketing automation."
-        keywords="e-commerce, online verkoop, multichannel, Bol.com verkopen, Amazon seller, marketing automation, conversie optimalisatie"
+        title="E-commerce & Product Listings | Verkoop meer online - Nieuwblik"
+        description="Professionele Amazon & Bol.com listings, verpakkingsdesign en e-books. Verhoog je online zichtbaarheid en conversie. E-commerce specialist West-Friesland."
+        keywords="e-commerce Enkhuizen, Amazon listings, Bol.com verkopen, product fotografie, verpakkingsdesign, conversie optimalisatie West-Friesland"
         canonicalUrl="https://nieuwblik.com/diensten/ecommerce"
         structuredData={structuredData}
         breadcrumbs={[

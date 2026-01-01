@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Shield } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, easings } from "@/lib/motion";
@@ -123,6 +124,12 @@ const Privacy = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead 
+        title="Privacyverklaring | Nieuwblik Webdesign Enkhuizen"
+        description="Lees onze privacyverklaring. Hoe Nieuwblik uit Enkhuizen omgaat met persoonsgegevens conform de AVG. Uw privacy is belangrijk voor ons."
+        keywords="privacyverklaring, AVG, persoonsgegevens, privacy Nieuwblik, webdesign Enkhuizen"
+        canonicalUrl="https://nieuwblik.com/privacy"
+      />
       <Navigation />
       <main className="flex-1 bg-background">
         <div className="container mx-auto px-6 py-24">

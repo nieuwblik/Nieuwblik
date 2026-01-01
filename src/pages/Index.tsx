@@ -226,22 +226,22 @@ const Index = () => {
 
               {/* Large Typography Title - Readable */}
               <div className="mb-4 md:mb-6">
-                <motion.h1
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.1, ease: easings.easeOutExpo }}
+              <motion.h1
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: easings.easeOutExpo }}
+              >
+                <span className="block">Webdesign bureau</span>
+                <motion.span
+                  className="block text-accent"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2, ease: easings.easeOutExpo }}
                 >
-                  <span className="block">Van visie naar</span>
-                  <motion.span
-                    className="block text-accent"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.7, delay: 0.2, ease: easings.easeOutExpo }}
-                  >
-                    viraal succes
-                  </motion.span>
-                </motion.h1>
+                  Enkhuizen
+                </motion.span>
+              </motion.h1>
               </div>
 
               {/* Description */}

@@ -178,9 +178,9 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Digitale Diensten die Groeien | Webdesign & Branding - Nieuwblik" 
-        description="Ontdek onze premium digitale diensten: webdesign, merkidentiteit, e-commerce en custom design. Wij creëren oplossingen die jouw bedrijf laten groeien. Start vandaag!" 
-        keywords="webdesign diensten, merkidentiteit, branding, e-commerce oplossingen, custom design, digitale diensten, website ontwikkeling" 
+        title="Diensten | Webdesign, Webshops & SEO Enkhuizen - Nieuwblik" 
+        description="Ontdek onze diensten: website op maat, webshops, branding en SEO. Webdesign bureau Enkhuizen voor MKB in West-Friesland. Vraag een offerte aan." 
+        keywords="webdesign Enkhuizen, webshop laten maken, SEO West-Friesland, branding, e-commerce, website ontwikkeling, online zichtbaarheid" 
         canonicalUrl="https://nieuwblik.com/diensten" 
         structuredData={structuredData} 
         breadcrumbs={[

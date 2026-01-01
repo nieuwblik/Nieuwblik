@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import justinImage from "@/assets/justin-slok.png";
@@ -11,6 +12,12 @@ const ThankYou = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Bedankt voor je Aanvraag | Nieuwblik Enkhuizen"
+        description="Bedankt voor je projectaanvraag! We nemen binnen 48 uur contact met je op. Nieuwblik webdesign bureau Enkhuizen."
+        keywords="bedankt, aanvraag verstuurd, Nieuwblik Enkhuizen, website project"
+        canonicalUrl="https://nieuwblik.com/bedankt"
+      />
       <Navigation />
       
       <motion.section 
