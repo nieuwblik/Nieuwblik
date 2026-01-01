@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ReviewsDisplay from "@/components/ReviewsDisplay";
 import ReviewForm from "@/components/ReviewForm";
+import SEOHead from "@/components/SEOHead";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
 
@@ -20,6 +21,16 @@ const Reviews = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Reviews | Klantervaringen Webdesign Bureau - Nieuwblik Enkhuizen"
+        description="Lees ervaringen van onze klanten over websites en webshops. Webdesign bureau Enkhuizen met tevreden klanten in heel West-Friesland. Bekijk onze reviews."
+        keywords="reviews webdesign, klantervaringen website, webdesign bureau Enkhuizen, tevreden klanten West-Friesland"
+        canonicalUrl="https://nieuwblik.com/reviews"
+        breadcrumbs={[
+          { name: "Home", url: "https://nieuwblik.com" },
+          { name: "Reviews", url: "https://nieuwblik.com/reviews" }
+        ]}
+      />
       <Navigation />
       
       {/* Hero Section */}

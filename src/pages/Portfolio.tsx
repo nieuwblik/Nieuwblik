@@ -251,9 +251,9 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Portfolio | Succesvolle Webdesign Projecten - Nieuwblik"
-        description="Bekijk onze portfolio met prachtige websites, sterke merkidentiteiten en krachtige e-commerce oplossingen. Van startups tot gevestigde bedrijven - zie wat we kunnen!"
-        keywords="webdesign portfolio, website voorbeelden, branding cases, e-commerce projecten, design portfolio"
+        title="Portfolio | Website & Webshop Projecten Enkhuizen - Nieuwblik"
+        description="Bekijk onze portfolio: websites en webshops uit West-Friesland. Van MKB tot e-commerce, ontdek wat ons webdesign bureau in Enkhuizen voor jou kan betekenen."
+        keywords="webdesign portfolio Enkhuizen, website voorbeelden West-Friesland, webshop projecten, e-commerce cases, website laten maken"
         canonicalUrl="https://nieuwblik.com/portfolio"
         structuredData={structuredData}
         breadcrumbs={[

@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Cookie } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, easings } from "@/lib/motion";
@@ -106,6 +107,12 @@ const Cookies = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead 
+        title="Cookieverklaring | Nieuwblik Webdesign Enkhuizen"
+        description="Informatie over het cookiegebruik op de website van Nieuwblik. Welke cookies we gebruiken en waarvoor. Webdesign bureau Enkhuizen."
+        keywords="cookieverklaring, cookies, privacy, Nieuwblik Enkhuizen, website cookies"
+        canonicalUrl="https://nieuwblik.com/cookies"
+      />
       <Navigation />
       <main className="flex-1 bg-background">
         <div className="container mx-auto px-6 py-24">

@@ -119,9 +119,9 @@ const Webshops = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Webshop laten maken | Professionele webshops - Nieuwblik"
-        description="Laat een professionele webshop bouwen die verkoopt. Veilige betalingen, voorraadbeheer, SEO-geoptimaliseerd. Webshops vanaf €997."
-        keywords="webshop laten maken, professionele webshop, online winkel, e-commerce website, webshop bouwen, WooCommerce, Shopify"
+        title="Webshop Laten Maken Enkhuizen | E-commerce West-Friesland"
+        description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €997."
+        keywords="webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen"
         canonicalUrl="https://nieuwblik.com/diensten/webshops"
         structuredData={structuredData}
         breadcrumbs={[

@@ -24,9 +24,9 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Blog | Digitale Marketing & Webdesign Artikelen - Nieuwblik"
-        description="Ontdek waardevolle inzichten over webdesign, SEO, conversie optimalisatie en digitale marketing. Praktische tips die direct toepasbaar zijn."
-        keywords="webdesign blog, SEO tips, conversie optimalisatie, digitale marketing, webdesign tips"
+        title="Blog | SEO & Webdesign Tips van Experts - Nieuwblik Enkhuizen"
+        description="Lees onze blog over SEO, webdesign en online zichtbaarheid. Praktische tips van ons webdesign bureau in West-Friesland. Verbeter je website vandaag."
+        keywords="webdesign blog, SEO tips Enkhuizen, conversie optimalisatie, online zichtbaarheid, webdesign West-Friesland, website tips"
         canonicalUrl="https://nieuwblik.com/blog"
         structuredData={structuredData}
         breadcrumbs={[

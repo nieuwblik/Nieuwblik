@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { FileText } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, easings } from "@/lib/motion";
@@ -117,6 +118,12 @@ const Terms = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead 
+        title="Algemene Voorwaarden | Nieuwblik Webdesign Enkhuizen"
+        description="Lees de algemene voorwaarden van Nieuwblik webdesign bureau in Enkhuizen. Duidelijke afspraken voor website en webshop projecten."
+        keywords="algemene voorwaarden, webdesign voorwaarden, Nieuwblik Enkhuizen, website afspraken"
+        canonicalUrl="https://nieuwblik.com/algemene-voorwaarden"
+      />
       <Navigation />
       <main className="flex-1 bg-background">
         <div className="container mx-auto px-6 py-24">

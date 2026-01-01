@@ -3,6 +3,7 @@ import { Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, easings } from "@/lib/motion";
 
@@ -28,6 +29,12 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead 
+        title="Pagina Niet Gevonden | Nieuwblik Webdesign Enkhuizen"
+        description="Deze pagina bestaat niet of is verplaatst. Ga terug naar de homepage van Nieuwblik webdesign bureau in Enkhuizen."
+        keywords="404, pagina niet gevonden, Nieuwblik Enkhuizen"
+        canonicalUrl="https://nieuwblik.com/404"
+      />
       <Navigation />
       <main className="flex-1 flex items-center justify-center bg-background px-6 py-24">
         <motion.div 

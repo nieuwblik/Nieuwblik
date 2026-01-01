@@ -56,9 +56,9 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Over Ons | Passie voor Digitaal Design - Nieuwblik"
-        description="Gedreven door passie, geleid door resultaat. Ontdek het verhaal achter Nieuwblik en waarom we doen wat we doen. Jouw digitale succes is onze missie!"
-        keywords="over ons, webdesign bureau, digitale agency, nieuwblik team, webdesign enkhuizen"
+        title="Over Ons | Webdesign Bureau Enkhuizen - Nieuwblik"
+        description="Maak kennis met Nieuwblik, jouw webdesign bureau uit Enkhuizen. Passie voor websites, webshops en SEO in West-Friesland. Persoonlijke aanpak, meetbaar resultaat."
+        keywords="over ons, webdesign bureau Enkhuizen, digitale agency West-Friesland, nieuwblik team, website laten maken Enkhuizen"
         canonicalUrl="https://nieuwblik.com/over-ons"
         structuredData={structuredData}
         breadcrumbs={[
