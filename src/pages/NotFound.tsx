@@ -33,7 +33,8 @@ const NotFound = () => {
         title="Pagina Niet Gevonden | Nieuwblik Webdesign Enkhuizen"
         description="Deze pagina bestaat niet of is verplaatst. Ga terug naar de homepage van Nieuwblik webdesign bureau in Enkhuizen."
         keywords="404, pagina niet gevonden, Nieuwblik Enkhuizen"
-        canonicalUrl="https://nieuwblik.com/404"
+        noIndex={true}
+        includeOrganizationSchema={false}
       />
       <Navigation />
       <main className="flex-1 flex items-center justify-center bg-background px-6 py-24">
