@@ -23,7 +23,7 @@ const Terms = () => {
       title: "1. Algemeen",
       content: (
         <p className="text-muted-foreground">
-          Deze algemene voorwaarden zijn van toepassing op alle aanbiedingen, offertes en overeenkomsten van Nieuwblik, gevestigd aan De Trompet 18H, 1601 MK Enkhuizen, ingeschreven bij de Kamer van Koophandel onder nummer 88304604.
+          Deze algemene voorwaarden zijn van toepassing op alle aanbiedingen, offertes en overeenkomsten van Nieuwblik, gevestigd aan De Trompet 18H, 1601 MK Enkhuizen, ingeschreven bij de Kamer van Koophandel onder nummer 99229781.
         </p>
       )
     },
@@ -109,8 +109,8 @@ const Terms = () => {
           <a href="https://www.google.com/maps/dir//De+Trompet+18H,+1601+MK+Enkhuizen/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x47c8a3932165dee3:0xecaa07e808a362fc?sa=X&ved=1t:707&ictx=111" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
             De Trompet 18H, 1601 MK Enkhuizen
           </a><br />
-          KVK: 88304604<br />
-          BTW: NL864572311b01
+          KVK: 99229781<br />
+          BTW: NL005377205B80
         </p>
       )
     }

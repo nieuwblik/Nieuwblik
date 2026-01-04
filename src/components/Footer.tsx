@@ -249,7 +249,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>KVK: 99229781</li>
-              <li>BTW: NL864572311b01</li>
+              <li>BTW: NL005377205B80</li>
             </ul>
           </motion.div>
           
