@@ -21,6 +21,8 @@ import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
 import { MagicServicesCards } from "@/components/MagicServicesCards";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
+import SEOHead from "@/components/SEOHead";
+import { companyInfo } from "@/config/company";
 
 // Import AI logos
 import claudeLogo from "@/assets/ai/claude-logo.png";
@@ -201,10 +203,18 @@ const Index = () => {
     url: "https://feitsmadakwerken.nl"
   }];
   return <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Nieuwblik | Webdesign Bureau Enkhuizen - Websites & Webshops"
+        description={companyInfo.description}
+        keywords="webdesign, website laten maken, webshop, enkhuizen, noord-holland, webdevelopment, e-commerce, online marketing"
+        canonicalUrl={companyInfo.url}
+        includeOrganizationSchema={true}
+        includeLocalBusinessSchema={true}
+      />
       <Navigation />
 
       {/* Hero Section - Visual Poetry Layout */}
-      <section className="relative min-h-screen overflow-hidden bg-background pt-32 pb-8 sm:pt-36 sm:pb-10 md:pt-40 md:pb-14 lg:pt-44 lg:pb-0 xl:pt-[300px]">
+      <section className="relative min-h-screen overflow-hidden bg-background pt-header pb-8 sm:pb-10 md:pb-14 lg:pb-0">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-center">
 

@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { companyInfo, organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/config/company";
 
 interface BreadcrumbItem {
   name: string;
@@ -17,6 +19,9 @@ interface SEOHeadProps {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   articleAuthor?: string;
+  noIndex?: boolean;
+  includeOrganizationSchema?: boolean;
+  includeLocalBusinessSchema?: boolean;
 }
 
 const SEOHead = ({ 
@@ -24,14 +29,22 @@ const SEOHead = ({
   description, 
   keywords,
   canonicalUrl,
-  ogImage = "https://nieuwblik.com/og-image.webp",
+  ogImage = `${companyInfo.url}/og-image.webp`,
   ogType = "website",
   structuredData,
   breadcrumbs,
   articlePublishedTime,
   articleModifiedTime,
-  articleAuthor
+  articleAuthor,
+  noIndex = false,
+  includeOrganizationSchema = true,
+  includeLocalBusinessSchema = false,
 }: SEOHeadProps) => {
+  const location = useLocation();
+  
+  // Generate canonical URL if not provided
+  const resolvedCanonicalUrl = canonicalUrl || `${companyInfo.url}${location.pathname}`;
+  
   useEffect(() => {
     // Update title
     document.title = title;
@@ -56,16 +69,24 @@ const SEOHead = ({
       updateMetaTag('keywords', keywords);
     }
     
+    // Robots meta tag
+    if (noIndex) {
+      updateMetaTag('robots', 'noindex, nofollow');
+    } else {
+      updateMetaTag('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    }
+    
     // Open Graph tags
     updateMetaTag('og:title', title, true);
     updateMetaTag('og:description', description, true);
     updateMetaTag('og:image', ogImage, true);
+    updateMetaTag('og:image:width', '1200', true);
+    updateMetaTag('og:image:height', '630', true);
+    updateMetaTag('og:image:alt', title, true);
     updateMetaTag('og:type', ogType, true);
-    updateMetaTag('og:site_name', 'Nieuwblik', true);
+    updateMetaTag('og:site_name', companyInfo.name, true);
     updateMetaTag('og:locale', 'nl_NL', true);
-    if (canonicalUrl) {
-      updateMetaTag('og:url', canonicalUrl, true);
-    }
+    updateMetaTag('og:url', resolvedCanonicalUrl, true);
     
     // Article-specific OG tags
     if (ogType === 'article') {
@@ -78,28 +99,79 @@ const SEOHead = ({
       if (articleAuthor) {
         updateMetaTag('article:author', articleAuthor, true);
       }
+      updateMetaTag('article:publisher', companyInfo.url, true);
     }
     
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:site', '@justin_slok');
-    updateMetaTag('twitter:creator', '@justin_slok');
+    updateMetaTag('twitter:site', companyInfo.social.twitterHandle);
+    updateMetaTag('twitter:creator', companyInfo.social.twitterHandle);
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', ogImage);
+    updateMetaTag('twitter:image:alt', title);
     
     // Canonical URL
-    if (canonicalUrl) {
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (!canonical) {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(canonical);
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', resolvedCanonicalUrl);
+    
+    // Alternate language (hreflang) - for Dutch site
+    let hreflangNl = document.querySelector('link[hreflang="nl"]');
+    if (!hreflangNl) {
+      hreflangNl = document.createElement('link');
+      hreflangNl.setAttribute('rel', 'alternate');
+      hreflangNl.setAttribute('hreflang', 'nl');
+      document.head.appendChild(hreflangNl);
+    }
+    hreflangNl.setAttribute('href', resolvedCanonicalUrl);
+    
+    let hreflangDefault = document.querySelector('link[hreflang="x-default"]');
+    if (!hreflangDefault) {
+      hreflangDefault = document.createElement('link');
+      hreflangDefault.setAttribute('rel', 'alternate');
+      hreflangDefault.setAttribute('hreflang', 'x-default');
+      document.head.appendChild(hreflangDefault);
+    }
+    hreflangDefault.setAttribute('href', resolvedCanonicalUrl);
+    
+    // Organization JSON-LD (always include on main pages)
+    if (includeOrganizationSchema) {
+      let orgScript = document.getElementById('organization-data');
+      if (!orgScript) {
+        orgScript = document.createElement('script');
+        orgScript.setAttribute('type', 'application/ld+json');
+        orgScript.setAttribute('id', 'organization-data');
+        document.head.appendChild(orgScript);
       }
-      canonical.setAttribute('href', canonicalUrl);
+      // Combine Organization and WebSite schemas
+      const combinedSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+          organizationJsonLd,
+          websiteJsonLd,
+        ]
+      };
+      orgScript.textContent = JSON.stringify(combinedSchema);
     }
     
-    // Structured Data
+    // LocalBusiness JSON-LD (for local SEO pages)
+    if (includeLocalBusinessSchema) {
+      let localScript = document.getElementById('localbusiness-data');
+      if (!localScript) {
+        localScript = document.createElement('script');
+        localScript.setAttribute('type', 'application/ld+json');
+        localScript.setAttribute('id', 'localbusiness-data');
+        document.head.appendChild(localScript);
+      }
+      localScript.textContent = JSON.stringify(localBusinessJsonLd);
+    }
+    
+    // Page-specific Structured Data
     if (structuredData) {
       let script = document.getElementById('structured-data');
       if (!script) {
@@ -135,14 +207,37 @@ const SEOHead = ({
       breadcrumbScript.textContent = JSON.stringify(breadcrumbData);
     }
     
-    // Cleanup function to remove breadcrumb data when component unmounts
+    // Cleanup function
     return () => {
       const breadcrumbScript = document.getElementById('breadcrumb-data');
       if (breadcrumbScript) {
         breadcrumbScript.remove();
       }
+      const structuredScript = document.getElementById('structured-data');
+      if (structuredScript) {
+        structuredScript.remove();
+      }
+      const localScript = document.getElementById('localbusiness-data');
+      if (localScript) {
+        localScript.remove();
+      }
     };
-  }, [title, description, keywords, canonicalUrl, ogImage, ogType, structuredData, breadcrumbs, articlePublishedTime, articleModifiedTime, articleAuthor]);
+  }, [
+    title, 
+    description, 
+    keywords, 
+    resolvedCanonicalUrl, 
+    ogImage, 
+    ogType, 
+    structuredData, 
+    breadcrumbs, 
+    articlePublishedTime, 
+    articleModifiedTime, 
+    articleAuthor,
+    noIndex,
+    includeOrganizationSchema,
+    includeLocalBusinessSchema,
+  ]);
   
   return null;
 };

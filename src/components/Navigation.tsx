@@ -21,6 +21,21 @@ const Navigation = () => {
   const location = useLocation();
   const shouldReduceMotion = useReducedMotion();
   const dienstenLinkRef = useRef<HTMLAnchorElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Measure and set header height as CSS variable
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (navRef.current) {
+        const height = navRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${height}px`);
+      }
+    };
+
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    return () => window.removeEventListener('resize', updateHeaderHeight);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -127,6 +142,7 @@ const Navigation = () => {
     <>
       <ReviewBar isScrolled={isScrolled} />
       <motion.nav
+        ref={navRef}
         className={`fixed left-0 right-0 z-50 border-b bg-background/95 backdrop-blur-sm border-border`}
         initial={false}
         animate={{
