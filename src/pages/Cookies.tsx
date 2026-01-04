@@ -4,6 +4,7 @@ import SEOHead from "@/components/SEOHead";
 import { Cookie } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, easings } from "@/lib/motion";
+import { companyInfo } from "@/config/company";
 
 const Cookies = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -32,7 +33,7 @@ const Cookies = () => {
       content: (
         <>
           <p className="text-muted-foreground">
-            Nieuwblik gebruikt cookies om:
+            {companyInfo.name} gebruikt cookies om:
           </p>
           <ul className="list-disc pl-6 mt-4 text-muted-foreground space-y-2">
             <li>De website goed te laten werken</li>
@@ -93,12 +94,12 @@ const Cookies = () => {
             Heeft u vragen over ons cookiebeleid? Neem dan contact met ons op via de <a href="/contact" className="text-primary hover:underline">contactpagina</a>.
           </p>
           <p className="text-muted-foreground mt-4">
-            <strong>Nieuwblik</strong><br />
-            <a href="https://www.google.com/maps/dir//De+Trompet+18H,+1601+MK+Enkhuizen/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x47c8a3932165dee3:0xecaa07e808a362fc?sa=X&ved=1t:707&ictx=111" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              De Trompet 18H, 1601 MK Enkhuizen
+            <strong>{companyInfo.name}</strong><br />
+            <a href={companyInfo.address.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              {companyInfo.address.full}
             </a><br />
-            KVK: 99229781<br />
-            BTW: NL005377205B80
+            KVK: {companyInfo.kvk}<br />
+            BTW: {companyInfo.btw}
           </p>
         </>
       )
@@ -111,7 +112,7 @@ const Cookies = () => {
         title="Cookieverklaring | Nieuwblik Webdesign Enkhuizen"
         description="Informatie over het cookiegebruik op de website van Nieuwblik. Welke cookies we gebruiken en waarvoor. Webdesign bureau Enkhuizen."
         keywords="cookieverklaring, cookies, privacy, Nieuwblik Enkhuizen, website cookies"
-        canonicalUrl="https://nieuwblik.com/cookies"
+        includeOrganizationSchema={false}
       />
       <Navigation />
       <main className="flex-1 bg-background">

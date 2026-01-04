@@ -16,7 +16,8 @@ const ThankYou = () => {
         title="Bedankt voor je Aanvraag | Nieuwblik Enkhuizen"
         description="Bedankt voor je projectaanvraag! We nemen binnen 48 uur contact met je op. Nieuwblik webdesign bureau Enkhuizen."
         keywords="bedankt, aanvraag verstuurd, Nieuwblik Enkhuizen, website project"
-        canonicalUrl="https://nieuwblik.com/bedankt"
+        noIndex={true}
+        includeOrganizationSchema={false}
       />
       <Navigation />
       
