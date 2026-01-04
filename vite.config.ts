@@ -72,12 +72,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Ensure every dependency resolves to the exact same React instance (prevents "Invalid hook call" / dispatcher-null errors)
-      react: path.resolve(__dirname, "./node_modules/react"),
-      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
-      "react/jsx-runtime": path.resolve(__dirname, "./node_modules/react/jsx-runtime"),
-      "react/jsx-dev-runtime": path.resolve(__dirname, "./node_modules/react/jsx-dev-runtime"),
     },
+    // Ensure dependencies resolve to a single React instance
     dedupe: ["react", "react-dom"],
   },
   build: {
