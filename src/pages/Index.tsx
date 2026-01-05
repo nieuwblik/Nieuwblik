@@ -34,6 +34,8 @@ import perplexityLogo from "@/assets/ai/perplexity-logo.png";
 import nieuwblikLogo from "@/assets/logo.png";
 
 // Import featured project images
+import ericavandijkImg from "@/assets/projects/ericavandijk.nl.png";
+import daniquekwakmanImg from "@/assets/projects/daniquekwakman.nl.png";
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
 import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
 import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
@@ -174,6 +176,20 @@ const Index = () => {
     theme
   } = useTheme();
   const featuredProjects = [{
+    title: "Erica van Dijk",
+    category: "HR Interim Manager & Adviseur",
+    description: "Professionele website voor HR interim management en advies. Sterke personal branding met focus op expertise en betrouwbaarheid.",
+    tags: ["Web Design", "Personal Branding", "HR", "Zakelijke Dienstverlening"],
+    image: ericavandijkImg,
+    url: "https://ericavandijk.nl"
+  }, {
+    title: "Danique Kwakman",
+    category: "Orthomoleculaire Therapeut",
+    description: "Moderne website voor orthomoleculaire therapie gericht op hormoonbalans en darmgezondheid. Warme uitstraling met heldere call-to-actions.",
+    tags: ["Web Design", "Gezondheid", "Therapie", "Personal Branding"],
+    image: daniquekwakmanImg,
+    url: "https://daniquekwakman.nl"
+  }, {
     title: "Bushido Shop",
     category: "E-commerce",
     description: "E-commerce platform voor Japanse vechtsportartikelen en authentieke culturele items.",
