@@ -205,7 +205,7 @@ export const DesignCarousel = () => {
                                                     duration: 0.8,
                                                     ease: [0.25, 0.1, 0.25, 1],
                                                 }}
-                                                className="flex flex-col"
+                                                className="flex flex-col relative group"
                                             >
                                                 <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl bg-secondary">
                                                     <motion.img
@@ -217,35 +217,31 @@ export const DesignCarousel = () => {
                                                         }}
                                                         transition={{ duration: 1.2 }}
                                                     />
-                                                    {/* Hover overlay */}
+
+                                                    {/* Gradient Overlay */}
                                                     <div
-                                                        className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-500 flex items-end justify-center pb-4 ${isSelected ? "opacity-100" : "opacity-0"}`}
+                                                        className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-500 ${isSelected ? "opacity-100" : "opacity-0"}`}
+                                                    />
+
+                                                    {/* Content Overlay - Bottom Left */}
+                                                    <div
+                                                        className={`absolute inset-0 flex items-end p-4 md:p-8 transition-opacity duration-500 ${isSelected ? "opacity-100" : "opacity-0"}`}
                                                     >
-                                                        <motion.span
-                                                            className="text-white/90 text-sm font-medium flex items-center gap-2"
-                                                            initial={{ y: 10, opacity: 0 }}
-                                                            animate={{ y: isSelected ? 0 : 10, opacity: isSelected ? 1 : 0 }}
-                                                            transition={{ delay: 0.1, duration: 0.4 }}
-                                                        >
-                                                            Bekijk project <ArrowRight className="w-4 h-4" />
-                                                        </motion.span>
+                                                        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-6 w-full transform translate-y-0 sm:translate-y-[-15%] sm:ml-4">
+                                                            {/* Title */}
+                                                            <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold tracking-tight shrink-0 group-hover:text-white/90 transition-colors duration-300 max-w-full sm:max-w-[60%] text-center sm:text-left px-2 sm:px-0">
+                                                                {item.title}
+                                                            </h3>
+
+                                                            {/* Button - Hidden on mobile, hidden by default on desktop, reveals on hover */}
+                                                            <div className="hidden sm:block opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-400 ease-out origin-center sm:origin-left">
+                                                                <span className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black text-sm font-medium shadow-lg transform transition-all duration-200 hover:scale-105 hover:-translate-y-0.5">
+                                                                    Bekijk
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                {/* Title below image */}
-                                                <motion.div
-                                                    className="text-center mt-4"
-                                                    animate={{ opacity: isSelected ? 1 : 0.6 }}
-                                                    transition={{ duration: 0.5 }}
-                                                >
-                                                    <h3 className="text-foreground text-base md:text-lg font-semibold tracking-tight">
-                                                        {item.title}
-                                                    </h3>
-                                                    {item.client && (
-                                                        <p className="text-muted-foreground text-sm mt-1">
-                                                            {item.client}
-                                                        </p>
-                                                    )}
-                                                </motion.div>
                                             </motion.div>
                                         </div>
                                     </div>
