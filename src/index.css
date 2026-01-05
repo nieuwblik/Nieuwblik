@@ -13,6 +13,12 @@
   body {
     text-rendering: optimizeSpeed;
   }
+
+  /* Global h2 styling - Bold Italic */
+  h2 {
+    font-weight: 700;
+    font-style: italic;
+  }
 }
 
 /* Nieuwblik Design System - Luxury Minimalism 
