@@ -13,9 +13,10 @@ import { useMotionValue, useSpring, useTransform } from "framer-motion";
 
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
 import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.png";
-import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.png";
 import pastamachineListingImg from "@/assets/projects/pastamachine-listing.png";
 import compressorListingImg from "@/assets/projects/compressor-listing.png";
+import babycameraVerpakkingImg from "@/assets/projects/babycamera-verpakking.jpg";
+import qmateGrondspotsImg from "@/assets/projects/qmate-grondspots-verpakking.jpg";
 
 type ShowcaseItem = {
     id: number;
@@ -24,48 +25,62 @@ type ShowcaseItem = {
     image: string;
     description: string;
     tags: string[];
+    client?: string;
 };
 
 const items: ShowcaseItem[] = [
     {
         id: 1,
-        title: "Kattenbak Verpakking",
-        category: "Verpakking",
-        image: kattenbakListingImg,
-        description: "Een revolutionair ontwerp voor de moderne kattenliefhebber. Focus op hygiëne en gebruiksgemak, verpakt in een strak, milieuvriendelijk design dat perfect past in elk modern interieur.",
-        tags: ["Packaging", "Eco-friendly", "Branding"],
+        title: "Compressor Listing",
+        category: "Design",
+        image: compressorListingImg,
+        description: "Professionele e-commerce productfotografie en listing design dat direct de aandacht trekt op grote marktplaatsen. Geoptimaliseerd voor maximale conversie.",
+        tags: ["E-commerce", "Shopify", "WooCommerce", "Amazon"],
     },
     {
         id: 2,
-        title: "Kitchenz Drogerballen",
+        title: "Pastamachine Listing",
         category: "Design",
-        image: hamburgerPressListingImg,
-        description: "Duurzame wasoplossingen verdienen een verpakking die zachtheid en kwaliteit uitstraalt. Een minimalistisch design dat de natuurlijkheid van het product benadrukt.",
-        tags: ["Product Design", "Sustainability", "Retail"],
+        image: pastamachineListingImg,
+        description: "Elegante productpresentatie voor een klassieke pastamachine. Heldere visuals die de Italiaanse keukenervaring overbrengen en kopers overtuigen.",
+        tags: ["E-commerce", "Shopify", "WooCommerce", "Amazon"],
+        client: "KitchenZ",
     },
     {
         id: 3,
-        title: "Hamburgerpers Doos",
-        category: "Verpakking",
-        image: schoenenWolListingImg,
-        description: "Stoer, robuust en smakelijk. Deze verpakking schreeuwt BBQ-seizoen en nodigt direct uit tot kopen. Gemaakt voor de echte grillmaster die houdt van kwaliteit.",
-        tags: ["Food Packaging", "Bold Design", "Print"],
+        title: "Kattenbak Listing",
+        category: "Design",
+        image: kattenbakListingImg,
+        description: "Moderne productlisting voor een innovatieve kattenbak. Strakke visuals die hygiëne en gebruiksgemak benadrukken voor de veeleisende kattenliefhebber.",
+        tags: ["E-commerce", "Shopify", "WooCommerce", "Amazon"],
+        client: "Movendo",
     },
     {
         id: 4,
-        title: "Pastamachine Branding",
+        title: "Hamburgerpers Listing",
         category: "Design",
-        image: pastamachineListingImg,
-        description: "De kunst van Italiaans koken gevangen in een visuele identiteit. Elegantie en traditie ontmoeten modern design in deze complete rebranding voor een klassiek keukeninstrument.",
-        tags: ["Branding", "Identity", "Culinary"],
+        image: hamburgerPressListingImg,
+        description: "Smakelijke productpresentatie voor BBQ-liefhebbers. Krachtige visuals die de kwaliteit en het plezier van outdoor koken perfect vastleggen.",
+        tags: ["E-commerce", "Shopify", "WooCommerce", "Amazon"],
+        client: "KitchenZ",
     },
     {
         id: 5,
-        title: "Compressor Handleiding",
+        title: "Babycamera Verpakking",
         category: "Verpakking",
-        image: compressorListingImg,
-        description: "Technische complexiteit vertaald naar heldere instructies. Een gebruiksvriendelijk design dat de gebruiker stap voor stap begeleidt zonder verwarring.",
-        tags: ["Instruction Design", "Technical", "Layout"],
+        image: babycameraVerpakkingImg,
+        description: "Professioneel packaging design voor een slimme babycamera. Vertrouwenwekkend ontwerp dat veiligheid en technologie combineert voor jonge ouders.",
+        tags: ["E-commerce", "Shopify", "WooCommerce", "Amazon"],
+        client: "Famson",
+    },
+    {
+        id: 6,
+        title: "Grondspots Verpakking",
+        category: "Verpakking",
+        image: qmateGrondspotsImg,
+        description: "Sfeervolle packaging voor solar grondspots. Premium uitstraling die de kwaliteit en duurzaamheid van het product direct communiceert.",
+        tags: ["E-commerce", "Shopify", "WooCommerce", "Amazon"],
+        client: "Q-Mate",
     },
 ];
 
