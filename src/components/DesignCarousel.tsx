@@ -137,7 +137,7 @@ export const DesignCarousel = () => {
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-accent text-sm font-bold tracking-widest uppercase mb-4 block"
+                        className="text-accent text-sm font-medium tracking-[0.2em] uppercase mb-4 block"
                     >
                         Custom Design
                     </motion.span>
@@ -146,16 +146,16 @@ export const DesignCarousel = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-6xl font-black mb-6 text-foreground tracking-tight"
+                        className="text-4xl md:text-5xl font-bold mb-6 text-foreground tracking-tight"
                     >
-                        Jouw merk verdient een verpakking die blijft hangen
+                        Jouw merk verdient een ontwerp die blijft hangen
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed max-w-2xl mx-auto"
+                        className="text-xl text-muted-foreground font-light leading-relaxed max-w-3xl mx-auto"
                     >
                         Wij vertalen jouw visie naar visuele taal die opvalt, onthouden wordt en mensen in beweging zet.
                     </motion.p>
