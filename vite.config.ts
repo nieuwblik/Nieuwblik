@@ -31,9 +31,8 @@ export default defineConfig(({ mode }) => ({
       webp: {
         lossless: false,
         quality: 85,
-        effort: 6, // Maximum compression effort (0-6)
+        effort: 6,
       },
-      // Optimize SVGs too
       svg: {
         multipass: true,
         plugins: [
@@ -60,9 +59,9 @@ export default defineConfig(({ mode }) => ({
     viteCompression({
       algorithm: 'gzip',
       ext: '.gz',
-      threshold: 10240, // Only compress files larger than 10kb
+      threshold: 10240,
     }),
-    // Brotli compression for production (better than gzip)
+    // Brotli compression for production
     viteCompression({
       algorithm: 'brotliCompress',
       ext: '.br',
@@ -73,7 +72,7 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    // Ensure dependencies resolve to a single React instance
+    // Force all packages to use the same React instance
     dedupe: [
       "react", 
       "react-dom", 
@@ -81,10 +80,11 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-dev-runtime",
       "framer-motion",
       "@tanstack/react-query",
+      "embla-carousel-react",
+      "embla-carousel-autoplay",
     ],
   },
   build: {
-    // Optimize chunk splitting for better caching
     rollupOptions: {
       output: {
         manualChunks: {
@@ -99,20 +99,15 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
-    // Increase chunk size warning limit for production
     chunkSizeWarningLimit: 1000,
-    // Use esbuild for minification (faster than terser)
     minify: 'esbuild',
-    // Additional esbuild options for production
     target: 'es2015',
-    // Enable CSS code splitting
     cssCodeSplit: true,
-    // Optimize asset output
-    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
-    reportCompressedSize: false, // Faster builds
-    sourcemap: false, // Disable sourcemaps in production for smaller files
+    assetsInlineLimit: 4096,
+    reportCompressedSize: false,
+    sourcemap: false,
   },
-  // Optimize dependencies
+  // Force re-optimization of dependencies to fix React duplicate issues
   optimizeDeps: {
     include: [
       'react', 
@@ -123,7 +118,9 @@ export default defineConfig(({ mode }) => ({
       'framer-motion',
       '@radix-ui/react-tooltip',
       '@tanstack/react-query',
+      'embla-carousel-react',
+      'embla-carousel-autoplay',
     ],
-    exclude: [],
+    force: true,
   },
 }));
