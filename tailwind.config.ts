@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Outfit', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        script: ['Dancing Script', 'cursive'],
       },
       fontWeight: {
         thin: '100',
