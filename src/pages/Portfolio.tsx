@@ -15,6 +15,8 @@ import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/m
 // Import project images
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
 import carbon6Img from "@/assets/projects/carbon6.nl.png";
+import ericavandijkImg from "@/assets/projects/ericavandijk.nl.png";
+import daniquekwakmanImg from "@/assets/projects/daniquekwakman.nl.png";
 import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.png";
 import edventureboatsImg from "@/assets/projects/edventureboats.nl.png";
 import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
@@ -47,6 +49,24 @@ const Portfolio = () => {
   }, []);
 
   const projects = [
+    {
+      title: "Erica van Dijk",
+      category: "HR Interim & Advies",
+      filterCategory: "websites",
+      description: "Professionele website voor HR interim manager en adviseur met focus op expertise en vertrouwen.",
+      tags: ["Web Design", "HR", "Zakelijke Diensten"],
+      image: ericavandijkImg,
+      url: "https://ericavandijk.nl"
+    },
+    {
+      title: "Danique Kwakman",
+      category: "Orthomoleculaire Therapie",
+      filterCategory: "websites",
+      description: "Holistische gezondheidswebsite gericht op hormoonbalans, darmgezondheid en energie optimalisatie.",
+      tags: ["Web Design", "Gezondheid", "Therapie"],
+      image: daniquekwakmanImg,
+      url: "https://daniquekwakman.nl"
+    },
     {
       title: "Bushido Shop",
       category: "E-commerce",
