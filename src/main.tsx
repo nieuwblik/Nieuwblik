@@ -14,3 +14,13 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>
 );
+
+// Register Service Worker only in production to avoid Vite dev caching issues
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {
+      // no-op: SW is an enhancement; app should work without it
+    });
+  });
+}
+
