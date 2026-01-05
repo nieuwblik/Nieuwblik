@@ -59,7 +59,7 @@ const ReviewForm = () => {
       // Reset form
       setFormData({ name: "", email: "", company: "", review_text: "" });
       setRating(0);
-    } catch (error) {
+    } catch {
       toast.error("Er is iets misgegaan. Probeer het opnieuw.");
     } finally {
       setIsSubmitting(false);

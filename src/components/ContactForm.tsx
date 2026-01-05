@@ -131,7 +131,6 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
       });
 
       if (error) {
-        console.error("Edge function error:", error);
         throw error;
       }
 
@@ -148,8 +147,7 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
       setTimeout(() => {
         navigate("/bedankt");
       }, 1500);
-    } catch (error: unknown) {
-      console.error("Form submission error:", error);
+    } catch {
       toast.error("Er is iets misgegaan. Probeer het opnieuw of neem direct contact op via justin@nieuwblik.com");
     } finally {
       setIsSubmitting(false);

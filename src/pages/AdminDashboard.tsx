@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -23,34 +23,66 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
-  useEffect(() => {
-    checkAdminAccess();
-    fetchReviews();
-  }, []);
-
-  const checkAdminAccess = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      navigate('/admin/login');
-      return;
-    }
-
-    const { data: roles } = await supabase
+  const checkAdminAccess = useCallback(async (userId: string) => {
+    const { data: roles, error } = await supabase
       .from('user_roles')
       .select('role')
-      .eq('user_id', session.user.id)
+      .eq('user_id', userId)
       .eq('role', 'admin')
       .single();
 
-    if (!roles) {
+    if (error || !roles) {
       toast.error("Geen toegang");
+      await supabase.auth.signOut();
       navigate('/admin/login');
+      return false;
     }
-  };
+    return true;
+  }, [navigate]);
 
-  const fetchReviews = async () => {
+  useEffect(() => {
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_OUT' || !session) {
+          setIsAuthorized(false);
+          navigate('/admin/login');
+          return;
+        }
+
+        if (session?.user) {
+          // Defer admin check to prevent deadlock
+          setTimeout(async () => {
+            const hasAccess = await checkAdminAccess(session.user.id);
+            if (hasAccess) {
+              setIsAuthorized(true);
+            }
+          }, 0);
+        }
+      }
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session) {
+        navigate('/admin/login');
+        return;
+      }
+
+      const hasAccess = await checkAdminAccess(session.user.id);
+      if (hasAccess) {
+        setIsAuthorized(true);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate, checkAdminAccess]);
+
+  const fetchReviews = useCallback(async () => {
+    if (!isAuthorized) return;
+    
     try {
       const { data, error } = await supabase
         .from('reviews')
@@ -59,12 +91,19 @@ const AdminDashboard = () => {
 
       if (error) throw error;
       setReviews(data || []);
-    } catch (error) {
+    } catch {
       toast.error("Fout bij laden van reviews");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isAuthorized]);
+
+  // Fetch reviews when authorized
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchReviews();
+    }
+  }, [isAuthorized, fetchReviews]);
 
   const handleApprove = async (id: string) => {
     try {
