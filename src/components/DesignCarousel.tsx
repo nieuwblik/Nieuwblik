@@ -203,39 +203,49 @@ export const DesignCarousel = () => {
                                                 whileHover={isSelected ? { scale: 1.28 } : {}}
                                                 transition={{
                                                     duration: 0.8,
-                                                    ease: [0.25, 0.1, 0.25, 1], // Luxury cubic-bezier
+                                                    ease: [0.25, 0.1, 0.25, 1],
                                                 }}
-                                                className="relative aspect-[4/3] rounded-[8px] md:rounded-[10px] overflow-hidden shadow-2xl bg-secondary"
+                                                className="flex flex-col"
                                             >
-                                                <motion.img
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    className="w-full h-full object-cover"
-                                                    animate={{
-                                                        scale: isSelected ? 1.05 : 1,
-                                                    }}
-                                                    transition={{ duration: 1.2 }}
-                                                />
-
-                                                {/* Overlay */}
-                                                <div
-                                                    className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8 ${isSelected ? "opacity-100" : "opacity-0"}`}
-                                                >
-                                                    <h3 className="text-white text-xl md:text-2xl font-black leading-none mb-1">
-                                                        {item.title}
-                                                    </h3>
-                                                    <div className="overflow-hidden">
-                                                        {/* Animated 'View Project' */}
-                                                        <motion.p
-                                                            className="text-white/80 text-sm font-medium flex items-center gap-2 mt-2"
-                                                            initial={{ y: 20, opacity: 0 }}
-                                                            animate={{ y: isSelected ? 0 : 20, opacity: isSelected ? 1 : 0 }}
+                                                <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl bg-secondary">
+                                                    <motion.img
+                                                        src={item.image}
+                                                        alt={item.title}
+                                                        className="w-full h-full object-cover"
+                                                        animate={{
+                                                            scale: isSelected ? 1.05 : 1,
+                                                        }}
+                                                        transition={{ duration: 1.2 }}
+                                                    />
+                                                    {/* Hover overlay */}
+                                                    <div
+                                                        className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-500 flex items-end justify-center pb-4 ${isSelected ? "opacity-100" : "opacity-0"}`}
+                                                    >
+                                                        <motion.span
+                                                            className="text-white/90 text-sm font-medium flex items-center gap-2"
+                                                            initial={{ y: 10, opacity: 0 }}
+                                                            animate={{ y: isSelected ? 0 : 10, opacity: isSelected ? 1 : 0 }}
                                                             transition={{ delay: 0.1, duration: 0.4 }}
                                                         >
                                                             Bekijk project <ArrowRight className="w-4 h-4" />
-                                                        </motion.p>
+                                                        </motion.span>
                                                     </div>
                                                 </div>
+                                                {/* Title below image */}
+                                                <motion.div
+                                                    className="text-center mt-4"
+                                                    animate={{ opacity: isSelected ? 1 : 0.6 }}
+                                                    transition={{ duration: 0.5 }}
+                                                >
+                                                    <h3 className="text-foreground text-base md:text-lg font-semibold tracking-tight">
+                                                        {item.title}
+                                                    </h3>
+                                                    {item.client && (
+                                                        <p className="text-muted-foreground text-sm mt-1">
+                                                            {item.client}
+                                                        </p>
+                                                    )}
+                                                </motion.div>
                                             </motion.div>
                                         </div>
                                     </div>
@@ -302,26 +312,32 @@ export const DesignCarousel = () => {
                                     />
                                 </div>
 
-                                {/* Right: Light Minimalist Content - Compact */}
-                                <div className="w-[35%] h-full p-8 lg:p-12 flex flex-col justify-center bg-white dark:bg-zinc-900 text-foreground relative">
+                                {/* Right: Content Panel */}
+                                <div className="w-[35%] h-full p-8 lg:p-12 flex flex-col justify-center bg-background text-foreground relative">
                                     <div className="space-y-6">
                                         <div>
-                                            <Badge variant="outline" className="mb-4 px-3 py-1 text-[10px] uppercase tracking-widest border-border text-muted-foreground w-fit">
-                                                {selectedProject.category}
-                                            </Badge>
-                                            <h2 className="text-3xl lg:text-4xl font-black leading-tight mb-4 tracking-tight text-foreground">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <Badge variant="outline" className="px-3 py-1 text-[10px] uppercase tracking-[0.15em] border-border text-muted-foreground">
+                                                    {selectedProject.category}
+                                                </Badge>
+                                                {selectedProject.client && (
+                                                    <span className="text-sm text-accent font-medium">
+                                                        {selectedProject.client}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-4 tracking-tight text-foreground">
                                                 {selectedProject.title}
                                             </h2>
-                                            {/* Separator removed */}
-                                            <p className="text-base text-muted-foreground leading-relaxed font-light">
+                                            <p className="text-base text-muted-foreground leading-relaxed">
                                                 {selectedProject.description}
                                             </p>
                                         </div>
 
                                         <div className="flex flex-wrap gap-2 pt-2">
                                             {selectedProject.tags.map((tag) => (
-                                                <Badge key={tag} variant="secondary" className="px-3 py-1 text-xs font-mono font-medium opacity-80">
-                                                    #{tag}
+                                                <Badge key={tag} variant="secondary" className="px-3 py-1.5 text-xs font-medium">
+                                                    {tag}
                                                 </Badge>
                                             ))}
                                         </div>
@@ -361,16 +377,21 @@ export const DesignCarousel = () => {
                                     </div>
 
                                     <div className="px-6 pb-6 overflow-y-auto flex-1">
-                                        <div className="mb-1">
-                                            <Badge variant="outline" className="px-2 py-0.5 text-[10px] uppercase tracking-wider">{selectedProject.category}</Badge>
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <Badge variant="outline" className="px-2 py-0.5 text-[10px] uppercase tracking-[0.15em]">{selectedProject.category}</Badge>
+                                            {selectedProject.client && (
+                                                <span className="text-sm text-accent font-medium">
+                                                    {selectedProject.client}
+                                                </span>
+                                            )}
                                         </div>
-                                        <DrawerTitle className="text-2xl font-black mb-3">{selectedProject.title}</DrawerTitle>
+                                        <DrawerTitle className="text-2xl font-bold mb-3">{selectedProject.title}</DrawerTitle>
                                         <DrawerDescription className="text-sm text-muted-foreground mb-6 leading-relaxed">
                                             {selectedProject.description}
                                         </DrawerDescription>
                                         <div className="flex flex-wrap gap-2 mb-8">
                                             {selectedProject.tags.map(tag => (
-                                                <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                                                <Badge key={tag} variant="secondary" className="text-xs font-medium">{tag}</Badge>
                                             ))}
                                         </div>
                                         <AnimatedButton to="/contact" className="w-full justify-center">
