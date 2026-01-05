@@ -74,7 +74,7 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
     // Ensure dependencies resolve to a single React instance
-    dedupe: ["react", "react-dom"],
+    dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
   },
   build: {
     // Optimize chunk splitting for better caching
@@ -112,7 +112,9 @@ export default defineConfig(({ mode }) => ({
       'react-dom', 
       'react-router-dom',
       'react/jsx-runtime',
+      'react/jsx-dev-runtime',
       '@radix-ui/react-tooltip',
+      '@tanstack/react-query',
     ],
     exclude: [],
   },
