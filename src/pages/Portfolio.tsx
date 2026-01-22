@@ -12,23 +12,7 @@ import SocialContentSection from "@/components/SocialContentSection";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
 
-// Import project images
-import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
-import carbon6Img from "@/assets/projects/carbon6.nl.png";
-import ericavandijkImg from "@/assets/projects/ericavandijk.nl.png";
-import daniquekwakmanImg from "@/assets/projects/daniquekwakman.nl.png";
-import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.png";
-import edventureboatsImg from "@/assets/projects/edventureboats.nl.png";
-import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.png";
-import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.png";
-import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.png";
-import kyodaioriginalsImg from "@/assets/projects/kyodaioriginals.nl.png";
-import lashlutionImg from "@/assets/projects/lashlution.nl.png";
-import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.png";
-import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
-import greenProfitImg from "@/assets/projects/green-profit.nl.png";
-import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
-import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
+import { projects } from "@/data/projects";
 
 // Import e-commerce listing images
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
@@ -47,153 +31,6 @@ const Portfolio = () => {
     const timer = setTimeout(() => setIsLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
-
-  const projects = [
-    {
-      title: "Erica van Dijk",
-      category: "HR Interim & Advies",
-      filterCategory: "websites",
-      description: "Professionele website voor HR interim manager en adviseur met focus op expertise en vertrouwen.",
-      tags: ["Web Design", "HR", "Zakelijke Diensten"],
-      image: ericavandijkImg,
-      url: "https://ericavandijk.nl"
-    },
-    {
-      title: "Danique Kwakman",
-      category: "Orthomoleculaire Therapie",
-      filterCategory: "websites",
-      description: "Holistische gezondheidswebsite gericht op hormoonbalans, darmgezondheid en energie optimalisatie.",
-      tags: ["Web Design", "Gezondheid", "Therapie"],
-      image: daniquekwakmanImg,
-      url: "https://daniquekwakman.nl"
-    },
-    {
-      title: "Bushido Shop",
-      category: "E-commerce",
-      filterCategory: "websites",
-      description: "E-commerce platform voor Japanse vechtsportartikelen en authentieke culturele items.",
-      tags: ["E-commerce", "Web Design", "Branding"],
-      image: bushidoshopImg,
-      url: "https://bushidoshop.nl"
-    },
-    {
-      title: "Carbon6",
-      category: "Vastgoed",
-      filterCategory: "websites",
-      description: "Modern vastgoed platform met geavanceerde zoekfunctie en kamer browse features.",
-      tags: ["Web Development", "Vastgoed", "UI/UX"],
-      image: carbon6Img,
-      url: "https://carbon6.nl"
-    },
-    {
-      title: "Casper Nieskens PT",
-      category: "Personal Training",
-      filterCategory: "websites",
-      description: "Professioneel fitness coaching platform met gepersonaliseerde trainingsprogramma's.",
-      tags: ["Web Design", "Fitness", "Branding"],
-      image: caspernieskensptImg,
-      url: "https://caspernieskenspt.com"
-    },
-    {
-      title: "Edventure Boats",
-      category: "Avontuur & Toerisme",
-      filterCategory: "websites",
-      description: "Water avontuur boekingsplatform voor spannende boot ervaringen.",
-      tags: ["Web Design", "Boekingssysteem", "Toerisme"],
-      image: edventureboatsImg,
-      url: "https://edventureboats.com"
-    },
-    {
-      title: "Esveld Installatie",
-      category: "Installatiediensten",
-      filterCategory: "websites",
-      description: "Professionele HVAC en installatiediensten website met klant portal.",
-      tags: ["Web Design", "Dienstverlening", "Contact Formulieren"],
-      image: esveldinstallatieImg,
-      url: "https://esveldinstallatie.nl"
-    },
-    {
-      title: "Interieur Studio Laan",
-      category: "Interieur Design",
-      filterCategory: "websites",
-      description: "Elegante interieur design showcase met portfolio galerij en consultatieaanvraag.",
-      tags: ["Web Design", "Interieur Design", "Portfolio"],
-      image: interieurstudiolaan,
-      url: "https://interieurstudiolaan.nl"
-    },
-    {
-      title: "Karate School Cor Slok",
-      category: "Vechtsport",
-      filterCategory: "websites",
-      description: "Dynamische karateschool website met lesroosters en leden portal.",
-      tags: ["Web Design", "Sport", "Community"],
-      image: karateschoolcorslokImg,
-      url: "https://karateschoolcorslok.nl"
-    },
-    {
-      title: "Kyodai Originals",
-      category: "E-commerce",
-      filterCategory: "websites",
-      description: "Gespecialiseerd e-commerce platform voor authentieke Japanse verzamelobjecten.",
-      tags: ["E-commerce", "Product Showcase", "Branding"],
-      image: kyodaioriginalsImg,
-      url: "https://kyodaioriginals.nl"
-    },
-    {
-      title: "Lashlution",
-      category: "Beauty & Wellness",
-      filterCategory: "websites",
-      description: "Premium lash extensions en beauty services boekingsplatform.",
-      tags: ["Web Design", "Beauty", "Boekingssysteem"],
-      image: lashlutionImg,
-      url: "https://lashlution.nl"
-    },
-    {
-      title: "MHB Techniek",
-      category: "Technische Diensten",
-      filterCategory: "websites",
-      description: "Smart home technologie oplossingen met service boeking en consultatie features.",
-      tags: ["Web Development", "Technologie", "Dienstverlening"],
-      image: mhbtechniekImg,
-      url: "https://mhbtechniek.nl"
-    },
-    {
-      title: "Feitsma Dakwerken",
-      category: "Dakdekkersdiensten",
-      filterCategory: "websites",
-      description: "Premium dakdekkersdiensten website met project showcase en consultatieaanvraag.",
-      tags: ["Web Design", "Bouw", "Dienstverlening"],
-      image: feitsmadakwerkenImg,
-      url: "https://feitsmadakwerken.nl"
-    },
-    {
-      title: "Green Profit",
-      category: "Duurzame Oplossingen",
-      filterCategory: "websites",
-      description: "Duurzaam bouwen en energie oplossingen platform met uitgebreid dienstenaanbod.",
-      tags: ["Web Design", "Duurzaamheid", "Diensten"],
-      image: greenProfitImg,
-      url: "https://green-profit.nl"
-    },
-    {
-      title: "VdV Tuinen",
-      category: "Tuinaanleg & Tuinen",
-      filterCategory: "websites",
-      description: "Professioneel tuinontwerp en tuinaanlegdiensten met portfolio showcase.",
-      tags: ["Web Design", "Tuinaanleg", "Portfolio"],
-      image: vdvtuinenImg,
-      url: "https://vdvtuinen.nl"
-    },
-    {
-      title: "RRS Royal",
-      category: "Bouwpartner",
-      filterCategory: "websites",
-      description: "Complete bouwpartnership website met projectmanagement features.",
-      tags: ["Web Design", "Bouw", "Zakelijk"],
-      image: rrsroyalImg,
-      url: "https://rrsroyal.nl"
-    }
-  ];
 
   const ecommerceListings = [
     {
@@ -242,8 +79,8 @@ const Portfolio = () => {
     { id: "videos", label: "Video's" },
   ];
 
-  const filteredProjects = activeFilter === "all" 
-    ? projects 
+  const filteredProjects = activeFilter === "all"
+    ? projects
     : projects.filter(project => project.filterCategory === activeFilter);
 
   const showVideos = activeFilter === "all" || activeFilter === "videos";
@@ -270,7 +107,7 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
+      <SEOHead
         title="Portfolio | Website & Webshop Projecten Enkhuizen - Nieuwblik"
         description="Bekijk onze portfolio: websites en webshops uit West-Friesland. Van MKB tot e-commerce, ontdek wat ons webdesign bureau in Enkhuizen voor jou kan betekenen."
         keywords="webdesign portfolio Enkhuizen, website voorbeelden West-Friesland, webshop projecten, e-commerce cases, website laten maken"
@@ -282,35 +119,35 @@ const Portfolio = () => {
         ]}
       />
       <Navigation />
-      
+
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
         <div className="container mx-auto px-6">
           <Breadcrumb items={[{ label: "Portfolio", path: "/portfolio" }]} />
         </div>
       </section>
-      
+
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="pb-20 md:pb-28"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.p 
+          <motion.p
             className="text-accent mb-6"
             variants={fadeUp}
           >
             ONS PORTFOLIO
           </motion.p>
-          <motion.h1 
+          <motion.h1
             className="text-display mb-6"
             variants={fadeUp}
           >
             Bewezen successen die spreken
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light"
             variants={fadeUp}
           >
@@ -320,7 +157,7 @@ const Portfolio = () => {
       </motion.section>
 
       {/* Filter Section */}
-      <motion.section 
+      <motion.section
         className="pb-12"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -333,17 +170,16 @@ const Portfolio = () => {
               <motion.button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${
-                  activeFilter === filter.id
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "bg-secondary text-muted-foreground hover:bg-secondary/80"
-                }`}
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${activeFilter === filter.id
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "bg-secondary text-muted-foreground hover:bg-secondary/80"
+                  }`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: shouldReduceMotion ? 0 : index * 0.05, 
-                  duration: 0.3, 
-                  ease: easings.easeOutExpo 
+                transition={{
+                  delay: shouldReduceMotion ? 0 : index * 0.05,
+                  duration: 0.3,
+                  ease: easings.easeOutExpo
                 }}
                 whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
@@ -358,7 +194,7 @@ const Portfolio = () => {
       {/* Portfolio Grid */}
       <AnimatePresence mode="wait">
         {showProjects && (
-          <motion.section 
+          <motion.section
             className="pb-20 md:pb-32"
             key="projects"
             initial={{ opacity: 0 }}
@@ -384,7 +220,7 @@ const Portfolio = () => {
                   ))}
                 </div>
               ) : (
-                <motion.div 
+                <motion.div
                   className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
                   variants={staggerContainer}
                   initial="hidden"
@@ -402,6 +238,7 @@ const Portfolio = () => {
                         image={project.image}
                         url={project.url}
                         tags={project.tags}
+                        slug={project.slug}
                       />
                     </motion.div>
                   ))}
@@ -415,7 +252,7 @@ const Portfolio = () => {
       {/* E-commerce Listings Section */}
       <AnimatePresence mode="wait">
         {showEcommerce && (
-          <motion.section 
+          <motion.section
             className="pb-20 md:pb-32"
             key="ecommerce"
             initial={{ opacity: 0 }}
@@ -424,7 +261,7 @@ const Portfolio = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="container mx-auto px-6">
-              <motion.div 
+              <motion.div
                 className="mb-12"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -436,7 +273,7 @@ const Portfolio = () => {
                   Professionele productpresentaties die verkopen stimuleren
                 </p>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
                 variants={staggerContainer}
                 initial="hidden"
@@ -444,21 +281,21 @@ const Portfolio = () => {
                 viewport={{ once: true, margin: "-100px" }}
               >
                 {ecommerceListings.map((listing, index) => (
-                  <motion.div 
+                  <motion.div
                     key={listing.title}
                     className="group cursor-pointer block"
                     onClick={() => setSelectedImage(listing.image)}
                     variants={staggerItem}
                   >
-                    <motion.div 
+                    <motion.div
                       className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative"
-                      whileHover={shouldReduceMotion ? {} : { 
-                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+                      whileHover={shouldReduceMotion ? {} : {
+                        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                       }}
                       transition={{ duration: 0.3, ease: easings.easeOutExpo }}
                     >
-                      <motion.img 
-                        src={listing.image} 
+                      <motion.img
+                        src={listing.image}
                         alt={listing.title}
                         loading="lazy"
                         decoding="async"
@@ -468,13 +305,13 @@ const Portfolio = () => {
                         whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
                         transition={{ duration: 0.5, ease: easings.easeOutExpo }}
                       />
-                      <motion.div 
+                      <motion.div
                         className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 flex items-center justify-center"
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <motion.span 
+                        <motion.span
                           className="text-sm font-medium bg-background px-6 py-3 rounded-full shadow-lg"
                           initial={{ y: 10, opacity: 0 }}
                           whileHover={{ y: 0, opacity: 1 }}
@@ -490,7 +327,7 @@ const Portfolio = () => {
                       <p className="text-muted-foreground mb-4 font-light">{listing.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {listing.tags.map((tag, idx) => (
-                          <motion.span 
+                          <motion.span
                             key={idx}
                             className="text-xs px-3 py-1 bg-secondary rounded-full text-muted-foreground"
                             whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -517,8 +354,8 @@ const Portfolio = () => {
         <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 overflow-hidden border-0">
           <AnimatePresence>
             {selectedImage && (
-              <motion.img 
-                src={selectedImage} 
+              <motion.img
+                src={selectedImage}
                 alt="E-commerce listing"
                 className="w-full h-full object-contain"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -532,7 +369,7 @@ const Portfolio = () => {
       </Dialog>
 
       {/* CTA Section */}
-      <motion.section 
+      <motion.section
         className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
         initial="hidden"
         whileInView="visible"
@@ -540,13 +377,13 @@ const Portfolio = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6 text-center">
-          <motion.h2 
+          <motion.h2
             className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground"
             variants={fadeUp}
           >
             Klaar om jouw succesverhaal te schrijven?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light"
             variants={fadeUp}
           >

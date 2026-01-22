@@ -16,6 +16,7 @@ import Services from "./pages/Services";
 
 // Lazy load non-critical pages
 const Portfolio = lazy(() => import("./pages/Portfolio"));
+const PortfolioDetail = lazy(() => import("./pages/PortfolioDetail"));
 const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -36,21 +37,21 @@ const Ecommerce = lazy(() => import("./pages/services/Ecommerce"));
 
 // Loading fallback with premium animation
 const PageLoader = () => (
-  <motion.div 
+  <motion.div
     className="min-h-screen flex items-center justify-center bg-background"
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.3, ease: easings.easeOutQuart }}
   >
-    <motion.div 
+    <motion.div
       className="text-accent font-medium"
-      animate={{ 
+      animate={{
         opacity: [0.5, 1, 0.5],
         scale: [0.98, 1, 0.98]
       }}
-      transition={{ 
-        duration: 1.5, 
+      transition={{
+        duration: 1.5,
         repeat: Infinity,
         ease: "easeInOut"
       }}
@@ -65,7 +66,7 @@ const queryClient = new QueryClient();
 // Page transition wrapper component with reduced motion support
 const PageTransition = ({ children }: { children: React.ReactNode }) => {
   const shouldReduceMotion = useReducedMotion();
-  
+
   // Simplified animation for users who prefer reduced motion
   if (shouldReduceMotion) {
     return (
@@ -95,7 +96,7 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 // Routes wrapper with location
 const AnimatedRoutes = () => {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait" initial={true}>
       <Suspense fallback={<PageLoader />}>
@@ -106,6 +107,7 @@ const AnimatedRoutes = () => {
           <Route path="/diensten/webshops" element={<PageTransition><Webshops /></PageTransition>} />
           <Route path="/diensten/e-commerce" element={<PageTransition><Ecommerce /></PageTransition>} />
           <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
+          <Route path="/portfolio/:slug" element={<PageTransition><PortfolioDetail /></PageTransition>} />
           <Route path="/over-ons" element={<PageTransition><About /></PageTransition>} />
           <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
           <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
