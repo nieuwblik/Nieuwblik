@@ -673,12 +673,25 @@ const BlogPost = () => {
                   viewport={{ once: true, margin: "-100px" }}
                   variants={scaleUp}
                 >
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                    Klaar om jouw website naar het volgende level te tillen?
-                  </h3>
-                  <p className="text-lg mb-6 opacity-90 font-light">
-                    Ontdek hoe we jouw online aanwezigheid transformeren met een website die écht resultaat oplevert.
-                  </p>
+                  {slug === 'brand-storytelling-van-pixel-tot-voordeur' ? (
+                    <>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                        Klaar om jouw merk tastbaar te maken?
+                      </h3>
+                      <p className="text-lg mb-6 opacity-90 font-light">
+                        Van je eerste pixel tot aan de voordeur - wij helpen je een consistente merkbeleving te creëren die indruk maakt.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                        Klaar om jouw website naar het volgende level te tillen?
+                      </h3>
+                      <p className="text-lg mb-6 opacity-90 font-light">
+                        Ontdek hoe we jouw online aanwezigheid transformeren met een website die écht resultaat oplevert.
+                      </p>
+                    </>
+                  )}
                   <motion.div
                     whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
@@ -762,7 +775,9 @@ const BlogPost = () => {
                 </div>
 
                 <p className="mb-6 opacity-90">
-                  Heb je ideeën gekregen voor je eigen project? Laten we samen iets moois bouwen dat jouw merk laat schitteren.
+                  {slug === 'brand-storytelling-van-pixel-tot-voordeur'
+                    ? 'Heb je ideeën gekregen voor je branding? Laten we samen een merkbeleving creëren die van pixel tot voordeur consistent is.'
+                    : 'Heb je ideeën gekregen voor je eigen project? Laten we samen iets moois bouwen dat jouw merk laat schitteren.'}
                 </p>
 
                 <div className="space-y-4">

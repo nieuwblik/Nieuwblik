@@ -6,6 +6,7 @@ import replitLogoImg from "@/assets/blog/replit-logo.png";
 import cursorLogoImg from "@/assets/blog/cursor-logo.png";
 import supabaseLogoImg from "@/assets/blog/supabase-logo.png";
 import claudeLogoImg from "@/assets/blog/claude-logo.png";
+import brandStorytellingImg from "@/assets/blog/brand-storytelling.jpg";
 export interface BlogPost {
   slug: string;
   title: {
@@ -26,6 +27,108 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "brand-storytelling-van-pixel-tot-voordeur",
+    image: brandStorytellingImg,
+    title: {
+      nl: "Brand Storytelling: Van je eerste pixel tot hun voordeur",
+      en: "Brand Storytelling: From your first pixel to their front door"
+    },
+    excerpt: {
+      nl: "In 2026 draait een sterk merk niet alleen om wat je op een scherm ziet, maar om de hele reis. Ontdek hoe je jouw merkverhaal doortrekt naar de fysieke bezorging.",
+      en: "In 2026, a strong brand isn't just about what you see on a screen; it's about the entire journey. Discover how to extend your brand story to physical delivery."
+    },
+    content: {
+      nl: `Je hebt uren gezwoegd op de perfecte pixel-positionering van je webshop. De buttons hebben de juiste schaduw, de teksten knallen en de user experience is vlekkeloos. Maar dan wordt de bestelling geplaatst. Wat gebeurt er daarna?
+
+Vaak zie je dat daar een gat valt. De prachtige online beleving maakt plaats voor een standaard bruine doos en een saaie pakbon. Zonde! In 2026 draait een sterk merk namelijk niet alleen om wat je op een scherm ziet, maar om de hele reis. Jouw merkverhaal stopt niet bij de 'Bedankt'-pagina; het begint daar pas echt.
+
+---
+
+## De 'Hé, dit klopt!'-ervaring
+
+De grootste fout die je kunt maken, is een breuk in de stijl. Als je webshop een minimalistische, luxe uitstraling heeft, maar je product komt aan in een doos vol met rommelige plastic opvulmaterialen, dan klopt het gevoel niet meer. De klant raakt uit de flow.
+
+**Visuele echo:** Laat patronen, lettertypes of iconen van je website subtiel terugkomen op de verpakking. Het hoeft niet groot; een tof patroon aan de binnenkant van de doos werkt vaak krachtiger dan een enorm logo op de buitenkant.
+
+**De tone-of-voice:** Is je website vlot en grappig? Laat die humor dan ook terugkomen op de pakbon of op een sticker die de doos dicht houdt. Een simpele tekst als "Eindelijk ben ik er!" doet meer voor je merk dan een standaard factuur.
+
+---
+
+## Het unboxing-ritueel (zonder de poespas)
+
+We kennen allemaal de overdreven video's op social media, maar in de kern gaat het simpelweg om aandacht. Een merk tastbaar maken betekent dat je nadenkt over de volgorde van openmaken.
+
+**De eerste aanblik:** Wat ziet de klant als de tape eraf gaat? Is het een rommeltje, of ligt het product daar als een cadeautje?
+
+**Kiezen met je handen:** Grafisch ontwerp is meer dan alleen kijken. De keuze voor mat papier, een ruwe kartonstructuur of een zacht vloeipapiertje vertelt een verhaal over de kwaliteit van je merk. Je voelt de zorg die erin is gestoken.
+
+**De persoonlijke touch:** Een klein kaartje met stylingtips of een bedankje in dezelfde huisstijl maakt het verschil. Het herinnert de klant eraan dat er een mens achter de webshop zit.
+
+---
+
+## Duurzaamheid is ook een designkeuze
+
+Tegenwoordig is 'groen' geen extraatje meer, maar de standaard. Een merk dat in 2026 nog bergen onnodig plastic verstuurt, tast zijn eigen geloofwaardigheid aan.
+
+**Maatwerk:** Gebruik verpakkingen die precies op maat zijn. Dit oogt niet alleen strakker en professioneler, het laat ook zien dat je nadenkt over je voetafdruk.
+
+**Herbruikbaarheid:** Ontwerp je verzenddoos zo mooi dat mensen hem niet willen weggooien, maar gebruiken om iets anders in te bewaren. Elke keer dat ze die doos zien, denken ze weer even aan jouw merk.
+
+---
+
+## Conclusie: Maak het tastbaar
+
+Goede branding is een belofte die je doet op je website. De fysieke bezorging is het moment waarop je die belofte waarmaakt. Door je grafische identiteit door te trekken naar het tastbare pakketje, verander je een simpele aankoop in een echte ervaring.
+
+Want laten we eerlijk zijn: we worden allemaal een beetje blij van een pakketje dat met aandacht is ontworpen, toch?`,
+      en: `You've spent hours perfecting every pixel of your webshop. The buttons have the right shadow, the copy pops, and the user experience is flawless. But then, the order is placed. What happens next?
+
+Often, there's a gap. The beautiful online experience makes way for a standard brown box and a dull packing slip. What a waste! In 2026, a strong brand isn't just about what you see on a screen; it's about the entire journey. Your brand story doesn't end at the 'Thank You' page; it's where it truly begins.
+
+---
+
+## The 'Hey, this fits!' Experience
+
+The biggest mistake you can make is a break in style. If your webshop has a minimalist, luxury look, but your product arrives in a box full of messy plastic packing material, the feeling is gone. The customer is pulled out of the flow.
+
+**Visual echo:** Subtly reflect patterns, fonts, or icons from your website on the packaging. It doesn't have to be big—a cool pattern on the inside of the box often works better than a massive logo on the outside.
+
+**Tone-of-voice:** Is your website breezy and funny? Let that humor come back on the packing slip or a sticker sealing the box. A simple text like "Finally, I'm here!" does more for your brand than a standard invoice.
+
+---
+
+## The Unboxing Ritual (without the fuss)
+
+We all know those over-the-top social media videos, but at its heart, it's simply about attention. Making a brand tangible means thinking about the order of opening.
+
+**The first glance:** What does the customer see when the tape comes off? Is it a mess, or does the product lie there like a gift?
+
+**Choosing with your hands:** Graphic design is more than just looking. The choice of matte paper, a rough cardboard texture, or soft tissue paper tells a story about the quality of your brand. You feel the care put into it.
+
+**The personal touch:** A small card with styling tips or a thank-you note in the same house style makes a difference. It reminds the customer that a human is behind the webshop.
+
+---
+
+## Sustainability is also a Design Choice
+
+Nowadays, 'green' isn't an extra; it's the standard. A brand that's still sending mountains of unnecessary plastic in 2026 damages its own credibility.
+
+**Customization:** Use packaging that fits precisely. This looks cleaner and more professional, and shows you're thinking about your footprint.
+
+**Reusability:** Design your shipping box so beautifully that people don't want to throw it away, but use it to store something else. Every time they see that box, they think of your brand.
+
+---
+
+## Conclusion: Make it Tangible
+
+Good branding is a promise you make on your website. Physical delivery is the moment you fulfill that promise. By extending your graphic identity to the tangible package, you turn a simple purchase into a real experience.
+
+Because let's be honest: we all get a little happy from a package that's designed with care, don't we?`
+    },
+    date: "2026-01-23",
+    readingTime: 6
+  },
   {
     slug: "figma-hadoseo-lovable-perfecte-website",
     image: figmaLogoImg,
