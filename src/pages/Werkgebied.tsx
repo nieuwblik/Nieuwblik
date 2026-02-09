@@ -51,7 +51,7 @@ const Werkgebied = () => {
 
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 sm:px-6 pt-32 pb-12 sm:pb-16">
+        <section className="container mx-auto px-4 sm:px-6 pt-40 sm:pt-32 pb-12 sm:pb-16">
           <div className="max-w-4xl mx-auto">
             {/* Breadcrumb */}
             <Breadcrumb
