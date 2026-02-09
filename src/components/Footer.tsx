@@ -89,8 +89,32 @@ const Footer = () => {
         >
           <h4 className="font-semibold mb-6 text-lg">Ons werkgebied</h4>
 
-          {/* Alle regio's - Altijd zichtbaar */}
-          <div className="mb-4">
+          {/* Mobiel: alleen eerste 8 regio's */}
+          <div className="block md:hidden">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {[...localRegions, ...majorRegions].slice(0, 8).map((region) => (
+                <Link
+                  key={region.id}
+                  to={`/werkgebied/${region.slug}`}
+                  className="text-sm text-muted-foreground hover:text-accent transition-colors px-3 py-1.5 rounded-md hover:bg-accent/10"
+                >
+                  {region.name}
+                </Link>
+              ))}
+            </div>
+            <Link
+              to="/werkgebied"
+              className="text-sm text-accent hover:text-accent/80 transition-colors inline-flex items-center gap-1 font-medium"
+            >
+              Meer locaties
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+
+          {/* Desktop: alle regio's */}
+          <div className="hidden md:block">
             <div className="flex flex-wrap gap-2">
               {[...localRegions, ...majorRegions].map((region) => (
                 <Link

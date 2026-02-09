@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, Phone, Mail } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getLocalRegions, getMajorRegions } from "@/data/regions";
@@ -50,8 +51,18 @@ const Werkgebied = () => {
 
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-12 sm:pb-16">
+        <section className="container mx-auto px-4 sm:px-6 pt-32 pb-12 sm:pb-16">
           <div className="max-w-4xl mx-auto">
+            {/* Breadcrumb */}
+            <Breadcrumb
+              items={[
+                {
+                  label: "Werkgebied",
+                  path: "/werkgebied"
+                }
+              ]}
+            />
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}

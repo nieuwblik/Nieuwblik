@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRegionBySlug } from "@/data/regions";
@@ -193,9 +194,9 @@ const WerkgebiedDetail = () => {
 
       <Navigation />
 
-      <main className="min-h-screen bg-background pt-20 sm:pt-24 pb-12 sm:pb-20">
+      <main className="min-h-screen bg-background pt-32 pb-12 sm:pb-20">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 sm:px-6 py-8 sm:py-16">
+        <section className="container mx-auto px-4 sm:px-6 pb-8 sm:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -203,28 +204,18 @@ const WerkgebiedDetail = () => {
             className="max-w-6xl mx-auto"
           >
             {/* Breadcrumb */}
-            <motion.nav
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="mb-4 sm:mb-6"
-            >
-              <ol className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-                <li>
-                  <Link to="/" className="hover:text-foreground transition-colors">
-                    Home
-                  </Link>
-                </li>
-                <li>/</li>
-                <li>
-                  <Link to="/werkgebied" className="hover:text-foreground transition-colors">
-                    Werkgebied
-                  </Link>
-                </li>
-                <li>/</li>
-                <li className="text-foreground font-medium">{region.name}</li>
-              </ol>
-            </motion.nav>
+            <Breadcrumb
+              items={[
+                {
+                  label: "Werkgebied",
+                  path: "/werkgebied"
+                },
+                {
+                  label: region.name,
+                  path: `/werkgebied/${region.slug}`
+                }
+              ]}
+            />
 
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
               <div>
