@@ -1,3 +1,4 @@
+import benotedImg from "@/assets/projects/benoted.nl.jpg";
 import bushidoshopImg from "@/assets/projects/bushidoshop.nl.png";
 import carbon6Img from "@/assets/projects/carbon6.nl.png";
 import ericavandijkImg from "@/assets/projects/ericavandijk.nl.png";
@@ -35,6 +36,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "benoted",
+    title: "BeNoted",
+    category: "Social Media Agency (Financiële Sector)",
+    filterCategory: "websites",
+    description: "High-performance platform voor financiële marketing met AI-native development, enterprise-grade beveiliging en internationale schaalbaarheid.",
+    tags: ["Web Development", "AI-Native", "Fintech", "Marketing"],
+    image: benotedImg,
+    url: "https://benoted.nl",
+    detail: {
+      year: "2025 - 2026",
+      goal: "De architectuur van de website is ontworpen om drie strategische doelen te ondersteunen: High-Intent Leadgeneratie voor verkeer uit campagnes met meer dan 100 miljoen weergaven en 12.000 leads. Internationalisering & Recruitment voor de expansie naar Bangalore (India) door middel van geautomatiseerde recruitment-funnels. Autoriteit door 'Social Proof' via een razendsnelle gebruikerservaring die de technische competentie van het bureau onderstreept.",
+      idea: "De visuele identiteit volgt een 'Trust meets Modernity' filosofie, essentieel voor de financiële doelgroep. Een strategische combinatie van Inter (voor leesbaarheid en data) en Plus Jakarta Sans (voor een moderne, geometrische uitstraling). Een 'Clean Corporate' esthetiek met veel witruimte die rust en controle uitstraalt, terwijl de mobile-first opzet inspeelt op het snelle consumptiegedrag van social media gebruikers.",
+      details: "Dit project is een schoolvoorbeeld van AI-Native Development, gebouwd voor snelheid en schaalbaarheid. Met Lovable's AI-gestuurde development is een Single Page Application (SPA) gerealiseerd die een app-achtige ervaring biedt zonder laadtijden bij navigatie.\n\nVoor maximale veiligheid is gekozen voor Supabase met Row Level Security (RLS) om klantdata hermetisch te beveiligen. Edge Functions zorgen voor server-side tracking, essentieel om conversies nauwkeurig te meten in een privacy-first wereld (AVG).\n\nDe financiële sector kampt met een dilemma: de noodzaak voor betrouwbaarheid botst vaak met de snelheid van moderne media. BeNoted dicht dit gat als specialistisch bureau. De uitdaging voor dit project was het creëren van een digitaal platform dat institutionele veiligheid (zoals vereist door banken) naadloos combineert met creatieve innovatie.\n\nMet benoted.nl heeft BeNoted een platform dat klaar is voor de toekomst. De combinatie van AI-ontwikkelkracht en enterprise-grade beveiliging maakt het mogelijk om wereldwijd op te schalen zonder in te leveren op de strenge eisen van de financiële markt."
+    }
+  },
   {
     slug: "danique-kwakman",
     title: "Danique Kwakman",
