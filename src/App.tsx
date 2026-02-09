@@ -35,6 +35,10 @@ const WebsiteOpMaat = lazy(() => import("./pages/services/WebsiteOpMaat"));
 const Webshops = lazy(() => import("./pages/services/Webshops"));
 const Ecommerce = lazy(() => import("./pages/services/Ecommerce"));
 
+// Werkgebied pages
+const Werkgebied = lazy(() => import("./pages/Werkgebied"));
+const WerkgebiedDetail = lazy(() => import("./pages/WerkgebiedDetail"));
+
 // Loading fallback with premium animation
 const PageLoader = () => (
   <motion.div
@@ -118,6 +122,8 @@ const AnimatedRoutes = () => {
           <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
           <Route path="/algemene-voorwaarden" element={<PageTransition><Terms /></PageTransition>} />
           <Route path="/reviews" element={<PageTransition><Reviews /></PageTransition>} />
+          <Route path="/werkgebied" element={<PageTransition><Werkgebied /></PageTransition>} />
+          <Route path="/werkgebied/:slug" element={<PageTransition><WerkgebiedDetail /></PageTransition>} />
           <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
           <Route path="/admin/dashboard" element={<PageTransition><AdminDashboard /></PageTransition>} />
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
