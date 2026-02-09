@@ -173,6 +173,7 @@ const Index = () => {
 
   // Select featured projects based on the titles previously used
   const featuredProjectTitles = [
+    "BeNoted",
     "Erica van Dijk",
     "Danique Kwakman",
     "Bushido Shop",
