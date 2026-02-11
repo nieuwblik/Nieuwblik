@@ -40,11 +40,11 @@ const AnimatedSection = ({
   children,
   className = "",
   delay = 0
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) => {
+
+
+
+
+}: {children: React.ReactNode;className?: string;delay?: number;}) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -75,12 +75,12 @@ const AnimatedText = ({
   className = "",
   delay = 0,
   as: Component = "div"
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  as?: "div" | "p" | "h1" | "h2" | "h3" | "span";
-}) => {
+
+
+
+
+
+}: {children: React.ReactNode;className?: string;delay?: number;as?: "div" | "p" | "h1" | "h2" | "h3" | "span";}) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -110,10 +110,10 @@ const AnimatedText = ({
 const HeroPhotoCard = ({
   heroTeamImage,
   shouldReduceMotion
-}: {
-  heroTeamImage: string;
-  shouldReduceMotion: boolean | null;
-}) => {
+
+
+
+}: {heroTeamImage: string;shouldReduceMotion: boolean | null;}) => {
   const cardRef = useRef(null);
   const {
     scrollYProgress
@@ -173,16 +173,16 @@ const Index = () => {
 
   // Select featured projects based on the titles previously used
   const featuredProjectTitles = [
-    "BeNoted",
-    "Erica van Dijk",
-    "Danique Kwakman",
-    "Bushido Shop",
-    "Karateschool Cor Slok",
-    "Esveld Installatie",
-    "Feitsma Dakwerken"
-  ];
+  "BeNoted",
+  "Erica van Dijk",
+  "Danique Kwakman",
+  "Bushido Shop",
+  "Karateschool Cor Slok",
+  "Esveld Installatie",
+  "Feitsma Dakwerken"];
 
-  const featuredProjects = projects.filter(p => featuredProjectTitles.includes(p.title));
+
+  const featuredProjects = projects.filter((p) => featuredProjectTitles.includes(p.title));
   return <div className="min-h-screen bg-background">
     <SEOHead
       title="Nieuwblik | Webdesign Bureau Enkhuizen - Websites & Webshops"
@@ -190,8 +190,8 @@ const Index = () => {
       keywords="webdesign, website laten maken, webshop, enkhuizen, noord-holland, webdevelopment, e-commerce, online marketing"
       canonicalUrl={companyInfo.url}
       includeOrganizationSchema={true}
-      includeLocalBusinessSchema={true}
-    />
+      includeLocalBusinessSchema={true} />
+
     <Navigation />
 
     {/* Hero Section - Visual Poetry Layout */}
@@ -289,9 +289,9 @@ const Index = () => {
               }} whileTap={shouldReduceMotion ? {} : {
                 scale: 0.95
               }}>
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
+                
+
+
               </motion.a>
 
               {/* LinkedIn */}
