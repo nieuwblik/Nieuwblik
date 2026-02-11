@@ -104,8 +104,6 @@ const SEOHead = ({
     
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:site', companyInfo.social.twitterHandle);
-    updateMetaTag('twitter:creator', companyInfo.social.twitterHandle);
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', ogImage);

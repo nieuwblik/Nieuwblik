@@ -222,7 +222,7 @@ const WerkgebiedDetail = () => {
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ duration: 0.5, ease: easings.easeOutBack }}
+                  transition={{ duration: 0.5, ease: easings.softBounce }}
                   className="inline-flex items-center gap-2 bg-accent/10 text-accent px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 text-xs sm:text-sm font-medium"
                 >
                   <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />

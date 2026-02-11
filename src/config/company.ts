@@ -28,8 +28,6 @@ export const companyInfo = {
   
   // Social
   social: {
-    twitter: "https://x.com/justin_slok",
-    twitterHandle: "@justin_slok",
     linkedin: "https://www.linkedin.com/in/justin-slok-b8a3011b2/",
   },
   
@@ -70,7 +68,6 @@ export const organizationJsonLd = {
     availableLanguage: ["Dutch", "English"],
   },
   sameAs: [
-    companyInfo.social.twitter,
     companyInfo.social.linkedin,
   ],
   // Dutch business identifiers
@@ -132,7 +129,6 @@ export const localBusinessJsonLd = {
     closes: "17:00",
   },
   sameAs: [
-    companyInfo.social.twitter,
     companyInfo.social.linkedin,
   ],
 };
