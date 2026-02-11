@@ -72,7 +72,7 @@ const Werkgebied = () => {
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ duration: 0.5, ease: easings.easeOutBack }}
+                transition={{ duration: 0.5, ease: easings.softBounce }}
                 className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-accent/10 rounded-full mb-6"
               >
                 <MapPin className="w-7 h-7 sm:w-8 sm:h-8 text-accent" />
