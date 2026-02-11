@@ -443,35 +443,154 @@ const Index = () => {
       }} />
     </section>
 
-    {/* Services Overview */}
-    <section className="py-20 md:py-32 bg-secondary">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <AnimatedText as="p" className="text-accent mb-4">WAT WIJ DOEN</AnimatedText>
-          <AnimatedText as="h2" className="text-4xl md:text-5xl font-bold mb-6" delay={0.1}>
-            Jouw succes, onze passie
+    {/* SEO Search Engines Section - Integration Animation */}
+    <section className="py-16 md:py-24 lg:py-32 bg-secondary overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 md:mb-12">
+          <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
+            Jouw website vindbaar in alle zoekmachines
           </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-muted-foreground max-w-3xl mx-auto font-light" delay={0.2}>
-            Elk project krijgt onze volledige toewijding. Van strategie tot uitvoering - wij zorgen dat jouw digitale aanwezigheid niet alleen gezien wordt, maar ook gewaardeerd.
+          <AnimatedText as="p" className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed" delay={0.1}>
+            Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude - jouw website wordt gevonden.
           </AnimatedText>
         </div>
 
-        <MagicServicesCards />
+        {/* Integration Animation */}
+        <AnimatedSection delay={0.2} className="relative mx-auto max-w-5xl">
+          {/* Search Engine Icons Row - Responsive Grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-items-center max-w-2xl sm:max-w-none mx-auto">
+            {/* Google */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
+                    <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                    </svg>
+                  </motion.span>
+                </TooltipTrigger>
+                <TooltipContent><p>Google</p></TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
 
-        <AnimatedSection delay={0.4} className="text-center mt-12">
-          <motion.div whileHover={shouldReduceMotion ? {} : {
-            scale: 1.03,
-            y: -2
-          }} whileTap={shouldReduceMotion ? {} : {
-            scale: 0.98
-          }} transition={{
-            duration: 0.2,
-            ease: easings.easeOutQuart
-          }}>
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/diensten">Kies hier jouw service</Link>
-            </Button>
-          </motion.div>
+            {/* OpenAI */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
+                    <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
+                      <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#10A37F" />
+                    </svg>
+                  </motion.span>
+                </TooltipTrigger>
+                <TooltipContent><p>OpenAI</p></TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Perplexity */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
+                    <img src={perplexityLogo} alt="Perplexity AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                  </motion.span>
+                </TooltipTrigger>
+                <TooltipContent><p>Perplexity AI</p></TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Claude */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
+                    <img src={claudeLogo} alt="Claude AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                  </motion.span>
+                </TooltipTrigger>
+                <TooltipContent><p>Claude AI</p></TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Grok */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
+                    <img src={grokLogo} alt="Grok (X AI)" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                  </motion.span>
+                </TooltipTrigger>
+                <TooltipContent><p>Grok (X AI)</p></TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Copilot */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
+                    <img src={copilotLogo} alt="Microsoft Copilot" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                  </motion.span>
+                </TooltipTrigger>
+                <TooltipContent><p>Microsoft Copilot</p></TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
+          {/* SVG Connection Lines - Hidden on mobile, visible on sm+ */}
+          <div className="hidden sm:block relative mt-4 md:mt-6 h-40 md:h-56 lg:h-64">
+            <svg viewBox="0 0 600 280" className="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <circle cx="50" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" /></circle>
+              <circle cx="150" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.2s" repeatCount="indefinite" /></circle>
+              <circle cx="250" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.4s" repeatCount="indefinite" /></circle>
+              <circle cx="350" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.6s" repeatCount="indefinite" /></circle>
+              <circle cx="450" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.8s" repeatCount="indefinite" /></circle>
+              <circle cx="550" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="1s" repeatCount="indefinite" /></circle>
+
+              <path d="M300 240 C 300 160, 175 80, 50 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 500, strokeDashoffset: 500 }}><animate attributeName="stroke-dashoffset" values="500;0;500" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
+              <path d="M300 240 C 300 170, 225 100, 150 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 420, strokeDashoffset: 420 }}><animate attributeName="stroke-dashoffset" values="420;0;420" dur="3s" begin="0.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
+              <path d="M300 240 C 300 140, 275 80, 250 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 350, strokeDashoffset: 350 }}><animate attributeName="stroke-dashoffset" values="350;0;350" dur="3s" begin="0.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
+              <path d="M300 240 C 300 140, 325 80, 350 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 350, strokeDashoffset: 350 }}><animate attributeName="stroke-dashoffset" values="350;0;350" dur="3s" begin="0.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
+              <path d="M300 240 C 300 170, 375 100, 450 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 420, strokeDashoffset: 420 }}><animate attributeName="stroke-dashoffset" values="420;0;420" dur="3s" begin="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
+              <path d="M300 240 C 300 160, 425 80, 550 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 500, strokeDashoffset: 500 }}><animate attributeName="stroke-dashoffset" values="500;0;500" dur="3s" begin="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
+            </svg>
+
+            {/* Center Logo (Nieuwblik) */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
+              <motion.span className="inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{ boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)' }} animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+                <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert" />
+              </motion.span>
+            </div>
+          </div>
+
+          {/* Mobile: Simple center logo without lines */}
+          <div className="sm:hidden flex justify-center mt-6">
+            <motion.span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{ boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)' }} animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+              <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 object-contain brightness-0 invert" />
+            </motion.span>
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.4} className="text-center mt-8 md:mt-12">
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto font-light italic mb-6 md:mb-8 px-4">
+            "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat jouw website de juiste vindbaarheid krijgt - vandaag, morgen, en in de toekomst."
+          </p>
+
+          <AnimatedButton to="/contact" size="lg">
+            Boost mijn vindbaarheid
+          </AnimatedButton>
         </AnimatedSection>
       </div>
     </section>
@@ -522,231 +641,7 @@ const Index = () => {
     {/* Social Content Section */}
     <SocialContentSection />
 
-    {/* SEO Search Engines Section - Integration Animation */}
-    <section className="py-16 md:py-24 lg:py-32 bg-secondary overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-8 md:mb-12">
-          <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
-            Jouw website vindbaar in alle zoekmachines
-          </AnimatedText>
-          <AnimatedText as="p" className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed" delay={0.1}>
-            Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude - jouw website wordt gevonden.
-          </AnimatedText>
-        </div>
 
-        {/* Integration Animation */}
-        <AnimatedSection delay={0.2} className="relative mx-auto max-w-5xl">
-          {/* Search Engine Icons Row - Responsive Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-items-center max-w-2xl sm:max-w-none mx-auto">
-            {/* Google */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.1
-                  }}>
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                    </svg>
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Google</p></TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            {/* OpenAI */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.1
-                  }}>
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                      <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#10A37F" />
-                    </svg>
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>OpenAI</p></TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            {/* Perplexity */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.1
-                  }}>
-                    <img src={perplexityLogo} alt="Perplexity AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Perplexity AI</p></TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            {/* Claude */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.1
-                  }}>
-                    <img src={claudeLogo} alt="Claude AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Claude AI</p></TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            {/* Grok */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.1
-                  }}>
-                    <img src={grokLogo} alt="Grok (X AI)" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Grok (X AI)</p></TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            {/* Copilot */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : {
-                    scale: 1.1
-                  }}>
-                    <img src={copilotLogo} alt="Microsoft Copilot" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Microsoft Copilot</p></TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-
-          {/* SVG Connection Lines - Hidden on mobile, visible on sm+ */}
-          <div className="hidden sm:block relative mt-4 md:mt-6 h-40 md:h-56 lg:h-64">
-            {/* 6 dots centered under each logo using percentages */}
-            <svg viewBox="0 0 600 280" className="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="xMidYMid meet">
-              {/* Glow filter */}
-              <defs>
-                <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Connection points centered under each logo (6 columns = 100 each, center at 50, 150, 250, 350, 450, 550) */}
-              <circle cx="50" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="150" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.2s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="250" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.4s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="350" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.6s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="450" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.8s" repeatCount="indefinite" />
-              </circle>
-              <circle cx="550" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)">
-                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="1s" repeatCount="indefinite" />
-              </circle>
-
-              {/* Curved lines from center (300) to each logo */}
-              <path d="M300 240 C 300 160, 175 80, 50 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{
-                strokeDasharray: 500,
-                strokeDashoffset: 500
-              }}>
-                <animate attributeName="stroke-dashoffset" values="500;0;500" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
-              </path>
-              <path d="M300 240 C 300 170, 225 100, 150 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{
-                strokeDasharray: 420,
-                strokeDashoffset: 420
-              }}>
-                <animate attributeName="stroke-dashoffset" values="420;0;420" dur="3s" begin="0.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
-              </path>
-              <path d="M300 240 C 300 140, 275 80, 250 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{
-                strokeDasharray: 350,
-                strokeDashoffset: 350
-              }}>
-                <animate attributeName="stroke-dashoffset" values="350;0;350" dur="3s" begin="0.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
-              </path>
-              <path d="M300 240 C 300 140, 325 80, 350 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{
-                strokeDasharray: 350,
-                strokeDashoffset: 350
-              }}>
-                <animate attributeName="stroke-dashoffset" values="350;0;350" dur="3s" begin="0.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
-              </path>
-              <path d="M300 240 C 300 170, 375 100, 450 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{
-                strokeDasharray: 420,
-                strokeDashoffset: 420
-              }}>
-                <animate attributeName="stroke-dashoffset" values="420;0;420" dur="3s" begin="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
-              </path>
-              <path d="M300 240 C 300 160, 425 80, 550 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{
-                strokeDasharray: 500,
-                strokeDashoffset: 500
-              }}>
-                <animate attributeName="stroke-dashoffset" values="500;0;500" dur="3s" begin="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
-              </path>
-            </svg>
-
-            {/* Center Logo (Nieuwblik) */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-              <motion.span className="inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{
-                boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)'
-              }} animate={shouldReduceMotion ? {} : {
-                scale: [1, 1.05, 1]
-              }} transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}>
-                <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert" />
-              </motion.span>
-            </div>
-          </div>
-
-          {/* Mobile: Simple center logo without lines */}
-          <div className="sm:hidden flex justify-center mt-6">
-            <motion.span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{
-              boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)'
-            }} animate={shouldReduceMotion ? {} : {
-              scale: [1, 1.05, 1]
-            }} transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}>
-              <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 object-contain brightness-0 invert" />
-            </motion.span>
-          </div>
-        </AnimatedSection>
-
-        <AnimatedSection delay={0.4} className="text-center mt-8 md:mt-12">
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto font-light italic mb-6 md:mb-8 px-4">
-            "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat jouw website de juiste vindbaarheid krijgt - vandaag, morgen, en in de toekomst."
-          </p>
-
-          <AnimatedButton to="/contact" size="lg">
-            Boost mijn vindbaarheid
-          </AnimatedButton>
-        </AnimatedSection>
-      </div>
-    </section>
 
     {/* Testimonials Section */}
     <section className="py-20 md:py-32 bg-secondary">
