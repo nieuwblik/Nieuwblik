@@ -273,26 +273,26 @@ const Index = () => {
               ease: easings.easeOutExpo
             }}>
               {/* X (Twitter) */}
-              <motion.a href="https://x.com/justin_slok" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-foreground/20 flex items-center justify-center hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300" aria-label="X (Twitter)" initial={{
-                opacity: 0,
-                scale: 0.8
-              }} animate={{
-                opacity: 1,
-                scale: 1
-              }} transition={{
-                delay: 0.5,
-                duration: 0.4,
-                ease: easings.softBounce
-              }} whileHover={shouldReduceMotion ? {} : {
-                scale: 1.1,
-                y: -3
-              }} whileTap={shouldReduceMotion ? {} : {
-                scale: 0.95
-              }}>
-                
+              
 
 
-              </motion.a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
               {/* LinkedIn */}
               <motion.a href="https://www.linkedin.com/in/justin-slok-b8a3011b2/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-foreground/20 flex items-center justify-center hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300" aria-label="LinkedIn" initial={{
