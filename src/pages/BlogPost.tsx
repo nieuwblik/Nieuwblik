@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
@@ -404,12 +405,16 @@ const BlogPost = () => {
         );
       }
 
-      // HTML content
+      // HTML content (sanitized)
       if (section.includes('<div') || section.includes('<a')) {
+        const sanitized = DOMPurify.sanitize(section, {
+          ALLOWED_TAGS: ['div', 'a', 'svg', 'path', 'g', 'defs', 'clipPath', 'rect'],
+          ALLOWED_ATTR: ['href', 'target', 'rel', 'style', 'class', 'width', 'height', 'viewBox', 'fill', 'xmlns', 'd', 'clip-path', 'id'],
+        });
         return (
           <motion.div
             key={index}
-            dangerouslySetInnerHTML={{ __html: section }}
+            dangerouslySetInnerHTML={{ __html: sanitized }}
             className="my-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
