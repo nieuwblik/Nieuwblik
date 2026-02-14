@@ -44,7 +44,7 @@ const AnimatedSection = ({
 
 
 
-}: {children: React.ReactNode;className?: string;delay?: number;}) => {
+}: { children: React.ReactNode; className?: string; delay?: number; }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -80,7 +80,7 @@ const AnimatedText = ({
 
 
 
-}: {children: React.ReactNode;className?: string;delay?: number;as?: "div" | "p" | "h1" | "h2" | "h3" | "span";}) => {
+}: { children: React.ReactNode; className?: string; delay?: number; as?: "div" | "p" | "h1" | "h2" | "h3" | "span"; }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -113,7 +113,7 @@ const HeroPhotoCard = ({
 
 
 
-}: {heroTeamImage: string;shouldReduceMotion: boolean | null;}) => {
+}: { heroTeamImage: string; shouldReduceMotion: boolean | null; }) => {
   const cardRef = useRef(null);
   const {
     scrollYProgress
@@ -173,13 +173,13 @@ const Index = () => {
 
   // Select featured projects based on the titles previously used
   const featuredProjectTitles = [
-  "BeNoted",
-  "Erica van Dijk",
-  "Danique Kwakman",
-  "Bushido Shop",
-  "Karateschool Cor Slok",
-  "Esveld Installatie",
-  "Feitsma Dakwerken"];
+    "BeNoted",
+    "Erica van Dijk",
+    "Danique Kwakman",
+    "Bushido Shop",
+    "Karateschool Cor Slok",
+    "Esveld Installatie",
+    "Feitsma Dakwerken"];
 
 
   const featuredProjects = projects.filter((p) => featuredProjectTitles.includes(p.title));
@@ -273,7 +273,7 @@ const Index = () => {
               ease: easings.easeOutExpo
             }}>
               {/* X (Twitter) */}
-              
+
 
 
 
@@ -595,6 +595,31 @@ const Index = () => {
       </div>
     </section>
 
+    {/* Testimonials Section - Brand Green Aesthetic */}
+    <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
+      {/* Subtle Texture Overlay */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
+
+      {/* Subtle Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
+        style={{ background: 'radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)' }} />
+
+      <div className="container relative z-10 mx-auto px-6">
+        <div className="text-center mb-12 md:mb-16">
+          <AnimatedText as="h2" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white" delay={0.1}>
+            Wat mensen zeggen
+          </AnimatedText>
+          <AnimatedText as="p" className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed" delay={0.2}>
+            Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik.
+          </AnimatedText>
+        </div>
+
+        <AnimatedSection delay={0.2}>
+          <TestimonialsCarousel />
+        </AnimatedSection>
+      </div>
+    </section>
+
     {/* Featured Projects */}
     <section className="py-20 md:py-32">
       <div className="container mx-auto px-6">
@@ -640,27 +665,6 @@ const Index = () => {
 
     {/* Social Content Section */}
     <SocialContentSection />
-
-
-
-    {/* Testimonials Section */}
-    <section className="py-20 md:py-32 bg-secondary">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <AnimatedText as="p" className="text-accent mb-4">KLANTEN AAN HET WOORD</AnimatedText>
-          <AnimatedText as="h2" className="text-4xl md:text-5xl font-bold mb-6" delay={0.1}>
-            Jouw succes is ons visitekaartje
-          </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-muted-foreground max-w-3xl mx-auto font-light" delay={0.2}>
-            Niets zegt meer dan de ervaring van tevreden klanten die hun online doelen hebben bereikt en hun verwachtingen overtroffen zagen.
-          </AnimatedText>
-        </div>
-
-        <AnimatedSection delay={0.2}>
-          <TestimonialsCarousel />
-        </AnimatedSection>
-      </div>
-    </section>
 
     {/* Featured Blog Posts */}
     <FeaturedBlogPosts />

@@ -1,278 +1,197 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Star, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { easings, fadeUp, scaleUp } from "@/lib/motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
-interface Testimonial {
+interface GoogleReview {
   name: string;
-  company?: string;
+  role: string;
   rating: number;
   text: string;
-  date?: string;
 }
 
-const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sca_esv=8d0681f1a4a4235b&rlz=1C1GCEA_enNL1027NL1027&sxsrf=AE3TifMLcYtBEKpUaNhMYnjtbFJY4DDtZQ:1762430304800&q=nieuwblik&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E41TwuCziL3w73Kt8XMVdkOUPgIOr_b4h6IupuYh4m-qki5ZJ8eFVpL-yBW3eH9arT0bBhs%3D&uds=AOm0WdH6nlfKCX7KLFCq2cu8xOlC0TOV5ueG1dqxqYrC2916mj2v379G3lTv03EdiMAnQ7XDxhytKFxL5sLr_Tibq423KhN3_WHZz9I5Psb6mNkNionJJ8Y&sa=X&ved=2ahUKEwjEhInCvN2QAxVt2QIHHan6LMMQ3PALegQINhAF&biw=2560&bih=1305&dpr=1";
+const GOOGLE_REVIEWS_URL = "https://www.google.com/search?q=Nieuwblik+Reviews";
 
 const TestimonialsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
+  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const testimonials: Testimonial[] = [
+  const reviews: GoogleReview[] = [
     {
-      name: "Sarah Johnson",
-      company: "Boutique Fashion",
+      name: "Trijntje Laan",
+      role: "Collega via Collega",
       rating: 5,
-      text: "Nieuwblik heeft onze online aanwezigheid volledig getransformeerd. Hun aandacht voor detail en begrip van luxe branding is uitzonderlijk. Onze website vertegenwoordigt nu perfect onze high-end modewinkel.",
-      date: "2 weeks ago"
+      text: "Via mijn collega kwam ik bij Nieuwblik terecht. Vanaf het moment dat ik met Justin in contact kwam, voelde het meteen goed. Justin is enthousiast, denkt goed mee en levert kwalitatief hoogstaand werk.",
     },
     {
-      name: "Mark van den Berg",
-      company: "Tech Innovations B.V.",
+      name: "Tijs Nieuwboer",
+      role: "Klant bij Nieuwblik",
       rating: 5,
-      text: "Samenwerken met Nieuwblik was een gamechanger voor onze startup. Ze leverden een geavanceerde webapplicatie die onze verwachtingen overtrof. Professioneel, creatief en ongelooflijk responsief.",
-      date: "1 month ago"
+      text: "Vanaf het eerste moment dat ik met Nieuwblik in contact kwam, was ik onder de indruk van hun professionele aanpak en creatieve inzicht. Ik had een complete website nodig en zij hebben perfect geleverd.",
     },
     {
-      name: "Emma de Vries",
-      company: "Wellness Studio",
+      name: "Jesse Huisman",
+      role: "Eigenaar Nieuwblik",
       rating: 5,
-      text: "De branding kit die ze voor ons hebben gemaakt is absoluut prachtig. Elk element voelt samenhangend en premium aan. Onze klanten complimenteren voortdurend onze visuele identiteit. Een echte aanrader!",
-      date: "3 weeks ago"
+      text: "Nieuwblik is top! Ik heb altijd goed contact gehad met de jongens daar, en hun leveringen zijn snel en betrouwbaar. Ik heb meerdere designs laten maken, van logo's tot complete websites.",
     },
     {
-      name: "Robert Jansen",
-      company: "AutoDeluxe",
+      name: "Huub Rood",
+      role: "Merk Eigenaar",
       rating: 5,
-      text: "Van websiteontwerp tot autobelettering, Nieuwblik heeft alles met uitzonderlijk professionalisme afgehandeld. Ze begrijpen echt hoe je de visuele aanwezigheid van een merk kunt verheffen.",
-      date: "2 months ago"
+      text: "Ik kwam bij Nieuwblik omdat ik ze via LinkedIn voorbij zag komen. Had een logo nodig voor mijn merk dus klopte ik bij ze aan. Ze hadden goede suggesties en het resultaat is geweldig.",
     },
     {
-      name: "Lisa Vermeulen",
-      company: "E-commerce Solutions",
+      name: "Thijs Peerdeman",
+      role: "Tevreden Klant",
       rating: 5,
-      text: "Ons e-commerce platform is nu een kunstwerk. De ontwerpexpertise van Nieuwblik gecombineerd met technische excellentie resulteerde in een website die prachtig converteert. Elke euro waard!",
-      date: "1 week ago"
+      text: "Super tevreden met de diensten van Nieuwblik. De jongens van Nieuwblik denken echt met je mee en zijn pas klaar wanneer jij tevreden bent. Ik raadt ze aan iedereen aan!",
+    },
+    {
+      name: "Maarten Gesink",
+      role: "Klant sinds dag 1",
+      rating: 5,
+      text: "Sinds dag 1 klant bij Nieuwblik, enorm fijn in contact. Komen professioneel en deskundig over en staan klaar met hun expertise en ideeën. Kortom erg tevreden!",
+    },
+    {
+      name: "Niels van Esveld",
+      role: "Website Eigenaar",
+      rating: 5,
+      text: "Nieuwblik heeft voor ons bedrijf de website onderhanden genomen. Heel fijn en direct contact, handelt snel en luistert niet alleen naar je wens maar neemt ook initiatief.",
     }
   ];
 
-  const nextSlide = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevSlide = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  const goToSlide = (index: number) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
-  };
+  const [cardsToShow, setCardsToShow] = useState(3);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 6000);
-    return () => clearInterval(interval);
+    const handleResize = () => {
+      if (window.innerWidth < 768) setCardsToShow(1);
+      else if (window.innerWidth < 1024) setCardsToShow(2);
+      else setCardsToShow(3);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const currentTestimonial = testimonials[currentIndex];
+  const totalPossibleIndices = reviews.length - cardsToShow;
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
-      opacity: 0,
-      scale: 0.98,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: shouldReduceMotion ? 0.2 : 0.5,
-        ease: easings.easeOutExpo,
-      },
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 100 : -100,
-      opacity: 0,
-      scale: 0.98,
-      transition: {
-        duration: shouldReduceMotion ? 0.15 : 0.3,
-        ease: easings.easeInOutQuart,
-      },
-    }),
-  };
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev >= totalPossibleIndices ? 0 : prev + 1));
+  }, [totalPossibleIndices]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev <= 0 ? totalPossibleIndices : prev - 1));
+  }, [totalPossibleIndices]);
+
+  // AUTO-SLIDE logic: Automatically move through the reviews
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000); // 4 seconds for a slightly faster, more dynamic feel
+
+    return () => clearInterval(interval);
+  }, [nextSlide, isPaused]);
+
+  useEffect(() => {
+    if (currentIndex > totalPossibleIndices) {
+      setCurrentIndex(Math.max(0, totalPossibleIndices));
+    }
+  }, [cardsToShow, totalPossibleIndices, currentIndex]);
+
+  const gap = cardsToShow === 1 ? 24 : (cardsToShow === 2 ? 32 : 40);
 
   return (
-    <div className="relative max-w-4xl mx-auto">
-      <motion.div 
-        className="bg-background rounded-lg p-8 md:p-12 shadow-lg min-h-[300px] flex flex-col justify-between overflow-hidden"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5, ease: easings.easeOutExpo }}
-      >
-        <AnimatePresence mode="wait" custom={direction}>
+    <div
+      className="w-full relative overflow-visible"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      ref={containerRef}
+    >
+      {/* Slide Container - Changed to overflow-visible to prevent card cutting */}
+      <div className="mask-fade-x py-8 md:py-10 px-2 md:px-0 overflow-visible">
+        <div className="relative overflow-visible">
           <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="flex flex-col flex-grow"
+            className="flex"
+            style={{ gap: `${gap}px` }}
+            animate={{ x: `calc(-${currentIndex} * (100% / ${cardsToShow} + ${gap / cardsToShow}px))` }}
+            transition={{
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1]
+            }}
           >
-            {/* Stars */}
-            <motion.div 
-              className="flex gap-1 mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
-            >
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={shouldReduceMotion ? {} : { scale: 0, rotate: -30 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ 
-                    delay: shouldReduceMotion ? 0 : 0.1 + i * 0.05, 
-                    duration: 0.3, 
-                    ease: easings.softBounce 
-                  }}
-                >
-                  <Star
-                    className={`w-5 h-5 ${
-                      i < currentTestimonial.rating
-                        ? "fill-accent text-accent"
-                        : "text-muted-foreground"
-                    }`}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Review Text */}
-            <blockquote className="text-lg md:text-xl text-foreground mb-8 font-light leading-relaxed flex-grow">
-              "{currentTestimonial.text}"
-            </blockquote>
-
-            {/* Author Info */}
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-semibold text-foreground">{currentTestimonial.name}</p>
-                {currentTestimonial.company && (
-                  <p className="text-sm text-muted-foreground">{currentTestimonial.company}</p>
-                )}
+            {reviews.map((review, idx) => (
+              <div
+                key={idx}
+                className="flex-none px-1 md:px-0"
+                style={{ width: `calc((100% - ${gap * (cardsToShow - 1)}px) / ${cardsToShow})` }}
+              >
+                <div className="h-full bg-white/[0.05] backdrop-blur-2xl rounded-2xl border border-white/10 p-6 md:p-10 flex flex-col items-center text-center shadow-xl min-h-[360px] md:min-h-[400px]">
+                  <div className="flex gap-1.5 mb-8">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-white text-white opacity-100" />
+                    ))}
+                  </div>
+                  <div className="mb-6">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                      {review.name}
+                    </h3>
+                  </div>
+                  <p className="text-lg md:text-xl text-white/80 font-normal leading-relaxed italic line-clamp-5">
+                    "{review.text}"
+                  </p>
+                </div>
               </div>
-              {currentTestimonial.date && (
-                <p className="text-sm text-muted-foreground">{currentTestimonial.date}</p>
-              )}
-            </div>
+            ))}
           </motion.div>
-        </AnimatePresence>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Navigation Buttons */}
-      <motion.div 
-        className="flex items-center justify-center gap-4 mt-8"
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ delay: 0.2, duration: 0.4, ease: easings.easeOutExpo }}
-      >
-        <motion.div
-          whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
-          whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-        >
-          <Button
-            variant="outline"
-            size="icon"
+      {/* Navigation & Pagination - Arrows + Dots consolidated below */}
+      <div className="flex flex-col items-center gap-8 mt-4 md:mt-12">
+        <div className="flex items-center gap-4 md:gap-8">
+          <button
             onClick={prevSlide}
-            className="rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-lg hover:bg-white hover:text-black transition-all duration-500"
             aria-label="Vorige review"
           >
-            <ChevronLeft className="w-5 h-5" />
-          </Button>
-        </motion.div>
+            <ChevronLeft className="w-6 h-6 md:w-10 h-10" />
+          </button>
 
-        {/* Dots Indicator */}
-        <div className="flex gap-2">
-          {testimonials.map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-colors ${
-                index === currentIndex
-                  ? "bg-accent"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
-              animate={{ 
-                width: index === currentIndex ? 32 : 8,
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-              whileHover={shouldReduceMotion ? {} : { scale: 1.2 }}
-              aria-label={`Ga naar review ${index + 1}`}
-            />
-          ))}
-        </div>
+          <div className="flex items-center gap-2 md:gap-3">
+            {Array.from({ length: totalPossibleIndices + 1 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 md:w-12 bg-white' : 'w-2 md:w-4 bg-white/10 hover:bg-white/30'
+                  }`}
+              />
+            ))}
+          </div>
 
-        <motion.div
-          whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
-          whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-        >
-          <Button
-            variant="outline"
-            size="icon"
+          <button
             onClick={nextSlide}
-            className="rounded-full hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-lg hover:bg-white hover:text-black transition-all duration-500"
             aria-label="Volgende review"
           >
-            <ChevronRight className="w-5 h-5" />
-          </Button>
-        </motion.div>
-      </motion.div>
+            <ChevronRight className="w-6 h-6 md:w-10 h-10" />
+          </button>
+        </div>
 
-      {/* All Reviews Button */}
-      <motion.div 
-        className="text-center mt-8"
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ delay: 0.3, duration: 0.4, ease: easings.easeOutExpo }}
-      >
-        <motion.div
-          whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-          whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-          transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-        >
-          <Button 
-            asChild 
-            variant="outline" 
+        <div className="mt-2 md:mt-4">
+          <AnimatedButton
+            href={GOOGLE_REVIEWS_URL}
             size="lg"
-            className="group"
+            showArrow={false}
+            className="animated-btn-white min-w-[280px] md:min-w-[320px]"
           >
-            <a 
-              href={GOOGLE_REVIEWS_URL} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-            >
-              Bekijk alle recensies
-              <motion.span
-                className="inline-block"
-                whileHover={shouldReduceMotion ? {} : { x: 4 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ExternalLink className="w-4 h-4" />
-              </motion.span>
-            </a>
-          </Button>
-        </motion.div>
-      </motion.div>
+            Bekijk alle Google reviews
+          </AnimatedButton>
+        </div>
+      </div>
     </div>
   );
 };
