@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { Monitor, Tablet, Smartphone } from "lucide-react";
-import showcaseImage from "@/assets/projects/casperpt-mobiele-optimalisatie.webp";
+import showcaseImage from "@/assets/projects/casperpt-mobiele-optimalisatie-2.webp";
 
 const AnimatedSection = ({
   children,
