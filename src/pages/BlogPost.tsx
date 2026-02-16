@@ -444,7 +444,7 @@ const BlogPost = () => {
             <img
               src={imageMatch[2]}
               alt={imageMatch[1]}
-              className="w-full rounded-lg shadow-lg"
+              className="w-full rounded-lg"
               loading="lazy"
               decoding="async"
             />
@@ -647,7 +647,7 @@ const BlogPost = () => {
                     <img
                       src={post.image}
                       alt={post.title.nl}
-                      className="w-full h-[400px] md:h-[500px] object-cover rounded-none md:rounded-lg"
+                      className="w-full h-auto max-h-[500px] object-contain rounded-none md:rounded-lg"
                       loading="eager"
                     />
                   </motion.div>
