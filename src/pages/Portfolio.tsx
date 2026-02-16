@@ -5,12 +5,14 @@ import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import SocialContentSection from "@/components/SocialContentSection";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
+
+// Lazy load SocialContentSection voor betere performance
+const SocialContentSection = lazy(() => import("@/components/SocialContentSection"));
 
 import { projects } from "@/data/projects";
 
@@ -28,7 +30,8 @@ const Portfolio = () => {
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
+    // Reduced loading time for faster perceived performance
+    const timer = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -347,7 +350,25 @@ const Portfolio = () => {
       </AnimatePresence>
 
       {/* Social Content Section / Videos */}
-      {showVideos && <SocialContentSection />}
+      {showVideos && (
+        <Suspense fallback={
+          <section className="py-20 px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <Skeleton className="h-12 w-96 mx-auto mb-4" />
+                <Skeleton className="h-6 w-full max-w-3xl mx-auto" />
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Skeleton key={i} className="aspect-[9/16] rounded-2xl" />
+                ))}
+              </div>
+            </div>
+          </section>
+        }>
+          <SocialContentSection />
+        </Suspense>
+      )}
 
       {/* Image Modal */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
@@ -358,6 +379,8 @@ const Portfolio = () => {
                 src={selectedImage}
                 alt="E-commerce listing"
                 className="w-full h-full object-contain"
+                loading="lazy"
+                decoding="async"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
