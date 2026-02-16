@@ -21,6 +21,7 @@ import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
 import { MagicServicesCards } from "@/components/MagicServicesCards";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
+import { ResponsiveShowcase } from "@/components/ResponsiveShowcase";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 
@@ -656,6 +657,9 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
+
+    {/* Responsive Showcase Section */}
+    <ResponsiveShowcase />
 
     {/* Design Carousel Section */}
     <DesignCarousel />
