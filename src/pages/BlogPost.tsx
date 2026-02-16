@@ -759,27 +759,27 @@ const BlogPost = () => {
               transition={{ duration: 0.5, delay: 0.3, ease: easings.easeOutExpo }}
             >
               <motion.div
-                className="bg-accent text-accent-foreground p-8 rounded-lg sticky top-32"
+                className="bg-accent text-accent-foreground p-5 sm:p-8 rounded-lg sticky top-32 overflow-hidden"
                 whileHover={shouldReduceMotion ? {} : {
                   y: -4,
                   boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.15)"
                 }}
                 transition={{ duration: 0.3, ease: easings.easeOutExpo }}
               >
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-3 sm:gap-4 mb-6">
                   <img
                     src={justinImg}
                     alt="Justin Slok - Nieuwblik"
                     loading="lazy"
-                    className="w-20 h-20 rounded-full object-cover border-4 border-accent-foreground/20"
+                    className="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover border-4 border-accent-foreground/20 flex-shrink-0"
                   />
-                  <div>
-                    <h3 className="text-2xl font-semibold">Geïnspireerd?</h3>
+                  <div className="min-w-0">
+                    <h3 className="text-xl sm:text-2xl font-semibold">Geïnspireerd?</h3>
                     <p className="text-sm opacity-80">Justin Slok</p>
                   </div>
                 </div>
 
-                <p className="mb-6 opacity-90">
+                <p className="mb-6 opacity-90 text-sm sm:text-base break-words">
                   {slug === 'brand-storytelling-van-pixel-tot-voordeur'
                     ? 'Heb je ideeën gekregen voor je branding? Laten we samen een merkbeleving creëren die van pixel tot voordeur consistent is.'
                     : 'Heb je ideeën gekregen voor je eigen project? Laten we samen iets moois bouwen dat jouw merk laat schitteren.'}
