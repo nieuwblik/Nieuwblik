@@ -136,7 +136,7 @@ export const ResponsiveShowcase = () => {
               <img
                 src={showcaseImage}
                 alt="Website geoptimaliseerd voor mobiel - voorbeeld van responsive design"
-                className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[420px] h-auto drop-shadow-2xl"
+                className="w-full max-w-[380px] md:max-w-[480px] lg:max-w-[540px] h-auto drop-shadow-2xl"
                 loading="lazy"
                 decoding="async"
               />
