@@ -203,9 +203,9 @@ const About = () => {
                 {/* Photo - Animates from bottom with hover effect */}
                 <motion.div
                   className="relative pt-8 sm:pt-10 md:pt-12 lg:pt-16 px-4 sm:px-6 md:px-8 lg:px-10 overflow-hidden"
-                  initial={{ opacity: 0, y: 60 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4, ease: easings.easeOutExpo }}
+                  transition={{ duration: 0.5, delay: 0.15, ease: easings.easeOutExpo }}
                 >
                   <motion.img
                     src={heroTeamImage}
