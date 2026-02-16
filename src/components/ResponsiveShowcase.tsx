@@ -134,6 +134,8 @@ export const ResponsiveShowcase = () => {
                 className="w-full max-w-[380px] md:max-w-[480px] lg:max-w-[600px] xl:max-w-[700px] 2xl:max-w-[800px] h-auto drop-shadow-2xl"
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="1200"
               />
             </div>
           </AnimatedSection>

@@ -614,7 +614,7 @@ const WebsiteOpMaat = () => {
                       whileHover={shouldReduceMotion ? {} : { scale: 1.1, y: -4 }}
                       transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                     >
-                      <img src={tool.logo} alt={tool.name} className="w-12 h-12 object-contain" />
+                      <img src={tool.logo} alt={tool.name} className="w-12 h-12 object-contain" loading="lazy" width="48" height="48" />
                     </motion.div>
                     <p className="text-sm font-medium text-accent">{tool.name}</p>
                   </a>
@@ -625,7 +625,7 @@ const WebsiteOpMaat = () => {
                       whileHover={shouldReduceMotion ? {} : { scale: 1.1, y: -4 }}
                       transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                     >
-                      <img src={tool.logo} alt={tool.name} className="w-12 h-12 object-contain" />
+                      <img src={tool.logo} alt={tool.name} className="w-12 h-12 object-contain" loading="lazy" width="48" height="48" />
                     </motion.div>
                     <p className="text-sm font-medium">{tool.name}</p>
                   </>

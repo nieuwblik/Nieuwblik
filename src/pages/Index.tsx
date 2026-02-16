@@ -465,7 +465,7 @@ const Index = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={perplexityLogo} alt="Perplexity AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                    <img src={perplexityLogo} alt="Perplexity AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
                   </motion.span>
                 </TooltipTrigger>
                 <TooltipContent><p>Perplexity AI</p></TooltipContent>
@@ -477,7 +477,7 @@ const Index = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={claudeLogo} alt="Claude AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                    <img src={claudeLogo} alt="Claude AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
                   </motion.span>
                 </TooltipTrigger>
                 <TooltipContent><p>Claude AI</p></TooltipContent>
@@ -489,7 +489,7 @@ const Index = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={grokLogo} alt="Grok (X AI)" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                    <img src={grokLogo} alt="Grok (X AI)" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
                   </motion.span>
                 </TooltipTrigger>
                 <TooltipContent><p>Grok (X AI)</p></TooltipContent>
@@ -501,7 +501,7 @@ const Index = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={copilotLogo} alt="Microsoft Copilot" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" />
+                    <img src={copilotLogo} alt="Microsoft Copilot" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
                   </motion.span>
                 </TooltipTrigger>
                 <TooltipContent><p>Microsoft Copilot</p></TooltipContent>
@@ -540,7 +540,7 @@ const Index = () => {
             {/* Center Logo (Nieuwblik) */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
               <motion.span className="inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{ boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)' }} animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-                <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert" />
+                <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert" loading="lazy" width="48" height="48" />
               </motion.span>
             </div>
           </div>
@@ -548,7 +548,7 @@ const Index = () => {
           {/* Mobile: Simple center logo without lines */}
           <div className="sm:hidden flex justify-center mt-6">
             <motion.span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{ boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)' }} animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-              <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 object-contain brightness-0 invert" />
+              <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 object-contain brightness-0 invert" loading="lazy" width="40" height="40" />
             </motion.span>
           </div>
         </AnimatedSection>

@@ -212,6 +212,9 @@ export const DesignCarousel = () => {
                                                         src={item.image}
                                                         alt={item.title}
                                                         className="w-full h-full object-cover"
+                                                        loading="lazy"
+                                                        width="800"
+                                                        height="600"
                                                         animate={{
                                                             scale: isSelected ? 1.05 : 1,
                                                         }}
@@ -302,6 +305,9 @@ export const DesignCarousel = () => {
                                         src={selectedProject.image}
                                         alt={selectedProject.title}
                                         className="w-full h-full object-cover"
+                                        loading="lazy"
+                                        width="1200"
+                                        height="900"
                                         initial={{ scale: 1.1 }}
                                         animate={{ scale: 1 }}
                                         transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
@@ -362,6 +368,9 @@ export const DesignCarousel = () => {
                                                 src={selectedProject.image}
                                                 alt={selectedProject.title}
                                                 className="w-full h-full object-cover"
+                                                loading="lazy"
+                                                width="600"
+                                                height="450"
                                             />
                                             <button
                                                 onClick={() => setSelectedProject(null)}
