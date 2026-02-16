@@ -26,14 +26,8 @@ import compressorListingImg from "@/assets/projects/compressor-listing.png";
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    // Reduced loading time for faster perceived performance
-    const timer = setTimeout(() => setIsLoading(false), 300);
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed artificial loading state for instant rendering
 
   const ecommerceListings = [
     {
@@ -195,7 +189,7 @@ const Portfolio = () => {
       </motion.section>
 
       {/* Portfolio Grid */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         {showProjects && (
           <motion.section
             className="pb-20 md:pb-32"
@@ -203,57 +197,66 @@ const Portfolio = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <div className="container mx-auto px-6">
-              {isLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="space-y-4">
-                      <Skeleton className="aspect-[4/3] rounded-lg" />
-                      <Skeleton className="h-4 w-24" />
-                      <Skeleton className="h-8 w-3/4" />
-                      <Skeleton className="h-20 w-full" />
-                      <div className="flex gap-2">
-                        <Skeleton className="h-6 w-20" />
-                        <Skeleton className="h-6 w-24" />
-                        <Skeleton className="h-6 w-16" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {filteredProjects.map((project, index) => (
-                    <motion.div
-                      key={project.title}
-                      variants={staggerItem}
-                    >
-                      <ProjectCard
-                        title={project.title}
-                        category={project.category}
-                        description={project.description}
-                        image={project.image}
-                        url={project.url}
-                        tags={project.tags}
-                        slug={project.slug}
-                      />
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+                layout
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: shouldReduceMotion ? 0 : 0.05,  // Faster stagger for switching
+                      delayChildren: 0
+                    }
+                  }
+                }}
+              >
+                {filteredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.slug}  // Use slug for better key stability
+                    layout
+                    variants={{
+                      hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 },
+                      visible: {
+                        opacity: 1,
+                        scale: 1,
+                        transition: {
+                          duration: 0.3,  // Faster for switching
+                          ease: [0.25, 0.1, 0.25, 1]
+                        }
+                      }
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: shouldReduceMotion ? 1 : 0.95,
+                      transition: { duration: 0.2 }
+                    }}
+                    style={{ willChange: 'transform, opacity' }}
+                  >
+                    <ProjectCard
+                      title={project.title}
+                      category={project.category}
+                      description={project.description}
+                      image={project.image}
+                      url={project.url}
+                      tags={project.tags}
+                      slug={project.slug}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
           </motion.section>
         )}
       </AnimatePresence>
 
       {/* E-commerce Listings Section */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         {showEcommerce && (
           <motion.section
             className="pb-20 md:pb-32"
@@ -278,17 +281,37 @@ const Portfolio = () => {
               </motion.div>
               <motion.div
                 className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
-                variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-50px" }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: shouldReduceMotion ? 0 : 0.08,
+                      delayChildren: 0.1
+                    }
+                  }
+                }}
               >
                 {ecommerceListings.map((listing, index) => (
                   <motion.div
                     key={listing.title}
                     className="group cursor-pointer block"
                     onClick={() => setSelectedImage(listing.image)}
-                    variants={staggerItem}
+                    variants={{
+                      hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.5,
+                          ease: [0.25, 0.1, 0.25, 1]
+                        }
+                      }
+                    }}
+                    style={{ willChange: 'transform, opacity' }}
                   >
                     <motion.div
                       className="aspect-[4/3] bg-secondary rounded-lg mb-6 overflow-hidden relative"

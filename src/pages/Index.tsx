@@ -17,6 +17,12 @@ import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
+import {
+  optimizedStaggerContainer,
+  optimizedStaggerItem,
+  gpuAcceleration,
+  optimizedViewport
+} from "@/lib/optimized-motion";
 import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
 import { MagicServicesCards } from "@/components/MagicServicesCards";
@@ -37,15 +43,11 @@ import nieuwblikLogo from "@/assets/logo.png";
 
 import { projects } from "@/data/projects";
 
-// Animation component for scroll-triggered reveals
+// Optimized animation component for scroll-triggered reveals
 const AnimatedSection = ({
   children,
   className = "",
   delay = 0
-
-
-
-
 }: { children: React.ReactNode; className?: string; delay?: number; }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
@@ -53,35 +55,36 @@ const AnimatedSection = ({
     margin: "-50px"
   });
   const shouldReduceMotion = useReducedMotion();
-  return <motion.div ref={ref} className={className} initial={{
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 80
-  }} animate={isInView ? {
-    opacity: 1,
-    y: 0
-  } : {
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 80
-  }} transition={{
-    duration: shouldReduceMotion ? 0.2 : 0.8,
-    delay: shouldReduceMotion ? 0 : delay,
-    ease: easings.easeOutExpo
-  }}>
+  return <motion.div
+    ref={ref}
+    className={className}
+    style={gpuAcceleration}
+    initial={{
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 60  // Reduced from 80
+    }}
+    animate={isInView ? {
+      opacity: 1,
+      y: 0
+    } : {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 60
+    }}
+    transition={{
+      duration: shouldReduceMotion ? 0.2 : 0.6,  // Reduced from 0.8
+      delay: shouldReduceMotion ? 0 : delay,
+      ease: [0.25, 0.1, 0.25, 1]  // Smooth cubic bezier
+    }}>
     {children}
   </motion.div>;
 };
 
-// Animated text component
+// Optimized animated text component
 const AnimatedText = ({
   children,
   className = "",
   delay = 0,
   as: Component = "div"
-
-
-
-
-
 }: { children: React.ReactNode; className?: string; delay?: number; as?: "div" | "p" | "h1" | "h2" | "h3" | "span"; }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, {
@@ -90,20 +93,26 @@ const AnimatedText = ({
   });
   const shouldReduceMotion = useReducedMotion();
   const MotionComponent = motion[Component];
-  return <MotionComponent ref={ref} className={className} initial={{
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 50
-  }} animate={isInView ? {
-    opacity: 1,
-    y: 0
-  } : {
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 50
-  }} transition={{
-    duration: shouldReduceMotion ? 0.2 : 0.7,
-    delay: shouldReduceMotion ? 0 : delay,
-    ease: easings.easeOutExpo
-  }}>
+  return <MotionComponent
+    ref={ref}
+    className={className}
+    style={gpuAcceleration}
+    initial={{
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 40  // Reduced from 50
+    }}
+    animate={isInView ? {
+      opacity: 1,
+      y: 0
+    } : {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 40
+    }}
+    transition={{
+      duration: shouldReduceMotion ? 0.2 : 0.5,  // Reduced from 0.7
+      delay: shouldReduceMotion ? 0 : delay,
+      ease: [0.25, 0.1, 0.25, 1]  // Smooth cubic bezier
+    }}>
     {children}
   </MotionComponent>;
 };
@@ -294,12 +303,13 @@ const Index = () => {
                     sItem.className
                   )}
                   aria-label={sItem.label}
+                  style={gpuAcceleration}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{
-                    duration: 0.6,
-                    delay: 0.5,
-                    ease: "easeOut"
+                    duration: 0.5,  // Reduced from 0.6
+                    delay: 0.4,     // Reduced from 0.5
+                    ease: [0.25, 0.1, 0.25, 1]
                   }}
                   whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                   whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}

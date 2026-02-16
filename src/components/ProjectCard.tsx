@@ -25,8 +25,24 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   const [showDetails, setShowDetails] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  // Handle card click on mobile - navigate to case page if slug exists
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Only handle click on mobile (when buttons are hidden)
+    const isMobile = window.innerWidth < 768; // md breakpoint
+    if (slug && isMobile) {
+      window.location.href = `/portfolio/${slug}`;
+    }
+  };
+
   return <>
-    <motion.div className="group cursor-pointer block relative" initial="rest" whileHover="hover" animate="rest">
+    <motion.div
+      className="group cursor-pointer block relative"
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+      onClick={handleCardClick}
+    >
       <motion.div transition={{
         duration: 0.3,
         ease: easings.easeOutExpo
@@ -58,8 +74,8 @@ const ProjectCard = ({
           ease: easings.easeOutQuart
         }} />
 
-        {/* Buttons */}
-        <motion.div className="absolute inset-0 flex items-center justify-center gap-4" variants={{
+        {/* Buttons - Hidden on mobile, shown on desktop */}
+        <motion.div className="absolute inset-0 hidden md:flex items-center justify-center gap-4" variants={{
           rest: {
             opacity: 0,
             y: 10

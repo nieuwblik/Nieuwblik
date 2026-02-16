@@ -11,6 +11,12 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Image, Package, BookOpen, Check, Plus, ArrowRight, MessageCircle, Star } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, modalVariants, easings } from "@/lib/motion";
+import {
+  optimizedStaggerContainer,
+  optimizedStaggerItem,
+  gpuAcceleration,
+  optimizedViewport
+} from "@/lib/optimized-motion";
 
 // Import e-commerce listing images
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
@@ -151,7 +157,7 @@ const Ecommerce = () => {
         className="py-16 md:py-24"
         initial="hidden"
         animate="visible"
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.p
@@ -220,7 +226,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -238,12 +244,12 @@ const Ecommerce = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {usps.map((usp, index) => (
               <motion.div
                 key={index}
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
                 className="h-full"
               >
                 <motion.div
@@ -284,7 +290,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -302,13 +308,13 @@ const Ecommerce = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {ecommerceListings.map((listing, index) => (
               <motion.div
                 key={index}
                 className="group cursor-pointer"
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
                 onClick={() => setSelectedImage(listing.image)}
               >
                 <motion.div
@@ -376,7 +382,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -394,13 +400,13 @@ const Ecommerce = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {steps.map((step, index) => (
               <motion.div
                 key={index}
                 className="relative"
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
               >
                 <motion.div
                   className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
@@ -433,7 +439,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -529,7 +535,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6 text-center">
           <motion.h2
@@ -570,7 +576,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -588,13 +594,13 @@ const Ecommerce = () => {
 
           <motion.div
             className="max-w-3xl mx-auto space-y-6"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
                 className="bg-card border border-border rounded-lg p-6"
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
                 whileHover={shouldReduceMotion ? {} : {
                   y: -2,
                   boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
@@ -615,7 +621,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.div
@@ -667,7 +673,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6 text-center">
           <motion.h2

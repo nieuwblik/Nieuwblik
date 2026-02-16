@@ -11,6 +11,12 @@ import { Link } from "react-router-dom";
 import { Palette, Zap, Bot, Check, Plus, ArrowRight, MessageCircle, Star, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
+import {
+  optimizedStaggerContainer,
+  optimizedStaggerItem,
+  gpuAcceleration,
+  optimizedViewport
+} from "@/lib/optimized-motion";
 
 // Project images for cases
 import esveldImg from "@/assets/projects/esveldinstallatie.nl.png";
@@ -144,7 +150,7 @@ const WebsiteOpMaat = () => {
         className="py-16 md:py-24"
         initial="hidden"
         animate="visible"
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.p
@@ -207,7 +213,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -225,12 +231,12 @@ const WebsiteOpMaat = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {usps.map((usp, index) => (
               <motion.div
                 key={index}
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
               >
                 <motion.div
                   whileHover={shouldReduceMotion ? {} : {
@@ -269,7 +275,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -287,13 +293,13 @@ const WebsiteOpMaat = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {steps.map((step, index) => (
               <motion.div
                 key={index}
                 className="relative"
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
               >
                 <motion.div
                   className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
@@ -326,7 +332,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -424,7 +430,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6 text-center">
           <motion.h2
@@ -465,7 +471,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -483,12 +489,12 @@ const WebsiteOpMaat = () => {
 
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {cases.map((project, index) => (
               <motion.div
                 key={index}
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
               >
                 <ProjectCard
                   title={project.title}
@@ -528,7 +534,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.div
@@ -581,7 +587,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -599,13 +605,13 @@ const WebsiteOpMaat = () => {
 
           <motion.div
             className="flex flex-wrap justify-center items-center gap-6 max-w-5xl mx-auto"
-            variants={staggerContainerSlow}
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
           >
             {tools.map((tool, index) => (
               <motion.div
                 key={index}
                 className="text-center group"
-                variants={staggerItem}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
               >
                 {tool.link ? (
                   <a href={tool.link} target="_blank" rel="noopener noreferrer">
@@ -654,7 +660,7 @@ const WebsiteOpMaat = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
+        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
       >
         <div className="container mx-auto px-6 text-center">
           <motion.h2

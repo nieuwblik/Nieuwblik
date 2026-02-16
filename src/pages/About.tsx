@@ -315,10 +315,6 @@ const About = () => {
         </div>
       </motion.section>
 
-      {/* FAQ Section */}
-      {/* FAQ Section - Integrated */}
-      <FAQSection />
-
       {/* Testimonials Section - Brand Green Aesthetic */}
       <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
         {/* Subtle Texture Overlay */}
@@ -343,6 +339,10 @@ const About = () => {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      {/* FAQ Section - Integrated */}
+      <FAQSection />
 
       {/* CTA Section */}
       <motion.section
