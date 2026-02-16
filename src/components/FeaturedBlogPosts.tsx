@@ -57,7 +57,7 @@ const FeaturedBlogPosts = () => {
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Image */}
                 {latestPost.image && (
-                  <div className="relative h-64 md:h-full overflow-hidden">
+                  <div className="relative h-64 md:h-full min-h-[300px] overflow-hidden">
                     <motion.img 
                       src={latestPost.image} 
                       alt={latestPost.title.nl}
