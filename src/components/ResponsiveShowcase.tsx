@@ -127,20 +127,15 @@ export const ResponsiveShowcase = () => {
 
           {/* Right: Phone mockup with image */}
           <AnimatedSection delay={0.2} className="flex justify-center lg:justify-end">
-            <motion.div
-              className="relative"
-              whileHover={shouldReduceMotion ? {} : { y: -8, rotateY: 3 }}
-              transition={{ duration: 0.5, ease: easings.easeOutExpo }}
-              style={{ perspective: 800 }}
-            >
+            <div className="relative">
               <img
                 src={showcaseImage}
                 alt="Website geoptimaliseerd voor mobiel - voorbeeld van responsive design"
-                className="w-full max-w-[380px] md:max-w-[480px] lg:max-w-[540px] h-auto drop-shadow-2xl"
+                className="w-full max-w-[380px] md:max-w-[480px] lg:max-w-[600px] xl:max-w-[700px] 2xl:max-w-[800px] h-auto drop-shadow-2xl"
                 loading="lazy"
                 decoding="async"
               />
-            </motion.div>
+            </div>
           </AnimatedSection>
         </div>
       </div>
