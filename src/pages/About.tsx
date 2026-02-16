@@ -188,7 +188,7 @@ const About = () => {
               className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[550px] xl:max-w-[625px] mx-auto lg:mx-0"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: easings.easeOutExpo }}
+              transition={{ duration: 0.7, ease: easings.easeOutExpo }}
             >
               {/* Green Gradient Card Background */}
               <div
@@ -200,23 +200,18 @@ const About = () => {
                 {/* Subtle gradient overlay for depth */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/5" />
 
-                {/* Photo - Animates from bottom with hover effect */}
-                <motion.div
-                  className="relative pt-8 sm:pt-10 md:pt-12 lg:pt-16 px-4 sm:px-6 md:px-8 lg:px-10 overflow-hidden"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.15, ease: easings.easeOutExpo }}
-                >
+                {/* Photo - No separate animation, loads with parent */}
+                <div className="relative pt-8 sm:pt-10 md:pt-12 lg:pt-16 px-4 sm:px-6 md:px-8 lg:px-10 overflow-hidden">
                   <motion.img
                     src={heroTeamImage}
                     alt="Justin & Job - Nieuwblik Team"
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                     className="w-full h-auto relative z-10"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
                     transition={{ duration: 0.5, ease: easings.easeOutExpo }}
                   />
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </div>
