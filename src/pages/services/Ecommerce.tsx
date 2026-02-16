@@ -226,7 +226,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -290,7 +290,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -382,7 +382,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -439,7 +439,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -535,7 +535,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6 text-center">
           <motion.h2
@@ -576,7 +576,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.h2
@@ -621,7 +621,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6">
           <motion.div
@@ -673,7 +673,7 @@ const Ecommerce = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
       >
         <div className="container mx-auto px-6 text-center">
           <motion.h2
