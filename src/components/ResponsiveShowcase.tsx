@@ -126,7 +126,7 @@ export const ResponsiveShowcase = () => {
           </div>
 
           {/* Right: Phone mockup with image */}
-          <AnimatedSection delay={0.2} className="flex justify-center lg:justify-end">
+          <AnimatedSection delay={0.6} className="flex justify-center lg:justify-end">
             <div className="relative">
               <img
                 src={showcaseImage}
