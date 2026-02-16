@@ -1,3 +1,6 @@
+import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
+import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
+import nieuwblikBenotedMacbook from "@/assets/blog/nieuwblik-x-benoted-macbook.webp";
 import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.png";
 import figmaLogoImg from "@/assets/blog/figma-logo.webp";
 import lovableLogoImg from "@/assets/blog/lovable-logo.png";
@@ -27,6 +30,84 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "case-study-benoted-snelheid-zichtbaarheid",
+    image: nieuwblikBenotedCover,
+    title: {
+      nl: "Case Study: Hoe BeNoted.nl de nieuwe standaard zet in snelheid en zichtbaarheid",
+      en: "Case Study: How BeNoted.nl sets the new standard in speed and visibility"
+    },
+    excerpt: {
+      nl: "Een razendsnelle, high-performance website die klaar is om de financiële sector te domineren. Ontdek hoe strategie, design en techniek samenkomen bij BeNoted.",
+      en: "A blazing-fast, high-performance website ready to dominate the financial sector. Discover how strategy, design and technology come together at BeNoted."
+    },
+    content: {
+      nl: `Bij Nieuwblik geloven we dat een website meer is dan alleen een online visitekaartje; het is de motor van je groei. Toen Teun Nijenhuis van [BeNoted](https://benoted.nl) bij ons aanklopte voor een compleet nieuw platform, wisten we direct: dit moet net zo krachtig en viraal worden als de content die hij voor zijn klanten maakt. Het resultaat? Een razendsnelle, high-performance website die klaar is om de financiële sector te domineren.
+
+## De Strategie: Eerst de diepte in
+
+Een goede samenwerking begint niet bij de code, maar aan de tafel. Samen met Teun Nijenhuis hebben we uitgebreid stilgestaan bij de visie van [BeNoted](https://benoted.nl). Teun is de expert in het viraal laten gaan van financiële specialisten, van vastgoed tot fintech. Die autoriteit moest de website ook uitstralen.
+
+Tijdens onze strategische sessies hebben we gekeken naar wat er écht nodig was. Geen overbodige poespas, maar een focus op wat telt: autoriteit, conversie en een feilloze gebruikerservaring. Door samen de juiste koers te bepalen, konden we een platform bouwen dat niet alleen mooi is, maar ook technisch superieur.
+
+## Maximale Zichtbaarheid en Snelheid via HadoSEO
+
+In de wereld van social media marketing telt elke milliseconde. Als een bezoeker vanaf een viraal filmpje naar de website klikt, moet deze direct laden. Daarom hebben we voor de technische basis de krachten gebundeld met [HadoSEO](https://hadoseo.com/).
+
+Dankzij de expertise van [HadoSEO](https://hadoseo.com/) hebben we gekozen voor een architectuur die gericht is op maximale organische vindbaarheid en ongekende laadsnelheden. In een tijd waarin Google snelheid zwaarder weegt dan ooit, geeft dit [BeNoted](https://benoted.nl) een enorme voorsprong op de concurrentie. De site is technisch geoptimaliseerd om direct hoog te scoren in de zoekresultaten, zodat Teun en zijn team de aandacht krijgt die het verdient.
+
+![BeNoted website op MacBook - desktop weergave](${nieuwblikBenotedMacbook})
+
+## Responsiviteit: Perfect op elk scherm
+
+Omdat de doelgroep van [BeNoted](https://benoted.nl) zich hoofdzakelijk op mobiele platformen bevindt (Instagram, TikTok, LinkedIn), was een 100% responsive design een absolute vereiste. Of je de site nu bekijkt op een high-end desktop in een kantoorpand of op een smartphone in de trein: de ervaring is naadloos. Het 'Clean Corporate' design komt op elk apparaat tot zijn recht, met een focus op leesbaarheid en snelle interactie.
+
+![BeNoted website op smartphone - mobiele weergave](${nieuwblikBenotedPhone})
+
+## Een platform voor de toekomst
+
+De samenwerking tussen Nieuwblik en Teun Nijenhuis laat zien wat er gebeurt als strategie, design en techniek perfect samenkomen. [BeNoted](https://benoted.nl) heeft nu een digitaal hoofdkwartier dat meeschaalt met hun internationale ambities.
+
+## Benieuwd wat wij voor jouw online zichtbaarheid kunnen betekenen?
+
+Bij Nieuwblik bouwen we niet zomaar websites; we bouwen aan jouw succes. Net als bij [BeNoted](https://benoted.nl) kijken we graag samen aan tafel naar de juiste strategie voor jouw groei.
+
+*Bekijk het resultaat op [www.benoted.nl](https://benoted.nl)*`,
+      en: `At Nieuwblik, we believe a website is more than just an online business card; it's the engine of your growth. When Teun Nijenhuis from [BeNoted](https://benoted.nl) approached us for a completely new platform, we knew immediately: it needs to be as powerful and viral as the content he creates for his clients. The result? A blazing-fast, high-performance website ready to dominate the financial sector.
+
+## The Strategy: Going Deep First
+
+A great collaboration doesn't start with code, but at the table. Together with Teun Nijenhuis, we extensively explored the vision of [BeNoted](https://benoted.nl). Teun is the expert in making financial specialists go viral, from real estate to fintech. The website needed to radiate that authority.
+
+During our strategic sessions, we looked at what was truly needed. No unnecessary frills, but a focus on what counts: authority, conversion, and a flawless user experience. By setting the right course together, we could build a platform that's not only beautiful but also technically superior.
+
+## Maximum Visibility and Speed via HadoSEO
+
+In the world of social media marketing, every millisecond counts. When a visitor clicks from a viral video to the website, it needs to load instantly. That's why we joined forces with [HadoSEO](https://hadoseo.com/) for the technical foundation.
+
+Thanks to [HadoSEO](https://hadoseo.com/)'s expertise, we chose an architecture focused on maximum organic visibility and unprecedented loading speeds. In a time when Google weighs speed more heavily than ever, this gives [BeNoted](https://benoted.nl) a huge advantage over the competition. The site is technically optimized to rank high in search results immediately.
+
+![BeNoted website on MacBook - desktop view](${nieuwblikBenotedMacbook})
+
+## Responsiveness: Perfect on Every Screen
+
+Because [BeNoted](https://benoted.nl)'s target audience is primarily on mobile platforms (Instagram, TikTok, LinkedIn), a 100% responsive design was an absolute requirement. Whether you're viewing the site on a high-end desktop or a smartphone on the train: the experience is seamless. The 'Clean Corporate' design shines on every device, with a focus on readability and fast interaction.
+
+![BeNoted website on smartphone - mobile view](${nieuwblikBenotedPhone})
+
+## A Platform for the Future
+
+The collaboration between Nieuwblik and Teun Nijenhuis shows what happens when strategy, design, and technology come together perfectly. [BeNoted](https://benoted.nl) now has a digital headquarters that scales with their international ambitions.
+
+## Curious what we can do for your online visibility?
+
+At Nieuwblik, we don't just build websites; we build your success. Just like with [BeNoted](https://benoted.nl), we'd love to sit down together and find the right strategy for your growth.
+
+*See the result at [www.benoted.nl](https://benoted.nl)*`
+    },
+    date: "2026-02-16",
+    readingTime: 5
+  },
   {
     slug: "brand-storytelling-van-pixel-tot-voordeur",
     image: brandStorytellingImg,

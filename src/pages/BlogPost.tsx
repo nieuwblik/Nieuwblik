@@ -429,6 +429,34 @@ const BlogPost = () => {
         return <hr key={index} className="my-8 border-border" />;
       }
 
+      // Markdown image: ![alt](src)
+      const imageMatch = section.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imageMatch) {
+        return (
+          <motion.figure
+            key={index}
+            className="my-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
+          >
+            <img
+              src={imageMatch[2]}
+              alt={imageMatch[1]}
+              className="w-full rounded-lg shadow-lg"
+              loading="lazy"
+              decoding="async"
+            />
+            {imageMatch[1] && (
+              <figcaption className="text-sm text-muted-foreground mt-3 text-center font-light">
+                {imageMatch[1]}
+              </figcaption>
+            )}
+          </motion.figure>
+        );
+      }
+
       // Regular paragraph with bold and link support
       const formatParagraphText = (text: string) => {
         const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
