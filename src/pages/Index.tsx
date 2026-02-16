@@ -13,7 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import justinImage from "@/assets/justin-slok.png";
-import heroTeamImage from "@/assets/justin-job-min.png";
+import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import SocialContentSection from "@/components/SocialContentSection";
 import { easings } from "@/lib/motion";

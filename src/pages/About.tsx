@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart, Users, Sparkles, Rocket } from "lucide-react";
 import { useRef } from "react";
-import heroTeamImage from "@/assets/justin-job-min.png";
+import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
