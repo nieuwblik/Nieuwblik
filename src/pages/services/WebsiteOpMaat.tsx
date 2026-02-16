@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
+import { ResponsiveShowcase } from "@/components/ResponsiveShowcase";
 import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
@@ -196,6 +197,9 @@ const WebsiteOpMaat = () => {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Responsive Showcase */}
+      <ResponsiveShowcase />
 
       {/* Why Nieuwblik - 3 USPs */}
       <motion.section
