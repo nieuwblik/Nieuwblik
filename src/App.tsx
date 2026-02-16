@@ -3,12 +3,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
-import { pageTransition, easings } from "./lib/motion";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -39,99 +37,7 @@ const Ecommerce = lazy(() => import("./pages/services/Ecommerce"));
 const Werkgebied = lazy(() => import("./pages/Werkgebied"));
 const WerkgebiedDetail = lazy(() => import("./pages/WerkgebiedDetail"));
 
-// Loading fallback with premium animation
-const PageLoader = () => (
-  <motion.div
-    className="min-h-screen flex items-center justify-center bg-background"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.3, ease: easings.easeOutQuart }}
-  >
-    <motion.div
-      className="text-accent font-medium"
-      animate={{
-        opacity: [0.5, 1, 0.5],
-        scale: [0.98, 1, 0.98]
-      }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-    >
-      Laden...
-    </motion.div>
-  </motion.div>
-);
-
 const queryClient = new QueryClient();
-
-// Page transition wrapper component with reduced motion support
-const PageTransition = ({ children }: { children: React.ReactNode }) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  // Simplified animation for users who prefer reduced motion
-  if (shouldReduceMotion) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.15 }}
-      >
-        {children}
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div
-      variants={pageTransition}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-    >
-      {children}
-    </motion.div>
-  );
-};
-
-// Routes wrapper with location
-const AnimatedRoutes = () => {
-  const location = useLocation();
-
-  return (
-    <AnimatePresence mode="wait" initial={true}>
-      <Suspense fallback={<PageLoader />}>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-          <Route path="/diensten" element={<PageTransition><Services /></PageTransition>} />
-          <Route path="/diensten/website-op-maat" element={<PageTransition><WebsiteOpMaat /></PageTransition>} />
-          <Route path="/diensten/webshops" element={<PageTransition><Webshops /></PageTransition>} />
-          <Route path="/diensten/e-commerce" element={<PageTransition><Ecommerce /></PageTransition>} />
-          <Route path="/portfolio" element={<PageTransition><Portfolio /></PageTransition>} />
-          <Route path="/portfolio/:slug" element={<PageTransition><PortfolioDetail /></PageTransition>} />
-          <Route path="/over-ons" element={<PageTransition><About /></PageTransition>} />
-          <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
-          <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
-          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-          <Route path="/start-je-project" element={<PageTransition><Contact /></PageTransition>} />
-          <Route path="/bedankt" element={<PageTransition><ThankYou /></PageTransition>} />
-          <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
-          <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
-          <Route path="/algemene-voorwaarden" element={<PageTransition><Terms /></PageTransition>} />
-          <Route path="/reviews" element={<PageTransition><Reviews /></PageTransition>} />
-          <Route path="/werkgebied" element={<PageTransition><Werkgebied /></PageTransition>} />
-          <Route path="/werkgebied/:slug" element={<PageTransition><WerkgebiedDetail /></PageTransition>} />
-          <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
-          <Route path="/admin/dashboard" element={<PageTransition><AdminDashboard /></PageTransition>} />
-          <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-        </Routes>
-      </Suspense>
-    </AnimatePresence>
-  );
-};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -142,7 +48,32 @@ const App = () => (
         <ScrollToTop />
         <ScrollToTopButton />
         <CookieConsent />
-        <AnimatedRoutes />
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/diensten" element={<Services />} />
+            <Route path="/diensten/website-op-maat" element={<WebsiteOpMaat />} />
+            <Route path="/diensten/webshops" element={<Webshops />} />
+            <Route path="/diensten/e-commerce" element={<Ecommerce />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+            <Route path="/over-ons" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/start-je-project" element={<Contact />} />
+            <Route path="/bedankt" element={<ThankYou />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/cookies" element={<Cookies />} />
+            <Route path="/algemene-voorwaarden" element={<Terms />} />
+            <Route path="/reviews" element={<Reviews />} />
+            <Route path="/werkgebied" element={<Werkgebied />} />
+            <Route path="/werkgebied/:slug" element={<WerkgebiedDetail />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
