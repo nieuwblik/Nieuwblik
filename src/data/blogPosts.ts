@@ -27,6 +27,8 @@ export interface BlogPost {
   date: string;
   readingTime: number;
   image?: string;
+  seoTitle?: string;
+  seoKeywords?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -672,6 +674,8 @@ Together they form a workflow that's **8x faster** than traditional methods, at 
   {
     slug: "vibecode-hadoseo-toekomst-websites",
     image: vibeCodeHadoSeoImg,
+    seoTitle: "VibeCode + HadoSEO: Toekomst van Webdesign",
+    seoKeywords: "vibecode, HadoSEO, webdesign, SEO, website bouwen, online vindbaarheid, Google ranking, moderne webontwikkeling",
     title: {
       nl: "Waarom VibeCode websites de toekomst zijn in combinatie met HadoSEO.com",
       en: "Why VibeCode websites are the future combined with HadoSEO.com"

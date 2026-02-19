@@ -70,9 +70,9 @@ const BlogPost = () => {
   const structuredData = post ? {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": post.title.nl,
+    "headline": post.seoTitle || post.title.nl,
     "description": post.excerpt.nl,
-    "image": `https://www.nieuwblik.com/blog/${slug}.jpg`,
+    "image": typeof post.image === 'string' ? post.image : `https://www.nieuwblik.com/og-image.webp`,
     "datePublished": post.date,
     "dateModified": post.date,
     "author": {
@@ -525,20 +525,20 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       {post && (
         <SEOHead
-          title={`${post.title.nl} | Blog - Nieuwblik`}
+          title={post.seoTitle ? `${post.seoTitle} | Nieuwblik` : `${post.title.nl.length > 45 ? post.title.nl.substring(0, 45).trim() + '…' : post.title.nl} | Nieuwblik`}
           description={post.excerpt.nl}
-          keywords="webdesign, SEO, conversie, digitale marketing, website optimalisatie"
-          canonicalUrl={`https://nieuwblik.com/blog/${slug}`}
-          ogImage={typeof post.image === 'string' ? post.image : `https://nieuwblik.com/og-image.webp`}
+          keywords={post.seoKeywords || "webdesign, SEO, conversie, digitale marketing, website optimalisatie"}
+          canonicalUrl={`https://www.nieuwblik.com/blog/${slug}`}
+          ogImage={typeof post.image === 'string' ? post.image : `https://www.nieuwblik.com/og-image.webp`}
           ogType="article"
           articlePublishedTime={post.date}
           articleModifiedTime={post.date}
           articleAuthor="Justin Slok"
           structuredData={structuredData || undefined}
           breadcrumbs={[
-            { name: "Home", url: "https://nieuwblik.com" },
-            { name: "Blog", url: "https://nieuwblik.com/blog" },
-            { name: post.title.nl, url: `https://nieuwblik.com/blog/${slug}` }
+            { name: "Home", url: "https://www.nieuwblik.com" },
+            { name: "Blog", url: "https://www.nieuwblik.com/blog" },
+            { name: post.title.nl, url: `https://www.nieuwblik.com/blog/${slug}` }
           ]}
         />
       )}
