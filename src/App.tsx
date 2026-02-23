@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -48,6 +49,7 @@ const App = () => (
         <ScrollToTop />
         <ScrollToTopButton />
         <CookieConsent />
+        <WhatsAppButton />
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Index />} />
