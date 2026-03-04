@@ -184,13 +184,10 @@ const Index = () => {
 
   // Select featured projects based on the titles previously used
   const featuredProjectTitles = [
+    "Puur in Harmonie",
     "BeNoted",
     "Erica van Dijk",
-    "Danique Kwakman",
-    "Bushido Shop",
-    "Karateschool Cor Slok",
-    "Esveld Installatie",
-    "Feitsma Dakwerken"];
+    "Danique Kwakman"];
 
 
   const featuredProjects = projects.filter((p) => featuredProjectTitles.includes(p.title));

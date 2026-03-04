@@ -15,6 +15,9 @@ import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.png";
 import greenProfitImg from "@/assets/projects/green-profit.nl.png";
 import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
 import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
+import puurCaseImg from "@/assets/projects/puurinharmonie-case.webp";
+import puurCase1Img from "@/assets/projects/puurinharmonie-case -1.webp";
+import puurCase2Img from "@/assets/projects/puurinharmonie-case - 2.webp";
 
 export interface ProjectDetail {
   year: string;
@@ -33,9 +36,27 @@ export interface Project {
   image: string;
   url: string;
   detail?: ProjectDetail;
+  gallery?: string[];
 }
 
 export const projects: Project[] = [
+  {
+    slug: "puur-in-harmonie",
+    title: "Puur in Harmonie",
+    category: "Holistische Salon",
+    filterCategory: "websites",
+    description: "Digitale rust en balans voor een holistische salon. Een minimalistische ervaring die even ontspannend is als de behandeling zelf.",
+    tags: ["Web Design", "Wellness", "E-commerce", "Stripe"],
+    image: puurCaseImg,
+    url: "https://www.puurinharmonie.nl",
+    gallery: [puurCase1Img, puurCase2Img],
+    detail: {
+      year: "2026",
+      goal: "De eigenaresse, Heleen, zocht een online vertaling van haar fysieke salon. Het doel was een platform dat bezoekers direct in de juiste sfeer brengt en professionaliteit uitstraalt.",
+      idea: "Een 'Mobile First' aanpak met een minimalistisch designpalet van zandtinten, zacht groen en veel witruimte. We gebruikten elegante serif-lettertypes voor een luxe uitstraling.",
+      details: "Voor Puur in Harmonie creëerden we een digitale ervaring die rust en balans ademt. De oude situatie miste de visuele rust en technische finesse voor mobiele apparaten.\n\nWe realiseerden een razendsnelle frontend die naadloos schaalt van smartphone tot desktop. Met een naadloze Stripe-integratie voor de webshop kunnen klanten nu eenvoudig online bestellen. Het resultaat is een stijging in online boekingen en een website die perfect aansluit bij Heleen's visie: professioneel, warm en toegankelijk."
+    }
+  },
   {
     slug: "benoted",
     title: "BeNoted",

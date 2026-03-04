@@ -10,6 +10,7 @@ import { projects } from "@/data/projects";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const PortfolioDetail = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -182,6 +183,38 @@ const PortfolioDetail = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Gallery Section */}
+            {project.gallery && project.gallery.length > 0 && (
+                <section className={cn(
+                    "flex flex-col gap-0",
+                    project.slug === "puur-in-harmonie" ? "pb-0" : "pb-20 md:pb-32"
+                )}>
+                    {project.gallery.map((img, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{
+                                duration: 1,
+                                ease: easings.easeOutExpo
+                            }}
+                            className={cn(
+                                "w-full lg:h-screen overflow-hidden",
+                                project.slug === "puur-in-harmonie" && index === 1 && "hidden lg:block lg:mt-32"
+                            )}
+                        >
+                            <img
+                                src={img}
+                                alt={`${project.title} showcase ${index + 1}`}
+                                className="w-full h-auto lg:h-full object-cover object-top"
+                                loading="lazy"
+                            />
+                        </motion.div>
+                    ))}
+                </section>
+            )}
 
             {/* CTA Section */}
             <motion.section
