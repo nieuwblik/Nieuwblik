@@ -208,7 +208,7 @@ const PortfolioDetail = () => {
                         >
                             <img
                                 src={img}
-                                alt={`${project.title} showcase ${index + 1}`}
+                                alt={`${project.title} - ${project.category} case study afbeelding ${index + 1}`}
                                 className="w-full h-auto lg:h-full object-cover object-top"
                                 loading="lazy"
                             />
