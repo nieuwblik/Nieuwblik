@@ -47,7 +47,7 @@ const Reveal = ({
 const GoogleReview = () => (
   <Reveal delay={0.4} className="lg:absolute lg:bottom-12 lg:right-12 mt-12 lg:mt-0 lg:mb-0 mb-12 self-start lg:self-auto">
     <a
-      href="https://www.google.com/search?q=Puur+in+Harmonie+reviews"
+      href="https://www.google.com/search?q=Nieuwblik+reviews"
       target="_blank"
       rel="noopener noreferrer"
       className="group flex items-start gap-4 p-5 rounded-2xl bg-white/95 backdrop-blur-sm border border-white/20 lg:shadow-none shadow-sm hover:scale-[1.02] transition-all duration-300"
