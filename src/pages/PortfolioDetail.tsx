@@ -45,8 +45,9 @@ const PortfolioDetail = () => {
         <div className="min-h-screen bg-background">
             <SEOHead
                 title={`${project.title} | Portfolio - Nieuwblik`}
-                description={project.description}
+                description={project.detail?.details ? project.detail.details.substring(0, 155) : project.description}
                 canonicalUrl={`https://nieuwblik.com/portfolio/${project.slug}`}
+                ogImage={project.image}
             />
             <Navigation />
 
@@ -207,7 +208,7 @@ const PortfolioDetail = () => {
                         >
                             <img
                                 src={img}
-                                alt={`${project.title} showcase ${index + 1}`}
+                                alt={`${project.title} - ${project.category} case study afbeelding ${index + 1}`}
                                 className="w-full h-auto lg:h-full object-cover object-top"
                                 loading="lazy"
                             />

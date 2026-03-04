@@ -16,8 +16,8 @@ import greenProfitImg from "@/assets/projects/green-profit.nl.png";
 import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.png";
 import rrsroyalImg from "@/assets/projects/rrsroyal.nl.png";
 import puurCaseImg from "@/assets/projects/puurinharmonie-case.webp";
-import puurCase1Img from "@/assets/projects/puurinharmonie-case -1.webp";
-import puurCase2Img from "@/assets/projects/puurinharmonie-case - 2.webp";
+import puurCase1Img from "@/assets/projects/puurinharmonie-case-1.webp";
+import puurCase2Img from "@/assets/projects/puurinharmonie-case-2.webp";
 
 export interface ProjectDetail {
   year: string;
