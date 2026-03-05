@@ -15,7 +15,7 @@ import { useRef } from "react";
 import justinImage from "@/assets/justin-slok.png";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import SocialContentSection from "@/components/SocialContentSection";
+
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
 import {
   optimizedStaggerContainer,
@@ -27,7 +27,7 @@ import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
 import { MagicServicesCards } from "@/components/MagicServicesCards";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
-import { ResponsiveShowcase } from "@/components/ResponsiveShowcase";
+
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 import { cn } from "@/lib/utils";
@@ -634,17 +634,11 @@ const Index = () => {
       </div>
     </section>
 
-    {/* Responsive Showcase Section */}
-    <ResponsiveShowcase />
-
     {/* Design Carousel Section */}
     <DesignCarousel />
 
     {/* Problem vs Solution Section */}
     <ProblemSolutionSection />
-
-    {/* Social Content Section */}
-    <SocialContentSection />
 
     {/* Featured Blog Posts */}
     <FeaturedBlogPosts />

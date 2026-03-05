@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MagicCard } from "@/components/ui/magic-card";
 import { Link } from "react-router-dom";
+import ProjectCard from "@/components/ProjectCard";
 import { ShoppingCart, CreditCard, BarChart3, Check, Plus, ArrowRight, MessageCircle, Star } from "lucide-react";
+
+// Project images for webshop cases
+import puurinharmonieImg from "@/assets/projects/puurinharmonie-case.webp";
+import kyodaiImg from "@/assets/projects/kyodaioriginals.nl.png";
+import bushidoImg from "@/assets/projects/bushidoshop.nl.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
 import {
@@ -465,9 +471,94 @@ const Webshops = () => {
         </div>
       </motion.section>
 
-      {/* FAQ */}
+      {/* Webshop Cases */}
       <motion.section
         className="py-16 md:py-24"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={optimizedStaggerContainer(shouldReduceMotion)}
+      >
+        <div className="container mx-auto px-6">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-center mb-4"
+            variants={fadeUp}
+          >
+            Recente webshop projecten
+          </motion.h2>
+          <motion.p
+            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+            variants={fadeUp}
+          >
+            Bekijk enkele van onze succesvolle e-commerce projecten
+          </motion.p>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
+          >
+            {[
+              {
+                title: "Puur in Harmonie",
+                category: "Salon & E-commerce",
+                description: "Webshop met Stripe integratie voor een holistische salon. Klanten bestellen eenvoudig producten online.",
+                image: puurinharmonieImg,
+                url: "https://puurinharmonie.nl",
+                tags: ["WooCommerce", "Stripe", "E-commerce"]
+              },
+              {
+                title: "Kyodai Originals",
+                category: "Fashion & Streetwear",
+                description: "Stijlvolle webshop voor een streetwear merk met complete productcatalogus en veilige betalingen.",
+                image: kyodaiImg,
+                url: "https://kyodaioriginals.nl",
+                tags: ["E-commerce", "Fashion", "Webshop"]
+              },
+              {
+                title: "Bushido Shop",
+                category: "Martial Arts & Sport",
+                description: "Complete e-commerce oplossing voor martial arts producten met uitgebreid voorraadbeheer en verzendopties.",
+                image: bushidoImg,
+                url: "https://bushidoshop.nl",
+                tags: ["E-commerce", "Sport", "Webshop"]
+              }
+            ].map((project, index) => (
+              <motion.div
+                key={index}
+                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
+              >
+                <ProjectCard
+                  title={project.title}
+                  category={project.category}
+                  description={project.description}
+                  image={project.image}
+                  url={project.url}
+                  tags={project.tags}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div className="text-center mt-12" variants={fadeUp}>
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+            >
+              <Button asChild variant="outline" size="lg">
+                <Link to="/portfolio" className="flex items-center gap-2">
+                  Bekijk alle projecten
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* FAQ */}
+      <motion.section
+        className="py-16 md:py-24 bg-secondary/50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}

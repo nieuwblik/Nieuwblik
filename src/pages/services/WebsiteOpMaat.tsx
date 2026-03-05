@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
-import { ResponsiveShowcase } from "@/components/ResponsiveShowcase";
+
 import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,10 @@ import {
 } from "@/lib/optimized-motion";
 
 // Project images for cases
-import esveldImg from "@/assets/projects/esveldinstallatie.nl.png";
-import feitsmaImg from "@/assets/projects/feitsmadakwerken.nl.png";
+import puurinharmonieImg from "@/assets/projects/puurinharmonie-case.webp";
+import benotedImg from "@/assets/projects/benoted.nl.jpg";
+import daniqueImg from "@/assets/projects/daniquekwakman.nl.png";
+import ericaImg from "@/assets/projects/ericavandijk.nl.png";
 
 // Tool logos
 import lovableLogo from "@/assets/tools/lovable-logo.png";
@@ -73,19 +75,33 @@ const WebsiteOpMaat = () => {
   const optionalModules = ["Custom AI chatbot integratie", "E-commerce functionaliteit", "Meertalige website opties", "Premium CMS licenties", "Geavanceerde animaties", "Lead generation funnels"];
 
   const cases = [{
-    title: "Esveld Installatie",
-    category: "Installatiebedrijf",
-    description: "Professionele installatie website met projectportfolio en direct contact voor offertes. Moderne uitstraling met focus op conversie.",
-    image: esveldImg,
-    url: "https://esveldinstallatie.nl",
-    tags: ["Web Design", "Dienstverlening", "Contact Formulieren"]
+    title: "Puur in Harmonie",
+    category: "Salon & E-commerce",
+    description: "Een serene website met webshop-integratie via Stripe. Minimalistisch design dat de rust en harmonie van de salon perfect weerspiegelt.",
+    image: puurinharmonieImg,
+    url: "https://puurinharmonie.nl",
+    tags: ["Web Design", "E-commerce", "Stripe"]
   }, {
-    title: "Feitsma Dakwerken",
-    category: "Dakdekkers & Aannemers",
-    description: "Professioneel dakdekkersbedrijf platform met showcases van dakwerkzaamheden en aannemingsprojecten. SEO geoptimaliseerd voor lokale vindbaarheid.",
-    image: feitsmaImg,
-    url: "https://feitsmadakwerken.nl",
-    tags: ["Web Design", "Bouw", "Dienstverlening"]
+    title: "BeNoted",
+    category: "Social Media Marketing",
+    description: "Razendsnelle, high-performance website voor de financiële sector. Gebouwd met focus op autoriteit, conversie en maximale vindbaarheid.",
+    image: benotedImg,
+    url: "https://benoted.nl",
+    tags: ["Web Design", "Performance", "SEO"]
+  }, {
+    title: "Danique Kwakman",
+    category: "Personal Brand",
+    description: "Professionele website die de persoonlijke brand van Danique naar voren brengt met een modern en strak design.",
+    image: daniqueImg,
+    url: "https://daniquekwakman.nl",
+    tags: ["Web Design", "Personal Brand", "Portfolio"]
+  }, {
+    title: "Erica van Dijk",
+    category: "Dienstverlening",
+    description: "Elegante website met een warme uitstraling, volledig geoptimaliseerd voor mobiel en zoekmachines.",
+    image: ericaImg,
+    url: "https://ericavandijk.nl",
+    tags: ["Web Design", "Dienstverlening", "SEO"]
   }];
 
   const tools = [
@@ -203,9 +219,6 @@ const WebsiteOpMaat = () => {
           </motion.div>
         </div>
       </motion.section>
-
-      {/* Responsive Showcase */}
-      <ResponsiveShowcase />
 
       {/* Why Nieuwblik - 3 USPs */}
       <motion.section
