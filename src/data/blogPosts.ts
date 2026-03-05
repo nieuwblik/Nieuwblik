@@ -55,12 +55,12 @@ Bij Nieuwblik zijn we grote fans. In dit artikel leggen we uit waarom, wat Strip
 
 ## Inhoudsopgave
 
-1. [Wat is Stripe?](#wat-is-stripe)
-2. [Stripe Dashboard & Meldingen](#stripe-dashboard)
-3. [Stripe Kosten & Prijzen 2026](#stripe-kosten)
-4. [Stripe vs Mollie: Welke kies je?](#stripe-vs-mollie)
-5. [Case Study: Puur in Harmonie](#case-study-puur-in-harmonie)
-6. [Waarom Nieuwblik fan is van Stripe](#waarom-nieuwblik-fan-is)
+1. Wat is Stripe?
+2. Stripe Dashboard & Meldingen
+3. Stripe Kosten & Prijzen 2026
+4. Stripe vs Mollie: Welke kies je?
+5. Case Study: Puur in Harmonie
+6. Waarom Nieuwblik fan is van Stripe
 
 ---
 
@@ -186,10 +186,6 @@ We hebben de webshop gebouwd met een **volledig geïntegreerde Stripe checkout**
 - **Real-time meldingen** — bij elke verkoop krijgt de eigenaar direct een notificatie in het Stripe Dashboard
 - **Terugbetalingen** — eenvoudig te verwerken via het dashboard zonder technische kennis
 - **Mobiel geoptimaliseerd** — de checkout werkt perfect op elk apparaat
-
-### Het resultaat
-
-> *"Ik krijg bij elke verkoop direct een melding. Het dashboard geeft me compleet overzicht over mijn omzet en klanten. Super makkelijk!"*
 
 De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat écht belangrijk is: **geweldige producten maken**. De betalingen lopen volledig automatisch, veilig en betrouwbaar.
 
