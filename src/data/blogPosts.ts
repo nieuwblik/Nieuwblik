@@ -191,8 +191,6 @@ De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat 
 
 ---
 
----
-
 ## Aan de slag met Stripe?
 
 Wil jij ook een **webshop met Stripe-integratie** laten bouwen? Of ben je benieuwd hoe Stripe jouw huidige website kan verbeteren?
