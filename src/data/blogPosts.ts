@@ -51,7 +51,6 @@ export const blogPosts: BlogPost[] = [
 
 Bij Nieuwblik zijn we grote fans. In dit artikel leggen we uit waarom, wat Stripe kost, hoe het dashboard werkt en laten we zien hoe we het hebben ingezet voor **Puur in Harmonie**.
 
----
 
 ## Inhoudsopgave
 
@@ -62,7 +61,6 @@ Bij Nieuwblik zijn we grote fans. In dit artikel leggen we uit waarom, wat Strip
 5. Case Study: Puur in Harmonie
 6. Waarom Nieuwblik fan is van Stripe
 
----
 
 ## Wat is Stripe?
 
@@ -80,7 +78,6 @@ Maar Stripe is niet alleen voor techgiganten. Het is juist ook **ideaal voor MKB
 
 > *"Stripe is de betaalinfrastructuur van het internet."* — Forbes
 
----
 
 ## Stripe Dashboard
 
@@ -105,7 +102,6 @@ Stripe stuurt je **real-time meldingen** bij elke verkoop. Je kunt instellen dat
 
 Dit betekent dat je **altijd op de hoogte** bent van wat er in je webshop gebeurt, zonder continu in te hoeven loggen.
 
----
 
 ## Stripe Kosten
 
@@ -131,7 +127,6 @@ Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel e
 
 Je betaalt dus **alleen wanneer je daadwerkelijk geld ontvangt**. Dit maakt Stripe bijzonder aantrekkelijk voor startende ondernemers die niet direct hoge vaste lasten willen.
 
----
 
 ## Stripe vs Mollie
 
