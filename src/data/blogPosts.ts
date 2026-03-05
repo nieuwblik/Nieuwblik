@@ -34,6 +34,201 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "stripe-betalingen-webshop-handleiding",
+    image: stripeLogoImg,
+    seoTitle: "Stripe Betalingen | De Beste Betaaltool voor Webshops",
+    seoKeywords: "stripe, stripe betalen, stripe kosten, online betalen, betaalplatform, webshop betalingen, stripe nederland, stripe vs mollie, stripe dashboard, stripe integratie",
+    title: {
+      nl: "Stripe: De krachtigste betaaltool voor jouw webshop",
+      en: "Stripe: The most powerful payment tool for your webshop"
+    },
+    excerpt: {
+      nl: "Waarom Stripe dé betaaloplossing is voor moderne webshops. Van real-time meldingen tot een overzichtelijk dashboard — ontdek waarom wij bij Nieuwblik fan zijn, inclusief case study Puur in Harmonie.",
+      en: "Why Stripe is the payment solution for modern webshops. From real-time notifications to a clear dashboard — discover why we at Nieuwblik are fans."
+    },
+    content: {
+      nl: `Als je een webshop bouwt of online producten verkoopt, is er één vraag die je vroeg of laat moet beantwoorden: **hoe laat ik klanten betalen?** Er zijn tientallen opties, maar één platform springt er telkens weer uit: **Stripe**.
+
+Bij Nieuwblik zijn we grote fans. In dit artikel leggen we uit waarom, wat Stripe kost, hoe het dashboard werkt en laten we zien hoe we het hebben ingezet voor **Puur in Harmonie**.
+
+---
+
+## Inhoudsopgave
+
+1. [Wat is Stripe?](#wat-is-stripe)
+2. [Stripe Dashboard & Meldingen](#stripe-dashboard)
+3. [Stripe Kosten & Prijzen 2026](#stripe-kosten)
+4. [Stripe vs Mollie: Welke kies je?](#stripe-vs-mollie)
+5. [Case Study: Puur in Harmonie](#case-study-puur-in-harmonie)
+6. [Waarom Nieuwblik fan is van Stripe](#waarom-nieuwblik-fan-is)
+
+---
+
+## Wat is Stripe?
+
+**Stripe** is een Amerikaans betaalplatform dat in 2010 werd opgericht door de broers Patrick en John Collison. Het is inmiddels één van de **grootste betaalverwerkers ter wereld**, gebruikt door bedrijven als Shopify, Amazon, Google en Booking.com.
+
+Maar Stripe is niet alleen voor techgiganten. Het is juist ook **ideaal voor MKB-ondernemers, freelancers en startups** die een professionele betaalervaring willen bieden.
+
+### Wat maakt Stripe zo populair?
+
+- **Eenvoudige integratie** — binnen minuten te koppelen aan je webshop
+- **Wereldwijde dekking** — accepteer betalingen in 135+ valuta's
+- **Flexibel** — van eenmalige betalingen tot abonnementen en facturen
+- **Veilig** — PCI DSS Level 1 gecertificeerd, de hoogste beveiligingsstandaard
+- **Ontwikkelaarsvriendelijk** — uitstekende API en documentatie
+
+> *"Stripe is de betaalinfrastructuur van het internet."* — Forbes
+
+---
+
+## Stripe Dashboard
+
+Eén van de grootste voordelen van Stripe is het **dashboard**. Zodra je een account aanmaakt, krijg je toegang tot een compleet overzicht van al je betalingen, klanten en omzet.
+
+### Wat zie je in het Stripe Dashboard?
+
+- **Real-time betalingsoverzicht** — elke transactie verschijnt direct
+- **Omzetgrafieken** — dag, week, maand of jaar overzichten
+- **Klantprofielen** — zie precies wie wat heeft gekocht
+- **Terugbetalingen beheren** — met één klik een refund verwerken
+- **Abonnementen** — beheer recurring payments eenvoudig
+
+### Meldingen & Notificaties
+
+Stripe stuurt je **real-time meldingen** bij elke verkoop. Je kunt instellen dat je een e-mail of push-notificatie ontvangt wanneer:
+
+- Een klant een bestelling plaatst ✅
+- Een betaling mislukt ❌
+- Een abonnement wordt verlengd 🔄
+- Een terugbetaling wordt aangevraagd 💸
+
+Dit betekent dat je **altijd op de hoogte** bent van wat er in je webshop gebeurt, zonder continu in te hoeven loggen.
+
+---
+
+## Stripe Kosten
+
+Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel en transparant.
+
+### Stripe tarieven 2026
+
+| Betaalmethode | Kosten per transactie |
+|---|---|
+| **Europese kaarten** (Visa, Mastercard) | 1,5% + €0,25 |
+| **Niet-Europese kaarten** | 2,9% + €0,25 |
+| **iDEAL** | €0,29 per transactie |
+| **Bancontact** | 1,4% + €0,25 |
+| **SEPA Direct Debit** | 0,35% (max €5,00) |
+| **Klarna** | Variabel |
+
+### Geen verborgen kosten
+
+- ✅ **Geen maandelijkse abonnementskosten**
+- ✅ **Geen setup-kosten**
+- ✅ **Geen minimale contractduur**
+- ✅ **Gratis dashboard en analytics**
+
+Je betaalt dus **alleen wanneer je daadwerkelijk geld ontvangt**. Dit maakt Stripe bijzonder aantrekkelijk voor startende ondernemers die niet direct hoge vaste lasten willen.
+
+---
+
+## Stripe vs Mollie
+
+In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlandse betaalprovider. Beide zijn uitstekende opties, maar er zijn belangrijke verschillen.
+
+| Feature | Stripe | Mollie |
+|---|---|---|
+| **iDEAL kosten** | €0,29 | €0,29 |
+| **Creditcard kosten** | 1,5% + €0,25 | 1,8% + €0,25 |
+| **Abonnementen** | ✅ Ingebouwd | ✅ Via add-on |
+| **Dashboard** | ✅ Uitgebreid | ✅ Goed |
+| **API kwaliteit** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Wereldwijde dekking** | 135+ landen | 35+ landen |
+| **Fraud protection** | ✅ Radar (ingebouwd) | ⚠️ Beperkt |
+| **No-code integraties** | ✅ Veel | ✅ Veel |
+| **Facturatie** | ✅ Stripe Invoicing | ✅ Basis |
+
+### Wanneer kies je Stripe?
+
+- Je wilt **internationaal** verkopen
+- Je hebt **abonnementen** of recurring payments nodig
+- Je wilt de **beste API** en ontwikkelaarservaring
+- Je wilt **geavanceerde fraudepreventie** (Stripe Radar)
+- Je wilt **alles in één platform**: betalingen, facturatie, abonnementen
+
+### Wanneer kies je Mollie?
+
+- Je verkoopt **alleen in Nederland/België**
+- Je zoekt een **simpele plug-and-play** oplossing
+- Je gebruikt **WordPress/WooCommerce** (Mollie heeft sterke plugins)
+
+> Bij Nieuwblik kiezen wij voor Stripe wanneer klanten een **schaalbare, internationale betaaloplossing** nodig hebben.
+
+---
+
+## Case Study: Puur in Harmonie
+
+![Puur in Harmonie webshop](/src/assets/projects/puurinharmonie-case.webp)
+
+Een perfect voorbeeld van Stripe in actie is de webshop die wij hebben gebouwd voor **[Puur in Harmonie](https://puurinharmonie.nl)**, een groeiend merk in natuurlijke gezondheidsproducten.
+
+### De uitdaging
+
+Puur in Harmonie had een **professionele webshop** nodig waar klanten eenvoudig producten konden bestellen en direct online konden betalen. Betrouwbaarheid, snelheid en een fijne gebruikerservaring stonden centraal.
+
+### Onze aanpak
+
+We hebben de webshop gebouwd met een **volledig geïntegreerde Stripe checkout**:
+
+- **Directe betaling** — klanten betalen veilig via iDEAL, creditcard of andere methodes
+- **Automatische orderbevestiging** — na betaling ontvangt zowel de klant als de eigenaar een bevestiging
+- **Real-time meldingen** — bij elke verkoop krijgt de eigenaar direct een notificatie in het Stripe Dashboard
+- **Terugbetalingen** — eenvoudig te verwerken via het dashboard zonder technische kennis
+- **Mobiel geoptimaliseerd** — de checkout werkt perfect op elk apparaat
+
+### Het resultaat
+
+> *"Ik krijg bij elke verkoop direct een melding. Het dashboard geeft me compleet overzicht over mijn omzet en klanten. Super makkelijk!"*
+
+De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat écht belangrijk is: **geweldige producten maken**. De betalingen lopen volledig automatisch, veilig en betrouwbaar.
+
+---
+
+## Waarom Nieuwblik fan is van Stripe
+
+Bij **Nieuwblik** bouwen we websites en webshops die niet alleen mooi zijn, maar ook **technisch ijzersterk**. Stripe past perfect in die filosofie:
+
+### 1. Simpel voor de klant
+De checkout is snel, herkenbaar en vertrouwd. Klanten hoeven geen account aan te maken en kunnen in **twee klikken** afrekenen.
+
+### 2. Krachtig voor de ondernemer
+Het dashboard geeft je **compleet inzicht** in je omzet, klanten en betalingsgeschiedenis. Je hebt letterlijk een mini-boekhouding in je pocket.
+
+### 3. Flexibel voor ons als bouwers
+De Stripe API is **de beste in de industrie**. We kunnen elke gewenste betaalflow bouwen, van simpele checkout tot complexe abonnementsmodellen.
+
+### 4. Betrouwbaar en veilig
+Met **Stripe Radar** worden frauduleuze transacties automatisch geblokkeerd. Je klanten betalen veilig, en jij ontvangt je geld op tijd.
+
+### 5. Schaalbaar
+Of je nu 10 of 10.000 bestellingen per maand verwerkt — Stripe schaalt moeiteloos mee met je groei.
+
+---
+
+## Aan de slag met Stripe?
+
+Wil jij ook een **webshop met Stripe-integratie** laten bouwen? Of ben je benieuwd hoe Stripe jouw huidige website kan verbeteren?
+
+**Neem contact met ons op** en ontdek hoe wij jouw betaalervaring naar een hoger niveau tillen.
+
+[→ Start je project vandaag](/contact)`,
+      en: "Discover why Stripe is the best payment platform for webshops. Real-time dashboard, transparent pricing, and a case study of Puur in Harmonie — learn why Nieuwblik recommends Stripe."
+    },
+    date: "2026-03-05",
+    readingTime: 10
+  },
+  {
     slug: "case-study-benoted-snelheid-zichtbaarheid",
     image: nieuwblikBenotedCover,
     title: {
@@ -2858,200 +3053,5 @@ Ideeën genereren, problemen structureren, strategieën ontwikkelen.
     },
     date: "2025-12-17",
     readingTime: 12
-  },
-  {
-    slug: "stripe-betalingen-webshop-handleiding",
-    image: stripeLogoImg,
-    seoTitle: "Stripe Betalingen | De Beste Betaaltool voor Webshops",
-    seoKeywords: "stripe, stripe betalen, stripe kosten, online betalen, betaalplatform, webshop betalingen, stripe nederland, stripe vs mollie, stripe dashboard, stripe integratie",
-    title: {
-      nl: "Stripe: De krachtigste betaaltool voor jouw webshop",
-      en: "Stripe: The most powerful payment tool for your webshop"
-    },
-    excerpt: {
-      nl: "Waarom Stripe dé betaaloplossing is voor moderne webshops. Van real-time meldingen tot een overzichtelijk dashboard — ontdek waarom wij bij Nieuwblik fan zijn, inclusief case study Puur in Harmonie.",
-      en: "Why Stripe is the payment solution for modern webshops. From real-time notifications to a clear dashboard — discover why we at Nieuwblik are fans."
-    },
-    content: {
-      nl: `Als je een webshop bouwt of online producten verkoopt, is er één vraag die je vroeg of laat moet beantwoorden: **hoe laat ik klanten betalen?** Er zijn tientallen opties, maar één platform springt er telkens weer uit: **Stripe**.
-
-Bij Nieuwblik zijn we grote fans. In dit artikel leggen we uit waarom, wat Stripe kost, hoe het dashboard werkt en laten we zien hoe we het hebben ingezet voor **Puur in Harmonie**.
-
----
-
-## Inhoudsopgave
-
-1. [Wat is Stripe?](#wat-is-stripe)
-2. [Stripe Dashboard & Meldingen](#stripe-dashboard)
-3. [Stripe Kosten & Prijzen 2026](#stripe-kosten)
-4. [Stripe vs Mollie: Welke kies je?](#stripe-vs-mollie)
-5. [Case Study: Puur in Harmonie](#case-study-puur-in-harmonie)
-6. [Waarom Nieuwblik fan is van Stripe](#waarom-nieuwblik-fan-is)
-
----
-
-## Wat is Stripe?
-
-**Stripe** is een Amerikaans betaalplatform dat in 2010 werd opgericht door de broers Patrick en John Collison. Het is inmiddels één van de **grootste betaalverwerkers ter wereld**, gebruikt door bedrijven als Shopify, Amazon, Google en Booking.com.
-
-Maar Stripe is niet alleen voor techgiganten. Het is juist ook **ideaal voor MKB-ondernemers, freelancers en startups** die een professionele betaalervaring willen bieden.
-
-### Wat maakt Stripe zo populair?
-
-- **Eenvoudige integratie** — binnen minuten te koppelen aan je webshop
-- **Wereldwijde dekking** — accepteer betalingen in 135+ valuta's
-- **Flexibel** — van eenmalige betalingen tot abonnementen en facturen
-- **Veilig** — PCI DSS Level 1 gecertificeerd, de hoogste beveiligingsstandaard
-- **Ontwikkelaarsvriendelijk** — uitstekende API en documentatie
-
-> *"Stripe is de betaalinfrastructuur van het internet."* — Forbes
-
----
-
-## Stripe Dashboard
-
-Eén van de grootste voordelen van Stripe is het **dashboard**. Zodra je een account aanmaakt, krijg je toegang tot een compleet overzicht van al je betalingen, klanten en omzet.
-
-### Wat zie je in het Stripe Dashboard?
-
-- **Real-time betalingsoverzicht** — elke transactie verschijnt direct
-- **Omzetgrafieken** — dag, week, maand of jaar overzichten
-- **Klantprofielen** — zie precies wie wat heeft gekocht
-- **Terugbetalingen beheren** — met één klik een refund verwerken
-- **Abonnementen** — beheer recurring payments eenvoudig
-
-### Meldingen & Notificaties
-
-Stripe stuurt je **real-time meldingen** bij elke verkoop. Je kunt instellen dat je een e-mail of push-notificatie ontvangt wanneer:
-
-- Een klant een bestelling plaatst ✅
-- Een betaling mislukt ❌
-- Een abonnement wordt verlengd 🔄
-- Een terugbetaling wordt aangevraagd 💸
-
-Dit betekent dat je **altijd op de hoogte** bent van wat er in je webshop gebeurt, zonder continu in te hoeven loggen.
-
----
-
-## Stripe Kosten
-
-Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel en transparant.
-
-### Stripe tarieven 2026
-
-| Betaalmethode | Kosten per transactie |
-|---|---|
-| **Europese kaarten** (Visa, Mastercard) | 1,5% + €0,25 |
-| **Niet-Europese kaarten** | 2,9% + €0,25 |
-| **iDEAL** | €0,29 per transactie |
-| **Bancontact** | 1,4% + €0,25 |
-| **SEPA Direct Debit** | 0,35% (max €5,00) |
-| **Klarna** | Variabel |
-
-### Geen verborgen kosten
-
-- ✅ **Geen maandelijkse abonnementskosten**
-- ✅ **Geen setup-kosten**
-- ✅ **Geen minimale contractduur**
-- ✅ **Gratis dashboard en analytics**
-
-Je betaalt dus **alleen wanneer je daadwerkelijk geld ontvangt**. Dit maakt Stripe bijzonder aantrekkelijk voor startende ondernemers die niet direct hoge vaste lasten willen.
-
----
-
-## Stripe vs Mollie
-
-In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlandse betaalprovider. Beide zijn uitstekende opties, maar er zijn belangrijke verschillen.
-
-| Feature | Stripe | Mollie |
-|---|---|---|
-| **iDEAL kosten** | €0,29 | €0,29 |
-| **Creditcard kosten** | 1,5% + €0,25 | 1,8% + €0,25 |
-| **Abonnementen** | ✅ Ingebouwd | ✅ Via add-on |
-| **Dashboard** | ✅ Uitgebreid | ✅ Goed |
-| **API kwaliteit** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **Wereldwijde dekking** | 135+ landen | 35+ landen |
-| **Fraud protection** | ✅ Radar (ingebouwd) | ⚠️ Beperkt |
-| **No-code integraties** | ✅ Veel | ✅ Veel |
-| **Facturatie** | ✅ Stripe Invoicing | ✅ Basis |
-
-### Wanneer kies je Stripe?
-
-- Je wilt **internationaal** verkopen
-- Je hebt **abonnementen** of recurring payments nodig
-- Je wilt de **beste API** en ontwikkelaarservaring
-- Je wilt **geavanceerde fraudepreventie** (Stripe Radar)
-- Je wilt **alles in één platform**: betalingen, facturatie, abonnementen
-
-### Wanneer kies je Mollie?
-
-- Je verkoopt **alleen in Nederland/België**
-- Je zoekt een **simpele plug-and-play** oplossing
-- Je gebruikt **WordPress/WooCommerce** (Mollie heeft sterke plugins)
-
-> Bij Nieuwblik kiezen wij voor Stripe wanneer klanten een **schaalbare, internationale betaaloplossing** nodig hebben.
-
----
-
-## Case Study: Puur in Harmonie
-
-![Puur in Harmonie webshop](/src/assets/projects/puurinharmonie-case.webp)
-
-Een perfect voorbeeld van Stripe in actie is de webshop die wij hebben gebouwd voor **[Puur in Harmonie](https://puurinharmonie.nl)**, een groeiend merk in natuurlijke gezondheidsproducten.
-
-### De uitdaging
-
-Puur in Harmonie had een **professionele webshop** nodig waar klanten eenvoudig producten konden bestellen en direct online konden betalen. Betrouwbaarheid, snelheid en een fijne gebruikerservaring stonden centraal.
-
-### Onze aanpak
-
-We hebben de webshop gebouwd met een **volledig geïntegreerde Stripe checkout**:
-
-- **Directe betaling** — klanten betalen veilig via iDEAL, creditcard of andere methodes
-- **Automatische orderbevestiging** — na betaling ontvangt zowel de klant als de eigenaar een bevestiging
-- **Real-time meldingen** — bij elke verkoop krijgt de eigenaar direct een notificatie in het Stripe Dashboard
-- **Terugbetalingen** — eenvoudig te verwerken via het dashboard zonder technische kennis
-- **Mobiel geoptimaliseerd** — de checkout werkt perfect op elk apparaat
-
-### Het resultaat
-
-> *"Ik krijg bij elke verkoop direct een melding. Het dashboard geeft me compleet overzicht over mijn omzet en klanten. Super makkelijk!"*
-
-De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat écht belangrijk is: **geweldige producten maken**. De betalingen lopen volledig automatisch, veilig en betrouwbaar.
-
----
-
-## Waarom Nieuwblik fan is van Stripe
-
-Bij **Nieuwblik** bouwen we websites en webshops die niet alleen mooi zijn, maar ook **technisch ijzersterk**. Stripe past perfect in die filosofie:
-
-### 1. Simpel voor de klant
-De checkout is snel, herkenbaar en vertrouwd. Klanten hoeven geen account aan te maken en kunnen in **twee klikken** afrekenen.
-
-### 2. Krachtig voor de ondernemer
-Het dashboard geeft je **compleet inzicht** in je omzet, klanten en betalingsgeschiedenis. Je hebt letterlijk een mini-boekhouding in je pocket.
-
-### 3. Flexibel voor ons als bouwers
-De Stripe API is **de beste in de industrie**. We kunnen elke gewenste betaalflow bouwen, van simpele checkout tot complexe abonnementsmodellen.
-
-### 4. Betrouwbaar en veilig
-Met **Stripe Radar** worden frauduleuze transacties automatisch geblokkeerd. Je klanten betalen veilig, en jij ontvangt je geld op tijd.
-
-### 5. Schaalbaar
-Of je nu 10 of 10.000 bestellingen per maand verwerkt — Stripe schaalt moeiteloos mee met je groei.
-
----
-
-## Aan de slag met Stripe?
-
-Wil jij ook een **webshop met Stripe-integratie** laten bouwen? Of ben je benieuwd hoe Stripe jouw huidige website kan verbeteren?
-
-**Neem contact met ons op** en ontdek hoe wij jouw betaalervaring naar een hoger niveau tillen.
-
-[→ Start je project vandaag](/contact)`,
-      en: "Discover why Stripe is the best payment platform for webshops. Real-time dashboard, transparent pricing, and a case study of Puur in Harmonie — learn why Nieuwblik recommends Stripe."
-    },
-    date: "2026-03-05",
-    readingTime: 10
   }
 ];
