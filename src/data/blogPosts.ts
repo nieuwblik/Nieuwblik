@@ -189,7 +189,7 @@ We hebben de webshop gebouwd met een **volledig geïntegreerde Stripe checkout**
 
 De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat écht belangrijk is: **geweldige producten maken**. De betalingen lopen volledig automatisch, veilig en betrouwbaar.
 
----
+
 
 ## Aan de slag met Stripe?
 
