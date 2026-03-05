@@ -139,6 +139,46 @@ const BlogPost = () => {
     }
   }, [post]);
 
+  const formatInlineMarkdown = (text: string): (string | JSX.Element)[] => {
+    // Process markdown: **bold**, *italic*, [links](url)
+    const regex = /(\*\*(.+?)\*\*)|(\*(.+?)\*)|(\[([^\]]+)\]\(([^)]+)\))/g;
+    const parts: (string | JSX.Element)[] = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+      if (match[1]) {
+        // **bold**
+        parts.push(<strong key={match.index} className="font-semibold">{match[2]}</strong>);
+      } else if (match[3]) {
+        // *italic*
+        parts.push(<em key={match.index}>{match[4]}</em>);
+      } else if (match[5]) {
+        // [link](url)
+        const href = match[7];
+        const isAnchor = href.startsWith('#');
+        parts.push(
+          <a
+            key={match.index}
+            href={href}
+            {...(!isAnchor ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="text-accent hover:underline"
+          >
+            {match[6]}
+          </a>
+        );
+      }
+      lastIndex = match.index + match[0].length;
+    }
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+    return parts.length > 0 ? parts : [text];
+  };
+
   const formatContent = (content: string) => {
     const sections = content.trim().split('\n\n');
     return sections.map((section, index) => {
@@ -207,7 +247,7 @@ const BlogPost = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
-            {section.replace('> ', '')}
+            {formatInlineMarkdown(section.replace('> ', ''))}
           </motion.blockquote>
         );
       }
@@ -246,7 +286,7 @@ const BlogPost = () => {
                       <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-background' : 'bg-secondary/30'}>
                         {cells.map((cell, cellIndex) => (
                           <td key={cellIndex} className="border border-border px-4 py-3 text-sm">
-                            {cell}
+                            {formatInlineMarkdown(cell)}
                           </td>
                         ))}
                       </tr>
