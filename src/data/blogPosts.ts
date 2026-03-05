@@ -165,7 +165,7 @@ In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlan
 
 > Bij Nieuwblik kiezen wij voor Stripe wanneer klanten een **schaalbare, internationale betaaloplossing** nodig hebben.
 
----
+
 
 ## Case Study: Puur in Harmonie
 
