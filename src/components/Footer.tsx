@@ -95,7 +95,7 @@ const Footer = () => {
                 Ontvang tips, trends en inspiratie direct in je inbox
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                <Input type="email" placeholder="jouw@email.nl" value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-background" />
+                
                 <motion.div whileHover={shouldReduceMotion ? {} : {
                 scale: 1.03
               }} whileTap={shouldReduceMotion ? {} : {
