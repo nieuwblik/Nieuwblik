@@ -191,25 +191,6 @@ De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat 
 
 ---
 
-## Waarom Nieuwblik fan is van Stripe
-
-Bij **Nieuwblik** bouwen we websites en webshops die niet alleen mooi zijn, maar ook **technisch ijzersterk**. Stripe past perfect in die filosofie:
-
-### 1. Simpel voor de klant
-De checkout is snel, herkenbaar en vertrouwd. Klanten hoeven geen account aan te maken en kunnen in **twee klikken** afrekenen.
-
-### 2. Krachtig voor de ondernemer
-Het dashboard geeft je **compleet inzicht** in je omzet, klanten en betalingsgeschiedenis. Je hebt letterlijk een mini-boekhouding in je pocket.
-
-### 3. Flexibel voor ons als bouwers
-De Stripe API is **de beste in de industrie**. We kunnen elke gewenste betaalflow bouwen, van simpele checkout tot complexe abonnementsmodellen.
-
-### 4. Betrouwbaar en veilig
-Met **Stripe Radar** worden frauduleuze transacties automatisch geblokkeerd. Je klanten betalen veilig, en jij ontvangt je geld op tijd.
-
-### 5. Schaalbaar
-Of je nu 10 of 10.000 bestellingen per maand verwerkt — Stripe schaalt moeiteloos mee met je groei.
-
 ---
 
 ## Aan de slag met Stripe?
