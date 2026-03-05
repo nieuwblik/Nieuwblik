@@ -11,8 +11,9 @@ const FeaturedBlogPosts = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
   
-  // Toon de nieuwste blog post
-  const latestPost = blogPosts[0];
+  // Featured = first post (BeNoted), secondary = next 3
+  const featuredPost = blogPosts[0];
+  const secondaryPosts = blogPosts.slice(1, 4);
 
   return (
     <section 
@@ -35,15 +36,15 @@ const FeaturedBlogPosts = () => {
           </p>
         </motion.div>
 
-        {/* Featured Blog Card */}
+        {/* Featured Blog Card (Large) */}
         <motion.div 
-          className="max-w-5xl mx-auto"
+          className="max-w-5xl mx-auto mb-12"
           initial={{ opacity: 0, y: 80, scale: 0.95 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 80, scale: 0.95 }}
           transition={{ duration: 0.8, delay: 0.2, ease: easings.easeOutExpo }}
         >
           <Link 
-            to={`/blog/${latestPost.slug}`}
+            to={`/blog/${featuredPost.slug}`}
             className="group block"
           >
             <motion.div 
@@ -55,37 +56,24 @@ const FeaturedBlogPosts = () => {
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}
             >
               <div className="grid md:grid-cols-2 gap-0">
-                {/* Image */}
-                {latestPost.image && (
+                {featuredPost.image && (
                   <div className="relative h-64 md:h-full min-h-[300px] overflow-hidden">
                     <motion.img 
-                      src={latestPost.image} 
-                      alt={latestPost.title.nl}
+                      src={featuredPost.image} 
+                      alt={featuredPost.title.nl}
                       className="w-full h-full object-cover"
                       loading="lazy"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
                       transition={{ duration: 0.5, ease: easings.easeOutExpo }}
                     />
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
                   </div>
                 )}
                 
-                {/* Content */}
                 <div className="p-8 md:p-10 flex flex-col justify-between">
                   <div>
-                    <motion.div 
-                      className="flex items-center gap-3 text-sm text-muted-foreground mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ delay: 0.4, duration: 0.5, ease: easings.easeOutExpo }}
-                    >
-                      <time dateTime={latestPost.date}>
-                        {new Date(latestPost.date).toLocaleDateString('nl-NL', {
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
+                      <time dateTime={featuredPost.date}>
+                        {new Date(featuredPost.date).toLocaleDateString('nl-NL', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric'
@@ -94,49 +82,88 @@ const FeaturedBlogPosts = () => {
                       <span>•</span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        {latestPost.readingTime} min leestijd
+                        {featuredPost.readingTime} min leestijd
                       </span>
-                    </motion.div>
+                    </div>
                     
-                    <motion.h3 
-                      className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-accent transition-colors"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ delay: 0.45, duration: 0.5, ease: easings.easeOutExpo }}
-                    >
-                      {latestPost.title.nl}
-                    </motion.h3>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-accent transition-colors">
+                      {featuredPost.title.nl}
+                    </h3>
                     
-                    <motion.p 
-                      className="text-muted-foreground font-light leading-relaxed mb-6"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ delay: 0.5, duration: 0.5, ease: easings.easeOutExpo }}
-                    >
-                      {latestPost.excerpt.nl}
-                    </motion.p>
+                    <p className="text-muted-foreground font-light leading-relaxed mb-6">
+                      {featuredPost.excerpt.nl}
+                    </p>
                   </div>
                   
-                  <motion.div 
-                    className="flex items-center gap-2 text-accent font-semibold"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                    transition={{ delay: 0.55, duration: 0.5, ease: easings.easeOutExpo }}
-                  >
+                  <div className="flex items-center gap-2 text-accent font-semibold">
                     Lees artikel
-                    <motion.span
-                      className="inline-block"
-                      whileHover={shouldReduceMotion ? {} : { x: 8 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.span>
-                  </motion.div>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                  </div>
                 </div>
               </div>
             </motion.div>
           </Link>
         </motion.div>
+
+        {/* Secondary Blog Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {secondaryPosts.map((post, index) => (
+            <motion.div
+              key={post.slug}
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+              transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ease: easings.easeOutExpo }}
+            >
+              <Link to={`/blog/${post.slug}`} className="group block h-full">
+                <motion.div
+                  className="bg-background rounded-lg overflow-hidden shadow-md h-full flex flex-col"
+                  whileHover={shouldReduceMotion ? {} : {
+                    y: -6,
+                    boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.12)"
+                  }}
+                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+                >
+                  {post.image && (
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt={post.title.nl}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                      <time dateTime={post.date}>
+                        {new Date(post.date).toLocaleDateString('nl-NL', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })}
+                      </time>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {post.readingTime} min
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                      {post.title.nl}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-light leading-relaxed line-clamp-3 flex-1">
+                      {post.excerpt.nl}
+                    </p>
+                    <div className="flex items-center gap-1 text-accent font-semibold text-sm mt-4">
+                      Lees meer
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
 
         {/* CTA to Blog Page */}
         <motion.div 
