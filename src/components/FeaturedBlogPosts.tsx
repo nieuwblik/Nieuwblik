@@ -61,7 +61,7 @@ const FeaturedBlogPosts = () => {
                     <motion.img 
                       src={featuredPost.image} 
                       alt={featuredPost.title.nl}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain bg-secondary p-8"
                       loading="lazy"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
                       transition={{ duration: 0.5, ease: easings.easeOutExpo }}
