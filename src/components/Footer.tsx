@@ -9,7 +9,6 @@ import { useState, useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
-import { getLocalRegions, getMajorRegions } from "@/data/regions";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -20,8 +19,6 @@ const Footer = () => {
     margin: "-50px"
   });
 
-  const localRegions = getLocalRegions();
-  const majorRegions = getMajorRegions();
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
@@ -73,55 +70,6 @@ const Footer = () => {
   }];
   return <footer ref={footerRef} className="bg-secondary py-16 md:py-24">
       <div className="container mx-auto px-6">
-        {/* Werkgebied Section */}
-        <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.5, ease: easings.easeOutExpo }}
-        className="mb-12 pb-12 border-b border-border">
-
-          <h4 className="font-semibold mb-6 text-lg">Websites voor</h4>
-
-          {/* Mobiel: alleen eerste 8 regio's */}
-          <div className="block md:hidden">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {[...localRegions, ...majorRegions].slice(0, 8).map((region) =>
-            <Link
-              key={region.id}
-              to={`/werkgebied/${region.slug}`}
-              className="text-sm text-muted-foreground hover:text-accent transition-colors px-3 py-1.5 rounded-md hover:bg-accent/10">
-
-                  {region.name}
-                </Link>
-            )}
-            </div>
-            <Link
-            to="/werkgebied"
-            className="text-sm text-accent hover:text-accent/80 transition-colors inline-flex items-center gap-1 font-medium">
-
-              Meer locaties
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-
-          {/* Desktop: alle regio's */}
-          <div className="hidden md:block">
-            <div className="flex flex-wrap gap-2">
-              {[...localRegions, ...majorRegions].map((region) =>
-            <Link
-              key={region.id}
-              to={`/werkgebied/${region.slug}`}
-              className="text-sm text-muted-foreground hover:text-accent transition-colors px-3 py-1.5 rounded-md hover:bg-accent/10">
-
-                  {region.name}
-                </Link>
-            )}
-            </div>
-          </div>
-        </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           <motion.div className="lg:col-span-2" initial={{
           opacity: 0,
