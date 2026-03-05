@@ -90,7 +90,7 @@ const Footer = () => {
             </p>
             
             <div className="space-y-4">
-              <h4 className="font-semibold">Blijf op de hoogte</h4>
+              
               <p className="text-sm text-muted-foreground">
                 Ontvang tips, trends en inspiratie direct in je inbox
               </p>
