@@ -94,18 +94,18 @@ const Footer = () => {
               <p className="text-sm text-muted-foreground">
                 Ontvang tips, trends en inspiratie direct in je inbox
               </p>
-              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                
-                <motion.div whileHover={shouldReduceMotion ? {} : {
-                scale: 1.03
-              }} whileTap={shouldReduceMotion ? {} : {
-                scale: 0.98
-              }}>
-                  <Button type="submit" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                    Aanmelden
-                  </Button>
-                </motion.div>
-              </form>
+              
+
+
+
+
+
+
+
+
+
+
+            
               
               <div className="pt-4">
                 <h4 className="font-semibold mb-3">Volg ons</h4>
