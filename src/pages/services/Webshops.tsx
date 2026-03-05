@@ -697,8 +697,8 @@ const Webshops = () => {
               transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
               
               <Button asChild size="lg" variant="outline" className="text-lg px-8">
-                <a href="tel:+31681762670" className="flex items-center gap-2">
-                  Bel direct: 06 81 76 26 70
+                <a className="flex items-center gap-2" href="tel:+31646253607">
+                  Bel direct: 06 46253607
                 </a>
               </Button>
             </motion.div>
