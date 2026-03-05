@@ -91,9 +91,9 @@ const Footer = () => {
             
             <div className="space-y-4">
               
-              <p className="text-sm text-muted-foreground">
-                Ontvang tips, trends en inspiratie direct in je inbox
-              </p>
+              
+
+            
               
 
 
