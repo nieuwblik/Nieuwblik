@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
+import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
