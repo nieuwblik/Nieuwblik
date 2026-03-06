@@ -246,7 +246,8 @@ const PortfolioDetail = () => {
                     </motion.div>
 
                     {/* Desktop: overlay on image */}
-                    <section className="relative w-full hidden md:block min-h-[80vh] overflow-hidden bg-secondary/50 max-w-[1920px] mx-auto">
+                    <div className="w-full hidden md:block bg-secondary/50">
+                    <section className="relative min-h-[80vh] overflow-hidden max-w-[1920px] mx-auto">
                         {/* Image on the right */}
                         <img
                             src={puurMobiel2Img}
