@@ -217,6 +217,39 @@ const PortfolioDetail = () => {
                 </section>
             )}
 
+            {/* Clean Code Section - Puur in Harmonie */}
+            {project.slug === "puur-in-harmonie" && (
+                <motion.section
+                    className="py-20 md:py-32 bg-secondary/50"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={staggerContainer}
+                >
+                    <div className="container mx-auto px-6 max-w-4xl">
+                        <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-8">
+                            {["Clean Code", "Webshop via Stripe", "HadoSEO"].map((tag) => (
+                                <Badge key={tag} variant="outline" className="text-xs font-medium tracking-wide px-3 py-1">
+                                    {tag}
+                                </Badge>
+                            ))}
+                        </motion.div>
+                        <motion.h2
+                            className="text-3xl md:text-4xl lg:text-5xl font-bold font-display leading-tight mb-8"
+                            variants={fadeUp}
+                        >
+                            Schone code voor een puur merk: de techniek achter Puur in Harmonie
+                        </motion.h2>
+                        <motion.p
+                            className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed"
+                            variants={fadeUp}
+                        >
+                            Net als de visie van het merk, is deze opzet vrij van onnodige toevoegingen. Een veilige webshop via Stripe met een volledig plugin-vrije React-architectuur, overdraagbaar via GitHub en gebouwd voor compromisloze stabiliteit.
+                        </motion.p>
+                    </div>
+                </motion.section>
+            )}
+
             {/* CTA Section */}
             <motion.section
                 className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
