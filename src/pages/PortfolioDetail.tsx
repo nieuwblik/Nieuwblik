@@ -1,5 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import puurMobiel2Img from "@/assets/recente-projecten/puurinharmonie-mobiel2.webp";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -245,13 +246,14 @@ const PortfolioDetail = () => {
                     </motion.div>
 
                     {/* Desktop: overlay on image */}
-                    <section className="relative w-full hidden md:block min-h-[80vh] overflow-hidden">
+                    <section className="relative w-full hidden md:block min-h-[80vh] overflow-hidden bg-secondary/50">
+                        {/* Image on the right */}
                         <img
-                            src={project.gallery?.[project.gallery.length - 1] || project.image}
-                            alt={`${project.title} - case study`}
-                            className="absolute inset-0 w-full h-full object-cover object-top"
+                            src={puurMobiel2Img}
+                            alt={`${project.title} - mobiele weergave`}
+                            className="absolute right-0 top-0 h-full w-auto max-w-[55%] object-contain object-right"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" style={{ width: '60%' }} />
+                        <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 via-secondary/60 to-transparent" />
                         <motion.div
                             className="relative z-10 flex items-center h-full min-h-[80vh]"
                             initial="hidden"
