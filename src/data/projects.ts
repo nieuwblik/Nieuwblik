@@ -49,7 +49,7 @@ export const projects: Project[] = [
     tags: ["Web Design", "Wellness", "E-commerce", "Stripe"],
     image: puurCaseImg,
     url: "https://www.puurinharmonie.nl",
-    gallery: [puurCase1Img, puurCase2Img],
+    gallery: [puurCase1Img],
     detail: {
       year: "2026",
       goal: "De eigenaresse, Heleen, zocht een online vertaling van haar fysieke salon. Het doel was een platform dat bezoekers direct in de juiste sfeer brengt en professionaliteit uitstraalt.",
