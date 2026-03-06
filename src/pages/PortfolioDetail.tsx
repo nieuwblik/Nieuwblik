@@ -251,7 +251,7 @@ const PortfolioDetail = () => {
                         <img
                             src={puurMobiel2Img}
                             alt={`${project.title} - mobiele weergave`}
-                            className="absolute right-0 top-0 h-full w-auto max-w-[55%] object-contain object-right-bottom pt-16"
+                            className="absolute right-0 top-0 h-full w-auto max-w-[55%] object-contain object-right-bottom pt-16 pr-12"
                         />
                         <motion.div
                             className="relative z-10 flex items-center h-full min-h-[80vh]"
