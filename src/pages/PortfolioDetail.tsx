@@ -280,6 +280,7 @@ const PortfolioDetail = () => {
                             </div>
                         </motion.div>
                     </section>
+                    </div>
                 </>
             )}
 
