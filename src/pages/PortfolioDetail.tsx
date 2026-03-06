@@ -218,50 +218,67 @@ const PortfolioDetail = () => {
                 </section>
             )}
 
-            {/* Clean Code Overlay Section - Puur in Harmonie */}
+            {/* Clean Code Section - Puur in Harmonie */}
             {project.slug === "puur-in-harmonie" && (
-                <section className="relative w-full min-h-[60vh] md:min-h-[80vh] overflow-hidden">
-                    {/* Background image */}
-                    <img
-                        src={project.gallery?.[project.gallery.length - 1] || project.image}
-                        alt={`${project.title} - case study`}
-                        className="absolute inset-0 w-full h-full object-cover object-top"
-                    />
-                    {/* Overlay gradient on left */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" style={{ width: '60%' }} />
-                    {/* Text content */}
+                <>
+                    {/* Mobile: text above image */}
                     <motion.div
-                        className="relative z-10 flex items-center h-full min-h-[60vh] md:min-h-[80vh]"
+                        className="block md:hidden px-6 py-12 bg-secondary/50"
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true }}
                         variants={staggerContainer}
                     >
-                        <div className="container mx-auto px-6">
-                            <div className="max-w-[40%]">
-                                <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-6">
-                                    {["Clean Code", "Webshop via Stripe", "HadoSEO"].map((tag) => (
-                                        <Badge key={tag} variant="outline" className="text-xs font-medium tracking-wide px-3 py-1 border-foreground/20">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </motion.div>
-                                <motion.h2
-                                    className="text-2xl md:text-3xl lg:text-4xl font-bold font-display leading-tight mb-6"
-                                    variants={fadeUp}
-                                >
-                                    Schone code voor een puur merk: de techniek achter Puur in Harmonie
-                                </motion.h2>
-                                <motion.p
-                                    className="text-sm md:text-base lg:text-lg text-muted-foreground font-light leading-relaxed"
-                                    variants={fadeUp}
-                                >
-                                    Net als de visie van het merk, is deze opzet vrij van onnodige toevoegingen. Een veilige webshop via Stripe met een volledig plugin-vrije React-architectuur, overdraagbaar via GitHub en gebouwd voor compromisloze stabiliteit.
-                                </motion.p>
-                            </div>
-                        </div>
+                        <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-4">
+                            {["Clean Code", "Webshop via Stripe", "HadoSEO"].map((tag) => (
+                                <Badge key={tag} variant="outline" className="text-xs font-medium tracking-wide px-3 py-1 border-foreground/20">
+                                    {tag}
+                                </Badge>
+                            ))}
+                        </motion.div>
+                        <motion.h2 className="text-2xl font-bold font-display leading-tight mb-4" variants={fadeUp}>
+                            Schone code voor een puur merk: de techniek achter Puur in Harmonie
+                        </motion.h2>
+                        <motion.p className="text-sm text-muted-foreground font-light leading-relaxed" variants={fadeUp}>
+                            Net als de visie van het merk, is deze opzet vrij van onnodige toevoegingen. Een veilige webshop via Stripe met een volledig plugin-vrije React-architectuur, overdraagbaar via GitHub en gebouwd voor compromisloze stabiliteit.
+                        </motion.p>
                     </motion.div>
-                </section>
+
+                    {/* Desktop: overlay on image */}
+                    <section className="relative w-full hidden md:block min-h-[80vh] overflow-hidden">
+                        <img
+                            src={project.gallery?.[project.gallery.length - 1] || project.image}
+                            alt={`${project.title} - case study`}
+                            className="absolute inset-0 w-full h-full object-cover object-top"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" style={{ width: '60%' }} />
+                        <motion.div
+                            className="relative z-10 flex items-center h-full min-h-[80vh]"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-100px" }}
+                            variants={staggerContainer}
+                        >
+                            <div className="container mx-auto px-6">
+                                <div className="max-w-[40%]">
+                                    <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-6">
+                                        {["Clean Code", "Webshop via Stripe", "HadoSEO"].map((tag) => (
+                                            <Badge key={tag} variant="outline" className="text-xs font-medium tracking-wide px-3 py-1 border-foreground/20">
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                    </motion.div>
+                                    <motion.h2 className="text-3xl lg:text-4xl font-bold font-display leading-tight mb-6" variants={fadeUp}>
+                                        Schone code voor een puur merk: de techniek achter Puur in Harmonie
+                                    </motion.h2>
+                                    <motion.p className="text-base lg:text-lg text-muted-foreground font-light leading-relaxed" variants={fadeUp}>
+                                        Net als de visie van het merk, is deze opzet vrij van onnodige toevoegingen. Een veilige webshop via Stripe met een volledig plugin-vrije React-architectuur, overdraagbaar via GitHub en gebouwd voor compromisloze stabiliteit.
+                                    </motion.p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </section>
+                </>
             )}
 
             {/* CTA Section */}
