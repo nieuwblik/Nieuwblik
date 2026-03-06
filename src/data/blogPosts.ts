@@ -164,7 +164,7 @@ In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlan
 
 ## Case Study: Puur in Harmonie
 
-Een perfect voorbeeld van Stripe in actie is de webshop die wij hebben gebouwd voor **[Puur in Harmonie](/portfolio/puurinharmonie)**, een groeiend merk in natuurlijke gezondheidsproducten.
+Een perfect voorbeeld van Stripe in actie is de webshop die wij hebben gebouwd voor **[Puur in Harmonie](/portfolio/puur-in-harmonie)**, een groeiend merk in natuurlijke gezondheidsproducten.
 
 ### De uitdaging
 
