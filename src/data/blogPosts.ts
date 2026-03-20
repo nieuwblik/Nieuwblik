@@ -129,7 +129,7 @@ The club is known for its **passion for the sport**, strong team spirit, and inv
 > Top-level amateur volleyball, straight from the heart of Enkhuizen. We want to be part of that.
 
 
-**2. Together on the shirt**
+## Together on the shirt
 
 We're not alone on the shirt. Together with three other **proud local entrepreneurs**, we sponsor the Men's 1st team:
 
