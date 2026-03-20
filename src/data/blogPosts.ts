@@ -140,7 +140,7 @@ We're not alone on the shirt. Together with three other **proud local entreprene
 - **Toolstra Construction** — Craftsmanship in construction, rooted in West Friesland
 
 
-## 3. Why local sponsorship matters
+**3. Why local sponsorship matters**
 
 As entrepreneurs in Enkhuizen, we feel connected to the community. **Local sponsorship** means:
 
