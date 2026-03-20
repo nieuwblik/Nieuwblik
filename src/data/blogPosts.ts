@@ -84,7 +84,7 @@ Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staa
 ![Nieuwblik als trotse shirtsponsor van VV Madjoe Heren 1](${madjoeSponsorsImg})
 
 
-**3. Waarom lokaal sponsoren belangrijk is**
+## Waarom lokaal sponsoren belangrijk is
 
 Als ondernemer in Enkhuizen voelen we ons verbonden met de gemeenschap. **Lokaal sponsoren** is voor ons meer dan een logo op een shirt. Het is:
 
