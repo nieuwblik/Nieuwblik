@@ -1,35 +1,42 @@
 
 
-## Alle blogs naar BeNoted-structuur
+## Em dash (—) verwijderen door de hele site
 
-### Het referentiemodel (BeNoted)
-De BeNoted blog heeft een clean structuur: intro-paragraaf gevolgd door `##` secties die direct in elkaar overvloeien. Geen titel-heading, geen leestijd-regel, geen inhoudsopgave-blok, geen horizontale lijnen (`---`).
+### Overzicht
+141 voorkomens van "—" in 7 bestanden. Elk wordt vervangen door een passend alternatief (meestal een komma, punt, of dubbele punt) zodat de tekst natuurlijker leest.
 
-### Wat er per blog moet veranderen
+### Betrokken bestanden
 
-Alle 11 overige blogs (NL + EN content) krijgen dezelfde opschoning:
+**1. `src/data/blogPosts.ts`** (grootste deel, ~130 voorkomens)
+- Alle em dashes in NL + EN blogcontent vervangen
+- Context-afhankelijke vervanging: "—" wordt per zin bekeken en vervangen door het meest natuurlijke leesteken (komma, punt, dubbele punt, of gewoon een spatie met streepje "-")
+- Voorbeelden:
+  - `"Topdivisie — het hoogste"` → `"Topdivisie, het hoogste"`
+  - `"Enza Zaden — Wereldwijd actief"` → `"Enza Zaden - Wereldwijd actief"`
+  - `"geen kostenpost — het is"` → `"geen kostenpost, het is"`
 
-1. **Verwijder `# Titel`** bovenaan de content (bij Bolt, Lovable)
-2. **Verwijder `**Leestijd:**` regels** (bij Madjoe, Replit, Claude)
-3. **Verwijder inhoudsopgave-blok** (`## Inhoudsopgave` of `**Inhoudsopgave**` + genummerde lijst) (bij alle blogs behalve BeNoted en Brand Storytelling)
-4. **Verwijder alle `---` horizontale lijnen** (bij Stripe, Brand Storytelling, Figma+HadoSEO, VibeCode, Bolt, Lovable, Replit, Cursor, Supabase, Claude)
+**2. `src/components/ProblemSolutionSection.tsx`** (2 voorkomens)
+- `"Snelle realisatie — van strategie"` → komma of streepje
+- `"Alles uit handen — jij geeft"` → komma of streepje
 
-### Betrokken blogs (11 stuks)
-- `nieuwblik-sponsort-vv-madjoe-heren-1` (leestijd + inhoudsopgave)
-- `stripe-betalingen-webshop-handleiding` (inhoudsopgave + `---`)
-- `brand-storytelling-van-pixel-tot-voordeur` (`---`)
-- `figma-hadoseo-lovable-perfecte-website` (inhoudsopgave + `---`)
-- `vibecode-hadoseo-toekomst-websites` (inhoudsopgave + `---`)
-- `bolt-new-ai-website-builder` (`#` titel + inhoudsopgave + `---`)
-- `lovable-websites-bouwen` (`#` titel + inhoudsopgave + `---`)
-- `replit-online-code-editor-ai` (leestijd + inhoudsopgave + `---`)
-- `cursor-ai-code-editor` (inhoudsopgave + `---`)
-- `supabase` (inhoudsopgave + `---`)
-- `claude-ai-anthropic-complete-gids` (leestijd + inhoudsopgave + `---`)
+**3. `src/components/ProblemSolutionSectionNew.tsx`** (2 voorkomens)
+- Zelfde als hierboven
 
-### Technisch
-- Alleen `src/data/blogPosts.ts` wordt aangepast
-- Zowel NL als EN content wordt opgeschoond
-- `##` headers blijven staan (nodig voor de sidebar-inhoudsopgave)
-- Alle overige content (paragrafen, lijsten, tabellen, blockquotes, afbeeldingen) blijft ongewijzigd
+**4. `src/pages/services/WebsiteOpMaat.tsx`** (1 voorkomen)
+- `"— Niels van Esveld"` → `"- Niels van Esveld"`
+
+**5. `src/pages/services/Webshops.tsx`** (1 voorkomen)
+- `"— Tevreden webshop klant"` → `"- Tevreden webshop klant"`
+
+**6. `src/pages/services/Ecommerce.tsx`** (1 voorkomen)
+- `"— Maarten, Kitchenz"` → `"- Maarten, Kitchenz"`
+
+**7. `src/components/ResponsiveShowcase.tsx`** (1 voorkomen)
+- `aria-label="Responsive design showcase — Puur in Harmonie"` → streepje
+
+### Aanpak
+- Verwerking via script vanwege het grote aantal voorkomens in blogPosts.ts
+- Elke vervanging wordt context-bewust gedaan (niet blindelings zoeken-en-vervangen)
+- Testimonial-attributies (`— Naam`) worden `- Naam`
+- Tussenzinnen (`iets — iets`) worden `, ` of ` - ` afhankelijk van context
 
