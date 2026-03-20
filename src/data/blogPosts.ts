@@ -133,9 +133,9 @@ The club is known for its **passion for the sport**, strong team spirit, and inv
 
 We're not alone on the shirt. Together with three other **proud local entrepreneurs**, we sponsor the Men's 1st team:
 
-- **Enza Zaden** — Globally active from Enkhuizen, an icon in seed breeding
-- **Kreeft Autoservice** — Reliable auto service from the region
-- **Toolstra Construction** — Craftsmanship in construction, rooted in West Friesland
+- [**Enza Zaden**](https://www.enzazaden.com/nl) — Globally active from Enkhuizen, an icon in seed breeding
+- [**Kreeft Autoservice**](https://kreeftautoservice.nl/) — Reliable auto service from the region
+- [**Toolstra Construction**](https://www.toolstra.nl/) — Craftsmanship in construction, rooted in West Friesland
 
 
 ## Why local sponsorship matters
