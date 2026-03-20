@@ -71,7 +71,7 @@ De club staat bekend om haar **passie voor de sport**, sterke teamgeest en betro
 Het seizoen 2025-2026 is in volle gang en het team laat zien wat ze waard zijn. Met een enthousiaste achterban en sterke sponsors achter zich, bouwen ze aan iets moois.
 
 
-## 2. Samen op het shirt
+**2. Samen op het shirt**
 
 We staan niet alleen op het shirt. Samen met drie andere **trotse lokale ondernemers** sponsoren we het Heren 1:
 
