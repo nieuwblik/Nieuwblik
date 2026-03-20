@@ -648,7 +648,7 @@ const Webshops = () => {
               className="font-bold"
               variants={fadeUp}>
               
-              — Tevreden webshop klant
+              - Tevreden webshop klant
             </motion.p>
           </motion.div>
         </div>

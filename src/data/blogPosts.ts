@@ -44,15 +44,15 @@ export const blogPosts: BlogPost[] = [
       en: "Nieuwblik sponsors VV Madjoe Men's 1st team"
     },
     excerpt: {
-      nl: "Met trots staan wij als shirtsponsor op het shirt van VV Madjoe Heren 1 — samen met Enza Zaden, Kreeft Autoservice en Toolstra. Lees waarom lokaal sponsoren zo belangrijk voor ons is.",
-      en: "We proudly sponsor VV Madjoe Men's 1st team — together with Enza Zaden, Kreeft Autoservice and Toolstra. Read why local sponsorship matters to us."
+      nl: "Met trots staan wij als shirtsponsor op het shirt van VV Madjoe Heren 1, samen met Enza Zaden, Kreeft Autoservice en Toolstra. Lees waarom lokaal sponsoren zo belangrijk voor ons is.",
+      en: "We proudly sponsor VV Madjoe Men's 1st team, together with Enza Zaden, Kreeft Autoservice and Toolstra. Read why local sponsorship matters to us."
     },
     content: {
       nl: `Bij Nieuwblik geloven we in de kracht van **lokale verbinding**. Daarom zijn we ontzettend trots dat we als **shirtsponsor** op het shirt staan van **VV Madjoe Heren 1** uit Enkhuizen. Samen met **Enza Zaden**, **Kreeft Autoservice** en **Toolstra Bouwbedrijf** vormen we het sponsorteam achter dit ambitieuze volleybalteam.
 
 ## VV Madjoe: volleybaltrots uit Enkhuizen
 
-**VV Madjoe** is een volleybalvereniging met een rijke geschiedenis in Enkhuizen. Het **Heren 1** team speelt in de **Topdivisie** — het hoogste amateurniveau van Nederland. Dat betekent wedstrijden op topniveau, met tegenstanders uit het hele land.
+**VV Madjoe** is een volleybalvereniging met een rijke geschiedenis in Enkhuizen. Het **Heren 1** team speelt in de **Topdivisie**: het hoogste amateurniveau van Nederland. Dat betekent wedstrijden op topniveau, met tegenstanders uit het hele land.
 
 De club staat bekend om haar **passie voor de sport**, sterke teamgeest en betrokkenheid bij de lokale gemeenschap. Precies de waarden die wij als Nieuwblik ook belangrijk vinden.
 
@@ -64,9 +64,9 @@ Het seizoen 2025-2026 is in volle gang en het team laat zien wat ze waard zijn. 
 
 We staan niet alleen op het shirt. Samen met drie andere **trotse lokale ondernemers** sponsoren we het Heren 1:
 
-- [Enza Zaden](https://www.enzazaden.com/nl) — Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
-- [Kreeft Autoservice](https://kreeftautoservice.nl/) — Betrouwbare autoservice uit de regio, altijd klaar om te helpen
-- [Toolstra Bouwbedrijf](https://www.toolstra.nl/) — Vakmanschap in de bouw, geworteld in West-Friesland
+- [Enza Zaden](https://www.enzazaden.com/nl) - Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
+- [Kreeft Autoservice](https://kreeftautoservice.nl/) - Betrouwbare autoservice uit de regio, altijd klaar om te helpen
+- [Toolstra Bouwbedrijf](https://www.toolstra.nl/) - Vakmanschap in de bouw, geworteld in West-Friesland
 
 Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staan. Het laat zien dat **digitale zichtbaarheid** net zo belangrijk is als fysieke aanwezigheid.
 
@@ -76,12 +76,12 @@ Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staa
 
 Als ondernemer in Enkhuizen voelen we ons verbonden met de gemeenschap. **Lokaal sponsoren** is voor ons meer dan een logo op een shirt. Het is:
 
-- **Investeren in de gemeenschap** — Sport verbindt mensen. Door een lokaal team te steunen, dragen we bij aan sociale cohesie
-- **Zichtbaarheid op de juiste plek** — Bij elke thuiswedstrijd zien honderden toeschouwers ons logo. Dat is lokale marketing op zijn best
-- **Steun aan de jeugd** — VV Madjoe heeft een bloeiende jeugdafdeling. Sponsoring helpt de club om te investeren in trainingen, faciliteiten en materiaal
-- **Verbinding met andere ondernemers** — Samen sponsoren creëert een netwerk van lokale bedrijven die elkaar versterken
+- **Investeren in de gemeenschap**: Sport verbindt mensen. Door een lokaal team te steunen, dragen we bij aan sociale cohesie
+- **Zichtbaarheid op de juiste plek**: Bij elke thuiswedstrijd zien honderden toeschouwers ons logo. Dat is lokale marketing op zijn best
+- **Steun aan de jeugd**: VV Madjoe heeft een bloeiende jeugdafdeling. Sponsoring helpt de club om te investeren in trainingen, faciliteiten en materiaal
+- **Verbinding met andere ondernemers**: Samen sponsoren creëert een netwerk van lokale bedrijven die elkaar versterken
 
-> Lokaal sponsoren is geen kostenpost — het is een investering in de gemeenschap waar je deel van uitmaakt.
+> Lokaal sponsoren is geen kostenpost, het is een investering in de gemeenschap waar je deel van uitmaakt.
 
 We zien het als onze verantwoordelijkheid om iets terug te geven aan de regio die ons al zoveel heeft gebracht. En eerlijk? Het is ook gewoon **gaaf** om jezelf terug te zien op een volleybalshirt in de Topdivisie.
 
@@ -91,14 +91,14 @@ Bij Nieuwblik helpen we ondernemers om **online zichtbaar** te worden met websit
 
 Wil je als ondernemer ook meer zichtbaarheid? Of ben je benieuwd wat een **professionele website** voor jouw bedrijf kan betekenen?
 
-**[Neem contact op](/contact)** of **[start je project](/start-je-project)** — we denken graag met je mee.
+**[Neem contact op](/contact)** of **[start je project](/start-je-project)**: we denken graag met je mee.
 
-Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juichen mee vanuit de zijlijn — en vanaf het shirt. 🏐💪`,
+Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juichen mee vanuit de zijlijn, en vanaf het shirt. 🏐💪`,
       en: `At Nieuwblik, we believe in the power of **local connection**. That's why we're incredibly proud to be a **shirt sponsor** of **VV Madjoe Men's 1st team** from Enkhuizen. Together with **Enza Zaden**, **Kreeft Autoservice**, and **Toolstra Construction**, we form the sponsor team behind this ambitious volleyball team.
 
 ## VV Madjoe: volleyball pride from Enkhuizen
 
-**VV Madjoe** is a volleyball club with a rich history in Enkhuizen. The **Men's 1st team** plays in the **Topdivisie** — the highest amateur level in the Netherlands.
+**VV Madjoe** is a volleyball club with a rich history in Enkhuizen. The **Men's 1st team** plays in the **Topdivisie**: the highest amateur level in the Netherlands.
 
 The club is known for its **passion for the sport**, strong team spirit, and involvement in the local community.
 
@@ -108,24 +108,24 @@ The club is known for its **passion for the sport**, strong team spirit, and inv
 
 We're not alone on the shirt. Together with three other **proud local entrepreneurs**, we sponsor the Men's 1st team:
 
-- [Enza Zaden](https://www.enzazaden.com/nl) — Globally active from Enkhuizen, an icon in seed breeding
-- [Kreeft Autoservice](https://kreeftautoservice.nl/) — Reliable auto service from the region
-- [Toolstra Construction](https://www.toolstra.nl/) — Craftsmanship in construction, rooted in West Friesland
+- [Enza Zaden](https://www.enzazaden.com/nl) - Globally active from Enkhuizen, an icon in seed breeding
+- [Kreeft Autoservice](https://kreeftautoservice.nl/) - Reliable auto service from the region
+- [Toolstra Construction](https://www.toolstra.nl/) - Craftsmanship in construction, rooted in West Friesland
 
 ## Why local sponsorship matters
 
 As entrepreneurs in Enkhuizen, we feel connected to the community. **Local sponsorship** means:
 
-- **Investing in community** — Sports connect people
-- **Visibility in the right place** — Hundreds of spectators see our logo at every home game
-- **Supporting youth** — VV Madjoe has a thriving youth department
-- **Connecting with fellow entrepreneurs** — Sponsoring together creates a network of local businesses
+- **Investing in community**: Sports connect people
+- **Visibility in the right place**: Hundreds of spectators see our logo at every home game
+- **Supporting youth**: VV Madjoe has a thriving youth department
+- **Connecting with fellow entrepreneurs**: Sponsoring together creates a network of local businesses
 
 ## More visibility for your business?
 
 At Nieuwblik, we help entrepreneurs become **visible online** with websites that deliver real results.
 
-**[Get in touch](/contact)** or **[start your project](/start-je-project)** — we'd love to help.
+**[Get in touch](/contact)** or **[start your project](/start-je-project)**: we'd love to help.
 
 To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
     },
@@ -142,8 +142,8 @@ To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
       en: "Stripe: The most powerful payment tool for your webshop"
     },
     excerpt: {
-      nl: "Waarom Stripe dé betaaloplossing is voor moderne webshops. Van real-time meldingen tot een overzichtelijk dashboard — ontdek waarom wij bij Nieuwblik fan zijn, inclusief case study Puur in Harmonie.",
-      en: "Why Stripe is the payment solution for modern webshops. From real-time notifications to a clear dashboard — discover why we at Nieuwblik are fans."
+      nl: "Waarom Stripe dé betaaloplossing is voor moderne webshops. Van real-time meldingen tot een overzichtelijk dashboard, ontdek waarom wij bij Nieuwblik fan zijn, inclusief case study Puur in Harmonie.",
+      en: "Why Stripe is the payment solution for modern webshops. From real-time notifications to a clear dashboard, discover why we at Nieuwblik are fans."
     },
     content: {
       nl: `Als je een webshop bouwt of online producten verkoopt, is er één vraag die je vroeg of laat moet beantwoorden: **hoe laat ik klanten betalen?** Er zijn tientallen opties, maar één platform springt er telkens weer uit: **Stripe**.
@@ -158,13 +158,13 @@ Maar Stripe is niet alleen voor techgiganten. Het is juist ook **ideaal voor MKB
 
 ### Wat maakt Stripe zo populair?
 
-- **Eenvoudige integratie** — binnen minuten te koppelen aan je webshop
-- **Wereldwijde dekking** — accepteer betalingen in 135+ valuta's
-- **Flexibel** — van eenmalige betalingen tot abonnementen en facturen
-- **Veilig** — PCI DSS Level 1 gecertificeerd, de hoogste beveiligingsstandaard
-- **Ontwikkelaarsvriendelijk** — uitstekende API en documentatie
+- **Eenvoudige integratie**: binnen minuten te koppelen aan je webshop
+- **Wereldwijde dekking**: accepteer betalingen in 135+ valuta's
+- **Flexibel**: van eenmalige betalingen tot abonnementen en facturen
+- **Veilig**: PCI DSS Level 1 gecertificeerd, de hoogste beveiligingsstandaard
+- **Ontwikkelaarsvriendelijk**: uitstekende API en documentatie
 
-> *"Stripe is de betaalinfrastructuur van het internet."* — Forbes
+> *"Stripe is de betaalinfrastructuur van het internet."* - Forbes
 
 ## Stripe Dashboard
 
@@ -172,11 +172,11 @@ Eén van de grootste voordelen van Stripe is het **dashboard**. Zodra je een acc
 
 ### Wat zie je in het Stripe Dashboard?
 
-- **Real-time betalingsoverzicht** — elke transactie verschijnt direct
-- **Omzetgrafieken** — dag, week, maand of jaar overzichten
-- **Klantprofielen** — zie precies wie wat heeft gekocht
-- **Terugbetalingen beheren** — met één klik een refund verwerken
-- **Abonnementen** — beheer recurring payments eenvoudig
+- **Real-time betalingsoverzicht**: elke transactie verschijnt direct
+- **Omzetgrafieken**: dag, week, maand of jaar overzichten
+- **Klantprofielen**: zie precies wie wat heeft gekocht
+- **Terugbetalingen beheren**: met één klik een refund verwerken
+- **Abonnementen**: beheer recurring payments eenvoudig
 
 ### Meldingen & Notificaties
 
@@ -257,11 +257,11 @@ Puur in Harmonie had een **professionele webshop** nodig waar klanten eenvoudig 
 
 We hebben de webshop gebouwd met een **volledig geïntegreerde Stripe checkout**:
 
-- **Directe betaling** — klanten betalen veilig via iDEAL, creditcard of andere methodes
-- **Automatische orderbevestiging** — na betaling ontvangt zowel de klant als de eigenaar een bevestiging
-- **Real-time meldingen** — bij elke verkoop krijgt de eigenaar direct een notificatie in het Stripe Dashboard
-- **Terugbetalingen** — eenvoudig te verwerken via het dashboard zonder technische kennis
-- **Mobiel geoptimaliseerd** — de checkout werkt perfect op elk apparaat
+- **Directe betaling**: klanten betalen veilig via iDEAL, creditcard of andere methodes
+- **Automatische orderbevestiging**: na betaling ontvangt zowel de klant als de eigenaar een bevestiging
+- **Real-time meldingen**: bij elke verkoop krijgt de eigenaar direct een notificatie in het Stripe Dashboard
+- **Terugbetalingen**: eenvoudig te verwerken via het dashboard zonder technische kennis
+- **Mobiel geoptimaliseerd**: de checkout werkt perfect op elk apparaat
 
 De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat écht belangrijk is: **geweldige producten maken**. De betalingen lopen volledig automatisch, veilig en betrouwbaar.
 
@@ -272,7 +272,7 @@ Wil jij ook een **webshop met Stripe-integratie** laten bouwen? Of ben je benieu
 **Neem contact met ons op** en ontdek hoe wij jouw betaalervaring naar een hoger niveau tillen.
 
 [→ Start je project vandaag](/contact)`,
-      en: "Discover why Stripe is the best payment platform for webshops. Real-time dashboard, transparent pricing, and a case study of Puur in Harmonie — learn why Nieuwblik recommends Stripe."
+      en: "Discover why Stripe is the best payment platform for webshops. Real-time dashboard, transparent pricing, and a case study of Puur in Harmonie, learn why Nieuwblik recommends Stripe."
     },
     date: "2026-03-05",
     readingTime: 10
@@ -410,7 +410,7 @@ Often, there's a gap. The beautiful online experience makes way for a standard b
 
 The biggest mistake you can make is a break in style. If your webshop has a minimalist, luxury look, but your product arrives in a box full of messy plastic packing material, the feeling is gone. The customer is pulled out of the flow.
 
-**Visual echo:** Subtly reflect patterns, fonts, or icons from your website on the packaging. It doesn't have to be big—a cool pattern on the inside of the box often works better than a massive logo on the outside.
+**Visual echo:** Subtly reflect patterns, fonts, or icons from your website on the packaging. It doesn't have to be big, a cool pattern on the inside of the box often works better than a massive logo on the outside.
 
 **Tone-of-voice:** Is your website breezy and funny? Let that humor come back on the packing slip or a sticker sealing the box. A simple text like "Finally, I'm here!" does more for your brand than a standard invoice.
 

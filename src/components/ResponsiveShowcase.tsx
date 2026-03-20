@@ -90,7 +90,7 @@ const GoogleReview = () => (
 export const ResponsiveShowcase = () => {
   return (
     <section
-      aria-label="Responsive design showcase — Puur in Harmonie"
+      aria-label="Responsive design showcase - Puur in Harmonie"
       className="relative w-full lg:h-screen overflow-hidden bg-white"
     >
       {/* ── Desktop Background ────────────────────────────────────────────── */}
