@@ -107,8 +107,6 @@ Wil je als ondernemer ook meer zichtbaarheid? Of ben je benieuwd wat een **profe
 **[Neem contact op](/contact)** of **[start je project](/start-je-project)** — we denken graag met je mee.
 
 
----
-
 Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juichen mee vanuit de zijlijn — en vanaf het shirt. 🏐💪`,
       en: `At Nieuwblik, we believe in the power of **local connection**. That's why we're incredibly proud to be a **shirt sponsor** of **VV Madjoe Men's 1st team** from Enkhuizen. Together with **Enza Zaden**, **Kreeft Autoservice**, and **Toolstra Construction**, we form the sponsor team behind this ambitious volleyball team.
 
