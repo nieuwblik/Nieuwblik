@@ -50,16 +50,6 @@ export const blogPosts: BlogPost[] = [
     content: {
       nl: `Bij Nieuwblik geloven we in de kracht van **lokale verbinding**. Daarom zijn we ontzettend trots dat we als **shirtsponsor** op het shirt staan van **VV Madjoe Heren 1** uit Enkhuizen. Samen met **Enza Zaden**, **Kreeft Autoservice** en **Toolstra Bouwbedrijf** vormen we het sponsorteam achter dit ambitieuze volleybalteam.
 
-**Leestijd:** 4 minuten
-
-**Inhoudsopgave**
-
-1. VV Madjoe: volleybaltrots uit Enkhuizen
-2. Samen op het shirt
-3. Waarom lokaal sponsoren belangrijk is
-4. Meer zichtbaarheid voor jouw bedrijf?
-
-
 ## VV Madjoe: volleybaltrots uit Enkhuizen
 
 **VV Madjoe** is een volleybalvereniging met een rijke geschiedenis in Enkhuizen. Het **Heren 1** team speelt in de **Topdivisie** — het hoogste amateurniveau van Nederland. Dat betekent wedstrijden op topniveau, met tegenstanders uit het hele land.
@@ -69,7 +59,6 @@ De club staat bekend om haar **passie voor de sport**, sterke teamgeest en betro
 > Volleybal op het hoogste amateurniveau, recht uit het hart van Enkhuizen. Daar willen wij bij horen.
 
 Het seizoen 2025-2026 is in volle gang en het team laat zien wat ze waard zijn. Met een enthousiaste achterban en sterke sponsors achter zich, bouwen ze aan iets moois.
-
 
 ## Samen op het shirt
 
@@ -82,7 +71,6 @@ We staan niet alleen op het shirt. Samen met drie andere **trotse lokale onderne
 Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staan. Het laat zien dat **digitale zichtbaarheid** net zo belangrijk is als fysieke aanwezigheid.
 
 ![Nieuwblik als trotse shirtsponsor van VV Madjoe Heren 1](${madjoeSponsorsImg})
-
 
 ## Waarom lokaal sponsoren belangrijk is
 
@@ -97,7 +85,6 @@ Als ondernemer in Enkhuizen voelen we ons verbonden met de gemeenschap. **Lokaal
 
 We zien het als onze verantwoordelijkheid om iets terug te geven aan de regio die ons al zoveel heeft gebracht. En eerlijk? Het is ook gewoon **gaaf** om jezelf terug te zien op een volleybalshirt in de Topdivisie.
 
-
 ## Meer zichtbaarheid voor jouw bedrijf?
 
 Bij Nieuwblik helpen we ondernemers om **online zichtbaar** te worden met websites die niet alleen mooi zijn, maar ook écht resultaat opleveren. Net zoals we op het veld zichtbaar zijn als sponsor, zorgen we ervoor dat jouw bedrijf **online gevonden wordt**.
@@ -106,19 +93,8 @@ Wil je als ondernemer ook meer zichtbaarheid? Of ben je benieuwd wat een **profe
 
 **[Neem contact op](/contact)** of **[start je project](/start-je-project)** — we denken graag met je mee.
 
-
 Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juichen mee vanuit de zijlijn — en vanaf het shirt. 🏐💪`,
       en: `At Nieuwblik, we believe in the power of **local connection**. That's why we're incredibly proud to be a **shirt sponsor** of **VV Madjoe Men's 1st team** from Enkhuizen. Together with **Enza Zaden**, **Kreeft Autoservice**, and **Toolstra Construction**, we form the sponsor team behind this ambitious volleyball team.
-
-**Reading time:** 4 minutes
-
-**Table of Contents**
-
-1. VV Madjoe: volleyball pride from Enkhuizen
-2. Together on the shirt
-3. Why local sponsorship matters
-4. More visibility for your business?
-
 
 ## VV Madjoe: volleyball pride from Enkhuizen
 
@@ -128,7 +104,6 @@ The club is known for its **passion for the sport**, strong team spirit, and inv
 
 > Top-level amateur volleyball, straight from the heart of Enkhuizen. We want to be part of that.
 
-
 ## Together on the shirt
 
 We're not alone on the shirt. Together with three other **proud local entrepreneurs**, we sponsor the Men's 1st team:
@@ -136,7 +111,6 @@ We're not alone on the shirt. Together with three other **proud local entreprene
 - [**Enza Zaden**](https://www.enzazaden.com/nl) — Globally active from Enkhuizen, an icon in seed breeding
 - [**Kreeft Autoservice**](https://kreeftautoservice.nl/) — Reliable auto service from the region
 - [**Toolstra Construction**](https://www.toolstra.nl/) — Craftsmanship in construction, rooted in West Friesland
-
 
 ## Why local sponsorship matters
 
@@ -147,13 +121,11 @@ As entrepreneurs in Enkhuizen, we feel connected to the community. **Local spons
 - **Supporting youth** — VV Madjoe has a thriving youth department
 - **Connecting with fellow entrepreneurs** — Sponsoring together creates a network of local businesses
 
-
 ## More visibility for your business?
 
 At Nieuwblik, we help entrepreneurs become **visible online** with websites that deliver real results.
 
 **[Get in touch](/contact)** or **[start your project](/start-je-project)** — we'd love to help.
-
 
 To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
     },
@@ -178,17 +150,6 @@ To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
 
 Bij Nieuwblik zijn we grote fans. In dit artikel leggen we uit waarom, wat Stripe kost, hoe het dashboard werkt en laten we zien hoe we het hebben ingezet voor **Puur in Harmonie**.
 
-
-## Inhoudsopgave
-
-1. Wat is Stripe?
-2. Stripe Dashboard & Meldingen
-3. Stripe Kosten & Prijzen 2026
-4. Stripe vs Mollie: Welke kies je?
-5. Case Study: Puur in Harmonie
-6. Waarom Nieuwblik fan is van Stripe
-
-
 ## Wat is Stripe?
 
 **Stripe** is een Amerikaans betaalplatform dat in 2010 werd opgericht door de broers Patrick en John Collison. Het is inmiddels één van de **grootste betaalverwerkers ter wereld**, gebruikt door bedrijven als Shopify, Amazon, Google en Booking.com.
@@ -204,7 +165,6 @@ Maar Stripe is niet alleen voor techgiganten. Het is juist ook **ideaal voor MKB
 - **Ontwikkelaarsvriendelijk** — uitstekende API en documentatie
 
 > *"Stripe is de betaalinfrastructuur van het internet."* — Forbes
-
 
 ## Stripe Dashboard
 
@@ -229,7 +189,6 @@ Stripe stuurt je **real-time meldingen** bij elke verkoop. Je kunt instellen dat
 
 Dit betekent dat je **altijd op de hoogte** bent van wat er in je webshop gebeurt, zonder continu in te hoeven loggen.
 
-
 ## Stripe Kosten
 
 Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel en transparant.
@@ -253,7 +212,6 @@ Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel e
 - ✅ **Gratis dashboard en analytics**
 
 Je betaalt dus **alleen wanneer je daadwerkelijk geld ontvangt**. Dit maakt Stripe bijzonder aantrekkelijk voor startende ondernemers die niet direct hoge vaste lasten willen.
-
 
 ## Stripe vs Mollie
 
@@ -287,8 +245,6 @@ In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlan
 
 > Bij Nieuwblik kiezen wij voor Stripe wanneer klanten een **schaalbare, internationale betaaloplossing** nodig hebben.
 
-
-
 ## Case Study: Puur in Harmonie
 
 Een perfect voorbeeld van Stripe in actie is de webshop die wij hebben gebouwd voor **[Puur in Harmonie](/portfolio/puur-in-harmonie)**, een groeiend merk in natuurlijke gezondheidsproducten.
@@ -308,8 +264,6 @@ We hebben de webshop gebouwd met een **volledig geïntegreerde Stripe checkout**
 - **Mobiel geoptimaliseerd** — de checkout werkt perfect op elk apparaat
 
 De Stripe-integratie zorgt ervoor dat Puur in Harmonie zich kan focussen op wat écht belangrijk is: **geweldige producten maken**. De betalingen lopen volledig automatisch, veilig en betrouwbaar.
-
-
 
 ## Aan de slag met Stripe?
 
@@ -417,8 +371,6 @@ At Nieuwblik, we don't just build websites; we build your success. Just like wit
 
 Vaak zie je dat daar een gat valt. De prachtige online beleving maakt plaats voor een standaard bruine doos en een saaie pakbon. Zonde! In 2026 draait een sterk merk namelijk niet alleen om wat je op een scherm ziet, maar om de hele reis. Jouw merkverhaal stopt niet bij de 'Bedankt'-pagina; het begint daar pas echt.
 
----
-
 ## De 'Hé, dit klopt!'-ervaring
 
 De grootste fout die je kunt maken, is een breuk in de stijl. Als je webshop een minimalistische, luxe uitstraling heeft, maar je product komt aan in een doos vol met rommelige plastic opvulmaterialen, dan klopt het gevoel niet meer. De klant raakt uit de flow.
@@ -426,8 +378,6 @@ De grootste fout die je kunt maken, is een breuk in de stijl. Als je webshop een
 **Visuele echo:** Laat patronen, lettertypes of iconen van je website subtiel terugkomen op de verpakking. Het hoeft niet groot; een tof patroon aan de binnenkant van de doos werkt vaak krachtiger dan een enorm logo op de buitenkant.
 
 **De tone-of-voice:** Is je website vlot en grappig? Laat die humor dan ook terugkomen op de pakbon of op een sticker die de doos dicht houdt. Een simpele tekst als "Eindelijk ben ik er!" doet meer voor je merk dan een standaard factuur.
-
----
 
 ## Het unboxing-ritueel (zonder de poespas)
 
@@ -439,8 +389,6 @@ We kennen allemaal de overdreven video's op social media, maar in de kern gaat h
 
 **De persoonlijke touch:** Een klein kaartje met stylingtips of een bedankje in dezelfde huisstijl maakt het verschil. Het herinnert de klant eraan dat er een mens achter de webshop zit.
 
----
-
 ## Duurzaamheid is ook een designkeuze
 
 Tegenwoordig is 'groen' geen extraatje meer, maar de standaard. Een merk dat in 2026 nog bergen onnodig plastic verstuurt, tast zijn eigen geloofwaardigheid aan.
@@ -448,8 +396,6 @@ Tegenwoordig is 'groen' geen extraatje meer, maar de standaard. Een merk dat in 
 **Maatwerk:** Gebruik verpakkingen die precies op maat zijn. Dit oogt niet alleen strakker en professioneler, het laat ook zien dat je nadenkt over je voetafdruk.
 
 **Herbruikbaarheid:** Ontwerp je verzenddoos zo mooi dat mensen hem niet willen weggooien, maar gebruiken om iets anders in te bewaren. Elke keer dat ze die doos zien, denken ze weer even aan jouw merk.
-
----
 
 ## Conclusie: Maak het tastbaar
 
@@ -460,8 +406,6 @@ Want laten we eerlijk zijn: we worden allemaal een beetje blij van een pakketje 
 
 Often, there's a gap. The beautiful online experience makes way for a standard brown box and a dull packing slip. What a waste! In 2026, a strong brand isn't just about what you see on a screen; it's about the entire journey. Your brand story doesn't end at the 'Thank You' page; it's where it truly begins.
 
----
-
 ## The 'Hey, this fits!' Experience
 
 The biggest mistake you can make is a break in style. If your webshop has a minimalist, luxury look, but your product arrives in a box full of messy plastic packing material, the feeling is gone. The customer is pulled out of the flow.
@@ -469,8 +413,6 @@ The biggest mistake you can make is a break in style. If your webshop has a mini
 **Visual echo:** Subtly reflect patterns, fonts, or icons from your website on the packaging. It doesn't have to be big—a cool pattern on the inside of the box often works better than a massive logo on the outside.
 
 **Tone-of-voice:** Is your website breezy and funny? Let that humor come back on the packing slip or a sticker sealing the box. A simple text like "Finally, I'm here!" does more for your brand than a standard invoice.
-
----
 
 ## The Unboxing Ritual (without the fuss)
 
@@ -482,8 +424,6 @@ We all know those over-the-top social media videos, but at its heart, it's simpl
 
 **The personal touch:** A small card with styling tips or a thank-you note in the same house style makes a difference. It reminds the customer that a human is behind the webshop.
 
----
-
 ## Sustainability is also a Design Choice
 
 Nowadays, 'green' isn't an extra; it's the standard. A brand that's still sending mountains of unnecessary plastic in 2026 damages its own credibility.
@@ -491,8 +431,6 @@ Nowadays, 'green' isn't an extra; it's the standard. A brand that's still sendin
 **Customization:** Use packaging that fits precisely. This looks cleaner and more professional, and shows you're thinking about your footprint.
 
 **Reusability:** Design your shipping box so beautifully that people don't want to throw it away, but use it to store something else. Every time they see that box, they think of your brand.
-
----
 
 ## Conclusion: Make it Tangible
 
@@ -516,17 +454,6 @@ Because let's be honest: we all get a little happy from a package that's designe
     },
     content: {
       nl: `Het bouwen van een perfecte website vereist drie essentiële elementen: **prachtig design**, **vlekkeloze technische uitvoering** en **optimale vindbaarheid in Google**. Met de combinatie van **Figma**, **[HadoSEO](https://hadoseo.com/)** en **Lovable** heb je alles wat je nodig hebt om websites te bouwen die niet alleen mooi zijn, maar ook goed presteren.
-
-## Inhoudsopgave
-
-1. Wat is Figma en waarom is het essentieel?
-2. Lovable: Van design naar werkende website in minuten
-3. HadoSEO: De missing link voor online succes
-4. De perfecte workflow in de praktijk
-5. Waarom deze combinatie onverslaanbaar is
-6. Aan de slag met de ultieme stack
-
----
 
 ## Wat is Figma en waarom is het essentieel?
 
@@ -560,8 +487,6 @@ Because let's be honest: we all get a little happy from a package that's designe
 
 > "Figma heeft de manier waarop we websites ontwerpen fundamenteel veranderd. Het is sneller, collaboratiever en produceert betere resultaten." - Design community
 
----
-
 ## Lovable: Van design naar werkende website in minuten
 
 **Lovable is een AI-powered development platform** dat je Figma designs omzet naar volledig functionele websites. Geen code schrijven, geen developers inhuren - gewoon je design uploaden en klaar.
@@ -593,8 +518,6 @@ Met één klik is je website live, inclusief hosting en SSL.
 - **Itereer snel** - Wijzigingen doorvoeren in real-time
 
 > "Lovable heeft onze workflow compleet veranderd. Wat vroeger weken kostte, doen we nu in een dag." - Web agency owner
-
----
 
 ## HadoSEO: De missing link voor online succes
 
@@ -660,8 +583,6 @@ Lovable websites zijn **out-of-the-box SEO-ready**:
   </a>
 </div>
 
----
-
 ## De perfecte workflow in de praktijk
 
 ### Stap 1: Design fase in Figma
@@ -698,8 +619,6 @@ Lovable websites zijn **out-of-the-box SEO-ready**:
 | **Totaal** | **8-16 weken** | **1-2 weken** |
 
 **Dat is 8x sneller** met dezelfde of betere resultaten!
-
----
 
 ## Waarom deze combinatie onverslaanbaar is
 
@@ -742,8 +661,6 @@ Begin klein en groei onbeperkt:
 - **Eigen hosting** indien gewenst
 - **Volledige controle** over je digitale assets
 
----
-
 ## Aan de slag met de ultieme stack
 
 ### Voor ondernemers en startups
@@ -785,8 +702,6 @@ Begin klein en groei onbeperkt:
   </a>
 </div>
 
----
-
 ## Conclusie
 
 De combinatie van **Figma + Lovable + [HadoSEO](https://hadoseo.com/)** is de ultieme stack voor moderne webontwikkeling:
@@ -806,17 +721,6 @@ De toekomst van webontwikkeling is hier. Ben jij klaar om mee te doen?
 
 *De perfecte website is slechts een paar klikken verwijderd.* 🚀`,
       en: `Building a perfect website requires three essential elements: **beautiful design**, **flawless technical execution** and **optimal visibility in Google**. With the combination of **Figma**, **[HadoSEO](https://hadoseo.com/)** and **Lovable** you have everything you need to build websites that are not only beautiful, but also perform well.
-
-## Table of Contents
-
-1. What is Figma and why is it essential?
-2. Lovable: From design to working website in minutes
-3. HadoSEO: The missing link for online success
-4. The perfect workflow in practice
-5. Why this combination is unbeatable
-6. Getting started with the ultimate stack
-
----
 
 ## What is Figma and why is it essential?
 
@@ -848,8 +752,6 @@ De toekomst van webontwikkeling is hier. Ben jij klaar om mee te doen?
 - Dev Mode for direct integration
 - **Perfect for Lovable import**
 
----
-
 ## Lovable: From design to working website in minutes
 
 **Lovable is an AI-powered development platform** that converts your Figma designs into fully functional websites. No code writing, no hiring developers - just upload your design and you're done.
@@ -871,8 +773,6 @@ Lovable's AI analyzes your design and automatically builds:
 
 **Step 4: Publish directly**
 With one click your website is live, including hosting and SSL.
-
----
 
 ## HadoSEO: The missing link for online success
 
@@ -904,8 +804,6 @@ With one click your website is live, including hosting and SSL.
 - Conversion optimization
 - Monthly reports
 
----
-
 ## The perfect workflow in practice
 
 ### Timeline comparison
@@ -918,8 +816,6 @@ With one click your website is live, including hosting and SSL.
 | **Total** | **8-16 weeks** | **1-2 weeks** |
 
 **That's 8x faster** with the same or better results!
-
----
 
 ## Why this combination is unbeatable
 
@@ -939,8 +835,6 @@ With Figma + Lovable + HadoSEO you save significantly compared to traditional de
 - **Figma** guarantees professional design
 - **Lovable** guarantees clean, modern code
 - **HadoSEO** guarantees measurable SEO results
-
----
 
 ## Conclusion
 
@@ -980,16 +874,6 @@ Together they form a workflow that's **8x faster** than traditional methods, at 
 
 Welkom bij de toekomst: **VibeCode + [HadoSEO.com](https://hadoseo.com/)** - de perfecte combinatie voor bedrijven die snel willen groeien zonder compromissen op kwaliteit, SEO ranking en online vindbaarheid.
 
-## Inhoudsopgave
-
-1. Wat maakt VibeCode revolutionair?
-2. De kracht van HadoSEO.com
-3. Waarom deze combinatie de toekomst is
-4. Concrete voordelen voor jouw bedrijf
-5. De toekomst begint nu
-
----
-
 ## Wat maakt VibeCode revolutionair?
 
 **VibeCode is geen traditionele website builder.** Het is een visueel ontwikkelplatform dat de kracht van code combineert met de snelheid van no-code tools voor snelle webontwikkeling en website optimalisatie.
@@ -1021,8 +905,6 @@ Welkom bij de toekomst: **VibeCode + [HadoSEO.com](https://hadoseo.com/)** - de 
 - Snelle laadtijden voor betere conversie
 
 VibeCode geeft je de snelheid van een website builder met de kwaliteit en flexibiliteit van custom development - ideaal voor moderne webontwikkeling en digitale marketing.
-
----
 
 ## De kracht van HadoSEO.com
 
@@ -1082,8 +964,6 @@ Klanten van [HadoSEO.com](https://hadoseo.com/) zien gemiddeld:
 </div>
 
 [HadoSEO.com](https://hadoseo.com/) transformeert je website van "online visitekaartje" naar "lead generatie machine" met meetbare SEO resultaten.
-
----
 
 ## Waarom deze combinatie de toekomst is
 
@@ -1146,8 +1026,6 @@ Alles mogelijk binnen hetzelfde ecosysteem, zonder migratie-gedoe of verlies van
 
 Deze combinatie democratiseert toegang tot enterprise-level websites, SEO strategieën en online marketing. Wat vroeger alleen voor grote bedrijven met grote budgets was, is nu beschikbaar voor iedereen - van startup tot MKB.
 
----
-
 ## Concrete voordelen voor jouw bedrijf
 
 ### Voor startups en scale-ups
@@ -1209,8 +1087,6 @@ Ongeacht je business model, VibeCode + [HadoSEO](https://hadoseo.com/) versnelt 
     discord.gg/fu5ApxrX
   </a>
 </div>
-
----
 
 ## De toekomst begint nu
 
@@ -1288,22 +1164,9 @@ De keuze is aan jou: blijf vasthouden aan verouderde methodes en lage rankings, 
       en: "Everything you need to know about Bolt.new - the AI-powered website builder taking the tech world by storm. From pricing to features and how to get started."
     },
     content: {
-      nl: `# Bolt.new: Bouw websites en apps met AI in je browser
-
-**Wil je een website of app bouwen zonder te coderen?** Bolt.new belooft precies dat: AI-gedreven development direct in je browser. Maar wat is het precies? Is het de investering waard? En hoe begin je ermee?
+      nl: `**Wil je een website of app bouwen zonder te coderen?** Bolt.new belooft precies dat: AI-gedreven development direct in je browser. Maar wat is het precies? Is het de investering waard? En hoe begin je ermee?
 
 **In dit artikel krijg je alle antwoorden.**
-
-## Inhoudsopgave
-
-1. Wat is Bolt.new?
-2. Hoe werkt Bolt.new?
-3. Bolt.new pricing: kosten en abonnementen
-4. Voordelen en nadelen
-5. Bolt.new vs alternatieven
-6. Aan de slag met Bolt.new
-
----
 
 ## Wat is Bolt.new?
 
@@ -1335,8 +1198,6 @@ Je vertelt Bolt wat je wilt bouwen, en de AI genereert de complete code voor je 
 - Portfolio sites
 - E-commerce frontends
 - En nog veel meer
-
----
 
 ## Hoe werkt Bolt.new?
 
@@ -1378,8 +1239,6 @@ Wanneer je tevreden bent, kun je je project **met één klik deployen** naar een
 - **Debug agent** - Lost problemen op als ze ontstaan
 
 **Dit zorgt voor betere resultaten dan simpele code-generatie.**
-
----
 
 ## Bolt.new pricing: kosten en abonnementen
 
@@ -1425,8 +1284,6 @@ Elke interactie met de AI verbruikt tokens. Complexere verzoeken gebruiken meer 
 
 > **Tip:** Start gratis om Bolt te leren kennen. Upgrade naar Pro wanneer je serieus aan de slag gaat.
 
----
-
 ## Voordelen en nadelen
 
 ### Voordelen van Bolt.new
@@ -1469,8 +1326,6 @@ De output is zo goed als de AI. Soms zijn meerdere iteraties nodig.
 
 Voor databases en server-logica heb je extra tools nodig.
 
----
-
 ## Bolt.new vs alternatieven
 
 **Hoe verhoudt Bolt.new zich tot andere AI-builders?**
@@ -1508,8 +1363,6 @@ Voor databases en server-logica heb je extra tools nodig.
 | **Pricing** | Tokens | Credits |
 
 **Conclusie:** v0 focust op UI componenten, Bolt op complete applicaties.
-
----
 
 ## Aan de slag met Bolt.new
 
@@ -1555,8 +1408,6 @@ Begin met de structuur, voeg dan styling toe, en daarna interactiviteit.
 
 *"Bouw iets zoals [bekende website], maar dan voor [jouw niche]"*
 
----
-
 ## Conclusie
 
 **Bolt.new maakt AI-gedreven development toegankelijk voor iedereen.**
@@ -1576,8 +1427,6 @@ Het is perfect voor:
 
 **Start vandaag nog gratis op bolt.new en ontdek wat AI voor jouw projecten kan betekenen.**
 
----
-
 ## Veelgestelde vragen over Bolt.new
 
 **Is Bolt.new gratis?**
@@ -1594,8 +1443,6 @@ Beperkt. Voor volledige backend functionaliteit heb je aanvullende tools nodig.
 
 **Is Bolt.new goed voor productie websites?**
 Voor eenvoudige sites ja. Voor complexe applicaties overweeg alternatieven zoals Lovable.
-
----
 
 **Klaar om te bouwen?** Probeer Bolt.new gratis en transformeer je ideeën in werkende websites.`,
       en: "Want to build a website or app without coding? Bolt.new promises exactly that: AI-powered development right in your browser."
@@ -1615,21 +1462,9 @@ Voor eenvoudige sites ja. Voor complexe applicaties overweeg alternatieven zoals
       en: "Discover how Lovable revolutionizes the way you build websites. With the power of AI and a supportive community, you build in hours what used to take weeks."
     },
     content: {
-      nl: `# Hoe je in uren professionele websites bouwt met Lovable
-
-**Stel je voor:** Een volledig functionele, professioneel ogende website bouwen in slechts enkele uren. Geen maanden wachten op developers. Geen astronomische kosten. Gewoon jouw idee, omgezet in werkelijkheid.
+      nl: `**Stel je voor:** Een volledig functionele, professioneel ogende website bouwen in slechts enkele uren. Geen maanden wachten op developers. Geen astronomische kosten. Gewoon jouw idee, omgezet in werkelijkheid.
 
 **Dit is precies wat Lovable mogelijk maakt.**
-
-## Inhoudsopgave
-
-1. Wat is Lovable?
-2. De kracht van goede prompts
-3. De Lovable community: jouw geheime wapen
-4. Waarom Lovable de toekomst is
-5. Start vandaag nog
-
----
 
 ## Wat is Lovable?
 
@@ -1655,8 +1490,6 @@ Lovable is **meer dan een website builder**. Het is een AI-gedreven ontwikkelpla
 ✅ **Freelancers** die efficiënt willen werken  
 ✅ **Startups** met beperkt budget  
 ✅ **Agencies** die sneller willen leveren
-
----
 
 ## De kracht van goede prompts
 
@@ -1712,8 +1545,6 @@ Je kunt dus zeggen:
 - *"Voeg daar een extra sectie toe"*
 
 **Lovable weet precies wat je bedoelt.**
-
----
 
 ## De Lovable community: jouw geheime wapen
 
@@ -1775,8 +1606,6 @@ In plaats daarvan:
 
 **Dit maakt de leercurve drastisch korter.**
 
----
-
 ## Waarom Lovable de toekomst is
 
 **Traditionele webontwikkeling is aan het veranderen.** En Lovable staat aan de frontlinie van deze revolutie.
@@ -1826,8 +1655,6 @@ In plaats van puzzelen met code, kun je focussen op:
 - Je klanten
 - Je content
 - Je marketing
-
----
 
 ## Start vandaag nog
 
@@ -1893,8 +1720,6 @@ Elke dag dat je wacht is een dag dat:
 
 **Met Lovable heb je geen excuus meer.**
 
----
-
 ## Conclusie
 
 **Lovable heeft webontwikkeling fundamenteel veranderd.**
@@ -1956,19 +1781,6 @@ Zie je in de Discord! 🚀`,
 
 In deze uitgebreide gids ontdek je alles over Replit: van de basis tot geavanceerde AI-functies, prijzen en praktische tips.
 
-**Leestijd: 10 minuten**
-
-## Inhoudsopgave
-
-1. Wat is Replit?
-2. Hoe werkt Replit?
-3. Replit AI Agent: Bouwen met prompts
-4. Replit prijzen 2025
-5. Voor- en nadelen
-6. Replit vs alternatieven
-
----
-
 ## Wat is Replit?
 
 **Replit is een online integrated development environment (IDE)** die volledig in je browser draait. Je hebt geen installaties, geen configuratie en geen technische setup nodig.
@@ -2000,8 +1812,6 @@ In deze uitgebreide gids ontdek je alles over Replit: van de basis tot geavancee
 - Debug assistance
 
 > **Fun fact:** Replit heeft meer dan 30 miljoen gebruikers wereldwijd en wordt gebruikt door zowel beginners als professionele developers.
-
----
 
 ## Hoe werkt Replit?
 
@@ -2037,8 +1847,6 @@ De Replit editor biedt:
 - Deel met iedereen via de link
 - Geen extra hosting setup nodig
 - Custom domains voor Pro gebruikers
-
----
 
 ## Replit AI Agent: Bouwen met prompts
 
@@ -2081,8 +1889,6 @@ De Replit editor biedt:
 - **Nauwkeurigheid**: Soms zijn aanpassingen nodig
 - **Learning curve**: Goede prompts schrijven is een skill
 
----
-
 ## Replit prijzen 2025
 
 Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
@@ -2122,8 +1928,6 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 | Debugging | ~0.10-0.20 per sessie |
 
 > **Let op:** Credits kunnen snel op zijn bij intensief AI gebruik. Monitor je verbruik regelmatig.
-
----
 
 ## Voor- en nadelen van Replit
 
@@ -2176,8 +1980,6 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 - Afhankelijk van Replit servers
 - Latency bij trage verbinding
 
----
-
 ## Replit vs alternatieven
 
 ### Replit vs CodeSandbox
@@ -2224,8 +2026,6 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 
 **Verdict:** Replit voor meer controle, Bolt.new voor maximale snelheid.
 
----
-
 ## Voor wie is Replit geschikt?
 
 ### Perfect voor:
@@ -2257,8 +2057,6 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 - **Offline development** (internet vereist)
 - **Teams met eigen infrastructure** (vendor lock-in)
 
----
-
 ## Tips voor effectief Replit gebruik
 
 ### 1. Optimaliseer je Repls
@@ -2285,8 +2083,6 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 - Bespaar tijd op setup
 - Leer van best practices
 
----
-
 ## Conclusie
 
 **Replit heeft de manier waarop we coderen fundamenteel veranderd.**
@@ -2310,8 +2106,6 @@ Het platform biedt:
 4. **Vergelijk met alternatieven** zoals Lovable of Bolt.new
 
 **De toekomst van development is browser-based, AI-powered en toegankelijk voor iedereen.**
-
----
 
 ## Heb je hulp nodig met je website?
 
@@ -2344,18 +2138,6 @@ Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om web
 
 In deze uitgebreide gids ontdek je alles over Cursor AI - van **prijzen en features** tot **praktische tips** en eerlijke vergelijkingen.
 
-## Inhoudsopgave
-
-1. Wat is Cursor AI?
-2. Hoe werkt Cursor?
-3. Cursor prijzen en abonnementen
-4. Belangrijkste features
-5. Cursor vs VS Code vs GitHub Copilot
-6. Voor- en nadelen
-7. Is Cursor geschikt voor jou?
-
----
-
 ## Wat is Cursor AI?
 
 **Cursor is een AI-native code editor** gebouwd op de VS Code foundation. Het combineert de vertrouwde VS Code interface met **diep geïntegreerde AI-functionaliteit**.
@@ -2370,8 +2152,6 @@ Waar tools zoals GitHub Copilot een **add-on** zijn voor bestaande editors, is C
 - **Multi-model support** - kies je favoriete AI model
 
 **Cursor is gebouwd door een team in San Francisco** en heeft al **miljoenen developers** aangetrokken sinds de lancering.
-
----
 
 ## Hoe werkt Cursor?
 
@@ -2409,8 +2189,6 @@ Cursor **indexeert je hele codebase** zodat AI:
 - Relevante code kan vinden
 - Consistent blijft met je patterns
 - Accurate suggesties geeft
-
----
 
 ## Cursor prijzen en abonnementen
 
@@ -2463,8 +2241,6 @@ Cursor is overgestapt naar een **credit-based systeem**:
 - Premium models (GPT-4, Claude) kosten meer credits
 - Snelle models (GPT-4o mini) kosten minder
 
----
-
 ## Belangrijkste Cursor features
 
 ### Feature 1: AI Agent
@@ -2511,8 +2287,6 @@ Reference specifieke context met **@ mentions**:
 - @docs - documentatie doorzoeken
 - @web - zoek op het internet
 
----
-
 ## Cursor vs VS Code vs GitHub Copilot
 
 | Feature | Cursor | VS Code + Copilot | VS Code |
@@ -2536,8 +2310,6 @@ Reference specifieke context met **@ mentions**:
 - Je hebt een **lager budget**
 - Je wilt bij de **officiële Microsoft stack** blijven
 - Simple autocomplete is voldoende
-
----
 
 ## Voor- en nadelen van Cursor
 
@@ -2567,8 +2339,6 @@ Reference specifieke context met **@ mentions**:
 
 ❌ **Resource heavy** - kan traag zijn op oudere machines
 
----
-
 ## Populaire zoekvragen over Cursor
 
 ### "Is Cursor gratis?"
@@ -2591,8 +2361,6 @@ Cursor **is gebaseerd op VS Code** maar met native AI features. Je kunt dezelfde
 
 **Ja!** Studenten krijgen **gratis Cursor Pro voor 1 jaar** met een geldige .edu email.
 
----
-
 ## Is Cursor geschikt voor jou?
 
 ### Cursor is perfect voor:
@@ -2608,8 +2376,6 @@ Cursor **is gebaseerd op VS Code** maar met native AI features. Je kunt dezelfde
 - **Offline workers** zonder stabiele internet
 - **Budget-conscious** users die $20/mo te veel vinden
 - **Non-coders** - gebruik dan liever Lovable of Bolt.new
-
----
 
 ## Conclusie
 
@@ -2634,8 +2400,6 @@ Het platform biedt:
 4. **Evalueer of het je workflow verbetert**
 
 **De toekomst van coding is AI-assisted, en Cursor loopt voorop.**
-
----
 
 ## Heb je hulp nodig met je website?
 
@@ -2668,17 +2432,6 @@ Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om web
 
 Supabase is een open-source alternatief voor Firebase dat in razend tempo de harten van developers wereldwijd verovert. **Maar wat maakt Supabase zo bijzonder?** En hoe kun je het gebruiken voor jouw projecten?
 
-## Inhoudsopgave
-
-1. Wat is Supabase?
-2. De kernfuncties van Supabase
-3. Supabase prijzen en plannen
-4. Voordelen en nadelen
-5. Supabase vs Firebase vergelijking
-6. Aan de slag met Supabase
-
----
-
 ## Wat is Supabase?
 
 **Supabase** is een open-source Backend-as-a-Service (BaaS) platform dat je alle tools geeft om snel een volledige backend te bouwen. Het is gebouwd bovenop bewezen technologieën zoals **PostgreSQL**, de krachtigste open-source database ter wereld.
@@ -2700,8 +2453,6 @@ Supabase wordt gebruikt door:
 - **Solo developers** en indie hackers
 - **Enterprises** die zoeken naar schaalbare oplossingen
 - **Agencies** die client projecten efficiënt willen leveren
-
----
 
 ## De kernfuncties van Supabase
 
@@ -2811,8 +2562,6 @@ supabase
 - AI embeddings opslag
 - RAG (Retrieval Augmented Generation) ondersteuning
 
----
-
 ## Supabase prijzen en plannen
 
 Supabase biedt transparante, voorspelbare prijzen:
@@ -2862,8 +2611,6 @@ Custom pricing voor:
 - Dedicated support
 - Custom contracts
 - On-premise opties
-
----
 
 ## Voordelen en nadelen
 
@@ -2919,8 +2666,6 @@ Custom pricing voor:
 - Sommige tools zijn Supabase-specifiek
 - Migratie naar andere platforms kan werk zijn
 
----
-
 ## Supabase vs Firebase vergelijking
 
 | Feature | Supabase | Firebase |
@@ -2952,8 +2697,6 @@ Kies Firebase als je:
 - NoSQL prefereert
 - Uitgebreide mobile SDK's nodig hebt
 - Machine Learning features wilt gebruiken
-
----
 
 ## Aan de slag met Supabase
 
@@ -3008,8 +2751,6 @@ const { data, error } = await supabase
   .insert({ title: 'Mijn eerste post', content: 'Hallo wereld!' })
 \`\`\`
 
----
-
 ## Conclusie
 
 **Supabase is een game-changer** voor moderne web development. Het combineert de kracht van PostgreSQL met een developer-friendly platform dat alles biedt wat je nodig hebt voor een volledige backend.
@@ -3017,8 +2758,6 @@ const { data, error } = await supabase
 Of je nu een **startup bent die snel wil lanceren**, een **developer die een side project bouwt**, of een **enterprise die zoekt naar schaalbare oplossingen** - Supabase verdient een serieuze overweging.
 
 **De open-source aanpak**, gecombineerd met **enterprise-grade technologie** en een **genereuze free tier**, maakt Supabase tot een van de meest interessante platforms in de moderne development stack.
-
----
 
 ## Hulp nodig met je backend?
 
@@ -3051,18 +2790,6 @@ Bij Nieuwblik hebben we uitgebreide ervaring met Supabase en bouwen we schaalbar
     content: {
       nl: `In de wereld van AI-assistenten is er één naam die steeds vaker opduikt: **Claude**. Gebouwd door Anthropic, een van de meest vooraanstaande AI-bedrijven ter wereld.
 
-**Leestijd: 12 minuten**
-
-## Inhoudsopgave
-
-1. Wat is Claude AI?
-2. Hoe werkt Claude?
-3. De belangrijkste mogelijkheden
-4. Claude prijzen 2025
-5. Waarvoor wordt Claude gebruikt?
-
----
-
 ## Wat is Claude AI?
 
 **Claude is een AI-assistent ontwikkeld door Anthropic**, een bedrijf opgericht door voormalige OpenAI-onderzoekers. De naam "Claude" is een verwijzing naar Claude Shannon, de vader van de informatietheorie.
@@ -3079,8 +2806,6 @@ Bij Nieuwblik hebben we uitgebreide ervaring met Supabase en bouwen we schaalbar
 **Claude 3 Opus** - Het krachtigste model voor complexe taken
 **Claude 3 Haiku** - Snelste en goedkoopste model
 
----
-
 ## Hoe werkt Claude?
 
 **Claude is een Large Language Model (LLM)** getraind met Constitutional AI - een set principes die het model moet volgen voor veilig en eerlijk gedrag.
@@ -3095,8 +2820,6 @@ Claude heeft een enorm geheugen van **200.000 tokens** - equivalent aan 150.000+
 ✅ **Documenten lezen** (PDF's, spreadsheets)
 ✅ **Code begrijpen** in 50+ talen
 
----
-
 ## De belangrijkste mogelijkheden
 
 ### 1. Schrijven en content
@@ -3110,8 +2833,6 @@ Documenten samenvatten, data analyseren, bronnen vergelijken.
 
 ### 4. Brainstormen
 Ideeën genereren, problemen structureren, strategieën ontwikkelen.
-
----
 
 ## Claude prijzen 2025
 
@@ -3128,16 +2849,12 @@ Ideeën genereren, problemen structureren, strategieën ontwikkelen.
 | Claude 3 Opus | $15 | $75 |
 | Claude 3 Haiku | $0.25 | $1.25 |
 
----
-
 ## Waarvoor wordt Claude gebruikt?
 
 - **Softwareontwikkeling** - Code genereren, debuggen, documentatie
 - **Content marketing** - Blogs, social media, email campaigns
 - **Onderzoek** - Literatuur reviews, data interpretatie
 - **Zakelijk** - Klantenservice, document analyse, meeting summaries
-
----
 
 ## Conclusie
 
