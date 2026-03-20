@@ -44,10 +44,10 @@ const problems = [
 
 const solutions = [
     "Moderne, unieke en premium vormgeving die écht bij jouw merk past.",
-    "Snelle realisatie — van strategie tot live in weken, niet maanden.",
+    "Snelle realisatie: van strategie tot live in weken, niet maanden.",
     "Conversiegerichte websites die bezoekers omzetten in leads en klanten.",
     "Sterke, samenhangende branding & huisstijl die direct herkenbaar en krachtig overkomt.",
-    "Alles uit handen — jij geeft input, wij regelen ontwerp, ontwikkeling en oplevering.",
+    "Alles uit handen: jij geeft input, wij regelen ontwerp, ontwikkeling en oplevering.",
     "SEO-geoptimaliseerd, razendsnel en perfect op elk apparaat (mobile-first)."
 ];
 

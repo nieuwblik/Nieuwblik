@@ -661,7 +661,7 @@ const Ecommerce = () => {
               className="font-bold"
               variants={fadeUp}
             >
-              — Maarten, Kitchenz
+              - Maarten, Kitchenz
             </motion.p>
           </motion.div>
         </div>
