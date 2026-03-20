@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
 
 **Leestijd:** 4 minuten
 
-## Inhoudsopgave
+**Inhoudsopgave**
 
 1. VV Madjoe: volleybaltrots uit Enkhuizen
 2. Samen op het shirt
@@ -60,7 +60,7 @@ export const blogPosts: BlogPost[] = [
 4. Meer zichtbaarheid voor jouw bedrijf?
 
 
-## 1. VV Madjoe: volleybaltrots uit Enkhuizen
+**1. VV Madjoe: volleybaltrots uit Enkhuizen**
 
 **VV Madjoe** is een volleybalvereniging met een rijke geschiedenis in Enkhuizen. Het **Heren 1** team speelt in de **Topdivisie** — het hoogste amateurniveau van Nederland. Dat betekent wedstrijden op topniveau, met tegenstanders uit het hele land.
 
