@@ -1,3 +1,4 @@
+import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
 import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
 import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
 import nieuwblikBenotedMacbook from "@/assets/blog/nieuwblik-x-benoted-macbook.webp";
@@ -33,6 +34,135 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "nieuwblik-sponsort-vv-madjoe-heren-1",
+    image: madjoeSponsorsImg,
+    seoTitle: "Nieuwblik Sponsort VV Madjoe Heren 1 | Volleybal Enkhuizen",
+    seoKeywords: "VV Madjoe, sponsoring, volleybal Enkhuizen, Topdivisie, lokaal ondernemen, shirtsponsor, Enza Zaden, Kreeft Autoservice, Toolstra, MKB sponsoring",
+    title: {
+      nl: "Nieuwblik sponsort VV Madjoe Heren 1",
+      en: "Nieuwblik sponsors VV Madjoe Men's 1st team"
+    },
+    excerpt: {
+      nl: "Met trots staan wij als shirtsponsor op het shirt van VV Madjoe Heren 1 — samen met Enza Zaden, Kreeft Autoservice en Toolstra. Lees waarom lokaal sponsoren zo belangrijk voor ons is.",
+      en: "We proudly sponsor VV Madjoe Men's 1st team — together with Enza Zaden, Kreeft Autoservice and Toolstra. Read why local sponsorship matters to us."
+    },
+    content: {
+      nl: `Bij Nieuwblik geloven we in de kracht van **lokale verbinding**. Daarom zijn we ontzettend trots dat we als **shirtsponsor** op het shirt staan van **VV Madjoe Heren 1** uit Enkhuizen. Samen met **Enza Zaden**, **Kreeft Autoservice** en **Toolstra Bouwbedrijf** vormen we het sponsorteam achter dit ambitieuze volleybalteam.
+
+**Leestijd:** 4 minuten
+
+## Inhoudsopgave
+
+1. VV Madjoe: volleybaltrots uit Enkhuizen
+2. Samen op het shirt
+3. Waarom lokaal sponsoren belangrijk is
+4. Meer zichtbaarheid voor jouw bedrijf?
+
+
+## 1. VV Madjoe: volleybaltrots uit Enkhuizen
+
+**VV Madjoe** is een volleybalvereniging met een rijke geschiedenis in Enkhuizen. Het **Heren 1** team speelt in de **Topdivisie** — het hoogste amateurniveau van Nederland. Dat betekent wedstrijden op topniveau, met tegenstanders uit het hele land.
+
+De club staat bekend om haar **passie voor de sport**, sterke teamgeest en betrokkenheid bij de lokale gemeenschap. Precies de waarden die wij als Nieuwblik ook belangrijk vinden.
+
+> Volleybal op het hoogste amateurniveau, recht uit het hart van Enkhuizen. Daar willen wij bij horen.
+
+Het seizoen 2025-2026 is in volle gang en het team laat zien wat ze waard zijn. Met een enthousiaste achterban en sterke sponsors achter zich, bouwen ze aan iets moois.
+
+
+## 2. Samen op het shirt
+
+We staan niet alleen op het shirt. Samen met drie andere **trotse lokale ondernemers** sponsoren we het Heren 1:
+
+- **Enza Zaden** — Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
+- **Kreeft Autoservice** — Betrouwbare autoservice uit de regio, altijd klaar om te helpen
+- **Toolstra Bouwbedrijf** — Vakmanschap in de bouw, geworteld in West-Friesland
+
+Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staan. Het laat zien dat **digitale zichtbaarheid** net zo belangrijk is als fysieke aanwezigheid.
+
+![Nieuwblik als trotse shirtsponsor van VV Madjoe Heren 1](${madjoeSponsorsImg})
+
+
+## 3. Waarom lokaal sponsoren belangrijk is
+
+Als ondernemer in Enkhuizen voelen we ons verbonden met de gemeenschap. **Lokaal sponsoren** is voor ons meer dan een logo op een shirt. Het is:
+
+- **Investeren in de gemeenschap** — Sport verbindt mensen. Door een lokaal team te steunen, dragen we bij aan sociale cohesie
+- **Zichtbaarheid op de juiste plek** — Bij elke thuiswedstrijd zien honderden toeschouwers ons logo. Dat is lokale marketing op zijn best
+- **Steun aan de jeugd** — VV Madjoe heeft een bloeiende jeugdafdeling. Sponsoring helpt de club om te investeren in trainingen, faciliteiten en materiaal
+- **Verbinding met andere ondernemers** — Samen sponsoren creëert een netwerk van lokale bedrijven die elkaar versterken
+
+> Lokaal sponsoren is geen kostenpost — het is een investering in de gemeenschap waar je deel van uitmaakt.
+
+We zien het als onze verantwoordelijkheid om iets terug te geven aan de regio die ons al zoveel heeft gebracht. En eerlijk? Het is ook gewoon **gaaf** om jezelf terug te zien op een volleybalshirt in de Topdivisie.
+
+
+## 4. Meer zichtbaarheid voor jouw bedrijf?
+
+Bij Nieuwblik helpen we ondernemers om **online zichtbaar** te worden met websites die niet alleen mooi zijn, maar ook écht resultaat opleveren. Net zoals we op het veld zichtbaar zijn als sponsor, zorgen we ervoor dat jouw bedrijf **online gevonden wordt**.
+
+Wil je als ondernemer ook meer zichtbaarheid? Of ben je benieuwd wat een **professionele website** voor jouw bedrijf kan betekenen?
+
+**[Neem contact op](/contact)** of **[start je project](/start-je-project)** — we denken graag met je mee.
+
+
+---
+
+Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juichen mee vanuit de zijlijn — en vanaf het shirt. 🏐💪`,
+      en: `At Nieuwblik, we believe in the power of **local connection**. That's why we're incredibly proud to be a **shirt sponsor** of **VV Madjoe Men's 1st team** from Enkhuizen. Together with **Enza Zaden**, **Kreeft Autoservice**, and **Toolstra Construction**, we form the sponsor team behind this ambitious volleyball team.
+
+**Reading time:** 4 minutes
+
+## Table of Contents
+
+1. VV Madjoe: volleyball pride from Enkhuizen
+2. Together on the shirt
+3. Why local sponsorship matters
+4. More visibility for your business?
+
+
+## 1. VV Madjoe: volleyball pride from Enkhuizen
+
+**VV Madjoe** is a volleyball club with a rich history in Enkhuizen. The **Men's 1st team** plays in the **Topdivisie** — the highest amateur level in the Netherlands.
+
+The club is known for its **passion for the sport**, strong team spirit, and involvement in the local community.
+
+> Top-level amateur volleyball, straight from the heart of Enkhuizen. We want to be part of that.
+
+
+## 2. Together on the shirt
+
+We're not alone on the shirt. Together with three other **proud local entrepreneurs**, we sponsor the Men's 1st team:
+
+- **Enza Zaden** — Globally active from Enkhuizen, an icon in seed breeding
+- **Kreeft Autoservice** — Reliable auto service from the region
+- **Toolstra Construction** — Craftsmanship in construction, rooted in West Friesland
+
+
+## 3. Why local sponsorship matters
+
+As entrepreneurs in Enkhuizen, we feel connected to the community. **Local sponsorship** means:
+
+- **Investing in community** — Sports connect people
+- **Visibility in the right place** — Hundreds of spectators see our logo at every home game
+- **Supporting youth** — VV Madjoe has a thriving youth department
+- **Connecting with fellow entrepreneurs** — Sponsoring together creates a network of local businesses
+
+
+## 4. More visibility for your business?
+
+At Nieuwblik, we help entrepreneurs become **visible online** with websites that deliver real results.
+
+**[Get in touch](/contact)** or **[start your project](/start-je-project)** — we'd love to help.
+
+---
+
+To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
+    },
+    date: "2026-03-20",
+    readingTime: 4,
+  },
   {
     slug: "stripe-betalingen-webshop-handleiding",
     image: stripeLogoImg,
