@@ -98,7 +98,7 @@ Als ondernemer in Enkhuizen voelen we ons verbonden met de gemeenschap. **Lokaal
 We zien het als onze verantwoordelijkheid om iets terug te geven aan de regio die ons al zoveel heeft gebracht. En eerlijk? Het is ook gewoon **gaaf** om jezelf terug te zien op een volleybalshirt in de Topdivisie.
 
 
-**4. Meer zichtbaarheid voor jouw bedrijf?**
+## Meer zichtbaarheid voor jouw bedrijf?
 
 Bij Nieuwblik helpen we ondernemers om **online zichtbaar** te worden met websites die niet alleen mooi zijn, maar ook écht resultaat opleveren. Net zoals we op het veld zichtbaar zijn als sponsor, zorgen we ervoor dat jouw bedrijf **online gevonden wordt**.
 
