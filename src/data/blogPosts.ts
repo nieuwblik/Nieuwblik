@@ -154,9 +154,8 @@ At Nieuwblik, we help entrepreneurs become **visible online** with websites that
 
 **[Get in touch](/contact)** or **[start your project](/start-je-project)** — we'd love to help.
 
----
 
-To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
+To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪\`
     },
     date: "2026-03-20",
     readingTime: 4,
