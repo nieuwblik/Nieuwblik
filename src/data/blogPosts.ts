@@ -148,7 +148,7 @@ As entrepreneurs in Enkhuizen, we feel connected to the community. **Local spons
 - **Connecting with fellow entrepreneurs** — Sponsoring together creates a network of local businesses
 
 
-**4. More visibility for your business?**
+## More visibility for your business?
 
 At Nieuwblik, we help entrepreneurs become **visible online** with websites that deliver real results.
 
