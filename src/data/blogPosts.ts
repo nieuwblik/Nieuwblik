@@ -75,9 +75,9 @@ Het seizoen 2025-2026 is in volle gang en het team laat zien wat ze waard zijn. 
 
 We staan niet alleen op het shirt. Samen met drie andere **trotse lokale ondernemers** sponsoren we het Heren 1:
 
-- **Enza Zaden** — Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
-- **Kreeft Autoservice** — Betrouwbare autoservice uit de regio, altijd klaar om te helpen
-- **Toolstra Bouwbedrijf** — Vakmanschap in de bouw, geworteld in West-Friesland
+- [**Enza Zaden**](https://www.enzazaden.com/nl) — Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
+- [**Kreeft Autoservice**](https://kreeftautoservice.nl/) — Betrouwbare autoservice uit de regio, altijd klaar om te helpen
+- [**Toolstra Bouwbedrijf**](https://www.toolstra.nl/) — Vakmanschap in de bouw, geworteld in West-Friesland
 
 Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staan. Het laat zien dat **digitale zichtbaarheid** net zo belangrijk is als fysieke aanwezigheid.
 
