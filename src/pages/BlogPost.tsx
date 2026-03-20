@@ -363,7 +363,7 @@ const BlogPost = () => {
                     ease: easings.easeOutExpo
                   }}
                 >
-                  {parts.map((part, j) => j % 2 === 1 ? <strong key={j} className="font-semibold">{part}</strong> : part)}
+                  {formatInlineMarkdown(text)}
                 </motion.li>
               );
             })}
