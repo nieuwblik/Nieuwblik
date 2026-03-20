@@ -1,3 +1,4 @@
+import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
 import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
 import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
 import nieuwblikBenotedMacbook from "@/assets/blog/nieuwblik-x-benoted-macbook.webp";
