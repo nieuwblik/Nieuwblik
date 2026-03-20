@@ -75,9 +75,9 @@ Het seizoen 2025-2026 is in volle gang en het team laat zien wat ze waard zijn. 
 
 We staan niet alleen op het shirt. Samen met drie andere **trotse lokale ondernemers** sponsoren we het Heren 1:
 
-- **Enza Zaden** — Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
-- **Kreeft Autoservice** — Betrouwbare autoservice uit de regio, altijd klaar om te helpen
-- **Toolstra Bouwbedrijf** — Vakmanschap in de bouw, geworteld in West-Friesland
+- [**Enza Zaden**](https://www.enzazaden.com/nl) — Wereldwijd actief vanuit Enkhuizen, een icoon in de zaadveredeling
+- [**Kreeft Autoservice**](https://kreeftautoservice.nl/) — Betrouwbare autoservice uit de regio, altijd klaar om te helpen
+- [**Toolstra Bouwbedrijf**](https://www.toolstra.nl/) — Vakmanschap in de bouw, geworteld in West-Friesland
 
 Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staan. Het laat zien dat **digitale zichtbaarheid** net zo belangrijk is als fysieke aanwezigheid.
 
@@ -133,9 +133,9 @@ The club is known for its **passion for the sport**, strong team spirit, and inv
 
 We're not alone on the shirt. Together with three other **proud local entrepreneurs**, we sponsor the Men's 1st team:
 
-- **Enza Zaden** — Globally active from Enkhuizen, an icon in seed breeding
-- **Kreeft Autoservice** — Reliable auto service from the region
-- **Toolstra Construction** — Craftsmanship in construction, rooted in West Friesland
+- [**Enza Zaden**](https://www.enzazaden.com/nl) — Globally active from Enkhuizen, an icon in seed breeding
+- [**Kreeft Autoservice**](https://kreeftautoservice.nl/) — Reliable auto service from the region
+- [**Toolstra Construction**](https://www.toolstra.nl/) — Craftsmanship in construction, rooted in West Friesland
 
 
 ## Why local sponsorship matters
