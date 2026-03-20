@@ -120,7 +120,7 @@ Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juiche
 4. More visibility for your business?
 
 
-**1. VV Madjoe: volleyball pride from Enkhuizen**
+## VV Madjoe: volleyball pride from Enkhuizen
 
 **VV Madjoe** is a volleyball club with a rich history in Enkhuizen. The **Men's 1st team** plays in the **Topdivisie** — the highest amateur level in the Netherlands.
 
