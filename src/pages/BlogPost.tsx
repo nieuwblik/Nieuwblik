@@ -349,7 +349,6 @@ const BlogPost = () => {
           >
             {items.map((item, i) => {
               const text = item.replace('- ', '');
-              const parts = text.split('**');
               return (
                 <motion.li
                   key={i}
