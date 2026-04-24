@@ -637,16 +637,22 @@ const Index = () => {
     </section>
 
     {/* Design Carousel Section */}
-    <DesignCarousel />
+    <Suspense fallback={null}>
+      <DesignCarousel />
+    </Suspense>
 
     {/* Problem vs Solution Section */}
     <ProblemSolutionSection />
 
     {/* Featured Blog Posts */}
-    <FeaturedBlogPosts />
+    <Suspense fallback={null}>
+      <FeaturedBlogPosts />
+    </Suspense>
 
     {/* FAQ Section */}
-    <FAQSection />
+    <Suspense fallback={null}>
+      <FAQSection />
+    </Suspense>
 
     {/* CTA Section */}
     <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
