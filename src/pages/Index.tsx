@@ -594,7 +594,9 @@ const Index = () => {
         </div>
 
         <AnimatedSection delay={0.2}>
-          <TestimonialsCarousel />
+          <Suspense fallback={null}>
+            <TestimonialsCarousel />
+          </Suspense>
         </AnimatedSection>
       </div>
     </section>
