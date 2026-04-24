@@ -11,10 +11,10 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useMotionValue, useSpring, useTransform } from "framer-motion";
 
-import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
-import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.png";
-import pastamachineListingImg from "@/assets/projects/pastamachine-listing.png";
-import compressorListingImg from "@/assets/projects/compressor-listing.png";
+import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
+import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.webp";
+import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp";
+import compressorListingImg from "@/assets/projects/compressor-listing.webp";
 import babycameraVerpakkingImg from "@/assets/projects/babycamera-verpakking.jpg";
 import qmateGrondspotsImg from "@/assets/projects/qmate-grondspots-verpakking.jpg";
 

@@ -21,8 +21,8 @@ import {
 // Project images for cases
 import puurinharmonieImg from "@/assets/projects/puurinharmonie-case.webp";
 import benotedImg from "@/assets/projects/benoted.nl.jpg";
-import daniqueImg from "@/assets/projects/daniquekwakman.nl.png";
-import ericaImg from "@/assets/projects/ericavandijk.nl.png";
+import daniqueImg from "@/assets/projects/daniquekwakman.nl.webp";
+import ericaImg from "@/assets/projects/ericavandijk.nl.webp";
 
 // Tool logos
 import lovableLogo from "@/assets/tools/lovable-logo.webp";
