@@ -114,11 +114,24 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://i.ytimg.com" />
     
-    <!-- Optimized font loading - use swap for faster text rendering -->
+    <!-- Non-blocking font loading: load async, fallback inside noscript -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Outfit:wght@300;400;600;700;900&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Outfit:wght@300;400;500;600;700;900&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Outfit:wght@300;400;500;600;700;900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Outfit:wght@300;400;500;600;700;900&display=swap"
+      />
+    </noscript>
 
     <!-- Structured Data (JSON-LD) - Organization -->
     <script type="application/ld+json">
