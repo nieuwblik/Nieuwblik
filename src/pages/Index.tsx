@@ -17,7 +17,7 @@ import { motion, useReducedMotion, useInView, useScroll, useTransform } from "fr
 import { useRef } from "react";
 import justinImage from "@/assets/justin-slok.webp";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
 import {
