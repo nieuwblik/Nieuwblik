@@ -205,7 +205,7 @@ const Index = () => {
     <Navigation />
 
     {/* Hero Section - Visual Poetry Layout */}
-    <section className="relative min-h-screen overflow-hidden bg-background pt-header pb-8 sm:pb-10 md:pb-14 lg:pb-0">
+    <section className="relative lg:min-h-screen overflow-hidden bg-background pt-header pb-12 sm:pb-14 md:pb-16 lg:pb-20">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-center">
 
