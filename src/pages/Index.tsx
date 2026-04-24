@@ -12,7 +12,7 @@ import { ArrowRight, Globe, Palette, ShoppingBag, Pen, Linkedin } from "lucide-r
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import justinImage from "@/assets/justin-slok.png";
+import justinImage from "@/assets/justin-slok.webp";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 
@@ -33,13 +33,13 @@ import { companyInfo } from "@/config/company";
 import { cn } from "@/lib/utils";
 
 // Import AI logos
-import claudeLogo from "@/assets/ai/claude-logo.png";
-import copilotLogo from "@/assets/ai/copilot-logo.png";
-import grokLogo from "@/assets/ai/grok-logo.png";
-import perplexityLogo from "@/assets/ai/perplexity-logo.png";
+import claudeLogo from "@/assets/ai/claude-logo.webp";
+import copilotLogo from "@/assets/ai/copilot-logo.webp";
+import grokLogo from "@/assets/ai/grok-logo.webp";
+import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
 
 // Import Nieuwblik logo
-import nieuwblikLogo from "@/assets/logo.png";
+import nieuwblikLogo from "@/assets/logo.webp";
 
 import { projects } from "@/data/projects";
 

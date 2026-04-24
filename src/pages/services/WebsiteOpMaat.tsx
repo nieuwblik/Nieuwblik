@@ -25,10 +25,10 @@ import daniqueImg from "@/assets/projects/daniquekwakman.nl.png";
 import ericaImg from "@/assets/projects/ericavandijk.nl.png";
 
 // Tool logos
-import lovableLogo from "@/assets/tools/lovable-logo.png";
-import figmaLogo from "@/assets/tools/figma-logo.png";
-import geminiLogo from "@/assets/tools/gemini-logo.png";
-import hadoseoLogo from "@/assets/tools/hadoseo-logo.png";
+import lovableLogo from "@/assets/tools/lovable-logo.webp";
+import figmaLogo from "@/assets/tools/figma-logo.webp";
+import geminiLogo from "@/assets/tools/gemini-logo.webp";
+import hadoseoLogo from "@/assets/tools/hadoseo-logo.webp";
 import wordpressLogo from "@/assets/tools/wordpress.svg";
 import elementorLogo from "@/assets/tools/elementor.svg";
 import woocommerceLogo from "@/assets/tools/woocommerce.svg";

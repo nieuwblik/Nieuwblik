@@ -2,16 +2,16 @@ import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
 import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
 import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
 import nieuwblikBenotedMacbook from "@/assets/blog/nieuwblik-x-benoted-macbook.webp";
-import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.png";
+import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.webp";
 import figmaLogoImg from "@/assets/blog/figma-logo.webp";
-import lovableLogoImg from "@/assets/blog/lovable-logo.png";
-import boltLogoImg from "@/assets/blog/bolt-logo.png";
-import replitLogoImg from "@/assets/blog/replit-logo.png";
-import cursorLogoImg from "@/assets/blog/cursor-logo.png";
-import supabaseLogoImg from "@/assets/blog/supabase-logo.png";
-import claudeLogoImg from "@/assets/blog/claude-logo.png";
+import lovableLogoImg from "@/assets/blog/lovable-logo.webp";
+import boltLogoImg from "@/assets/blog/bolt-logo.webp";
+import replitLogoImg from "@/assets/blog/replit-logo.webp";
+import cursorLogoImg from "@/assets/blog/cursor-logo.webp";
+import supabaseLogoImg from "@/assets/blog/supabase-logo.webp";
+import claudeLogoImg from "@/assets/blog/claude-logo.webp";
 import brandStorytellingImg from "@/assets/blog/brand-storytelling.jpg";
-import stripeLogoImg from "@/assets/blog/stripe-logo.png";
+import stripeLogoImg from "@/assets/blog/stripe-logo.webp";
 export interface BlogPost {
   slug: string;
   title: {
