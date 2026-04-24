@@ -5,7 +5,7 @@ import { easings } from "@/lib/motion";
 // ─── Asset imports ───────────────────────────────────────────────────────────
 import bgImg from "@/assets/recente-projecten/puurinharmonie-background-project.webp";
 import laptopImg from "@/assets/recente-projecten/puurinharmonie-laptop.webp";
-import avatarImg from "@/assets/recente-projecten/puurinharmonie-avatar.png";
+import avatarImg from "@/assets/recente-projecten/puurinharmonie-avatar.webp";
 import { Star, ExternalLink } from "lucide-react";
 
 // ─── Reveal helper ────────────────────────────────────────────────────────────
