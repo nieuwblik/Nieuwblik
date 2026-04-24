@@ -17,11 +17,11 @@ const SocialContentSection = lazy(() => import("@/components/SocialContentSectio
 import { projects } from "@/data/projects";
 
 // Import e-commerce listing images
-import kattenbakListingImg from "@/assets/projects/kattenbak-listing.png";
-import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.png";
-import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.png";
-import pastamachineListingImg from "@/assets/projects/pastamachine-listing.png";
-import compressorListingImg from "@/assets/projects/compressor-listing.png";
+import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
+import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.webp";
+import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.webp";
+import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp";
+import compressorListingImg from "@/assets/projects/compressor-listing.webp";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState<string>("all");
