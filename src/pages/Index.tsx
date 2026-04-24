@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
-const ToolsSlider = lazy(() => import("@/components/ToolsSlider"));
 const DesignCarousel = lazy(() => import("@/components/DesignCarousel").then(m => ({ default: m.DesignCarousel })));
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
