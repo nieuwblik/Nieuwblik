@@ -1,10 +1,13 @@
+import { lazy, Suspense } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import ToolsSlider from "@/components/ToolsSlider";
-import { DesignCarousel } from "@/components/DesignCarousel";
-import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
-import FAQSection from "@/components/FAQSection";
 import ProjectCard from "@/components/ProjectCard";
+
+// Below-the-fold sections - lazy loaded for faster initial paint
+const ToolsSlider = lazy(() => import("@/components/ToolsSlider"));
+const DesignCarousel = lazy(() => import("@/components/DesignCarousel").then(m => ({ default: m.DesignCarousel })));
+const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
+const FAQSection = lazy(() => import("@/components/FAQSection"));
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
