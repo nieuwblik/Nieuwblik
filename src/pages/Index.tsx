@@ -368,16 +368,14 @@ const Index = () => {
               </div>
             </motion.div>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons - opacity-only animation to prevent CLS */}
             <motion.div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center lg:items-start" initial={{
-              opacity: 0,
-              y: 30
+              opacity: 0
             }} animate={{
-              opacity: 1,
-              y: 0
+              opacity: 1
             }} transition={{
-              duration: 0.6,
-              delay: 0.6,
+              duration: 0.5,
+              delay: 0.5,
               ease: easings.easeOutExpo
             }}>
               <AnimatedButton to="/start-je-project" size="lg">
