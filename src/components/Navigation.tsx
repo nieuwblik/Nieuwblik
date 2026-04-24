@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Menu, X, ChevronDown, Globe, ShoppingCart, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 import ReviewBar from "./ReviewBar";
 import {
   mobileMenuVariants,

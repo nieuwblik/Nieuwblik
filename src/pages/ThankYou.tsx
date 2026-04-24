@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import justinImage from "@/assets/justin-slok.png";
+import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, scaleUp, easings } from "@/lib/motion";
 

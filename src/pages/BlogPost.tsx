@@ -7,7 +7,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
-import justinImg from "@/assets/justin-slok.png";
+import justinImg from "@/assets/justin-slok.webp";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, useReducedMotion } from "framer-motion";

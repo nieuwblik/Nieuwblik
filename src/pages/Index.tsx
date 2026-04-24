@@ -1,10 +1,12 @@
+import { lazy, Suspense } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import ToolsSlider from "@/components/ToolsSlider";
-import { DesignCarousel } from "@/components/DesignCarousel";
-import FeaturedBlogPosts from "@/components/FeaturedBlogPosts";
-import FAQSection from "@/components/FAQSection";
 import ProjectCard from "@/components/ProjectCard";
+
+// Below-the-fold sections - lazy loaded for faster initial paint
+const DesignCarousel = lazy(() => import("@/components/DesignCarousel").then(m => ({ default: m.DesignCarousel })));
+const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
+const FAQSection = lazy(() => import("@/components/FAQSection"));
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
@@ -12,9 +14,9 @@ import { ArrowRight, Globe, Palette, ShoppingBag, Pen, Linkedin } from "lucide-r
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import justinImage from "@/assets/justin-slok.png";
+import justinImage from "@/assets/justin-slok.webp";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
 import {
@@ -33,13 +35,13 @@ import { companyInfo } from "@/config/company";
 import { cn } from "@/lib/utils";
 
 // Import AI logos
-import claudeLogo from "@/assets/ai/claude-logo.png";
-import copilotLogo from "@/assets/ai/copilot-logo.png";
-import grokLogo from "@/assets/ai/grok-logo.png";
-import perplexityLogo from "@/assets/ai/perplexity-logo.png";
+import claudeLogo from "@/assets/ai/claude-logo.webp";
+import copilotLogo from "@/assets/ai/copilot-logo.webp";
+import grokLogo from "@/assets/ai/grok-logo.webp";
+import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
 
 // Import Nieuwblik logo
-import nieuwblikLogo from "@/assets/logo.png";
+import nieuwblikLogo from "@/assets/logo.webp";
 
 import { projects } from "@/data/projects";
 
@@ -592,7 +594,9 @@ const Index = () => {
         </div>
 
         <AnimatedSection delay={0.2}>
-          <TestimonialsCarousel />
+          <Suspense fallback={null}>
+            <TestimonialsCarousel />
+          </Suspense>
         </AnimatedSection>
       </div>
     </section>
@@ -635,16 +639,22 @@ const Index = () => {
     </section>
 
     {/* Design Carousel Section */}
-    <DesignCarousel />
+    <Suspense fallback={null}>
+      <DesignCarousel />
+    </Suspense>
 
     {/* Problem vs Solution Section */}
     <ProblemSolutionSection />
 
     {/* Featured Blog Posts */}
-    <FeaturedBlogPosts />
+    <Suspense fallback={null}>
+      <FeaturedBlogPosts />
+    </Suspense>
 
     {/* FAQ Section */}
-    <FAQSection />
+    <Suspense fallback={null}>
+      <FAQSection />
+    </Suspense>
 
     {/* CTA Section */}
     <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
