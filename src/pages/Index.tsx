@@ -213,13 +213,11 @@ const Index = () => {
           <div className="relative z-10 order-2 lg:order-1 text-center lg:text-left">
             {/* Label */}
             <motion.p className="text-accent mb-3 md:mb-4 tracking-[0.2em] text-sm font-medium" initial={{
-              opacity: 0,
-              y: 20
+              opacity: 0
             }} animate={{
-              opacity: 1,
-              y: 0
+              opacity: 1
             }} transition={{
-              duration: 0.6,
+              duration: 0.5,
               ease: easings.easeOutExpo
             }}>
               DIGITALE GROEI BEGINT HIER
@@ -228,25 +226,21 @@ const Index = () => {
             {/* Large Typography Title - Readable */}
             <div className="mb-4 md:mb-6">
               <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight" initial={{
-                opacity: 0,
-                y: 40
+                opacity: 0
               }} animate={{
-                opacity: 1,
-                y: 0
+                opacity: 1
               }} transition={{
-                duration: 0.7,
+                duration: 0.6,
                 delay: 0.1,
                 ease: easings.easeOutExpo
               }}>
                 <span className="block">Webdesign bureau</span>
                 <motion.span className="block text-accent" initial={{
-                  opacity: 0,
-                  x: -20
+                  opacity: 0
                 }} animate={{
-                  opacity: 1,
-                  x: 0
+                  opacity: 1
                 }} transition={{
-                  duration: 0.7,
+                  duration: 0.6,
                   delay: 0.2,
                   ease: easings.easeOutExpo
                 }}>
@@ -257,13 +251,11 @@ const Index = () => {
 
             {/* Description */}
             <motion.p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 font-light leading-relaxed max-w-lg mx-auto lg:mx-0" initial={{
-              opacity: 0,
-              y: 30
+              opacity: 0
             }} animate={{
-              opacity: 1,
-              y: 0
+              opacity: 1
             }} transition={{
-              duration: 0.6,
+              duration: 0.5,
               delay: 0.3,
               ease: easings.easeOutExpo
             }}>
