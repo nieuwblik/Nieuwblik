@@ -19,6 +19,7 @@ import puurCaseImg from "@/assets/projects/puurinharmonie-case.webp";
 import puurCase1Img from "@/assets/projects/puurinharmonie-case-1.webp";
 import puurCase2Img from "@/assets/projects/puurinharmonie-case-2.webp";
 import pridemobilityImg from "@/assets/projects/pridemobility.eu.webp";
+import quantumrehabImg from "@/assets/projects/quantumrehab.eu.webp";
 
 export interface ProjectDetail {
   year: string;
@@ -41,6 +42,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "quantum-rehab-europe",
+    title: "Quantum Rehab Europe",
+    category: "Revalidatietechnologie",
+    filterCategory: "websites",
+    description: "Een innovatief digitaal platform voor wereldwijd marktleider in geavanceerde elektrische rolstoelen, met maatwerk dealerportaal en interactieve productconfiguraties.",
+    tags: ["WordPress", "Elementor", "Custom Dashboard", "Maatwerk"],
+    image: quantumrehabImg,
+    url: "https://quantumrehab.eu",
+    detail: {
+      year: "2025",
+      goal: "Quantum Rehab biedt hoogwaardige technologische oplossingen zoals de Edge 3, 4Front 2 en de revolutionaire iLevel-technologie. De grootste uitdaging was om deze complexe revalidatieproducten overzichtelijk en aantrekkelijk te presenteren, zowel als inspirerend uithangbord voor eindgebruikers als efficiënt hulpmiddel voor dealers en zorgprofessionals.",
+      idea: "Een ijzersterke basis in WordPress, volledig opgebouwd met Elementor. Deze combinatie maakte een strak en modern design mogelijk dat perfect aansluit bij de hightech uitstraling van Quantum Rehab. Razendsnel, mobiel geoptimaliseerd en flexibel beheerbaar voor het interne team.",
+      details: "Nieuwblik heeft met trots de gloednieuwe website voor Quantum Rehab ontworpen en gelanceerd. Quantum Rehab is wereldwijd marktleider in geavanceerde, op maat gemaakte elektrische rolstoelen en revalidatietechnologieën. Voor dit vooruitstrevende merk hebben wij een online platform gecreëerd dat hun focus op innovatie, prestaties en onafhankelijkheid feilloos vertaalt naar een intuïtieve digitale ervaring.\n\nVoor het internationale netwerk van distributeurs en dealers hebben we een op maat gemaakt dashboard ontwikkeld, afgeschermd met een veilige login. Binnen deze afgeschermde omgeving kunnen partners snel schakelen, specifieke handleidingen inzien en direct navigeren naar essentiële zakelijke tools. Dit maatwerk portaal stroomlijnt de communicatie en zorgt ervoor dat dealers altijd de juiste technische gegevens en ondersteuning veilig binnen handbereik hebben.\n\nDe elektrische rolstoelen van Quantum Rehab draaien om maatwerk en persoonlijke behoeften. Daarom hebben we interactieve productweergaven geïntegreerd waarbij bezoekers de verschillende modellen en geavanceerde besturingssystemen, zoals de Q-Logic 3, in detail kunnen ontdekken. Bezoekers kunnen spelen met diverse kleuropties en configuraties, wat zorgt voor een sterk visueel beeld en een verhoogde betrokkenheid bij het digitaal verkennen van hun ideale mobiliteitsoplossing.\n\nGezien de technische aard van de producten is uitgebreide documentatie cruciaal. We hebben een overzichtelijk en gebruiksvriendelijk systeem gebouwd voor alle brochures, productspecificaties en handleidingen. Gebruikers kunnen eenvoudig de nieuwste materialen vinden en downloaden, terwijl de websitebeheerders via de achterkant moeiteloos nieuwe bestanden kunnen toevoegen en beheren.\n\nMet de nieuwe website voor Quantum Rehab heeft Nieuwblik een robuust en toekomstbestendig platform neergezet. Het combineert een prachtig, modern design met diepgaande technische functionaliteiten. De naadloze integratie van het maatwerk dashboard, de uitgebreide productweergaven en het gebruiksgemak van WordPress en Elementor maken deze website tot een krachtig instrument voor zowel Quantum Rehab als hun wereldwijde netwerk."
+    }
+  },
   {
     slug: "pride-mobility-europe",
     title: "Pride Mobility Europe",
