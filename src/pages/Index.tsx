@@ -186,13 +186,17 @@ const Index = () => {
 
   // Select featured projects based on the titles previously used
   const featuredProjectTitles = [
+    "Quantum Rehab Europe",
+    "Pride Mobility Europe",
     "Puur in Harmonie",
     "BeNoted",
     "Erica van Dijk",
     "Danique Kwakman"];
 
 
-  const featuredProjects = projects.filter((p) => featuredProjectTitles.includes(p.title));
+  const featuredProjects = featuredProjectTitles
+    .map((title) => projects.find((p) => p.title === title))
+    .filter((p): p is typeof projects[number] => Boolean(p));
   return <div className="min-h-screen bg-background">
     <SEOHead
       title="Nieuwblik | Webdesign Bureau Enkhuizen - Websites & Webshops"
