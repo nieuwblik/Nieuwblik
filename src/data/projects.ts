@@ -18,6 +18,7 @@ import rrsroyalImg from "@/assets/projects/rrsroyal.nl.webp";
 import puurCaseImg from "@/assets/projects/puurinharmonie-case.webp";
 import puurCase1Img from "@/assets/projects/puurinharmonie-case-1.webp";
 import puurCase2Img from "@/assets/projects/puurinharmonie-case-2.webp";
+import pridemobilityImg from "@/assets/projects/pridemobility.eu.webp";
 
 export interface ProjectDetail {
   year: string;
@@ -40,6 +41,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "pride-mobility-europe",
+    title: "Pride Mobility Europe",
+    category: "Mobiliteit & Healthcare",
+    filterCategory: "websites",
+    description: "Een compleet nieuwe digitale ervaring voor het toonaangevende mobiliteitsmerk, met maatwerk dashboard, beveiligde login en interactieve productweergaven.",
+    tags: ["WordPress", "Elementor", "Custom Dashboard", "Maatwerk"],
+    image: pridemobilityImg,
+    url: "https://www.pridemobility.eu",
+    detail: {
+      year: "2025",
+      goal: "Pride Mobility zocht een schaalbare oplossing die eenvoudig te beheren was, maar tegelijkertijd geavanceerde functionaliteiten kon herbergen: een afgeschermde omgeving voor gebruikers, gedetailleerde productweergaven en een efficiënte manier om productinformatie te delen met hun internationale netwerk.",
+      idea: "WordPress als robuust fundament, gecombineerd met de flexibiliteit van Elementor om de ontwerpvrijheid te maximaliseren zonder in te leveren op laadsnelheid of mobiele responsiviteit. Het beheerteam kan zelf eenvoudig aanpassingen doorvoeren, terwijl lay-out en vormgeving intact blijven.",
+      details: "Nieuwblik is ongelooflijk trots op de lancering van de gloednieuwe website voor Pride Mobility Europe. Als toonaangevend merk in de mobiliteitsbranche had Pride Mobility een online platform nodig dat hun innovatieve producten perfect weerspiegelt en maximale gebruiksvriendelijkheid biedt voor zowel de eindgebruiker als hun dealernetwerk.\n\nEen van de kernonderdelen van dit project was de ontwikkeling van een speciaal op maat gemaakt dashboard, gekoppeld aan een strak geconfigureerde login-omgeving. Via dit portaal kunnen ingelogde gebruikers efficiënt navigeren door een afgeschermde omgeving, ingericht voor specifieke klant- of dealerbehoeften. Het stroomlijnt de achterkant van de website en zorgt ervoor dat gevoelige of exclusieve informatie veilig en overzichtelijk wordt gepresenteerd.\n\nOmdat de mobiliteitsscooters en rolstoelen van Pride Mobility sterk leunen op persoonlijk design en comfort, hebben we een interactieve module geïntegreerd waarmee bezoekers de producten in verschillende kleuropties kunnen bekijken. Dit geeft de bezoeker direct een realistisch beeld van het gewenste product in de gewenste stijl, wat de betrokkenheid op de website enorm verhoogt.\n\nDaarnaast hebben we een geavanceerd systeem voor brochures en productspecificaties ontwikkeld. Bezoekers kunnen nu moeiteloos de nieuwste digitale brochures inzien en downloaden. Het systeem is zo ingericht dat beheerders zeer eenvoudig nieuwe documentatie kunnen toevoegen, zodat de informatie altijd accuraat en up-to-date blijft.\n\nMet de lancering heeft Nieuwblik een platform opgeleverd dat technologische innovatie naadloos combineert met een subliem, gebruiksvriendelijk design. De combinatie van Elementor, het robuuste maatwerk dashboard, de handige login-functies en de interactieve productfunctionaliteiten zorgt voor een online ervaring die perfect aansluit bij de hoge standaarden van Pride Mobility."
+    }
+  },
   {
     slug: "puur-in-harmonie",
     title: "Puur in Harmonie",
