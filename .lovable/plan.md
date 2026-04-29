@@ -1,65 +1,45 @@
-## Plan: Snelheid verhogen zonder risico
+## Doel
 
-Focus op verbeteringen die enkel performance raken en niets aan UI/gedrag/inhoud veranderen. Geen refactors, geen library-wisselingen, geen wijzigingen aan routing of state.
+Op de twee case-pagina's van Quantum Rehab Europe en Pride Mobility Europe een aparte, elegante 'Met dank aan' sectie tonen die Roy Kooiman en verbeterjewebsite.nl erkent als samenwerkingspartner.
 
-### 1. Zware afbeeldingen vervangen door WebP (grootste winst)
-De zwaarste assets nu:
-- `src/assets/tools/gemini-logo.png` - 299KB
-- `src/assets/blog/nieuwblik-x-benoted-phone.webp` - 289KB (al webp, maar te groot)
-- `src/assets/justin-slok.png` - 181KB
-- `src/assets/blog/nieuwblik-sponsor-madjoe.webp` - 144KB
-- `src/assets/blog/lovable-logo.png` - 126KB, `cursor-logo.png` - 105KB, `claude-logo.png`/`bolt-logo.png`/`replit-logo.png`
-- `src/assets/tools/figma-logo.png` - 77KB
+## Aanpak
 
-Aanpak:
-- Genereer naast elke zware PNG een geoptimaliseerde `.webp` (quality 80, max breedte 800px voor logos / 1200px voor hero/portfolio).
-- Comprimeer ook de te grote bestaande `.webp` blog-images opnieuw (target <120KB).
-- Update imports in `src/data/blogPosts.ts`, `src/components/ToolsSlider.tsx`, hero/Index componenten naar de nieuwe `.webp` paden.
-- Originele PNG's blijven in de repo als fallback (geen breaking change).
+### 1. Datamodel uitbreiden (`src/data/projects.ts`)
 
-Verwachte besparing: ~1-1.5MB initial load.
+Optioneel veld `credits` toevoegen aan het `Project` interface, zodat alleen projecten met een samenwerking deze sectie tonen:
 
-### 2. Google Fonts opschonen
-Huidig: `Outfit:wght@300;400;600;700;900` + `Dancing+Script:wght@400;500` (7 weights = 7 woff2 files).
+```ts
+credits?: {
+  intro: string;     // bv. "Mede mogelijk gemaakt door"
+  name: string;      // "Roy Kooiman"
+  company: string;   // "verbeterjewebsite.nl"
+  url: string;       // "https://www.verbeterjewebsite.nl"
+}
+```
 
-Aanpak: terugbrengen naar daadwerkelijk gebruikte weights:
-- `Outfit:wght@400;600;700` (3 weights)
-- `Dancing+Script:wght@400` (1 weight)
+Dit veld vullen voor de twee projecten met dezelfde tekst:
+- intro: "Mede mogelijk gemaakt door"
+- name: "Roy Kooiman"
+- company: "verbeterjewebsite.nl"
+- url: "https://www.verbeterjewebsite.nl"
 
-Verificatie: grep door codebase op `font-light` (300) en `font-black` (900) voor we deze weghalen. Alleen verwijderen wat nergens gebruikt wordt.
+### 2. Nieuwe sectie in `src/pages/PortfolioDetail.tsx`
 
-Verwachte besparing: ~80-120KB font payload + minder render-blocking.
+Tussen de 'Case' sectie en de 'CTA' sectie een conditionele sectie renderen wanneer `project.credits` bestaat. Stijl in lijn met bestaande secties (witruimte, accent kleur, sentence case, geen em dashes):
 
-### 3. Niet-kritieke homepage-secties splitsen
-`src/pages/Index.tsx` rendert alles synchroon. Below-the-fold componenten lazy laden via `React.lazy()` + `Suspense` met `null` fallback:
-- `TestimonialsCarousel`
-- `FAQSection`
-- `FeaturedBlogPosts`
-- `SocialContentSection`
-- `ToolsSlider`
+- Kleine kop in accent kleur, uppercase tracking: "Met dank aan"
+- Grote regel: "Mede mogelijk gemaakt door Roy Kooiman"
+- Subregel met klikbare link naar verbeterjewebsite.nl (target=_blank, rel=noopener noreferrer, met ExternalLink icon)
+- Korte uitleg: "Een waardevolle samenwerkingspartner die heeft bijgedragen aan de realisatie van dit project."
+- Container met `border-t border-border/50`, ruime padding, gecentreerd of links uitgelijnd passend bij de overige secties
+- Subtiele framer-motion fadeUp animatie consistent met andere secties
 
-Hero, Navigation en eerste content blijven eager (geen visuele verandering above-the-fold).
+### 3. Geen wijzigingen elders
 
-Verwachte besparing: ~30-40% kleinere initial JS chunk voor `/`.
+- Homepage portfolio sectie: geen wijziging (credits enkel zichtbaar op detailpagina).
+- Geen invloed op SEO meta, geen invloed op Index/Portfolio listing.
+- Voldoet aan Core regels: 100% Nederlands, sentence case, geen em dashes, geen donker thema.
 
-### 4. Index.html micro-tweaks
-- `<link rel="preload" as="image">` voor het hero-beeld + logo (al deels aanwezig, controleren).
-- Google Fonts `<link>` aanvullen met `media="print" onload="this.media='all'"` truc zodat de stylesheet niet render-blocking is.
-- `<link rel="preconnect">` naar `storage.googleapis.com` (voor og:image / external assets).
+## Resultaat
 
-### 5. Verificatie
-- Build draaien (`npm run build`) en bundle-grootte vergelijken.
-- Visueel checken: homepage, een blog, portfolio, een service-pagina, een werkgebied-pagina. Geen layout/inhoud-verschillen toegestaan.
-- Lighthouse / `browser--performance_profile` voor/na meting.
-
-### Wat we NIET doen (risico vermijden)
-- Geen wijzigingen aan `vite.config.ts` chunking-strategie (al goed afgesteld).
-- Geen wijzigingen aan service worker, Supabase client of routing.
-- Geen content-/tekstwijzigingen.
-- Geen vervanging van animatielibraries of UI-componenten.
-- Originele afbeeldingen blijven bestaan als fallback.
-
-### Technische details (per bestand)
-- **Nieuwe assets**: `src/assets/**/*.webp` (geoptimaliseerde versies van zware PNG's).
-- **Edits**: `src/data/blogPosts.ts` (image imports), `src/components/ToolsSlider.tsx` (logo imports), `src/pages/Index.tsx` (lazy imports), `index.html` (font link + preconnect).
-- **Geen edits** aan: `vite.config.ts`, `App.tsx` routing, `client.ts`, `types.ts`, `sw.js`.
+Bezoekers zien op beide case-pagina's een nette, professionele credit-sectie die de samenwerking met Roy Kooiman / verbeterjewebsite.nl erkent, zonder de bestaande layout of performance te verstoren.

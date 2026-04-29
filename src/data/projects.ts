@@ -28,6 +28,13 @@ export interface ProjectDetail {
   details: string;
 }
 
+export interface ProjectCredits {
+  intro: string;
+  name: string;
+  company: string;
+  url: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -39,6 +46,7 @@ export interface Project {
   url: string;
   detail?: ProjectDetail;
   gallery?: string[];
+  credits?: ProjectCredits;
 }
 
 export const projects: Project[] = [
@@ -56,6 +64,12 @@ export const projects: Project[] = [
       goal: "Quantum Rehab biedt hoogwaardige technologische oplossingen zoals de Edge 3, 4Front 2 en de revolutionaire iLevel-technologie. De grootste uitdaging was om deze complexe revalidatieproducten overzichtelijk en aantrekkelijk te presenteren, zowel als inspirerend uithangbord voor eindgebruikers als efficiënt hulpmiddel voor dealers en zorgprofessionals.",
       idea: "Een ijzersterke basis in WordPress, volledig opgebouwd met Elementor. Deze combinatie maakte een strak en modern design mogelijk dat perfect aansluit bij de hightech uitstraling van Quantum Rehab. Razendsnel, mobiel geoptimaliseerd en flexibel beheerbaar voor het interne team.",
       details: "Nieuwblik heeft met trots de gloednieuwe website voor Quantum Rehab ontworpen en gelanceerd. Quantum Rehab is wereldwijd marktleider in geavanceerde, op maat gemaakte elektrische rolstoelen en revalidatietechnologieën. Voor dit vooruitstrevende merk hebben wij een online platform gecreëerd dat hun focus op innovatie, prestaties en onafhankelijkheid feilloos vertaalt naar een intuïtieve digitale ervaring.\n\nVoor het internationale netwerk van distributeurs en dealers hebben we een op maat gemaakt dashboard ontwikkeld, afgeschermd met een veilige login. Binnen deze afgeschermde omgeving kunnen partners snel schakelen, specifieke handleidingen inzien en direct navigeren naar essentiële zakelijke tools. Dit maatwerk portaal stroomlijnt de communicatie en zorgt ervoor dat dealers altijd de juiste technische gegevens en ondersteuning veilig binnen handbereik hebben.\n\nDe elektrische rolstoelen van Quantum Rehab draaien om maatwerk en persoonlijke behoeften. Daarom hebben we interactieve productweergaven geïntegreerd waarbij bezoekers de verschillende modellen en geavanceerde besturingssystemen, zoals de Q-Logic 3, in detail kunnen ontdekken. Bezoekers kunnen spelen met diverse kleuropties en configuraties, wat zorgt voor een sterk visueel beeld en een verhoogde betrokkenheid bij het digitaal verkennen van hun ideale mobiliteitsoplossing.\n\nGezien de technische aard van de producten is uitgebreide documentatie cruciaal. We hebben een overzichtelijk en gebruiksvriendelijk systeem gebouwd voor alle brochures, productspecificaties en handleidingen. Gebruikers kunnen eenvoudig de nieuwste materialen vinden en downloaden, terwijl de websitebeheerders via de achterkant moeiteloos nieuwe bestanden kunnen toevoegen en beheren.\n\nMet de nieuwe website voor Quantum Rehab heeft Nieuwblik een robuust en toekomstbestendig platform neergezet. Het combineert een prachtig, modern design met diepgaande technische functionaliteiten. De naadloze integratie van het maatwerk dashboard, de uitgebreide productweergaven en het gebruiksgemak van WordPress en Elementor maken deze website tot een krachtig instrument voor zowel Quantum Rehab als hun wereldwijde netwerk."
+    },
+    credits: {
+      intro: "Mede mogelijk gemaakt door",
+      name: "Roy Kooiman",
+      company: "verbeterjewebsite.nl",
+      url: "https://www.verbeterjewebsite.nl"
     }
   },
   {
@@ -72,6 +86,12 @@ export const projects: Project[] = [
       goal: "Pride Mobility zocht een schaalbare oplossing die eenvoudig te beheren was, maar tegelijkertijd geavanceerde functionaliteiten kon herbergen: een afgeschermde omgeving voor gebruikers, gedetailleerde productweergaven en een efficiënte manier om productinformatie te delen met hun internationale netwerk.",
       idea: "WordPress als robuust fundament, gecombineerd met de flexibiliteit van Elementor om de ontwerpvrijheid te maximaliseren zonder in te leveren op laadsnelheid of mobiele responsiviteit. Het beheerteam kan zelf eenvoudig aanpassingen doorvoeren, terwijl lay-out en vormgeving intact blijven.",
       details: "Nieuwblik is ongelooflijk trots op de lancering van de gloednieuwe website voor Pride Mobility Europe. Als toonaangevend merk in de mobiliteitsbranche had Pride Mobility een online platform nodig dat hun innovatieve producten perfect weerspiegelt en maximale gebruiksvriendelijkheid biedt voor zowel de eindgebruiker als hun dealernetwerk.\n\nEen van de kernonderdelen van dit project was de ontwikkeling van een speciaal op maat gemaakt dashboard, gekoppeld aan een strak geconfigureerde login-omgeving. Via dit portaal kunnen ingelogde gebruikers efficiënt navigeren door een afgeschermde omgeving, ingericht voor specifieke klant- of dealerbehoeften. Het stroomlijnt de achterkant van de website en zorgt ervoor dat gevoelige of exclusieve informatie veilig en overzichtelijk wordt gepresenteerd.\n\nOmdat de mobiliteitsscooters en rolstoelen van Pride Mobility sterk leunen op persoonlijk design en comfort, hebben we een interactieve module geïntegreerd waarmee bezoekers de producten in verschillende kleuropties kunnen bekijken. Dit geeft de bezoeker direct een realistisch beeld van het gewenste product in de gewenste stijl, wat de betrokkenheid op de website enorm verhoogt.\n\nDaarnaast hebben we een geavanceerd systeem voor brochures en productspecificaties ontwikkeld. Bezoekers kunnen nu moeiteloos de nieuwste digitale brochures inzien en downloaden. Het systeem is zo ingericht dat beheerders zeer eenvoudig nieuwe documentatie kunnen toevoegen, zodat de informatie altijd accuraat en up-to-date blijft.\n\nMet de lancering heeft Nieuwblik een platform opgeleverd dat technologische innovatie naadloos combineert met een subliem, gebruiksvriendelijk design. De combinatie van Elementor, het robuuste maatwerk dashboard, de handige login-functies en de interactieve productfunctionaliteiten zorgt voor een online ervaring die perfect aansluit bij de hoge standaarden van Pride Mobility."
+    },
+    credits: {
+      intro: "Mede mogelijk gemaakt door",
+      name: "Roy Kooiman",
+      company: "verbeterjewebsite.nl",
+      url: "https://www.verbeterjewebsite.nl"
     }
   },
   {

@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
-import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info } from "lucide-react";
+import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const PortfolioDetail = () => {
@@ -282,6 +282,52 @@ const PortfolioDetail = () => {
                     </section>
                     </div>
                 </>
+            )}
+
+            {/* Met dank aan / Credits */}
+            {project.credits && (
+                <motion.section
+                    className="py-20 md:py-28 border-t border-border/50"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={staggerContainer}
+                >
+                    <div className="container mx-auto px-6">
+                        <div className="max-w-3xl mx-auto text-center">
+                            <motion.div
+                                variants={fadeUp}
+                                className="inline-flex items-center gap-3 text-accent mb-6"
+                            >
+                                <Handshake className="w-5 h-5" />
+                                <span className="text-sm font-bold tracking-wider uppercase">Met dank aan</span>
+                            </motion.div>
+                            <motion.h2
+                                className="text-3xl md:text-4xl font-bold font-display leading-tight mb-4"
+                                variants={fadeUp}
+                            >
+                                {project.credits.intro} {project.credits.name}
+                            </motion.h2>
+                            <motion.p
+                                className="text-lg text-muted-foreground font-light leading-relaxed mb-8"
+                                variants={fadeUp}
+                            >
+                                Een waardevolle samenwerkingspartner die heeft bijgedragen aan de realisatie van dit project.
+                            </motion.p>
+                            <motion.div variants={fadeUp}>
+                                <a
+                                    href={project.credits.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent hover:text-accent transition-colors text-sm font-medium"
+                                >
+                                    {project.credits.company}
+                                    <ExternalLink className="w-4 h-4" />
+                                </a>
+                            </motion.div>
+                        </div>
+                    </div>
+                </motion.section>
             )}
 
             {/* CTA Section */}
