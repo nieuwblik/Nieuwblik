@@ -28,6 +28,13 @@ export interface ProjectDetail {
   details: string;
 }
 
+export interface ProjectCredits {
+  intro: string;
+  name: string;
+  company: string;
+  url: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -39,6 +46,7 @@ export interface Project {
   url: string;
   detail?: ProjectDetail;
   gallery?: string[];
+  credits?: ProjectCredits;
 }
 
 export const projects: Project[] = [
