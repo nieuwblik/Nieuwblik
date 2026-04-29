@@ -8,7 +8,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
-import RouteLoader from "./components/RouteLoader";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -51,7 +50,7 @@ const App = () => (
         <ScrollToTopButton />
         <CookieConsent />
         <WhatsAppButton />
-        <Suspense fallback={<RouteLoader />}>
+        <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/diensten" element={<Services />} />
