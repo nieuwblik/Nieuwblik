@@ -9,7 +9,7 @@ const DesignCarousel = lazy(() => import("@/components/DesignCarousel").then(m =
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const PricingPackages = lazy(() => import("@/components/PricingPackages"));
-const ProcessSteps = lazy(() => import("@/components/ProcessSteps"));
+
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
@@ -427,11 +427,6 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
-
-    <Suspense fallback={null}>
-      <ProcessSteps />
-    </Suspense>
-
     {/* Testimonials Section - Brand Green Aesthetic */}
     <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
       {/* Subtle Texture Overlay */}
