@@ -50,7 +50,7 @@ export const blogPosts: BlogPost[] = [
       en: "Nieuwblik sponsors Kevin Mos at the Hengelo Roadrace 2026"
     },
     excerpt: {
-      nl: "Drie weken voor de start zaten we bij Kevin op de bank. Hij kwam net tekort voor de Hengelo Straatrace, Justin twijfelde geen moment.",
+      nl: "Drie weken voor de start zaten we bij Kevin op de bank. Hij wilde dolgraag naar de Hengelo Straatrace, Justin twijfelde daar geen moment.",
       en: "Three weeks before the start, on Kevin's couch. He was just short for the Hengelo Street Race, Justin didn't hesitate."
     },
     date: "2026-05-07",
