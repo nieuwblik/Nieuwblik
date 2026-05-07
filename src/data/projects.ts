@@ -20,6 +20,7 @@ import puurCase1Img from "@/assets/projects/puurinharmonie-case-1.webp";
 import puurCase2Img from "@/assets/projects/puurinharmonie-case-2.webp";
 import pridemobilityImg from "@/assets/projects/pridemobility.eu.webp";
 import quantumrehabImg from "@/assets/projects/quantumrehab.eu.webp";
+import aardingsbedrijfImg from "@/assets/projects/aardingsbedrijfwestfriesland.nl.png";
 
 export interface ProjectDetail {
   year: string;
@@ -50,6 +51,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "aardingsbedrijf-west-friesland",
+    title: "Aardingsbedrijf West-Friesland",
+    category: "Zakelijke website, Leadgeneratie, Techniek & Installatie",
+    filterCategory: "websites",
+    description: "Een conversiegerichte website voor specialistische aardingsdiensten met sterke lokale zichtbaarheid in West-Friesland.",
+    tags: ["Web Design", "Leadgeneratie", "Lokale SEO", "Techniek"],
+    image: aardingsbedrijfImg,
+    url: "https://www.aardingsbedrijfwestfriesland.nl",
+    detail: {
+      year: "2026",
+      goal: "Het hoofddoel van de website is gerichte leadgeneratie binnen de regio West-Friesland (waaronder Hoorn, Enkhuizen en Medemblik). De site dient als een modern en betrouwbaar kanaal dat particulieren en bedrijven informeert over de cruciale veiligheid van aarding en de verplichte NEN-1010 norm. Tegelijkertijd moet het platform de drempel voor interactie zo laag mogelijk maken, zodat bezoekers moeiteloos en snel een offerte kunnen aanvragen of een afspraak kunnen inplannen voor een inspectie.",
+      idea: "Het digitale concept is gebouwd rondom autoriteit, veiligheid en directe actie. Er is gekozen voor een strak, professioneel webdesign dat complexe en technische materie toegankelijk maakt voor de consument. Door het visueel uitlichten van de risico's van slechte aarding (zoals brandgevaar en defecte apparatuur) wordt de noodzaak van de dienstverlening direct duidelijk. Om conversies te stimuleren, zijn er opvallende en zwevende contactmogelijkheden geïntegreerd, waaronder directe knoppen voor bellen, WhatsApp en het aanvragen van offertes. De prominente weergave van klantbeoordelingen (Google Reviews) vormt de laatste schakel in het ontwerp om sociaal bewijs en vertrouwen te leveren.",
+      details: "Voor de klant Aardingsbedrijf West-Friesland is een compleet nieuwe, conversiegerichte online omgeving ontwikkeld door Nieuwblik. De nadruk ligt op het helder presenteren van specialistische diensten, zoals hulpaarding, diepte-aarding en het uitvoeren van metingen, gekoppeld aan een sterke lokale zichtbaarheid in de regio.\n\nDe website fungeert als een betrouwbaar digitaal kanaal voor zowel particulieren als bedrijven in heel West-Friesland. Door technische informatie over aarding en de NEN-1010 norm helder te presenteren, wordt vertrouwen opgebouwd en de drempel verlaagd om contact op te nemen.\n\nMet zwevende contactknoppen, directe offerte-aanvragen en geïntegreerde Google Reviews is de site volledig ingericht op leadgeneratie en conversie."
+    }
+  },
   {
     slug: "quantum-rehab-europe",
     title: "Quantum Rehab Europe",
