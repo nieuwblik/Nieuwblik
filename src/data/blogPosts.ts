@@ -56,11 +56,11 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-07",
     readingTime: 4,
     content: {
-      nl: `Soms krijg je een telefoontje dat je dag, en eigenlijk je hele weekend, op de kop zet. Drie weken voor de **Hengelo Straatrace** belde **Kevin Mos**. Hij kwam net wat centjes tekort om aan de start te kunnen verschijnen. En wij wisten als geen ander hoe graag hij dit wilde.
+      nl: `Soms vallen de belangrijkste beslissingen niet in een vergaderzaal, maar gewoon op de bank bij een vriend thuis. Drie weken voor de **Hengelo Straatrace** zaten we bij **Kevin Mos** thuis toen het ter sprake kwam. Hij kwam net wat centjes tekort om aan de start te kunnen verschijnen.
 
-## Een telefoontje, drie weken voor de race
+## Op de bank bij Kevin, drie weken voor de race
 
-Kevin is geen vreemde voor ons. Justin en hij zien elkaar twee, soms drie keer per week. Bij wijze van spreken weten we wat hij eet voordat hij het zelf weet. Dus toen hij belde over Hengelo, was er eigenlijk maar één antwoord mogelijk.
+Kevin is een goede vriend. Justin en hij zien elkaar twee, soms drie keer per week. Dus toen het tijdens een avondje op de bank langskwam, twijfelde Justin geen moment. Geregeld, klaar, jij gaat racen dat weekend.
 
 We konden niks anders doen dan hem sponsoren, zodat hij toch die race kon rijden.
 
