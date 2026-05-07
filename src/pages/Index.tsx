@@ -2,11 +2,14 @@ import { lazy, Suspense } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
+import TrustBar from "@/components/TrustBar";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
 const DesignCarousel = lazy(() => import("@/components/DesignCarousel").then(m => ({ default: m.DesignCarousel })));
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
+const PricingPackages = lazy(() => import("@/components/PricingPackages"));
+const ProcessSteps = lazy(() => import("@/components/ProcessSteps"));
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
