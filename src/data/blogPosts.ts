@@ -12,6 +12,12 @@ import supabaseLogoImg from "@/assets/blog/supabase-logo.webp";
 import claudeLogoImg from "@/assets/blog/claude-logo.webp";
 import brandStorytellingImg from "@/assets/blog/brand-storytelling.jpg";
 import stripeLogoImg from "@/assets/blog/stripe-logo.webp";
+import kevinMosBikeFront from "@/assets/blog/kevin-mos-nieuwblik-bike-front.webp";
+import kevinMosBikeRear from "@/assets/blog/kevin-mos-nieuwblik-bike-rear.webp";
+import kevinMosPortrait from "@/assets/blog/kevin-mos-nieuwblik-portrait.webp";
+import kevinMosCornering from "@/assets/blog/kevin-mos-cornering.webp";
+import kevinMosRainRace from "@/assets/blog/kevin-mos-rain-race.webp";
+import kevinMosTeamNelon from "@/assets/blog/kevin-mos-team-nelon-racing.webp";
 export interface BlogPost {
   slug: string;
   title: {
