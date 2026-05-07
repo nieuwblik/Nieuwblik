@@ -9,6 +9,8 @@ import { useState, useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
+import { cities } from "@/data/cities";
+import { industries } from "@/data/industries";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
