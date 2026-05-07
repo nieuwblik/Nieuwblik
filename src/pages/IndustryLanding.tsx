@@ -66,11 +66,6 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
 
       {/* Sectie 2: Vergelijking */}
       <section className="pt-16 md:pt-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-foreground max-w-4xl mx-auto">
-            {industry.section2H2}
-          </h2>
-        </div>
         <ProblemSolutionSection />
       </section>
 
