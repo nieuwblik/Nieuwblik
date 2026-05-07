@@ -21,6 +21,7 @@ import puurCase2Img from "@/assets/projects/puurinharmonie-case-2.webp";
 import pridemobilityImg from "@/assets/projects/pridemobility.eu.webp";
 import quantumrehabImg from "@/assets/projects/quantumrehab.eu.webp";
 import aardingsbedrijfImg from "@/assets/projects/aardingsbedrijfwestfriesland.nl.png";
+import eenbundelgelukImg from "@/assets/projects/eenbundelgeluk.webp";
 
 export interface ProjectDetail {
   year: string;
@@ -51,6 +52,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "een-bundel-geluk",
+    title: "Een Bundel Geluk",
+    category: "E-commerce, Gezondheid & Persoonlijke Branding",
+    filterCategory: "e-commerce",
+    description: "Een sfeervolle webshop en merkwebsite voor handgemaakte natuurlijke huidverzorging en kruidenthee uit Enkhuizen.",
+    tags: ["Webshop", "Persoonlijke Branding", "WhatsApp Integratie", "Natuurlijk Design"],
+    image: eenbundelgelukImg,
+    url: "https://www.eenbundelgeluk.nl",
+    detail: {
+      year: "2026",
+      goal: "Het hoofddoel van de website is het genereren van online verkopen voor pure, handgemengde theeblends en natuurlijke verzorgingsproducten, zoals huisgemaakte tallowcrème en zepen. De site dient als een warme digitale etalage die de bezoeker meeneemt in de wereld van natuurlijke ingrediënten, vrij van synthetische toevoegingen. Daarnaast is het platform specifiek ingericht om de interactie met de klant direct en laagdrempelig te houden door communicatie uitsluitend via WhatsApp te laten verlopen. Dit stelt bezoekers in staat om heel eenvoudig persoonlijke vragen te stellen, bestellingen door te geven of een op maat gemaakte bundel aan te vragen.",
+      idea: "Het digitale concept is volledig opgebouwd rondom puurheid, ambacht en een persoonlijke connectie. Er is gekozen voor een rustig en warm webdesign dat de natuurlijke oorsprong van de producten en de seizoensgebonden filosofie weerspiegelt. Door de persoonlijke reis van de oprichtster een centrale plek te geven in de navigatie en de teksten, ontstaat er direct een gevoel van vertrouwen en authenticiteit bij de bezoeker. Om dit kleinschalige karakter te versterken en conversies te stimuleren, is er een prominente zwevende integratie voor WhatsApp toegevoegd als de primaire communicatielijn. Dit idee benadrukt de warme service van Een Bundel Geluk en sluit naadloos aan bij de belofte om elk product met liefde en aandacht te behandelen.",
+      details: "Voor de klant Een Bundel Geluk uit Enkhuizen is in mei 2026 een sfeervolle, persoonlijke webshop en merkwebsite ontwikkeld. De nadruk ligt op de online presentatie en verkoop van handgemaakte natuurlijke huidverzorging en kruidenthee, verweven met het authentieke verhaal van de oprichtster.\n\nDe website fungeert als een warme digitale etalage waarin het ambacht, de puurheid en de seizoensgebonden filosofie van het merk centraal staan. Bezoekers worden meegenomen in de wereld van natuurlijke ingrediënten, vrij van synthetische toevoegingen.\n\nDoor de prominente WhatsApp-integratie blijft de communicatie laagdrempelig en persoonlijk, perfect passend bij het kleinschalige en liefdevolle karakter van Een Bundel Geluk."
+    }
+  },
   {
     slug: "aardingsbedrijf-west-friesland",
     title: "Aardingsbedrijf West-Friesland",
