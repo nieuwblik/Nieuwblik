@@ -19,8 +19,8 @@ const featuredProjects = featuredTitles
   .filter((p): p is typeof projects[number] => Boolean(p));
 
 const IndustryLanding = () => {
-  const { industrySlug } = useParams<{ industrySlug: string }>();
-  const industry = industrySlug ? getIndustryBySlug(industrySlug) : undefined;
+  const { slug } = useParams<{ slug: string }>();
+  const industry = slug ? getIndustryBySlug(slug) : undefined;
 
   if (!industry) return <Navigate to="/404" replace />;
 

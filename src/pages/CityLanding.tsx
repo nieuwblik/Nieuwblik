@@ -19,8 +19,8 @@ const featuredProjects = featuredTitles
   .filter((p): p is typeof projects[number] => Boolean(p));
 
 const CityLanding = () => {
-  const { citySlug } = useParams<{ citySlug: string }>();
-  const city = citySlug ? getCityBySlug(citySlug) : undefined;
+  const { slug } = useParams<{ slug: string }>();
+  const city = slug ? getCityBySlug(slug) : undefined;
 
   if (!city) return <Navigate to="/404" replace />;
 
