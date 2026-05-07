@@ -568,7 +568,7 @@ const BlogPost = () => {
           description={post.excerpt.nl}
           keywords={post.seoKeywords || "webdesign, SEO, conversie, digitale marketing, website optimalisatie"}
           canonicalUrl={`https://www.nieuwblik.com/blog/${slug}`}
-          ogImage={typeof post.image === 'string' ? post.image : `https://www.nieuwblik.com/og-image.webp`}
+          ogImage={post.image ? (typeof post.image === 'string' && post.image.startsWith('http') ? post.image : `https://www.nieuwblik.com${post.image}`) : `https://www.nieuwblik.com/og-image.webp`}
           ogType="article"
           articlePublishedTime={post.date}
           articleModifiedTime={post.date}

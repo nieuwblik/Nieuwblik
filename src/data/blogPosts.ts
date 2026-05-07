@@ -43,15 +43,15 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "kevin-mos-nieuwblik-hengelo-roadrace-2026",
     image: kevinMosBikeFront,
-    seoTitle: "Nieuwblik sponsort Kevin Mos, Hengelo Roadrace 2026",
+    seoTitle: "Sponsoring Kevin Mos, Hengelo Roadrace 2026",
     seoKeywords: "Kevin Mos, Hengelo Roadrace, Nelon Racing, Mobu Tuning, Nieuwblik sponsoring, motorracen Hengelo, straatrace, MKB sponsoring, West-Friesland",
     title: {
       nl: "Nieuwblik sponsort Kevin Mos op de Hengelo Roadrace 2026",
       en: "Nieuwblik sponsors Kevin Mos at the Hengelo Roadrace 2026"
     },
     excerpt: {
-      nl: "Drie weken voor de start zaten we gewoon bij Kevin op de bank toen het ter sprake kwam: hij kwam net wat tekort voor de Hengelo Straatrace. Justin twijfelde geen moment. Een verhaal over vriendschap, race-adrenaline en waarom geld soms gewoon geen rol speelt.",
-      en: "Three weeks before the start, Kevin called: he was just short for the Hengelo Street Race. We had no choice but to sponsor him. A story about friendship, racing adrenaline and why money sometimes simply doesn't matter."
+      nl: "Drie weken voor de start zaten we bij Kevin op de bank. Hij kwam net tekort voor de Hengelo Straatrace, Justin twijfelde geen moment.",
+      en: "Three weeks before the start, on Kevin's couch. He was just short for the Hengelo Street Race, Justin didn't hesitate."
     },
     date: "2026-05-07",
     readingTime: 4,
