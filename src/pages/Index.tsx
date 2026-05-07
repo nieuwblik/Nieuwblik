@@ -428,6 +428,10 @@ const Index = () => {
       </div>
     </section>
 
+    <Suspense fallback={null}>
+      <ProcessSteps />
+    </Suspense>
+
     {/* Testimonials Section - Brand Green Aesthetic */}
     <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
       {/* Subtle Texture Overlay */}
@@ -454,6 +458,10 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
+
+    <Suspense fallback={null}>
+      <PricingPackages />
+    </Suspense>
 
     {/* Featured Projects */}
     <section className="py-20 md:py-32">
