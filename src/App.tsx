@@ -67,7 +67,7 @@ const App = () => (
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/werkgebied" element={<Werkgebied />} />
           <Route path="/werkgebied/:slug" element={<WerkgebiedDetail />} />
-          <Route path="/website-laten-maken-:slug" element={<LandingRouter />} />
+          <Route path="/:landingPath" element={<LandingRouter />} />
           <Route
             path="/admin/login"
             element={
