@@ -157,22 +157,6 @@ const HeroImage = ({
           </>
         )}
 
-        {/* Floating Button like in screenshot */}
-        <motion.div 
-          className="absolute bottom-10 right-0 lg:-right-4 z-30"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          <Link to="/start-je-project" className="group">
-            <div className="bg-white rounded-full pl-6 pr-2 py-2 shadow-2xl flex items-center gap-4 border border-border/50 hover:border-accent/50 transition-colors">
-              <span className="text-sm font-semibold text-foreground whitespace-nowrap">Start je project</span>
-              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-                <ArrowRight className="w-5 h-5" />
-              </div>
-            </div>
-          </Link>
-        </motion.div>
       </motion.div>
     </div>
   );
