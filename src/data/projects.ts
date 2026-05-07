@@ -56,7 +56,7 @@ export const projects: Project[] = [
     slug: "een-bundel-geluk",
     title: "Een Bundel Geluk",
     category: "E-commerce, Gezondheid & Persoonlijke Branding",
-    filterCategory: "webshops",
+    filterCategory: "e-commerce",
     description: "Een sfeervolle webshop en merkwebsite voor handgemaakte natuurlijke huidverzorging en kruidenthee uit Enkhuizen.",
     tags: ["Webshop", "Persoonlijke Branding", "WhatsApp Integratie", "Natuurlijk Design"],
     image: eenbundelgelukImg,
