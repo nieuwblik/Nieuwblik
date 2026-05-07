@@ -96,7 +96,7 @@ Het is bijzonder om als **webdesignbureau uit Enkhuizen** in dat rijtje te staan
 
 ## Justin en Kevin, vrienden voor het leven
 
-Voor Justin is dit niet alleen een sponsorlogo. Het is letterlijk zijn beste vriend op de motor. Wekelijks zien ze elkaar, twee tot drie keer. Wat de ene nodig heeft, regelt de ander. Zo simpel werkt het.
+Voor Justin is dit niet alleen een sponsorlogo. Het is gewoon een goede vriend op de motor. Wekelijks zien ze elkaar, twee tot drie keer. Wat de ene nodig heeft, regelt de ander. Zo simpel werkt het.
 
 ![Kevin Mos in volle vaart door een bocht op het circuit](${kevinMosCornering})
 
