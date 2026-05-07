@@ -12,6 +12,12 @@ import supabaseLogoImg from "@/assets/blog/supabase-logo.webp";
 import claudeLogoImg from "@/assets/blog/claude-logo.webp";
 import brandStorytellingImg from "@/assets/blog/brand-storytelling.jpg";
 import stripeLogoImg from "@/assets/blog/stripe-logo.webp";
+import kevinMosBikeFront from "@/assets/blog/kevin-mos-nieuwblik-bike-front.webp";
+import kevinMosBikeRear from "@/assets/blog/kevin-mos-nieuwblik-bike-rear.webp";
+import kevinMosPortrait from "@/assets/blog/kevin-mos-nieuwblik-portrait.webp";
+import kevinMosCornering from "@/assets/blog/kevin-mos-cornering.webp";
+import kevinMosRainRace from "@/assets/blog/kevin-mos-rain-race.webp";
+import kevinMosTeamNelon from "@/assets/blog/kevin-mos-team-nelon-racing.webp";
 export interface BlogPost {
   slug: string;
   title: {
@@ -34,6 +40,144 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "kevin-mos-nieuwblik-hengelo-roadrace-2026",
+    image: kevinMosBikeFront,
+    seoTitle: "Nieuwblik sponsort Kevin Mos, Hengelo Roadrace 2026",
+    seoKeywords: "Kevin Mos, Hengelo Roadrace, Nelon Racing, Mobu Tuning, Nieuwblik sponsoring, motorracen Hengelo, straatrace, MKB sponsoring, West-Friesland",
+    title: {
+      nl: "Nieuwblik sponsort Kevin Mos op de Hengelo Roadrace 2026",
+      en: "Nieuwblik sponsors Kevin Mos at the Hengelo Roadrace 2026"
+    },
+    excerpt: {
+      nl: "Drie weken voor de start belde Kevin: hij kwam net wat tekort voor de Hengelo Straatrace. Wij konden niks anders doen dan hem sponsoren. Een verhaal over vriendschap, race-adrenaline en waarom geld soms gewoon geen rol speelt.",
+      en: "Three weeks before the start, Kevin called: he was just short for the Hengelo Street Race. We had no choice but to sponsor him. A story about friendship, racing adrenaline and why money sometimes simply doesn't matter."
+    },
+    date: "2026-05-07",
+    readingTime: 4,
+    content: {
+      nl: `Soms krijg je een telefoontje dat je dag, en eigenlijk je hele weekend, op de kop zet. Drie weken voor de **Hengelo Straatrace** belde **Kevin Mos**. Hij kwam net wat centjes tekort om aan de start te kunnen verschijnen. En wij wisten als geen ander hoe graag hij dit wilde.
+
+## Een telefoontje, drie weken voor de race
+
+Kevin is geen vreemde voor ons. Justin en hij zien elkaar twee, soms drie keer per week. Bij wijze van spreken weten we wat hij eet voordat hij het zelf weet. Dus toen hij belde over Hengelo, was er eigenlijk maar één antwoord mogelijk.
+
+We konden niks anders doen dan hem sponsoren, zodat hij toch die race kon rijden.
+
+## Waarom geld geen rol speelde
+
+Er zijn beslissingen waar je een spreadsheet voor open trekt. En er zijn beslissingen waar je dat juist niet voor doet. Deze viel in de tweede categorie.
+
+> Een goede vriend supporten weegt zwaarder dan het bedrag op de factuur. Punt.
+
+Het werd voor Kevin een heel gelukkig weekend, en voor ons een hele gelukkige zondag. Dat is eigenlijk de hele rekensom.
+
+![Kevin Mos op de #86 Kawasaki met Nieuwblik op de kuip, gesponsord voor de Hengelo Roadrace](${kevinMosBikeFront})
+
+## Een onvergetelijk weekend in de pit
+
+We zijn gewoon meegereden naar Hengelo. Kregen een polsbandje, mochten in de pit staan, alles meemaken, alles meekijken, alles erop en eraan.
+
+Voor wie er nooit is geweest, dit is geen normale wedstrijd. Het is een echte straatrace, midden door Hengelo, met publiek tegen de hekken aan. Het ruikt naar benzine, brandende remmen en zomer.
+
+![Het Nelon Racing team rond de Kawasaki, met Kevin Mos in het midden](${kevinMosTeamNelon})
+
+## De machine van Kevin, nummer 86
+
+Kijk eens goed naar de kuip. Dat zwart-rood-gele kunstwerk is niet zomaar een motor. Daar zit ontzettend veel werk, passie en sponsoring achter van een hele groep ondernemers die in Kevin geloven.
+
+![De voorkant van de #86 met Nieuwblik, Nelon en Mobu Tuning logo's](${kevinMosBikeRear})
+
+## Samen met sterke partners
+
+We staan op die motor in een rijtje waar we trots op zijn. De hoofdpartner is **Nelon Racing**, het racingplatform van [Nelon](https://www.nelon.nl), die Kevin het hele seizoen door ondersteunt. Daarnaast staan **Mobu Tuning**, **MWAY Motorsport Stickers**, **Willemse**, **CAT** en **Motul** op de kuip.
+
+Het is bijzonder om als **webdesignbureau uit Enkhuizen** in dat rijtje te staan. Het laat zien dat sponsoring niet alleen draait om grote bedragen, maar vooral om geloof in de rijder.
+
+## Justin en Kevin, vrienden voor het leven
+
+Voor Justin is dit niet alleen een sponsorlogo. Het is letterlijk zijn beste vriend op de motor. Wekelijks zien ze elkaar, twee tot drie keer. Wat de ene nodig heeft, regelt de ander. Zo simpel werkt het.
+
+![Kevin Mos in volle vaart door een bocht op het circuit](${kevinMosCornering})
+
+En zelfs in de stromende regen blijft hij gas geven. Dat is de mentaliteit waar je in wil investeren.
+
+![Kevin Mos racend door zware regen, volle focus op de baan](${kevinMosRainRace})
+
+## Kijk de races terug
+
+Wil je zelf zien waar het over gaat? De volledige Hengelo Roadrace is terug te kijken via het officiële kanaal. Daar zie je hoe spannend dit type racen écht is.
+
+[Bekijk de Hengelo Roadrace 2026 op YouTube](https://www.youtube.com/watch?v=r5CkgPQHukU)
+
+Volg Kevin en zijn team via [Nelon Racing](https://www.nelon.nl) om geen enkele race te missen.
+
+## Wat dit betekent voor Nieuwblik
+
+Wij bouwen websites voor het MKB in West-Friesland en daarbuiten. Maar we zijn ook gewoon mensen, met vrienden, met passies, met een zwak voor wie er vol voor gaat.
+
+Lokaal sponsoren is voor ons geen marketingtruc. Het is een manier om iets terug te doen voor de mensen om ons heen. Of dat nou een volleybalteam in Enkhuizen is, of een coureur op de straten van Hengelo.
+
+![Kevin Mos lachend naast de #86 na een geslaagde race](${kevinMosPortrait})
+
+Kevin, namens iedereen bij Nieuwblik: bedankt voor het weekend. Wij staan er volgend jaar gewoon weer.`,
+      en: `Sometimes you get a phone call that flips your weekend upside down. Three weeks before the **Hengelo Street Race**, **Kevin Mos** called. He was just a bit short to make it to the starting grid. And we knew better than anyone how badly he wanted this.
+
+## A call, three weeks before the race
+
+Kevin is no stranger. Justin and he see each other two, sometimes three times a week. So when he called about Hengelo, there was really only one answer.
+
+We had no choice but to sponsor him so he could race.
+
+## Why money didn't matter
+
+Some decisions need a spreadsheet. Others don't. This was the second kind.
+
+> Supporting a good friend weighs more than the number on the invoice.
+
+It became a very happy weekend for Kevin, and a very happy Sunday for us.
+
+![Kevin Mos on the #86 Kawasaki with Nieuwblik on the fairing](${kevinMosBikeFront})
+
+## An unforgettable weekend in the pit
+
+We rode along to Hengelo. Got a wristband, stood in the pits, saw everything up close.
+
+![The Nelon Racing team around the Kawasaki](${kevinMosTeamNelon})
+
+## The machine, number 86
+
+That black-red-yellow piece of art on two wheels carries the work and faith of a whole group of entrepreneurs.
+
+![The front of #86 with Nieuwblik, Nelon and Mobu Tuning logos](${kevinMosBikeRear})
+
+## Strong partners
+
+Lead partner is **Nelon Racing**, by [Nelon](https://www.nelon.nl). Alongside: **Mobu Tuning**, **MWAY**, **Willemse**, **CAT** and **Motul**.
+
+## Justin and Kevin, friends for life
+
+![Kevin Mos cornering hard on the track](${kevinMosCornering})
+
+Even in pouring rain he keeps the throttle open. That's the mindset worth investing in.
+
+![Kevin racing through heavy rain](${kevinMosRainRace})
+
+## Watch the race
+
+[Watch the Hengelo Roadrace 2026 on YouTube](https://www.youtube.com/watch?v=r5CkgPQHukU)
+
+Follow Kevin via [Nelon Racing](https://www.nelon.nl).
+
+## What this means for Nieuwblik
+
+We build websites for SMEs in West-Friesland. But we're also just people, with friends and passions.
+
+![Kevin Mos smiling next to #86 after a successful race](${kevinMosPortrait})
+
+Kevin, from everyone at Nieuwblik: thanks for the weekend. We'll be there again next year.`
+    }
+  },
   {
     slug: "nieuwblik-sponsort-vv-madjoe-heren-1",
     image: madjoeSponsorsImg,

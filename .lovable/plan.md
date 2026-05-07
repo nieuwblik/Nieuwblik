@@ -1,86 +1,93 @@
-# Conversie boost plan voor Nieuwblik (herzien)
+## Plan: blog over Nieuwblik sponsoring Kevin Mos, Hengelo Roadrace 2026
 
-Vijf concrete toevoegingen plus opschoning van de hero. Alles in lijn met bestaande design tokens, light mode, 100% Nederlands.
+Nieuwe blogpost in de bestaande BeNoted minimalistische schrijfstijl, volledig in Nederlands, met emotionele toon (vriendschap boven geld), pricing/diensten verwijzingen weg, focus op verhaal + lokale SEO + outbound links naar Nelon Racing en Hengelo Roadrace YouTube.
 
-## 1. Trustbar direct onder de hero
+### 1. Afbeeldingen toevoegen aan project
 
-Nieuw component `TrustBar.tsx` op `bg-secondary`, dunne strook:
-- 5 sterren in accent groen
-- Tekst: "5,0 op Google, op basis van 15+ reviews"
-- Scheidingslijn
-- Rij met 4 tot 6 grijswaarden klantlogo's uit bestaande projecten
-- Mobiel: sterren + tekst boven, logo's in 3 kolommen grid eronder
+Kopieer 6 uploads naar `src/assets/blog/`:
 
-Plek: tussen hero en zoekmachines sectie in `Index.tsx`.
+```text
+user-uploads://nieuwblik_sponsor_kevin_mos_mobu_nelon_racing.webp   -> kevin-mos-nieuwblik-bike-rear.webp
+user-uploads://nieuwblik_sponsor_kevin_mos_mobu_nelon_racing2.webp  -> kevin-mos-nieuwblik-bike-front.webp  (cover)
+user-uploads://nieuwblik_sponsor_kevin_mos_mobu_nelon_racing3.webp  -> kevin-mos-nieuwblik-portrait.webp
+user-uploads://image-51.png                                          -> kevin-mos-cornering.webp
+user-uploads://image-52.png                                          -> kevin-mos-rain-race.webp
+user-uploads://image-53.png                                          -> kevin-mos-team-nelon-racing.webp
+```
 
-## 2. Pakketten / vanaf-prijzen sectie
+PNG's worden via `nix imagemagick` geconverteerd naar WebP (volgens project image bundling regel: strict WebP).
 
-Nieuw component `PricingPackages.tsx` met 3 kaarten:
-- **Starter**, vanaf 990 euro, voor zzp en kleine ondernemers, 1 tot 5 paginas, responsive, basis SEO, contactformulier
-- **Professional**, vanaf 1990 euro, gemarkeerd als "Meest gekozen" met accentrand, tot 10 paginas, CMS, uitgebreide SEO, blogfunctie, koppelingen
-- **Op maat**, prijs op aanvraag, webshops en complexe sites, alle functies inbegrepen
+### 2. Blogpost toevoegen in `src/data/blogPosts.ts`
 
-Elke kaart: titel, vanaf-prijs, korte zin, 4 tot 5 bullets met checkmarks in accent kleur, CTA "Vraag offerte aan" naar `/start-je-project`.
+Nieuwe entry bovenaan de array zodat hij eerst zichtbaar is:
 
-Plek: tussen testimonials en featured projects.
+- **slug**: `kevin-mos-nieuwblik-hengelo-roadrace-2026`
+- **image**: `kevin-mos-nieuwblik-bike-front.webp` (cover)
+- **seoTitle**: "Nieuwblik sponsort Kevin Mos, Hengelo Roadrace 2026" (<60 chars)
+- **seoKeywords**: "Kevin Mos, Hengelo Roadrace, Nelon Racing, Mobu Tuning, Nieuwblik sponsoring, motorracen, straatrace Hengelo, MKB sponsoring"
+- **excerpt**: emotioneel, 1 zin: vriendschap, sponsoring, racewinst boven geld
+- **date**: vandaag (2026-05-07)
+- **readingTime**: 4
 
-## 3. Onze aanpak in 4 stappen
+### 3. Inhoud structuur (BeNoted minimalistisch, korte alineas)
 
-Nieuw component `ProcessSteps.tsx`. Horizontale tijdlijn op desktop, verticaal op mobiel:
-1. **Kennismaking**, gratis intakegesprek, 30 min
-2. **Ontwerp**, concept en interactieve preview binnen 1 week
-3. **Bouw**, development, content en testen
-4. **Lancering**, live zetten, training, 30 dagen nazorg
+```text
+H1 (auto via title)
+Lead alinea — telefoontje van Kevin: "ik kom net wat tekort voor Hengelo"
+H2 Een telefoontje, drie weken voor de race
+H2 Waarom geld geen rol speelde
+  blockquote: "Een goede vriend supporten weegt zwaarder dan het bedrag op de factuur."
+H2 Een onvergetelijk weekend in de pit
+  - polsbandje, pitlane toegang, alles meegemaakt
+  IMG: team foto
+H2 De machine van Kevin (#86)
+  IMG: bike front + rear
+  - Nelon Racing als hoofdpartner uitlichten
+H2 Samen met sterke partners
+  outbound links: Nelon Racing, Mobu Tuning, etc.
+H2 Justin en Kevin, vrienden voor het leven
+  - 2-3x per week zien, altijd klaarstaan
+  IMG: cornering + rain race
+H2 Kijk de races terug
+  - YouTube embed Hengelo Roadrace via LazyYouTube (videoId r5CkgPQHukU)
+H2 Wat dit betekent voor Nieuwblik
+  - lokaal MKB, vriendschap, support, geen websiteverkoop pitch
+Slot — korte poëtische lijn
+```
 
-Plek: vlak boven de testimonials.
+### 4. Outbound links
 
-## 4. FAQ sectie hergebruiken op homepage
+- Nelon Racing — `https://www.nelon.nl` (verifieer via context, anders fallback met `rel="noopener"`)
+- Mobu Tuning, Willemse, MWAY — naam noemen, link indien bekend, anders alleen tekst
+- Hengelo Roadrace YouTube video: `https://www.youtube.com/watch?v=r5CkgPQHukU` via `LazyYouTube` component (videoId `r5CkgPQHukU`)
 
-`FAQSection` component wordt al gemount op de homepage. Ik werk het eerste antwoord bij zodat de prijzen kloppen:
-- "Wat kost een website?" antwoord verwijst naar **vanaf 990 euro** voor Starter en **vanaf 1990 euro** voor Professional, plus maatwerk op aanvraag.
+### 5. Sitemap
 
-Daarnaast werk ik **alle prijsverwijzingen in de 60 landingspagina data** (`src/data/cities.ts` en `src/data/industries.ts`) bij van 1500 euro naar 990 euro, zodat het overal consistent is.
+Voeg `/blog/kevin-mos-nieuwblik-hengelo-roadrace-2026` toe aan `public/sitemap.xml` met `lastmod` van vandaag, priority 0.7.
 
-## 5. Sticky mobiele CTA-bar
+### 6. Schrijfregels (per memory)
 
-Nieuw component `MobileStickyCTA.tsx`, vast onderaan op mobiel:
-- 3 knoppen naast elkaar: "Bel" (tel:), "WhatsApp" (groen), "Offerte" (accent)
-- 56px hoog, `safe-area-inset-bottom` voor iPhone
-- Verschijnt na 200px scrollen met fade-in
-- Verbergt bestaande WhatsAppButton op mobiel zodat ze niet overlappen
-- Globaal gemount in `App.tsx` zodat hij overal werkt
+- 100% Nederlands, sentence case
+- Geen em dashes, alleen komma's of korte streepjes
+- Korte alineas (max 3 regels)
+- Emotionele tone-of-voice, action-driven
+- Geen pricing/diensten pitch, dit is pure storytelling/sponsoring content
+- Geen Twitter, geen verboden elementen
 
-## Bonus opschoning hero (direct meenemen)
-
-In `src/pages/Index.tsx` hero:
-- LinkedIn en WhatsApp icons rij verwijderen
-- Zwevende "Start je project" knop op de teamfoto verwijderen (Start nu knop blijft)
-- Subkop aanscherpen naar concrete belofte met doorlooptijd: "Een nieuwe website binnen 4 weken, vanaf 990 euro. Geen verrassingen."
-
-## Bestanden
+### Bestanden
 
 ```text
 NIEUW
-- src/components/TrustBar.tsx
-- src/components/PricingPackages.tsx
-- src/components/ProcessSteps.tsx
-- src/components/MobileStickyCTA.tsx
+- src/assets/blog/kevin-mos-nieuwblik-bike-front.webp
+- src/assets/blog/kevin-mos-nieuwblik-bike-rear.webp
+- src/assets/blog/kevin-mos-nieuwblik-portrait.webp
+- src/assets/blog/kevin-mos-cornering.webp
+- src/assets/blog/kevin-mos-rain-race.webp
+- src/assets/blog/kevin-mos-team-nelon-racing.webp
 
 GEWIJZIGD
-- src/pages/Index.tsx       (hero opschonen, 3 nieuwe secties inhaken)
-- src/components/FAQSection.tsx (eerste antwoord prijs bijwerken)
-- src/data/cities.ts        (prijzen 1500 naar 990)
-- src/data/industries.ts    (prijzen 1500 naar 990)
-- src/App.tsx               (MobileStickyCTA globaal mounten)
+- src/data/blogPosts.ts   (nieuwe post bovenaan, 6 image imports)
+- public/sitemap.xml      (nieuwe URL)
 ```
-
-## Technische noten
-
-- Alle tokens via `bg-background`, `bg-secondary`, `text-accent`, `text-foreground`
-- Lazy load `PricingPackages` en `ProcessSteps` via `React.lazy` voor PageSpeed
-- `MobileStickyCTA` blijft eager (kritisch voor conversie)
-- `TrustBar` blijft eager omdat hij above-the-fold staat
-- Geen em dashes, sentence case, 100% Nederlands
-- WhatsAppButton component op mobiel verbergen waar sticky bar staat
 
 Na akkoord bouw ik dit in 1 doorloop.
