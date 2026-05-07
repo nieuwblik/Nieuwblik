@@ -595,52 +595,6 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
-    {/* Steden grid */}
-    <section id="steden" className="py-16 md:py-24 bg-secondary">
-      <div className="container mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center text-foreground">
-          Website laten maken in jouw stad
-        </h2>
-        <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-          Wij werken voor MKB ondernemers door heel Nederland. Vind hieronder jouw stad.
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
-          {cities.map((c) => (
-            <Link
-              key={c.slug}
-              to={`/website-laten-maken-${c.slug}`}
-              className="text-sm text-foreground bg-background border border-border rounded-lg px-4 py-3 text-center hover:border-accent hover:text-accent transition-colors"
-            >
-              {c.name}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Branches grid */}
-    <section id="branches" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
-        <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center text-foreground">
-          Website laten maken voor jouw branche
-        </h2>
-        <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-          Specifiek webdesign voor jouw vakgebied. Bekijk onze landingspagina's per branche.
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-5xl mx-auto">
-          {industries.map((b) => (
-            <Link
-              key={b.slug}
-              to={`/website-laten-maken-${b.slug}`}
-              className="text-sm text-foreground bg-secondary border border-border rounded-lg px-4 py-3 text-center hover:border-accent hover:text-accent transition-colors"
-            >
-              {b.name}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-
     <Footer />
   </div>;
 };
