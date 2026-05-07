@@ -44,8 +44,6 @@ import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
 import nieuwblikLogo from "@/assets/logo.webp";
 
 import { projects } from "@/data/projects";
-import { cities } from "@/data/cities";
-import { industries } from "@/data/industries";
 
 // Optimized animation component for scroll-triggered reveals
 const AnimatedSection = ({
