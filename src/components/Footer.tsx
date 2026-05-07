@@ -9,6 +9,8 @@ import { useState, useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
+import { cities } from "@/data/cities";
+import { industries } from "@/data/industries";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -283,6 +285,49 @@ const Footer = () => {
           </motion.div>
         </div>
         
+        {/* Mega footer: steden & branches */}
+        <motion.div
+          className="border-t border-border pt-10 mb-10 grid grid-cols-1 md:grid-cols-2 gap-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.45, duration: 0.5, ease: easings.easeOutExpo }}
+        >
+          <div>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">
+              Website laten maken in jouw stad
+            </h4>
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-sm">
+              {cities.map((c) => (
+                <li key={c.slug}>
+                  <Link
+                    to={`/website-laten-maken-${c.slug}`}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">
+              Website laten maken voor jouw branche
+            </h4>
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-sm">
+              {industries.map((b) => (
+                <li key={b.slug}>
+                  <Link
+                    to={`/website-laten-maken-${b.slug}`}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {b.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
         <motion.div className="border-t border-border pt-8 text-center text-sm text-muted-foreground" initial={{
         opacity: 0,
         y: 20
