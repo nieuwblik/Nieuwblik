@@ -86,11 +86,11 @@ Voor wie er nooit is geweest, dit is geen normale wedstrijd. Het is een echte st
 
 Kijk eens goed naar de kuip. Dat zwart-rood-gele kunstwerk is niet zomaar een motor. Daar zit ontzettend veel werk, passie en sponsoring achter van een hele groep ondernemers die in Kevin geloven.
 
-![De voorkant van de #86 met Nieuwblik, Nelon en Mobu Tuning logo's](${kevinMosBikeRear})
+![De achterkant van de #86 met Nieuwblik, Nelon en Mobu Tuning logo's](${kevinMosBikeRear})
 
 ## Samen met sterke partners
 
-We staan op die motor in een rijtje waar we trots op zijn. De hoofdpartner is **Nelon Racing**, het racingplatform van [Nelon](https://www.nelon.nl), die Kevin het hele seizoen door ondersteunt. Daarnaast staan **Mobu Tuning**, **MWAY Motorsport Stickers**, **Willemse**, **CAT** en **Motul** op de kuip.
+We staan op die motor in een rijtje waar we trots op zijn. De hoofdpartner is **Nelon Racing**, die Kevin het hele seizoen door ondersteunt. Daarnaast staan **Mobu Tuning**, **MWAY Motorsport Stickers**, **Willemse**, **CAT** en **Motul** op de kuip.
 
 Het is bijzonder om als **webdesignbureau uit Enkhuizen** in dat rijtje te staan. Het laat zien dat sponsoring niet alleen draait om grote bedragen, maar vooral om geloof in de rijder.
 
@@ -110,7 +110,7 @@ Wil je zelf zien waar het over gaat? De volledige Hengelo Roadrace is terug te k
 
 [Bekijk de Hengelo Roadrace 2026 op YouTube](https://www.youtube.com/watch?v=r5CkgPQHukU)
 
-Volg Kevin en zijn team via [Nelon Racing](https://www.nelon.nl) om geen enkele race te missen.
+Volg Kevin en zijn team via Nelon Racing om geen enkele race te missen.
 
 <div style="display:flex;justify-content:center;margin:2rem 0;"><a href="https://www.instagram.com/kvnms86/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;border-radius:9999px;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:#ffffff;font-weight:600;text-decoration:none;font-size:0.95rem;box-shadow:0 6px 20px rgba(220,39,67,0.25);">Volg Kevin op Instagram</a></div>
 
