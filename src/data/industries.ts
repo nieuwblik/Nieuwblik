@@ -68,7 +68,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een kapper bij Nieuwblik?",
-          "a": "Een professionele website voor een kapper begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een kapper begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een kapper?",
@@ -139,7 +139,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een restaurant bij Nieuwblik?",
-          "a": "Voor een restaurant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een restaurant hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een restaurant?",
@@ -210,7 +210,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een bouwbedrijf bij Nieuwblik?",
-          "a": "De prijs van een website voor een bouwbedrijf hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een bouwbedrijf hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een bouwbedrijf?",
@@ -352,7 +352,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een fysiotherapeut bij Nieuwblik?",
-          "a": "Een professionele website voor een fysiotherapeut begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een fysiotherapeut begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een fysiotherapeut?",
@@ -423,7 +423,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een accountant bij Nieuwblik?",
-          "a": "Voor een accountant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een accountant hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een accountant?",
@@ -494,7 +494,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een makelaar bij Nieuwblik?",
-          "a": "De prijs van een website voor een makelaar hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een makelaar hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een makelaar?",
@@ -636,7 +636,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een personal trainer bij Nieuwblik?",
-          "a": "Een professionele website voor een personal trainer begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een personal trainer begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een personal trainer?",
@@ -707,7 +707,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een advocaat bij Nieuwblik?",
-          "a": "Voor een advocaat hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een advocaat hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een advocaat?",
@@ -778,7 +778,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een interieurontwerper bij Nieuwblik?",
-          "a": "De prijs van een website voor een interieurontwerper hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een interieurontwerper hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een interieurontwerper?",
@@ -920,7 +920,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een schilder bij Nieuwblik?",
-          "a": "Een professionele website voor een schilder begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een schilder begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een schilder?",
@@ -991,7 +991,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een loodgieter bij Nieuwblik?",
-          "a": "Voor een loodgieter hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een loodgieter hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een loodgieter?",
@@ -1062,7 +1062,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een elektricien bij Nieuwblik?",
-          "a": "De prijs van een website voor een elektricien hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een elektricien hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een elektricien?",
@@ -1204,7 +1204,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een therapeut bij Nieuwblik?",
-          "a": "Een professionele website voor een therapeut begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een therapeut begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een therapeut?",
@@ -1275,7 +1275,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een horecabedrijf bij Nieuwblik?",
-          "a": "Voor een horecabedrijf hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een horecabedrijf hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een horecabedrijf?",
@@ -1346,7 +1346,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een autogarage bij Nieuwblik?",
-          "a": "De prijs van een website voor een autogarage hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een autogarage hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een autogarage?",
@@ -1488,7 +1488,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een tuinman bij Nieuwblik?",
-          "a": "Een professionele website voor een tuinman begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een tuinman begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een tuinman?",
@@ -1559,7 +1559,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een kinderopvang bij Nieuwblik?",
-          "a": "Voor een kinderopvang hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een kinderopvang hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een kinderopvang?",
@@ -1630,7 +1630,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een sportschool bij Nieuwblik?",
-          "a": "De prijs van een website voor een sportschool hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een sportschool hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een sportschool?",
@@ -1772,7 +1772,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een architect bij Nieuwblik?",
-          "a": "Een professionele website voor een architect begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een architect begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een architect?",
@@ -1843,7 +1843,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een verzekeringsadviseur bij Nieuwblik?",
-          "a": "Voor een verzekeringsadviseur hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een verzekeringsadviseur hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een verzekeringsadviseur?",
@@ -1914,7 +1914,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een dierenarts bij Nieuwblik?",
-          "a": "De prijs van een website voor een dierenarts hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een dierenarts hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een dierenarts?",
@@ -2056,7 +2056,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een reclamebureau bij Nieuwblik?",
-          "a": "Een professionele website voor een reclamebureau begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een reclamebureau begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een reclamebureau?",
@@ -2127,7 +2127,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een reinigingsbedrijf bij Nieuwblik?",
-          "a": "Voor een reinigingsbedrijf hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een reinigingsbedrijf hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een reinigingsbedrijf?",

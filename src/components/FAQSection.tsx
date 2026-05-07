@@ -6,7 +6,7 @@ import { easings } from "@/lib/motion";
 const faqs = [
   {
     question: "Wat kost het om een website te laten maken?",
-    answer: "De kosten voor een website zijn afhankelijk van verschillende factoren zoals functionaliteit, design complexiteit en het aantal pagina's. Een eenvoudige website begint vanaf €1.500, terwijl een uitgebreide webshop of maatwerk platform vanaf €5.000 kan starten. Tijdens een vrijblijvende call bespreken we jouw wensen en maken we een passende offerte."
+    answer: "De kosten voor een website zijn afhankelijk van verschillende factoren zoals functionaliteit, design complexiteit en het aantal pagina's. Een eenvoudige website begint vanaf €990, terwijl een uitgebreide webshop of maatwerk platform vanaf €2.990 kan starten. Tijdens een vrijblijvende call bespreken we jouw wensen en maken we een passende offerte."
   },
   {
     question: "Hoe lang duurt het voordat mijn website live staat?",
