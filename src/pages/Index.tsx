@@ -274,6 +274,7 @@ const Index = () => {
       </div>
     </section>
 
+    <TrustBar />
 
     {/* SEO Search Engines Section - Integration Animation */}
     <section className="py-16 md:py-24 lg:py-32 bg-secondary overflow-hidden">
