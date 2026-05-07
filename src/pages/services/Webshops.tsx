@@ -124,7 +124,7 @@ const Webshops = () => {
       "@type": "Offer",
       "availability": "https://schema.org/InStock",
       "priceCurrency": "EUR",
-      "price": "997"
+      "price": "2990"
     }
   };
 
