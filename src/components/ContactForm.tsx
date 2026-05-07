@@ -13,7 +13,7 @@ import confetti from "canvas-confetti";
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
 
 type ProjectType = "website" | "webshop" | "refresh" | "anders";
-type BudgetRange = "tot-750" | "750-2000" | "meer-dan-2000";
+type BudgetRange = "990-2000" | "2000-4000" | "meer-dan-4000";
 
 interface FormData {
   projectType: ProjectType | null;
@@ -41,9 +41,9 @@ const extraServiceOptions = [
 ];
 
 const budgetOptions = [
-  { value: "tot-750" as BudgetRange, label: "Tot €750" },
-  { value: "750-2000" as BudgetRange, label: "€750 - €2.000" },
-  { value: "meer-dan-2000" as BudgetRange, label: "Meer dan €2.000" },
+  { value: "990-2000" as BudgetRange, label: "€990 - €2.000" },
+  { value: "2000-4000" as BudgetRange, label: "€2.000 - €4.000" },
+  { value: "meer-dan-4000" as BudgetRange, label: "Meer dan €4.000" },
 ];
 
 const ContactForm = () => {
