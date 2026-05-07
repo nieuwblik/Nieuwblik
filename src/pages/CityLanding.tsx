@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -18,10 +18,8 @@ const featuredProjects = featuredTitles
   .map((t) => projects.find((p) => p.title === t))
   .filter((p): p is typeof projects[number] => Boolean(p));
 
-const CityLanding = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const city = slug ? getCityBySlug(slug) : undefined;
-
+const CityLanding = ({ slug }: { slug: string }) => {
+  const city = getCityBySlug(slug);
   if (!city) return <Navigate to="/404" replace />;
 
   const url = `https://www.nieuwblik.com/website-laten-maken-${city.slug}`;
