@@ -65,9 +65,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       </section>
 
       {/* Sectie 2: Vergelijking */}
-      <section className="pt-16 md:pt-24">
-        <ProblemSolutionSection />
-      </section>
+      <ProblemSolutionSection />
 
       {/* Sectie 3: Reviews */}
       <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
