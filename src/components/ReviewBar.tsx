@@ -13,7 +13,7 @@ const ReviewBar = ({ isScrolled = false }: ReviewBarProps) => {
   const shouldReduceMotion = useReducedMotion();
   
   const messages = [
-    { text: "10+ 5 sterren reviews", showStars: true },
+    { text: "15+ 5 sterren reviews", showStars: true },
     { text: "Website deze week live!", showStars: false },
     { text: "Vrijblijvend kennismaken!", showStars: false }
   ];
