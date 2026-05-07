@@ -86,11 +86,11 @@ Voor wie er nooit is geweest, dit is geen normale wedstrijd. Het is een echte st
 
 Kijk eens goed naar de kuip. Dat zwart-rood-gele kunstwerk is niet zomaar een motor. Daar zit ontzettend veel werk, passie en sponsoring achter van een hele groep ondernemers die in Kevin geloven.
 
-![De voorkant van de #86 met Nieuwblik, Nelon en Mobu Tuning logo's](${kevinMosBikeRear})
+![De achterkant van de #86 met Nieuwblik, Nelon en Mobu Tuning logo's](${kevinMosBikeRear})
 
 ## Samen met sterke partners
 
-We staan op die motor in een rijtje waar we trots op zijn. De hoofdpartner is **Nelon Racing**, het racingplatform van [Nelon](https://www.nelon.nl), die Kevin het hele seizoen door ondersteunt. Daarnaast staan **Mobu Tuning**, **MWAY Motorsport Stickers**, **Willemse**, **CAT** en **Motul** op de kuip.
+We staan op die motor in een rijtje waar we trots op zijn. De hoofdpartner is **Nelon Racing**, die Kevin het hele seizoen door ondersteunt. Daarnaast staan **Mobu Tuning**, **MWAY Motorsport Stickers**, **Willemse**, **CAT** en **Motul** op de kuip.
 
 Het is bijzonder om als **webdesignbureau uit Enkhuizen** in dat rijtje te staan. Het laat zien dat sponsoring niet alleen draait om grote bedragen, maar vooral om geloof in de rijder.
 
