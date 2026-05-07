@@ -45,7 +45,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <ScrollToTopButton />
+        
         <CookieConsent />
         <WhatsAppButton />
         <MobileStickyCTA />
