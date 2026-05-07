@@ -110,7 +110,7 @@ Wil je zelf zien waar het over gaat? De volledige Hengelo Roadrace is terug te k
 
 [Bekijk de Hengelo Roadrace 2026 op YouTube](https://www.youtube.com/watch?v=r5CkgPQHukU)
 
-Volg Kevin en zijn team via [Nelon Racing](https://www.nelon.nl) om geen enkele race te missen.
+Volg Kevin en zijn team via Nelon Racing om geen enkele race te missen.
 
 <div style="display:flex;justify-content:center;margin:2rem 0;"><a href="https://www.instagram.com/kvnms86/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:0.625rem;padding:0.875rem 1.75rem;border-radius:9999px;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:#ffffff;font-weight:600;text-decoration:none;font-size:0.95rem;box-shadow:0 6px 20px rgba(220,39,67,0.25);">Volg Kevin op Instagram</a></div>
 
