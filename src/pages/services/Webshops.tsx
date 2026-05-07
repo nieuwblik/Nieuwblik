@@ -104,7 +104,7 @@ const Webshops = () => {
   },
   {
     question: "Wat kost een professionele webshop?",
-    answer: "Webshops starten vanaf €997. De exacte prijs hangt af van het aantal producten, functionaliteiten en integraties die je nodig hebt."
+    answer: "Webshops starten vanaf €2.990. De exacte prijs hangt af van het aantal producten, functionaliteiten en integraties die je nodig hebt."
   }];
 
 
@@ -132,7 +132,7 @@ const Webshops = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Webshop Laten Maken Enkhuizen | E-commerce West-Friesland"
-        description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €997."
+        description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €2.990."
         keywords="webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen"
         canonicalUrl="https://nieuwblik.com/diensten/webshops"
         structuredData={structuredData}
@@ -449,7 +449,7 @@ const Webshops = () => {
             className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}>
             
-            Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf €997.
+            Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf €2.990.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
