@@ -56,7 +56,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-07",
     readingTime: 4,
     content: {
-      nl: `Soms vallen de belangrijkste beslissingen niet in een vergaderzaal, maar gewoon op de bank bij een vriend thuis. Drie weken voor de **Hengelo Straatrace** zaten we bij **Kevin Mos** thuis toen het ter sprake kwam. Hij kwam net wat centjes tekort om aan de start te kunnen verschijnen.
+      nl: `Soms vallen de belangrijkste beslissingen niet in een vergaderzaal, maar gewoon op de bank bij een vriend thuis. Drie weken voor de **Hengelo Straatrace** zaten we bij **Kevin Mos** thuis toen het ter sprake kwam. Kevin moest en zal mee doen aan deze bizarre roadrace.
 
 ## Op de bank bij Kevin, drie weken voor de race
 
