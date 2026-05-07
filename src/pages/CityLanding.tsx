@@ -75,9 +75,12 @@ const CityLanding = ({ slug }: { slug: string }) => {
       </section>
 
       {/* Sectie 3: Reviews */}
-      <section className="py-16 md:py-24 bg-secondary">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-foreground">
+      <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
+          style={{ background: 'radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)' }} />
+        <div className="container relative z-10 mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-10 text-center text-white">
             {city.section3H2}
           </h2>
           <TestimonialsCarousel />
