@@ -8,6 +8,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
+import MobileStickyCTA from "./components/MobileStickyCTA";
 
 // Eager load all public-facing pages for instant navigation (no white flash)
 import Index from "./pages/Index";
@@ -47,6 +48,7 @@ const App = () => (
         <ScrollToTopButton />
         <CookieConsent />
         <WhatsAppButton />
+        <MobileStickyCTA />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/diensten" element={<Services />} />
