@@ -179,6 +179,7 @@ Kevin, from everyone at Nieuwblik: thanks for the weekend. We'll be there again 
     }
   },
   {
+    slug: "nieuwblik-sponsort-vv-madjoe-heren-1",
     image: madjoeSponsorsImg,
     seoTitle: "Nieuwblik Sponsort VV Madjoe Heren 1 | Volleybal Enkhuizen",
     seoKeywords: "VV Madjoe, sponsoring, volleybal Enkhuizen, Topdivisie, lokaal ondernemen, shirtsponsor, Enza Zaden, Kreeft Autoservice, Toolstra, MKB sponsoring",
