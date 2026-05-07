@@ -20,6 +20,7 @@ import puurCase1Img from "@/assets/projects/puurinharmonie-case-1.webp";
 import puurCase2Img from "@/assets/projects/puurinharmonie-case-2.webp";
 import pridemobilityImg from "@/assets/projects/pridemobility.eu.webp";
 import quantumrehabImg from "@/assets/projects/quantumrehab.eu.webp";
+import aardingsbedrijfImg from "@/assets/projects/aardingsbedrijfwestfriesland.nl.png";
 
 export interface ProjectDetail {
   year: string;
