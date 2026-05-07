@@ -60,7 +60,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Amsterdam?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Amsterdam zit?",
@@ -96,7 +96,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -119,7 +119,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Rotterdam?",
-          "a": "De kosten van een website in Rotterdam starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Rotterdam starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Rotterdam zit?",
@@ -178,7 +178,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Den Haag?",
-          "a": "Voor ondernemers in Den Haag hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Den Haag hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Den Haag zit?",
@@ -237,7 +237,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Utrecht?",
-          "a": "Een website laten bouwen in Utrecht kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Utrecht kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Utrecht zit?",
@@ -273,7 +273,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -296,7 +296,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Eindhoven?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Eindhoven zit?",
@@ -355,7 +355,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Groningen?",
-          "a": "De kosten van een website in Groningen starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Groningen starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Groningen zit?",
@@ -387,7 +387,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -414,7 +414,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Tilburg?",
-          "a": "Voor ondernemers in Tilburg hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Tilburg hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Tilburg zit?",
@@ -450,7 +450,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -473,7 +473,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Almere?",
-          "a": "Een website laten bouwen in Almere kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Almere kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Almere zit?",
@@ -532,7 +532,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Breda?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Breda zit?",
@@ -572,7 +572,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -591,7 +591,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Nijmegen?",
-          "a": "De kosten van een website in Nijmegen starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Nijmegen starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Nijmegen zit?",
@@ -623,7 +623,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -650,7 +650,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Arnhem?",
-          "a": "Voor ondernemers in Arnhem hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Arnhem hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Arnhem zit?",
@@ -686,7 +686,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -709,7 +709,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Apeldoorn?",
-          "a": "Een website laten bouwen in Apeldoorn kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Apeldoorn kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Apeldoorn zit?",
@@ -768,7 +768,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Haarlem?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Haarlem zit?",
@@ -827,7 +827,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Amersfoort?",
-          "a": "De kosten van een website in Amersfoort starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Amersfoort starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Amersfoort zit?",
@@ -886,7 +886,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zaanstad?",
-          "a": "Voor ondernemers in Zaanstad hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Zaanstad hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zaanstad zit?",
@@ -945,7 +945,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Enschede?",
-          "a": "Een website laten bouwen in Enschede kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Enschede kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Enschede zit?",
@@ -1004,7 +1004,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Den Bosch?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Den Bosch zit?",
@@ -1036,7 +1036,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1063,7 +1063,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zwolle?",
-          "a": "De kosten van een website in Zwolle starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Zwolle starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zwolle zit?",
@@ -1099,7 +1099,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1122,7 +1122,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zoetermeer?",
-          "a": "Voor ondernemers in Zoetermeer hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Zoetermeer hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zoetermeer zit?",
@@ -1154,7 +1154,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1181,7 +1181,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Leiden?",
-          "a": "Een website laten bouwen in Leiden kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Leiden kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Leiden zit?",
@@ -1240,7 +1240,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Maastricht?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Maastricht zit?",
@@ -1280,7 +1280,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -1299,7 +1299,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Dordrecht?",
-          "a": "De kosten van een website in Dordrecht starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Dordrecht starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Dordrecht zit?",
@@ -1335,7 +1335,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1358,7 +1358,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Ede?",
-          "a": "Voor ondernemers in Ede hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Ede hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Ede zit?",
@@ -1417,7 +1417,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Delft?",
-          "a": "Een website laten bouwen in Delft kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Delft kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Delft zit?",
@@ -1476,7 +1476,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Venlo?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Venlo zit?",
@@ -1535,7 +1535,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Deventer?",
-          "a": "De kosten van een website in Deventer starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Deventer starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Deventer zit?",
@@ -1594,7 +1594,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Westland?",
-          "a": "Voor ondernemers in Westland hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Westland hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Westland zit?",
@@ -1634,7 +1634,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -1653,7 +1653,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Alkmaar?",
-          "a": "Een website laten bouwen in Alkmaar kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Alkmaar kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Alkmaar zit?",
@@ -1712,7 +1712,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Emmen?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Emmen zit?",
@@ -1748,7 +1748,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1771,7 +1771,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Leeuwarden?",
-          "a": "De kosten van een website in Leeuwarden starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Leeuwarden starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Leeuwarden zit?",
