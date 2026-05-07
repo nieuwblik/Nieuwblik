@@ -56,11 +56,11 @@ export const blogPosts: BlogPost[] = [
     date: "2026-05-07",
     readingTime: 4,
     content: {
-      nl: `Soms vallen de belangrijkste beslissingen niet in een vergaderzaal, maar gewoon op de bank bij een vriend thuis. Drie weken voor de **Hengelo Straatrace** zaten we bij **Kevin Mos** thuis toen het ter sprake kwam. Kevin moest en zal mee doen aan deze bizarre roadrace.
+      nl: `Soms vallen de belangrijkste beslissingen niet in een vergaderzaal, maar gewoon bij een vriend thuis. Drie weken voor de **Hengelo Straatrace** kwam het ter sprake bij **Kevin Mos**: hij moest en zou meedoen aan deze bizarre roadrace.
 
-## Op de bank bij Kevin, drie weken voor de race
+## Geen twijfel, gewoon doen
 
-Kevin is een goede vriend. Justin en hij zien elkaar twee, soms drie keer per week. Dus toen het tijdens een avondje op de bank langskwam, twijfelde Justin geen moment. Geregeld, klaar, jij gaat racen dat weekend.
+Kevin is een goede vriend. Justin en hij zien elkaar twee, soms drie keer per week. Toen het langskwam, twijfelde Justin geen moment. Geregeld, klaar, jij gaat racen dat weekend.
 
 We konden niks anders doen dan hem sponsoren, zodat hij toch die race kon rijden.
 
