@@ -456,7 +456,7 @@ const WebsiteOpMaat = () => {
             className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}>
             
-            Laten we samen de scope bepalen en een offerte op maat maken. Websites vanaf €497 - binnen een week live.
+            Laten we samen de scope bepalen en een offerte op maat maken. Websites vanaf €990 - binnen een week live.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
