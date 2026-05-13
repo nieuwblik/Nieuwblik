@@ -1,0 +1,26 @@
+# Nieuwblik
+
+> Webdesign bureau uit Enkhuizen, West-Friesland. Wij bouwen snelle, conversiegerichte websites en webshops voor het MKB, met persoonlijk contact en een AI gedreven aanpak.
+
+Nieuwblik combineert strak design, sterke teksten en moderne technologie. We werken voor ondernemers door heel Nederland, met focus op West-Friesland en Noord-Holland. Pakketten starten vanaf 990 euro en de meeste sites staan binnen 1 tot 6 weken live.
+
+## Pages
+
+- [Home](/): Webdesign bureau Enkhuizen, websites en webshops op maat.
+- [Diensten](/diensten): Overzicht van alle diensten, van website tot SEO.
+- [Website op maat](/diensten/website-op-maat): Maatwerk websites voor MKB.
+- [Webshops](/diensten/webshops): Webshops met Shopify en Stripe.
+- [E-commerce](/diensten/ecommerce): E-commerce oplossingen en strategie.
+- [Portfolio](/portfolio): Recente projecten en cases.
+- [Over ons](/over-ons): Verhaal en team achter Nieuwblik.
+- [Reviews](/reviews): Wat klanten zeggen over onze samenwerking.
+- [Blog](/blog): Artikelen over webdesign, SEO en online groei.
+- [Werkgebied](/werkgebied): Steden en regio's waar wij actief zijn.
+- [Contact](/contact): Plan een gratis kennismaking.
+- [Start je project](/start-je-project): Direct een project aanvragen.
+
+## Optional
+
+- [Privacy](/privacy): Privacyverklaring.
+- [Cookies](/cookies): Cookiebeleid.
+- [Algemene voorwaarden](/algemene-voorwaarden): Voorwaarden.

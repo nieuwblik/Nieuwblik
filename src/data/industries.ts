@@ -22,7 +22,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "kapper",
     "name": "Kapper",
-    "title": "Website Laten Maken voor een Kapper | Nieuwblik · AI Gedreven Webdesign",
+    "title": "Website voor Kapper | AI Webdesign - Nieuwblik",
     "metaDescription": "Website laten maken voor een kapper? Nieuwblik bouwt sites die nieuwe klanten aantrekken en jouw vakmanschap laten zien. Vraag offerte aan.",
     "h1": "Een professionele website laten maken als kapper",
     "heroSubtitle": "Een kapper heeft te maken met veel concurrentie in de buurt. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -68,7 +68,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een kapper bij Nieuwblik?",
-          "a": "Een professionele website voor een kapper begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een kapper begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een kapper?",
@@ -89,7 +89,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "restaurant",
     "name": "Restaurant",
-    "title": "Website Laten Maken voor een Restaurant | Nieuwblik · Snel Resultaat Online",
+    "title": "Website voor Restaurant | Snel Live - Nieuwblik",
     "metaDescription": "Een restaurant verdient een sterke website. Nieuwblik combineert design en strategie voor meer aanvragen en omzet. Plan een kennismaking.",
     "h1": "Website laten maken voor jouw restaurant of bedrijf",
     "heroSubtitle": "Een restaurant heeft te maken met gasten verwachten een sfeervolle online beleving. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -139,7 +139,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een restaurant bij Nieuwblik?",
-          "a": "Voor een restaurant hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een restaurant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een restaurant?",
@@ -160,7 +160,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "bouwbedrijf",
     "name": "Bouwbedrijf",
-    "title": "Website Laten Maken voor een Bouwbedrijf | Nieuwblik · Conversiegericht Design",
+    "title": "Website voor Bouwbedrijf | Conversie - Nieuwblik",
     "metaDescription": "Op zoek naar webdesign voor jouw bouwbedrijf? Wij maken websites die opvallen in Google en bezoekers omzetten in klanten. Start vandaag.",
     "h1": "Meer klanten via een sterke website voor jouw bouwbedrijf",
     "heroSubtitle": "Een bouwbedrijf heeft te maken met vertrouwen wekken voor grote opdrachten. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -210,7 +210,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een bouwbedrijf bij Nieuwblik?",
-          "a": "De prijs van een website voor een bouwbedrijf hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een bouwbedrijf hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een bouwbedrijf?",
@@ -231,7 +231,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "schoonheidssalon",
     "name": "Schoonheidssalon",
-    "title": "Website Laten Maken voor een Schoonheidssalon | Nieuwblik · Lokaal & Vakkundig",
+    "title": "Website voor Schoonheidssalon | Lokaal MKB - Nieuwblik",
     "metaDescription": "Professionele website voor een schoonheidssalon laten bouwen? Nieuwblik helpt MKB groeien met conversiegerichte sites. Vraag direct meer info aan.",
     "h1": "Website laten maken die nieuwe klanten aantrekt voor jouw schoonheidssalon",
     "heroSubtitle": "Een schoonheidssalon heeft te maken met behandelingen visueel sterk presenteren. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -302,7 +302,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "fysiotherapeut",
     "name": "Fysiotherapeut",
-    "title": "Website Laten Maken voor een Fysiotherapeut | Nieuwblik · Mobielvriendelijk MKB",
+    "title": "Website voor Fysiotherapeut | Mobiel - Nieuwblik",
     "metaDescription": "Meer klanten voor jouw fysiotherapeut via een sterke website. Nieuwblik bouwt snel, slim en betaalbaar. Bekijk wat wij voor jou kunnen doen.",
     "h1": "Modern webdesign voor de fysiotherapeut branche",
     "heroSubtitle": "Een fysiotherapeut heeft te maken met vertrouwen en deskundigheid uitstralen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -352,7 +352,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een fysiotherapeut bij Nieuwblik?",
-          "a": "Een professionele website voor een fysiotherapeut begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een fysiotherapeut begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een fysiotherapeut?",
@@ -373,7 +373,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "accountant",
     "name": "Accountant",
-    "title": "Website Laten Maken voor een Accountant | Nieuwblik · Strategisch & Sterk",
+    "title": "Website voor Accountant | Strategisch - Nieuwblik",
     "metaDescription": "Een nieuwe website voor jouw accountant? Strategisch ontwerp, sterke teksten en goede vindbaarheid. Plan een vrijblijvend gesprek met ons.",
     "h1": "Laat jouw accountant groeien met een nieuwe website",
     "heroSubtitle": "Een accountant heeft te maken met ingewikkelde diensten begrijpelijk uitleggen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -423,7 +423,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een accountant bij Nieuwblik?",
-          "a": "Voor een accountant hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een accountant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een accountant?",
@@ -444,7 +444,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "makelaar",
     "name": "Makelaar",
-    "title": "Website Laten Maken voor een Makelaar | Nieuwblik · Slim Online Groeien",
+    "title": "Website voor Makelaar | Online Groei - Nieuwblik",
     "metaDescription": "Makelaar en je website is verouderd? Nieuwblik bouwt moderne sites die werken op alle apparaten en klanten overtuigen. Vraag een offerte aan.",
     "h1": "Een website die past bij jouw werk als makelaar",
     "heroSubtitle": "Een makelaar heeft te maken met snel en visueel woningaanbod tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -494,7 +494,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een makelaar bij Nieuwblik?",
-          "a": "De prijs van een website voor een makelaar hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een makelaar hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een makelaar?",
@@ -515,7 +515,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "tandarts",
     "name": "Tandarts",
-    "title": "Website Laten Maken voor een Tandarts | Nieuwblik · Professioneel & Snel Live",
+    "title": "Website voor Tandarts | Snel & Pro - Nieuwblik",
     "metaDescription": "Jouw tandarts online laten groeien? Nieuwblik bouwt websites die jouw aanbod helder presenteren en bezoekers activeren. Bel of mail ons.",
     "h1": "Website ontwerpen voor de moderne tandarts",
     "heroSubtitle": "Een tandarts heeft te maken met drempel verlagen voor nieuwe patiënten. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -586,7 +586,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "personal-trainer",
     "name": "Personal trainer",
-    "title": "Website Laten Maken voor een Personal trainer | Nieuwblik · Modern Webdesign voor MKB",
+    "title": "Website voor Personal trainer | Modern MKB - Nieuwblik",
     "metaDescription": "Webdesign op maat voor een personal trainer. Nieuwblik koppelt creativiteit aan slimme technologie voor zichtbaar resultaat. Ontdek de aanpak.",
     "h1": "Bouw een sterk online merk als personal trainer",
     "heroSubtitle": "Een personal trainer heeft te maken met jezelf onderscheiden in een drukke fitnesswereld. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -636,7 +636,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een personal trainer bij Nieuwblik?",
-          "a": "Een professionele website voor een personal trainer begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een personal trainer begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een personal trainer?",
@@ -657,7 +657,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "advocaat",
     "name": "Advocaat",
-    "title": "Website Laten Maken voor een Advocaat | Nieuwblik · Betaalbaar & Persoonlijk",
+    "title": "Website voor Advocaat | Betaalbaar - Nieuwblik",
     "metaDescription": "Website laten ontwerpen voor jouw advocaat? Nieuwblik werkt persoonlijk, snel en transparant. Klaar voor groei? Plan een kennismaking.",
     "h1": "Online groeien als advocaat, begin hier",
     "heroSubtitle": "Een advocaat heeft te maken met expertise en betrouwbaarheid laten zien. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -707,7 +707,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een advocaat bij Nieuwblik?",
-          "a": "Voor een advocaat hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een advocaat hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een advocaat?",
@@ -728,7 +728,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "interieurontwerper",
     "name": "Interieurontwerper",
-    "title": "Website Laten Maken voor een Interieurontwerper | Nieuwblik · AI Gedreven Webdesign",
+    "title": "Website voor Interieurontwerper | AI Webdesign - Nieuwblik",
     "metaDescription": "Website laten maken voor een interieurontwerper? Nieuwblik bouwt sites die nieuwe klanten aantrekken en jouw vakmanschap laten zien. Vraag offerte aan.",
     "h1": "Een professionele website laten maken als interieurontwerper",
     "heroSubtitle": "Een interieurontwerper heeft te maken met stijl en visie visueel overbrengen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -778,7 +778,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een interieurontwerper bij Nieuwblik?",
-          "a": "De prijs van een website voor een interieurontwerper hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een interieurontwerper hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een interieurontwerper?",
@@ -799,7 +799,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "fotograaf",
     "name": "Fotograaf",
-    "title": "Website Laten Maken voor een Fotograaf | Nieuwblik · Snel Resultaat Online",
+    "title": "Website voor Fotograaf | Snel Live - Nieuwblik",
     "metaDescription": "Een fotograaf verdient een sterke website. Nieuwblik combineert design en strategie voor meer aanvragen en omzet. Plan een kennismaking.",
     "h1": "Website laten maken voor jouw fotograaf of bedrijf",
     "heroSubtitle": "Een fotograaf heeft te maken met portfolio op zijn best presenteren. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -870,7 +870,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "schilder",
     "name": "Schilder",
-    "title": "Website Laten Maken voor een Schilder | Nieuwblik · Conversiegericht Design",
+    "title": "Website voor Schilder | Conversie - Nieuwblik",
     "metaDescription": "Op zoek naar webdesign voor jouw schilder? Wij maken websites die opvallen in Google en bezoekers omzetten in klanten. Start vandaag.",
     "h1": "Meer klanten via een sterke website voor jouw schilder",
     "heroSubtitle": "Een schilder heeft te maken met lokaal goed vindbaar zijn voor klussen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -920,7 +920,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een schilder bij Nieuwblik?",
-          "a": "Een professionele website voor een schilder begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een schilder begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een schilder?",
@@ -941,7 +941,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "loodgieter",
     "name": "Loodgieter",
-    "title": "Website Laten Maken voor een Loodgieter | Nieuwblik · Lokaal & Vakkundig",
+    "title": "Website voor Loodgieter | Lokaal MKB - Nieuwblik",
     "metaDescription": "Professionele website voor een loodgieter laten bouwen? Nieuwblik helpt MKB groeien met conversiegerichte sites. Vraag direct meer info aan.",
     "h1": "Website laten maken die nieuwe klanten aantrekt voor jouw loodgieter",
     "heroSubtitle": "Een loodgieter heeft te maken met snel gevonden worden bij spoedklussen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -991,7 +991,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een loodgieter bij Nieuwblik?",
-          "a": "Voor een loodgieter hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een loodgieter hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een loodgieter?",
@@ -1012,7 +1012,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "elektricien",
     "name": "Elektricien",
-    "title": "Website Laten Maken voor een Elektricien | Nieuwblik · Mobielvriendelijk MKB",
+    "title": "Website voor Elektricien | Mobiel - Nieuwblik",
     "metaDescription": "Meer klanten voor jouw elektricien via een sterke website. Nieuwblik bouwt snel, slim en betaalbaar. Bekijk wat wij voor jou kunnen doen.",
     "h1": "Modern webdesign voor de elektricien branche",
     "heroSubtitle": "Een elektricien heeft te maken met vertrouwen wekken bij particulier en zakelijk. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1062,7 +1062,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een elektricien bij Nieuwblik?",
-          "a": "De prijs van een website voor een elektricien hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een elektricien hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een elektricien?",
@@ -1083,7 +1083,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "coach",
     "name": "Coach",
-    "title": "Website Laten Maken voor een Coach | Nieuwblik · Strategisch & Sterk",
+    "title": "Website voor Coach | Strategisch - Nieuwblik",
     "metaDescription": "Een nieuwe website voor jouw coach? Strategisch ontwerp, sterke teksten en goede vindbaarheid. Plan een vrijblijvend gesprek met ons.",
     "h1": "Laat jouw coach groeien met een nieuwe website",
     "heroSubtitle": "Een coach heeft te maken met persoonlijkheid en aanpak laten doorklinken. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1154,7 +1154,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "therapeut",
     "name": "Therapeut",
-    "title": "Website Laten Maken voor een Therapeut | Nieuwblik · Slim Online Groeien",
+    "title": "Website voor Therapeut | Online Groei - Nieuwblik",
     "metaDescription": "Therapeut en je website is verouderd? Nieuwblik bouwt moderne sites die werken op alle apparaten en klanten overtuigen. Vraag een offerte aan.",
     "h1": "Een website die past bij jouw werk als therapeut",
     "heroSubtitle": "Een therapeut heeft te maken met veilige en duidelijke uitstraling creëren. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1204,7 +1204,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een therapeut bij Nieuwblik?",
-          "a": "Een professionele website voor een therapeut begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een therapeut begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een therapeut?",
@@ -1225,7 +1225,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "horecabedrijf",
     "name": "Horecabedrijf",
-    "title": "Website Laten Maken voor een Horecabedrijf | Nieuwblik · Professioneel & Snel Live",
+    "title": "Website voor Horecabedrijf | Snel & Pro - Nieuwblik",
     "metaDescription": "Jouw horecabedrijf online laten groeien? Nieuwblik bouwt websites die jouw aanbod helder presenteren en bezoekers activeren. Bel of mail ons.",
     "h1": "Website ontwerpen voor de moderne horecabedrijf",
     "heroSubtitle": "Een horecabedrijf heeft te maken met sfeer en aanbod overbrengen aan nieuwe gasten. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1275,7 +1275,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een horecabedrijf bij Nieuwblik?",
-          "a": "Voor een horecabedrijf hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een horecabedrijf hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een horecabedrijf?",
@@ -1296,7 +1296,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "autogarage",
     "name": "Autogarage",
-    "title": "Website Laten Maken voor een Autogarage | Nieuwblik · Modern Webdesign voor MKB",
+    "title": "Website voor Autogarage | Modern MKB - Nieuwblik",
     "metaDescription": "Webdesign op maat voor een autogarage. Nieuwblik koppelt creativiteit aan slimme technologie voor zichtbaar resultaat. Ontdek de aanpak.",
     "h1": "Bouw een sterk online merk als autogarage",
     "heroSubtitle": "Een autogarage heeft te maken met vertrouwen wekken voor onderhoud en reparatie. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1346,7 +1346,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een autogarage bij Nieuwblik?",
-          "a": "De prijs van een website voor een autogarage hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een autogarage hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een autogarage?",
@@ -1367,7 +1367,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "bloemist",
     "name": "Bloemist",
-    "title": "Website Laten Maken voor een Bloemist | Nieuwblik · Betaalbaar & Persoonlijk",
+    "title": "Website voor Bloemist | Betaalbaar - Nieuwblik",
     "metaDescription": "Website laten ontwerpen voor jouw bloemist? Nieuwblik werkt persoonlijk, snel en transparant. Klaar voor groei? Plan een kennismaking.",
     "h1": "Online groeien als bloemist, begin hier",
     "heroSubtitle": "Een bloemist heeft te maken met creaties en bezorging visueel sterk tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1438,7 +1438,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "tuinman",
     "name": "Tuinman",
-    "title": "Website Laten Maken voor een Tuinman | Nieuwblik · AI Gedreven Webdesign",
+    "title": "Website voor Tuinman | AI Webdesign - Nieuwblik",
     "metaDescription": "Website laten maken voor een tuinman? Nieuwblik bouwt sites die nieuwe klanten aantrekken en jouw vakmanschap laten zien. Vraag offerte aan.",
     "h1": "Een professionele website laten maken als tuinman",
     "heroSubtitle": "Een tuinman heeft te maken met kwaliteit van het werk laten zien. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1488,7 +1488,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een tuinman bij Nieuwblik?",
-          "a": "Een professionele website voor een tuinman begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een tuinman begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een tuinman?",
@@ -1509,7 +1509,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "kinderopvang",
     "name": "Kinderopvang",
-    "title": "Website Laten Maken voor een Kinderopvang | Nieuwblik · Snel Resultaat Online",
+    "title": "Website voor Kinderopvang | Snel Live - Nieuwblik",
     "metaDescription": "Een kinderopvang verdient een sterke website. Nieuwblik combineert design en strategie voor meer aanvragen en omzet. Plan een kennismaking.",
     "h1": "Website laten maken voor jouw kinderopvang of bedrijf",
     "heroSubtitle": "Een kinderopvang heeft te maken met vertrouwen wekken bij ouders. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1559,7 +1559,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een kinderopvang bij Nieuwblik?",
-          "a": "Voor een kinderopvang hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een kinderopvang hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een kinderopvang?",
@@ -1580,7 +1580,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "sportschool",
     "name": "Sportschool",
-    "title": "Website Laten Maken voor een Sportschool | Nieuwblik · Conversiegericht Design",
+    "title": "Website voor Sportschool | Conversie - Nieuwblik",
     "metaDescription": "Op zoek naar webdesign voor jouw sportschool? Wij maken websites die opvallen in Google en bezoekers omzetten in klanten. Start vandaag.",
     "h1": "Meer klanten via een sterke website voor jouw sportschool",
     "heroSubtitle": "Een sportschool heeft te maken met drempel verlagen voor nieuwe leden. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1630,7 +1630,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een sportschool bij Nieuwblik?",
-          "a": "De prijs van een website voor een sportschool hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een sportschool hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een sportschool?",
@@ -1651,7 +1651,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "boekhouder",
     "name": "Boekhouder",
-    "title": "Website Laten Maken voor een Boekhouder | Nieuwblik · Lokaal & Vakkundig",
+    "title": "Website voor Boekhouder | Lokaal MKB - Nieuwblik",
     "metaDescription": "Professionele website voor een boekhouder laten bouwen? Nieuwblik helpt MKB groeien met conversiegerichte sites. Vraag direct meer info aan.",
     "h1": "Website laten maken die nieuwe klanten aantrekt voor jouw boekhouder",
     "heroSubtitle": "Een boekhouder heeft te maken met ZZP en MKB aanspreken in eigen taal. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1722,7 +1722,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "architect",
     "name": "Architect",
-    "title": "Website Laten Maken voor een Architect | Nieuwblik · Mobielvriendelijk MKB",
+    "title": "Website voor Architect | Mobiel - Nieuwblik",
     "metaDescription": "Meer klanten voor jouw architect via een sterke website. Nieuwblik bouwt snel, slim en betaalbaar. Bekijk wat wij voor jou kunnen doen.",
     "h1": "Modern webdesign voor de architect branche",
     "heroSubtitle": "Een architect heeft te maken met ontwerpvisie en projecten visueel tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1772,7 +1772,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een architect bij Nieuwblik?",
-          "a": "Een professionele website voor een architect begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een architect begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een architect?",
@@ -1793,7 +1793,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "verzekeringsadviseur",
     "name": "Verzekeringsadviseur",
-    "title": "Website Laten Maken voor een Verzekeringsadviseur | Nieuwblik · Strategisch & Sterk",
+    "title": "Website voor Verzekeringsadviseur | Strategisch - Nieuwblik",
     "metaDescription": "Een nieuwe website voor jouw verzekeringsadviseur? Strategisch ontwerp, sterke teksten en goede vindbaarheid. Plan een vrijblijvend gesprek met ons.",
     "h1": "Laat jouw verzekeringsadviseur groeien met een nieuwe website",
     "heroSubtitle": "Een verzekeringsadviseur heeft te maken met complexe materie eenvoudig uitleggen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1843,7 +1843,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een verzekeringsadviseur bij Nieuwblik?",
-          "a": "Voor een verzekeringsadviseur hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een verzekeringsadviseur hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een verzekeringsadviseur?",
@@ -1864,7 +1864,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "dierenarts",
     "name": "Dierenarts",
-    "title": "Website Laten Maken voor een Dierenarts | Nieuwblik · Slim Online Groeien",
+    "title": "Website voor Dierenarts | Online Groei - Nieuwblik",
     "metaDescription": "Dierenarts en je website is verouderd? Nieuwblik bouwt moderne sites die werken op alle apparaten en klanten overtuigen. Vraag een offerte aan.",
     "h1": "Een website die past bij jouw werk als dierenarts",
     "heroSubtitle": "Een dierenarts heeft te maken met warm en deskundig overkomen op baasjes. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -1914,7 +1914,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een dierenarts bij Nieuwblik?",
-          "a": "De prijs van een website voor een dierenarts hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een dierenarts hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een dierenarts?",
@@ -1935,7 +1935,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "evenementenbureau",
     "name": "Evenementenbureau",
-    "title": "Website Laten Maken voor een Evenementenbureau | Nieuwblik · Professioneel & Snel Live",
+    "title": "Website voor Evenementenbureau | Snel & Pro - Nieuwblik",
     "metaDescription": "Jouw evenementenbureau online laten groeien? Nieuwblik bouwt websites die jouw aanbod helder presenteren en bezoekers activeren. Bel of mail ons.",
     "h1": "Website ontwerpen voor de moderne evenementenbureau",
     "heroSubtitle": "Een evenementenbureau heeft te maken met creativiteit en organisatie tegelijk laten zien. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -2006,7 +2006,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "reclamebureau",
     "name": "Reclamebureau",
-    "title": "Website Laten Maken voor een Reclamebureau | Nieuwblik · Modern Webdesign voor MKB",
+    "title": "Website voor Reclamebureau | Modern MKB - Nieuwblik",
     "metaDescription": "Webdesign op maat voor een reclamebureau. Nieuwblik koppelt creativiteit aan slimme technologie voor zichtbaar resultaat. Ontdek de aanpak.",
     "h1": "Bouw een sterk online merk als reclamebureau",
     "heroSubtitle": "Een reclamebureau heeft te maken met eigen werk net zo sterk presenteren als dat van klanten. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -2056,7 +2056,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een reclamebureau bij Nieuwblik?",
-          "a": "Een professionele website voor een reclamebureau begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een reclamebureau begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een reclamebureau?",
@@ -2077,7 +2077,7 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "reinigingsbedrijf",
     "name": "Reinigingsbedrijf",
-    "title": "Website Laten Maken voor een Reinigingsbedrijf | Nieuwblik · Betaalbaar & Persoonlijk",
+    "title": "Website voor Reinigingsbedrijf | Betaalbaar - Nieuwblik",
     "metaDescription": "Website laten ontwerpen voor jouw reinigingsbedrijf? Nieuwblik werkt persoonlijk, snel en transparant. Klaar voor groei? Plan een kennismaking.",
     "h1": "Online groeien als reinigingsbedrijf, begin hier",
     "heroSubtitle": "Een reinigingsbedrijf heeft te maken met betrouwbaarheid en gemak uitstralen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
@@ -2127,7 +2127,7 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een reinigingsbedrijf bij Nieuwblik?",
-          "a": "Voor een reinigingsbedrijf hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een reinigingsbedrijf hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een reinigingsbedrijf?",
