@@ -399,7 +399,7 @@ const cityRecord = (c, i) => {
 };
 
 const industryRecord = (b, i) => {
-  const title = titlePatterns[(i + 3) % titlePatterns.length](`voor een ${b.name}`);
+  const title = industryTitlePatterns[(i + 3) % industryTitlePatterns.length](b.name);
   const meta = industryMetaPatterns[i % industryMetaPatterns.length](b.name);
   const h1 = industryH1Patterns[i % industryH1Patterns.length](b.name);
   const heroSubtitle = `Een ${b.name.toLowerCase()} heeft te maken met ${b.challenge}. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.`;
