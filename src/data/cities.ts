@@ -22,7 +22,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "amsterdam",
     "name": "Amsterdam",
-    "title": "Website Laten Maken Amsterdam | Nieuwblik · Professioneel & Snel Live",
+    "title": "Website Laten Maken Amsterdam | Snel & Pro - Nieuwblik",
     "metaDescription": "Website laten maken in Amsterdam? Nieuwblik bouwt snelle, conversiegerichte sites voor MKB. Persoonlijk contact en moderne aanpak. Vraag offerte aan.",
     "h1": "Website laten maken in Amsterdam die klanten oplevert",
     "heroSubtitle": "Ondernemen in Amsterdam betekent werken in een dynamische en internationale markt. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -60,7 +60,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Amsterdam?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Amsterdam zit?",
@@ -81,7 +81,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "rotterdam",
     "name": "Rotterdam",
-    "title": "Website Laten Maken Rotterdam | Nieuwblik · Modern Webdesign voor MKB",
+    "title": "Website Laten Maken Rotterdam | Modern MKB - Nieuwblik",
     "metaDescription": "Op zoek naar webdesign in Rotterdam? Nieuwblik levert betaalbare websites die scoren in Google en bezoekers omzetten in klanten. Plan een kennismaking.",
     "h1": "Professionele website laten maken in Rotterdam",
     "heroSubtitle": "Ondernemen in Rotterdam betekent werken in een no-nonsense ondernemersklimaat. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -96,7 +96,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -119,7 +119,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Rotterdam?",
-          "a": "De kosten van een website in Rotterdam starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Rotterdam starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Rotterdam zit?",
@@ -140,7 +140,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "den-haag",
     "name": "Den Haag",
-    "title": "Website Laten Maken Den Haag | Nieuwblik · Betaalbaar & Persoonlijk",
+    "title": "Website Laten Maken Den Haag | Betaalbaar - Nieuwblik",
     "metaDescription": "Een professionele website laten bouwen in Den Haag? Wij combineren strakke designs met AI gedreven ontwikkeling voor snel resultaat. Bekijk hoe.",
     "h1": "Website laten maken in Den Haag voor jouw bedrijf",
     "heroSubtitle": "Ondernemen in Den Haag betekent werken in een formele en internationale doelgroep. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -178,7 +178,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Den Haag?",
-          "a": "Voor ondernemers in Den Haag hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Den Haag hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Den Haag zit?",
@@ -199,7 +199,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "utrecht",
     "name": "Utrecht",
-    "title": "Website Laten Maken Utrecht | Nieuwblik · AI Gedreven Webdesign",
+    "title": "Website Laten Maken Utrecht | AI Webdesign - Nieuwblik",
     "metaDescription": "Website nodig voor jouw bedrijf in Utrecht? Nieuwblik werkt voor MKB door heel Nederland met snelle oplevering en duidelijke prijzen. Start vandaag.",
     "h1": "Jouw bedrijfswebsite laten maken in Utrecht",
     "heroSubtitle": "Ondernemen in Utrecht betekent werken in een sterk groeiende dienstensector. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -237,7 +237,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Utrecht?",
-          "a": "Een website laten bouwen in Utrecht kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Utrecht kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Utrecht zit?",
@@ -258,7 +258,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "eindhoven",
     "name": "Eindhoven",
-    "title": "Website Laten Maken Eindhoven | Nieuwblik · Snel Resultaat Online",
+    "title": "Website Laten Maken Eindhoven | Snel Live - Nieuwblik",
     "metaDescription": "Webdesign bureau voor ondernemers in Eindhoven. Strategisch ontwerp, sterke teksten en goede vindbaarheid in één pakket. Ontdek wat wij doen.",
     "h1": "Modern webdesign voor ondernemers in Eindhoven",
     "heroSubtitle": "Ondernemen in Eindhoven betekent werken in een innovatief MKB landschap. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -273,7 +273,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -296,7 +296,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Eindhoven?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Eindhoven zit?",
@@ -317,7 +317,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "groningen",
     "name": "Groningen",
-    "title": "Website Laten Maken Groningen | Nieuwblik · Conversiegericht Design",
+    "title": "Website Laten Maken Groningen | Conversie - Nieuwblik",
     "metaDescription": "Wil je een nieuwe website in Groningen die echt werkt? Nieuwblik bouwt sites die opvallen, klanten aantrekken en jouw merk groter maken. Bel ons.",
     "h1": "Website bouwen in Groningen, snel en betaalbaar",
     "heroSubtitle": "Ondernemen in Groningen betekent werken in een levendige startersmarkt. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -355,7 +355,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Groningen?",
-          "a": "De kosten van een website in Groningen starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Groningen starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Groningen zit?",
@@ -376,7 +376,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "tilburg",
     "name": "Tilburg",
-    "title": "Website Laten Maken Tilburg | Nieuwblik · Lokaal & Vakkundig",
+    "title": "Website Laten Maken Tilburg | Lokaal MKB - Nieuwblik",
     "metaDescription": "Moderne websites laten ontwikkelen in Tilburg. Persoonlijke aanpak, scherpe prijzen en focus op meetbaar resultaat. Vraag een gratis offerte aan.",
     "h1": "Sterke websites laten ontwerpen in Tilburg",
     "heroSubtitle": "Ondernemen in Tilburg betekent werken in een groeiend zakelijk netwerk. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -387,7 +387,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -414,7 +414,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Tilburg?",
-          "a": "Voor ondernemers in Tilburg hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Tilburg hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Tilburg zit?",
@@ -435,7 +435,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "almere",
     "name": "Almere",
-    "title": "Website Laten Maken Almere | Nieuwblik · Mobielvriendelijk MKB",
+    "title": "Website Laten Maken Almere | Mobiel - Nieuwblik",
     "metaDescription": "Website laten ontwerpen in Almere? Nieuwblik koppelt creatief design aan slimme technologie zodat jouw bedrijf online opvalt. Plan je gesprek nu.",
     "h1": "Online opvallen als ondernemer in Almere",
     "heroSubtitle": "Ondernemen in Almere betekent werken in een snel uitbreidend ondernemerslandschap. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -450,7 +450,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -473,7 +473,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Almere?",
-          "a": "Een website laten bouwen in Almere kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Almere kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Almere zit?",
@@ -494,7 +494,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "breda",
     "name": "Breda",
-    "title": "Website Laten Maken Breda | Nieuwblik · Strategisch & Sterk",
+    "title": "Website Laten Maken Breda | Strategisch - Nieuwblik",
     "metaDescription": "Krachtige websites voor MKB ondernemers in Breda. Snel live, mobielvriendelijk en gebouwd voor groei. Ontdek de aanpak van Nieuwblik vandaag.",
     "h1": "Een nieuwe website laten maken in Breda",
     "heroSubtitle": "Ondernemen in Breda betekent werken in een sterke MKB sector. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -532,7 +532,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Breda?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Breda zit?",
@@ -553,7 +553,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "nijmegen",
     "name": "Nijmegen",
-    "title": "Website Laten Maken Nijmegen | Nieuwblik · Slim Online Groeien",
+    "title": "Website Laten Maken Nijmegen | Online Groei - Nieuwblik",
     "metaDescription": "Een website die past bij jouw bedrijf in Nijmegen? Nieuwblik bouwt op maat, met strategie en oog voor detail. Vraag direct een offerte aan.",
     "h1": "Website op maat voor MKB in Nijmegen",
     "heroSubtitle": "Ondernemen in Nijmegen betekent werken in een mix van traditie en innovatie. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -572,7 +572,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -591,7 +591,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Nijmegen?",
-          "a": "De kosten van een website in Nijmegen starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Nijmegen starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Nijmegen zit?",
@@ -612,7 +612,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "arnhem",
     "name": "Arnhem",
-    "title": "Website Laten Maken Arnhem | Nieuwblik · Professioneel & Snel Live",
+    "title": "Website Laten Maken Arnhem | Snel & Pro - Nieuwblik",
     "metaDescription": "Website laten maken in Arnhem? Nieuwblik bouwt snelle, conversiegerichte sites voor MKB. Persoonlijk contact en moderne aanpak. Vraag offerte aan.",
     "h1": "Website laten maken in Arnhem die klanten oplevert",
     "heroSubtitle": "Ondernemen in Arnhem betekent werken in een veelzijdige creatieve sector. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -623,7 +623,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -650,7 +650,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Arnhem?",
-          "a": "Voor ondernemers in Arnhem hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Arnhem hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Arnhem zit?",
@@ -671,7 +671,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "apeldoorn",
     "name": "Apeldoorn",
-    "title": "Website Laten Maken Apeldoorn | Nieuwblik · Modern Webdesign voor MKB",
+    "title": "Website Laten Maken Apeldoorn | Modern MKB - Nieuwblik",
     "metaDescription": "Op zoek naar webdesign in Apeldoorn? Nieuwblik levert betaalbare websites die scoren in Google en bezoekers omzetten in klanten. Plan een kennismaking.",
     "h1": "Professionele website laten maken in Apeldoorn",
     "heroSubtitle": "Ondernemen in Apeldoorn betekent werken in een degelijk familiegericht ondernemersklimaat. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -686,7 +686,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -709,7 +709,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Apeldoorn?",
-          "a": "Een website laten bouwen in Apeldoorn kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Apeldoorn kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Apeldoorn zit?",
@@ -730,7 +730,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "haarlem",
     "name": "Haarlem",
-    "title": "Website Laten Maken Haarlem | Nieuwblik · Betaalbaar & Persoonlijk",
+    "title": "Website Laten Maken Haarlem | Betaalbaar - Nieuwblik",
     "metaDescription": "Een professionele website laten bouwen in Haarlem? Wij combineren strakke designs met AI gedreven ontwikkeling voor snel resultaat. Bekijk hoe.",
     "h1": "Website laten maken in Haarlem voor jouw bedrijf",
     "heroSubtitle": "Ondernemen in Haarlem betekent werken in een welvarend lokaal MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -768,7 +768,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Haarlem?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Haarlem zit?",
@@ -789,7 +789,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "amersfoort",
     "name": "Amersfoort",
-    "title": "Website Laten Maken Amersfoort | Nieuwblik · AI Gedreven Webdesign",
+    "title": "Website Laten Maken Amersfoort | AI Webdesign - Nieuwblik",
     "metaDescription": "Website nodig voor jouw bedrijf in Amersfoort? Nieuwblik werkt voor MKB door heel Nederland met snelle oplevering en duidelijke prijzen. Start vandaag.",
     "h1": "Jouw bedrijfswebsite laten maken in Amersfoort",
     "heroSubtitle": "Ondernemen in Amersfoort betekent werken in een diverse zakelijke markt. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -827,7 +827,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Amersfoort?",
-          "a": "De kosten van een website in Amersfoort starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Amersfoort starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Amersfoort zit?",
@@ -848,7 +848,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "zaanstad",
     "name": "Zaanstad",
-    "title": "Website Laten Maken Zaanstad | Nieuwblik · Snel Resultaat Online",
+    "title": "Website Laten Maken Zaanstad | Snel Live - Nieuwblik",
     "metaDescription": "Webdesign bureau voor ondernemers in Zaanstad. Strategisch ontwerp, sterke teksten en goede vindbaarheid in één pakket. Ontdek wat wij doen.",
     "h1": "Modern webdesign voor ondernemers in Zaanstad",
     "heroSubtitle": "Ondernemen in Zaanstad betekent werken in een bedrijvige regio met veel familiebedrijven. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -886,7 +886,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zaanstad?",
-          "a": "Voor ondernemers in Zaanstad hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Zaanstad hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zaanstad zit?",
@@ -907,7 +907,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "enschede",
     "name": "Enschede",
-    "title": "Website Laten Maken Enschede | Nieuwblik · Conversiegericht Design",
+    "title": "Website Laten Maken Enschede | Conversie - Nieuwblik",
     "metaDescription": "Wil je een nieuwe website in Enschede die echt werkt? Nieuwblik bouwt sites die opvallen, klanten aantrekken en jouw merk groter maken. Bel ons.",
     "h1": "Website bouwen in Enschede, snel en betaalbaar",
     "heroSubtitle": "Ondernemen in Enschede betekent werken in een sterk technisch en creatief MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -945,7 +945,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Enschede?",
-          "a": "Een website laten bouwen in Enschede kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Enschede kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Enschede zit?",
@@ -966,7 +966,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "den-bosch",
     "name": "Den Bosch",
-    "title": "Website Laten Maken Den Bosch | Nieuwblik · Lokaal & Vakkundig",
+    "title": "Website Laten Maken Den Bosch | Lokaal MKB - Nieuwblik",
     "metaDescription": "Moderne websites laten ontwikkelen in Den Bosch. Persoonlijke aanpak, scherpe prijzen en focus op meetbaar resultaat. Vraag een gratis offerte aan.",
     "h1": "Sterke websites laten ontwerpen in Den Bosch",
     "heroSubtitle": "Ondernemen in Den Bosch betekent werken in een gemoedelijke maar ambitieuze ondernemerskring. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1004,7 +1004,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Den Bosch?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Den Bosch zit?",
@@ -1025,7 +1025,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "zwolle",
     "name": "Zwolle",
-    "title": "Website Laten Maken Zwolle | Nieuwblik · Mobielvriendelijk MKB",
+    "title": "Website Laten Maken Zwolle | Mobiel - Nieuwblik",
     "metaDescription": "Website laten ontwerpen in Zwolle? Nieuwblik koppelt creatief design aan slimme technologie zodat jouw bedrijf online opvalt. Plan je gesprek nu.",
     "h1": "Online opvallen als ondernemer in Zwolle",
     "heroSubtitle": "Ondernemen in Zwolle betekent werken in een degelijk groeiend ondernemerslandschap. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1036,7 +1036,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1063,7 +1063,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zwolle?",
-          "a": "De kosten van een website in Zwolle starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Zwolle starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zwolle zit?",
@@ -1084,7 +1084,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "zoetermeer",
     "name": "Zoetermeer",
-    "title": "Website Laten Maken Zoetermeer | Nieuwblik · Strategisch & Sterk",
+    "title": "Website Laten Maken Zoetermeer | Strategisch - Nieuwblik",
     "metaDescription": "Krachtige websites voor MKB ondernemers in Zoetermeer. Snel live, mobielvriendelijk en gebouwd voor groei. Ontdek de aanpak van Nieuwblik vandaag.",
     "h1": "Een nieuwe website laten maken in Zoetermeer",
     "heroSubtitle": "Ondernemen in Zoetermeer betekent werken in een sterke dienstverlenende sector. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1099,7 +1099,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1122,7 +1122,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zoetermeer?",
-          "a": "Voor ondernemers in Zoetermeer hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Zoetermeer hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zoetermeer zit?",
@@ -1143,7 +1143,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "leiden",
     "name": "Leiden",
-    "title": "Website Laten Maken Leiden | Nieuwblik · Slim Online Groeien",
+    "title": "Website Laten Maken Leiden | Online Groei - Nieuwblik",
     "metaDescription": "Een website die past bij jouw bedrijf in Leiden? Nieuwblik bouwt op maat, met strategie en oog voor detail. Vraag direct een offerte aan.",
     "h1": "Website op maat voor MKB in Leiden",
     "heroSubtitle": "Ondernemen in Leiden betekent werken in een hoogopgeleide doelgroep. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1154,7 +1154,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1181,7 +1181,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Leiden?",
-          "a": "Een website laten bouwen in Leiden kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Leiden kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Leiden zit?",
@@ -1202,7 +1202,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "maastricht",
     "name": "Maastricht",
-    "title": "Website Laten Maken Maastricht | Nieuwblik · Professioneel & Snel Live",
+    "title": "Website Laten Maken Maastricht | Snel & Pro - Nieuwblik",
     "metaDescription": "Website laten maken in Maastricht? Nieuwblik bouwt snelle, conversiegerichte sites voor MKB. Persoonlijk contact en moderne aanpak. Vraag offerte aan.",
     "h1": "Website laten maken in Maastricht die klanten oplevert",
     "heroSubtitle": "Ondernemen in Maastricht betekent werken in een internationaal georiënteerd MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1240,7 +1240,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Maastricht?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Maastricht zit?",
@@ -1261,7 +1261,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "dordrecht",
     "name": "Dordrecht",
-    "title": "Website Laten Maken Dordrecht | Nieuwblik · Modern Webdesign voor MKB",
+    "title": "Website Laten Maken Dordrecht | Modern MKB - Nieuwblik",
     "metaDescription": "Op zoek naar webdesign in Dordrecht? Nieuwblik levert betaalbare websites die scoren in Google en bezoekers omzetten in klanten. Plan een kennismaking.",
     "h1": "Professionele website laten maken in Dordrecht",
     "heroSubtitle": "Ondernemen in Dordrecht betekent werken in een nuchter en betrokken ondernemersnetwerk. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1280,7 +1280,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -1299,7 +1299,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Dordrecht?",
-          "a": "De kosten van een website in Dordrecht starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Dordrecht starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Dordrecht zit?",
@@ -1320,7 +1320,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "ede",
     "name": "Ede",
-    "title": "Website Laten Maken Ede | Nieuwblik · Betaalbaar & Persoonlijk",
+    "title": "Website Laten Maken Ede | Betaalbaar - Nieuwblik",
     "metaDescription": "Een professionele website laten bouwen in Ede? Wij combineren strakke designs met AI gedreven ontwikkeling voor snel resultaat. Bekijk hoe.",
     "h1": "Website laten maken in Ede voor jouw bedrijf",
     "heroSubtitle": "Ondernemen in Ede betekent werken in een toegankelijke lokale markt. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1335,7 +1335,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1358,7 +1358,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Ede?",
-          "a": "Voor ondernemers in Ede hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Ede hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Ede zit?",
@@ -1379,7 +1379,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "delft",
     "name": "Delft",
-    "title": "Website Laten Maken Delft | Nieuwblik · AI Gedreven Webdesign",
+    "title": "Website Laten Maken Delft | AI Webdesign - Nieuwblik",
     "metaDescription": "Website nodig voor jouw bedrijf in Delft? Nieuwblik werkt voor MKB door heel Nederland met snelle oplevering en duidelijke prijzen. Start vandaag.",
     "h1": "Jouw bedrijfswebsite laten maken in Delft",
     "heroSubtitle": "Ondernemen in Delft betekent werken in een innovatief startup ecosysteem. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1417,7 +1417,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Delft?",
-          "a": "Een website laten bouwen in Delft kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Delft kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Delft zit?",
@@ -1438,7 +1438,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "venlo",
     "name": "Venlo",
-    "title": "Website Laten Maken Venlo | Nieuwblik · Snel Resultaat Online",
+    "title": "Website Laten Maken Venlo | Snel Live - Nieuwblik",
     "metaDescription": "Webdesign bureau voor ondernemers in Venlo. Strategisch ontwerp, sterke teksten en goede vindbaarheid in één pakket. Ontdek wat wij doen.",
     "h1": "Modern webdesign voor ondernemers in Venlo",
     "heroSubtitle": "Ondernemen in Venlo betekent werken in een grensoverschrijdende handelsmarkt. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1476,7 +1476,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Venlo?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Venlo zit?",
@@ -1497,7 +1497,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "deventer",
     "name": "Deventer",
-    "title": "Website Laten Maken Deventer | Nieuwblik · Conversiegericht Design",
+    "title": "Website Laten Maken Deventer | Conversie - Nieuwblik",
     "metaDescription": "Wil je een nieuwe website in Deventer die echt werkt? Nieuwblik bouwt sites die opvallen, klanten aantrekken en jouw merk groter maken. Bel ons.",
     "h1": "Website bouwen in Deventer, snel en betaalbaar",
     "heroSubtitle": "Ondernemen in Deventer betekent werken in een mix van ambachtelijkheid en innovatie. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1535,7 +1535,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Deventer?",
-          "a": "De kosten van een website in Deventer starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Deventer starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Deventer zit?",
@@ -1556,7 +1556,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "westland",
     "name": "Westland",
-    "title": "Website Laten Maken Westland | Nieuwblik · Lokaal & Vakkundig",
+    "title": "Website Laten Maken Westland | Lokaal MKB - Nieuwblik",
     "metaDescription": "Moderne websites laten ontwikkelen in Westland. Persoonlijke aanpak, scherpe prijzen en focus op meetbaar resultaat. Vraag een gratis offerte aan.",
     "h1": "Sterke websites laten ontwerpen in Westland",
     "heroSubtitle": "Ondernemen in Westland betekent werken in een hechte agrarische en zakelijke gemeenschap. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1594,7 +1594,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Westland?",
-          "a": "Voor ondernemers in Westland hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Westland hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Westland zit?",
@@ -1615,7 +1615,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "alkmaar",
     "name": "Alkmaar",
-    "title": "Website Laten Maken Alkmaar | Nieuwblik · Mobielvriendelijk MKB",
+    "title": "Website Laten Maken Alkmaar | Mobiel - Nieuwblik",
     "metaDescription": "Website laten ontwerpen in Alkmaar? Nieuwblik koppelt creatief design aan slimme technologie zodat jouw bedrijf online opvalt. Plan je gesprek nu.",
     "h1": "Online opvallen als ondernemer in Alkmaar",
     "heroSubtitle": "Ondernemen in Alkmaar betekent werken in een loyaal lokaal MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1634,7 +1634,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -1653,7 +1653,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Alkmaar?",
-          "a": "Een website laten bouwen in Alkmaar kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Alkmaar kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Alkmaar zit?",
@@ -1674,7 +1674,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "emmen",
     "name": "Emmen",
-    "title": "Website Laten Maken Emmen | Nieuwblik · Strategisch & Sterk",
+    "title": "Website Laten Maken Emmen | Strategisch - Nieuwblik",
     "metaDescription": "Krachtige websites voor MKB ondernemers in Emmen. Snel live, mobielvriendelijk en gebouwd voor groei. Ontdek de aanpak van Nieuwblik vandaag.",
     "h1": "Een nieuwe website laten maken in Emmen",
     "heroSubtitle": "Ondernemen in Emmen betekent werken in een nuchter ondernemersklimaat. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1712,7 +1712,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Emmen?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Emmen zit?",
@@ -1733,7 +1733,7 @@ export const cities: CityRecord[] = [
   {
     "slug": "leeuwarden",
     "name": "Leeuwarden",
-    "title": "Website Laten Maken Leeuwarden | Nieuwblik · Slim Online Groeien",
+    "title": "Website Laten Maken Leeuwarden | Online Groei - Nieuwblik",
     "metaDescription": "Een website die past bij jouw bedrijf in Leeuwarden? Nieuwblik bouwt op maat, met strategie en oog voor detail. Vraag direct een offerte aan.",
     "h1": "Website op maat voor MKB in Leeuwarden",
     "heroSubtitle": "Ondernemen in Leeuwarden betekent werken in een betrokken regionale ondernemerskring. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
@@ -1748,7 +1748,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1771,7 +1771,7 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Leeuwarden?",
-          "a": "De kosten van een website in Leeuwarden starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Leeuwarden starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Leeuwarden zit?",
