@@ -71,16 +71,29 @@ const industries = [
 
 // Word banks for variation
 const titlePatterns = [
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Professioneel & Snel Live`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Modern Webdesign voor MKB`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Betaalbaar & Persoonlijk`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · AI Gedreven Webdesign`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Snel Resultaat Online`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Conversiegericht Design`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Lokaal & Vakkundig`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Mobielvriendelijk MKB`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Strategisch & Sterk`,
-  (n) => `Website Laten Maken ${n} | Nieuwblik · Slim Online Groeien`,
+  (n) => `Website Laten Maken ${n} | Snel & Pro - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Modern MKB - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Betaalbaar - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | AI Webdesign - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Snel Live - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Conversie - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Lokaal MKB - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Mobiel - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Strategisch - Nieuwblik`,
+  (n) => `Website Laten Maken ${n} | Online Groei - Nieuwblik`,
+];
+
+const industryTitlePatterns = [
+  (n) => `Website voor ${n} | Snel & Pro - Nieuwblik`,
+  (n) => `Website voor ${n} | Modern MKB - Nieuwblik`,
+  (n) => `Website voor ${n} | Betaalbaar - Nieuwblik`,
+  (n) => `Website voor ${n} | AI Webdesign - Nieuwblik`,
+  (n) => `Website voor ${n} | Snel Live - Nieuwblik`,
+  (n) => `Website voor ${n} | Conversie - Nieuwblik`,
+  (n) => `Website voor ${n} | Lokaal MKB - Nieuwblik`,
+  (n) => `Website voor ${n} | Mobiel - Nieuwblik`,
+  (n) => `Website voor ${n} | Strategisch - Nieuwblik`,
+  (n) => `Website voor ${n} | Online Groei - Nieuwblik`,
 ];
 
 const cityMetaPatterns = [
