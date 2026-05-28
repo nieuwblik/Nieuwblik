@@ -291,6 +291,11 @@ All colors MUST be HSL.
     transform: scale(0.97);
   }
 
+  .animated-btn:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
   /* Floating points */
   .animated-btn-points {
     overflow: hidden;

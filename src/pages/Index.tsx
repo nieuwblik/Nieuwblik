@@ -13,37 +13,26 @@ const PricingPackages = lazy(() => import("@/components/PricingPackages"));
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Globe, Palette, ShoppingBag, Pen, Linkedin, Plus } from "lucide-react";
+import { ArrowRight, Linkedin, Plus } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
-import justinImage from "@/assets/justin-slok.webp";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
-import { easings, staggerContainer, staggerItem } from "@/lib/motion";
-import {
-  optimizedStaggerContainer,
-  optimizedStaggerItem,
-  gpuAcceleration,
-  optimizedViewport
-} from "@/lib/optimized-motion";
-import { MagicCard } from "@/components/ui/magic-card";
-import { useTheme } from "next-themes";
-import { MagicServicesCards } from "@/components/MagicServicesCards";
+import { easings } from "@/lib/motion";
+import { gpuAcceleration } from "@/lib/optimized-motion";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 import { cn } from "@/lib/utils";
 
-// Import AI logos
+// AI logos for the search-engines integration section
 import claudeLogo from "@/assets/ai/claude-logo.webp";
 import copilotLogo from "@/assets/ai/copilot-logo.webp";
 import grokLogo from "@/assets/ai/grok-logo.webp";
 import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
-
-// Import Nieuwblik logo
 import nieuwblikLogo from "@/assets/logo.webp";
 
 import { projects } from "@/data/projects";
@@ -142,22 +131,19 @@ const HeroImage = ({
           style={{ filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.1))" }}
         />
         
-        {/* Hotspots or Floating Labels - mimicking the screenshot */}
+        {/* Floating brand label */}
         {!shouldReduceMotion && (
-          <>
-            <motion.div
-              className="absolute bottom-[38%] left-[2%] bg-white/90 backdrop-blur shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-border/50 z-20 hidden md:flex"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center">
-                <Plus className="w-3 h-3 text-white" />
-              </div>
-              <span className="text-xs font-semibold">Strategie-Gedreven</span>
-            </motion.div>
-
-          </>
+          <motion.div
+            className="absolute bottom-[38%] left-[2%] bg-white/90 backdrop-blur shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-border/50 z-20 hidden md:flex"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center">
+              <Plus className="w-3 h-3 text-white" />
+            </div>
+            <span className="text-xs font-semibold">Strategie-gedreven</span>
+          </motion.div>
         )}
 
       </motion.div>
@@ -167,9 +153,6 @@ const HeroImage = ({
 
 const Index = () => {
   const shouldReduceMotion = useReducedMotion();
-  const {
-    theme
-  } = useTheme();
 
   // Select featured projects based on the titles previously used
   const featuredProjectTitles = [
@@ -270,7 +253,7 @@ const Index = () => {
               ease: easings.easeOutExpo
             }}>
               <AnimatedButton to="/start-je-project" size="lg">
-                Start nu
+                Start je project
               </AnimatedButton>
               <Button asChild size="lg" variant="ghost" className="hover:bg-transparent hover:text-accent p-0 font-semibold group flex items-center gap-2">
                 <Link to="/portfolio">
@@ -300,17 +283,17 @@ const Index = () => {
             Jouw website vindbaar in alle zoekmachines
           </AnimatedText>
           <AnimatedText as="p" className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed" delay={0.1}>
-            Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude - jouw website wordt gevonden.
+            Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude: jouw website wordt gevonden.
           </AnimatedText>
         </div>
 
         {/* Integration Animation */}
         <AnimatedSection delay={0.2} className="relative mx-auto max-w-5xl">
+          <TooltipProvider delayDuration={200}>
           {/* Search Engine Icons Row - Responsive Grid */}
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-items-center max-w-2xl sm:max-w-none mx-auto">
             {/* Google */}
-            <TooltipProvider>
-              <Tooltip>
+            <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
                     <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
@@ -323,11 +306,9 @@ const Index = () => {
                 </TooltipTrigger>
                 <TooltipContent><p>Google</p></TooltipContent>
               </Tooltip>
-            </TooltipProvider>
 
             {/* OpenAI */}
-            <TooltipProvider>
-              <Tooltip>
+            <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
                     <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
@@ -337,11 +318,9 @@ const Index = () => {
                 </TooltipTrigger>
                 <TooltipContent><p>OpenAI</p></TooltipContent>
               </Tooltip>
-            </TooltipProvider>
 
             {/* Perplexity */}
-            <TooltipProvider>
-              <Tooltip>
+            <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
                     <img src={perplexityLogo} alt="Perplexity AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
@@ -349,11 +328,9 @@ const Index = () => {
                 </TooltipTrigger>
                 <TooltipContent><p>Perplexity AI</p></TooltipContent>
               </Tooltip>
-            </TooltipProvider>
 
             {/* Claude */}
-            <TooltipProvider>
-              <Tooltip>
+            <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
                     <img src={claudeLogo} alt="Claude AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
@@ -361,11 +338,9 @@ const Index = () => {
                 </TooltipTrigger>
                 <TooltipContent><p>Claude AI</p></TooltipContent>
               </Tooltip>
-            </TooltipProvider>
 
             {/* Grok */}
-            <TooltipProvider>
-              <Tooltip>
+            <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
                     <img src={grokLogo} alt="Grok (X AI)" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
@@ -373,11 +348,9 @@ const Index = () => {
                 </TooltipTrigger>
                 <TooltipContent><p>Grok (X AI)</p></TooltipContent>
               </Tooltip>
-            </TooltipProvider>
 
             {/* Copilot */}
-            <TooltipProvider>
-              <Tooltip>
+            <Tooltip>
                 <TooltipTrigger asChild>
                   <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
                     <img src={copilotLogo} alt="Microsoft Copilot" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
@@ -385,8 +358,8 @@ const Index = () => {
                 </TooltipTrigger>
                 <TooltipContent><p>Microsoft Copilot</p></TooltipContent>
               </Tooltip>
-            </TooltipProvider>
           </div>
+          </TooltipProvider>
 
           {/* SVG Connection Lines - Hidden on mobile, visible on sm+ */}
           <div className="hidden sm:block relative mt-4 md:mt-6 h-40 md:h-56 lg:h-64">
@@ -434,7 +407,7 @@ const Index = () => {
 
         <AnimatedSection delay={0.4} className="text-center mt-8 md:mt-12">
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto font-light italic mb-6 md:mb-8 px-4">
-            "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat jouw website de juiste vindbaarheid krijgt - vandaag, morgen, en in de toekomst."
+            "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat jouw website de juiste vindbaarheid krijgt, vandaag en in de toekomst."
           </p>
 
           <AnimatedButton to="/contact" size="lg">
@@ -445,8 +418,14 @@ const Index = () => {
     </section>
     {/* Testimonials Section - Brand Green Aesthetic */}
     <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
-      {/* Subtle Texture Overlay */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
+      {/* Subtle dot texture — inline so no external CDN dependency */}
+      <div
+        className="absolute inset-0 opacity-[0.07] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(160 84% 60%) 1px, transparent 0)',
+          backgroundSize: '28px 28px',
+        }}
+      />
 
       {/* Subtle Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
@@ -463,14 +442,14 @@ const Index = () => {
         </div>
 
         <AnimatedSection delay={0.2}>
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="min-h-[280px]" />}>
             <TestimonialsCarousel />
           </Suspense>
         </AnimatedSection>
       </div>
     </section>
 
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="min-h-[480px]" />}>
       <PricingPackages />
     </Suspense>
 
@@ -512,7 +491,7 @@ const Index = () => {
     </section>
 
     {/* Design Carousel Section */}
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="min-h-[420px]" />}>
       <DesignCarousel />
     </Suspense>
 
@@ -520,36 +499,37 @@ const Index = () => {
     <ProblemSolutionSection />
 
     {/* Featured Blog Posts */}
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="min-h-[420px]" />}>
       <FeaturedBlogPosts />
     </Suspense>
 
     {/* FAQ Section */}
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="min-h-[420px]" />}>
       <FAQSection />
     </Suspense>
 
-    {/* CTA Section */}
-    <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
-      <div className="container mx-auto px-6 text-center">
-        <AnimatedText as="h2" className="text-4xl md:text-6xl font-bold mb-6 text-primary-foreground">
+    {/* CTA Section — solid accent with a radial glow; the old black→accent gradient rendered nearly flat */}
+    <section className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'hsl(160 84% 16%)' }}>
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] pointer-events-none opacity-25 blur-[100px] rounded-full"
+        style={{ background: 'radial-gradient(circle, hsl(160 84% 55%) 0%, transparent 70%)' }}
+      />
+      <div className="container relative z-10 mx-auto px-6 text-center">
+        <AnimatedText as="h2" className="text-4xl md:text-6xl font-bold mb-6 text-white">
           Klaar om je concurrentie voorbij te streven?
         </AnimatedText>
-        <AnimatedText as="p" className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-primary-foreground/90" delay={0.1}>
-          Laat je verhaal horen. Samen bouwen we een digitale aanwezigheid die niet alleen opvalt, maar ook converteert. De eerste stap? Een vrijblijvend gesprek.
+        <AnimatedText as="p" className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-white/80" delay={0.1}>
+          Laat je verhaal horen. Samen bouwen we een digitale aanwezigheid die niet alleen opvalt, maar ook converteert.
         </AnimatedText>
         <AnimatedSection delay={0.2}>
-          <motion.div whileHover={shouldReduceMotion ? {} : {
-            scale: 1.05
-          }} whileTap={shouldReduceMotion ? {} : {
-            scale: 0.98
-          }} transition={{
-            duration: 0.2,
-            ease: easings.easeOutQuart
-          }}>
+          <motion.div
+            whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+          >
             <Button asChild size="lg" variant="secondary">
               <Link to="/start-je-project">
-                Start vandaag je groeiverhaal
+                Start je project
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
