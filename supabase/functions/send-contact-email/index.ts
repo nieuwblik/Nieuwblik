@@ -1,19 +1,34 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-// Simple in-memory rate limiting (per instance)
-const rateLimitMap = new Map<string, number[]>();
+const admin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  auth: { persistSession: false },
+});
+
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const RATE_LIMIT_MAX = 3; // max 3 submissions per hour per IP
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = rateLimitMap.get(ip)?.filter(t => now - t < RATE_LIMIT_WINDOW_MS) || [];
-  rateLimitMap.set(ip, timestamps);
-  if (timestamps.length >= RATE_LIMIT_MAX) return true;
-  timestamps.push(now);
+async function isRateLimited(ip: string): Promise<boolean> {
+  const since = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+  const { count, error } = await admin
+    .from("contact_rate_limits")
+    .select("id", { count: "exact", head: true })
+    .eq("ip_address", ip)
+    .gte("created_at", since);
+
+  if (error) {
+    console.error("Rate limit check failed:", error);
+    // Fail closed on errors to avoid abuse
+    return true;
+  }
+  if ((count ?? 0) >= RATE_LIMIT_MAX) return true;
+
+  await admin.from("contact_rate_limits").insert({ ip_address: ip });
   return false;
 }
 
@@ -54,9 +69,8 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Rate limiting check
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    if (isRateLimited(clientIp)) {
+    if (await isRateLimited(clientIp)) {
       return new Response(
         JSON.stringify({ error: "Too many requests. Please try again later." }),
         { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -65,7 +79,6 @@ const handler = async (req: Request): Promise<Response> => {
 
     const rawData: ContactRequest = await req.json();
 
-    // Validate input data
     const validationResult = contactSchema.safeParse(rawData);
     if (!validationResult.success) {
       console.error("Validation error:", validationResult.error);
@@ -77,7 +90,6 @@ const handler = async (req: Request): Promise<Response> => {
 
     const data = validationResult.data;
 
-    // Escape all user input to prevent HTML injection
     const emailHtml = `
       <h1>Nieuw contactformulier bericht van ${escapeHtml(data.fullName)}</h1>
       
@@ -109,7 +121,7 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(emailData.message || "Failed to send email");
     }
 
-    console.log("Email sent successfully:", emailData);
+    console.log("Email sent successfully");
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
