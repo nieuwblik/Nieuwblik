@@ -63,7 +63,8 @@ const AdminLogin = () => {
         navigate('/admin/dashboard');
       }
     } catch (error: any) {
-      toast.error(error.message || "Inloggen mislukt");
+      console.error("Admin login error:", error);
+      toast.error("Inloggen mislukt. Controleer je gegevens.");
     } finally {
       setIsLoading(false);
     }
