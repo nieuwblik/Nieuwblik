@@ -16,7 +16,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
-import { getRegionBySlug } from "@/data/regions";
+import { getRegionBySlug, regions } from "@/data/regions";
 import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
@@ -28,6 +28,12 @@ const featuredSlugs = ["puur-in-harmonie", "benoted", "danique-kwakman", "erica-
 const featuredProjects = featuredSlugs
   .map((s) => projects.find((p) => p.slug === s))
   .filter(Boolean) as typeof projects;
+
+const WEST_FRIESLAND_KERNEN = [
+  'enkhuizen', 'hoorn', 'medemblik', 'bovenkarspel', 'hoogkarspel',
+  'andijk', 'venhuizen', 'hem', 'hauwert', 'zwaagdijk',
+];
+
 
 const WerkgebiedDetail = () => {
   const { slug } = useParams<{ slug: string }>();
