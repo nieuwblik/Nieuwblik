@@ -238,8 +238,36 @@ export const regions: Region[] = [
       ]
     }
   },
+  {
+    id: 'west-friesland',
+    name: 'West-Friesland',
+    slug: 'west-friesland',
+    province: 'Noord-Holland',
+    type: 'local',
+    description: 'Bruisende regio in Noord-Holland met Enkhuizen, Hoorn, Medemblik en omgeving',
+    keywords: [
+      'webdesign West-Friesland',
+      'website laten maken West-Friesland',
+      'webshop West-Friesland',
+      'SEO West-Friesland',
+      'webdesign bureau West-Friesland',
+    ],
+    nearbyPlaces: ['Enkhuizen', 'Hoorn', 'Medemblik', 'Bovenkarspel', 'Hoogkarspel', 'Andijk', 'Venhuizen', 'Hem', 'Hauwert', 'Zwaagdijk'],
+    localInfo: {
+      businessTypes: ['MKB', 'Horeca & restaurants', 'Detailhandel', 'Tuinbouw & agrarisch', 'Watersport & recreatie', 'Bouw & techniek'],
+      specialties: ['Hechte ondernemerscultuur', 'Sterk MKB netwerk', 'Toerisme aan het IJsselmeer', 'Tuinbouwcluster'],
+      population: '215.000',
+      features: [
+        'Regio met meer dan 215.000 inwoners',
+        'Sterk lokaal ondernemersnetwerk (WBG, WEEFF)',
+        'Centrale ligging tussen Amsterdam en Friesland',
+        'Mix van toerisme, tuinbouw en MKB',
+      ],
+    },
+  },
 
   // Grote steden (landelijk)
+
   {
     id: 'amsterdam',
     name: 'Amsterdam',
