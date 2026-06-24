@@ -198,6 +198,7 @@ const Index = () => {
 
     <Navigation />
 
+    <main>
     {/* Hero Section - Redesigned Layout */}
     <section className="relative min-h-[100svh] lg:min-h-[90vh] overflow-hidden bg-background pt-header flex flex-col">
       {/* Background Vertical Lines */}
