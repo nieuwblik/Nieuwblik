@@ -22,11 +22,11 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "kapper",
     "name": "Kapper",
-    "title": "Website voor Kapper | AI Webdesign - Nieuwblik",
-    "metaDescription": "Website laten maken voor een kapper? Nieuwblik bouwt sites die nieuwe klanten aantrekken en jouw vakmanschap laten zien. Vraag offerte aan.",
-    "h1": "Een professionele website laten maken als kapper",
-    "heroSubtitle": "Een kapper heeft te maken met veel concurrentie in de buurt. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "title": "Kapper website laten maken vanaf 1500 euro | Nieuwblik",
+    "metaDescription": "Kapper website laten maken die nieuwe klanten boekt. Snel, mobielvriendelijk en lokaal vindbaar in Google. Vanaf 1500 euro, live binnen 2 tot 6 weken.",
+    "h1": "Kapper website laten maken die agenda's vult",
+    "heroSubtitle": "Veel concurrentie in de buurt? Met een sterke kapperswebsite van Nieuwblik laat je vakmanschap zien, val je op in Google en zet je bezoekers om in vaste klanten.",
+    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt kapperswebsites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en lokale zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start als zelfstandig kapper of doorgroeit met een team, wij denken mee.",
     "section1": {
       "h2": "Wat maakt een goede website voor een kapper?",
       "body": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
