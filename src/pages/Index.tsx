@@ -542,6 +542,7 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
+    </main>
     <Footer />
   </div>;
 };
