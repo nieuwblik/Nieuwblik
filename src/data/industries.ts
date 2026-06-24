@@ -89,11 +89,11 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "restaurant",
     "name": "Restaurant",
-    "title": "Website voor Restaurant | Snel Live - Nieuwblik",
-    "metaDescription": "Een restaurant verdient een sterke website. Nieuwblik combineert design en strategie voor meer aanvragen en omzet. Plan een kennismaking.",
-    "h1": "Website laten maken voor jouw restaurant of bedrijf",
-    "heroSubtitle": "Een restaurant heeft te maken met gasten verwachten een sfeervolle online beleving. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
+    "title": "Restaurant website laten maken vanaf 1500 euro | Nieuwblik",
+    "metaDescription": "Restaurant website laten maken met online reserveren, menukaart en sfeerbeelden. Snel live, sterk in Google en gericht op meer gasten. Vanaf 1500 euro.",
+    "h1": "Restaurant website laten maken die gasten reserveert",
+    "heroSubtitle": "Gasten verwachten een sfeervolle online beleving. Met een snelle restaurantwebsite van Nieuwblik val je op in Google, laat je jouw keuken spreken en boeken bezoekers direct een tafel.",
+    "intro": "In de horeca is online zichtbaarheid bepalend voor succes. Restaurants die opvallen in Google krijgen meer reserveringen, afhaalbestellingen en walk-ins. Nieuwblik bouwt restaurantwebsites die er strak uitzien, razendsnel laden en volledig gericht zijn op reserveringen, menukaart en sfeer. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren dan een traditioneel bureau. Persoonlijk contact, lokale SEO voor jouw stad en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
     "section1": {
       "h2": "Dit verwachten klanten van een restaurant website",
       "body": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
