@@ -22,11 +22,11 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "kapper",
     "name": "Kapper",
-    "title": "Website voor Kapper | AI Webdesign - Nieuwblik",
-    "metaDescription": "Website laten maken voor een kapper? Nieuwblik bouwt sites die nieuwe klanten aantrekken en jouw vakmanschap laten zien. Vraag offerte aan.",
-    "h1": "Een professionele website laten maken als kapper",
-    "heroSubtitle": "Een kapper heeft te maken met veel concurrentie in de buurt. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "title": "Kapper website laten maken vanaf 1500 euro | Nieuwblik",
+    "metaDescription": "Kapper website laten maken die nieuwe klanten boekt. Snel, mobielvriendelijk en lokaal vindbaar in Google. Vanaf 1500 euro, live binnen 2 tot 6 weken.",
+    "h1": "Kapper website laten maken die agenda's vult",
+    "heroSubtitle": "Veel concurrentie in de buurt? Met een sterke kapperswebsite van Nieuwblik laat je vakmanschap zien, val je op in Google en zet je bezoekers om in vaste klanten.",
+    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt kapperswebsites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en lokale zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start als zelfstandig kapper of doorgroeit met een team, wij denken mee.",
     "section1": {
       "h2": "Wat maakt een goede website voor een kapper?",
       "body": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
@@ -89,11 +89,11 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "restaurant",
     "name": "Restaurant",
-    "title": "Website voor Restaurant | Snel Live - Nieuwblik",
-    "metaDescription": "Een restaurant verdient een sterke website. Nieuwblik combineert design en strategie voor meer aanvragen en omzet. Plan een kennismaking.",
-    "h1": "Website laten maken voor jouw restaurant of bedrijf",
-    "heroSubtitle": "Een restaurant heeft te maken met gasten verwachten een sfeervolle online beleving. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
+    "title": "Restaurant website laten maken vanaf 1500 euro | Nieuwblik",
+    "metaDescription": "Restaurant website laten maken met online reserveren, menukaart en sfeerbeelden. Snel live, sterk in Google en gericht op meer gasten. Vanaf 1500 euro.",
+    "h1": "Restaurant website laten maken die gasten reserveert",
+    "heroSubtitle": "Gasten verwachten een sfeervolle online beleving. Met een snelle restaurantwebsite van Nieuwblik val je op in Google, laat je jouw keuken spreken en boeken bezoekers direct een tafel.",
+    "intro": "In de horeca is online zichtbaarheid bepalend voor succes. Restaurants die opvallen in Google krijgen meer reserveringen, afhaalbestellingen en walk-ins. Nieuwblik bouwt restaurantwebsites die er strak uitzien, razendsnel laden en volledig gericht zijn op reserveringen, menukaart en sfeer. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren dan een traditioneel bureau. Persoonlijk contact, lokale SEO voor jouw stad en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
     "section1": {
       "h2": "Dit verwachten klanten van een restaurant website",
       "body": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
