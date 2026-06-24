@@ -127,6 +127,10 @@ const HeroImage = ({
         <img 
           src={heroTeamImage} 
           alt="Justin & Job - Nieuwblik Team" 
+          width={960}
+          height={1200}
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-auto object-contain z-10"
           style={{ filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.1))" }}
         />
