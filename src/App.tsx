@@ -31,6 +31,8 @@ import Ecommerce from "./pages/services/Ecommerce";
 import Werkgebied from "./pages/Werkgebied";
 import WerkgebiedDetail from "./pages/WerkgebiedDetail";
 import LandingRouter from "./pages/LandingRouter";
+import SeoEnkhuizen from "./pages/SeoEnkhuizen";
+
 
 // Lazy load admin pages only (rarely used by public visitors)
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
@@ -69,6 +71,8 @@ const App = () => (
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/werkgebied" element={<Werkgebied />} />
           <Route path="/werkgebied/:slug" element={<WerkgebiedDetail />} />
+          <Route path="/seo-enkhuizen" element={<SeoEnkhuizen />} />
+
           <Route path="/:landingPath" element={<LandingRouter />} />
           <Route
             path="/admin/login"

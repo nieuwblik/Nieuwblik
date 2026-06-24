@@ -16,7 +16,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
-import { getRegionBySlug } from "@/data/regions";
+import { getRegionBySlug, regions } from "@/data/regions";
 import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
@@ -28,6 +28,12 @@ const featuredSlugs = ["puur-in-harmonie", "benoted", "danique-kwakman", "erica-
 const featuredProjects = featuredSlugs
   .map((s) => projects.find((p) => p.slug === s))
   .filter(Boolean) as typeof projects;
+
+const WEST_FRIESLAND_KERNEN = [
+  'enkhuizen', 'hoorn', 'medemblik', 'bovenkarspel', 'hoogkarspel',
+  'andijk', 'venhuizen', 'hem', 'hauwert', 'zwaagdijk',
+];
+
 
 const WerkgebiedDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -189,6 +195,39 @@ const WerkgebiedDetail = () => {
             </div>
           </motion.div>
         </section>
+
+        {/* West-Friesland hub: grid van alle kernen */}
+        {region.slug === 'west-friesland' && (
+          <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-10">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                  Websites in elke West-Friese kern
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Nieuwblik bouwt websites voor ondernemers in heel West-Friesland. Kies jouw stad of dorp voor lokaal maatwerk en SEO.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {WEST_FRIESLAND_KERNEN.map((kern) => {
+                  const r = regions.find((x) => x.slug === kern);
+                  if (!r) return null;
+                  return (
+                    <Link
+                      key={kern}
+                      to={`/werkgebied/${kern}`}
+                      className="group bg-secondary/50 hover:bg-accent/10 border border-border hover:border-accent/30 rounded-xl p-4 text-center transition-colors"
+                    >
+                      <MapPin className="w-4 h-4 text-accent mx-auto mb-2 opacity-70 group-hover:opacity-100" />
+                      <span className="text-sm font-semibold text-foreground">{r.name}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
 
         {/* Team foto */}
         <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">

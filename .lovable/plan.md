@@ -1,93 +1,75 @@
-## Plan: blog over Nieuwblik sponsoring Kevin Mos, Hengelo Roadrace 2026
+# Fase 1 + 2 uitvoeren: vindbaarheid Nieuwblik
 
-Nieuwe blogpost in de bestaande BeNoted minimalistische schrijfstijl, volledig in Nederlands, met emotionele toon (vriendschap boven geld), pricing/diensten verwijzingen weg, focus op verhaal + lokale SEO + outbound links naar Nelon Racing en Hengelo Roadrace YouTube.
+## Fase 1 — Quick wins op bestaande posities
 
-### 1. Afbeeldingen toevoegen aan project
+### 1.2 Interne links naar kapper + restaurant
+Doel: autoriteit van homepage en blog doorgeven naar de twee landingen die het dichtst bij top-3 staan.
 
-Kopieer 6 uploads naar `src/assets/blog/`:
+- **Homepage (`src/pages/Index.tsx`)** — in de bestaande "branches / voor wie" sectie (of onderaan vlak voor de footer-CTA) een korte tekstblok of chip-rij toevoegen met links naar:
+  - `/website-laten-maken-kapper`
+  - `/website-laten-maken-restaurant`
+  - `/website-laten-maken-fysiotherapeut` en 2 andere top-branches (voor natuurlijke link-context)
+- **Blog index (`src/pages/Blog.tsx`)** — onder de eerste fold een "Populair per branche" strook met dezelfde links.
+- **Footer (`src/components/Footer.tsx`)** — nieuwe kolom "Branches" met 5–6 interne links naar industrie-landingen. Sitewide link juice naar elke industrie-pagina.
+- **Industrie-landing (`src/pages/IndustryLanding.tsx`)** — in de bestaande "interne links" strook ook een link naar `/werkgebied/west-friesland` en `/seo-enkhuizen` toevoegen (cross-cluster linking).
 
-```text
-user-uploads://nieuwblik_sponsor_kevin_mos_mobu_nelon_racing.webp   -> kevin-mos-nieuwblik-bike-rear.webp
-user-uploads://nieuwblik_sponsor_kevin_mos_mobu_nelon_racing2.webp  -> kevin-mos-nieuwblik-bike-front.webp  (cover)
-user-uploads://nieuwblik_sponsor_kevin_mos_mobu_nelon_racing3.webp  -> kevin-mos-nieuwblik-portrait.webp
-user-uploads://image-51.png                                          -> kevin-mos-cornering.webp
-user-uploads://image-52.png                                          -> kevin-mos-rain-race.webp
-user-uploads://image-53.png                                          -> kevin-mos-team-nelon-racing.webp
-```
+### 1.3 Aparte `/seo-enkhuizen` pagina
+Doel: rankt nu pos 6 met een blog. Met een dedicated dienstpagina richting top-3.
 
-PNG's worden via `nix imagemagick` geconverteerd naar WebP (volgens project image bundling regel: strict WebP).
+- Nieuwe route `/seo-enkhuizen` in `src/App.tsx`.
+- Nieuw component `src/pages/SeoEnkhuizen.tsx` met:
+  - H1: "SEO Enkhuizen — beter vindbaar in Google voor lokale ondernemers"
+  - SEOHead met keyword-rijke title (<60), meta (<155), canonical, `Service` + `FAQPage` + `LocalBusiness` JSON-LD
+  - Secties: probleem/oplossing, lokale aanpak (Google Business, lokale citations, content), prijzen vanaf, 5 FAQ-items, contact-CTA
+  - Interne links naar `/werkgebied/enkhuizen`, `/diensten`, kapper- en restaurant-landingen
+- Sitemap-entry toevoegen aan `public/sitemap.xml` (priority 0.9, changefreq monthly).
 
-### 2. Blogpost toevoegen in `src/data/blogPosts.ts`
+## Fase 2 — West-Friesland hub + lokale autoriteit
 
-Nieuwe entry bovenaan de array zodat hij eerst zichtbaar is:
+### 2.1 `/werkgebied/west-friesland` hub
+Doel: clusterpagina die alle West-Friese stadjes bundelt en autoriteit naar `/werkgebied/:slug` doorzet.
 
-- **slug**: `kevin-mos-nieuwblik-hengelo-roadrace-2026`
-- **image**: `kevin-mos-nieuwblik-bike-front.webp` (cover)
-- **seoTitle**: "Nieuwblik sponsort Kevin Mos, Hengelo Roadrace 2026" (<60 chars)
-- **seoKeywords**: "Kevin Mos, Hengelo Roadrace, Nelon Racing, Mobu Tuning, Nieuwblik sponsoring, motorracen, straatrace Hengelo, MKB sponsoring"
-- **excerpt**: emotioneel, 1 zin: vriendschap, sponsoring, racewinst boven geld
-- **date**: vandaag (2026-05-07)
-- **readingTime**: 4
+- Nieuwe slug `west-friesland` toevoegen aan `src/data/regions.ts` (type: `local`, met `nearbyPlaces` = alle West-Friese kernen die al in regions staan: Enkhuizen, Hoorn, Hoogkarspel, Bovenkarspel, Venhuizen, Hem, Hauwert, Zwaagdijk, Andijk, Medemblik, Stede Broec, Drechterland).
+- `src/pages/WerkgebiedDetail.tsx` blijft renderen, maar speciaal voor `west-friesland`: extra hub-sectie met grid van link-cards naar elke kern. Conditie: als slug === 'west-friesland' → renderHubGrid().
+- Werkgebied-overzicht (`src/pages/Werkgebied.tsx`) — West-Friesland prominent bovenaan als regiokaart-CTA.
+- Sitemap-entry toevoegen.
 
-### 3. Inhoud structuur (BeNoted minimalistisch, korte alineas)
+### 2.2 LocalBusiness schema uitbreiden
+Doel: rich snippets, Google Business sync, lokale relevantie versterken.
 
-```text
-H1 (auto via title)
-Lead alinea — telefoontje van Kevin: "ik kom net wat tekort voor Hengelo"
-H2 Een telefoontje, drie weken voor de race
-H2 Waarom geld geen rol speelde
-  blockquote: "Een goede vriend supporten weegt zwaarder dan het bedrag op de factuur."
-H2 Een onvergetelijk weekend in de pit
-  - polsbandje, pitlane toegang, alles meegemaakt
-  IMG: team foto
-H2 De machine van Kevin (#86)
-  IMG: bike front + rear
-  - Nelon Racing als hoofdpartner uitlichten
-H2 Samen met sterke partners
-  outbound links: Nelon Racing, Mobu Tuning, etc.
-H2 Justin en Kevin, vrienden voor het leven
-  - 2-3x per week zien, altijd klaarstaan
-  IMG: cornering + rain race
-H2 Kijk de races terug
-  - YouTube embed Hengelo Roadrace via LazyYouTube (videoId r5CkgPQHukU)
-H2 Wat dit betekent voor Nieuwblik
-  - lokaal MKB, vriendschap, support, geen websiteverkoop pitch
-Slot — korte poëtische lijn
-```
+- `src/config/company.ts` — `localBusinessJsonLd` uitbreiden met:
+  - `openingHoursSpecification` (ma–vr 09:00–17:30)
+  - `priceRange` ("€€")
+  - `geo` (latitude/longitude van Enkhuizen-vestiging)
+  - `areaServed` als lijst van Place-objecten (West-Friesland + grote NL-steden uit regions.ts)
+  - `sameAs` (LinkedIn, Instagram, Facebook van Nieuwblik)
+  - `hasOfferCatalog` met 3 OfferCatalog-items (Website op maat, Webshops, SEO)
+- Effect is sitewide want SEOHead injecteert dit op elke pagina die `includeLocalBusinessSchema` aan heeft.
 
-### 4. Outbound links
+### 2.3 Backlink-strategie (geen code, wel doc + admin-checklist)
+Doel: Authority Score 6 → 15+. Geen externe API om dit te automatiseren, dus dit wordt een actiedocument.
 
-- Nelon Racing — `https://www.nelon.nl` (verifieer via context, anders fallback met `rel="noopener"`)
-- Mobu Tuning, Willemse, MWAY — naam noemen, link indien bekend, anders alleen tekst
-- Hengelo Roadrace YouTube video: `https://www.youtube.com/watch?v=r5CkgPQHukU` via `LazyYouTube` component (videoId `r5CkgPQHukU`)
+- Nieuw bestand `.agent/backlink-outreach-plan.md` met:
+  - 5 prioritaire targets (WEEFF, NHD/Noordhollands Dagblad, Ondernemersfonds Enkhuizen, WBG West-Friese Bedrijven Groep, Citymarketing Enkhuizen)
+  - Per target: contact, hoek (gastblog / case study / sponsoring / interview), template-mail
+  - Tracking-tabel (status / datum verstuurd / response)
+- Optioneel: een korte sectie "Onze partners & vermeldingen" op `/over-ons` voorbereiden zodat ontvangen links wederzijds tonen.
 
-### 5. Sitemap
+## Volgorde van uitvoering
+1. Footer + Index + Blog interne links (1.2)
+2. `/seo-enkhuizen` pagina + route + sitemap (1.3)
+3. `west-friesland` region + WerkgebiedDetail hub + sitemap (2.1)
+4. LocalBusiness schema uitbreiden in `src/config/company.ts` (2.2)
+5. Industrie-landing interne links updaten (cross-cluster, 1.2 vervolg)
+6. Backlink-outreach plan toevoegen (2.3)
 
-Voeg `/blog/kevin-mos-nieuwblik-hengelo-roadrace-2026` toe aan `public/sitemap.xml` met `lastmod` van vandaag, priority 0.7.
+## Technisch overzicht
+- **Bestanden gewijzigd:** `src/pages/Index.tsx`, `src/pages/Blog.tsx`, `src/components/Footer.tsx`, `src/pages/IndustryLanding.tsx`, `src/pages/WerkgebiedDetail.tsx`, `src/pages/Werkgebied.tsx`, `src/App.tsx`, `src/data/regions.ts`, `src/config/company.ts`, `public/sitemap.xml`
+- **Bestanden nieuw:** `src/pages/SeoEnkhuizen.tsx`, `.agent/backlink-outreach-plan.md`
+- **Schema's:** alle nieuwe pagina's krijgen `WebPage` + `Service` + `FAQPage` JSON-LD via SEOHead; sitewide LocalBusiness uitgebreid
+- **Geen breaking changes** — alle wijzigingen zijn additief, bestaande routes blijven werken
 
-### 6. Schrijfregels (per memory)
-
-- 100% Nederlands, sentence case
-- Geen em dashes, alleen komma's of korte streepjes
-- Korte alineas (max 3 regels)
-- Emotionele tone-of-voice, action-driven
-- Geen pricing/diensten pitch, dit is pure storytelling/sponsoring content
-- Geen Twitter, geen verboden elementen
-
-### Bestanden
-
-```text
-NIEUW
-- src/assets/blog/kevin-mos-nieuwblik-bike-front.webp
-- src/assets/blog/kevin-mos-nieuwblik-bike-rear.webp
-- src/assets/blog/kevin-mos-nieuwblik-portrait.webp
-- src/assets/blog/kevin-mos-cornering.webp
-- src/assets/blog/kevin-mos-rain-race.webp
-- src/assets/blog/kevin-mos-team-nelon-racing.webp
-
-GEWIJZIGD
-- src/data/blogPosts.ts   (nieuwe post bovenaan, 6 image imports)
-- public/sitemap.xml      (nieuwe URL)
-```
-
-Na akkoord bouw ik dit in 1 doorloop.
+## Wat ik nodig heb (kan ook na approval)
+- **Adresgegevens** voor LocalBusiness geo (lat/lng Enkhuizen-vestiging) — gebruik anders gemeente-centroid 52.7028 / 5.2914
+- **Social URLs** (LinkedIn/Instagram/Facebook van Nieuwblik) — als niet aanwezig in `company.ts` skip ik `sameAs`
+- Als deze ontbreken ga ik door met sensible defaults en markeer ik ze in de PR-omschrijving zodat je ze later kunt invullen.

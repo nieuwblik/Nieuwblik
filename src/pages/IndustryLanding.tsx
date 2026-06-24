@@ -166,8 +166,15 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
               return part;
             })}
           </p>
+          <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
+            Lokaal actief? Bekijk onze pagina voor{" "}
+            <Link to="/seo-enkhuizen" className="text-accent hover:underline font-semibold">SEO Enkhuizen</Link>
+            {" "}of het{" "}
+            <Link to="/werkgebied/west-friesland" className="text-accent hover:underline font-semibold">werkgebied West-Friesland</Link>.
+          </p>
         </div>
       </section>
+
 
       <Footer />
     </div>
