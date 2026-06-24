@@ -31,6 +31,8 @@ import Ecommerce from "./pages/services/Ecommerce";
 import Werkgebied from "./pages/Werkgebied";
 import WerkgebiedDetail from "./pages/WerkgebiedDetail";
 import LandingRouter from "./pages/LandingRouter";
+import SeoEnkhuizen from "./pages/SeoEnkhuizen";
+
 
 // Lazy load admin pages only (rarely used by public visitors)
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
