@@ -8,7 +8,7 @@ import edventureboatsImg from "@/assets/projects/edventureboats.nl.webp";
 import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.webp";
 import interieurstudiolaan from "@/assets/projects/interieurstudiolaan.nl.webp";
 import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.webp";
-import kyodaioriginalsImg from "@/assets/projects/kyodaioriginals.nl.webp";
+import kyodaioriginalsImg from "@/assets/kyodai-originals.webp";
 import lashlutionImg from "@/assets/projects/lashlution.nl.webp";
 import mhbtechniekImg from "@/assets/projects/mhbtechniek.nl.webp";
 import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.webp";
@@ -308,17 +308,17 @@ export const projects: Project[] = [
   {
     slug: "kyodai-originals",
     title: "Kyodai Originals",
-    category: "E-commerce",
+    category: "Galerie voor Japanse Zwaarden & Antiek",
     filterCategory: "websites",
-    description: "Gespecialiseerd e-commerce platform voor authentieke Japanse verzamelobjecten.",
-    tags: ["E-commerce", "Product Showcase", "Branding"],
+    description: "Een digitale galerie voor museumwaardige Japanse zwaarden en wapenrustingen, gebouwd rondom authenticiteit, vertrouwen en verhalen over herkomst.",
+    tags: ["E-commerce", "Galerie", "Authenticatie", "Luxe Branding"],
     image: kyodaioriginalsImg,
-    url: "https://kyodaioriginals.nl",
+    url: "https://www.kyodaioriginals.nl",
     detail: {
       year: "2023",
-      goal: "Een niche markt voorzien van een premium webshop die de exclusiviteit van de producten benadrukt en vertrouwen wekt bij verzamelaars wereldwijd.",
-      idea: "Een 'gallery-style' webshop waarbij elk item als een kunstwerk wordt gepresenteerd. Focus op storytelling rondom de herkomst van de objecten.",
-      details: "Kyodai Originals vereiste een platform dat wereldwijde verzending en diverse valuta naadloos kon afhandelen. \n\nWe hebben een robuust maar elegant systeem gebouwd dat de unieke inventory beheert en tegelijkertijd een luxe ervaring biedt aan de kritische verzamelaar."
+      goal: "Kyodai Originals, een Amsterdamse galerie van eigenaar Cor Slok, verhandelt museumwaardige katana's, wakizashi's, tanto's en andere authentieke Japanse zwaarden en wapenrustingen, met stukken tot boven de 48.000 euro. Het hoofddoel van de website is het overbrengen van vertrouwen bij een kritisch publiek van verzamelaars: elk stuk moet overtuigend gepresenteerd worden inclusief de onafhankelijke NBTHK-certificering en levenslange authenticiteitsgarantie die Kyodai biedt. Daarnaast moest de site ruimte bieden voor de verhalen achter de stukken, zodat bezoekers niet alleen een object kopen, maar ook de geschiedenis en het vakmanschap erachter leren kennen.",
+      idea: "Het digitale concept is opgezet als een 'gallery-style' showroom in plaats van een traditionele webshop: rustige witruimte, grootformaat productfotografie en subtiele Japanse typografische accenten die de herkomst van de stukken onderstrepen. Elk zwaard wordt behandeld als een op zichzelf staand kunstwerk, met heldere informatie over smid, periode en certificering. Een apart 'Geschiedenis & Tradities' blog voegt diepgang toe voor de meer onderzoekende verzamelaar, terwijl de nadruk op persoonlijk contact (telefoon en WhatsApp) en een besloten showroom in Amsterdam de kleinschalige, vertrouwde aanpak van Cor Slok weerspiegelt.",
+      details: "Voor Kyodai Originals hebben we een online galerie gebouwd die recht doet aan de twee decennia ervaring van eigenaar Cor Slok in het selecteren van authentieke Japanse zwaarden en wapenrustingen, rechtstreeks ingekocht via Japanse veilingen, handelaren en privécollecties.\n\nOmdat de doelgroep bestaat uit serieuze verzamelaars en investeerders die aanzienlijke bedragen investeren, stond het opbouwen van vertrouwen centraal in het ontwerp. De NBTHK-, NBSK- en NTHK-certificeringen en de levenslange authenticiteitsgarantie zijn prominent verwerkt in zowel de productpagina's als de 'Why Kyodai' sectie, samen met de museale verpakking, volledige verzekering en wereldwijde verzending die bij elke aankoop horen.\n\nHet resultaat is een website die evenveel weg heeft van een digitale galerie als van een webshop: een plek waar liefhebbers rustig door het actuele aanbod kunnen bladeren, zich kunnen verdiepen in de geschiedenis van individuele stukken, en via een persoonlijke lijn contact kunnen opnemen voor een bezichtiging of aankoop op basis van vertrouwen in plaats van een anoniem afrekenproces."
     }
   },
   {

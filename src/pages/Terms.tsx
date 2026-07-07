@@ -71,7 +71,15 @@ const Terms = () => {
       )
     },
     {
-      title: "7. Tarieven en betaling",
+      title: "7. Beheer van de website",
+      content: (
+        <p className="text-muted-foreground">
+          Het zelf beheren van de website door de opdrachtgever is uitsluitend mogelijk op aanvraag. Op verzoek kan {companyInfo.name} hiervoor een custom CMS ontwikkelen, waarvoor een aanvullende offerte wordt opgesteld. Wordt dit niet expliciet aangevraagd, dan verzorgt {companyInfo.name} het volledige beheer van de website. Dit doen wij met het oog op de veiligheid, stabiliteit en continuïteit van de site. Wijzigingen kunnen in dat geval door de opdrachtgever bij ons worden aangevraagd.
+        </p>
+      )
+    },
+    {
+      title: "8. Tarieven en betaling",
       content: (
         <p className="text-muted-foreground">
           Alle prijzen zijn exclusief BTW, tenzij anders vermeld. Betaling dient te geschieden binnen 14 dagen na factuurdatum, tenzij anders overeengekomen. Bij niet tijdige betaling is de opdrachtgever van rechtswege in verzuim en is {companyInfo.name} gerechtigd wettelijke rente in rekening te brengen.
@@ -79,7 +87,7 @@ const Terms = () => {
       )
     },
     {
-      title: "8. Intellectueel eigendom",
+      title: "9. Intellectueel eigendom",
       content: (
         <p className="text-muted-foreground">
           Alle rechten van intellectuele eigendom op de door {companyInfo.name} ontwikkelde of ter beschikking gestelde materialen berusten uitsluitend bij {companyInfo.name} of haar licentiegevers. De opdrachtgever verkrijgt alleen de gebruiksrechten die uitdrukkelijk zijn toegekend.
@@ -87,7 +95,7 @@ const Terms = () => {
       )
     },
     {
-      title: "9. Aansprakelijkheid",
+      title: "10. Aansprakelijkheid",
       content: (
         <p className="text-muted-foreground">
           {companyInfo.name} is uitsluitend aansprakelijk voor directe schade. De aansprakelijkheid is beperkt tot het factuurbedrag, althans tot dat gedeelte van de opdracht waarop de aansprakelijkheid betrekking heeft. {companyInfo.name} is niet aansprakelijk voor indirecte schade, waaronder gevolgschade, gederfde winst, gemiste besparingen en schade door bedrijfsstagnatie.
@@ -95,7 +103,7 @@ const Terms = () => {
       )
     },
     {
-      title: "10. Geschillen",
+      title: "11. Geschillen",
       content: (
         <p className="text-muted-foreground">
           Op alle overeenkomsten tussen {companyInfo.name} en de opdrachtgever is Nederlands recht van toepassing. Geschillen zullen uitsluitend worden voorgelegd aan de bevoegde rechter in het arrondissement waar {companyInfo.name} is gevestigd.
@@ -127,7 +135,7 @@ const Terms = () => {
       />
       <Navigation />
       <main className="flex-1 bg-background">
-        <div className="container mx-auto px-6 py-24">
+        <div className="container mx-auto px-6 pt-header pb-24">
           <div className="max-w-4xl mx-auto">
             <motion.div 
               className="flex items-center gap-3 mb-8"
@@ -158,11 +166,9 @@ const Terms = () => {
               variants={getVariants(staggerContainer)}
             >
               {sections.map((section, index) => (
-                <motion.section 
+                <motion.section
                   key={index}
                   variants={getVariants(staggerItem)}
-                  whileHover={shouldReduceMotion ? {} : { x: 4 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
                   {section.content}

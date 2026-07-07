@@ -1,12 +1,39 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { motion, useReducedMotion } from "framer-motion";
 
-const packages = [
+// ── Brand tokens (Nieuwblik) ───────────────────────────────────
+const WHITE        = "#ffffff";
+const GREEN        = "hsl(160, 84%, 16%)";
+const GREEN_LIGHT  = "hsl(160, 70%, 58%)";
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+// ── Breakpoint hook ────────────────────────────────────────────
+function useBreakpoint() {
+  const get = (): "mobile" | "tablet" | "desktop" =>
+    typeof window === "undefined" ? "desktop"
+      : window.innerWidth < 768 ? "mobile"
+      : window.innerWidth < 1024 ? "tablet"
+      : "desktop";
+  const [bp, setBp] = useState(get);
+  useEffect(() => {
+    const handler = () => setBp(get());
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return bp;
+}
+
+// ── Pricing data (Nieuwblik packages) ──────────────────────────
+const PRICING = [
   {
     name: "Starter",
+    description: "Voor zzp en kleine ondernemers",
     price: "990",
-    tagline: "Voor zzp en kleine ondernemers",
+    period: "per website",
+    cta: "Vraag offerte aan",
+    highlighted: false,
     features: [
       "1 tot 5 pagina's",
       "Volledig responsive design",
@@ -14,112 +41,267 @@ const packages = [
       "Contactformulier en Google Maps",
       "Live binnen 2 weken",
     ],
-    cta: "Vraag offerte aan",
-    highlighted: false,
   },
   {
     name: "Professional",
+    description: "Onze meest gekozen oplossing",
     price: "1990",
-    tagline: "Onze meest gekozen oplossing",
+    period: "per website",
+    cta: "Vraag offerte aan",
+    highlighted: true,
     features: [
       "Tot 10 pagina's op maat",
-      "CMS, beheer alles zelf",
       "Uitgebreide SEO en blogfunctie",
       "Koppelingen met externe tools",
       "30 dagen gratis nazorg",
     ],
-    cta: "Vraag offerte aan",
-    highlighted: true,
   },
   {
     name: "Op maat",
+    description: "Webshops en complexe projecten",
     price: null,
-    tagline: "Webshops en complexe projecten",
+    period: "op aanvraag",
+    cta: "Plan een gesprek",
+    highlighted: false,
     features: [
       "Onbeperkt pagina's en functies",
+      "CMS, beheer alles zelf",
       "Webshop met betaalkoppelingen",
       "Maatwerk integraties en API's",
       "Persoonlijke strategie en advies",
       "Doorlopende ondersteuning",
     ],
-    cta: "Plan een gesprek",
-    highlighted: false,
   },
 ];
 
-const PricingPackages = () => {
+// ── Section frame lines ────────────────────────────────────────
+function SectionFrame() {
+  const bp = useBreakpoint();
+  if (bp === "mobile") return null;
   return (
-    <section className="py-20 md:py-28 bg-background">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14 max-w-3xl mx-auto">
-          <p className="text-accent text-sm font-medium tracking-[0.2em] uppercase mb-4">
-            Heldere prijzen
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            Pakketten die passen bij jouw groei
-          </h2>
-          <p className="text-lg text-muted-foreground font-light">
+    <>
+      <div style={{ position: "absolute", left: 40, top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.10)", zIndex: 3, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", right: 40, top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.10)", zIndex: 3, pointerEvents: "none" }} />
+    </>
+  );
+}
+
+const PricingPackages = () => {
+  const bp = useBreakpoint();
+  const isMobile = bp === "mobile";
+  const isTablet = bp === "tablet";
+  const PAD_X = isMobile ? 24 : isTablet ? 64 : 96;
+  const reduce = useReducedMotion();
+
+  // Card box + inner content stagger
+  const cardVar = {
+    hidden: { opacity: 0, y: reduce ? 0 : 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE, staggerChildren: 0.07, delayChildren: 0.12 } },
+  };
+  const itemVar = {
+    hidden: { opacity: 0, y: reduce ? 0 : 14 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  };
+
+  return (
+    <section
+      style={{
+        position: "relative",
+        padding: isMobile ? "96px 0" : "140px 0",
+        fontFamily: "inherit",
+        background: `
+          radial-gradient(ellipse 55% 60% at 50% 22%, hsl(160 84% 32% / 0.28) 0%, transparent 62%),
+          radial-gradient(ellipse 70% 40% at 50% 100%, hsl(160 84% 22% / 0.22) 0%, transparent 60%),
+          hsl(160 84% 9%)
+        `,
+        borderTop: "1px solid hsl(160 70% 58% / 0.10)",
+      }}
+    >
+      <style>{`
+        .np-btn-primary { transition: transform 0.2s cubic-bezier(0.25,0.1,0.25,1), box-shadow 0.2s ease, filter 0.2s ease; will-change: transform; }
+        .np-btn-primary:hover { transform: translateY(-2px); filter: brightness(1.04); box-shadow: 0 14px 34px rgba(0,0,0,0.35) !important; }
+        .np-btn-primary:active { transform: translateY(0); }
+        .np-btn-ghost { transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.25,0.1,0.25,1); will-change: transform; }
+        .np-btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.7); transform: translateY(-2px); }
+        .np-btn-ghost:active { transform: translateY(0); }
+      `}</style>
+
+      <SectionFrame />
+
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${PAD_X}px`, position: "relative", zIndex: 2 }}>
+        {/* Heading block */}
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 56 : 88 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: EASE }}
+            viewport={{ once: true, margin: "-80px" }}
+            style={{ marginBottom: 24 }}
+          >
+            <span className="sw-mono" style={{ color: GREEN_LIGHT }}>Tarieven</span>
+          </motion.div>
+
+          <div style={{ overflow: "hidden", paddingBottom: 12 }}>
+            <motion.h2
+              initial={{ y: reduce ? 0 : "110%" }}
+              whileInView={{ y: 0 }}
+              transition={{ duration: 0.9, ease: EASE }}
+              viewport={{ once: true, margin: "-100px" }}
+              style={{
+                fontWeight: 700,
+                fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
+                color: WHITE, letterSpacing: "-0.02em",
+                lineHeight: 1.05, margin: 0,
+              }}
+            >
+              Pakketten die passen bij jouw groei
+            </motion.h2>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
+            style={{
+              fontSize: isMobile ? 15 : 18, fontWeight: 300,
+              color: "rgba(255,255,255,0.6)", lineHeight: 1.7,
+              margin: "26px auto 0", maxWidth: 540,
+            }}
+          >
             Vaste vanaf-prijzen, geen verrassingen achteraf. Kies wat past en wij doen de rest.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-          {packages.map((pkg) => (
-            <div
-              key={pkg.name}
-              className={cn(
-                "relative rounded-2xl p-8 flex flex-col bg-white border transition-all duration-300 hover:-translate-y-1",
-                pkg.highlighted
-                  ? "border-accent shadow-2xl ring-2 ring-accent/30"
-                  : "border-border/60 shadow-sm hover:shadow-lg"
-              )}
+        {/* Tier grid */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+            gap: isMobile ? 20 : 24,
+            alignItems: "stretch",
+          }}
+        >
+          {PRICING.map((tier) => {
+            const oldPrice = tier.price ? Math.round(Number(tier.price) / 0.75 / 10) * 10 : null;
+            return (
+            <motion.div
+              key={tier.name}
+              variants={cardVar}
+              style={{
+                position: "relative",
+                background: tier.highlighted
+                  ? `radial-gradient(ellipse 100% 80% at 50% 0%, hsl(160 70% 45% / 0.20) 0%, transparent 60%),
+                     linear-gradient(165deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 100%)`
+                  : "linear-gradient(165deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
+                border: tier.highlighted
+                  ? `1px solid ${GREEN_LIGHT}66`
+                  : "1px solid rgba(255,255,255,0.09)",
+                borderRadius: 16,
+                padding: isMobile ? 32 : 40,
+                display: "flex", flexDirection: "column",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+                boxShadow: tier.highlighted ? `0 24px 60px -24px rgba(0,0,0,0.6)` : "none",
+              }}
             >
-              {pkg.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground text-xs font-semibold px-4 py-1 rounded-full uppercase tracking-wider">
+              {tier.highlighted && (
+                <div
+                  className="sw-mono"
+                  style={{
+                    position: "absolute", top: -1, right: 24,
+                    background: GREEN_LIGHT, color: GREEN,
+                    padding: "7px 12px", borderRadius: "0 0 8px 8px",
+                    fontSize: "0.62rem", letterSpacing: "0.16em",
+                  }}
+                >
                   Meest gekozen
                 </div>
               )}
 
-              <h3 className="text-xl font-bold text-foreground mb-2">{pkg.name}</h3>
-              <p className="text-sm text-muted-foreground mb-6">{pkg.tagline}</p>
+              <motion.div variants={itemVar} className="sw-mono" style={{ color: tier.highlighted ? GREEN_LIGHT : "rgba(255,255,255,0.65)", marginBottom: 12 }}>
+                {tier.name}
+              </motion.div>
 
-              <div className="mb-6">
-                {pkg.price ? (
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-sm text-muted-foreground">vanaf</span>
-                    <span className="text-4xl font-extrabold text-foreground">€{pkg.price}</span>
-                  </div>
+              <motion.div variants={itemVar} style={{ fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.5)", marginBottom: 28 }}>
+                {tier.description}
+              </motion.div>
+
+              {/* Old price + discount */}
+              {tier.price && (
+                <motion.div variants={itemVar} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                  <span style={{ fontSize: 17, fontWeight: 400, color: "rgba(255,255,255,0.4)", textDecoration: "line-through" }}>
+                    €{oldPrice}
+                  </span>
+                  <span className="sw-mono" style={{ background: GREEN_LIGHT, color: GREEN, padding: "3px 7px", borderRadius: 6, fontSize: "0.58rem", letterSpacing: "0.12em" }}>
+                    25% korting
+                  </span>
+                </motion.div>
+              )}
+
+              {/* Price */}
+              <motion.div variants={itemVar} style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
+                {tier.price ? (
+                  <>
+                    <span className="sw-mono" style={{ color: "rgba(255,255,255,0.5)" }}>vanaf</span>
+                    <span style={{ fontSize: 22, fontWeight: 500, color: tier.highlighted ? GREEN_LIGHT : "rgba(255,255,255,0.6)" }}>€</span>
+                    <span style={{ fontWeight: 700, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", color: WHITE, letterSpacing: "-0.02em", lineHeight: 1 }}>
+                      {tier.price}
+                    </span>
+                  </>
                 ) : (
-                  <div className="text-2xl font-bold text-foreground">Op aanvraag</div>
+                  <span style={{ fontWeight: 700, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: WHITE, letterSpacing: "-0.02em", lineHeight: 1 }}>
+                    Op aanvraag
+                  </span>
                 )}
-              </div>
+              </motion.div>
 
-              <ul className="space-y-3 mb-8 flex-1">
-                {pkg.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-foreground">
-                    <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
+              <motion.div variants={itemVar} style={{ fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.5)", marginBottom: 32 }}>
+                {tier.period}
+              </motion.div>
 
-              <Link
-                to="/start-je-project"
-                className={cn(
-                  "w-full text-center rounded-full px-6 py-3 font-semibold transition-colors",
-                  pkg.highlighted
-                    ? "bg-accent text-accent-foreground hover:bg-accent/90"
-                    : "bg-secondary text-foreground hover:bg-accent hover:text-accent-foreground"
-                )}
+              <motion.div variants={itemVar} style={{ height: 1, background: "rgba(255,255,255,0.10)", marginBottom: 26 }} />
+
+              <motion.ul
+                variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.05 } } }}
+                style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 14, flex: 1 }}
               >
-                {pkg.cta}
-              </Link>
-            </div>
-          ))}
-        </div>
+                {tier.features.map((f) => (
+                  <motion.li key={f} variants={itemVar} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: 14, fontWeight: 300, color: "rgba(255,255,255,0.78)", lineHeight: 1.5 }}>
+                    <Check className="w-4 h-4 shrink-0" style={{ marginTop: 2, color: tier.highlighted ? GREEN_LIGHT : "rgba(255,255,255,0.55)" }} strokeWidth={2.4} />
+                    {f}
+                  </motion.li>
+                ))}
+              </motion.ul>
 
-        <p className="text-center text-sm text-muted-foreground mt-10">
-          Alle prijzen zijn exclusief btw. Hosting en domeinregistratie zijn optioneel.
+              <motion.div variants={itemVar} style={{ marginTop: 40 }}>
+                <Link
+                  to="/start-je-project"
+                  className={tier.highlighted ? "np-btn-primary" : "np-btn-ghost"}
+                  style={{
+                    display: "block", textAlign: "center",
+                    background: tier.highlighted ? WHITE : "transparent",
+                    color: tier.highlighted ? GREEN : WHITE,
+                    fontSize: 14, fontWeight: 600,
+                    padding: "13px 24px",
+                    border: tier.highlighted ? "none" : "1px solid rgba(255,255,255,0.3)",
+                    borderRadius: 10, textDecoration: "none",
+                  }}
+                >
+                  {tier.cta}
+                </Link>
+              </motion.div>
+            </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <p style={{ textAlign: "center", marginTop: 36, fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.45)" }}>
+          Alle prijzen exclusief btw · Hosting en domein optioneel
         </p>
       </div>
     </section>

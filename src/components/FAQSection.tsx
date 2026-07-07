@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { easings } from "@/lib/motion";
+import { useReveal } from "@/lib/reveal";
 
 const faqs = [
   {
@@ -127,8 +128,8 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // Default open first one
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
+  const sectionRef = useRef<HTMLElement>(null);
+  useReveal(sectionRef);
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -145,28 +146,21 @@ const FAQSection = () => {
 
           {/* Left Column - Sticky Header */}
           <div className="lg:col-span-5 lg:sticky lg:top-32">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.7, ease: easings.easeOutExpo }}
-              className="text-center lg:text-left"
-            >
-              {/* Updated Badge Style - Matches rest of site */}
+            <div className="text-left">
+              <div className="h-px w-full mb-5" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
               <div className="mb-6">
-                <p className="text-accent text-sm font-medium tracking-[0.2em] uppercase">
-                  VEELGESTELDE VRAGEN
-                </p>
+                <span className="sw-reveal sw-mono inline-block" style={{ color: "hsl(var(--sw-green))" }}>Vragen</span>
               </div>
 
-              <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight text-foreground mb-6 leading-[1.1]">
+              <h2 className="sw-reveal text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight mb-6 leading-[1.02]" style={{ color: "hsl(var(--sw-ink))" }}>
                 Nog vragen? <br />
-                <span className="text-accent">Wij hebben antwoorden.</span>
+                <span style={{ color: "hsl(var(--sw-green))" }}>Wij hebben antwoorden.</span>
               </h2>
 
-              <p className="text-lg text-muted-foreground font-light leading-relaxed mb-8 max-w-md mx-auto lg:mx-0">
+              <p className="sw-reveal text-lg font-light leading-relaxed mb-8 max-w-md" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
                 Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.
               </p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right Column - FAQ Cards */}

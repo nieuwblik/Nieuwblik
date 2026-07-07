@@ -9,7 +9,7 @@ import { industries } from '@/data/industries'
 
 // ── Design tokens ──────────────────────────────────────────────
 
-const FONT_BODY = "'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+const FONT_BODY = "'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
 
 const WHITE        = '#ffffff'
 const STEEL        = 'rgba(255,255,255,0.50)'
@@ -58,48 +58,25 @@ const FOOTER_COLS = [
       { label: 'Alle diensten →', to: '/diensten' },
     ],
   },
-  {
-    label: 'Steden',
-    links: cities.slice(0, 6).map(c => ({
-      label: c.name,
-      to: `/website-laten-maken-${c.slug}`,
-    })),
-  },
-  {
-    label: 'Juridisch',
-    links: [
-      { label: 'Privacy',              to: '/privacy' },
-      { label: 'Cookies',              to: '/cookies' },
-      { label: 'Algemene Voorwaarden', to: '/algemene-voorwaarden' },
-    ],
-  },
 ]
 
 // ── Numbered link ──────────────────────────────────────────────
 
-function NumLink({ label, to, index }: { label: string; to: string; index: number }) {
+function NumLink({ label, to }: { label: string; to: string; index?: number }) {
   const [hov, setHov] = useState(false)
-  const num = String(index + 1).padStart(2, '0')
   return (
     <motion.div onHoverStart={() => setHov(true)} onHoverEnd={() => setHov(false)}>
       <Link
         to={to}
         style={{
-          display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none',
+          display: 'block', textDecoration: 'none',
           padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)',
         }}
       >
         <motion.span
-          animate={{ color: hov ? ACCENT_LIGHT : 'rgba(255,255,255,0.22)' }}
+          animate={{ color: hov ? WHITE : STEEL, x: hov ? 2 : 0 }}
           transition={{ duration: 0.18 }}
-          style={{ fontFamily: FONT_BODY, fontSize: 9, letterSpacing: '0.06em', minWidth: 18 }}
-        >
-          {hov ? '→' : num}
-        </motion.span>
-        <motion.span
-          animate={{ color: hov ? WHITE : STEEL }}
-          transition={{ duration: 0.18 }}
-          style={{ fontFamily: FONT_BODY, fontSize: 13, fontWeight: 300 }}
+          style={{ fontFamily: FONT_BODY, fontSize: 13, fontWeight: 300, display: 'inline-block' }}
         >
           {label}
         </motion.span>
@@ -113,8 +90,7 @@ function NumLink({ label, to, index }: { label: string; to: string; index: numbe
 function FooterNavBlock({ col }: { col: typeof FOOTER_COLS[number] }) {
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
-        <div style={{ width: 24, height: 1, background: ACCENT_GRAD, flexShrink: 0, opacity: 0.7 }} />
+      <div style={{ marginBottom: 18 }}>
         <span style={{
           fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
           letterSpacing: '0.28em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
@@ -173,18 +149,6 @@ function FooterComponent() {
         }}
       />
 
-      {/* Ghost watermark */}
-      <div style={{
-        position: 'absolute', bottom: 32, left: -16, zIndex: 0,
-        fontFamily: FONT_BODY, fontWeight: 900,
-        fontSize: 'clamp(72px, 16vw, 220px)',
-        color: WHITE, opacity: 0.035, letterSpacing: '0.04em',
-        userSelect: 'none' as const, pointerEvents: 'none', lineHeight: 1,
-        whiteSpace: 'nowrap' as const,
-      }}>
-        NIEUWBLIK
-      </div>
-
       <div style={{ maxWidth: 1280, margin: '0 auto', position: 'relative', zIndex: 1 }}>
 
         {/* Green gradient rule */}
@@ -219,10 +183,9 @@ function FooterComponent() {
 
           {/* Left — editorial */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ width: 48, height: 3, background: ACCENT_GRAD, marginBottom: 24 }} />
             <h2 style={{
               fontFamily: FONT_BODY, fontWeight: 900,
-              fontSize: 'clamp(52px, 7vw, 100px)',
+              fontSize: 'clamp(34px, 4.2vw, 56px)',
               color: WHITE, lineHeight: 0.9, letterSpacing: '-0.01em',
               margin: '0 0 28px', textTransform: 'uppercase' as const,
             }}>
@@ -285,8 +248,7 @@ function FooterComponent() {
           gap: isMobile ? 40 : 64,
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 24, height: 1, background: ACCENT_GRAD, flexShrink: 0, opacity: 0.7 }} />
+            <div style={{ marginBottom: 16 }}>
               <span style={{
                 fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
                 letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
@@ -310,8 +272,7 @@ function FooterComponent() {
             </div>
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{ width: 24, height: 1, background: ACCENT_GRAD, flexShrink: 0, opacity: 0.7 }} />
+            <div style={{ marginBottom: 16 }}>
               <span style={{
                 fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
                 letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,

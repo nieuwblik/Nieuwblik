@@ -1,191 +1,150 @@
 import { Link } from "react-router-dom";
 import { blogPosts } from "@/data/blogPosts";
-import { Clock, ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { easings } from "@/lib/motion";
+import { useReveal } from "@/lib/reveal";
+
+const fmtDate = (d: string) =>
+  new Date(d).toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" });
 
 const FeaturedBlogPosts = () => {
   const shouldReduceMotion = useReducedMotion();
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
-  
-  // Featured = first post (BeNoted), secondary = next 3
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-60px" });
+  useReveal(sectionRef);
+
   const featuredPost = blogPosts[0];
   const secondaryPosts = blogPosts.slice(1, 4);
 
+  const INK = "hsl(var(--sw-ink))";
+  const INK45 = "hsl(var(--sw-ink) / 0.45)";
+  const INK65 = "hsl(var(--sw-ink) / 0.65)";
+  const GREEN = "hsl(var(--sw-green))";
+  const RULE = "hsl(var(--sw-rule) / 0.16)";
+
   return (
-    <section 
-      ref={sectionRef}
-      className="py-20 md:py-32 bg-secondary"
-    >
-      <div className="container mx-auto px-6">
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 60 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-          transition={{ duration: 0.7, ease: easings.easeOutExpo }}
-        >
-          <p className="text-accent mb-4 font-semibold tracking-wider">LAATSTE INSIGHTS</p>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+    <section ref={sectionRef} className="py-20 md:py-32" style={{ background: "hsl(0 0% 100%)" }}>
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Swiss header */}
+        <div className="mb-14 md:mb-16">
+          <div className="h-px w-full mb-5" style={{ background: RULE }} />
+          <div className="mb-6">
+            <span className="sw-reveal sw-mono inline-block" style={{ color: GREEN }}>Insights</span>
+          </div>
+          <h2 className="sw-reveal text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl" style={{ color: INK, lineHeight: 1.02 }}>
             Ontdek onze nieuwste artikelen
           </h2>
-          <p className="text-xl text-muted-foreground font-light leading-relaxed max-w-3xl mx-auto">
+          <p className="sw-reveal mt-6 text-lg md:text-xl font-light leading-relaxed max-w-2xl" style={{ color: INK65 }}>
             Waardevolle tips, strategieën en inzichten om jouw digitale aanwezigheid naar een hoger niveau te tillen.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Featured Blog Card (Large) */}
-        <motion.div 
-          className="max-w-5xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 80, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 80, scale: 0.95 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: easings.easeOutExpo }}
+        {/* Featured article — asymmetric editorial spread */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: easings.easeOutExpo }}
         >
-          <Link 
+          <Link
             to={`/blog/${featuredPost.slug}`}
-            className="group block"
+            className="sw-feat group grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch border-t border-b py-10 md:py-12"
+            style={{ borderColor: RULE }}
           >
-            <motion.div 
-              className="bg-background rounded-lg overflow-hidden shadow-lg"
-              whileHover={shouldReduceMotion ? {} : { 
-                y: -8, 
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-            >
-              <div className="grid md:grid-cols-2 gap-0">
-                {featuredPost.image && (
-                  <div className="relative h-64 md:h-full min-h-[300px] overflow-hidden">
-                    <motion.img 
-                      src={featuredPost.image} 
-                      alt={featuredPost.title.nl}
-                      className="w-full h-full object-contain bg-secondary p-8"
-                      loading="lazy"
-                      whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
-                      transition={{ duration: 0.5, ease: easings.easeOutExpo }}
-                    />
-                  </div>
-                )}
-                
-                <div className="p-8 md:p-10 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-                      <time dateTime={featuredPost.date}>
-                        {new Date(featuredPost.date).toLocaleDateString('nl-NL', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </time>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {featuredPost.readingTime} min leestijd
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-2xl md:text-3xl font-bold mb-4 group-hover:text-accent transition-colors">
-                      {featuredPost.title.nl}
-                    </h3>
-                    
-                    <p className="text-muted-foreground font-light leading-relaxed mb-6">
-                      {featuredPost.excerpt.nl}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-accent font-semibold">
-                    Lees artikel
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                  </div>
-                </div>
+            {/* Text */}
+            <div className="lg:col-span-7 flex flex-col">
+              <span className="sw-mono" style={{ color: GREEN }}>Uitgelicht</span>
+              <h3
+                className="mt-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight transition-colors"
+                style={{ color: INK, lineHeight: 1.05 }}
+              >
+                {featuredPost.title.nl}
+              </h3>
+              <p className="mt-5 text-base md:text-lg font-light leading-relaxed max-w-xl" style={{ color: INK65 }}>
+                {featuredPost.excerpt.nl}
+              </p>
+              <div className="mt-auto pt-8 flex items-center justify-between gap-4">
+                <span className="sw-mono" style={{ color: INK45 }}>
+                  {fmtDate(featuredPost.date)} · {featuredPost.readingTime} min
+                </span>
+                <span
+                  className="sw-mono inline-flex items-center gap-2 border-b-2 pb-1 transition-transform group-hover:translate-x-1"
+                  style={{ color: INK, borderColor: GREEN }}
+                >
+                  Lees artikel <ArrowRight className="w-4 h-4" />
+                </span>
               </div>
-            </motion.div>
+            </div>
+
+            {/* Figure */}
+            {featuredPost.image && (
+              <figure className="lg:col-span-5 m-0">
+                <div className="overflow-hidden rounded-2xl" style={{ background: "hsl(var(--sw-paper))" }}>
+                  <motion.img
+                    src={featuredPost.image}
+                    alt={featuredPost.title.nl}
+                    loading="lazy"
+                    className="w-full h-full object-contain aspect-[5/4] p-8"
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+                    transition={{ duration: 0.5, ease: easings.easeOutExpo }}
+                  />
+                </div>
+              </figure>
+            )}
           </Link>
         </motion.div>
 
-        {/* Secondary Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {secondaryPosts.map((post, index) => (
+        {/* Secondary articles — ruled editorial index */}
+        <div className="mt-0">
+          {secondaryPosts.map((post, i) => (
             <motion.div
               key={post.slug}
-              initial={{ opacity: 0, y: 60 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1, ease: easings.easeOutExpo }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.25 + i * 0.08, ease: easings.easeOutExpo }}
             >
-              <Link to={`/blog/${post.slug}`} className="group block h-full">
-                <motion.div
-                  className="bg-background rounded-lg overflow-hidden shadow-md h-full flex flex-col"
-                  whileHover={shouldReduceMotion ? {} : {
-                    y: -6,
-                    boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.12)"
-                  }}
-                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-                >
-                  {post.image && (
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title.nl}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                      <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString('nl-NL', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
-                        })}
-                      </time>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {post.readingTime} min
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                      {post.title.nl}
-                    </h3>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed line-clamp-3 flex-1">
-                      {post.excerpt.nl}
-                    </p>
-                    <div className="flex items-center gap-1 text-accent font-semibold text-sm mt-4">
-                      Lees meer
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </motion.div>
+              <Link
+                to={`/blog/${post.slug}`}
+                className="sw-row group grid grid-cols-[1fr_auto] md:grid-cols-[1fr_14rem_auto] gap-4 md:gap-8 items-center py-6 md:py-7 border-b transition-colors"
+                style={{ borderColor: RULE }}
+              >
+                <h4 className="text-lg md:text-xl lg:text-2xl font-semibold tracking-tight transition-colors" style={{ color: INK, lineHeight: 1.15 }}>
+                  {post.title.nl}
+                </h4>
+                <span className="sw-mono hidden md:block" style={{ color: INK45 }}>
+                  {fmtDate(post.date)} · {post.readingTime} min
+                </span>
+                <ArrowRight className="w-5 h-5 justify-self-end transition-transform group-hover:translate-x-1" style={{ color: INK45 }} />
               </Link>
             </motion.div>
           ))}
         </div>
 
-        {/* CTA to Blog Page */}
-        <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ delay: 0.6, duration: 0.6, ease: easings.easeOutExpo }}
+        {/* CTA */}
+        <motion.div
+          className="mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ delay: 0.5, duration: 0.6, ease: easings.easeOutExpo }}
         >
-          <motion.div
-            whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
+          <Link
+            to="/blog"
+            className="group inline-flex items-center gap-2 sw-mono border-b-2 pb-1 transition-transform hover:translate-x-1"
+            style={{ color: INK, borderColor: "hsl(var(--sw-ink) / 0.25)" }}
           >
-            <Button asChild size="lg" variant="outline">
-              <Link to="/blog" className="flex items-center gap-2">
-                Bekijk alle artikelen
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-          </motion.div>
+            Bekijk alle artikelen <ArrowRight className="w-4 h-4" />
+          </Link>
         </motion.div>
       </div>
+
+      {/* Hover accents: title turns green on row/feature hover */}
+      <style>{`
+        .sw-feat:hover h3 { color: hsl(var(--sw-green)) !important; }
+        .sw-row:hover h4 { color: hsl(var(--sw-green)) !important; }
+        .sw-row:hover { background: hsl(var(--sw-paper)); }
+        .sw-row:hover svg { color: hsl(var(--sw-green)) !important; }
+      `}</style>
     </section>
   );
 };

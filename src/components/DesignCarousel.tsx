@@ -147,30 +147,37 @@ export const DesignCarousel = () => {
     return (
         <section className="py-24 bg-background overflow-hidden">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center mb-20 max-w-3xl mx-auto">
-                    <motion.span
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-accent text-sm font-medium tracking-[0.2em] uppercase mb-4 block"
-                    >
-                        Custom Design
-                    </motion.span>
+                <div className="mb-16 md:mb-20">
+                    <div className="h-px w-full mb-5" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
+                    <div className="flex items-baseline justify-between gap-4 mb-6">
+                        <motion.span
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="sw-mono"
+                            style={{ color: "hsl(var(--sw-green))" }}
+                        >
+                            Custom Design
+                        </motion.span>
+                        <span className="sw-mono" style={{ color: "hsl(var(--sw-ink) / 0.45)" }}>Nieuwblik&reg;</span>
+                    </div>
                     <motion.h2
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-bold mb-6 text-foreground tracking-tight"
+                        className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight max-w-4xl"
+                        style={{ color: "hsl(var(--sw-ink))", lineHeight: 1.02 }}
                     >
-                        Jouw merk verdient een ontwerp die blijft hangen
+                        Jouw merk verdient een ontwerp dat blijft hangen
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-muted-foreground font-light leading-relaxed max-w-3xl mx-auto"
+                        className="mt-6 text-lg md:text-xl font-light leading-relaxed max-w-2xl"
+                        style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
                     >
                         Wij vertalen jouw visie naar visuele taal die opvalt, onthouden wordt en mensen in beweging zet.
                     </motion.p>

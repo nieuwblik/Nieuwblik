@@ -1,41 +1,33 @@
 import { lazy, Suspense } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import ProjectCard from "@/components/ProjectCard";
-import TrustBar from "@/components/TrustBar";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
-const DesignCarousel = lazy(() => import("@/components/DesignCarousel").then(m => ({ default: m.DesignCarousel })));
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const PricingPackages = lazy(() => import("@/components/PricingPackages"));
+const ScrollPortfolio = lazy(() => import("@/components/ScrollPortfolio"));
+const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
 
-import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
-import { ArrowRight, Linkedin, Plus } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { ArrowRight, Star } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
+import heroBg from "@/assets/nieuwblik hero achtergrond 1.webp";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
-import { easings } from "@/lib/motion";
 import { gpuAcceleration } from "@/lib/optimized-motion";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
-import { cn } from "@/lib/utils";
-
-// AI logos for the search-engines integration section
-import claudeLogo from "@/assets/ai/claude-logo.webp";
-import copilotLogo from "@/assets/ai/copilot-logo.webp";
-import grokLogo from "@/assets/ai/grok-logo.webp";
-import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
-import nieuwblikLogo from "@/assets/logo.webp";
-
-import { projects } from "@/data/projects";
+import { useReveal } from "@/lib/reveal";
 
 // Optimized animation component for scroll-triggered reveals
 const AnimatedSection = ({
@@ -46,26 +38,27 @@ const AnimatedSection = ({
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
-    margin: "-50px"
+    margin: "-20px"
   });
   const shouldReduceMotion = useReducedMotion();
   return <motion.div
     ref={ref}
+    layout="position"
     className={className}
     style={gpuAcceleration}
     initial={{
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 60  // Reduced from 80
+      y: shouldReduceMotion ? 0 : 30
     }}
     animate={isInView ? {
       opacity: 1,
       y: 0
     } : {
       opacity: 0,
-      y: shouldReduceMotion ? 0 : 60
+      y: shouldReduceMotion ? 0 : 30
     }}
     transition={{
-      duration: shouldReduceMotion ? 0.2 : 0.6,  // Reduced from 0.8
+      duration: shouldReduceMotion ? 0.2 : 0.6,
       delay: shouldReduceMotion ? 0 : delay,
       ease: [0.25, 0.1, 0.25, 1]  // Smooth cubic bezier
     }}>
@@ -73,100 +66,54 @@ const AnimatedSection = ({
   </motion.div>;
 };
 
-// Optimized animated text component
-const AnimatedText = ({
-  children,
-  className = "",
-  delay = 0,
-  as: Component = "div"
-}: { children: React.ReactNode; className?: string; delay?: number; as?: "div" | "p" | "h1" | "h2" | "h3" | "span"; }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    margin: "-30px"
-  });
-  const shouldReduceMotion = useReducedMotion();
-  const MotionComponent = motion[Component];
-  return <MotionComponent
-    ref={ref}
-    className={className}
-    style={gpuAcceleration}
-    initial={{
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 40  // Reduced from 50
-    }}
-    animate={isInView ? {
-      opacity: 1,
-      y: 0
-    } : {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 40
-    }}
-    transition={{
-      duration: shouldReduceMotion ? 0.2 : 0.5,  // Reduced from 0.7
-      delay: shouldReduceMotion ? 0 : delay,
-      ease: [0.25, 0.1, 0.25, 1]  // Smooth cubic bezier
-    }}>
-    {children}
-  </MotionComponent>;
-};
-
-// Simplified Hero Image component for the new layout
-const HeroImage = ({
-  heroTeamImage,
-  shouldReduceMotion
-}: { heroTeamImage: string; shouldReduceMotion: boolean | null; }) => {
+// Swiss section header: hairline rule + mono spec label + oversized heading.
+// Used to thread the grid language through the page's sections.
+const SwissHead = ({
+  label,
+  title,
+  intro,
+  dark = false,
+}: { label: string; title: string; intro?: string; dark?: boolean; }) => {
+  const ink   = dark ? "rgba(255,255,255,0.96)" : "hsl(var(--sw-ink))";
+  const ruleC = dark ? "rgba(255,255,255,0.20)" : "hsl(var(--sw-rule) / 0.16)";
+  const accentC = dark ? "rgba(255,255,255,0.9)" : "hsl(var(--sw-green))";
+  const ref = useRef<HTMLDivElement>(null);
+  useReveal(ref);
   return (
-    <div className="relative w-full flex items-end justify-center lg:justify-end">
-      <motion.div
-        className="relative z-10 w-full max-w-[480px] lg:max-w-none lg:w-[115%] lg:-mr-[15%]"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        <img 
-          src={heroTeamImage} 
-          alt="Justin & Job - Nieuwblik Team" 
-          className="w-full h-auto object-contain z-10"
-          style={{ filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.1))" }}
-        />
-        
-        {/* Floating brand label */}
-        {!shouldReduceMotion && (
-          <motion.div
-            className="absolute bottom-[38%] left-[2%] bg-white/90 backdrop-blur shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-border/50 z-20 hidden md:flex"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-          >
-            <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center">
-              <Plus className="w-3 h-3 text-white" />
-            </div>
-            <span className="text-xs font-semibold">Strategie-gedreven</span>
-          </motion.div>
-        )}
-
-      </motion.div>
+    <div ref={ref} className="mb-12 md:mb-16">
+      <div className="h-px w-full mb-5" style={{ background: ruleC }} />
+      <div className="mb-6">
+        <span className="sw-reveal sw-mono inline-block" style={{ color: accentC }}>{label}</span>
+      </div>
+      <h2 className="sw-reveal text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl" style={{ color: ink, lineHeight: 1.02 }}>
+        {title}
+      </h2>
+      {intro && (
+        <p className="sw-reveal mt-6 text-lg md:text-xl font-light leading-relaxed max-w-2xl" style={{ color: dark ? "rgba(255,255,255,0.7)" : "hsl(var(--sw-ink) / 0.65)" }}>
+          {intro}
+        </p>
+      )}
     </div>
   );
 };
 
 const Index = () => {
-  const shouldReduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
 
-  // Select featured projects based on the titles previously used
-  const featuredProjectTitles = [
-    "Quantum Rehab Europe",
-    "Pride Mobility Europe",
-    "Puur in Harmonie",
-    "BeNoted",
-    "Erica van Dijk",
-    "Danique Kwakman"];
+  // Hero entrance — background settles, headline masks up, the people photo
+  // rises in, then the bottom-bar copy fades up. Skipped for reduced motion.
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const tl = gsap.timeline({ delay: 0.15 });
+      tl.from(".sw-hero-bg", { scale: 1.06, duration: 1.6, ease: "power3.out" }, 0)
+        .from(".sw-line-inner", { yPercent: 118, duration: 0.95, stagger: 0.1, ease: "power4.out" }, 0.2)
+        .from(".sw-hero-photo", { y: 48, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.35)
+        .from(".sw-lead", { y: 18, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.55)
+        .from(".sw-cta", { y: 18, opacity: 0, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.65);
+    });
+  }, { scope: heroRef });
 
-
-  const featuredProjects = featuredProjectTitles
-    .map((title) => projects.find((p) => p.title === title))
-    .filter((p): p is typeof projects[number] => Boolean(p));
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -194,228 +141,134 @@ const Index = () => {
 
     <Navigation />
 
-    {/* Hero Section - Redesigned Layout */}
-    <section className="relative min-h-[100svh] lg:min-h-[90vh] overflow-hidden bg-background pt-header flex flex-col">
-      {/* Background Vertical Lines */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.4]">
-        <div className="container mx-auto h-full flex justify-between px-4 sm:px-6">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="w-[1px] h-full bg-border" />
-          ))}
-        </div>
-      </div>
+    {/* Hero Section — cream wireframe background; headline sits left, the people
+        photo sits right (own grid column, so they can never overlap); a
+        contained bottom bar with copy + CTAs closes the section. */}
+    <section ref={heroRef} className="sw-ink relative lg:min-h-screen pt-header overflow-hidden flex flex-col">
+      {/* Layer 1 — cream background with subtle wireframe pattern (unchanged) */}
+      <img
+        src={heroBg}
+        alt=""
+        aria-hidden="true"
+        className="sw-hero-bg absolute inset-0 w-full h-full object-cover z-0 will-change-transform"
+      />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 flex-1 flex flex-col">
-        <div className="flex-1 grid grid-cols-1 grid-rows-[auto_1fr] lg:grid-cols-12 lg:grid-rows-1">
-
-          {/* Left Side - Content */}
-          <div className="lg:col-span-7 relative z-10 text-center lg:text-left flex flex-col justify-center pt-12 pb-8 lg:py-20">
-            {/* Large Typography Title */}
-            <div className="mb-6 md:mb-8">
-              <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.05] tracking-tight" initial={{
-                opacity: 0,
-                y: 30
-              }} animate={{
-                opacity: 1,
-                y: 0
-              }} transition={{
-                duration: 0.8,
-                ease: easings.easeOutExpo
-              }}>
-                Webdesign bureau<br />
-                <span className="text-accent">Enkhuizen.</span>
-              </motion.h1>
-            </div>
-
-            {/* Description */}
-            <motion.p className="text-base sm:text-lg text-muted-foreground font-light leading-relaxed max-w-sm mb-8 mx-auto lg:mx-0" initial={{
-              opacity: 0
-            }} animate={{
-              opacity: 1
-            }} transition={{
-              duration: 0.5,
-              delay: 0.4,
-              ease: easings.easeOutExpo
-            }}>
-              Een nieuwe website binnen 4 weken, vanaf 990 euro. Geen verrassingen, alleen resultaat.
-            </motion.p>
-
-            {/* Buttons */}
-            <motion.div className="flex flex-row gap-3 sm:gap-4 items-center justify-center lg:justify-start mb-10" initial={{
-              opacity: 0,
-              y: 10
-            }} animate={{
-              opacity: 1,
-              y: 0
-            }} transition={{
-              duration: 0.5,
-              delay: 0.6,
-              ease: easings.easeOutExpo
-            }}>
+      {/* This outer wrapper stays full-width (flex layout only, no max-width) so
+          the bottom bar's background can span edge-to-edge below. Only the
+          headline+photo row and the mobile photo get their own `container
+          mx-auto px-4 sm:px-6` — that's what matches their content width to
+          the rest of the site, without also capping the bar. */}
+      <div className="relative z-10 flex-1 flex flex-col">
+        {/* Headline + photo row — grows to fill the space above the bar, so the
+            headline can be vertically centred within it (balanced top/bottom). */}
+        <div className="grid grid-cols-1 lg:flex-1 lg:grid-cols-[3fr_2fr] container mx-auto px-4 sm:px-6">
+          {/* Left — headline: left-aligned, vertically centred, generous whitespace.
+              sw-hero-textcol makes this the query container the h1's cqw-based
+              font-size measures against (see .sw-display in index.css). */}
+          <div className="sw-hero-textcol flex flex-col items-start justify-center lg:pr-4 xl:pr-6 py-10 lg:py-0 lg:-translate-y-10">
+            <h1 className="sw-display m-0 text-left w-full" style={{ color: "#000" }}>
+              <span className="sw-mask"><span className="sw-line-inner">Webdesign bureau</span></span>
+              <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen.</span></span></span>
+            </h1>
+            <div className="sw-cta mt-8 md:mt-10 flex flex-wrap items-center gap-6">
               <AnimatedButton to="/start-je-project" size="lg">
                 Start je project
               </AnimatedButton>
-              <Button asChild size="lg" variant="ghost" className="hover:bg-transparent hover:text-accent p-0 font-semibold group flex items-center gap-2">
-                <Link to="/portfolio">
-                  Ontdek portfolio
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </motion.div>
-
-          </div>
-
-          {/* Right Side - Custom Image Layout */}
-          <div className="lg:col-span-5 relative flex items-end">
-            <HeroImage heroTeamImage={heroTeamImage} shouldReduceMotion={shouldReduceMotion} />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <TrustBar />
-
-    {/* SEO Search Engines Section - Integration Animation */}
-    <section className="py-16 md:py-24 lg:py-32 bg-secondary overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-8 md:mb-12">
-          <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
-            Jouw website vindbaar in alle zoekmachines
-          </AnimatedText>
-          <AnimatedText as="p" className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed" delay={0.1}>
-            Of je klanten nu zoeken via Google, vragen stellen aan ChatGPT, of advies vragen aan Claude: jouw website wordt gevonden.
-          </AnimatedText>
-        </div>
-
-        {/* Integration Animation */}
-        <AnimatedSection delay={0.2} className="relative mx-auto max-w-5xl">
-          <TooltipProvider delayDuration={200}>
-          {/* Search Engine Icons Row - Responsive Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-items-center max-w-2xl sm:max-w-none mx-auto">
-            {/* Google */}
-            <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                    </svg>
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Google</p></TooltipContent>
-              </Tooltip>
-
-            {/* OpenAI */}
-            <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8">
-                      <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#10A37F" />
-                    </svg>
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>OpenAI</p></TooltipContent>
-              </Tooltip>
-
-            {/* Perplexity */}
-            <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={perplexityLogo} alt="Perplexity AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Perplexity AI</p></TooltipContent>
-              </Tooltip>
-
-            {/* Claude */}
-            <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={claudeLogo} alt="Claude AI" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Claude AI</p></TooltipContent>
-              </Tooltip>
-
-            {/* Grok */}
-            <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={grokLogo} alt="Grok (X AI)" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Grok (X AI)</p></TooltipContent>
-              </Tooltip>
-
-            {/* Copilot */}
-            <Tooltip>
-                <TooltipTrigger asChild>
-                  <motion.span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-white ring-1 ring-border shadow-md overflow-hidden" whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}>
-                    <img src={copilotLogo} alt="Microsoft Copilot" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain" loading="lazy" width="32" height="32" />
-                  </motion.span>
-                </TooltipTrigger>
-                <TooltipContent><p>Microsoft Copilot</p></TooltipContent>
-              </Tooltip>
-          </div>
-          </TooltipProvider>
-
-          {/* SVG Connection Lines - Hidden on mobile, visible on sm+ */}
-          <div className="hidden sm:block relative mt-4 md:mt-6 h-40 md:h-56 lg:h-64">
-            <svg viewBox="0 0 600 280" className="absolute inset-0 w-full h-full" fill="none" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <circle cx="50" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" /></circle>
-              <circle cx="150" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.2s" repeatCount="indefinite" /></circle>
-              <circle cx="250" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.4s" repeatCount="indefinite" /></circle>
-              <circle cx="350" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.6s" repeatCount="indefinite" /></circle>
-              <circle cx="450" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="0.8s" repeatCount="indefinite" /></circle>
-              <circle cx="550" cy="15" r="4" fill="hsl(160 84% 39%)" filter="url(#glow-green)"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" begin="1s" repeatCount="indefinite" /></circle>
-
-              <path d="M300 240 C 300 160, 175 80, 50 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 500, strokeDashoffset: 500 }}><animate attributeName="stroke-dashoffset" values="500;0;500" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
-              <path d="M300 240 C 300 170, 225 100, 150 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 420, strokeDashoffset: 420 }}><animate attributeName="stroke-dashoffset" values="420;0;420" dur="3s" begin="0.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
-              <path d="M300 240 C 300 140, 275 80, 250 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 350, strokeDashoffset: 350 }}><animate attributeName="stroke-dashoffset" values="350;0;350" dur="3s" begin="0.4s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
-              <path d="M300 240 C 300 140, 325 80, 350 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 350, strokeDashoffset: 350 }}><animate attributeName="stroke-dashoffset" values="350;0;350" dur="3s" begin="0.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
-              <path d="M300 240 C 300 170, 375 100, 450 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 420, strokeDashoffset: 420 }}><animate attributeName="stroke-dashoffset" values="420;0;420" dur="3s" begin="0.8s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
-              <path d="M300 240 C 300 160, 425 80, 550 15" stroke="hsl(160 84% 39%)" strokeWidth="2" strokeLinecap="round" fill="none" style={{ strokeDasharray: 500, strokeDashoffset: 500 }}><animate attributeName="stroke-dashoffset" values="500;0;500" dur="3s" begin="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" /></path>
-            </svg>
-
-            {/* Center Logo (Nieuwblik) */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-              <motion.span className="inline-flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{ boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)' }} animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-                <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 md:w-12 md:h-12 object-contain brightness-0 invert" loading="lazy" width="48" height="48" />
-              </motion.span>
+              <Link to="/portfolio" className="sw-mono group inline-flex items-center gap-2 transition-colors" style={{ color: "hsl(var(--sw-ink))" }}>
+                Onze portfolio
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
 
-          {/* Mobile: Simple center logo without lines */}
-          <div className="sm:hidden flex justify-center mt-6">
-            <motion.span className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-accent ring-2 ring-accent/40 overflow-hidden" style={{ boxShadow: '0 0 20px rgba(5, 102, 57, 0.5), 0 0 40px rgba(5, 102, 57, 0.25)' }} animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
-              <img src={nieuwblikLogo} alt="Nieuwblik" className="w-10 h-10 object-contain brightness-0 invert" loading="lazy" width="40" height="40" />
-            </motion.span>
+          {/* Right — people photo, anchored to the bottom of the row (desktop
+              only). Sized as a percentage >100% of its own (now narrower,
+              40%-share) column — nothing clips it since only the hero
+              <section> itself has overflow-hidden, not this column, so
+              it's safe for the centred photo to bleed symmetrically past its
+              column's edges into the unused gap either side. Two size tiers:
+              a smaller one covers every common MacBook logical resolution
+              (1280–1728px all fall under lg/xl, and even the 16" MBP's 1728
+              is still below 1800px), the larger one only kicks in past that
+              — genuinely spacious/external displays — where it's capped so
+              it never outgrows the source image's native resolution
+              (1000x882) and starts looking soft. */}
+          <div className="relative hidden lg:block">
+            <img
+              src={heroTeamImage}
+              alt="Justin &amp; Job, oprichters van Nieuwblik"
+              className="sw-hero-photo absolute bottom-0 left-1/2 -translate-x-1/2 w-[125%] max-w-[760px] min-[1800px]:w-[155%] min-[1800px]:max-w-[1000px] h-auto select-none pointer-events-none"
+              draggable={false}
+            />
           </div>
-        </AnimatedSection>
+        </div>
 
-        <AnimatedSection delay={0.4} className="text-center mt-8 md:mt-12">
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto font-light italic mb-6 md:mb-8 px-4">
-            "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat jouw website de juiste vindbaarheid krijgt, vandaag en in de toekomst."
-          </p>
+        {/* Mobile — photo stacks below the headline, resting just above the bar */}
+        <div className="lg:hidden flex justify-center container mx-auto px-4 sm:px-6 pb-6">
+          <img
+            src={heroTeamImage}
+            alt="Justin &amp; Job, oprichters van Nieuwblik"
+            className="sw-hero-photo w-[340px] sm:w-[420px] h-auto select-none"
+            draggable={false}
+          />
+        </div>
 
-          <AnimatedButton to="/contact" size="lg">
-            Boost mijn vindbaarheid
-          </AnimatedButton>
-        </AnimatedSection>
+        {/* Bottom bar — one contained element: thin top border + a slightly
+            different tint than the hero background, instead of floating pieces. */}
+        <div
+          className="sw-bar relative z-20 border-t"
+          style={{ background: "hsl(150 14% 95%)", borderColor: "hsl(var(--sw-rule) / 0.15)" }}
+        >
+          <div className="container mx-auto px-4 sm:px-6 py-5 md:py-6">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              {/* Social proof — same content/iconography as <TrustBar>, laid out
+                  horizontally and vertically centred with the buttons. */}
+              <div className="sw-lead flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 md:w-5 md:h-5" style={{ fill: "hsl(var(--sw-green))", color: "hsl(var(--sw-green))" }} />
+                    ))}
+                  </div>
+                  <p className="text-sm md:text-base font-medium" style={{ color: "#000" }}>
+                    5,0 op Google,{" "}
+                    <span className="font-normal" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
+                      op basis van 15+ reviews
+                    </span>
+                  </p>
+                </div>
+
+                <div className="hidden sm:block h-5 w-px" style={{ background: "hsl(var(--sw-rule) / 0.25)" }} />
+
+                <p className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
+                  Vertrouwd door MKB ondernemers door heel Nederland
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-6 sm:items-center lg:justify-end">
+                <Link to="/portfolio" className="sw-cta sw-mono group inline-flex items-center gap-2 transition-colors" style={{ color: "hsl(var(--sw-ink))" }}>
+                  Ontdek portfolio
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+
+    {/* SEO / AI search-engine visibility — instrument-panel redesign */}
+    <Suspense fallback={<div className="min-h-[600px]" />}>
+      <SearchVisibility />
+    </Suspense>
+    <Suspense fallback={<div className="min-h-[480px]" />}>
+      <PricingPackages />
+    </Suspense>
+
+    {/* Featured Projects — scroll-driven portfolio */}
+    <Suspense fallback={<div className="min-h-[600px]" />}>
+      <ScrollPortfolio />
+    </Suspense>
+
     {/* Testimonials Section - Brand Green Aesthetic */}
     <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
       {/* Subtle dot texture — inline so no external CDN dependency */}
@@ -432,14 +285,12 @@ const Index = () => {
         style={{ background: 'radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)' }} />
 
       <div className="container relative z-10 mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16">
-          <AnimatedText as="h2" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white" delay={0.1}>
-            Wat mensen zeggen
-          </AnimatedText>
-          <AnimatedText as="p" className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed" delay={0.2}>
-            Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik.
-          </AnimatedText>
-        </div>
+        <SwissHead
+          dark
+          label="Referenties"
+          title="Wat onze klanten zeggen."
+          intro="Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik."
+        />
 
         <AnimatedSection delay={0.2}>
           <Suspense fallback={<div className="min-h-[280px]" />}>
@@ -448,52 +299,6 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
-
-    <Suspense fallback={<div className="min-h-[480px]" />}>
-      <PricingPackages />
-    </Suspense>
-
-    {/* Featured Projects */}
-    <section className="py-20 md:py-32">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <AnimatedText as="p" className="text-accent mb-4">ERVARING SPREEKT</AnimatedText>
-          <AnimatedText as="h2" className="text-4xl md:text-5xl font-bold mb-6" delay={0.1}>
-            Projecten waar we trots op zijn
-          </AnimatedText>
-          <AnimatedText as="p" className="text-xl text-muted-foreground max-w-3xl mx-auto font-light" delay={0.2}>
-            Van startups tot gevestigde namen, wij helpen bedrijven hun digitale dromen waar te maken met designs die indruk maken en resultaten leveren.
-          </AnimatedText>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
-          {featuredProjects.map((project, index) => <AnimatedSection key={index} delay={index * 0.15}>
-            <ProjectCard title={project.title} category={project.category} description={project.description} image={project.image} url={project.url} tags={project.tags} slug={project.slug} />
-          </AnimatedSection>)}
-        </div>
-
-        <AnimatedSection delay={0.4} className="text-center">
-          <motion.div whileHover={shouldReduceMotion ? {} : {
-            scale: 1.03,
-            y: -2
-          }} whileTap={shouldReduceMotion ? {} : {
-            scale: 0.98
-          }} transition={{
-            duration: 0.2,
-            ease: easings.easeOutQuart
-          }}>
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/portfolio">Alle projecten bekijken</Link>
-            </Button>
-          </motion.div>
-        </AnimatedSection>
-      </div>
-    </section>
-
-    {/* Design Carousel Section */}
-    <Suspense fallback={<div className="min-h-[420px]" />}>
-      <DesignCarousel />
-    </Suspense>
 
     {/* Problem vs Solution Section */}
     <ProblemSolutionSection />
@@ -508,35 +313,6 @@ const Index = () => {
       <FAQSection />
     </Suspense>
 
-    {/* CTA Section — solid accent with a radial glow; the old black→accent gradient rendered nearly flat */}
-    <section className="relative py-20 md:py-32 overflow-hidden" style={{ background: 'hsl(160 84% 16%)' }}>
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] pointer-events-none opacity-25 blur-[100px] rounded-full"
-        style={{ background: 'radial-gradient(circle, hsl(160 84% 55%) 0%, transparent 70%)' }}
-      />
-      <div className="container relative z-10 mx-auto px-6 text-center">
-        <AnimatedText as="h2" className="text-4xl md:text-6xl font-bold mb-6 text-white">
-          Klaar om je concurrentie voorbij te streven?
-        </AnimatedText>
-        <AnimatedText as="p" className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-white/80" delay={0.1}>
-          Laat je verhaal horen. Samen bouwen we een digitale aanwezigheid die niet alleen opvalt, maar ook converteert.
-        </AnimatedText>
-        <AnimatedSection delay={0.2}>
-          <motion.div
-            whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-          >
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/start-je-project">
-                Start je project
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </motion.div>
-        </AnimatedSection>
-      </div>
-    </section>
     <Footer />
   </div>;
 };

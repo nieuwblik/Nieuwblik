@@ -116,7 +116,7 @@ const Cookies = () => {
       />
       <Navigation />
       <main className="flex-1 bg-background">
-        <div className="container mx-auto px-6 py-24">
+        <div className="container mx-auto px-6 pt-header pb-24">
           <div className="max-w-4xl mx-auto">
             <motion.div 
               className="flex items-center gap-3 mb-8"
@@ -147,11 +147,9 @@ const Cookies = () => {
               variants={getVariants(staggerContainer)}
             >
               {sections.map((section, index) => (
-                <motion.section 
+                <motion.section
                   key={index}
                   variants={getVariants(staggerItem)}
-                  whileHover={shouldReduceMotion ? {} : { x: 4 }}
-                  transition={{ duration: 0.2 }}
                 >
                   <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
                   {section.content}
