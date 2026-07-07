@@ -117,18 +117,59 @@ export const localBusinessJsonLd = {
     latitude: 52.7039,
     longitude: 5.2931,
   },
-  areaServed: {
-    "@type": "Country",
-    name: "Nederland",
-  },
+  areaServed: [
+    { "@type": "Country", name: "Nederland" },
+    { "@type": "AdministrativeArea", name: "West-Friesland" },
+    { "@type": "City", name: "Enkhuizen" },
+    { "@type": "City", name: "Hoorn" },
+    { "@type": "City", name: "Medemblik" },
+    { "@type": "City", name: "Bovenkarspel" },
+    { "@type": "City", name: "Hoogkarspel" },
+    { "@type": "City", name: "Andijk" },
+    { "@type": "City", name: "Amsterdam" },
+    { "@type": "City", name: "Alkmaar" },
+  ],
   priceRange: "€€",
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "09:00",
-    closes: "17:00",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:30",
+    },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Diensten Nieuwblik",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Website op maat laten maken",
+          url: `${companyInfo.url}/diensten/website-op-maat`,
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Webshop laten maken",
+          url: `${companyInfo.url}/diensten/webshops`,
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Lokale SEO Enkhuizen & West-Friesland",
+          url: `${companyInfo.url}/seo-enkhuizen`,
+        },
+      },
+    ],
   },
   sameAs: [
     companyInfo.social.linkedin,
   ],
 };
+

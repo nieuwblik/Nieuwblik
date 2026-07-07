@@ -23,12 +23,48 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   if (!industry) return <Navigate to="/404" replace />;
 
   const url = `https://www.nieuwblik.com/website-laten-maken-${industry.slug}`;
-  const webPageJsonLd = {
+  const graphJsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: industry.title,
-    description: industry.metaDescription,
-    url,
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        name: industry.title,
+        description: industry.metaDescription,
+        url,
+        inLanguage: "nl-NL",
+      },
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: `Website laten maken voor ${industry.name.toLowerCase()}`,
+        serviceType: "Webdesign",
+        areaServed: { "@type": "Country", name: "Nederland" },
+        provider: { "@type": "Organization", name: "Nieuwblik", url: "https://www.nieuwblik.com" },
+        offers: {
+          "@type": "Offer",
+          price: "1500",
+          priceCurrency: "EUR",
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            price: "1500",
+            priceCurrency: "EUR",
+            valueAddedTaxIncluded: false,
+          },
+          availability: "https://schema.org/InStock",
+          url,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        mainEntity: industry.faq.items.map((it) => ({
+          "@type": "Question",
+          name: it.q,
+          acceptedAnswer: { "@type": "Answer", text: it.a },
+        })),
+      },
+    ],
   };
 
   return (
@@ -37,12 +73,22 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
         title={industry.title}
         description={industry.metaDescription}
         canonicalUrl={url}
-        structuredData={webPageJsonLd}
+        structuredData={graphJsonLd}
         includeLocalBusinessSchema={true}
       />
       <Navigation />
 
       <LandingHero h1={industry.h1} subtitle={industry.heroSubtitle} />
+
+      {/* Intro paragraaf voor extra keyword context */}
+      <section className="py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+          <p className="text-muted-foreground text-lg leading-relaxed text-center">
+            {industry.intro}
+          </p>
+        </div>
+      </section>
+
 
       {/* Sectie 1: Wat heeft deze branche nodig */}
       <section className="py-16 md:py-24 bg-secondary">
@@ -120,8 +166,15 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
               return part;
             })}
           </p>
+          <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
+            Lokaal actief? Bekijk onze pagina voor{" "}
+            <Link to="/seo-enkhuizen" className="text-accent hover:underline font-semibold">SEO Enkhuizen</Link>
+            {" "}of het{" "}
+            <Link to="/werkgebied/west-friesland" className="text-accent hover:underline font-semibold">werkgebied West-Friesland</Link>.
+          </p>
         </div>
       </section>
+
 
       <Footer />
     </div>
