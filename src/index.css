@@ -250,7 +250,8 @@ All colors MUST be HSL.
     border: none;
     outline: none;
     text-decoration: none;
-    font-weight: 500;
+    font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
   }
 
   .animated-btn::before,
@@ -406,7 +407,7 @@ All colors MUST be HSL.
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.5;
     transition: color 0.2s ease-in-out;
   }
@@ -527,10 +528,10 @@ All colors MUST be HSL.
    the container). line-height 1.3 gives the masked line box room so
    overflow:hidden never clips glyph descenders. */
 .sw-display {
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   line-height: 1.3;
   letter-spacing: -0.035em;
-  font-size: clamp(1.9rem, 11.5cqw, 7.25rem);
+  font-size: clamp(1.9rem, 10.5cqw, 6.6rem);
   text-transform: none;
 }
 
@@ -551,8 +552,10 @@ All colors MUST be HSL.
   font-size: clamp(3.5rem, 9vw, 8rem);
 }
 
-/* Headings render in Cabin at weight 400. !important overrides the per-heading
-   font-bold / font-black / font-extrabold utility classes across components. */
+/* Headings render in Epilogue at weight 700. !important overrides the
+   per-heading font-bold / font-black / font-extrabold utility classes
+   across components. */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600 !important;
+  font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-weight: 700 !important;
 }

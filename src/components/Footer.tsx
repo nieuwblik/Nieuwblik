@@ -166,7 +166,7 @@ function FooterComponent() {
           flexWrap: 'wrap' as const, gap: 12,
         }}>
           <span style={{ fontFamily: FONT_BODY, fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.35)' }}>
-            NIEUWBLIK · WEBDESIGN BUREAU
+            {"NIEUWBLIK · WEBDESIGN BUREAU "}
           </span>
           <span style={{ fontFamily: FONT_BODY, fontSize: 10, letterSpacing: '0.2em', color: ACCENT_LIGHT }}>
             {companyInfo.address.city.toUpperCase()} · NEDERLAND
@@ -184,12 +184,12 @@ function FooterComponent() {
           {/* Left — editorial */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h2 style={{
-              fontFamily: FONT_BODY, fontWeight: 900,
+              fontFamily: "'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", fontWeight: 700,
               fontSize: 'clamp(34px, 4.2vw, 56px)',
               color: WHITE, lineHeight: 0.9, letterSpacing: '-0.01em',
               margin: '0 0 28px', textTransform: 'uppercase' as const,
             }}>
-              WEBSITES<br />DIE GROEIEN.
+              WEBSITES <br />DIE GROEIEN.
             </h2>
             <p style={{
               fontFamily: FONT_BODY, fontSize: 14, fontWeight: 300, color: STEEL,

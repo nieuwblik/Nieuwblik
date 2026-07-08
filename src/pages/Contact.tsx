@@ -99,7 +99,7 @@ const Contact = () => {
       <Navigation />
 
       {/* Breadcrumb */}
-      <section className="pt-32 pb-0">
+      <section className="pt-32 pb-8 md:pb-12">
         <div className="container mx-auto px-6">
           <Breadcrumb items={[{ label: "Contact", path: "/contact" }]} />
         </div>

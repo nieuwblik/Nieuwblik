@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Cabin', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        script: ['Dancing Script', 'cursive'],
+        epilogue: ['Epilogue', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
       },
       fontWeight: {
         thin: '100',

@@ -70,12 +70,14 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 1: Waarom een professionele website */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">
             {city.section1.h2}
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-center">
-            {city.section1.body}
-          </p>
+          {/* section1.body is dropped here — it's word-for-word identical to
+              city.intro (rendered once, above, right after the hero) in the
+              auto-generated data. Repeating it verbatim under this heading
+              was the duplicated-paragraph bug; the heading + benefit cards
+              stand fine without it. */}
           <div className="grid sm:grid-cols-3 gap-6">
             {city.section1.benefits.map((b, idx) => (
               <div key={idx} className="bg-background rounded-2xl p-6 border border-border">
@@ -142,6 +144,12 @@ const CityLanding = ({ slug }: { slug: string }) => {
               if (part === "contactpagina") return <Link key={i} to="/contact" className="text-accent hover:underline font-semibold">contactpagina</Link>;
               return part;
             })}
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
+            Lokaal actief? Bekijk onze pagina voor{" "}
+            <Link to="/seo-enkhuizen" className="text-accent hover:underline font-semibold">SEO Enkhuizen</Link>
+            {" "}of het{" "}
+            <Link to="/werkgebied/west-friesland" className="text-accent hover:underline font-semibold">werkgebied West-Friesland</Link>.
           </p>
 
           {nearbyCities.length > 0 && (

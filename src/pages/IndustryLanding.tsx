@@ -106,12 +106,14 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 1: Wat heeft deze branche nodig */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">
             {industry.section1.h2}
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-center">
-            {industry.section1.body}
-          </p>
+          {/* section1.body is dropped here — it's word-for-word identical to
+              industry.intro (rendered once, above, right after the hero) in
+              the auto-generated data. Repeating it verbatim under this
+              heading was the duplicated-paragraph bug; the heading + need
+              cards stand fine without it. */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {industry.section1.needs.map((n, idx) => (
               <div key={idx} className="bg-background rounded-2xl p-6 border border-border">

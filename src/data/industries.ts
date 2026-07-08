@@ -308,7 +308,7 @@ export const industries: IndustryRecord[] = [
     "heroSubtitle": "Een fysiotherapeut heeft te maken met vertrouwen en deskundigheid uitstralen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
     "intro": "In de wereld van een fysiotherapeut is online zichtbaarheid bepalend voor succes. Fysiotherapiepraktijken die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op nieuwe patiënten via online vindbaarheid. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
     "section1": {
-      "h2": "Wat een professionele website jouw fysiotherapeut brengt",
+      "h2": "Wat een professionele website je als fysiotherapeut brengt",
       "body": "In de wereld van een fysiotherapeut is online zichtbaarheid bepalend voor succes. Fysiotherapiepraktijken die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op nieuwe patiënten via online vindbaarheid. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
       "needs": [
         {
@@ -448,10 +448,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Makelaar en je website is verouderd? Nieuwblik bouwt moderne sites die werken op alle apparaten en klanten overtuigen. Vraag een offerte aan.",
     "h1": "Een website die past bij jouw werk als makelaar",
     "heroSubtitle": "Een makelaar heeft te maken met snel en visueel woningaanbod tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers binden aan jouw merk. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers, en hen aan jouw merk binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "De juiste basis voor een makelaar website",
-      "body": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers binden aan jouw merk. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers, en hen aan jouw merk binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
@@ -874,10 +874,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Op zoek naar webdesign voor jouw schilder? Wij maken websites die opvallen in Google en bezoekers omzetten in klanten. Start vandaag.",
     "h1": "Meer klanten via een sterke website voor jouw schilder",
     "heroSubtitle": "Een schilder heeft te maken met lokaal goed vindbaar zijn voor klussen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar een regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "Hoe een sterke website meer oplevert voor jouw schilder",
-      "body": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar een regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
@@ -1018,7 +1018,7 @@ export const industries: IndustryRecord[] = [
     "heroSubtitle": "Een elektricien heeft te maken met vertrouwen wekken bij particulier en zakelijk. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
     "intro": "Een elektricien verdient een website die past bij het werk en het gevoel dat je wilt overbrengen. Veel elektriciens hebben moeite met vertrouwen wekken bij particulier en zakelijk, en dat is precies waar wij invliegen. Nieuwblik koppelt sterke teksten aan strak design en zorgt voor beide doelgroepen converteren. We werken vanuit Enkhuizen voor MKB door heel Nederland, met persoonlijk contact en betaalbare tarieven die transparant zijn vanaf het eerste gesprek.",
     "section1": {
-      "h2": "Wat een professionele website jouw elektricien brengt",
+      "h2": "Wat een professionele website je als elektricien brengt",
       "body": "Een elektricien verdient een website die past bij het werk en het gevoel dat je wilt overbrengen. Veel elektriciens hebben moeite met vertrouwen wekken bij particulier en zakelijk, en dat is precies waar wij invliegen. Nieuwblik koppelt sterke teksten aan strak design en zorgt voor beide doelgroepen converteren. We werken vanuit Enkhuizen voor MKB door heel Nederland, met persoonlijk contact en betaalbare tarieven die transparant zijn vanaf het eerste gesprek.",
       "needs": [
         {
@@ -1087,10 +1087,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Een nieuwe website voor jouw coach? Strategisch ontwerp, sterke teksten en goede vindbaarheid. Plan een vrijblijvend gesprek met ons.",
     "h1": "Laat jouw coach groeien met een nieuwe website",
     "heroSubtitle": "Een coach heeft te maken met persoonlijkheid en aanpak laten doorklinken. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken vullen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "Hoe een coach online het verschil maakt",
-      "body": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken vullen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
@@ -1726,10 +1726,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Meer klanten voor jouw architect via een sterke website. Nieuwblik bouwt snel, slim en betaalbaar. Bekijk wat wij voor jou kunnen doen.",
     "h1": "Modern webdesign voor de architect branche",
     "heroSubtitle": "Een architect heeft te maken met ontwerpvisie en projecten visueel tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden en aan ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
-      "h2": "Wat een professionele website jouw architect brengt",
-      "body": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "h2": "Wat een professionele website je als architect brengt",
+      "body": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden en aan ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",

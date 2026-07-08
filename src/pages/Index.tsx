@@ -19,7 +19,6 @@ import { ArrowRight, Star } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
-import heroBg from "@/assets/nieuwblik hero achtergrond 1.webp";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 import { gpuAcceleration } from "@/lib/optimized-motion";
@@ -100,14 +99,13 @@ const SwissHead = ({
 const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
 
-  // Hero entrance — background settles, headline masks up, the people photo
-  // rises in, then the bottom-bar copy fades up. Skipped for reduced motion.
+  // Hero entrance — headline masks up, the people photo rises in, then the
+  // bottom-bar copy fades up. Skipped for reduced motion.
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(".sw-hero-bg", { scale: 1.06, duration: 1.6, ease: "power3.out" }, 0)
-        .from(".sw-line-inner", { yPercent: 118, duration: 0.95, stagger: 0.1, ease: "power4.out" }, 0.2)
+      tl.from(".sw-line-inner", { yPercent: 118, duration: 0.95, stagger: 0.1, ease: "power4.out" }, 0.2)
         .from(".sw-hero-photo", { y: 48, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.35)
         .from(".sw-lead", { y: 18, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.55)
         .from(".sw-cta", { y: 18, opacity: 0, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.65);
@@ -140,18 +138,21 @@ const Index = () => {
 
     <Navigation />
 
-    {/* Hero Section — cream wireframe background; headline sits left, the people
-        photo sits right (own grid column, so they can never overlap); a
-        contained bottom bar with copy + CTAs closes the section. */}
-    <section ref={heroRef} className="sw-ink relative lg:min-h-screen pt-header overflow-hidden flex flex-col">
-      {/* Layer 1 — cream background with subtle wireframe pattern (unchanged) */}
-      <img
-        src={heroBg}
-        alt=""
-        aria-hidden="true"
-        className="sw-hero-bg absolute inset-0 w-full h-full object-cover z-0 will-change-transform"
-      />
-
+    {/* Hero Section — white background with a subtle brand-green wash;
+        headline sits left, the people photo sits right (own grid column, so
+        they can never overlap); a contained bottom bar with copy + CTAs
+        closes the section. */}
+    <section
+      ref={heroRef}
+      className="sw-ink relative lg:min-h-screen pt-header overflow-hidden flex flex-col"
+      style={{
+        background: `
+          radial-gradient(ellipse 60% 50% at 88% 12%, hsl(var(--sw-green) / 0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 55% 45% at 8% 92%, hsl(var(--sw-green) / 0.05) 0%, transparent 60%),
+          hsl(var(--background))
+        `,
+      }}
+    >
       {/* This outer wrapper stays full-width (flex layout only, no max-width) so
           the bottom bar's background can span edge-to-edge below. Only the
           headline+photo row and the mobile photo get their own `container
@@ -173,7 +174,7 @@ const Index = () => {
               <AnimatedButton to="/start-je-project" size="lg">
                 Start je project
               </AnimatedButton>
-              <Link to="/portfolio" className="sw-mono group inline-flex items-center gap-2 transition-colors" style={{ color: "hsl(var(--sw-ink))" }}>
+              <Link to="/portfolio" className="sw-mono group inline-flex items-center gap-2 pl-8 lg:pl-0 transition-colors" style={{ color: "hsl(var(--sw-ink))" }}>
                 Onze portfolio
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
