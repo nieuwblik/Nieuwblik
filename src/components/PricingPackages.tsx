@@ -141,22 +141,22 @@ const PricingPackages = () => {
             <span className="sw-mono" style={{ color: GREEN_LIGHT }}>Tarieven</span>
           </motion.div>
 
-          <div style={{ overflow: "hidden", paddingBottom: 12 }}>
-            <motion.h2
-              initial={{ y: reduce ? 0 : "110%" }}
-              whileInView={{ y: 0 }}
-              transition={{ duration: 0.9, ease: EASE }}
-              viewport={{ once: true, margin: "-100px" }}
-              style={{
-                fontWeight: 700,
-                fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
-                color: WHITE, letterSpacing: "-0.02em",
-                lineHeight: 1.05, margin: 0,
-              }}
-            >
-              Pakketten die passen bij jouw groei
-            </motion.h2>
-          </div>
+          <motion.h2
+            initial={{ opacity: 0, y: reduce ? 0 : 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            viewport={{ once: true, amount: 0.1 }}
+            style={{
+              fontWeight: 700,
+              fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
+              color: WHITE, letterSpacing: "-0.02em",
+              lineHeight: 1.1, margin: 0,
+              paddingBottom: 4,
+            }}
+          >
+            Pakketten die passen bij jouw groei
+          </motion.h2>
+
 
           <motion.p
             initial={{ opacity: 0, y: 14 }}
