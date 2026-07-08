@@ -131,9 +131,8 @@ const Index = () => {
 
   return <div className="min-h-screen bg-background">
     <SEOHead
-      title="Nieuwblik | Webdesign Bureau Enkhuizen - Websites & Webshops"
+      title="Webdesign Bureau Enkhuizen | Websites & Webshops - Nieuwblik"
       description={companyInfo.description}
-      keywords="webdesign, website laten maken, webshop, enkhuizen, noord-holland, webdevelopment, e-commerce, online marketing"
       canonicalUrl={companyInfo.url}
       includeOrganizationSchema={true}
       includeLocalBusinessSchema={true}
@@ -167,7 +166,7 @@ const Index = () => {
               font-size measures against (see .sw-display in index.css). */}
           <div className="sw-hero-textcol flex flex-col items-start justify-center lg:pr-4 xl:pr-6 py-10 lg:py-0 lg:-translate-y-10">
             <h1 className="sw-display m-0 text-left w-full" style={{ color: "#000" }}>
-              <span className="sw-mask"><span className="sw-line-inner">Webdesign bureau</span></span>
+              <span className="sw-mask"><span className="sw-line-inner">Webdesign bureau</span></span>{" "}
               <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen.</span></span></span>
             </h1>
             <div className="sw-cta mt-8 md:mt-10 flex flex-wrap items-center gap-6">

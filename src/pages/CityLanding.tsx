@@ -12,6 +12,9 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
 import { getCityBySlug } from "@/data/cities";
+import { getCityExtra } from "@/data/cityExtras";
+import { companyInfo } from "@/config/company";
+import { buildLandingTitle, buildCityDescription } from "@/lib/programmaticSeo";
 
 const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
 const featuredProjects = featuredTitles
@@ -22,20 +25,26 @@ const CityLanding = ({ slug }: { slug: string }) => {
   const city = getCityBySlug(slug);
   if (!city) return <Navigate to="/404" replace />;
 
-  const url = `https://www.nieuwblik.com/website-laten-maken-${city.slug}`;
+  const url = `${companyInfo.url}/website-laten-maken-${city.slug}`;
+  const seoTitle = buildLandingTitle(city.name);
+  const seoDescription = buildCityDescription(city.slug, city.name);
+  const extra = getCityExtra(city.slug);
+  const nearbyCities = (extra?.nearby ?? [])
+    .map((s) => getCityBySlug(s))
+    .filter((c): c is NonNullable<typeof c> => Boolean(c));
   const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: city.title,
-    description: city.metaDescription,
+    name: seoTitle,
+    description: seoDescription,
     url,
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={city.title}
-        description={city.metaDescription}
+        title={seoTitle}
+        description={seoDescription}
         canonicalUrl={url}
         structuredData={webPageJsonLd}
         includeLocalBusinessSchema={true}
@@ -43,6 +52,20 @@ const CityLanding = ({ slug }: { slug: string }) => {
       <Navigation />
 
       <LandingHero h1={city.h1} subtitle={city.heroSubtitle} />
+
+      {/* Intro paragraaf voor extra keyword context — zelfde patroon als IndustryLanding */}
+      <section className="py-12 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+          {extra && (
+            <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-3">
+              Regio {extra.region}
+            </p>
+          )}
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            {city.intro}
+          </p>
+        </div>
+      </section>
 
       {/* Sectie 1: Waarom een professionele website */}
       <section className="py-16 md:py-24 bg-secondary">
@@ -120,6 +143,23 @@ const CityLanding = ({ slug }: { slug: string }) => {
               return part;
             })}
           </p>
+
+          {nearbyCities.length > 0 && (
+            <div className="mt-8 pt-8 border-t border-border">
+              <p className="text-sm text-muted-foreground mb-3">Ook actief in de buurt:</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {nearbyCities.map((c) => (
+                  <Link
+                    key={c.slug}
+                    to={`/website-laten-maken-${c.slug}`}
+                    className="text-sm text-accent hover:underline font-semibold"
+                  >
+                    Website laten maken {c.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

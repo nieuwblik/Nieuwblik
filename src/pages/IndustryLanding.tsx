@@ -12,9 +12,12 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
 import { getIndustryBySlug } from "@/data/industries";
+import { getIndustryExtra, getRelatedIndustrySlugs } from "@/data/industryExtras";
+import { companyInfo } from "@/config/company";
+import { buildLandingTitle, buildIndustryDescription } from "@/lib/programmaticSeo";
 
 const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
-const featuredProjects = featuredTitles
+const fallbackProjects = featuredTitles
   .map((t) => projects.find((p) => p.title === t))
   .filter((p): p is typeof projects[number] => Boolean(p));
 
@@ -22,15 +25,25 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   const industry = getIndustryBySlug(slug);
   if (!industry) return <Navigate to="/404" replace />;
 
-  const url = `https://www.nieuwblik.com/website-laten-maken-${industry.slug}`;
+  const url = `${companyInfo.url}/website-laten-maken-${industry.slug}`;
+  const seoTitle = buildLandingTitle(industry.name);
+  const seoDescription = buildIndustryDescription(industry.slug, industry.name);
+  const extra = getIndustryExtra(industry.slug);
+  const relevantProjects = (extra?.relevantCaseSlugs ?? [])
+    .map((s) => projects.find((p) => p.slug === s))
+    .filter((p): p is typeof projects[number] => Boolean(p));
+  const branchProjects = relevantProjects.length > 0 ? relevantProjects : fallbackProjects;
+  const relatedIndustries = getRelatedIndustrySlugs(industry.slug, 3)
+    .map((s) => getIndustryBySlug(s))
+    .filter((i): i is NonNullable<typeof i> => Boolean(i));
   const graphJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebPage",
         "@id": `${url}#webpage`,
-        name: industry.title,
-        description: industry.metaDescription,
+        name: seoTitle,
+        description: seoDescription,
         url,
         inLanguage: "nl-NL",
       },
@@ -40,7 +53,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
         name: `Website laten maken voor ${industry.name.toLowerCase()}`,
         serviceType: "Webdesign",
         areaServed: { "@type": "Country", name: "Nederland" },
-        provider: { "@type": "Organization", name: "Nieuwblik", url: "https://www.nieuwblik.com" },
+        provider: { "@type": "Organization", name: "Nieuwblik", url: companyInfo.url },
         offers: {
           "@type": "Offer",
           price: "1500",
@@ -70,8 +83,8 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={industry.title}
-        description={industry.metaDescription}
+        title={seoTitle}
+        description={seoDescription}
         canonicalUrl={url}
         structuredData={graphJsonLd}
         includeLocalBusinessSchema={true}
@@ -110,6 +123,40 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
         </div>
       </section>
 
+      {/* Sectie 1b: Uitdagingen & functies specifiek voor deze branche */}
+      {extra && (
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+                Uitdagingen voor een {industry.name.toLowerCase()} online
+              </h2>
+              <ul className="space-y-4">
+                {extra.painpoints.map((p, idx) => (
+                  <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                    <span className="text-accent font-bold">–</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+                Functies die voor een {industry.name.toLowerCase()} website het verschil maken
+              </h2>
+              <ul className="space-y-4">
+                {extra.features.map((f, idx) => (
+                  <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                    <span className="text-accent font-bold">✓</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Sectie 2: Vergelijking */}
       <ProblemSolutionSection />
 
@@ -134,7 +181,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
             <p className="text-muted-foreground max-w-2xl mx-auto">{industry.section4.intro}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-10 md:gap-12">
-            {featuredProjects.map((p) => (
+            {branchProjects.map((p) => (
               <ProjectCard key={p.slug} {...p} />
             ))}
           </div>
@@ -172,6 +219,23 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
             {" "}of het{" "}
             <Link to="/werkgebied/west-friesland" className="text-accent hover:underline font-semibold">werkgebied West-Friesland</Link>.
           </p>
+
+          {relatedIndustries.length > 0 && (
+            <div className="mt-8 pt-8 border-t border-border">
+              <p className="text-sm text-muted-foreground mb-3">Ook interessant:</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {relatedIndustries.map((i) => (
+                  <Link
+                    key={i.slug}
+                    to={`/website-laten-maken-${i.slug}`}
+                    className="text-sm text-accent hover:underline font-semibold"
+                  >
+                    Website voor {i.name.toLowerCase()}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
