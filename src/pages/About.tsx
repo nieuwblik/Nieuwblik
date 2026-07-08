@@ -70,7 +70,7 @@ const AnimatedText = ({
 };
 
 const stats = [
-  { value: "30+", label: "Projecten opgeleverd" },
+  { value: "80+", label: "Projecten opgeleverd" },
   { value: "4.9", label: "Gemiddelde beoordeling" },
   { value: "2023", label: "Opgericht" },
   { value: "100%", label: "Maatwerk" },
