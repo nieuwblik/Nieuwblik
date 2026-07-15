@@ -1,7 +1,7 @@
 import DOMPurify from "dompurify";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Navigation from "@/components/Navigation";
+import { createPortal } from "react-dom";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -581,7 +581,6 @@ const BlogPost = () => {
           ]}
         />
       )}
-      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-4">
@@ -596,19 +595,25 @@ const BlogPost = () => {
         </div>
       </section>
 
-      {/* Reading Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50"
-        initial={{ scaleX: 0, transformOrigin: "left" }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+      {/* Reading Progress Bar — portalled to <body>. UnderlayNav tweens `x` on
+          the <main> that wraps this page, and a transformed ancestor becomes the
+          containing block for its position:fixed descendants: left in place this
+          bar would stop tracking the viewport and slide with the page. */}
+      {createPortal(
         <motion.div
-          className="h-full bg-accent"
-          style={{ width: `${scrollProgress}%` }}
-          transition={{ duration: 0.1 }}
-        />
-      </motion.div>
+          className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50"
+          initial={{ scaleX: 0, transformOrigin: "left" }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="h-full bg-accent"
+            style={{ width: `${scrollProgress}%` }}
+            transition={{ duration: 0.1 }}
+          />
+        </motion.div>,
+        document.body
+      )}
 
       {/* Back to Blog */}
       <motion.section
@@ -648,29 +653,35 @@ const BlogPost = () => {
               />
             </motion.div>
 
-            {/* Table of Contents - Mobile */}
-            <div className="lg:hidden fixed bottom-6 right-6 z-40">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <motion.div
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                  >
-                    <Button size="lg" className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90">
-                      <Menu className="h-6 w-6" />
-                    </Button>
-                  </motion.div>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-80">
-                  <TableOfContents
-                    items={tocItems}
-                    activeSection={activeSection}
-                    onItemClick={scrollToSection}
-                    shouldReduceMotion={shouldReduceMotion}
-                  />
-                </SheetContent>
-              </Sheet>
-            </div>
+            {/* Table of Contents - Mobile — portalled to <body> for the same
+                reason as the progress bar above: the <main> wrapper gets
+                transformed, which would otherwise re-anchor this fixed button
+                to main instead of the viewport. */}
+            {createPortal(
+              <div className="lg:hidden fixed bottom-6 right-6 z-40">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <motion.div
+                      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                      whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                    >
+                      <Button size="lg" className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90">
+                        <Menu className="h-6 w-6" />
+                      </Button>
+                    </motion.div>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-80">
+                    <TableOfContents
+                      items={tocItems}
+                      activeSection={activeSection}
+                      onItemClick={scrollToSection}
+                      shouldReduceMotion={shouldReduceMotion}
+                    />
+                  </SheetContent>
+                </Sheet>
+              </div>,
+              document.body
+            )}
 
             {/* Main Content */}
             <div className="lg:col-span-2">

@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -10,6 +9,7 @@ import SocialContentSection from "@/components/SocialContentSection";
 import ToolsSlider from "@/components/ToolsSlider";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const ServiceCard = ({
   service,
@@ -119,6 +119,8 @@ const ServiceCard = ({
 };
 
 const Services = () => {
+  // Dark CTA band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   const services = [
@@ -188,7 +190,6 @@ const Services = () => {
           { name: "Diensten", url: "https://nieuwblik.com/diensten" }
         ]} 
       />
-      <Navigation />
       
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
@@ -241,7 +242,8 @@ const Services = () => {
       <SocialContentSection />
 
       {/* CTA Section */}
-      <motion.section 
+      <motion.section
+        ref={darkNavRef}
         className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
         initial="hidden"
         whileInView="visible"

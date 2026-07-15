@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import SmoothScroll from "./components/SmoothScroll";
+import UnderlayNav, { type UnderlayNavItem } from "./components/UnderlayNav";
+import { companyInfo } from "./config/company";
 
 import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
@@ -41,6 +43,27 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 const queryClient = new QueryClient();
 
+const NAV_LINKS: UnderlayNavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Diensten", href: "/diensten" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Over Ons", href: "/over-ons" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+
+// Only LinkedIn is a real Nieuwblik account (see config/company.ts) — the
+// reference's Instagram/X entries would be dead links, so they're not here.
+const NAV_SOCIALS: UnderlayNavItem[] = [
+  { label: "LinkedIn ↗", href: companyInfo.social.linkedin },
+];
+
+const NAV_QUICK_LINKS: UnderlayNavItem[] = [
+  { label: "Privacybeleid", href: "/privacy" },
+  { label: "Algemene voorwaarden", href: "/algemene-voorwaarden" },
+  { label: "Cookies", href: "/cookies" },
+];
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -52,7 +75,8 @@ const App = () => (
 
         <CookieConsent />
         <WhatsAppButton />
-        
+
+        <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/diensten" element={<Services />} />
@@ -94,6 +118,7 @@ const App = () => (
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </UnderlayNav>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

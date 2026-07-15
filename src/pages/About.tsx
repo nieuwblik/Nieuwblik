@@ -1,5 +1,4 @@
 import { lazy, Suspense, useRef } from "react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FAQSection from "@/components/FAQSection";
 import SEOHead from "@/components/SEOHead";
@@ -12,6 +11,7 @@ import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 import { cn } from "@/lib/utils";
 
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
@@ -128,6 +128,9 @@ const structuredData = {
 };
 
 const About = () => {
+  // Two dark bands (testimonials + CTA) — each needs its own ref.
+  const darkTestimonialsRef = useDarkNavSection<HTMLElement>();
+  const darkCtaRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -143,7 +146,6 @@ const About = () => {
           { name: "Over ons", url: "https://nieuwblik.com/over-ons" },
         ]}
       />
-      <Navigation />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative pt-header overflow-hidden bg-background">
@@ -370,7 +372,7 @@ const About = () => {
       </section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────────────────── */}
-      <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: "hsl(160 84% 12%)" }}>
+      <section ref={darkTestimonialsRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: "hsl(160 84% 12%)" }}>
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
           style={{ background: "radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)" }} />
@@ -397,7 +399,7 @@ const About = () => {
       <FAQSection />
 
       {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
+      <section ref={darkCtaRef} className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <AnimatedText as="h2" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary-foreground">
             Klaar om samen iets<br />moois te bouwen?

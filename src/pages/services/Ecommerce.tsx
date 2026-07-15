@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -137,7 +136,6 @@ const Ecommerce = () => {
           { name: "E-commerce", url: "https://nieuwblik.com/diensten/ecommerce" }
         ]}
       />
-      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">

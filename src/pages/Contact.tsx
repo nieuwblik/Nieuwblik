@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -9,6 +8,7 @@ import ContactForm from "@/components/ContactForm";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer, slideInLeft, slideInRight, easings } from "@/lib/motion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 // Animation component for scroll-triggered reveals
 const AnimatedSection = ({
@@ -73,6 +73,8 @@ const AnimatedText = ({
 };
 
 const Contact = () => {
+  // Dark CTA band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   const structuredData = {
@@ -96,7 +98,6 @@ const Contact = () => {
           { name: "Contact", url: "https://nieuwblik.com/contact" }
         ]}
       />
-      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-8 md:pb-12">
@@ -281,7 +282,7 @@ const Contact = () => {
       </section>
 
       {/* Testimonials Section - Brand Green Aesthetic */}
-      <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
+      <section ref={darkNavRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
         {/* Subtle Texture Overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
 

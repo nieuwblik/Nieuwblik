@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 // ── Brand tokens (Nieuwblik) ───────────────────────────────────
 const WHITE        = "#ffffff";
@@ -90,6 +91,8 @@ const PricingPackages = () => {
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
   const isTablet = bp === "tablet";
+  // Dark background: tell the fixed header to invert while this is under it.
+  const darkRef = useDarkNavSection<HTMLElement>();
   const PAD_X = isMobile ? 24 : isTablet ? 64 : 96;
   const reduce = useReducedMotion();
 
@@ -105,6 +108,7 @@ const PricingPackages = () => {
 
   return (
     <section
+      ref={darkRef}
       style={{
         position: "relative",
         padding: isMobile ? "96px 0" : "140px 0",

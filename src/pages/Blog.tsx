@@ -1,5 +1,4 @@
 import React from "react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -34,7 +33,6 @@ const Blog = () => {
           { name: "Blog", url: "https://nieuwblik.com/blog" }
         ]}
       />
-      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-8">

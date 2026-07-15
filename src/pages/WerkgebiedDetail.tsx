@@ -12,7 +12,6 @@ import {
   Building2,
   ShoppingBag,
 } from "lucide-react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -43,7 +42,6 @@ const WerkgebiedDetail = () => {
   if (!region) {
     return (
       <>
-        <Navigation />
         <main className="min-h-screen bg-background pt-24 pb-20 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-4">Regio niet gevonden</h1>
@@ -132,7 +130,6 @@ const WerkgebiedDetail = () => {
         }
       />
 
-      <Navigation />
 
       <main className="min-h-screen bg-background pt-32 pb-12 sm:pb-20">
         {/* Hero */}

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
@@ -88,7 +87,6 @@ const SeoEnkhuizen = () => {
         structuredData={graphJsonLd}
         includeLocalBusinessSchema={true}
       />
-      <Navigation />
 
       <main>
         {/* Hero */}

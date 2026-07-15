@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import quantumRehabImg from "@/assets/quantum-rehab.webp";
+import taxiDrechterlandImg from "@/assets/taxidrechterland.webp";
 import prideMobilityImg from "@/assets/pride-mobility.webp";
 import puurInHarmonieImg from "@/assets/puurinharmonie.webp";
 import benotedImg from "@/assets/benoted.webp";
@@ -18,7 +18,7 @@ const R2 = "https://pub-db1d62b400114ea6902679b432e6b4c7.r2.dev/nieuwblik-portfo
 // ── Portfolio data (real Nieuwblik projects) ───────────────────
 // `duration` values are placeholders — adjust to the real doorlooptijd.
 const ITEMS = [
-  { title: "Quantum Rehab Europe", category: "Revalidatietechnologie",  duration: "6 weken", image: quantumRehabImg,     slug: "quantum-rehab-europe",  url: "https://quantumrehab.eu" },
+  { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  duration: "3 weken", image: taxiDrechterlandImg, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
   { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", duration: "5 weken", image: prideMobilityImg,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
   { title: "Puur in Harmonie",      category: "Holistische Salon",       duration: "4 weken", image: puurInHarmonieImg,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
   { title: "BeNoted",               category: "Financiële Marketing",    duration: "4 weken", image: benotedImg,          slug: "benoted",               url: "https://benoted.nl" },
@@ -55,19 +55,16 @@ const ScrollPortfolio = () => {
     if (b) gsap.to(b, { x: enter ? 0 : -26, y: enter ? 0 : 26, ...opts });
   };
 
+  /* Pulled up (negative margin) so the top row of cards overlaps the hero by
+     ~40% of a card's height. z-20 beats the hero's z-10 content layer, so the
+     cards paint over it. No background: the hero and page are both white, and a
+     solid one would cover the hero instead of letting the cards overlap. */
   return (
-    <section className="bg-background py-24 md:py-32" style={{ overflow: "clip" }}>
+    <section
+      className="sw-projects-overlap relative z-20 pb-24 md:pb-32"
+      style={{ overflow: "clip" }}
+    >
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-            PROJECTEN
-          </h2>
-          <p className="md:text-right text-base md:text-lg text-muted-foreground font-light max-w-xs md:pt-4">
-            Cases die je meenemen door onze aanpak en de impact die we maken.
-          </p>
-        </div>
-
         {/* Card grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20">
           {ITEMS.map((item, i) => (

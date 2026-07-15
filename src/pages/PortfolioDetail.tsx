@@ -1,7 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import puurMobiel2Img from "@/assets/recente-projecten/puurinharmonie-mobiel2.webp";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -13,8 +12,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const PortfolioDetail = () => {
+  // Dark CTA band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
     const shouldReduceMotion = useReducedMotion();
@@ -51,7 +53,6 @@ const PortfolioDetail = () => {
                 canonicalUrl={`https://nieuwblik.com/portfolio/${project.slug}`}
                 ogImage={project.image}
             />
-            <Navigation />
 
             {/* Breadcrumb */}
             <section className="pt-32 pb-0">
@@ -332,6 +333,7 @@ const PortfolioDetail = () => {
 
             {/* CTA Section */}
             <motion.section
+                ref={darkNavRef}
                 className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
                 initial="hidden"
                 whileInView="visible"

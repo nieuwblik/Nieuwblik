@@ -22,6 +22,7 @@ import pridemobilityImg from "@/assets/projects/pridemobility.eu.webp";
 import quantumrehabImg from "@/assets/projects/quantumrehab.eu.webp";
 import aardingsbedrijfImg from "@/assets/projects/aardingsbedrijfwestfriesland.nl.png";
 import eenbundelgelukImg from "@/assets/projects/eenbundelgeluk.webp";
+import taxidrechterlandImg from "@/assets/taxidrechterland.webp";
 
 export interface ProjectDetail {
   year: string;
@@ -52,6 +53,22 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "taxi-drechterland",
+    title: "Taxi Drechterland",
+    category: "Taxi & Personenvervoer",
+    filterCategory: "websites",
+    description: "Een razendsnelle taxiwebsite voor Hoogkarspel en West-Friesland, met een boekingsformulier dat de rit als kant-en-klaar WhatsApp-bericht bij de chauffeur aflevert.",
+    tags: ["Maatwerk", "WhatsApp Boekingsformulier", "Lokale SEO", "Conversiegericht"],
+    image: taxidrechterlandImg,
+    url: "https://taxidrechterland.nl",
+    detail: {
+      year: "2026",
+      goal: "Taxi Drechterland is geen centrale met een callcenter, maar één vaste chauffeur uit Hoogkarspel die zijn eigen ritten rijdt. Precies dat is de kracht van het bedrijf, en precies dat maakte een klassiek boekingssysteem ongeschikt. Een agenda-integratie met realtime beschikbaarheid zou beloftes doen die één chauffeur onderweg niet kan waarmaken, en een account- of app-verplichting zou de drempel juist verhogen voor de doelgroep: mensen uit de regio die snel een rit naar het station, het ziekenhuis of Schiphol nodig hebben. De opdracht was daarom om de aanvraag zo kort mogelijk te maken zonder de chauffeur zijn regie af te nemen, en om lokaal goed gevonden te worden op de dorpen in de omgeving en op de luchthavenritten.",
+      idea: "In plaats van een boekingssysteem te bouwen dat de chauffeur moet bijhouden, hebben we het aanvraagproces laten eindigen waar hij toch al de hele dag zit: WhatsApp. Het boekingsformulier op de site vraagt alleen wat de chauffeur echt nodig heeft om te kunnen inschatten en bevestigen — type rit, ophaal- en bestemmingsadres, moment (nu of op afspraak), aantal personen en aantal koffers. Bij het versturen zet het formulier die antwoorden om in een compleet, netjes opgemaakt bericht en opent het WhatsApp met dat bericht al ingevuld klaar. De klant hoeft alleen nog op verzenden te drukken.\n\nDat lost twee dingen tegelijk op. De klant hoeft geen account aan te maken, geen app te installeren en niets zelf te formuleren — de drempel is één tik. En de chauffeur ontvangt geen los 'kunt u mij ophalen?' meer, maar direct een gestructureerde aanvraag met alle gegevens erin, waar hij vanuit zijn eigen telefoon persoonlijk op kan antwoorden met een prijsindicatie. Het gesprek staat meteen in de app die hij toch al gebruikt, inclusief de hele geschiedenis met die klant.",
+      details: "Voor Taxi Drechterland uit Hoogkarspel heeft Nieuwblik in juli 2026 een complete taxiwebsite ontworpen en gebouwd. Het uitgangspunt: de site moet net zo direct en persoonlijk aanvoelen als de chauffeur zelf, en op een telefoon langs de weg net zo snel zijn als thuis op de bank.\n\nHet hart van de website is het WhatsApp-boekingsformulier. Via een vast boekingsmenu geeft de bezoeker in een paar tikken zijn rit door: het type rit, waarvandaan en waarheen, of het per direct is of op afspraak, en met hoeveel personen en koffers. Personen en koffers worden met eenvoudige plus- en minknoppen ingesteld in plaats van via een dropdown, zodat het ook met één duim op een klein scherm werkt. Zodra de aanvraag compleet is, wordt alles omgezet naar een kant-en-klaar WhatsApp-bericht en opent de app met het bericht al ingevuld. Geen account, geen wachtrij, geen formulier dat in een mailbox verdwijnt: de aanvraag landt rechtstreeks bij de chauffeur, die persoonlijk bevestigt.\n\nDaarnaast is de hele site opgebouwd rond het dagritme van het bedrijf. Overdag rijdt de chauffeur in de regio — Hoogkarspel, Venhuizen, Westwoud, Oosterblokker, Hoorn en Enkhuizen — en vanaf de middag verplaatst het werkgebied zich richting Amsterdam en Schiphol. Dat ritme is expliciet uitgelegd in plaats van verstopt achter een beschikbaarheidskalender, zodat een bezoeker in één oogopslag ziet of hij op het juiste moment belt. Bellen en appen staan overal binnen bereik, met een zwevende widget en een vaste balk die meeschuift.\n\nVoor de vindbaarheid zijn aparte pagina's gemaakt voor de luchthavenritten naar Schiphol, Eindhoven, Rotterdam, Groningen en Maastricht Aachen Airport, en zijn de kernen in het werkgebied afzonderlijk uitgelicht. Zo wordt Taxi Drechterland gevonden op precies de zoekopdrachten waar de klant op dat moment mee bezig is, of dat nu 'taxi Hoogkarspel' is of 'taxi naar Schiphol vanuit West-Friesland'.\n\nHet resultaat is een website die de kortste route neemt tussen een bezoeker met een vraag en een chauffeur met een antwoord. Geen systeem dat onderhouden moet worden, geen techniek die belooft wat één chauffeur niet kan waarmaken — maar een snelle, heldere site die elke aanvraag als een compleet bericht op de telefoon van de chauffeur legt."
+    }
+  },
   {
     slug: "een-bundel-geluk",
     title: "Een Bundel Geluk",

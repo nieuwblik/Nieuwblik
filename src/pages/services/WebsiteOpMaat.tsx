@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 
@@ -32,8 +31,11 @@ import hadoseoLogo from "@/assets/tools/hadoseo-logo.webp";
 import wordpressLogo from "@/assets/tools/wordpress.svg";
 import elementorLogo from "@/assets/tools/elementor.svg";
 import woocommerceLogo from "@/assets/tools/woocommerce.svg";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const WebsiteOpMaat = () => {
+  // Dark CTA band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   const usps = [{
@@ -146,7 +148,6 @@ const WebsiteOpMaat = () => {
         { name: "Website op maat", url: "https://nieuwblik.com/diensten/website-op-maat" }]
         } />
       
-      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-0">
@@ -669,6 +670,7 @@ const WebsiteOpMaat = () => {
 
       {/* Footer CTA */}
       <motion.section
+        ref={darkNavRef}
         className="py-16 md:py-24 bg-gradient-to-br from-primary to-accent"
         initial="hidden"
         whileInView="visible"

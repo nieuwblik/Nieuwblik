@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { OptimizedImage } from '@/components/OptimizedImage'
 import logo from '@/assets/logo.webp'
 import { companyInfo } from '@/config/company'
+import { useDarkNavSection } from '@/components/UnderlayNav'
 import { cities } from '@/data/cities'
 import { industries } from '@/data/industries'
 
@@ -111,9 +112,12 @@ function FooterNavBlock({ col }: { col: typeof FOOTER_COLS[number] }) {
 
 function FooterComponent() {
   const { isMobile, isTablet } = useBp()
+  // Dark background: tell the fixed header to invert while this is under it.
+  const darkRef = useDarkNavSection<HTMLElement>()
 
   return (
     <motion.footer
+      ref={darkRef}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: '-60px' }}

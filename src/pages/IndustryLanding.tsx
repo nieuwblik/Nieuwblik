@@ -1,6 +1,5 @@
 import { Link, Navigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
@@ -14,6 +13,7 @@ import { projects } from "@/data/projects";
 import { getIndustryBySlug } from "@/data/industries";
 import { getIndustryExtra, getRelatedIndustrySlugs } from "@/data/industryExtras";
 import { companyInfo } from "@/config/company";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 import { buildLandingTitle, buildIndustryDescription } from "@/lib/programmaticSeo";
 
 const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
@@ -22,6 +22,8 @@ const fallbackProjects = featuredTitles
   .filter((p): p is typeof projects[number] => Boolean(p));
 
 const IndustryLanding = ({ slug }: { slug: string }) => {
+  // Dark CTA band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
   const industry = getIndustryBySlug(slug);
   if (!industry) return <Navigate to="/404" replace />;
 
@@ -89,7 +91,6 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
         structuredData={graphJsonLd}
         includeLocalBusinessSchema={true}
       />
-      <Navigation />
 
       <LandingHero h1={industry.h1} subtitle={industry.heroSubtitle} />
 
@@ -163,7 +164,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       <ProblemSolutionSection />
 
       {/* Sectie 3: Reviews */}
-      <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
+      <section ref={darkNavRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
           style={{ background: 'radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)' }} />

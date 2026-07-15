@@ -1,7 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, Phone, Mail } from "lucide-react";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -47,7 +46,6 @@ const Werkgebied = () => {
         keywords="webdesign Nederland, website laten maken, werkgebied, lokale webdesigner, West-Friesland"
       />
 
-      <Navigation />
 
       <main className="min-h-screen bg-background">
         {/* Hero Section */}

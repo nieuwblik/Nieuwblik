@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -22,8 +21,11 @@ import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.
 import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.webp";
 import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp";
 import compressorListingImg from "@/assets/projects/compressor-listing.webp";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const Portfolio = () => {
+  // Dark CTA band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -115,7 +117,6 @@ const Portfolio = () => {
           { name: "Portfolio", url: "https://nieuwblik.com/portfolio" }
         ]}
       />
-      <Navigation />
 
       {/* Breadcrumb */}
       <section className="pt-32 pb-8 md:pb-12">
@@ -416,6 +417,7 @@ const Portfolio = () => {
 
       {/* CTA Section */}
       <motion.section
+        ref={darkNavRef}
         className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
         initial="hidden"
         whileInView="visible"

@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { FileText } from "lucide-react";
@@ -133,7 +132,6 @@ const Terms = () => {
         keywords="algemene voorwaarden, webdesign voorwaarden, Nieuwblik Enkhuizen, website afspraken"
         includeOrganizationSchema={false}
       />
-      <Navigation />
       <main className="flex-1 bg-background">
         <div className="container mx-auto px-6 pt-header pb-24">
           <div className="max-w-4xl mx-auto">

@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ReviewsDisplay from "@/components/ReviewsDisplay";
 import ReviewForm from "@/components/ReviewForm";
@@ -31,7 +30,6 @@ const Reviews = () => {
           { name: "Reviews", url: "https://nieuwblik.com/reviews" }
         ]}
       />
-      <Navigation />
       
       {/* Hero Section */}
       <motion.section 

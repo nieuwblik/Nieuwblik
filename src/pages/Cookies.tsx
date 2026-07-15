@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Cookie } from "lucide-react";
@@ -114,7 +113,6 @@ const Cookies = () => {
         keywords="cookieverklaring, cookies, privacy, Nieuwblik Enkhuizen, website cookies"
         includeOrganizationSchema={false}
       />
-      <Navigation />
       <main className="flex-1 bg-background">
         <div className="container mx-auto px-6 pt-header pb-24">
           <div className="max-w-4xl mx-auto">

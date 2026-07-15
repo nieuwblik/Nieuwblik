@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
@@ -18,7 +17,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
-import heroTeamImage from "@/assets/justin-job-compressed.webp";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 import { gpuAcceleration } from "@/lib/optimized-motion";
@@ -27,6 +25,7 @@ import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 import { useReveal } from "@/lib/reveal";
+import { useDarkNavSection } from "@/components/UnderlayNav";
 
 // Optimized animation component for scroll-triggered reveals
 const AnimatedSection = ({
@@ -98,17 +97,18 @@ const SwissHead = ({
 
 const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
+  // Dark testimonials band: invert the fixed header while it's under it.
+  const darkNavRef = useDarkNavSection<HTMLElement>();
 
-  // Hero entrance — headline masks up, the people photo rises in, then the
-  // bottom-bar copy fades up. Skipped for reduced motion.
+  // Hero entrance — headline masks up, then the eyebrow/subtext/slider fade up
+  // and the CTAs settle in. Skipped for reduced motion.
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(".sw-line-inner", { yPercent: 118, duration: 0.95, stagger: 0.1, ease: "power4.out" }, 0.2)
-        .from(".sw-hero-photo", { y: 48, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.35)
-        .from(".sw-lead", { y: 18, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.55)
-        .from(".sw-cta", { y: 18, opacity: 0, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.65);
+      tl.from(".sw-line-inner", { yPercent: 118, duration: 0.95, stagger: 0.1, ease: "power4.out" }, 0.15)
+        .from(".sw-lead", { y: 20, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" }, 0.2)
+        .from(".sw-cta", { y: 16, opacity: 0, duration: 0.55, stagger: 0.1, ease: "power3.out" }, 0.5);
     });
   }, { scope: heroRef });
 
@@ -136,125 +136,75 @@ const Index = () => {
       includeLocalBusinessSchema={true}
       structuredData={faqJsonLd} />
 
-    <Navigation />
 
-    {/* Hero Section — white background with a subtle brand-green wash;
-        headline sits left, the people photo sits right (own grid column, so
-        they can never overlap); a contained bottom bar with copy + CTAs
-        closes the section. */}
+    {/* Hero Section — plain white; centred intro (eyebrow, headline, subtext,
+        CTAs, star rating).
+        Top padding clears the fixed header and nothing more. It deliberately
+        does NOT use .pt-header: that adds up to 6rem on top of the header
+        height for regular pages, which here stacked into ~280px of dead space
+        and pushed the overlapping Projects cards below the fold on a laptop.
+        The bottom padding must clear the Projects section, which is pulled up
+        over this one. In the 1-col range that overlap grows with the viewport
+        (25vw + 30px), so a fixed padding gets swallowed and the cards collide
+        with the star row — hence the matching calc, which holds a constant
+        ~56px gap. From md up the grid is 2-col and the overlap grows far more
+        slowly, so a flat value clears it. */}
     <section
       ref={heroRef}
-      className="sw-ink relative lg:min-h-screen pt-header overflow-hidden flex flex-col"
-      style={{
-        background: `
-          radial-gradient(ellipse 60% 50% at 88% 12%, hsl(var(--sw-green) / 0.07) 0%, transparent 60%),
-          radial-gradient(ellipse 55% 45% at 8% 92%, hsl(var(--sw-green) / 0.05) 0%, transparent 60%),
-          hsl(var(--background))
-        `,
-      }}
+      className="sw-ink sw-hero-fill relative flex flex-col justify-center pt-[calc(var(--header-height)_+_2rem)] pb-[calc(25vw_+_86px)] md:pb-[16.1rem]"
     >
-      {/* This outer wrapper stays full-width (flex layout only, no max-width) so
-          the bottom bar's background can span edge-to-edge below. Only the
-          headline+photo row and the mobile photo get their own `container
-          mx-auto px-4 sm:px-6` — that's what matches their content width to
-          the rest of the site, without also capping the bar. */}
-      <div className="relative z-10 flex-1 flex flex-col">
-        {/* Headline + photo row — grows to fill the space above the bar, so the
-            headline can be vertically centred within it (balanced top/bottom). */}
-        <div className="grid grid-cols-1 lg:flex-1 lg:grid-cols-[3fr_2fr] container mx-auto px-4 sm:px-6">
-          {/* Left — headline: left-aligned, vertically centred, generous whitespace.
-              sw-hero-textcol makes this the query container the h1's cqw-based
-              font-size measures against (see .sw-display in index.css). */}
-          <div className="sw-hero-textcol flex flex-col items-start justify-center lg:pr-4 xl:pr-6 py-10 lg:py-0 lg:-translate-y-10">
-            <h1 className="sw-display m-0 text-left w-full" style={{ color: "#000" }}>
-              <span className="sw-mask"><span className="sw-line-inner">Webdesign bureau</span></span>{" "}
-              <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen.</span></span></span>
-            </h1>
-            <div className="sw-cta mt-8 md:mt-10 flex flex-wrap items-center gap-6">
-              <AnimatedButton to="/start-je-project" size="lg">
-                Start je project
-              </AnimatedButton>
-              <Link to="/portfolio" className="sw-mono group inline-flex items-center gap-2 pl-8 lg:pl-0 transition-colors" style={{ color: "hsl(var(--sw-ink))" }}>
-                Onze portfolio
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
+      <div className="relative z-10 container mx-auto px-4 sm:px-6">
+        {/* Centred intro */}
+        {/* No extra top padding here — the section's pt already clears the
+            header; stacking a second one is what buried the Projects cards. */}
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="sw-lead sw-mono mb-6" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
+            Vertrouwd door MKB ondernemers door heel Nederland
+          </p>
+
+          <h1 className="sw-hero-textcol sw-display m-0 mx-auto text-center" style={{ color: "hsl(var(--sw-ink))" }}>
+            <span className="sw-mask"><span className="sw-line-inner">Webdesign bureau</span></span>
+            <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen.</span></span></span>
+          </h1>
+
+          <p className="sw-lead mx-auto mt-6 max-w-xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+            Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn — van eerste schets tot livegang.
+          </p>
+
+          <div className="sw-cta mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <AnimatedButton to="/start-je-project" size="lg">
+              Start je project
+            </AnimatedButton>
+            <Link
+              to="/portfolio"
+              className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-md text-base font-epilogue font-normal border transition-colors hover:bg-black/5"
+              style={{ borderColor: "hsl(var(--sw-rule) / 0.3)", color: "hsl(var(--sw-ink))" }}
+            >
+              Ontdek portfolio
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
-          {/* Right — people photo, anchored to the bottom of the row (desktop
-              only). Sized as a percentage >100% of its own (now narrower,
-              40%-share) column — nothing clips it since only the hero
-              <section> itself has overflow-hidden, not this column, so
-              it's safe for the centred photo to bleed symmetrically past its
-              column's edges into the unused gap either side. Two size tiers:
-              a smaller one covers every common MacBook logical resolution
-              (1280–1728px all fall under lg/xl, and even the 16" MBP's 1728
-              is still below 1800px), the larger one only kicks in past that
-              — genuinely spacious/external displays — where it's capped so
-              it never outgrows the source image's native resolution
-              (1000x882) and starts looking soft. */}
-          <div className="relative hidden lg:block">
-            <img
-              src={heroTeamImage}
-              alt="Justin &amp; Job, oprichters van Nieuwblik"
-              className="sw-hero-photo absolute bottom-0 left-1/2 -translate-x-1/2 w-[125%] max-w-[760px] min-[1800px]:w-[155%] min-[1800px]:max-w-[1000px] h-auto select-none pointer-events-none"
-              draggable={false}
-            />
-          </div>
-        </div>
-
-        {/* Mobile — photo stacks below the headline, resting just above the bar */}
-        <div className="lg:hidden flex justify-center container mx-auto px-4 sm:px-6 pb-6">
-          <img
-            src={heroTeamImage}
-            alt="Justin &amp; Job, oprichters van Nieuwblik"
-            className="sw-hero-photo w-[340px] sm:w-[420px] h-auto select-none"
-            draggable={false}
-          />
-        </div>
-
-        {/* Bottom bar — one contained element: thin top border + a slightly
-            different tint than the hero background, instead of floating pieces. */}
-        <div
-          className="sw-bar relative z-20 border-t"
-          style={{ background: "hsl(150 14% 95%)", borderColor: "hsl(var(--sw-rule) / 0.15)" }}
-        >
-          <div className="container mx-auto px-4 sm:px-6 py-5 md:py-6">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              {/* Social proof — same content/iconography as <TrustBar>, laid out
-                  horizontally and vertically centred with the buttons. */}
-              <div className="sw-lead flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                <div className="flex items-center gap-3 flex-wrap">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 md:w-5 md:h-5" style={{ fill: "hsl(var(--sw-green))", color: "hsl(var(--sw-green))" }} />
-                    ))}
-                  </div>
-                  <p className="text-sm md:text-base font-medium" style={{ color: "#000" }}>
-                    5,0 op Google,{" "}
-                    <span className="font-normal" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
-                      op basis van 15+ reviews
-                    </span>
-                  </p>
-                </div>
-
-                <div className="hidden sm:block h-5 w-px" style={{ background: "hsl(var(--sw-rule) / 0.25)" }} />
-
-                <p className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
-                  Vertrouwd door MKB ondernemers door heel Nederland
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-6 sm:items-center lg:justify-end">
-                <Link to="/portfolio" className="sw-cta sw-mono group inline-flex items-center gap-2 transition-colors" style={{ color: "hsl(var(--sw-ink))" }}>
-                  Ontdek portfolio
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
+          <div className="sw-cta mt-7 flex flex-wrap items-center justify-center gap-2.5">
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4" style={{ fill: "hsl(var(--sw-green))", color: "hsl(var(--sw-green))" }} />
+              ))}
             </div>
+            <span className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.8)" }}>
+              5,0 op Google,{" "}
+              <span style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>op basis van 15+ reviews</span>
+            </span>
           </div>
         </div>
       </div>
     </section>
+
+    {/* Featured Projects — second section; pulled up so the top row of cards
+        overlaps the hero (see the negative margin in ScrollPortfolio). */}
+    <Suspense fallback={<div className="min-h-[600px]" />}>
+      <ScrollPortfolio />
+    </Suspense>
 
     {/* SEO / AI search-engine visibility — instrument-panel redesign */}
     <Suspense fallback={<div className="min-h-[600px]" />}>
@@ -264,13 +214,8 @@ const Index = () => {
       <PricingPackages />
     </Suspense>
 
-    {/* Featured Projects — scroll-driven portfolio */}
-    <Suspense fallback={<div className="min-h-[600px]" />}>
-      <ScrollPortfolio />
-    </Suspense>
-
     {/* Testimonials Section - Brand Green Aesthetic */}
-    <section className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
+    <section ref={darkNavRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
       {/* Subtle dot texture — inline so no external CDN dependency */}
       <div
         className="absolute inset-0 opacity-[0.07] pointer-events-none"

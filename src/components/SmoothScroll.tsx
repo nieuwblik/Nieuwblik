@@ -11,6 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 let lenisInstance: Lenis | null = null;
 
 /**
+ * The live Lenis instance, or null when smooth scroll is disabled (reduced
+ * motion, touch, macOS) or not mounted yet. Consumers that lock page scroll
+ * must stop/start it — hiding body overflow alone won't stop Lenis.
+ */
+export const getLenis = (): Lenis | null => lenisInstance;
+
+/**
  * Global smooth-scroll. Lenis is position-based (it sets scrollTop rather than
  * transforming content), so position:fixed elements and ScrollTrigger keep
  * working natively. Disabled when the user prefers reduced motion, on coarse

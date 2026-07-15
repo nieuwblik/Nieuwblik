@@ -59,9 +59,11 @@ All colors MUST be HSL.
     --luxury-spacing: 6rem;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Dynamic header height - set via JS in Navigation component */
+    /* Dynamic header height - measured and set via JS in UnderlayNav */
     --header-height: 120px;
-    --review-bar-height: 40px;
+
+    /* Width of the underlay menu revealed behind the page (UnderlayNav) */
+    --menu-width: 30em;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 0%;
@@ -118,6 +120,13 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* Reserve the scrollbar gutter permanently. UnderlayNav locks body scroll
+     while the menu is open; without a stable gutter that lock removes the
+     scrollbar and the whole page jumps ~15px sideways mid-animation. */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-background text-foreground font-normal;
     font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -172,30 +181,30 @@ All colors MUST be HSL.
 
   /* Dynamic header-aware padding */
   .pt-header {
-    padding-top: calc(var(--header-height) + var(--review-bar-height) + 2rem);
+    padding-top: calc(var(--header-height) + 2rem);
   }
 
   @media (min-width: 640px) {
     .pt-header {
-      padding-top: calc(var(--header-height) + var(--review-bar-height) + 2.5rem);
+      padding-top: calc(var(--header-height) + 2.5rem);
     }
   }
 
   @media (min-width: 768px) {
     .pt-header {
-      padding-top: calc(var(--header-height) + var(--review-bar-height) + 3rem);
+      padding-top: calc(var(--header-height) + 3rem);
     }
   }
 
   @media (min-width: 1024px) {
     .pt-header {
-      padding-top: calc(var(--header-height) + var(--review-bar-height) + 4rem);
+      padding-top: calc(var(--header-height) + 4rem);
     }
   }
 
   @media (min-width: 1280px) {
     .pt-header {
-      padding-top: calc(var(--header-height) + var(--review-bar-height) + 6rem);
+      padding-top: calc(var(--header-height) + 6rem);
     }
   }
 
@@ -291,6 +300,61 @@ All colors MUST be HSL.
   .animated-btn:focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 3px;
+  }
+
+  /* ── Underlay navigation ────────────────────────────────────────────────
+     The only bit Tailwind can't express: the menu-width variable. Everything
+     else lives in UnderlayNav.tsx. */
+
+  /* Narrow screens: the fixed 30em panel would leave almost no page visible. */
+  @media (max-width: 767px) {
+    :root {
+      --menu-width: 80vw;
+    }
+  }
+
+  /* Projects section pulled up over the hero so the top row of cards overlaps it
+     by 40% of a card's height.
+     A percentage margin can't be used (it resolves against WIDTH, not height),
+     and a fixed px value can't hold 40% either: the card height tracks the
+     viewport (its image is 16/10 of the column width), so one value drifts from
+     27% to 45% across a breakpoint. These calc()s derive the card height from
+     the viewport instead, so the ratio stays 40% at every width:
+       card height = 0.625 * columnWidth + ~105px (the meta block below it)
+       1 col (<768):  col = 100vw - 48   -> 40% = 25vw   + 30px
+       2 cols (>=768): col = (100vw - 80)/2 -> 40% = 12.5vw + 32px
+     The max() clamps the 2-col case once the container hits its max-width
+     (~1400px) and the card stops growing — beyond that 40% is a flat 209px. */
+  .sw-projects-overlap {
+    margin-top: calc(-25vw - 30px);
+  }
+  @media (min-width: 768px) {
+    .sw-projects-overlap {
+      margin-top: max(calc(-12.5vw - 32px), -209px);
+    }
+  }
+
+  /* The hero grows with the viewport so the top row of Projects never reveals
+     more than 60% of its photo above the fold (on a tall screen the whole card
+     otherwise fits on the first screen, which kills the reason to scroll):
+       visible = vh - cardTop,  cardTop = heroH - overlap,  overlap = 0.4*cardH
+       visible <= 0.6*cardH   =>   heroH >= vh - 0.2*cardH
+     and 0.2*cardH is exactly half the overlap — so this mirrors the margins
+     above, halved. svh overrides vh where supported: on mobile 100vh includes
+     the retracted URL bar, which would only ever make the hero taller (and the
+     card less visible), so the vh fallback errs on the safe side.
+     The 8px each formula gives back (vs. exactly half the overlap) is safety
+     margin: the overlap calc slightly overestimates the card height, which put
+     the result at 60.2-61.9% — just over the cap. This lands it at ~58%. */
+  .sw-hero-fill {
+    min-height: calc(100vh - 12.5vw - 7px);
+    min-height: calc(100svh - 12.5vw - 7px);
+  }
+  @media (min-width: 768px) {
+    .sw-hero-fill {
+      min-height: max(calc(100vh - 6.25vw - 8px), calc(100vh - 97px));
+      min-height: max(calc(100svh - 6.25vw - 8px), calc(100svh - 97px));
+    }
   }
 
   /* Floating points */
@@ -531,7 +595,7 @@ All colors MUST be HSL.
   font-weight: 700 !important;
   line-height: 1.3;
   letter-spacing: -0.035em;
-  font-size: clamp(1.9rem, 10.5cqw, 6.6rem);
+  font-size: clamp(1.7rem, 9.2cqw, 5.4rem);
   text-transform: none;
 }
 

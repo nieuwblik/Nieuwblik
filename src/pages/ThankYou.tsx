@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,6 @@ const ThankYou = () => {
         noIndex={true}
         includeOrganizationSchema={false}
       />
-      <Navigation />
       
       <motion.section 
         className="pt-32 pb-20 md:pt-40 md:pb-32"
