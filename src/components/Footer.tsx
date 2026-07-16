@@ -297,6 +297,15 @@ function FooterComponent() {
                   {b.name}
                 </Link>
               ))}
+              <Link
+                to="/taxi-website-laten-maken"
+                style={{
+                  fontFamily: FONT_BODY, fontSize: 12, fontWeight: 300,
+                  color: STEEL, textDecoration: 'none', padding: '4px 0', display: 'block',
+                }}
+              >
+                Taxi
+              </Link>
             </div>
           </div>
         </div>
