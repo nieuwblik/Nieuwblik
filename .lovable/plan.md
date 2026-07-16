@@ -1,75 +1,53 @@
-# Fase 1 + 2 uitvoeren: vindbaarheid Nieuwblik
+# Plan: /taxi-website-laten-maken case-pagina + footer
 
-## Fase 1 — Quick wins op bestaande posities
+Een op zichzelf staande, SEO-sterke case-pagina die uitlegt hoe de Taxi Drechterland site is gebouwd, waarom hij snel is, hoe de luchthaven-SEO werkt en hoe hij lokaal scoort rond West-Friesland. Plus een 'Taxi' link in de footer onder 'per branche'.
 
-### 1.2 Interne links naar kapper + restaurant
-Doel: autoriteit van homepage en blog doorgeven naar de twee landingen die het dichtst bij top-3 staan.
+## Wat er komt
 
-- **Homepage (`src/pages/Index.tsx`)** — in de bestaande "branches / voor wie" sectie (of onderaan vlak voor de footer-CTA) een korte tekstblok of chip-rij toevoegen met links naar:
-  - `/website-laten-maken-kapper`
-  - `/website-laten-maken-restaurant`
-  - `/website-laten-maken-fysiotherapeut` en 2 andere top-branches (voor natuurlijke link-context)
-- **Blog index (`src/pages/Blog.tsx`)** — onder de eerste fold een "Populair per branche" strook met dezelfde links.
-- **Footer (`src/components/Footer.tsx`)** — nieuwe kolom "Branches" met 5–6 interne links naar industrie-landingen. Sitewide link juice naar elke industrie-pagina.
-- **Industrie-landing (`src/pages/IndustryLanding.tsx`)** — in de bestaande "interne links" strook ook een link naar `/werkgebied/west-friesland` en `/seo-enkhuizen` toevoegen (cross-cluster linking).
+### 1. Nieuwe pagina `src/pages/TaxiWebsite.tsx`
 
-### 1.3 Aparte `/seo-enkhuizen` pagina
-Doel: rankt nu pos 6 met een blog. Met een dedicated dienstpagina richting top-3.
+Route: `/taxi-website-laten-maken` (past bij bestaand `website-laten-maken-{slug}` patroon, maar als expliciete route zodat het geen city/industry lookup nodig heeft).
 
-- Nieuwe route `/seo-enkhuizen` in `src/App.tsx`.
-- Nieuw component `src/pages/SeoEnkhuizen.tsx` met:
-  - H1: "SEO Enkhuizen — beter vindbaar in Google voor lokale ondernemers"
-  - SEOHead met keyword-rijke title (<60), meta (<155), canonical, `Service` + `FAQPage` + `LocalBusiness` JSON-LD
-  - Secties: probleem/oplossing, lokale aanpak (Google Business, lokale citations, content), prijzen vanaf, 5 FAQ-items, contact-CTA
-  - Interne links naar `/werkgebied/enkhuizen`, `/diensten`, kapper- en restaurant-landingen
-- Sitemap-entry toevoegen aan `public/sitemap.xml` (priority 0.9, changefreq monthly).
+Opbouw (donker groen visueel dna, hergebruikt uit bestaande pagina's, licht mode, geen em dashes, Nederlandse sentence case, geen loader-transitions):
 
-## Fase 2 — West-Friesland hub + lokale autoriteit
+1. **SEOHead** — title `Taxi website laten maken | Case Drechterland - Nieuwblik` (<60), meta description emotioneel + met keyword (<155), canonical + og:url naar `https://www.nieuwblik.com/taxi-website-laten-maken`, JSON-LD `Article` (headline, image = taxidrechterland.webp CDN, author Nieuwblik, datePublished juli 2026).
+2. **Hero** — H1 `Taxi website laten maken die ritten oplevert`, ondertitel over West-Friesland + Schiphol, groene CTA `Vraag een voorstel aan` naar `/contact`, secundair naar live site.
+3. **Case intro + featured image** — bestaande `taxidrechterland.webp` full-width, korte pitch (2 alinea's).
+4. **"Zo is de site gebouwd"** — 4 tegels:
+   - Maatwerk zonder CMS-overhead (React + Vite, statisch snel geladen)
+   - WhatsApp-boekingsformulier (aanvraag als kant-en-klaar bericht)
+   - Mobile-first UI (plus/min knoppen, sticky bel/app balk)
+   - Regio-ritme uitgelegd in plaats van agenda-integratie
+5. **"Waarom hij snel is"** — technisch blok, in Jip-en-Janneke: statische build, WebP-afbeeldingen, lazy loading, geen zware trackers, edge-caching, PageSpeed 90+.
+6. **"Airport SEO integratie"** — sectie die uitlegt hoe aparte landingspagina's zijn gemaakt voor Schiphol, Eindhoven, Rotterdam, Groningen en Maastricht Aachen Airport, met interne linkstructuur, schema en op-zoekintentie geschreven copy ('taxi naar Schiphol vanuit West-Friesland').
+7. **"Lokale keywords rond West-Friesland"** — grid met de kernen (Hoogkarspel, Venhuizen, Westwoud, Oosterblokker, Hoorn, Enkhuizen, Bovenkarspel, Grootebroek, Andijk, Wervershoof, Medemblik) en de logica achter de per-dorp positionering. Uitleg over Google Business Profile koppeling.
+8. **Resultaat / conclusie** — korte alinea.
+9. **CTA band** (donker groen, `useDarkNavSection`) — `Ook een taxi website die werkt?` → `/contact`.
+10. **Footer**.
 
-### 2.1 `/werkgebied/west-friesland` hub
-Doel: clusterpagina die alle West-Friese stadjes bundelt en autoriteit naar `/werkgebied/:slug` doorzet.
+Alleen bestaande foto gebruikt (`@/assets/taxidrechterland.webp`), zoals bevestigd.
 
-- Nieuwe slug `west-friesland` toevoegen aan `src/data/regions.ts` (type: `local`, met `nearbyPlaces` = alle West-Friese kernen die al in regions staan: Enkhuizen, Hoorn, Hoogkarspel, Bovenkarspel, Venhuizen, Hem, Hauwert, Zwaagdijk, Andijk, Medemblik, Stede Broec, Drechterland).
-- `src/pages/WerkgebiedDetail.tsx` blijft renderen, maar speciaal voor `west-friesland`: extra hub-sectie met grid van link-cards naar elke kern. Conditie: als slug === 'west-friesland' → renderHubGrid().
-- Werkgebied-overzicht (`src/pages/Werkgebied.tsx`) — West-Friesland prominent bovenaan als regiokaart-CTA.
-- Sitemap-entry toevoegen.
+### 2. Route in `src/App.tsx`
 
-### 2.2 LocalBusiness schema uitbreiden
-Doel: rich snippets, Google Business sync, lokale relevantie versterken.
+Eager import `TaxiWebsite` (consistent met andere public pages) + `<Route path="/taxi-website-laten-maken" element={<TaxiWebsite />} />` boven de `:landingPath` catch-all zodat de LandingRouter er niet overheen valt.
 
-- `src/config/company.ts` — `localBusinessJsonLd` uitbreiden met:
-  - `openingHoursSpecification` (ma–vr 09:00–17:30)
-  - `priceRange` ("€€")
-  - `geo` (latitude/longitude van Enkhuizen-vestiging)
-  - `areaServed` als lijst van Place-objecten (West-Friesland + grote NL-steden uit regions.ts)
-  - `sameAs` (LinkedIn, Instagram, Facebook van Nieuwblik)
-  - `hasOfferCatalog` met 3 OfferCatalog-items (Website op maat, Webshops, SEO)
-- Effect is sitewide want SEOHead injecteert dit op elke pagina die `includeLocalBusinessSchema` aan heeft.
+### 3. Footer link — `src/components/Footer.tsx`
 
-### 2.3 Backlink-strategie (geen code, wel doc + admin-checklist)
-Doel: Authority Score 6 → 15+. Geen externe API om dit te automatiseren, dus dit wordt een actiedocument.
+In de bestaande "Website laten maken per branche" grid (die momenteel uit `industries.ts` genereert): een extra hardcoded item 'Taxi' toevoegen dat naar `/taxi-website-laten-maken` linkt. Klein render-blokje na de `industries.map(...)` zodat we `industries.ts` (auto-generated) niet raken.
 
-- Nieuw bestand `.agent/backlink-outreach-plan.md` met:
-  - 5 prioritaire targets (WEEFF, NHD/Noordhollands Dagblad, Ondernemersfonds Enkhuizen, WBG West-Friese Bedrijven Groep, Citymarketing Enkhuizen)
-  - Per target: contact, hoek (gastblog / case study / sponsoring / interview), template-mail
-  - Tracking-tabel (status / datum verstuurd / response)
-- Optioneel: een korte sectie "Onze partners & vermeldingen" op `/over-ons` voorbereiden zodat ontvangen links wederzijds tonen.
+### 4. `public/sitemap.xml`
 
-## Volgorde van uitvoering
-1. Footer + Index + Blog interne links (1.2)
-2. `/seo-enkhuizen` pagina + route + sitemap (1.3)
-3. `west-friesland` region + WerkgebiedDetail hub + sitemap (2.1)
-4. LocalBusiness schema uitbreiden in `src/config/company.ts` (2.2)
-5. Industrie-landing interne links updaten (cross-cluster, 1.2 vervolg)
-6. Backlink-outreach plan toevoegen (2.3)
+Nieuwe `<url>` entry voor `https://www.nieuwblik.com/taxi-website-laten-maken`, priority 0.8, lastmod vandaag.
 
-## Technisch overzicht
-- **Bestanden gewijzigd:** `src/pages/Index.tsx`, `src/pages/Blog.tsx`, `src/components/Footer.tsx`, `src/pages/IndustryLanding.tsx`, `src/pages/WerkgebiedDetail.tsx`, `src/pages/Werkgebied.tsx`, `src/App.tsx`, `src/data/regions.ts`, `src/config/company.ts`, `public/sitemap.xml`
-- **Bestanden nieuw:** `src/pages/SeoEnkhuizen.tsx`, `.agent/backlink-outreach-plan.md`
-- **Schema's:** alle nieuwe pagina's krijgen `WebPage` + `Service` + `FAQPage` JSON-LD via SEOHead; sitewide LocalBusiness uitgebreid
-- **Geen breaking changes** — alle wijzigingen zijn additief, bestaande routes blijven werken
+## Bestanden
 
-## Wat ik nodig heb (kan ook na approval)
-- **Adresgegevens** voor LocalBusiness geo (lat/lng Enkhuizen-vestiging) — gebruik anders gemeente-centroid 52.7028 / 5.2914
-- **Social URLs** (LinkedIn/Instagram/Facebook van Nieuwblik) — als niet aanwezig in `company.ts` skip ik `sameAs`
-- Als deze ontbreken ga ik door met sensible defaults en markeer ik ze in de PR-omschrijving zodat je ze later kunt invullen.
+- **Nieuw:** `src/pages/TaxiWebsite.tsx`
+- **Wijzig:** `src/App.tsx` (import + route)
+- **Wijzig:** `src/components/Footer.tsx` (Taxi item in branches grid)
+- **Wijzig:** `public/sitemap.xml` (nieuwe URL)
+
+## Buiten scope
+
+- Geen extra taxi-foto's toevoegen (jouw keuze: alleen bestaande foto).
+- `industries.ts` niet uitbreiden (auto-generated bestand); Taxi wordt een aparte case-pagina, geen programmatic branche.
+- Geen wijzigingen aan `/portfolio/taxi-drechterland` detail-pagina.
