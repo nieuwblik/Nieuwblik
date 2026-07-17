@@ -83,6 +83,7 @@ const ScrollPortfolio = () => {
                 image={item.image}
                 slug={item.slug}
                 meta={item.duration}
+                priority={i < 2}
               />
             </motion.div>
           ))}

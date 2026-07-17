@@ -277,6 +277,7 @@ const Portfolio = () => {
                       description={project.description}
                       image={project.image}
                       slug={project.slug}
+                      priority={index < 2}
                     />
                   </motion.div>
                 ))}

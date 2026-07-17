@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useReducedMotion } from "framer-motion";
@@ -11,6 +12,8 @@ export interface PortfolioCardProps {
   meta?: string;
   /** Paragraph below the hairline rule — the portfolio page's case summary. */
   description?: string;
+  /** True for cards visible above the fold on load — skips lazy-loading and fades in faster. */
+  priority?: boolean;
 }
 
 /**
@@ -20,8 +23,9 @@ export interface PortfolioCardProps {
  * /portfolio: filter-switch stagger + exit), so this only owns the hover
  * "roll" (title slides up, duplicate enters from below) and the static markup.
  */
-export default function PortfolioCard({ title, category, image, slug, meta, description }: PortfolioCardProps) {
+export default function PortfolioCard({ title, category, image, slug, meta, description, priority }: PortfolioCardProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [loaded, setLoaded] = useState(false);
 
   const roll = (container: HTMLElement, y: number) => {
     if (shouldReduceMotion) return;
@@ -44,8 +48,12 @@ export default function PortfolioCard({ title, category, image, slug, meta, desc
           <img
             src={image}
             alt={`${title} — website ontworpen door Nieuwblik`}
-            loading="lazy"
-            className="w-full h-full object-cover object-top transition-[filter,transform] duration-500 ease-out will-change-transform group-hover:grayscale group-hover:blur-[6px] group-hover:scale-[1.04]"
+            loading={priority ? "eager" : "lazy"}
+            // @ts-expect-error fetchpriority isn't in React 18's img attribute types yet
+            fetchpriority={priority ? "high" : "auto"}
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+            className={`w-full h-full object-cover object-top transition-[opacity,filter,transform] duration-500 ease-out will-change-transform group-hover:grayscale group-hover:blur-[6px] group-hover:scale-[1.04] ${loaded ? "opacity-100" : "opacity-0"}`}
           />
 
           {/* Category pill — hides on hover */}
