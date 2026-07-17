@@ -257,11 +257,12 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
                       key={option.value}
                       type="button"
                       onClick={() => handleProjectTypeSelect(option.value)}
-                      className={`p-4 rounded-lg border-2 transition-colors text-left flex items-center gap-3 ${
+                      className="p-4 rounded-xl border transition-colors text-left flex items-center gap-3 hover:border-[hsla(160,84%,16%,0.4)]"
+                      style={
                         isSelected
-                          ? "border-accent bg-accent/10"
-                          : "border-border hover:border-accent/50 hover:bg-muted/50"
-                      }`}
+                          ? { borderColor: "hsl(160, 84%, 16%)", background: "hsla(160, 84%, 16%, 0.06)" }
+                          : { borderColor: "hsla(160, 12%, 8%, 0.14)" }
+                      }
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
@@ -314,11 +315,12 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
                   return (
                     <motion.label
                       key={service.value}
-                      className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-colors ${
+                      className="flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-colors hover:border-[hsla(160,84%,16%,0.4)]"
+                      style={
                         isChecked
-                          ? "border-accent bg-accent/10"
-                          : "border-border hover:border-accent/50 hover:bg-muted/50"
-                      }`}
+                          ? { borderColor: "hsl(160, 84%, 16%)", background: "hsla(160, 84%, 16%, 0.06)" }
+                          : { borderColor: "hsla(160, 12%, 8%, 0.14)" }
+                      }
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
@@ -353,11 +355,12 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
                       key={option.value}
                       type="button"
                       onClick={() => handleBudgetSelect(option.value)}
-                      className={`p-4 rounded-lg border-2 transition-colors text-center ${
+                      className="p-4 rounded-xl border transition-colors text-center hover:border-[hsla(160,84%,16%,0.4)]"
+                      style={
                         isSelected
-                          ? "border-accent bg-accent/10"
-                          : "border-border hover:border-accent/50 hover:bg-muted/50"
-                      }`}
+                          ? { borderColor: "hsl(160, 84%, 16%)", background: "hsla(160, 84%, 16%, 0.06)" }
+                          : { borderColor: "hsla(160, 12%, 8%, 0.14)" }
+                      }
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 + index * 0.05, duration: 0.3, ease: easings.easeOutExpo }}
@@ -409,8 +412,9 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
             className="space-y-6"
           >
             {/* Summary of Step 1 */}
-            <motion.div 
-              className="p-4 rounded-lg bg-muted/50 border border-border mb-6"
+            <motion.div
+              className="p-4 rounded-xl border mb-6"
+              style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsla(160, 12%, 8%, 0.1)" }}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.3, ease: easings.easeOutExpo }}

@@ -4,7 +4,8 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Globe, Palette, ShoppingBag, Pen, ArrowRight } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { Globe, Palette, ShoppingBag, Pen } from "lucide-react";
 import SocialContentSection from "@/components/SocialContentSection";
 import ToolsSlider from "@/components/ToolsSlider";
 import { motion, useReducedMotion } from "framer-motion";
@@ -45,9 +46,12 @@ const ServiceCard = ({
         }}
         transition={{ duration: 0.3, ease: easings.easeOutExpo }}
       >
-        <Card className="h-full group border-border/50 hover:border-accent/50 bg-card/50 backdrop-blur-sm overflow-hidden transition-colors">
+        <Card
+          className="h-full group rounded-2xl bg-card overflow-hidden transition-colors"
+          style={{ borderColor: "hsl(var(--sw-rule) / 0.14)" }}
+        >
           <CardHeader>
-            <motion.div 
+            <motion.div
               className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-4"
               whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 6 }}
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}
@@ -61,25 +65,28 @@ const ServiceCard = ({
               {service.description}
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent>
-            <div className="bg-secondary/50 p-6 rounded-lg backdrop-blur-sm border border-border/30">
-              <h4 className="font-semibold mb-4 text-sm uppercase tracking-wide text-accent">Wat je krijgt:</h4>
+            <div
+              className="p-6 rounded-xl border"
+              style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
+            >
+              <h4 className="sw-mono mb-4" style={{ color: "hsl(var(--sw-green))" }}>Wat je krijgt</h4>
               <ul className="space-y-3">
                 {service.features.map((feature: string, idx: number) => (
-                  <motion.li 
-                    key={idx} 
+                  <motion.li
+                    key={idx}
                     className="flex items-start gap-3 group/item"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.05, 
-                      duration: 0.3, 
-                      ease: easings.easeOutExpo 
+                    transition={{
+                      delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.05,
+                      duration: 0.3,
+                      ease: easings.easeOutExpo
                     }}
                   >
-                    <motion.span 
+                    <motion.span
                       className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"
                       whileHover={shouldReduceMotion ? {} : { scale: 1.5 }}
                       transition={{ duration: 0.2 }}
@@ -90,27 +97,11 @@ const ServiceCard = ({
               </ul>
             </div>
           </CardContent>
-          
+
           <CardFooter>
-            <motion.div
-              className="w-full"
-              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link to={service.link || "/start-je-project"} className="flex items-center justify-center gap-2">
-                  {service.linkText || "Start je project"}
-                  <motion.span
-                    className="inline-block"
-                    whileHover={shouldReduceMotion ? {} : { x: 4 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.span>
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to={service.link || "/start-je-project"} className="w-full">
+              {service.linkText || "Start je project"}
+            </AnimatedButton>
           </CardFooter>
         </Card>
       </motion.div>
@@ -192,22 +183,23 @@ const Services = () => {
       />
       
       {/* Breadcrumb */}
-      <section className="pt-32 pb-0">
+      <section className="pt-32 pb-8 md:pb-12">
         <div className="container mx-auto px-6">
           <Breadcrumb items={[{ label: "Diensten", path: "/diensten" }]} />
         </div>
       </section>
-      
+
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="pb-20 md:pb-28"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.p 
-            className="text-accent mb-6"
+          <motion.p
+            className="sw-mono mb-6"
+            style={{ color: "hsl(var(--sw-green))" }}
             variants={fadeUp}
           >
             ONZE DIENSTEN

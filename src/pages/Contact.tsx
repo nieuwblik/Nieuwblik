@@ -115,7 +115,8 @@ const Contact = () => {
       >
         <div className="container mx-auto px-6">
           <motion.p
-            className="text-accent mb-6"
+            className="sw-mono mb-6"
+            style={{ color: "hsl(var(--sw-green))" }}
             variants={fadeUp}
           >
             START JOUW PROJECT
@@ -149,7 +150,7 @@ const Contact = () => {
               variants={slideInLeft}
             >
               <motion.div
-                className="bg-accent text-accent-foreground p-8 rounded-lg sticky top-32"
+                className="bg-accent text-accent-foreground p-8 rounded-2xl sticky top-32"
                 whileHover={shouldReduceMotion ? {} : {
                   y: -4,
                   boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.15)"
@@ -185,12 +186,15 @@ const Contact = () => {
                   <motion.a
                     href="tel:+31646253607"
                     className="w-full block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.25)" }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                     transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
                     <Button
-                      className="w-full bg-background text-foreground hover:bg-background/90"
+                      className="w-full rounded-xl text-foreground border-0 hover:brightness-[0.98]"
+                      style={{
+                        background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)",
+                      }}
                       size="lg"
                     >
                       <Phone className="mr-2 h-5 w-5" />
@@ -203,12 +207,15 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2, boxShadow: "0 10px 25px -5px rgba(15, 130, 76, 0.5)" }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                     transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
                     <Button
-                      className="w-full bg-[#25D366] text-white hover:bg-[#20BA5A]"
+                      className="w-full rounded-xl text-white border-0 hover:brightness-[0.96]"
+                      style={{
+                        background: "linear-gradient(177.95deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 60%), linear-gradient(0deg, #25D366, #25D366)",
+                      }}
                       size="lg"
                     >
                       <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -242,7 +249,8 @@ const Contact = () => {
               variants={slideInRight}
             >
               <motion.div
-                className="bg-secondary p-8 md:p-12 rounded-lg"
+                className="p-8 md:p-12 rounded-2xl border"
+                style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
                 whileHover={shouldReduceMotion ? {} : {
                   boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05)"
                 }}
