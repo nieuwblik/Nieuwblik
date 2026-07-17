@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     question: "Kan ik zelf aanpassingen doen aan mijn website?",
-    answer: "Ja! We bouwen websites met gebruiksvriendelijke content management systemen (CMS) waarmee je eenvoudig zelf teksten, afbeeldingen en andere content kunt aanpassen. We geven uitleg en instructies hoe je dit doet. Voor complexere wijzigingen staan we natuurlijk altijd klaar om te helpen."
+    answer: "Standaard verzorgen wij het volledige beheer van je website, zodat snelheid, veiligheid en stabiliteit gewaarborgd blijven. Wil je toch zelf teksten en afbeeldingen kunnen aanpassen? Op verzoek kunnen wij hiervoor een CMS op maat maken. Voor overige wijzigingen staan we uiteraard altijd voor je klaar."
   },
   {
     question: "Bieden jullie ook onderhoud en support na oplevering?",
