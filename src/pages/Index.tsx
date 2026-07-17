@@ -151,14 +151,17 @@ const Index = () => {
         slowly, so a flat value clears it. */}
     <section
       ref={heroRef}
-      className="sw-ink sw-hero-fill relative flex flex-col justify-center pt-[calc(var(--header-height)_+_2rem)] pb-[calc(25vw_+_86px)] md:pb-[16.1rem]"
+      className="sw-ink sw-hero-fill relative flex flex-col justify-center pt-[calc(var(--header-height)_+_2.5rem)] sm:pt-[calc(var(--header-height)_+_3rem)] pb-[calc(25vw_+_86px)] md:pb-[16.1rem] lg:pb-[min(calc(27vw_-_9.3rem),14.5rem)]"
     >
       <div className="relative z-10 container mx-auto px-4 sm:px-6">
         {/* Centred intro */}
         {/* No extra top padding here — the section's pt already clears the
             header; stacking a second one is what buried the Projects cards. */}
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="sw-lead sw-mono mb-6" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
+        {/* lg+: matches the cards container's width (same `container` class,
+            no extra cap) instead of stopping at max-w-4xl, so the two
+            sections read as one grid. Unchanged below lg per spec. */}
+        <div className="max-w-4xl lg:max-w-none mx-auto text-center">
+          <p className="sw-lead sw-mono mb-6 text-balance" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
             Vertrouwd door MKB ondernemers door heel Nederland
           </p>
 
@@ -167,18 +170,22 @@ const Index = () => {
             <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen.</span></span></span>
           </h1>
 
-          <p className="sw-lead mx-auto mt-6 max-w-xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+          <p className="sw-lead mx-auto mt-6 max-w-xl lg:max-w-2xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
             Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn — van eerste schets tot livegang.
           </p>
 
-          <div className="sw-cta mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <AnimatedButton to="/start-je-project" size="lg">
+          {/* Both CTAs share height/padding/gap/icon size via .sw-hero-btn
+              (scoped override, see index.css — .animated-btn itself is shared
+              by 6+ other pages so it can't change globally). Only fill/border
+              differ, as requested. */}
+          <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+            <AnimatedButton to="/start-je-project" size="lg" className="sw-hero-btn h-14 px-8 w-full sm:w-auto">
               Start je project
             </AnimatedButton>
             <Link
               to="/portfolio"
-              className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-md text-base font-epilogue font-normal border transition-colors hover:bg-black/5"
-              style={{ borderColor: "hsl(var(--sw-rule) / 0.3)", color: "hsl(var(--sw-ink))" }}
+              className="sw-hero-btn group inline-flex h-14 w-full sm:w-auto items-center justify-center gap-3 rounded-md border px-8 text-base font-epilogue font-normal transition-colors hover:bg-black/5"
+              style={{ borderColor: "hsl(var(--sw-rule) / 0.3)", color: "hsl(var(--sw-ink))", background: "#fff" }}
             >
               Ontdek portfolio
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

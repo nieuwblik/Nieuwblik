@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import ProjectCard from "@/components/ProjectCard";
+import PortfolioCard from "@/components/PortfolioCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState, useEffect, lazy, Suspense } from "react";
@@ -14,6 +14,18 @@ import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/m
 const SocialContentSection = lazy(() => import("@/components/SocialContentSection"));
 
 import { projects } from "@/data/projects";
+
+// Resolved brand colors (not `hsl(var(--sw-*))`) — the filter pills below are
+// motion.button, and framer-motion auto-animates `style` prop changes on top
+// of whileHover; it can't interpolate a color containing a CSS var (warns
+// "not an animatable color" and silently fails to transition), only literal
+// comma-syntax hsl()/hsla().
+const SW_GREEN = "hsl(160, 84%, 16%)";
+const SW_GREEN_35 = "hsla(160, 84%, 16%, 0.35)";
+const SW_PAPER = "hsl(150, 14%, 97.5%)";
+const SW_INK = "hsl(160, 14%, 7%)";
+const SW_INK_60 = "hsla(160, 14%, 7%, 0.6)";
+const SW_RULE_16 = "hsla(160, 12%, 8%, 0.16)";
 
 // Import e-commerce listing images
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
@@ -163,28 +175,48 @@ const Portfolio = () => {
         transition={{ duration: 0.5, ease: easings.easeOutExpo }}
       >
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap gap-3 justify-center">
-            {filters.map((filter, index) => (
-              <motion.button
-                key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${activeFilter === filter.id
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "bg-secondary text-muted-foreground hover:bg-secondary/80"
-                  }`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: shouldReduceMotion ? 0 : index * 0.05,
-                  duration: 0.3,
-                  ease: easings.easeOutExpo
-                }}
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              >
-                {filter.label}
-              </motion.button>
-            ))}
+          <div className="flex flex-wrap gap-2.5 justify-center">
+            {filters.map((filter, index) => {
+              const active = activeFilter === filter.id;
+              return (
+                <motion.button
+                  key={filter.id}
+                  onClick={() => setActiveFilter(filter.id)}
+                  className="font-epilogue text-sm font-medium px-5 py-2.5 rounded-full border transition-all duration-300"
+                  style={
+                    active
+                      ? {
+                          background: SW_GREEN,
+                          borderColor: SW_GREEN,
+                          color: "#fff",
+                          boxShadow: "0 10px 25px -8px rgba(5, 102, 57, 0.45)",
+                        }
+                      : {
+                          background: SW_PAPER,
+                          borderColor: SW_RULE_16,
+                          color: SW_INK_60,
+                        }
+                  }
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: shouldReduceMotion ? 0 : index * 0.05,
+                    duration: 0.3,
+                    ease: easings.easeOutExpo
+                  }}
+                  whileHover={
+                    shouldReduceMotion
+                      ? {}
+                      : active
+                        ? { y: -1 }
+                        : { y: -1, borderColor: SW_GREEN_35, color: SW_INK }
+                  }
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+                >
+                  {filter.label}
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </motion.section>
@@ -202,7 +234,7 @@ const Portfolio = () => {
           >
             <div className="container mx-auto px-6">
               <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
+                className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20"
                 layout
                 initial="hidden"
                 animate="visible"
@@ -239,13 +271,11 @@ const Portfolio = () => {
                     }}
                     style={{ willChange: 'transform, opacity' }}
                   >
-                    <ProjectCard
+                    <PortfolioCard
                       title={project.title}
                       category={project.category}
                       description={project.description}
                       image={project.image}
-                      url={project.url}
-                      tags={project.tags}
                       slug={project.slug}
                     />
                   </motion.div>
