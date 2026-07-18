@@ -152,7 +152,7 @@ const PricingPackages = () => {
             viewport={{ once: true, amount: 0.1 }}
             style={{
               fontWeight: 700,
-              fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
+              fontSize: "clamp(2.25rem, 4.2vw, 3.5rem)",
               color: WHITE, letterSpacing: "-0.02em",
               lineHeight: 1.1, margin: 0,
               paddingBottom: 4,
