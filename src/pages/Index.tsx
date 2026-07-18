@@ -72,9 +72,9 @@ const SwissHead = ({
   intro,
   dark = false,
 }: { label: string; title: string; intro?: string; dark?: boolean; }) => {
-  const ink   = dark ? "rgba(255,255,255,0.96)" : "hsl(var(--sw-ink))";
+  const ink   = dark ? "rgba(255,255,255,1)" : "hsl(var(--sw-ink))";
   const ruleC = dark ? "rgba(255,255,255,0.20)" : "hsl(var(--sw-rule) / 0.16)";
-  const accentC = dark ? "rgba(255,255,255,0.9)" : "hsl(var(--sw-green))";
+  const accentC = dark ? "hsl(160, 70%, 58%)" : "hsl(var(--sw-green))";
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
   return (
@@ -221,6 +221,9 @@ const Index = () => {
       <PricingPackages />
     </Suspense>
 
+    {/* Problem vs Solution Section */}
+    <ProblemSolutionSection />
+
     {/* Testimonials Section - Brand Green Aesthetic */}
     <section ref={darkNavRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
       {/* Subtle dot texture — inline so no external CDN dependency */}
@@ -251,9 +254,6 @@ const Index = () => {
         </AnimatedSection>
       </div>
     </section>
-
-    {/* Problem vs Solution Section */}
-    <ProblemSolutionSection />
 
     {/* Featured Blog Posts */}
     <Suspense fallback={<div className="min-h-[420px]" />}>
