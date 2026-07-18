@@ -55,25 +55,28 @@ const AnimatedButton = ({
   const handleHover = (el: HTMLElement, enter: boolean) => {
     if (shouldReduceMotion) return;
     const roll = el.querySelector<HTMLElement>(".animated-btn-roll");
-    if (roll) gsap.to(roll, { yPercent: enter ? -100 : 0, duration: 0.55, ease: "power3.inOut", overwrite: true });
+    if (roll) gsap.to(roll, { yPercent: enter ? -100 : 0, duration: 0.4125, ease: "power3.inOut", overwrite: true });
 
     if (!showArrow) return;
     const a = el.querySelector<HTMLElement>(".animated-btn-arrow-a");
     const b = el.querySelector<HTMLElement>(".animated-btn-arrow-b");
     const dist = arrowPx * 1.2;
-    const opts = { duration: 0.5, ease: "power3.inOut", overwrite: true } as const;
+    const opts = { duration: 0.375, ease: "power3.inOut", overwrite: true } as const;
     if (a) gsap.to(a, { x: enter ? dist : 0, y: enter ? -dist : 0, ...opts });
     if (b) gsap.to(b, { x: enter ? 0 : -dist, y: enter ? 0 : dist, ...opts });
   };
 
   const buttonClass = cn(
-    "animated-btn inline-flex items-center justify-center rounded-md font-epilogue font-medium transition-colors duration-300",
+    "animated-btn inline-flex items-center justify-center rounded-md font-epilogue font-medium transition-colors",
     SIZE_CLASSES[size],
     VARIANT_CLASSES[variant],
     className
   );
 
-  const style = variant === "solid" ? { background: "hsl(160, 84%, 16%)" } : undefined;
+  const style = {
+    transitionDuration: "225ms",
+    ...(variant === "solid" ? { background: "hsl(160, 84%, 16%)" } : {}),
+  };
 
   const buttonContent = (
     <>
