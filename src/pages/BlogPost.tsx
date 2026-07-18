@@ -23,10 +23,9 @@ interface TableOfContentsProps {
   items: TocItem[];
   activeSection: string;
   onItemClick: (id: string) => void;
-  shouldReduceMotion: boolean | null;
 }
 
-const TableOfContents = ({ items, activeSection, onItemClick, shouldReduceMotion }: TableOfContentsProps) => (
+const TableOfContents = ({ items, activeSection, onItemClick }: TableOfContentsProps) => (
   <nav
     className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto rounded-2xl border p-6"
     style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
@@ -34,17 +33,9 @@ const TableOfContents = ({ items, activeSection, onItemClick, shouldReduceMotion
     <h3 className="sw-mono mb-4" style={{ color: "hsl(var(--sw-green))" }}>Inhoudsopgave</h3>
     <ul className="space-y-2 text-sm">
       {items.map((item, index) => (
-        <motion.li
+        <li
           key={item.id}
           className={item.level === 3 ? "ml-4" : ""}
-          initial={{ opacity: 0, x: -10 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{
-            delay: shouldReduceMotion ? 0 : index * 0.03,
-            duration: 0.3,
-            ease: easings.easeOutExpo
-          }}
-          viewport={{ once: true }}
         >
           <button
             onClick={() => onItemClick(item.id)}
@@ -55,7 +46,7 @@ const TableOfContents = ({ items, activeSection, onItemClick, shouldReduceMotion
           >
             {item.text}
           </button>
-        </motion.li>
+        </li>
       ))}
     </ul>
   </nav>
@@ -188,16 +179,12 @@ const BlogPost = () => {
       // Main title (H1)
       if (section.startsWith('# ')) {
         return (
-          <motion.h1
+          <h1
             key={index}
             className="text-3xl md:text-4xl font-bold mb-6 mt-8 first:mt-0"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             {section.replace('# ', '')}
-          </motion.h1>
+          </h1>
         );
       }
 
@@ -206,17 +193,13 @@ const BlogPost = () => {
         const text = section.replace('## ', '');
         const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return (
-          <motion.h2
+          <h2
             key={index}
             id={id}
             className="text-2xl md:text-3xl font-bold mb-4 mt-8 scroll-mt-24"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             {text}
-          </motion.h2>
+          </h2>
         );
       }
 
@@ -225,34 +208,26 @@ const BlogPost = () => {
         const text = section.replace('### ', '');
         const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         return (
-          <motion.h3
+          <h3
             key={index}
             id={id}
             className="text-xl md:text-2xl font-semibold mb-3 mt-6 scroll-mt-24"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.4, ease: easings.easeOutExpo }}
           >
             {text}
-          </motion.h3>
+          </h3>
         );
       }
 
       // Blockquote
       if (section.startsWith('> ')) {
         return (
-          <motion.blockquote
+          <blockquote
             key={index}
             className="rounded-2xl border p-6 italic text-base md:text-lg my-8"
             style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)", color: "hsl(var(--sw-ink) / 0.75)" }}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             {formatInlineMarkdown(section.replace('> ', ''))}
-          </motion.blockquote>
+          </blockquote>
         );
       }
 
@@ -265,13 +240,9 @@ const BlogPost = () => {
           const headers = headerLine.split('|').map(h => h.trim()).filter(h => h);
 
           return (
-            <motion.div
+            <div
               key={index}
               className="my-6 overflow-x-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, ease: easings.easeOutExpo }}
             >
               <table
                 className="w-full border-collapse rounded-2xl overflow-hidden"
@@ -309,7 +280,7 @@ const BlogPost = () => {
                   })}
                 </tbody>
               </table>
-            </motion.div>
+            </div>
           );
         }
       }
@@ -318,35 +289,23 @@ const BlogPost = () => {
       if (section.match(/^\d+\.\s/m)) {
         const items = section.split('\n').filter(line => line.match(/^\d+\.\s/));
         return (
-          <motion.ol
+          <ol
             key={index}
             className="list-decimal list-inside space-y-2 my-4 text-base"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             {items.map((item, i) => {
               const text = item.replace(/^\d+\.\s/, '');
               const parts = text.split('**');
               return (
-                <motion.li
+                <li
                   key={i}
                   className="text-foreground font-light"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : i * 0.05,
-                    duration: 0.3,
-                    ease: easings.easeOutExpo
-                  }}
                 >
                   {parts.map((part, j) => j % 2 === 1 ? <strong key={j} className="font-semibold">{part}</strong> : part)}
-                </motion.li>
+                </li>
               );
             })}
-          </motion.ol>
+          </ol>
         );
       }
 
@@ -354,34 +313,22 @@ const BlogPost = () => {
       if (section.includes('\n- ') || section.startsWith('- ')) {
         const items = section.split('\n').filter(line => line.startsWith('- '));
         return (
-          <motion.ul
+          <ul
             key={index}
             className="list-disc list-inside space-y-2 my-4 text-base"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             {items.map((item, i) => {
               const text = item.replace('- ', '');
               return (
-                <motion.li
+                <li
                   key={i}
                   className="text-foreground font-light"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : i * 0.05,
-                    duration: 0.3,
-                    ease: easings.easeOutExpo
-                  }}
                 >
                   {formatInlineMarkdown(text)}
-                </motion.li>
+                </li>
               );
             })}
-          </motion.ul>
+          </ul>
         );
       }
 
@@ -390,16 +337,12 @@ const BlogPost = () => {
         const lines = section.split('\n');
         const code = lines.slice(1, -1).join('\n');
         return (
-          <motion.pre
+          <pre
             key={index}
             className="rounded-2xl p-6 my-6 overflow-x-auto border" style={{ background: "hsl(var(--sw-ink) / 0.03)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             <code className="text-sm font-mono whitespace-pre">{code || section.replace(/```/g, '').trim()}</code>
-          </motion.pre>
+          </pre>
         );
       }
 
@@ -407,16 +350,12 @@ const BlogPost = () => {
       if (section.startsWith('`') && section.endsWith('`')) {
         const code = section.replace(/`/g, '').trim();
         return (
-          <motion.pre
+          <pre
             key={index}
             className="rounded-2xl p-6 my-6 overflow-x-auto border" style={{ background: "hsl(var(--sw-ink) / 0.03)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             <code className="text-sm font-mono">{code}</code>
-          </motion.pre>
+          </pre>
         );
       }
 
@@ -424,38 +363,26 @@ const BlogPost = () => {
       if (section.match(/^[❌✅]/m)) {
         const lines = section.split('\n');
         return (
-          <motion.ul
+          <ul
             key={index}
             className="space-y-3 my-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             {lines.map((line, i) => {
               const text = line.slice(2);
               const parts = text.split('**');
               return (
-                <motion.li
+                <li
                   key={i}
                   className="text-lg flex items-start gap-3"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : i * 0.05,
-                    duration: 0.3,
-                    ease: easings.easeOutExpo
-                  }}
                 >
                   <span className="text-2xl flex-shrink-0">{line.charAt(0)}</span>
                   <span className="text-foreground font-light flex-1">
                     {parts.map((part, j) => j % 2 === 1 ? <strong key={j} className="font-semibold">{part}</strong> : part)}
                   </span>
-                </motion.li>
+                </li>
               );
             })}
-          </motion.ul>
+          </ul>
         );
       }
 
@@ -466,14 +393,10 @@ const BlogPost = () => {
           ALLOWED_ATTR: ['href', 'target', 'rel', 'style', 'class', 'width', 'height', 'viewBox', 'fill', 'xmlns', 'd', 'clip-path', 'id'],
         });
         return (
-          <motion.div
+          <div
             key={index}
             dangerouslySetInnerHTML={{ __html: sanitized }}
             className="my-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           />
         );
       }
@@ -487,13 +410,9 @@ const BlogPost = () => {
       const imageMatch = section.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
       if (imageMatch) {
         return (
-          <motion.figure
+          <figure
             key={index}
             className="my-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, ease: easings.easeOutExpo }}
           >
             <img
               src={imageMatch[2]}
@@ -507,7 +426,7 @@ const BlogPost = () => {
                 {imageMatch[1]}
               </figcaption>
             )}
-          </motion.figure>
+          </figure>
         );
       }
 
@@ -537,13 +456,9 @@ const BlogPost = () => {
 
       const parts = section.split('**');
       return (
-        <motion.p
+        <p
           key={index}
           className="text-base text-foreground font-light leading-relaxed my-4"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.4, ease: easings.easeOutExpo }}
         >
           {parts.map((part, i) => {
             if (i % 2 === 1) {
@@ -551,7 +466,7 @@ const BlogPost = () => {
             }
             return <span key={i}>{formatParagraphText(part)}</span>;
           })}
-        </motion.p>
+        </p>
       );
     });
   };
@@ -664,7 +579,6 @@ const BlogPost = () => {
                 items={tocItems}
                 activeSection={activeSection}
                 onItemClick={scrollToSection}
-                shouldReduceMotion={shouldReduceMotion}
               />
             </motion.div>
 
@@ -690,7 +604,6 @@ const BlogPost = () => {
                       items={tocItems}
                       activeSection={activeSection}
                       onItemClick={scrollToSection}
-                      shouldReduceMotion={shouldReduceMotion}
                     />
                   </SheetContent>
                 </Sheet>
