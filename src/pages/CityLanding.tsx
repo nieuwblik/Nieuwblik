@@ -8,7 +8,7 @@ import ContactBlock from "@/components/ContactBlock";
 import ProjectCard from "@/components/ProjectCard";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { projects } from "@/data/projects";
 import { getCityBySlug } from "@/data/cities";
 import { getCityExtra } from "@/data/cityExtras";
@@ -119,12 +119,9 @@ const CityLanding = ({ slug }: { slug: string }) => {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Button asChild variant="outline" size="lg">
-              <Link to="/portfolio">
-                Alle projecten bekijken
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
+            <AnimatedButton to="/portfolio" size="lg" variant="outline">
+              Alle projecten bekijken
+            </AnimatedButton>
           </div>
         </div>
       </section>

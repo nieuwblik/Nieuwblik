@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { easings, modalVariants, overlayVariants, staggerContainer, staggerItem } from "@/lib/motion";
@@ -271,22 +271,16 @@ const ProjectCard = ({
               duration: 0.3,
               ease: easings.easeOutExpo
             }}>
-              <motion.div whileHover={shouldReduceMotion ? {} : {
-                scale: 1.02
-              }} whileTap={shouldReduceMotion ? {} : {
-                scale: 0.98
-              }} transition={{
-                duration: 0.2
-              }} className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3">
                 {slug && (
-                  <Button asChild className="w-full bg-accent hover:bg-accent/90" size="lg">
-                    <Link to={`/portfolio/${slug}`}>Bekijk de case</Link>
-                  </Button>
+                  <AnimatedButton to={`/portfolio/${slug}`} size="lg" className="w-full">
+                    Bekijk de case
+                  </AnimatedButton>
                 )}
-                <Button asChild className="w-full" size="lg" variant={slug ? "outline" : "default"}>
-                  <Link to="/contact">Offerte aanvragen</Link>
-                </Button>
-              </motion.div>
+                <AnimatedButton to="/contact" size="lg" variant={slug ? "outline" : "solid"} className="w-full">
+                  Offerte aanvragen
+                </AnimatedButton>
+              </div>
             </motion.div>
           </motion.div>
         </DialogContent>

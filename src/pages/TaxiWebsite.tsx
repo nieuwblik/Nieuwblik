@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Zap, Smartphone, MessageCircle, MapPin, Plane, Gauge, Search, CheckCircle2 } from "lucide-react";
+import { Zap, Smartphone, MessageCircle, MapPin, Plane, Gauge, Search, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 import { companyInfo } from "@/config/company";
@@ -154,17 +154,12 @@ const TaxiWebsite = () => {
               Van boekingsformulier tot luchthaven-SEO. Zo bouwde Nieuwblik voor Taxi Drechterland een razendsnelle website die klanten uit West-Friesland en heel Noord-Holland naar de juiste chauffeur brengt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link to="/contact">
-                  Vraag een voorstel aan
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <a href="https://taxidrechterland.nl" target="_blank" rel="noopener noreferrer">
-                  Bekijk de live site
-                </a>
-              </Button>
+              <AnimatedButton to="/contact" size="lg">
+                Vraag een voorstel aan
+              </AnimatedButton>
+              <AnimatedButton href="https://taxidrechterland.nl" size="lg" variant="outline">
+                Bekijk de live site
+              </AnimatedButton>
             </div>
           </div>
         </section>
@@ -316,12 +311,9 @@ const TaxiWebsite = () => {
             <p className="text-lg text-white/70 mb-8 leading-relaxed">
               Of je nu één chauffeur bent of een klein team runt, wij bouwen de website die past bij hoe jij daadwerkelijk rijdt. Snel, gevonden en direct bereikbaar.
             </p>
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">
-                Start je project
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
+            <AnimatedButton to="/contact" size="lg" variant="white">
+              Start je project
+            </AnimatedButton>
           </div>
         </section>
 

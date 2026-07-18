@@ -5,7 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import { Link } from "react-router-dom";
 import { Clock, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
 
@@ -203,17 +203,10 @@ const Blog = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.2, duration: 0.5, ease: easings.easeOutExpo }}
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
             >
-              <Button
-                asChild
-                size="lg"
-                className="rounded-xl text-foreground border-0 hover:brightness-[0.98] font-semibold"
-                style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
-              >
-                <Link to="/contact">Start je project vandaag</Link>
-              </Button>
+              <AnimatedButton to="/contact" size="lg" variant="white">
+                Start je project vandaag
+              </AnimatedButton>
             </motion.div>
           </motion.div>
         </div>

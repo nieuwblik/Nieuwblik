@@ -1,13 +1,12 @@
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MagicCard } from "@/components/ui/magic-card";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Image, Package, BookOpen, Check, Plus, ArrowRight, MessageCircle, Star } from "lucide-react";
+import { Image, Package, BookOpen, Check, Plus, MessageCircle, Star } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, modalVariants, easings } from "@/lib/motion";
 import {
@@ -190,30 +189,13 @@ const Ecommerce = () => {
             className="flex flex-col sm:flex-row gap-4"
             variants={fadeUp}
           >
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-                <Link to="/contact" className="flex items-center gap-2">
-                  Bespreek je groeikansen
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild size="lg" variant="outline" className="text-lg px-8">
-                <a href="https://wa.me/31681762670" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp direct
-                </a>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/contact" size="lg">
+              Bespreek je groeikansen
+            </AnimatedButton>
+            <AnimatedButton href="https://wa.me/31681762670" size="lg" variant="outline" showArrow={false}>
+              <MessageCircle className="w-5 h-5 mr-2 inline" />
+              WhatsApp direct
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>
@@ -552,18 +534,9 @@ const Ecommerce = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={fadeUp}
           >
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild size="lg" variant="secondary" className="text-lg px-8">
-                <Link to="/contact" className="flex items-center gap-2">
-                  Plan een strategiegesprek
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/contact" size="lg" variant="white">
+              Plan een strategiegesprek
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>
@@ -690,18 +663,9 @@ const Ecommerce = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={fadeUp}
           >
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-                <Link to="/contact" className="flex items-center gap-2">
-                  Neem contact op
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/contact" size="lg">
+              Neem contact op
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>

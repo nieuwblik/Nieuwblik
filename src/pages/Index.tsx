@@ -13,8 +13,7 @@ const ScrollPortfolio = lazy(() => import("@/components/ScrollPortfolio"));
 const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
 
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { Link } from "react-router-dom";
-import { ArrowRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
@@ -175,22 +174,13 @@ const Index = () => {
             Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn — van eerste schets tot livegang.
           </p>
 
-          {/* Both CTAs share height/padding/gap/icon size via .sw-hero-btn
-              (scoped override, see index.css — .animated-btn itself is shared
-              by 6+ other pages so it can't change globally). Only fill/border
-              differ, as requested. */}
           <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-            <AnimatedButton to="/start-je-project" size="lg" className="sw-hero-btn h-14 px-8 w-full sm:w-auto">
+            <AnimatedButton to="/start-je-project" size="lg" className="h-14 w-full sm:w-auto">
               Start je project
             </AnimatedButton>
-            <Link
-              to="/portfolio"
-              className="sw-hero-btn group inline-flex h-14 w-full sm:w-auto items-center justify-center gap-3 rounded-md border px-8 text-base font-epilogue font-normal transition-colors hover:bg-black/5"
-              style={{ borderColor: "hsl(var(--sw-rule) / 0.3)", color: "hsl(var(--sw-ink))", background: "#fff" }}
-            >
+            <AnimatedButton to="/portfolio" size="lg" variant="outline" className="h-14 w-full sm:w-auto">
               Ontdek portfolio
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </AnimatedButton>
           </div>
 
           <div className="sw-cta mt-7 flex flex-wrap items-center justify-center gap-2.5">

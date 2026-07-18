@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Phone } from "lucide-react";
 import { useRef } from "react";
 import ContactForm from "@/components/ContactForm";
@@ -183,24 +184,10 @@ const Contact = () => {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.2, duration: 0.4, ease: easings.easeOutExpo }}
                 >
-                  <motion.a
-                    href="tel:+31646253607"
-                    className="w-full block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.25)" }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                  >
-                    <Button
-                      className="w-full rounded-xl text-foreground border-0 hover:brightness-[0.98]"
-                      style={{
-                        background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)",
-                      }}
-                      size="lg"
-                    >
-                      <Phone className="mr-2 h-5 w-5" />
-                      Bel: +31 6 46 25 36 07
-                    </Button>
-                  </motion.a>
+                  <AnimatedButton href="tel:+31646253607" size="lg" variant="white" showArrow={false} className="w-full">
+                    <Phone className="mr-2 h-5 w-5 inline" />
+                    Bel: +31 6 46 25 36 07
+                  </AnimatedButton>
 
                   <motion.a
                     href="https://wa.me/31646253607"

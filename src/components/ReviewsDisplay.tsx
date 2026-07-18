@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Star, ExternalLink } from "lucide-react";
+import { Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 interface Review {
   id: string;
@@ -105,21 +105,13 @@ const ReviewsDisplay = () => {
       )}
 
       <div className="text-center">
-        <Button
-          asChild
-          variant="outline"
+        <AnimatedButton
+          href="https://www.google.com/search?sca_esv=71fe9f6971011125&rlz=1C1GCEA_enNL1027NL1027&sxsrf=AE3TifM-B4FMIkk5DYGEYEdxl3EtQ4Nmqw:1762678364543&q=nieuwblik&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E41TwuCziL3w73Kt8XMVdkOUPgIOr_b4h6IupuYh4m-qki5ZJ8eFVpL-yBW3eH9arT0bBhs%3D&uds=AOm0WdH6nlfKCX7KLFCq2cu8xOlC0TOV5ueG1dqxqYrC2916mj2v379G3lTv03EdiMAnQ7XDxhytKFxL5sLr_Tibq423KhN3_WHZz9I5Psb6mNkNionJJ8Y&sa=X&ved=2ahUKEwiFj5bO2OSQAxVJ_rsIHWUEBDwQ3PALegQIKhAF&biw=2560&bih=1305&dpr=1"
           size="lg"
+          variant="outline"
         >
-          <a
-            href="https://www.google.com/search?sca_esv=71fe9f6971011125&rlz=1C1GCEA_enNL1027NL1027&sxsrf=AE3TifM-B4FMIkk5DYGEYEdxl3EtQ4Nmqw:1762678364543&q=nieuwblik&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E41TwuCziL3w73Kt8XMVdkOUPgIOr_b4h6IupuYh4m-qki5ZJ8eFVpL-yBW3eH9arT0bBhs%3D&uds=AOm0WdH6nlfKCX7KLFCq2cu8xOlC0TOV5ueG1dqxqYrC2916mj2v379G3lTv03EdiMAnQ7XDxhytKFxL5sLr_Tibq423KhN3_WHZz9I5Psb6mNkNionJJ8Y&sa=X&ved=2ahUKEwiFj5bO2OSQAxVJ_rsIHWUEBDwQ3PALegQIKhAF&biw=2560&bih=1305&dpr=1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2"
-          >
-            Bekijk alle reviews op Google
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        </Button>
+          Bekijk alle reviews op Google
+        </AnimatedButton>
       </div>
     </div>
   );

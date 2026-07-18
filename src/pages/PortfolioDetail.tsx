@@ -4,11 +4,10 @@ import puurMobiel2Img from "@/assets/recente-projecten/puurinharmonie-mobiel2.we
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,7 +18,6 @@ const PortfolioDetail = () => {
   const darkNavRef = useDarkNavSection<HTMLElement>();
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
-    const shouldReduceMotion = useReducedMotion();
 
     const project = projects.find((p) => p.slug === slug);
 
@@ -98,11 +96,9 @@ const PortfolioDetail = () => {
                             <AnimatedButton to="/contact" size="lg">
                                 Dit wil ik ook
                             </AnimatedButton>
-                            <Button asChild variant="outline" size="lg" className="rounded-full font-medium">
-                                <a href={project.url} target="_blank" rel="noopener noreferrer">
-                                    Bekijk live website <ExternalLink className="ml-2 w-4 h-4" />
-                                </a>
-                            </Button>
+                            <AnimatedButton href={project.url} size="lg" variant="outline">
+                                Bekijk live website
+                            </AnimatedButton>
                         </motion.div>
                     </div>
                 </div>
@@ -353,13 +349,8 @@ const PortfolioDetail = () => {
                     >
                         Laten we samen kijken hoe we jouw online aanwezigheid naar een hoger niveau kunnen tillen.
                     </motion.p>
-                    <motion.div
-                        variants={fadeUp}
-                        whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                        whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                        transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                    >
-                        <AnimatedButton to="/contact" size="lg">
+                    <motion.div variants={fadeUp}>
+                        <AnimatedButton to="/contact" size="lg" variant="white">
                             Dit wil ik ook
                         </AnimatedButton>
                     </motion.div>

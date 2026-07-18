@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
+import { MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
 const url = "https://www.nieuwblik.com/seo-enkhuizen";
@@ -103,17 +103,12 @@ const SeoEnkhuizen = () => {
               Nieuwblik is jouw lokale SEO partner in Enkhuizen. Wij zorgen dat klanten uit Enkhuizen, Bovenkarspel en de rest van West-Friesland jouw bedrijf vinden via Google, in plaats van de concurrent een straat verderop.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link to="/contact">
-                  Gratis SEO scan aanvragen
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/werkgebied/west-friesland">
-                  Werkgebied West-Friesland
-                </Link>
-              </Button>
+              <AnimatedButton to="/contact" size="lg">
+                Gratis SEO scan aanvragen
+              </AnimatedButton>
+              <AnimatedButton to="/werkgebied/west-friesland" size="lg" variant="outline">
+                Werkgebied West-Friesland
+              </AnimatedButton>
             </div>
           </div>
         </section>
@@ -181,12 +176,9 @@ const SeoEnkhuizen = () => {
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
               Onze lokale SEO aanpak begint bij <strong className="text-foreground">750 euro</strong> voor een eenmalige optimalisatie van je site en Google Business profiel. Voor doorlopende groei werken we met maandpakketten vanaf <strong className="text-foreground">350 euro per maand</strong>. Altijd transparant, geen verborgen kosten en opzegbaar per maand.
             </p>
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">
-                Vraag een offerte op maat
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
+            <AnimatedButton to="/contact" size="lg">
+              Vraag een offerte op maat
+            </AnimatedButton>
           </div>
         </section>
 

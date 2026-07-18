@@ -9,6 +9,7 @@ import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
 import justinImg from "@/assets/justin-slok.webp";
 import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, scaleUp, easings } from "@/lib/motion";
@@ -706,21 +707,11 @@ const BlogPost = () => {
                       </p>
                     </>
                   )}
-                  <motion.div
-                    className="relative z-10 inline-block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                  >
-                    <Button
-                      asChild
-                      size="lg"
-                      className="rounded-xl text-foreground border-0 hover:brightness-[0.98] font-semibold"
-                      style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
-                    >
-                      <Link to="/contact">Start je Project Vandaag</Link>
-                    </Button>
-                  </motion.div>
+                  <div className="relative z-10 inline-block">
+                    <AnimatedButton to="/contact" size="lg" variant="white">
+                      Start je Project Vandaag
+                    </AnimatedButton>
+                  </div>
                 </motion.div>
 
                 {/* Summary */}
@@ -805,22 +796,10 @@ const BlogPost = () => {
                 </p>
 
                 <div className="space-y-4 relative z-10">
-                  <motion.a
-                    href="tel:+31646253607"
-                    className="w-full block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.25)" }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                  >
-                    <Button
-                      className="w-full rounded-xl text-foreground border-0 hover:brightness-[0.98]"
-                      style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
-                      size="lg"
-                    >
-                      <Phone className="mr-2 h-5 w-5" />
-                      Bel: +31 6 46 25 36 07
-                    </Button>
-                  </motion.a>
+                  <AnimatedButton href="tel:+31646253607" size="lg" variant="white" showArrow={false} className="w-full">
+                    <Phone className="mr-2 h-5 w-5 inline" />
+                    Bel: +31 6 46 25 36 07
+                  </AnimatedButton>
 
                   <motion.a
                     href="https://wa.me/31646253607"
@@ -843,21 +822,9 @@ const BlogPost = () => {
                     </Button>
                   </motion.a>
 
-                  <motion.div
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                    transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                  >
-                    <Link to="/start-je-project" className="w-full block">
-                      <Button
-                        className="w-full rounded-xl text-foreground border-0 hover:brightness-[0.98]"
-                        style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
-                        size="lg"
-                      >
-                        Start je project
-                      </Button>
-                    </Link>
-                  </motion.div>
+                  <AnimatedButton to="/start-je-project" size="lg" variant="white" showArrow={false} className="w-full">
+                    Start je project
+                  </AnimatedButton>
                 </div>
               </motion.div>
             </motion.div>

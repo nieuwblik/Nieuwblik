@@ -186,7 +186,8 @@ const TestimonialsCarousel = () => {
             href={GOOGLE_REVIEWS_URL}
             size="lg"
             showArrow={false}
-            className="animated-btn-white min-w-[280px] md:min-w-[320px]"
+            variant="white"
+            className="min-w-[280px] md:min-w-[320px]"
           >
             Bekijk alle Google reviews
           </AnimatedButton>

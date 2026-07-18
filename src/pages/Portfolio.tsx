@@ -2,8 +2,7 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import PortfolioCard from "@/components/PortfolioCard";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -461,15 +460,10 @@ const Portfolio = () => {
           >
             Laten we samen werken aan een project waar jij net zo trots op bent als wij.
           </motion.p>
-          <motion.div
-            variants={fadeUp}
-            whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-          >
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/contact">Start je project</Link>
-            </Button>
+          <motion.div variants={fadeUp}>
+            <AnimatedButton to="/contact" size="lg" variant="white">
+              Start je project
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>

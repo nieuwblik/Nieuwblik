@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { motion, useReducedMotion } from "framer-motion";
@@ -72,30 +72,12 @@ const NotFound = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             variants={getVariants(fadeUp)}
           >
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link to="/">
-                  <Home className="mr-2 h-5 w-5" />
-                  Terug naar Home
-                </Link>
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild variant="outline" size="lg">
-                <Link to="/contact">
-                  <ArrowLeft className="mr-2 h-5 w-5" />
-                  Neem Contact Op
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/" size="lg">
+              Terug naar Home
+            </AnimatedButton>
+            <AnimatedButton to="/contact" size="lg" variant="outline">
+              Neem Contact Op
+            </AnimatedButton>
           </motion.div>
 
           <motion.div 

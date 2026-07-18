@@ -2,10 +2,8 @@ import { lazy, Suspense, useRef } from "react";
 import Footer from "@/components/Footer";
 import FAQSection from "@/components/FAQSection";
 import SEOHead from "@/components/SEOHead";
-import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Linkedin } from "lucide-react";
+import { MapPin, Linkedin } from "lucide-react";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion, useInView } from "framer-motion";
@@ -204,12 +202,9 @@ const About = () => {
                 <AnimatedButton to="/start-je-project" size="lg">
                   Samenwerken
                 </AnimatedButton>
-                <Button asChild size="lg" variant="ghost" className="hover:bg-transparent hover:text-accent p-0 font-semibold group flex items-center gap-2">
-                  <Link to="/portfolio">
-                    Ons werk
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
+                <AnimatedButton to="/portfolio" size="lg" variant="outline">
+                  Ons werk
+                </AnimatedButton>
               </motion.div>
             </div>
 
@@ -296,12 +291,9 @@ const About = () => {
                   <AnimatedButton to="/start-je-project" size="lg">
                     Kennismaken
                   </AnimatedButton>
-                  <Button asChild size="lg" variant="ghost" className="hover:bg-transparent hover:text-accent p-0 font-semibold group flex items-center gap-2">
-                    <Link to="/contact">
-                      Contact
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
+                  <AnimatedButton to="/contact" size="lg" variant="outline">
+                    Contact
+                  </AnimatedButton>
                 </div>
               </AnimatedSection>
             </div>
@@ -408,18 +400,9 @@ const About = () => {
             We horen graag jouw verhaal. Een eerste gesprek is altijd gratis en vrijblijvend.
           </AnimatedText>
           <AnimatedSection delay={0.2}>
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-            >
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/start-je-project">
-                  Start je project
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/start-je-project" size="lg" variant="white">
+              Start je project
+            </AnimatedButton>
           </AnimatedSection>
         </div>
       </section>

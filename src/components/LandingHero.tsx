@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Plus, Linkedin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { easings } from "@/lib/motion";
 import { gpuAcceleration } from "@/lib/optimized-motion";
@@ -105,17 +104,9 @@ const LandingHero = ({ h1, subtitle }: LandingHeroProps) => {
               <AnimatedButton to="/contact" size="lg">
                 Start nu
               </AnimatedButton>
-              <Button
-                asChild
-                size="lg"
-                variant="ghost"
-                className="hover:bg-transparent hover:text-accent p-0 font-semibold group flex items-center gap-2"
-              >
-                <Link to="/portfolio">
-                  Ontdek portfolio
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              <AnimatedButton to="/portfolio" size="lg" variant="outline">
+                Ontdek portfolio
+              </AnimatedButton>
             </motion.div>
 
             <div className="flex gap-2 sm:gap-3 justify-center lg:justify-start">

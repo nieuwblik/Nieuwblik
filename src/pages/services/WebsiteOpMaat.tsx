@@ -3,11 +3,10 @@ import Breadcrumb from "@/components/Breadcrumb";
 
 import SEOHead from "@/components/SEOHead";
 import ProjectCard from "@/components/ProjectCard";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MagicCard } from "@/components/ui/magic-card";
-import { Link } from "react-router-dom";
-import { Palette, Zap, Bot, Check, Plus, ArrowRight, MessageCircle, Star, Phone } from "lucide-react";
+import { Palette, Zap, Bot, Check, Plus, MessageCircle, Star, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
 import {
@@ -193,30 +192,13 @@ const WebsiteOpMaat = () => {
             className="flex flex-col sm:flex-row gap-4"
             variants={fadeUp}>
             
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
-              
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">
-                <Link to="/contact" className="flex items-center gap-2">
-                  Start je website project
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
-              
-              <Button asChild size="lg" variant="outline" className="text-lg px-8">
-                <a href="https://wa.me/31681762670" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp direct
-                </a>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/contact" size="lg">
+              Start je website project
+            </AnimatedButton>
+            <AnimatedButton href="https://wa.me/31681762670" size="lg" variant="outline" showArrow={false}>
+              <MessageCircle className="w-5 h-5 mr-2 inline" />
+              WhatsApp direct
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>
@@ -463,23 +445,14 @@ const WebsiteOpMaat = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
             variants={fadeUp}>
             
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
-              
-              <Button asChild size="lg" variant="secondary" className="text-lg px-8">
-                <Link to="/contact" className="flex items-center gap-2">
-                  Ontvang een offerte
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/contact" size="lg" variant="white">
+              Ontvang een offerte
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>
 
-      {/* Relevant Cases - Using ProjectCard like Portfolio */}
+{/* Relevant Cases - Using ProjectCard like Portfolio */}
       <motion.section
         className="py-16 md:py-24"
         initial="hidden"
@@ -526,18 +499,9 @@ const WebsiteOpMaat = () => {
             className="text-center mt-12"
             variants={fadeUp}>
             
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
-              
-              <Button asChild variant="outline" size="lg">
-                <Link to="/portfolio" className="flex items-center gap-2">
-                  Bekijk alle projecten
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/portfolio" size="lg" variant="outline">
+              Bekijk alle projecten
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>
@@ -695,18 +659,9 @@ const WebsiteOpMaat = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
             variants={fadeUp}>
             
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-              transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
-              
-              <Button asChild size="lg" variant="secondary" className="text-lg px-8">
-                <Link to="/contact" className="flex items-center gap-2">
-                  Start Je Project
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-            </motion.div>
+            <AnimatedButton to="/contact" size="lg" variant="white">
+              Start Je Project
+            </AnimatedButton>
           </motion.div>
 
           <motion.div

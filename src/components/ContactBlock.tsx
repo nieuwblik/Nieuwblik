@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 interface ContactBlockProps {
   h2: string;
@@ -73,12 +72,9 @@ const ContactBlock = ({ h2, body }: ContactBlockProps) => {
           </div>
 
           <div className="text-center">
-            <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/contact">
-                Start je project
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
+            <AnimatedButton to="/contact" size="lg">
+              Start je project
+            </AnimatedButton>
             <p className="text-xs text-muted-foreground mt-4">KVK: 99229781</p>
           </div>
         </div>

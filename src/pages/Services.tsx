@@ -1,9 +1,7 @@
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "react-router-dom";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Globe, Palette, ShoppingBag, Pen } from "lucide-react";
 import SocialContentSection from "@/components/SocialContentSection";
@@ -255,15 +253,10 @@ const Services = () => {
           >
             Laten we bespreken hoe onze diensten jou kunnen helpen je bedrijfsdoelen te bereiken.
           </motion.p>
-          <motion.div
-            variants={fadeUp}
-            whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-            transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-          >
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/start-je-project">Start vandaag</Link>
-            </Button>
+          <motion.div variants={fadeUp}>
+            <AnimatedButton to="/start-je-project" size="lg" variant="white">
+              Start vandaag
+            </AnimatedButton>
           </motion.div>
         </div>
       </motion.section>

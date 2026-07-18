@@ -2,7 +2,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import {
   MapPin,
-  ArrowRight,
   CheckCircle2,
   Phone,
   Users,
@@ -14,7 +13,7 @@ import {
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { getRegionBySlug, regions } from "@/data/regions";
 import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
@@ -48,9 +47,9 @@ const WerkgebiedDetail = () => {
             <p className="text-muted-foreground mb-8">
               De regio "{slug}" bestaat niet in ons werkgebied.
             </p>
-            <Button asChild>
-              <Link to="/werkgebied">Bekijk alle regio's</Link>
-            </Button>
+            <AnimatedButton to="/werkgebied">
+              Bekijk alle regio's
+            </AnimatedButton>
           </div>
         </main>
         <Footer />
@@ -167,28 +166,13 @@ const WerkgebiedDetail = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              >
-                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Link to="/contact">
-                    Gratis kennismaken
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </motion.div>
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              >
-                <Button asChild variant="outline" size="lg">
-                  <a href={`tel:${companyInfo.phone.replace(/\s/g, "")}`}>
-                    <Phone className="mr-2 w-5 h-5" />
-                    {companyInfo.phone}
-                  </a>
-                </Button>
-              </motion.div>
+              <AnimatedButton to="/contact" size="lg">
+                Gratis kennismaken
+              </AnimatedButton>
+              <AnimatedButton href={`tel:${companyInfo.phone.replace(/\s/g, "")}`} size="lg" variant="outline" showArrow={false}>
+                <Phone className="mr-2 w-5 h-5 inline" />
+                {companyInfo.phone}
+              </AnimatedButton>
             </div>
           </motion.div>
         </section>
@@ -382,17 +366,9 @@ const WerkgebiedDetail = () => {
             </div>
 
             <div className="text-center mt-10">
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              >
-                <Button asChild variant="outline" size="lg">
-                  <Link to="/portfolio">
-                    Bekijk alle projecten
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </motion.div>
+              <AnimatedButton to="/portfolio" size="lg" variant="outline">
+                Bekijk alle projecten
+              </AnimatedButton>
             </div>
           </motion.div>
         </section>
@@ -450,25 +426,12 @@ const WerkgebiedDetail = () => {
               Neem vrijblijvend contact op en ontdek wat een professionele website voor jouw bedrijf kan betekenen.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              >
-                <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-base">
-                  <Link to="/contact">
-                    Start je project
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-              </motion.div>
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              >
-                <Button asChild variant="outline" size="lg" className="text-base">
-                  <Link to="/portfolio">Bekijk voorbeelden</Link>
-                </Button>
-              </motion.div>
+              <AnimatedButton to="/contact" size="lg">
+                Start je project
+              </AnimatedButton>
+              <AnimatedButton to="/portfolio" size="lg" variant="outline">
+                Bekijk voorbeelden
+              </AnimatedButton>
             </div>
           </motion.div>
         </section>

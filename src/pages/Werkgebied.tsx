@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MapPin, ArrowRight, Phone, Mail } from "lucide-react";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getLocalRegions, getMajorRegions } from "@/data/regions";
 import { easings } from "@/lib/motion";
@@ -90,22 +90,9 @@ const Werkgebied = () => {
                 Lokaal gevestigd in Enkhuizen, actief door heel Nederland.
               </p>
 
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                className="inline-block"
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 text-sm sm:text-base px-6 sm:px-8 h-11 sm:h-12"
-                >
-                  <Link to="/contact">
-                    Start je project
-                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-                  </Link>
-                </Button>
-              </motion.div>
+              <AnimatedButton to="/contact" size="lg">
+                Start je project
+              </AnimatedButton>
             </motion.div>
           </div>
         </section>
@@ -275,22 +262,9 @@ const Werkgebied = () => {
                     </div>
 
                     <div className="text-center">
-                      <motion.div
-                        whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                        whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                        className="inline-block"
-                      >
-                        <Button
-                          asChild
-                          size="lg"
-                          className="bg-accent text-accent-foreground hover:bg-accent/90 text-sm sm:text-base"
-                        >
-                          <Link to="/contact">
-                            Neem contact op
-                            <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-                          </Link>
-                        </Button>
-                      </motion.div>
+                      <AnimatedButton to="/contact" size="lg">
+                        Neem contact op
+                      </AnimatedButton>
                     </div>
                   </CardContent>
                 </Card>
@@ -318,31 +292,12 @@ const Werkgebied = () => {
                   expertise, persoonlijke service en resultaatgerichte websites.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <motion.div
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                  >
-                    <Button
-                      asChild
-                      size="lg"
-                      className="bg-accent text-accent-foreground hover:bg-accent/90 w-full sm:w-auto text-sm sm:text-base"
-                    >
-                      <Link to="/contact">Neem contact op</Link>
-                    </Button>
-                  </motion.div>
-                  <motion.div
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                  >
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="lg"
-                      className="w-full sm:w-auto text-sm sm:text-base"
-                    >
-                      <Link to="/diensten">Bekijk onze diensten</Link>
-                    </Button>
-                  </motion.div>
+                  <AnimatedButton to="/contact" size="lg" className="w-full sm:w-auto">
+                    Neem contact op
+                  </AnimatedButton>
+                  <AnimatedButton to="/diensten" size="lg" variant="outline" className="w-full sm:w-auto">
+                    Bekijk onze diensten
+                  </AnimatedButton>
                 </div>
               </motion.div>
             </div>

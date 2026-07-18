@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, scaleUp, easings } from "@/lib/motion";
@@ -62,29 +61,12 @@ const ThankYou = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               variants={fadeUp}
             >
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-              >
-                <Link to="/portfolio">
-                  <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                    Bekijk Portfolio
-                  </Button>
-                </Link>
-              </motion.div>
-              
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
-                transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-              >
-                <Link to="/">
-                  <Button size="lg" variant="outline">
-                    Terug naar Home
-                  </Button>
-                </Link>
-              </motion.div>
+              <AnimatedButton to="/portfolio" size="lg">
+                Bekijk Portfolio
+              </AnimatedButton>
+              <AnimatedButton to="/" size="lg" variant="outline">
+                Terug naar Home
+              </AnimatedButton>
             </motion.div>
           </div>
         </div>
