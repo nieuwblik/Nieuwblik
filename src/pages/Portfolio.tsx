@@ -176,7 +176,7 @@ const Portfolio = () => {
       >
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap gap-2.5 justify-center">
-            {filters.map((filter, index) => {
+            {filters.map((filter) => {
               const active = activeFilter === filter.id;
               return (
                 <motion.button
@@ -197,13 +197,6 @@ const Portfolio = () => {
                           color: SW_INK_60,
                         }
                   }
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : index * 0.05,
-                    duration: 0.3,
-                    ease: easings.easeOutExpo
-                  }}
                   whileHover={
                     shouldReduceMotion
                       ? {}
