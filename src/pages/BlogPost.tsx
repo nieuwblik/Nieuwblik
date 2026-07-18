@@ -27,8 +27,11 @@ interface TableOfContentsProps {
 }
 
 const TableOfContents = ({ items, activeSection, onItemClick, shouldReduceMotion }: TableOfContentsProps) => (
-  <nav className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto">
-    <h3 className="text-lg font-semibold mb-4">Inhoudsopgave</h3>
+  <nav
+    className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto rounded-2xl border p-6"
+    style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
+  >
+    <h3 className="sw-mono mb-4" style={{ color: "hsl(var(--sw-green))" }}>Inhoudsopgave</h3>
     <ul className="space-y-2 text-sm">
       {items.map((item, index) => (
         <motion.li
@@ -45,10 +48,10 @@ const TableOfContents = ({ items, activeSection, onItemClick, shouldReduceMotion
         >
           <button
             onClick={() => onItemClick(item.id)}
-            className={`text-left w-full py-1 px-2 rounded transition-colors ${activeSection === item.id
-              ? "text-accent font-semibold bg-accent/10"
-              : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-              }`}
+            className="text-left w-full py-1.5 px-3 rounded-lg transition-colors"
+            style={activeSection === item.id
+              ? { color: "hsl(var(--sw-green))", fontWeight: 600, background: "hsl(var(--sw-green) / 0.08)" }
+              : { color: "hsl(var(--sw-ink) / 0.6)" }}
           >
             {item.text}
           </button>
@@ -241,7 +244,8 @@ const BlogPost = () => {
         return (
           <motion.blockquote
             key={index}
-            className="border-l-4 border-accent pl-4 italic text-base md:text-lg my-6 text-muted-foreground"
+            className="rounded-2xl border p-6 italic text-base md:text-lg my-8"
+            style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)", color: "hsl(var(--sw-ink) / 0.75)" }}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -269,11 +273,18 @@ const BlogPost = () => {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, ease: easings.easeOutExpo }}
             >
-              <table className="w-full border-collapse border border-border rounded-lg overflow-hidden">
+              <table
+                className="w-full border-collapse rounded-2xl overflow-hidden"
+                style={{ border: "1px solid hsl(var(--sw-rule) / 0.14)" }}
+              >
                 <thead>
-                  <tr className="bg-secondary">
+                  <tr style={{ background: "hsl(150, 14%, 97.5%)" }}>
                     {headers.map((header, i) => (
-                      <th key={i} className="border border-border px-4 py-3 text-left font-semibold text-sm">
+                      <th
+                        key={i}
+                        className="px-4 py-3 text-left text-sm sw-mono"
+                        style={{ borderBottom: "1px solid hsl(var(--sw-rule) / 0.14)", color: "hsl(var(--sw-green))" }}
+                      >
                         {header.replace(/\*\*/g, '')}
                       </th>
                     ))}
@@ -283,9 +294,13 @@ const BlogPost = () => {
                   {dataLines.map((line, rowIndex) => {
                     const cells = line.split('|').map(c => c.trim()).filter(c => c);
                     return (
-                      <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-background' : 'bg-secondary/30'}>
+                      <tr key={rowIndex} style={{ background: rowIndex % 2 === 0 ? "transparent" : "hsl(var(--sw-ink) / 0.02)" }}>
                         {cells.map((cell, cellIndex) => (
-                          <td key={cellIndex} className="border border-border px-4 py-3 text-sm">
+                          <td
+                            key={cellIndex}
+                            className="px-4 py-3 text-sm"
+                            style={{ borderTop: "1px solid hsl(var(--sw-rule) / 0.1)" }}
+                          >
                             {formatInlineMarkdown(cell)}
                           </td>
                         ))}
@@ -377,7 +392,7 @@ const BlogPost = () => {
         return (
           <motion.pre
             key={index}
-            className="bg-secondary p-6 rounded-lg my-6 overflow-x-auto"
+            className="rounded-2xl p-6 my-6 overflow-x-auto border" style={{ background: "hsl(var(--sw-ink) / 0.03)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -394,7 +409,7 @@ const BlogPost = () => {
         return (
           <motion.pre
             key={index}
-            className="bg-secondary p-6 rounded-lg my-6 overflow-x-auto"
+            className="rounded-2xl p-6 my-6 overflow-x-auto border" style={{ background: "hsl(var(--sw-ink) / 0.03)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -465,7 +480,7 @@ const BlogPost = () => {
 
       // Horizontal rule
       if (section === '---') {
-        return <hr key={index} className="my-8 border-border" />;
+        return <hr key={index} className="my-8" style={{ borderColor: "hsl(var(--sw-rule) / 0.14)" }} />;
       }
 
       // Markdown image: ![alt](src)
@@ -483,7 +498,7 @@ const BlogPost = () => {
             <img
               src={imageMatch[2]}
               alt={imageMatch[1]}
-              className="w-full rounded-lg"
+              className="w-full rounded-2xl"
               loading="lazy"
               decoding="async"
             />
@@ -697,7 +712,7 @@ const BlogPost = () => {
                     <img
                       src={post.image}
                       alt={post.title.nl}
-                      className="w-full h-auto max-h-[500px] object-contain rounded-none md:rounded-lg"
+                      className="w-full h-auto max-h-[500px] object-contain rounded-none md:rounded-2xl"
                       loading="eager"
                     />
                   </motion.div>
@@ -715,7 +730,8 @@ const BlogPost = () => {
 
                 {/* Meta */}
                 <motion.div
-                  className="flex items-center gap-4 text-base text-muted-foreground mb-8 pb-8 border-b border-border"
+                  className="flex items-center gap-4 text-base text-muted-foreground mb-8 pb-8 border-b"
+                  style={{ borderColor: "hsl(var(--sw-rule) / 0.14)" }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.15, ease: easings.easeOutExpo }}
@@ -750,37 +766,45 @@ const BlogPost = () => {
 
                 {/* Mid-Article CTA */}
                 <motion.div
-                  className="my-16 bg-accent text-accent-foreground p-10 rounded-lg"
+                  className="my-16 p-10 rounded-2xl text-white relative overflow-hidden"
+                  style={{ background: "linear-gradient(135deg, hsl(160 84% 14%) 0%, hsl(160 84% 10%) 50%, hsl(160 70% 8%) 100%)" }}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
                   variants={scaleUp}
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/20 pointer-events-none" />
                   {slug === 'brand-storytelling-van-pixel-tot-voordeur' ? (
                     <>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4 relative z-10">
                         Klaar om jouw merk tastbaar te maken?
                       </h3>
-                      <p className="text-lg mb-6 opacity-90 font-light">
+                      <p className="text-lg mb-6 text-white/80 font-light relative z-10">
                         Van je eerste pixel tot aan de voordeur - wij helpen je een consistente merkbeleving te creëren die indruk maakt.
                       </p>
                     </>
                   ) : (
                     <>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4 relative z-10">
                         Klaar om jouw website naar het volgende level te tillen?
                       </h3>
-                      <p className="text-lg mb-6 opacity-90 font-light">
+                      <p className="text-lg mb-6 text-white/80 font-light relative z-10">
                         Ontdek hoe we jouw online aanwezigheid transformeren met een website die écht resultaat oplevert.
                       </p>
                     </>
                   )}
                   <motion.div
+                    className="relative z-10 inline-block"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                     transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
-                    <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90 font-semibold">
+                    <Button
+                      asChild
+                      size="lg"
+                      className="rounded-xl text-foreground border-0 hover:brightness-[0.98] font-semibold"
+                      style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
+                    >
                       <Link to="/contact">Start je Project Vandaag</Link>
                     </Button>
                   </motion.div>
@@ -788,13 +812,14 @@ const BlogPost = () => {
 
                 {/* Summary */}
                 <motion.div
-                  className="mt-16 p-8 bg-secondary rounded-lg border-l-4 border-accent"
+                  className="mt-16 p-8 rounded-2xl border"
+                  style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
                   variants={fadeUp}
                 >
-                  <h3 className="text-2xl font-bold mb-4">Samenvatting</h3>
+                  <p className="sw-mono mb-4" style={{ color: "hsl(var(--sw-green))" }}>Samenvatting</p>
                   <p className="text-lg font-light leading-relaxed text-muted-foreground">
                     {post.excerpt.nl}
                   </p>
@@ -802,7 +827,8 @@ const BlogPost = () => {
 
                 {/* Author */}
                 <motion.div
-                  className="mt-16 pt-8 border-t border-border"
+                  className="mt-16 pt-8 border-t"
+                  style={{ borderColor: "hsl(var(--sw-rule) / 0.14)" }}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
@@ -837,41 +863,47 @@ const BlogPost = () => {
               transition={{ duration: 0.5, delay: 0.3, ease: easings.easeOutExpo }}
             >
               <motion.div
-                className="bg-accent text-accent-foreground p-5 sm:p-8 rounded-lg sticky top-32 overflow-hidden"
+                className="text-white p-5 sm:p-8 rounded-2xl sticky top-32 overflow-hidden relative"
+                style={{ background: "linear-gradient(135deg, hsl(160 84% 14%) 0%, hsl(160 84% 10%) 50%, hsl(160 70% 8%) 100%)" }}
                 whileHover={shouldReduceMotion ? {} : {
                   y: -4,
-                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.15)"
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.25)"
                 }}
                 transition={{ duration: 0.3, ease: easings.easeOutExpo }}
               >
-                <div className="flex items-center gap-3 sm:gap-4 mb-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/20 pointer-events-none" />
+                <div className="flex items-center gap-4 mb-6 relative z-10">
                   <img
                     src={justinImg}
                     alt="Justin Slok - Nieuwblik"
                     loading="lazy"
-                    className="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover border-4 border-accent-foreground/20 flex-shrink-0"
+                    className="w-14 h-14 rounded-full object-cover border-4 border-white/20 flex-shrink-0"
                   />
                   <div className="min-w-0">
-                    <h3 className="text-xl sm:text-2xl font-semibold">Geïnspireerd?</h3>
-                    <p className="text-sm opacity-80">Justin Slok</p>
+                    <h3 className="text-lg font-semibold whitespace-nowrap">Geïnspireerd?</h3>
+                    <p className="text-sm text-white/70">Justin Slok</p>
                   </div>
                 </div>
 
-                <p className="mb-6 opacity-90 text-sm sm:text-base break-words">
+                <p className="mb-6 text-white/80 text-sm sm:text-base break-words relative z-10">
                   {slug === 'brand-storytelling-van-pixel-tot-voordeur'
                     ? 'Heb je ideeën gekregen voor je branding? Laten we samen een merkbeleving creëren die van pixel tot voordeur consistent is.'
                     : 'Heb je ideeën gekregen voor je eigen project? Laten we samen iets moois bouwen dat jouw merk laat schitteren.'}
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-4 relative z-10">
                   <motion.a
                     href="tel:+31646253607"
                     className="w-full block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.25)" }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                     transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
-                    <Button className="w-full bg-background text-foreground hover:bg-background/90" size="lg">
+                    <Button
+                      className="w-full rounded-xl text-foreground border-0 hover:brightness-[0.98]"
+                      style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
+                      size="lg"
+                    >
                       <Phone className="mr-2 h-5 w-5" />
                       Bel: +31 6 46 25 36 07
                     </Button>
@@ -882,11 +914,15 @@ const BlogPost = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full block"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2, boxShadow: "0 10px 25px -5px rgba(15, 130, 76, 0.5)" }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                     transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
-                    <Button className="w-full bg-[#25D366] text-white hover:bg-[#20BA5A]" size="lg">
+                    <Button
+                      className="w-full rounded-xl text-white border-0 hover:brightness-[0.96]"
+                      style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 60%), linear-gradient(0deg, #25D366, #25D366)" }}
+                      size="lg"
+                    >
                       <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                       </svg>
@@ -900,7 +936,11 @@ const BlogPost = () => {
                     transition={{ duration: 0.2, ease: easings.easeOutQuart }}
                   >
                     <Link to="/start-je-project" className="w-full block">
-                      <Button className="w-full bg-background text-foreground hover:bg-background/90" size="lg">
+                      <Button
+                        className="w-full rounded-xl text-foreground border-0 hover:brightness-[0.98]"
+                        style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
+                        size="lg"
+                      >
                         Start je project
                       </Button>
                     </Link>

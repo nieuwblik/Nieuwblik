@@ -35,37 +35,39 @@ const Blog = () => {
       />
 
       {/* Breadcrumb */}
-      <section className="pt-32 pb-8">
+      <section className="pt-32 pb-8 md:pb-12">
         <div className="container mx-auto px-6">
           <Breadcrumb items={[{ label: "Blog", path: "/blog" }]} />
         </div>
       </section>
 
       {/* Header */}
-      <motion.section 
-        className="pb-12"
+      <motion.section
+        className="pb-16 md:pb-20"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.div 
-            className="max-w-3xl"
+          <motion.p
+            className="sw-mono mb-6"
+            style={{ color: "hsl(var(--sw-green))" }}
             variants={fadeUp}
           >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6"
-              variants={fadeUp}
-            >
-              Digitale groei insights
-            </motion.h1>
-            <motion.p 
-              className="text-xl text-muted-foreground font-light leading-relaxed"
-              variants={fadeUp}
-            >
-              Waardevolle tips, strategieën en inzichten om jouw digitale aanwezigheid naar een hoger niveau te tillen.
-            </motion.p>
-          </motion.div>
+            BLOG
+          </motion.p>
+          <motion.h1
+            className="text-display mb-6"
+            variants={fadeUp}
+          >
+            Digitale groei insights
+          </motion.h1>
+          <motion.p
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light"
+            variants={fadeUp}
+          >
+            Waardevolle tips, strategieën en inzichten om jouw digitale aanwezigheid naar een hoger niveau te tillen.
+          </motion.p>
         </div>
       </motion.section>
 
@@ -88,17 +90,18 @@ const Blog = () => {
                   to={`/blog/${post.slug}`}
                   className="group block h-full"
                 >
-                  <motion.div 
-                    className="bg-card rounded-lg overflow-hidden shadow-md h-full flex flex-col"
-                    whileHover={shouldReduceMotion ? {} : { 
-                      y: -8, 
-                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
+                  <motion.div
+                    className="rounded-2xl border overflow-hidden h-full flex flex-col transition-colors"
+                    style={{ borderColor: "hsl(var(--sw-rule) / 0.14)", background: "rgb(255, 255, 255)" }}
+                    whileHover={shouldReduceMotion ? {} : {
+                      y: -8,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.12)"
                     }}
                     transition={{ duration: 0.3, ease: easings.easeOutExpo }}
                   >
                     {/* Image */}
                     {post.image && (
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-48 overflow-hidden" style={{ background: "hsl(var(--sw-ink) / 0.03)" }}>
                         <motion.img
                           src={post.image}
                           alt={post.title.nl}
@@ -107,7 +110,7 @@ const Blog = () => {
                           whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
                           transition={{ duration: 0.5, ease: easings.easeOutExpo }}
                         />
-                        <motion.div 
+                        <motion.div
                           className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
                           initial={{ opacity: 0 }}
                           whileHover={{ opacity: 1 }}
@@ -135,17 +138,21 @@ const Blog = () => {
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-accent transition-colors">
+                      <h2
+                        className="text-xl mb-3 line-clamp-2 transition-colors group-hover:text-[hsl(var(--sw-green))]"
+                        style={{ color: "hsl(var(--sw-ink))" }}
+                      >
                         {post.title.nl}
                       </h2>
 
                       {/* Excerpt */}
-                      <p className="text-muted-foreground font-light line-clamp-3 mb-4 flex-grow">
+                      <p className="text-muted-foreground font-light line-clamp-3 mb-5 flex-grow">
                         {post.excerpt.nl}
                       </p>
 
                       {/* Read More */}
-                      <div className="flex items-center gap-2 text-accent font-semibold text-sm">
+                      <div className="h-px w-full mb-4" style={{ background: "hsl(var(--sw-rule) / 0.14)" }} />
+                      <div className="flex items-center gap-2 font-semibold text-sm" style={{ color: "hsl(var(--sw-green))" }}>
                         Lees meer
                         <motion.span
                           className="inline-block"
@@ -163,15 +170,17 @@ const Blog = () => {
           </motion.div>
 
           {/* CTA Section */}
-          <motion.div 
-            className="mt-20 bg-accent text-accent-foreground p-12 rounded-lg text-center"
+          <motion.div
+            className="mt-20 p-12 rounded-2xl text-center text-white relative overflow-hidden"
+            style={{ background: "linear-gradient(135deg, hsl(160 84% 14%) 0%, hsl(160 84% 10%) 50%, hsl(160 70% 8%) 100%)" }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={scaleUp}
           >
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4"
+            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/20 pointer-events-none" />
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold mb-4 relative z-10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -179,8 +188,8 @@ const Blog = () => {
             >
               Klaar om je digitale aanwezigheid te transformeren?
             </motion.h2>
-            <motion.p 
-              className="text-lg mb-8 opacity-90 max-w-2xl mx-auto font-light"
+            <motion.p
+              className="text-lg mb-8 text-white/80 max-w-2xl mx-auto font-light relative z-10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -189,6 +198,7 @@ const Blog = () => {
               Ontdek hoe we jouw website kunnen optimaliseren voor meer conversies, betere rankings en meetbare groei.
             </motion.p>
             <motion.div
+              className="relative z-10 inline-block"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -196,10 +206,11 @@ const Blog = () => {
               whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
             >
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-background text-foreground hover:bg-background/90 font-semibold"
+              <Button
+                asChild
+                size="lg"
+                className="rounded-xl text-foreground border-0 hover:brightness-[0.98] font-semibold"
+                style={{ background: "linear-gradient(177.95deg, rgba(255,255,255,1) 0%, rgba(246,248,247,1) 100%)" }}
               >
                 <Link to="/contact">Start je project vandaag</Link>
               </Button>
