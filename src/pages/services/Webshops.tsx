@@ -8,7 +8,7 @@ import ProjectCard from "@/components/ProjectCard";
 import { ShoppingCart, CreditCard, BarChart3, Check, Plus, MessageCircle, Star } from "lucide-react";
 
 // Project images for webshop cases
-import puurinharmonieImg from "@/assets/projects/puurinharmonie-case.webp";
+import puurinharmonieImg from "@/assets/puurinharmonie.webp";
 import kyodaiImg from "@/assets/projects/kyodaioriginals.nl.webp";
 import bushidoImg from "@/assets/bushidoshop-portfolio-nieuw.webp";
 import { motion, useReducedMotion } from "framer-motion";

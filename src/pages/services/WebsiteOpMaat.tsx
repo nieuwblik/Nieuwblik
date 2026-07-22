@@ -17,9 +17,9 @@ import {
 "@/lib/optimized-motion";
 
 // Project images for cases
-import puurinharmonieImg from "@/assets/projects/puurinharmonie-case.webp";
+import puurinharmonieImg from "@/assets/puurinharmonie.webp";
 import benotedImg from "@/assets/benoted-portfolio-nieuw.webp";
-import daniqueImg from "@/assets/projects/daniquekwakman.nl.webp";
+import daniqueImg from "@/assets/daniquekwakman.webp";
 import ericaImg from "@/assets/ericavandijk-portfolio-nieuw.webp";
 
 // Tool logos
