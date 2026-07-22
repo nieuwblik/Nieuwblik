@@ -84,18 +84,15 @@ const Portfolio = () => {
     { id: "all", label: "Alles" },
     { id: "websites", label: "Websites" },
     { id: "e-commerce", label: "E-commerce" },
-    { id: "brands", label: "Branding" },
-    { id: "custom-designs", label: "Custom Design" },
-    { id: "videos", label: "Video's" },
   ];
 
   const filteredProjects = activeFilter === "all"
     ? projects
     : projects.filter(project => project.filterCategory === activeFilter);
 
-  const showVideos = activeFilter === "all" || activeFilter === "videos";
+  const showVideos = activeFilter === "all";
   const showEcommerce = activeFilter === "all" || activeFilter === "e-commerce";
-  const showProjects = activeFilter !== "videos" && activeFilter !== "e-commerce";
+  const showProjects = activeFilter !== "e-commerce";
 
   const structuredData = {
     "@context": "https://schema.org",

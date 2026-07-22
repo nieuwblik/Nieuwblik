@@ -3,22 +3,20 @@ import bushidoshopImg from "@/assets/bushidoshop-portfolio-nieuw.webp";
 import carbon6Img from "@/assets/carbon6-portfolio-nieuw.webp";
 import ericavandijkImg from "@/assets/ericavandijk-portfolio-nieuw.webp";
 import daniquekwakmanImg from "@/assets/daniquekwakman.webp";
-import caspernieskensptImg from "@/assets/projects/caspernieskenspt.nl.webp";
-import edventureboatsImg from "@/assets/projects/edventureboats.nl.webp";
-import esveldinstallatieImg from "@/assets/projects/esveldinstallatie.nl.webp";
+import caspernieskensptImg from "@/assets/casper-nieuwe-portfolio.webp";
+import edventureboatsImg from "@/assets/edventureboats-portfolio.webp";
+import esveldinstallatieImg from "@/assets/esveld-nieuwe-portfolio.webp";
 import interieurstudiolaan from "@/assets/interieurstudiolaan-portfolio-nieuw.webp";
-import karateschoolcorslokImg from "@/assets/projects/karateschoolcorslok.nl.webp";
+import karateschoolcorslokImg from "@/assets/karateschoolcorslok-nieuwe-portfolio.webp";
 import kyodaioriginalsImg from "@/assets/kyodai-originals.webp";
-import lashlutionImg from "@/assets/projects/lashlution.nl.webp";
 import mhbtechniekImg from "@/assets/mhb-techniek-portfolio-nieuw.webp";
-import feitsmadakwerkenImg from "@/assets/projects/feitsmadakwerken.nl.webp";
+import feitsmadakwerkenImg from "@/assets/feitsma-nieuwe-portfolio.webp";
 import greenProfitImg from "@/assets/greenprofit-portfolio-nieuw.webp";
-import vdvtuinenImg from "@/assets/projects/vdvtuinen.nl.webp";
 import rrsroyalImg from "@/assets/rrsroyal-portfolio-nieuw.webp";
 import puurCaseImg from "@/assets/puurinharmonie.webp";
 import puurCase1Img from "@/assets/projects/puurinharmonie-case-1.webp";
 import pridemobilityImg from "@/assets/pridemobility-portfolio-nieuw.webp";
-import quantumrehabImg from "@/assets/projects/quantumrehab.eu.webp";
+import quantumrehabImg from "@/assets/quantumrehab-nieuwe-portfolio.webp";
 import aardingsbedrijfImg from "@/assets/aardingsbededrijfwestfriesland-portfolio-nieuw.webp";
 import eenbundelgelukImg from "@/assets/bundelgeluk-portfolio-nieuw.webp";
 import taxidrechterlandImg from "@/assets/taxidrechterland.webp";
@@ -338,22 +336,6 @@ export const projects: Project[] = [
     }
   },
   {
-    slug: "lashlution",
-    title: "Lashlution",
-    category: "Beauty & Wellness",
-    filterCategory: "websites",
-    description: "Premium lash extensions en beauty services boekingsplatform.",
-    tags: ["Web Design", "Beauty", "Boekingssysteem"],
-    image: lashlutionImg,
-    url: "https://lashlution.nl",
-    detail: {
-      year: "2024",
-      goal: "Lashlution positioneren als dé autoriteit op het gebied van wimperbehandelingen door een website die perfectie en luxe uitstraalt.",
-      idea: "Een zacht maar modern kleurenpalet gecombineerd met vlijmscherpe detailfoto's. Het online boekingsportaal staat centraal voor optimaal gebruiksgemak.",
-      details: "In de beauty-industrie is beeld alles. Voor Lashlution hebben we een visueel georiënteerde site gebouwd waarbij de kwaliteit van de behandelingen voor zich spreekt. \n\nHet resultaat is een bijna volledig geautomatiseerde agenda door een feilloze integratie van het boekingssysteem."
-    }
-  },
-  {
     slug: "mhb-techniek",
     title: "MHB Techniek",
     category: "Technische Diensten",
@@ -399,22 +381,6 @@ export const projects: Project[] = [
       goal: "Complexe duurzaamheidsvraagstukken begrijpelijk maken en mensen motiveren om te investeren in een groene toekomst.",
       idea: "Een verfrissend, 'groen' design dat positiviteit uitstraalt. Door gebruik te maken van iconen en heldere menu-structuren worden bezoekers snel naar de juiste informatie geleid.",
       details: "Green Profit is een bedrijf met een missie. Dat moest de website ademen. We hebben een platform gecreëerd dat zowel informeert als inspireert. \n\nDoor integratie van een kennisbank is de website een autoriteit geworden op het gebied van duurzaam bouwen."
-    }
-  },
-  {
-    slug: "vdv-tuinen",
-    title: "VdV Tuinen",
-    category: "Tuinaanleg & Tuinen",
-    filterCategory: "websites",
-    description: "Professioneel tuinontwerp en tuinaanlegdiensten met portfolio showcase.",
-    tags: ["Web Design", "Tuinaanleg", "Portfolio"],
-    image: vdvtuinenImg,
-    url: "https://vdvtuinen.nl",
-    detail: {
-      year: "2024",
-      goal: "De buitenruimte als verlengstuk van het interieur presenteren en mensen inspireren tot een complete tuinmetamorfose.",
-      idea: "Gebruik van grote visuals en een kleurenpalet dat aansluit bij de natuur. De projecten worden op een manier gepresenteerd dat de bezoeker zichzelf al in die tuin ziet zitten.",
-      details: "Voor VdV Tuinen lag de nadruk op het portfolio. We hebben een systeem gebouwd waarbij projecten eenvoudig door henzelf geüpdatet kunnen worden met nieuwe seizoensfoto's. \n\nDit zorgt voor een website die altijd relevant en actueel blijft."
     }
   },
   {

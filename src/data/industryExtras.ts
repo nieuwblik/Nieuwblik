@@ -28,7 +28,7 @@ export const industryExtras: IndustryExtra[] = [
       "Foto- of Instagram-galerij van eerder werk",
       "Reviews en beoordelingen zichtbaar op de homepage",
     ],
-    relevantCaseSlugs: ["lashlution"],
+    relevantCaseSlugs: [],
   },
   {
     slug: "restaurant",
@@ -73,7 +73,7 @@ export const industryExtras: IndustryExtra[] = [
       "Sfeervolle fotogalerij van salon en resultaten",
       "Cadeaubonnen of arrangementen direct te bestellen",
     ],
-    relevantCaseSlugs: ["lashlution", "puur-in-harmonie"],
+    relevantCaseSlugs: ["puur-in-harmonie"],
   },
   {
     slug: "fysiotherapeut",
@@ -328,7 +328,7 @@ export const industryExtras: IndustryExtra[] = [
       "Offerteformulier met foto-upload van de tuin",
       "Seizoensgebonden tips of inspiratie",
     ],
-    relevantCaseSlugs: ["vdv-tuinen", "green-profit"],
+    relevantCaseSlugs: ["green-profit"],
   },
   {
     slug: "kinderopvang",
