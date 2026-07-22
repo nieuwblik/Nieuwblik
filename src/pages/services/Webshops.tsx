@@ -10,7 +10,7 @@ import { ShoppingCart, CreditCard, BarChart3, Check, Plus, MessageCircle, Star }
 // Project images for webshop cases
 import puurinharmonieImg from "@/assets/projects/puurinharmonie-case.webp";
 import kyodaiImg from "@/assets/projects/kyodaioriginals.nl.webp";
-import bushidoImg from "@/assets/projects/bushidoshop.nl.webp";
+import bushidoImg from "@/assets/bushidoshop-portfolio-nieuw.webp";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
 import {
