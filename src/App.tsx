@@ -11,6 +11,7 @@ import { companyInfo } from "./config/company";
 
 import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
+import FreeAnalysisPopup from "./components/FreeAnalysisPopup";
 
 
 // Eager load all public-facing pages for instant navigation (no white flash)
@@ -36,6 +37,7 @@ import WerkgebiedDetail from "./pages/WerkgebiedDetail";
 import LandingRouter from "./pages/LandingRouter";
 import SeoEnkhuizen from "./pages/SeoEnkhuizen";
 import TaxiWebsite from "./pages/TaxiWebsite";
+import GratisWebsiteAnalyse from "./pages/GratisWebsiteAnalyse";
 
 
 // Lazy load admin pages only (rarely used by public visitors)
@@ -76,6 +78,7 @@ const App = () => (
 
         <CookieConsent />
         <WhatsAppButton />
+        <FreeAnalysisPopup />
 
         <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
         <Routes>
@@ -91,6 +94,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/start-je-project" element={<Contact />} />
+          <Route path="/gratis-website-analyse" element={<GratisWebsiteAnalyse />} />
           <Route path="/bedankt" element={<ThankYou />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />

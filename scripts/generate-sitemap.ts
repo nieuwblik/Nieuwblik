@@ -45,6 +45,7 @@ function buildSitemap(): string {
     { loc: '/blog', changefreq: 'weekly', priority: '0.8' },
     { loc: '/contact', changefreq: 'monthly', priority: '0.7' },
     { loc: '/start-je-project', changefreq: 'monthly', priority: '0.7' },
+    { loc: '/gratis-website-analyse', changefreq: 'monthly', priority: '0.7' },
     { loc: '/reviews', changefreq: 'weekly', priority: '0.6' },
     { loc: '/werkgebied', changefreq: 'monthly', priority: '0.7' },
     { loc: '/privacy', changefreq: 'yearly', priority: '0.3' },
