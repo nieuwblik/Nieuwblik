@@ -193,7 +193,7 @@ function FooterComponent() {
               color: WHITE, lineHeight: 0.9, letterSpacing: '-0.01em',
               margin: '0 0 28px', textTransform: 'uppercase' as const,
             }}>
-              WEBSITES <br />DIE GROEIEN.
+              WEBSITES <br />DIE GROEIEN
             </h2>
             <p style={{
               fontFamily: FONT_BODY, fontSize: 14, fontWeight: 300, color: STEEL,

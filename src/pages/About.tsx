@@ -181,7 +181,7 @@ const About = () => {
               >
                 Het bureau<br />
                 <span className="text-accent">achter jouw</span><br />
-                digitale groei.
+                digitale groei
               </motion.h1>
 
               <motion.p
@@ -346,7 +346,7 @@ const About = () => {
                 Onze kernwaarden
               </AnimatedText>
               <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight" delay={0.05}>
-                Waar we<br />voor staan.
+                Waar we<br />voor staan
               </AnimatedText>
             </div>
 

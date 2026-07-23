@@ -167,7 +167,7 @@ const Index = () => {
 
           <h1 className="sw-hero-textcol sw-display m-0 mx-auto text-center" style={{ color: "hsl(var(--sw-ink))" }}>
             <span className="sw-mask"><span className="sw-line-inner">Webdesign bureau</span></span>
-            <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen.</span></span></span>
+            <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen</span></span></span>
           </h1>
 
           <p className="sw-lead mx-auto mt-6 max-w-xl lg:max-w-2xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
@@ -234,7 +234,7 @@ const Index = () => {
         <SwissHead
           dark
           label="Referenties"
-          title="Wat onze klanten zeggen."
+          title="Wat onze klanten zeggen"
           intro="Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik."
           centered
         />

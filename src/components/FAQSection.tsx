@@ -154,7 +154,7 @@ const FAQSection = () => {
 
               <h2 className="sw-reveal text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight mb-6 leading-[1.02]" style={{ color: "hsl(var(--sw-ink))" }}>
                 Nog vragen? <br />
-                <span style={{ color: "hsl(var(--sw-green))" }}>Wij hebben antwoorden.</span>
+                <span style={{ color: "hsl(var(--sw-green))" }}>Wij hebben antwoorden</span>
               </h2>
 
               <p className="sw-reveal text-lg font-light leading-relaxed mb-8 max-w-md" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>

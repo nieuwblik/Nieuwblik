@@ -101,7 +101,7 @@ const SearchVisibility = () => {
             style={{ lineHeight: 1.03 }}
           >
             Vindbaar in elke zoekmachine,{" "}
-            <span style={{ color: "hsl(var(--sw-green))" }}>van Google tot AI.</span>
+            <span style={{ color: "hsl(var(--sw-green))" }}>van Google tot AI</span>
           </motion.h2>
 
           <motion.p
