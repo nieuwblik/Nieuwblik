@@ -66,9 +66,6 @@ const FreeAnalysisPopup = () => {
             <X className="w-4 h-4" />
           </button>
 
-          <p className="sw-mono mb-2 pr-6" style={{ color: "hsl(var(--sw-green))" }}>
-            Gratis
-          </p>
           <h3 className="text-lg font-bold leading-snug mb-2 pr-6">
             Gratis website-analyse
           </h3>

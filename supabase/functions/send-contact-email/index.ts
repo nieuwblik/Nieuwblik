@@ -44,6 +44,7 @@ interface ContactRequest {
   email: string;
   phone: string;
   notes?: string;
+  subject?: string;
 }
 
 const contactSchema = z.object({
@@ -52,6 +53,10 @@ const contactSchema = z.object({
   email: z.string().trim().email("Invalid email address").max(255, "Email too long"),
   phone: z.string().trim().regex(/^[0-9+\s\-()]{10,20}$/, "Invalid phone number").max(20, "Phone number too long"),
   notes: z.string().trim().max(1000, "Notes too long").optional(),
+  // Optional override for the email subject (e.g. a distinct lead form like
+  // the free website analysis request) - falls back to the default contact
+  // form subject below when omitted.
+  subject: z.string().trim().max(150, "Subject too long").optional(),
 });
 
 function escapeHtml(text: string): string {
@@ -110,7 +115,7 @@ const handler = async (req: Request): Promise<Response> => {
         from: "Nieuwblik Contact <contact@nieuwblik.com>",
         to: ["justin@nieuwblik.com"],
         reply_to: data.email,
-        subject: `Nieuw contactformulier van ${data.fullName}${data.companyName ? ' - ' + data.companyName : ''}`,
+        subject: data.subject || `Nieuw contactformulier van ${data.fullName}${data.companyName ? ' - ' + data.companyName : ''}`,
         html: emailHtml,
       }),
     });

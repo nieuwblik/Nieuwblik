@@ -64,6 +64,7 @@ const GratisWebsiteAnalyse = () => {
           email: formData.email,
           phone: formData.phone,
           notes: `Aanvraag: Gratis website-analyse\nWebsite: ${formData.website}`,
+          subject: "Aanvraag website analyse",
         },
       });
 
