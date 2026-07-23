@@ -117,7 +117,7 @@ const Services = () => {
       icon: Globe,
       title: "Website design & development",
       description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
-      features: ["Responsive & mobile-first design", "SEO optimalisatie", "Prestatie & snelheidsoptimalisatie", "CMS integratie", "E-commerce oplossingen"],
+      features: ["Responsive & mobile-first design", "SEO optimalisatie", "Prestatie & snelheidsoptimalisatie", "CMS integratie (op aanvraag)", "E-commerce oplossingen"],
       link: "/diensten/website-op-maat",
       linkText: "Bekijk website dienst"
     },

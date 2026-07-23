@@ -155,8 +155,22 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
+  /* Sub-page hero heading — 30% smaller than the base 5xl/7xl/8xl scale
+     (3rem/4.5rem/6rem -> 2.1rem/3.15rem/4.2rem), kept as one shared class
+     so every inner page's H1 scales down together. */
   .text-display {
-    @apply text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight;
+    @apply font-extrabold tracking-tight;
+    font-size: 2.1rem;
+  }
+  @media (min-width: 768px) {
+    .text-display {
+      font-size: 3.15rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .text-display {
+      font-size: 4.2rem;
+    }
   }
 
   .text-accent-light {
