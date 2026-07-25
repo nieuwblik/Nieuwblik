@@ -132,12 +132,12 @@ const Webshops = () => {
         title="Webshop Laten Maken Enkhuizen | E-commerce West-Friesland"
         description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €2.990."
         keywords="webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen"
-        canonicalUrl="https://nieuwblik.com/diensten/webshops"
+        canonicalUrl="https://www.nieuwblik.com/diensten/webshops"
         structuredData={structuredData}
         breadcrumbs={[
-        { name: "Home", url: "https://nieuwblik.com" },
-        { name: "Diensten", url: "https://nieuwblik.com/diensten" },
-        { name: "Webshops", url: "https://nieuwblik.com/diensten/webshops" }]
+        { name: "Home", url: "https://www.nieuwblik.com" },
+        { name: "Diensten", url: "https://www.nieuwblik.com/diensten" },
+        { name: "Webshops", url: "https://www.nieuwblik.com/diensten/webshops" }]
         } />
       
 

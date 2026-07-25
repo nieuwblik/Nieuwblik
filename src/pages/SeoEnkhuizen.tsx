@@ -82,7 +82,8 @@ const SeoEnkhuizen = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="SEO Enkhuizen | Lokale SEO specialist - Nieuwblik"
-        description="SEO Enkhuizen voor lokale ondernemers. Beter vindbaar in Google met onze lokale aanpak, Google Business en sterke content. Vanaf 750 euro."
+        description="SEO Enkhuizen door lokale specialist. Meer klanten uit Enkhuizen en West-Friesland via Google. Lokale aanpak vanaf 750 euro, opzegbaar per maand."
+        keywords="seo enkhuizen, lokale seo enkhuizen, seo specialist enkhuizen, google enkhuizen, vindbaarheid enkhuizen"
         canonicalUrl={url}
         structuredData={graphJsonLd}
         includeLocalBusinessSchema={true}
@@ -97,7 +98,7 @@ const SeoEnkhuizen = () => {
               Lokale SEO specialist in Enkhuizen
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              SEO Enkhuizen, beter vindbaar in Google voor lokale ondernemers
+              SEO Enkhuizen door een lokale specialist
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               Nieuwblik is jouw lokale SEO partner in Enkhuizen. Wij zorgen dat klanten uit Enkhuizen, Bovenkarspel en de rest van West-Friesland jouw bedrijf vinden via Google, in plaats van de concurrent een straat verderop.

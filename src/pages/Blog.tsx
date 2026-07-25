@@ -26,11 +26,11 @@ const Blog = () => {
         title="Blog | SEO & Webdesign Tips - Nieuwblik Enkhuizen"
         description="Lees onze blog over SEO, webdesign en online zichtbaarheid. Praktische tips van ons webdesign bureau in West-Friesland. Verbeter je website vandaag."
         keywords="webdesign blog, SEO tips Enkhuizen, conversie optimalisatie, online zichtbaarheid, webdesign West-Friesland, website tips"
-        canonicalUrl="https://nieuwblik.com/blog"
+        canonicalUrl="https://www.nieuwblik.com/blog"
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Blog", url: "https://nieuwblik.com/blog" }
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Blog", url: "https://www.nieuwblik.com/blog" }
         ]}
       />
 

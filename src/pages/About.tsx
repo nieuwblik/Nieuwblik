@@ -137,11 +137,11 @@ const About = () => {
         title="Over Ons | Webdesign Bureau Enkhuizen - Nieuwblik"
         description="Maak kennis met Nieuwblik, jouw webdesign bureau uit Enkhuizen. Passie voor websites, webshops en SEO in West-Friesland. Persoonlijke aanpak, meetbaar resultaat."
         keywords="over ons, webdesign bureau Enkhuizen, digitale agency West-Friesland, nieuwblik team, website laten maken Enkhuizen"
-        canonicalUrl="https://nieuwblik.com/over-ons"
+        canonicalUrl="https://www.nieuwblik.com/over-ons"
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Over ons", url: "https://nieuwblik.com/over-ons" },
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Over ons", url: "https://www.nieuwblik.com/over-ons" },
         ]}
       />
 

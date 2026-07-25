@@ -118,11 +118,11 @@ const Portfolio = () => {
         title="Portfolio | Website & Webshop Projecten Enkhuizen - Nieuwblik"
         description="Bekijk onze portfolio: websites en webshops uit West-Friesland. Van MKB tot e-commerce, ontdek wat ons webdesign bureau in Enkhuizen voor jou kan betekenen."
         keywords="webdesign portfolio Enkhuizen, website voorbeelden West-Friesland, webshop projecten, e-commerce cases, website laten maken"
-        canonicalUrl="https://nieuwblik.com/portfolio"
+        canonicalUrl="https://www.nieuwblik.com/portfolio"
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Portfolio", url: "https://nieuwblik.com/portfolio" }
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Portfolio", url: "https://www.nieuwblik.com/portfolio" }
         ]}
       />
 
