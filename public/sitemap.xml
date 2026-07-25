@@ -223,6 +223,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.nieuwblik.com/blog/wordpress-vs-maatwerk-website</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.nieuwblik.com/blog/wat-kost-website-laten-maken-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.nieuwblik.com/blog/kevin-mos-nieuwblik-hengelo-roadrace-2026</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>monthly</changefreq>

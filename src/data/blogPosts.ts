@@ -2396,5 +2396,169 @@ Ideeën genereren, problemen structureren, strategieën ontwikkelen.
     },
     date: "2025-12-17",
     readingTime: 12
+  },
+  {
+    slug: "wordpress-vs-maatwerk-website",
+    seoTitle: "WordPress vs maatwerk website: wat kies je in 2026?",
+    seoKeywords: "WordPress vs maatwerk, website laten maken, maatwerk website, WordPress nadelen, React website, snelle website, webdesign bureau",
+    title: {
+      nl: "WordPress vs maatwerk website, wat kies je in 2026?",
+      en: "WordPress vs custom website, what to pick in 2026?"
+    },
+    excerpt: {
+      nl: "WordPress is bekend, maatwerk is sneller en schaalbaarder. We leggen eerlijk uit wanneer je welke keuze maakt, met prijzen, snelheid en onderhoud naast elkaar.",
+      en: "WordPress is familiar, custom code is faster. Honest comparison on cost, speed and maintenance for 2026."
+    },
+    date: "2026-07-25",
+    readingTime: 8,
+    content: {
+      nl: `Bij bijna elk intakegesprek komt de vraag: **WordPress of maatwerk?** Beide werken, maar de keuze bepaalt jouw snelheid, kosten op lange termijn en hoe goed je website mee groeit. We leggen het eerlijk uit, zonder marketingpraat.
+
+## Wat is WordPress eigenlijk?
+
+WordPress is een **content management systeem (CMS)** dat wereldwijd ongeveer 43% van alle websites draait. Je bouwt met thema's (Divi, Elementor, Astra) en plugins voor extra functionaliteit.
+
+**Voordelen:**
+- Snel starten met bestaande thema's
+- Enorme plugin bibliotheek
+- Veel developers beschikbaar
+- Lagere instapkosten (€500 tot €2.000)
+
+**Nadelen:**
+- Trage laadtijden zonder zware optimalisatie
+- Continue updates van core, thema en 20+ plugins
+- Beveiligingsrisico's door verouderde plugins
+- Elke uitbreiding voelt als een pleister
+
+## Wat is een maatwerk website?
+
+Een maatwerk website bouwen we vanaf nul met moderne technologie zoals **React, Next.js of Vite**. Geen thema, geen plugins, alleen wat jouw project nodig heeft.
+
+**Voordelen:**
+- PageSpeed 90+ standaard, geen zware overhead
+- Volledig eigenaarschap, geen licentie afhankelijkheid
+- Geen wekelijkse update ellende
+- Schaalbaar naar duizenden bezoekers zonder trucs
+- Betere SEO door snelle Core Web Vitals
+
+**Nadelen:**
+- Hogere instapkosten (€990 tot €4.000)
+- Kortere lijst met developers, kies een gespecialiseerd bureau
+
+## Prijsvergelijking 2026
+
+| Onderdeel | WordPress | Maatwerk (Nieuwblik) |
+|---|---|---|
+| Bouwkosten | €500 - €2.500 | €990 - €4.000 |
+| Hosting/jaar | €120 - €400 | €0 - €120 |
+| Onderhoud/jaar | €300 - €900 | €0 - €300 |
+| PageSpeed score | 40 - 70 | 90+ |
+| Update risico | Wekelijks | Minimaal |
+
+Op **3 jaar** is maatwerk vaak goedkoper dan een WordPress site die je actief moet onderhouden.
+
+## Wanneer kies je WordPress?
+
+- Je hebt een blog met tientallen redacteuren
+- Je budget onder €1.000 blijft en snelheid geen prioriteit is
+- Je een marketplace zoals WooCommerce nodig hebt
+
+## Wanneer kies je maatwerk?
+
+- Je website moet **snel, veilig en professioneel** aanvoelen
+- Je serieus wil scoren in Google (Core Web Vitals wegen zwaar)
+- Je een unieke uitstraling wil, geen thema look-alike
+- Je een webshop, boekingssysteem of maatwerk formulier nodig hebt
+
+## Onze eerlijke aanbeveling
+
+Voor de meeste **MKB ondernemers in Nederland** is maatwerk in 2026 de betere keuze. Je betaalt eenmaal, houdt jaren rust en scoort automatisch beter in Google. Wij bouwen die websites vanuit Enkhuizen voor klanten door heel Nederland.
+
+**Wil je weten wat een maatwerk website voor jouw bedrijf kost?** Bekijk onze [pakketten en prijzen](/website-laten-maken) of neem [contact op](/contact) voor een vrijblijvend advies.`,
+      en: "Honest 2026 comparison between WordPress and custom websites, with pricing, speed and maintenance side by side."
+    }
+  },
+  {
+    slug: "wat-kost-website-laten-maken-2026",
+    seoTitle: "Wat kost een website laten maken in 2026?",
+    seoKeywords: "wat kost een website, website laten maken kosten, prijs website, webdesign kosten, website prijs 2026, webshop kosten",
+    title: {
+      nl: "Wat kost een website laten maken in 2026? Complete prijsgids",
+      en: "What does a website cost in 2026? Full price guide"
+    },
+    excerpt: {
+      nl: "Van simpele one-pager tot uitgebreide webshop, we leggen open kaart over wat een website in 2026 kost. Realistische ranges, geen verstopte kosten.",
+      en: "From a simple one-pager to a full webshop, honest 2026 pricing without hidden costs."
+    },
+    date: "2026-07-25",
+    readingTime: 7,
+    content: {
+      nl: `De vraag die we het vaakst krijgen: **wat kost een website laten maken?** Het eerlijke antwoord: het hangt af van wat je nodig hebt. Maar we geven je in dit artikel duidelijke ranges, geen vage praatjes.
+
+## Prijsranges 2026 in Nederland
+
+| Type website | Prijs | Doorlooptijd |
+|---|---|---|
+| One-pager landingspagina | €990 - €1.490 | 1 tot 2 weken |
+| Bedrijfswebsite (5 tot 8 pagina's) | €1.490 - €2.490 | 2 tot 4 weken |
+| Bedrijfswebsite met CMS | €1.990 - €2.990 | 3 tot 5 weken |
+| Webshop klein (tot 50 producten) | €2.990 - €4.500 | 4 tot 6 weken |
+| Webshop groot of maatwerk | €4.500 - €10.000+ | 6 tot 10 weken |
+
+Deze prijzen zijn voor **maatwerk in React** met PageSpeed 90+, geoptimaliseerd voor Google en mobiel.
+
+## Wat bepaalt de prijs?
+
+### 1. Aantal pagina's en secties
+Meer pagina's = meer design en tekstwerk. Een 5-pagina site is niet gewoon "5x een pagina", het gaat om structuur, navigatie en interne linking.
+
+### 2. Design complexiteit
+Een strak template kost minder dan volledig custom animaties, hero video's of interactieve componenten.
+
+### 3. Functionaliteit
+- Contactformulier: standaard inbegrepen
+- Boekingssysteem: +€300 tot €800
+- Meertaligheid: +€400 tot €1.200
+- Webshop module: +€1.500 tot €3.000
+- Login of ledenportaal: +€800 tot €2.500
+
+### 4. Content
+Zelf teksten aanleveren = goedkoper. Wij schrijven ook, dat kost extra maar levert vaak betere conversie op.
+
+### 5. SEO diepgang
+Basis SEO (meta tags, sitemap, snelle laadtijden) zit standaard bij ons. Uitgebreide keyword strategie, locatiepagina's of blogcontent is extra maatwerk.
+
+## Terugkerende kosten
+
+Realistisch per jaar:
+
+- **Domeinnaam**: €10 tot €20
+- **Hosting**: €0 tot €150 (bij ons vaak inbegrepen eerste jaar)
+- **SSL certificaat**: gratis via Let's Encrypt
+- **Onderhoud**: €0 tot €600 (bij maatwerk minimaal)
+
+Totaal terugkerend: **€10 tot €800 per jaar**. Bij WordPress zit je vaak dubbel zo hoog door plugin abonnementen.
+
+## Waarom zo'n groot verschil in prijzen?
+
+Websites van €300 op Fiverr en websites van €10.000 bij grote bureaus zijn niet hetzelfde product. Het verschil zit in:
+
+- **Snelheid**: PageSpeed 40 vs 95
+- **SEO**: 0 vs veel Google verkeer
+- **Onderhoud**: doe-het-zelf vs zorg uit handen
+- **Design**: template look vs uniek merk
+- **Ondersteuning**: geen vs directe lijn
+
+## Onze pakketten
+
+Bij Nieuwblik werken we met transparante pakketten vanaf **€990**. Bekijk onze [pakketten en prijzen](/website-laten-maken) of vraag een [vrijblijvende offerte](/contact) aan. Wij vertellen je binnen 24 uur exact wat jouw project gaat kosten, zonder verrassingen achteraf.
+
+## Vergelijken met alternatieven?
+
+- [WordPress vs maatwerk website](/blog/wordpress-vs-maatwerk-website)
+- [Webdesign bureau kiezen](/webdesign-bureau)
+- [Webshop laten maken](/webshops)`,
+      en: "Complete price guide for building a website in the Netherlands in 2026, honest ranges from one-pager to webshop."
+    }
   }
 ];
