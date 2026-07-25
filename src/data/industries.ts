@@ -93,38 +93,38 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "restaurant",
     "name": "Restaurant",
-    "title": "Restaurant website laten maken vanaf 1500 euro | Nieuwblik",
-    "metaDescription": "Restaurant website laten maken met online reserveren, menukaart en sfeerbeelden. Snel live, sterk in Google en gericht op meer gasten. Vanaf 1500 euro.",
+    "title": "Restaurant website laten maken vanaf 990 euro | Nieuwblik",
+    "metaDescription": "Restaurant website laten maken met online reserveren, menukaart en sfeerbeelden. Snel live, sterk in Google en gericht op meer gasten. Vanaf 990 euro.",
     "h1": "Restaurant website laten maken die gasten reserveert",
-    "heroSubtitle": "Gasten verwachten een sfeervolle online beleving. Met een snelle restaurantwebsite van Nieuwblik val je op in Google, laat je jouw keuken spreken en boeken bezoekers direct een tafel.",
-    "intro": "In de horeca is online zichtbaarheid bepalend voor succes. Restaurants die opvallen in Google krijgen meer reserveringen, afhaalbestellingen en walk-ins. Nieuwblik bouwt restaurantwebsites die er strak uitzien, razendsnel laden en volledig gericht zijn op reserveringen, menukaart en sfeer. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren dan een traditioneel bureau. Persoonlijk contact, lokale SEO voor jouw stad en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
+    "heroSubtitle": "Gasten verwachten een sfeervolle online beleving. Met een snelle restaurantwebsite van Nieuwblik val je op in Google, laat je jouw keuken spreken en boeken bezoekers direct een tafel via een naadloos reserveringssysteem.",
+    "intro": "In de horeca is online zichtbaarheid bepalend voor succes. Restaurants die opvallen in Google krijgen meer reserveringen, afhaalbestellingen en walk-ins. Nieuwblik bouwt restaurantwebsites die er strak uitzien, razendsnel laden en volledig gericht zijn op reserveringen, menukaart en sfeer. We koppelen jouw voorkeur uit Formitable, Zenchef of TheFork en optimaliseren voor lokale zoektermen als 'restaurant Enkhuizen' of 'lunchen Hoorn'. Vanaf 990 euro, live in enkele weken.",
     "section1": {
-      "h2": "Dit verwachten klanten van een restaurant website",
-      "body": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
+      "h2": "Dit verwachten gasten van een restaurantwebsite",
+      "body": "Gasten oriënteren zich vooral mobiel: ze willen binnen tien seconden de menukaart zien, weten of ze welkom zijn en direct een tafel kunnen boeken. Een restaurantwebsite die gasten binnenhaalt combineert sfeervolle fotografie, een frictieloos reserveringssysteem en lokale SEO die jouw zaak boven bezorgplatforms zet in de Google zoekresultaten.",
       "needs": [
         {
           "h3": "Menukaart met sfeerfoto's",
-          "text": "Een goede menukaart maakt direct hongerig. Wij combineren leesbare menu items met smaakvolle foto's voor maximaal effect."
+          "text": "Een goede menukaart maakt direct hongerig. Wij combineren leesbare menu items met smaakvolle foto's voor maximaal effect en tonen prijzen transparant."
         },
         {
           "h3": "Online reserveringssysteem",
-          "text": "Gasten boeken liever zelf een tafel dan dat ze bellen. Wij integreren een betrouwbaar reserveringssysteem zonder gedoe."
+          "text": "Gasten boeken liever zelf een tafel dan dat ze bellen. Wij integreren Formitable, Zenchef of TheFork zodat reserveringen direct in jouw agenda staan."
         },
         {
-          "h3": "Openingstijden en routebeschrijving",
-          "text": "Snel duidelijk wanneer je open bent en hoe gasten je vinden. Inclusief kaart en parkeertips voor wie van buiten komt."
+          "h3": "Lokale SEO voor jouw stad",
+          "text": "We optimaliseren voor 'restaurant Enkhuizen', 'lunch Hoorn' of jouw eigen plaats. Inclusief Google Business koppeling met menukaart en foto's."
         },
         {
           "h3": "Sfeerbeelden van het interieur",
-          "text": "Foto's van de zaak laten zien wat gasten kunnen verwachten. We zorgen voor een mix die de juiste verwachting wekt."
+          "text": "Foto's van de zaak laten zien wat gasten kunnen verwachten. We zorgen voor een fotomix die de juiste verwachting wekt en aansluit bij jouw keuken."
         },
         {
           "h3": "Reviews en recensies",
-          "text": "Goede beoordelingen helpen twijfelaars over de streep. Wij koppelen externe reviewbronnen direct aan jouw site."
+          "text": "Goede beoordelingen helpen twijfelaars over de streep. Wij koppelen Google en TripAdvisor reviews rechtstreeks op de homepagina."
         },
         {
-          "h3": "Bestelmodule of afhalen",
-          "text": "Bied je takeaway? Een eenvoudige bestelflow zorgt voor extra omzet zonder hoge commissies aan platforms."
+          "h3": "Bestelmodule voor afhalen en bezorgen",
+          "text": "Bied je takeaway? Een eigen bestelflow op jouw site voorkomt hoge commissies bij Thuisbezorgd en houdt de marge waar hij hoort: bij jou."
         }
       ]
     },
@@ -132,27 +132,32 @@ export const industries: IndustryRecord[] = [
     "section3H2": "Restaurants en andere ondernemers gingen je voor",
     "section4": {
       "h2": "Onze recente projecten spreken voor zich",
-      "intro": "Bekijk hoe we andere ondernemers verder hielpen en wat dat betekent voor jouw restaurant."
+      "intro": "Bekijk hoe we andere ondernemers verder hielpen en wat dat betekent voor jouw restaurant, café of lunchroom."
     },
     "faq": {
       "h2": "Wat restaurants ons het vaakst vragen",
       "items": [
         {
-          "q": "Welke functies zijn essentieel op een website voor een restaurant?",
-          "a": "De essentiële functies voor een restaurant website zijn snelheid, mobielvriendelijkheid en heldere call to actions. Daarnaast voegen we vaak een online afsprakenmodule, portfolio of klantbeoordelingen toe om vertrouwen te wekken bij nieuwe bezoekers."
+          "q": "Wat kost een restaurantwebsite bij Nieuwblik?",
+          "a": "Een complete restaurantwebsite begint bij ons vanaf 990 euro voor het Starter pakket. Wil je een reserveringssysteem, meertaligheid en een uitgebreide menukaart met CMS, dan zit je op het Professional pakket vanaf 1990 euro. Voor een volledige bestelmodule met afhalen en bezorgen maken we een offerte op maat."
         },
         {
-          "q": "Wat kost een website voor een restaurant bij Nieuwblik?",
-          "a": "Voor een restaurant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "q": "Welk reserveringssysteem koppelen jullie?",
+          "a": "Wij werken vaak met Formitable, Zenchef en TheFork, maar sluiten aan bij het systeem waar jij mee wil werken. Gasten reserveren direct vanaf jouw site zonder omweg via een extern platform. Dat verhoogt de conversie en houdt de data bij jou."
         },
         {
-          "q": "Hoe lang duurt een websiteproject voor een restaurant?",
-          "a": "Een nieuwe website voor een restaurant kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "q": "Hoe zorgen jullie dat mijn restaurant hoog scoort in Google?",
+          "a": "Vindbaarheid bouwen we in vanaf het eerste ontwerp. Snelle laadtijden, schone technische SEO, sterke lokale content per plaats en een geoptimaliseerd Google Business profiel zorgen dat jouw restaurant boven bezorgplatforms als Thuisbezorgd of Uber Eats uitkomt op zoektermen als 'restaurant' plus jouw plaatsnaam."
         },
         {
-          "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn restaurant?",
-          "a": "Wij maken jouw restaurant website klaar voor SEO door zoekwoordenonderzoek, sterke metateksten en snelle techniek. Daarnaast adviseren we over Google reviews en lokale vermeldingen, want die maken in de restaurant branche vaak het verschil."
+          "q": "Kan ik zelf de menukaart aanpassen?",
+          "a": "Ja, in het Professional pakket krijg je een eenvoudig CMS waarin je zelf menu items, prijzen en foto's kunt aanpassen. Ideaal voor seizoensmenu's, dagsuggesties en tijdelijke acties zonder dat je hoeft te wachten op een developer."
+        },
+        {
+          "q": "Hoe lang duurt een restaurantwebsiteproject?",
+          "a": "Een nieuwe restaurantwebsite zetten wij gemiddeld binnen 3 weken live. Bij grotere projecten met bestelmodule en meertaligheid loopt dit op tot 6 weken. We plannen vooraf realistisch en houden ons aan de deadlines."
         }
+
       ]
     },
     "contactBlock": {
