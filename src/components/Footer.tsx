@@ -56,6 +56,7 @@ const FOOTER_COLS = [
       { label: 'Website op maat', to: '/diensten/website-op-maat' },
       { label: 'Webshops',        to: '/diensten/webshops' },
       { label: 'E-commerce',      to: '/diensten/e-commerce' },
+      { label: 'SEO Enkhuizen',   to: '/seo-enkhuizen' },
       { label: 'Alle diensten →', to: '/diensten' },
     ],
   },
