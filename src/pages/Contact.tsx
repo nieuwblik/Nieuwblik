@@ -92,11 +92,11 @@ const Contact = () => {
         title="Contact | Webdesign Bureau Enkhuizen - Nieuwblik"
         description="Neem contact op met Nieuwblik in Enkhuizen. Website of webshop laten maken? Bel, WhatsApp of vul het formulier in. Reactie binnen 24 uur gegarandeerd."
         keywords="contact webdesign Enkhuizen, offerte website, website laten maken West-Friesland, webdesign bureau contact"
-        canonicalUrl="https://nieuwblik.com/contact"
+        canonicalUrl="https://www.nieuwblik.com/contact"
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Contact", url: "https://nieuwblik.com/contact" }
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Contact", url: "https://www.nieuwblik.com/contact" }
         ]}
       />
 

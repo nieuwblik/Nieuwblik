@@ -1,5 +1,5 @@
 # Robots.txt for Nieuwblik
-# https://nieuwblik.com
+# https://www.nieuwblik.com
 
 User-agent: *
 Allow: /
@@ -10,4 +10,4 @@ Disallow: /admin/login
 Disallow: /admin/dashboard
 
 # Sitemap location
-Sitemap: https://nieuwblik.com/sitemap.xml
+Sitemap: https://www.nieuwblik.com/sitemap.xml

@@ -4,7 +4,7 @@
 export const companyInfo = {
   name: "Nieuwblik",
   legalName: "Nieuwblik",
-  url: "https://nieuwblik.com",
+  url: "https://www.nieuwblik.com",
   
   // Address
   address: {

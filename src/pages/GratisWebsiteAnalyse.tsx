@@ -98,11 +98,11 @@ const GratisWebsiteAnalyse = () => {
         title="Gratis Website-Analyse | Nieuwblik Enkhuizen"
         description="Vraag een gratis website-analyse aan en ontdek in 24 uur waar jouw website kansen laat liggen op snelheid, vindbaarheid en conversie."
         keywords="gratis website analyse, website check, SEO scan, website laten checken"
-        canonicalUrl="https://nieuwblik.com/gratis-website-analyse"
+        canonicalUrl="https://www.nieuwblik.com/gratis-website-analyse"
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Gratis Website-Analyse", url: "https://nieuwblik.com/gratis-website-analyse" },
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Gratis Website-Analyse", url: "https://www.nieuwblik.com/gratis-website-analyse" },
         ]}
       />
 

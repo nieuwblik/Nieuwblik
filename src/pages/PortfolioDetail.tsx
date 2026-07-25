@@ -48,7 +48,7 @@ const PortfolioDetail = () => {
             <SEOHead
                 title={`${project.title} | Portfolio - Nieuwblik`}
                 description={project.detail?.details ? project.detail.details.substring(0, 155) : project.description}
-                canonicalUrl={`https://nieuwblik.com/portfolio/${project.slug}`}
+                canonicalUrl={`https://www.nieuwblik.com/portfolio/${project.slug}`}
                 ogImage={project.image}
             />
 

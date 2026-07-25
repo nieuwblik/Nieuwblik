@@ -24,10 +24,10 @@ const Reviews = () => {
         title="Reviews | Klantervaringen Webdesign Bureau - Nieuwblik Enkhuizen"
         description="Lees ervaringen van onze klanten over websites en webshops. Webdesign bureau Enkhuizen met tevreden klanten in heel West-Friesland. Bekijk onze reviews."
         keywords="reviews webdesign, klantervaringen website, webdesign bureau Enkhuizen, tevreden klanten West-Friesland"
-        canonicalUrl="https://nieuwblik.com/reviews"
+        canonicalUrl="https://www.nieuwblik.com/reviews"
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Reviews", url: "https://nieuwblik.com/reviews" }
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Reviews", url: "https://www.nieuwblik.com/reviews" }
         ]}
       />
       

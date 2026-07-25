@@ -139,12 +139,12 @@ const WebsiteOpMaat = () => {
         title="Website op Maat Enkhuizen | Webdesign West-Friesland - Nieuwblik"
         description="Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Binnen 1 week live!"
         keywords="website op maat Enkhuizen, webdesign West-Friesland, website laten maken, SEO website, snelle website, webdesign bureau Enkhuizen"
-        canonicalUrl="https://nieuwblik.com/diensten/website-op-maat"
+        canonicalUrl="https://www.nieuwblik.com/diensten/website-op-maat"
         structuredData={structuredData}
         breadcrumbs={[
-        { name: "Home", url: "https://nieuwblik.com" },
-        { name: "Diensten", url: "https://nieuwblik.com/diensten" },
-        { name: "Website op maat", url: "https://nieuwblik.com/diensten/website-op-maat" }]
+        { name: "Home", url: "https://www.nieuwblik.com" },
+        { name: "Diensten", url: "https://www.nieuwblik.com/diensten" },
+        { name: "Website op maat", url: "https://www.nieuwblik.com/diensten/website-op-maat" }]
         } />
       
 

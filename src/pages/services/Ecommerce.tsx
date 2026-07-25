@@ -127,12 +127,12 @@ const Ecommerce = () => {
         title="E-commerce & Product Listings | Verkoop meer online - Nieuwblik"
         description="Professionele Amazon & Bol.com listings, verpakkingsdesign en e-books. Verhoog je online zichtbaarheid en conversie. E-commerce specialist West-Friesland."
         keywords="e-commerce Enkhuizen, Amazon listings, Bol.com verkopen, product fotografie, verpakkingsdesign, conversie optimalisatie West-Friesland"
-        canonicalUrl="https://nieuwblik.com/diensten/ecommerce"
+        canonicalUrl="https://www.nieuwblik.com/diensten/ecommerce"
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://nieuwblik.com" },
-          { name: "Diensten", url: "https://nieuwblik.com/diensten" },
-          { name: "E-commerce", url: "https://nieuwblik.com/diensten/ecommerce" }
+          { name: "Home", url: "https://www.nieuwblik.com" },
+          { name: "Diensten", url: "https://www.nieuwblik.com/diensten" },
+          { name: "E-commerce", url: "https://www.nieuwblik.com/diensten/ecommerce" }
         ]}
       />
 
