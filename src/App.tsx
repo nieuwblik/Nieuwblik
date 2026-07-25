@@ -38,6 +38,9 @@ import LandingRouter from "./pages/LandingRouter";
 import SeoEnkhuizen from "./pages/SeoEnkhuizen";
 import TaxiWebsite from "./pages/TaxiWebsite";
 import GratisWebsiteAnalyse from "./pages/GratisWebsiteAnalyse";
+import WebsiteLatenMaken from "./pages/WebsiteLatenMaken";
+import WebdesignBureau from "./pages/WebdesignBureau";
+import RegionalHub from "./pages/RegionalHub";
 
 
 // Lazy load admin pages only (rarely used by public visitors)
