@@ -22,34 +22,34 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "kapper",
     "name": "Kapper",
-    "title": "Kapper website laten maken vanaf 1500 euro | Nieuwblik",
-    "metaDescription": "Kapper website laten maken die nieuwe klanten boekt. Snel, mobielvriendelijk en lokaal vindbaar in Google. Vanaf 1500 euro, live binnen 2 tot 6 weken.",
+    "title": "Kapper website laten maken vanaf 990 euro | Nieuwblik",
+    "metaDescription": "Kapperswebsite laten maken die 24/7 afspraken boekt. Online agenda, mobiel snel en lokaal vindbaar. Vanaf 990 euro, live in 2 tot 6 weken.",
     "h1": "Kapper website laten maken die agenda's vult",
-    "heroSubtitle": "Veel concurrentie in de buurt? Met een sterke kapperswebsite van Nieuwblik laat je vakmanschap zien, val je op in Google en zet je bezoekers om in vaste klanten.",
-    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt kapperswebsites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en lokale zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start als zelfstandig kapper of doorgroeit met een team, wij denken mee.",
+    "heroSubtitle": "Veel concurrentie in de buurt? Met een sterke kapperswebsite van Nieuwblik laat je vakmanschap zien, val je op in Google en zet je bezoekers om in vaste klanten die 24/7 zelf online een afspraak boeken.",
+    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken en boekingen soepel te laten verlopen. Nieuwblik bouwt kapperswebsites met een gekoppeld online afsprakensysteem, een galerij met jouw beste werk en lokale SEO die jouw salon bovenaan zet in Google Enkhuizen, Amsterdam, Hoorn of waar jij ook zit. Snel, mobielvriendelijk en vanaf 990 euro. Of je nu net start als zelfstandig kapper of doorgroeit met een team, wij denken mee.",
     "section1": {
       "h2": "Wat maakt een goede website voor een kapper?",
-      "body": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Klanten oriënteren zich vooral op hun telefoon en willen binnen 5 seconden zien wat je aanbiedt, wat het kost en wanneer ze terecht kunnen. Een kapperswebsite die converteert combineert een strak visueel ontwerp met een frictieloos boekingsproces, transparante prijzen en overtuigend social proof. Zo verandert bezoek in een volle agenda.",
       "needs": [
         {
-          "h3": "Online afsprakensysteem",
-          "text": "Klanten plannen het liefst 24/7 zelf hun knipbeurt. Wij koppelen een online agenda zodat je telefoon minder vaak gaat."
+          "h3": "Online afsprakensysteem 24/7",
+          "text": "Klanten plannen het liefst 's avonds vanaf de bank hun knipbeurt. Wij koppelen Salonized, Treatwell of een systeem naar keuze zodat jouw telefoon minder vaak gaat."
         },
         {
           "h3": "Galerij met kapsels",
-          "text": "Foto's van jouw werk overtuigen sneller dan tekst. We tonen jouw stijl in een sfeervolle galerij die meegroeit met jouw portfolio."
+          "text": "Foto's van jouw werk overtuigen sneller dan tekst. We tonen jouw stijl in een sfeervolle galerij die automatisch meegroeit vanuit jouw Instagram."
         },
         {
           "h3": "Duidelijk prijsoverzicht",
-          "text": "Klanten waarderen vooraf weten wat een behandeling kost. Een transparante prijslijst voorkomt drempels en aarzeling."
+          "text": "Vooraf weten wat een behandeling kost verlaagt de drempel. Een transparante prijslijst voorkomt aarzeling en no-shows."
         },
         {
-          "h3": "Openingstijden en locatie",
-          "text": "Snel zichtbaar wanneer je open bent en waar je zit. Inclusief kaart, parkeerinfo en bereikbaarheid per OV."
+          "h3": "Lokale SEO voor jouw stad",
+          "text": "Wij optimaliseren voor 'kapper Enkhuizen', 'kapsalon Hoorn' of jouw eigen plaats. Inclusief Google Business koppeling en kaartweergave."
         },
         {
-          "h3": "Reviews van vaste klanten",
-          "text": "Goede beoordelingen overtuigen nieuwe gasten direct. We integreren Google reviews automatisch op de site."
+          "h3": "Google reviews live op de site",
+          "text": "Vijf sterren van vaste klanten overtuigen nieuwe gasten direct. We tonen jouw meest recente Google reviews automatisch op de homepagina."
         }
       ]
     },
@@ -57,34 +57,38 @@ export const industries: IndustryRecord[] = [
     "section3H2": "Wat onze klanten zeggen over hun nieuwe website",
     "section4": {
       "h2": "Websites die wij bouwden voor ondernemers in jouw sector",
-      "intro": "Een selectie van projecten die onze aanpak laten zien, ook relevant voor een kapper."
+      "intro": "Een selectie van projecten die onze aanpak laten zien, ook relevant voor een kapsalon."
     },
     "faq": {
       "h2": "Veelgestelde vragen over een website voor een kapper",
       "items": [
         {
-          "q": "Welke functies zijn essentieel op een website voor een kapper?",
-          "a": "Voor een kapper bouwen wij standaard functies in zoals een duidelijk dienstenoverzicht, een sterk contactblok en eventueel een afspraak of reserveringsmodule. Welke onderdelen het meeste opleveren bespreken we tijdens de kennismaking op basis van jouw doelen."
+          "q": "Wat kost een kapperswebsite bij Nieuwblik?",
+          "a": "Een professionele kapperswebsite begint bij ons vanaf 990 euro voor het Starter pakket met alle essentiële functies. Wil je een uitgebreide site met CMS, online agenda-integratie en meerdere medewerkers, dan zit je op het Professional pakket vanaf 1990 euro. We stellen vooraf altijd een transparante offerte op zodat je precies weet wat je krijgt."
         },
         {
-          "q": "Wat kost een website voor een kapper bij Nieuwblik?",
-          "a": "Een professionele website voor een kapper begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "q": "Kan ik een online afsprakensysteem koppelen aan mijn kapperswebsite?",
+          "a": "Ja, wij integreren jouw voorkeurssysteem naadloos in de site. Populaire keuzes zijn Salonized, Treatwell en Booksy. Klanten boeken direct vanaf jouw site zonder omweg via een externe pagina, wat de conversie flink verhoogt."
         },
         {
-          "q": "Hoe lang duurt een websiteproject voor een kapper?",
-          "a": "De meeste projecten voor een kapper ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "q": "Werkt de website ook goed op mobiel?",
+          "a": "Absoluut. Meer dan 70 procent van de bezoekers van een kapperswebsite komt via mobiel binnen. Al onze sites worden mobile first ontworpen: bliksemsnel, met vingervriendelijke knoppen en een boekingsflow die op elk schermformaat perfect werkt."
         },
         {
-          "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn kapper?",
-          "a": "Vindbaarheid voor een kapper bouwen wij in vanaf het eerste ontwerp. Snelle laadtijd, technische SEO, sterke teksten en lokale optimalisatie zorgen dat jouw site goed scoort in Google en de juiste klanten vanzelf bij je terechtkomen."
+          "q": "Hoe zorgen jullie dat mijn salon gevonden wordt in Google?",
+          "a": "Vindbaarheid bouwen we in vanaf het eerste ontwerp. Snelle laadtijd, schone technische SEO, sterke lokale content op stad en wijk, en een geoptimaliseerd Google Business profiel zorgen dat jouw salon boven concurrenten uitkomt op zoektermen als 'kapper' plus jouw plaatsnaam."
+        },
+        {
+          "q": "Hoe lang duurt een kapperswebsiteproject?",
+          "a": "De meeste kapperssites ronden wij binnen 2 tot 4 weken af. We werken in korte fases met duidelijke deadlines en wekelijkse updates. Hoe sneller jij foto's en teksten aanlevert, hoe sneller jouw nieuwe salonwebsite live staat."
         }
       ]
     },
     "contactBlock": {
-      "h2": "Benieuwd wat Nieuwblik kan betekenen voor jouw kapper?",
-      "body": "Wij bouwen graag mee aan jouw online verhaal als kapper. Neem vrijblijvend contact op om te bespreken wat een sterke website voor jouw bedrijf kan betekenen."
+      "h2": "Benieuwd wat Nieuwblik kan betekenen voor jouw kapsalon?",
+      "body": "Wij bouwen graag mee aan jouw online verhaal als kapper. Neem vrijblijvend contact op om te bespreken wat een sterke website met online agenda kan betekenen voor jouw salon."
     },
-    "internalLinks": "Nieuwblik bouwt websites voor ondernemers door heel Nederland, ook voor een kapper. Bekijk onze diensten, ontdek meer cases in ons portfolio of leer ons kennen via de over ons pagina."
+    "internalLinks": "Nieuwblik bouwt websites voor kappers en kapsalons door heel Nederland. Bekijk onze diensten, ontdek meer cases in ons portfolio of leer ons kennen via de over ons pagina. Ben je gevestigd in West-Friesland? Lees dan ook onze pagina over lokale SEO Enkhuizen."
   },
   {
     "slug": "restaurant",
