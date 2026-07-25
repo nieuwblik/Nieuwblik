@@ -1,0 +1,12 @@
+# Disavow file voor Google Search Console
+# Upload via: https://search.google.com/search-console/disavow-links
+# Bijgewerkt: 2026-07
+
+# Spam-ankers en link-networks gedetecteerd via Semrush
+seoflox.com
+sitetosocial.com
+ninidiacxz.blogspot.com
+
+# Toevoegen op domein-niveau (voorkomt subdomein-varianten)
+domain:seoflox.com
+domain:sitetosocial.com
