@@ -38,6 +38,9 @@ import LandingRouter from "./pages/LandingRouter";
 import SeoEnkhuizen from "./pages/SeoEnkhuizen";
 import TaxiWebsite from "./pages/TaxiWebsite";
 import GratisWebsiteAnalyse from "./pages/GratisWebsiteAnalyse";
+import WebsiteLatenMaken from "./pages/WebsiteLatenMaken";
+import WebdesignBureau from "./pages/WebdesignBureau";
+import RegionalHub from "./pages/RegionalHub";
 
 
 // Lazy load admin pages only (rarely used by public visitors)
@@ -104,6 +107,9 @@ const App = () => (
           <Route path="/werkgebied/:slug" element={<WerkgebiedDetail />} />
           <Route path="/seo-enkhuizen" element={<SeoEnkhuizen />} />
           <Route path="/taxi-website-laten-maken" element={<TaxiWebsite />} />
+          <Route path="/website-laten-maken" element={<WebsiteLatenMaken />} />
+          <Route path="/webdesign-bureau" element={<WebdesignBureau />} />
+          <Route path="/regio/:slug" element={<RegionalHub />} />
 
           <Route path="/:landingPath" element={<LandingRouter />} />
           <Route

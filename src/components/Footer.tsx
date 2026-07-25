@@ -54,6 +54,8 @@ const FOOTER_COLS = [
     label: 'Diensten',
     links: [
       { label: 'Website op maat', to: '/diensten/website-op-maat' },
+      { label: 'Website laten maken', to: '/website-laten-maken' },
+      { label: 'Webdesign bureau', to: '/webdesign-bureau' },
       { label: 'Webshops',        to: '/diensten/webshops' },
       { label: 'E-commerce',      to: '/diensten/e-commerce' },
       { label: 'SEO Enkhuizen',   to: '/seo-enkhuizen' },
@@ -241,6 +243,36 @@ function FooterComponent() {
             alignContent: 'start',
           }}>
             {FOOTER_COLS.map(col => <FooterNavBlock key={col.label} col={col} />)}
+          </div>
+        </div>
+
+        {/* Regio hubs */}
+        <div style={{
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          padding: isMobile ? '32px 24px' : '32px 48px',
+        }}>
+          <div style={{ marginBottom: 16 }}>
+            <span style={{
+              fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
+              letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
+            }}>
+              Website laten maken per regio
+            </span>
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 20px' }}>
+            {[
+              { label: 'Noord-Holland', to: '/regio/noord-holland' },
+              { label: 'Randstad', to: '/regio/randstad' },
+              { label: 'Oost-Nederland', to: '/regio/oost-nederland' },
+              { label: 'Zuid-Nederland', to: '/regio/zuid-nederland' },
+            ].map((r) => (
+              <Link key={r.to} to={r.to} style={{
+                fontFamily: FONT_BODY, fontSize: 12, fontWeight: 300,
+                color: STEEL, textDecoration: 'none', padding: '4px 0',
+              }}>
+                {r.label}
+              </Link>
+            ))}
           </div>
         </div>
 
