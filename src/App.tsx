@@ -107,6 +107,9 @@ const App = () => (
           <Route path="/werkgebied/:slug" element={<WerkgebiedDetail />} />
           <Route path="/seo-enkhuizen" element={<SeoEnkhuizen />} />
           <Route path="/taxi-website-laten-maken" element={<TaxiWebsite />} />
+          <Route path="/website-laten-maken" element={<WebsiteLatenMaken />} />
+          <Route path="/webdesign-bureau" element={<WebdesignBureau />} />
+          <Route path="/regio/:slug" element={<RegionalHub />} />
 
           <Route path="/:landingPath" element={<LandingRouter />} />
           <Route
