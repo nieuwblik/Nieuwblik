@@ -6,7 +6,11 @@ import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
+import { projects } from "@/data/projects";
+import justinJobImg from "@/assets/justin-job-compressed.webp";
 import NotFound from "./NotFound";
+
+const FEATURED_SLUGS = ["taxi-drechterland", "een-bundel-geluk", "aardingsbedrijf-west-friesland"];
 
 interface RegionHubData {
   slug: string;
@@ -234,7 +238,83 @@ const RegionalHub = () => {
           </div>
         </section>
 
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Recent werk voor ondernemers in {hub.name}</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">Een greep uit websites die we recent opleverden. Van webshop tot leadgeneratie, elke case gebouwd voor snelheid, conversie en lokale vindbaarheid.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {FEATURED_SLUGS.map((slug) => {
+                const p = projects.find((x) => x.slug === slug);
+                if (!p) return null;
+                return (
+                  <Link
+                    key={p.slug}
+                    to={`/portfolio/${p.slug}`}
+                    className="group bg-background border border-border rounded-2xl overflow-hidden hover:border-accent transition-colors flex flex-col"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden bg-muted">
+                      <img
+                        src={p.image}
+                        alt={`${p.title} website case`}
+                        loading="lazy"
+                        decoding="async"
+                        width={800}
+                        height={600}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col">
+                      <span className="text-xs text-accent font-medium mb-1">{p.category}</span>
+                      <h3 className="font-semibold text-lg mb-2 text-foreground">{p.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">{p.description}</p>
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-accent group-hover:gap-2 transition-all">
+                        Bekijk case <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="text-center mt-10">
+              <Link to="/portfolio" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
+                Bekijk het volledige portfolio <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <LandingFaq h2={`Veelgestelde vragen over website laten maken in ${hub.name}`} items={hub.faq} />
+
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="order-2 md:order-1">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">Justin & Job achter Nieuwblik</h2>
+                <p className="text-muted-foreground mb-4">
+                  Wij zijn Justin en Job, twee gedreven ontwerpers en developers uit Enkhuizen. Geen groot bureau met accountmanagers en tussenlagen, maar een klein team met korte lijnen. Je spreekt altijd degene die ook daadwerkelijk aan jouw website bouwt.
+                </p>
+                <p className="text-muted-foreground mb-6">
+                  Ook voor ondernemers in {hub.name} werken we persoonlijk. We plannen graag een videocall om jouw plan door te nemen, en bij grotere trajecten komen we op locatie langs. Altijd één van ons aan tafel, altijd met een duidelijk voorstel binnen 24 uur.
+                </p>
+                <AnimatedButton to="/over-ons">Meer over ons</AnimatedButton>
+              </div>
+              <div className="order-1 md:order-2">
+                <img
+                  src={justinJobImg}
+                  alt="Justin Slok en Job, oprichters van Nieuwblik uit Enkhuizen"
+                  loading="lazy"
+                  decoding="async"
+                  width={1200}
+                  height={900}
+                  className="w-full h-auto rounded-2xl shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
         <ContactBlock h2={`Klaar voor een website in ${hub.name}?`} body="Vertel over jouw bedrijf en plan. Binnen 24 uur een reactie met een concreet voorstel." />
       </main>
       <Footer />
