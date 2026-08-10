@@ -69,6 +69,10 @@ const WebsiteLatenMaken = () => {
         canonicalUrl={url}
         structuredData={jsonLd}
         includeLocalBusinessSchema={true}
+        breadcrumbs={[
+          { name: "Home", url: companyInfo.url },
+          { name: "Website laten maken", url },
+        ]}
       />
 
       <main>

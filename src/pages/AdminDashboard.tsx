@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Star, LogOut, Check, X } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 interface Review {
   id: string;
@@ -145,6 +146,12 @@ const AdminDashboard = () => {
   if (!isAuthorized) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
+        <SEOHead
+          title="Admin Dashboard - Nieuwblik"
+          description="Interne beheeromgeving voor Nieuwblik."
+          noIndex={true}
+          includeOrganizationSchema={false}
+        />
         <p className="text-muted-foreground">Laden...</p>
       </div>
     );
@@ -152,6 +159,12 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background p-6">
+      <SEOHead
+        title="Admin Dashboard - Nieuwblik"
+        description="Interne beheeromgeving voor Nieuwblik."
+        noIndex={true}
+        includeOrganizationSchema={false}
+      />
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>

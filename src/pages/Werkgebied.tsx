@@ -44,6 +44,11 @@ const Werkgebied = () => {
         title="Ons Werkgebied | Webdesign door heel Nederland - Nieuwblik"
         description="Nieuwblik is actief in heel Nederland. Van Enkhuizen tot Amsterdam, van kleine dorpen tot grote steden. Bekijk waar wij jouw website kunnen realiseren."
         keywords="webdesign Nederland, website laten maken, werkgebied, lokale webdesigner, West-Friesland"
+        canonicalUrl={`${companyInfo.url}/werkgebied`}
+        breadcrumbs={[
+          { name: "Home", url: companyInfo.url },
+          { name: "Werkgebied", url: `${companyInfo.url}/werkgebied` },
+        ]}
       />
 
 

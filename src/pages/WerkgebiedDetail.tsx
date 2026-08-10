@@ -127,6 +127,12 @@ const WerkgebiedDetail = () => {
           region.keywords?.join(", ") ||
           `webdesign ${region.name}, website laten maken ${region.name}, webshop ${region.name}`
         }
+        canonicalUrl={`${companyInfo.url}/werkgebied/${region.slug}`}
+        breadcrumbs={[
+          { name: "Home", url: companyInfo.url },
+          { name: "Werkgebied", url: `${companyInfo.url}/werkgebied` },
+          { name: region.name, url: `${companyInfo.url}/werkgebied/${region.slug}` },
+        ]}
       />
 
 

@@ -130,6 +130,7 @@ const Terms = () => {
         title="Algemene Voorwaarden | Nieuwblik Webdesign Enkhuizen"
         description="Lees de algemene voorwaarden van Nieuwblik webdesign bureau in Enkhuizen. Duidelijke afspraken voor website en webshop projecten."
         keywords="algemene voorwaarden, webdesign voorwaarden, Nieuwblik Enkhuizen, website afspraken"
+        canonicalUrl={`${companyInfo.url}/algemene-voorwaarden`}
         includeOrganizationSchema={false}
       />
       <main className="flex-1 bg-background">

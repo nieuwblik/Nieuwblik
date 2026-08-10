@@ -59,6 +59,10 @@ const WebdesignBureau = () => {
         canonicalUrl={url}
         structuredData={jsonLd}
         includeLocalBusinessSchema={true}
+        breadcrumbs={[
+          { name: "Home", url: companyInfo.url },
+          { name: "Webdesign bureau", url },
+        ]}
       />
 
       <main>

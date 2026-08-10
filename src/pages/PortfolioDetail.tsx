@@ -48,8 +48,24 @@ const PortfolioDetail = () => {
             <SEOHead
                 title={`${project.title} | Portfolio - Nieuwblik`}
                 description={project.detail?.details ? project.detail.details.substring(0, 155) : project.description}
+                keywords={project.tags?.join(", ")}
                 canonicalUrl={`https://www.nieuwblik.com/portfolio/${project.slug}`}
                 ogImage={project.image}
+                structuredData={{
+                    "@context": "https://schema.org",
+                    "@type": "CreativeWork",
+                    name: project.title,
+                    description: project.description,
+                    image: project.image,
+                    url: `https://www.nieuwblik.com/portfolio/${project.slug}`,
+                    creator: { "@type": "Organization", name: "Nieuwblik", url: "https://www.nieuwblik.com" },
+                    ...(project.detail?.year ? { dateCreated: project.detail.year } : {}),
+                }}
+                breadcrumbs={[
+                    { name: "Home", url: "https://www.nieuwblik.com" },
+                    { name: "Portfolio", url: "https://www.nieuwblik.com/portfolio" },
+                    { name: project.title, url: `https://www.nieuwblik.com/portfolio/${project.slug}` },
+                ]}
             />
 
             {/* Breadcrumb */}

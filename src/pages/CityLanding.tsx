@@ -14,7 +14,6 @@ import { getCityBySlug } from "@/data/cities";
 import { getCityExtra } from "@/data/cityExtras";
 import { companyInfo } from "@/config/company";
 import { useDarkNavSection } from "@/components/UnderlayNav";
-import { buildLandingTitle, buildCityDescription } from "@/lib/programmaticSeo";
 
 const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
 const featuredProjects = featuredTitles
@@ -28,8 +27,11 @@ const CityLanding = ({ slug }: { slug: string }) => {
   if (!city) return <Navigate to="/404" replace />;
 
   const url = `${companyInfo.url}/website-laten-maken-${city.slug}`;
-  const seoTitle = buildLandingTitle(city.name);
-  const seoDescription = buildCityDescription(city.slug, city.name);
+  // Hand-authored per city in cities.ts — unique per record, unlike the old
+  // rotating 3-template generator (which caused ~11/30 city pages to share a
+  // near-identical meta description).
+  const seoTitle = city.title;
+  const seoDescription = city.metaDescription;
   const extra = getCityExtra(city.slug);
   const nearbyCities = (extra?.nearby ?? [])
     .map((s) => getCityBySlug(s))

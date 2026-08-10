@@ -111,6 +111,7 @@ const Cookies = () => {
         title="Cookieverklaring | Nieuwblik Webdesign Enkhuizen"
         description="Informatie over het cookiegebruik op de website van Nieuwblik. Welke cookies we gebruiken en waarvoor. Webdesign bureau Enkhuizen."
         keywords="cookieverklaring, cookies, privacy, Nieuwblik Enkhuizen, website cookies"
+        canonicalUrl={`${companyInfo.url}/cookies`}
         includeOrganizationSchema={false}
       />
       <main className="flex-1 bg-background">

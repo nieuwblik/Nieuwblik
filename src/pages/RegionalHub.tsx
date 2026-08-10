@@ -187,6 +187,10 @@ const RegionalHub = () => {
         canonicalUrl={url}
         structuredData={jsonLd}
         includeLocalBusinessSchema={true}
+        breadcrumbs={[
+          { name: "Home", url: companyInfo.url },
+          { name: hub.name, url },
+        ]}
       />
       <main>
         <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">

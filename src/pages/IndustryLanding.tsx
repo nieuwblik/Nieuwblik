@@ -14,7 +14,6 @@ import { getIndustryBySlug } from "@/data/industries";
 import { getIndustryExtra, getRelatedIndustrySlugs } from "@/data/industryExtras";
 import { companyInfo } from "@/config/company";
 import { useDarkNavSection } from "@/components/UnderlayNav";
-import { buildLandingTitle, buildIndustryDescription } from "@/lib/programmaticSeo";
 
 const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
 const fallbackProjects = featuredTitles
@@ -28,8 +27,11 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   if (!industry) return <Navigate to="/404" replace />;
 
   const url = `${companyInfo.url}/website-laten-maken-${industry.slug}`;
-  const seoTitle = buildLandingTitle(industry.name);
-  const seoDescription = buildIndustryDescription(industry.slug, industry.name);
+  // Hand-authored per branche in industries.ts — unique per record, unlike the
+  // old rotating 3-template generator (which caused ~14/30 industry pages to
+  // share a near-identical meta description).
+  const seoTitle = industry.title;
+  const seoDescription = industry.metaDescription;
   const extra = getIndustryExtra(industry.slug);
   const relevantProjects = (extra?.relevantCaseSlugs ?? [])
     .map((s) => projects.find((p) => p.slug === s))

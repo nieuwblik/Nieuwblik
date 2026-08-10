@@ -128,6 +128,7 @@ const Privacy = () => {
         title="Privacyverklaring | Nieuwblik Webdesign Enkhuizen"
         description="Lees onze privacyverklaring. Hoe Nieuwblik uit Enkhuizen omgaat met persoonsgegevens conform de AVG. Uw privacy is belangrijk voor ons."
         keywords="privacyverklaring, AVG, persoonsgegevens, privacy Nieuwblik, webdesign Enkhuizen"
+        canonicalUrl={`${companyInfo.url}/privacy`}
         includeOrganizationSchema={false}
       />
       <main className="flex-1 bg-background">
