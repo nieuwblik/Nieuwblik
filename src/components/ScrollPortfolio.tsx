@@ -17,12 +17,12 @@ const R2 = "https://pub-db1d62b400114ea6902679b432e6b4c7.r2.dev/nieuwblik-portfo
 // `duration` values are placeholders — adjust to the real doorlooptijd.
 const ITEMS = [
   { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  duration: "3 weken", image: taxiDrechterlandImg, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
-  { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", duration: "5 weken", image: prideMobilityImg,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
+  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      duration: "4 weken", image: feigroImg,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
   { title: "Puur in Harmonie",      category: "Holistische Salon",       duration: "4 weken", image: puurInHarmonieImg,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
   { title: "BeNoted",               category: "Financiële Marketing",    duration: "4 weken", image: benotedImg,          slug: "benoted",               url: "https://benoted.nl" },
   { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", duration: "4 weken", image: daniqueKwakmanImg, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
   { title: "Esveld Installatie",    category: "Installatiediensten",     duration: "4 weken", image: esveldInstallatieImg, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
-  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      duration: "4 weken", image: feigroImg,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
+  { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", duration: "5 weken", image: prideMobilityImg,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
   { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  duration: "5 weken", image: kyodaiOriginalsImg,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
 ];
 
