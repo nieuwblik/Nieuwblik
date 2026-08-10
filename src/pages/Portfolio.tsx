@@ -266,6 +266,7 @@ const Portfolio = () => {
                       description={project.description}
                       image={project.image}
                       slug={project.slug}
+                      meta={project.tags.slice(0, 2).join(" · ")}
                       priority={index < 2}
                     />
                   </motion.div>

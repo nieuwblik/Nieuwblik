@@ -14,16 +14,19 @@ import kyodaiOriginalsImg from "@/assets/kyodai-originals.webp";
 const R2 = "https://pub-db1d62b400114ea6902679b432e6b4c7.r2.dev/nieuwblik-portfolio";
 
 // ── Portfolio data (real Nieuwblik projects) ───────────────────
-// `duration` values are placeholders — adjust to the real doorlooptijd.
+// `meta` mirrors the two lead tags from that project's entry in
+// src/data/projects.ts — keyword-relevant text instead of the doorlooptijd
+// that used to sit here (dropped: it read oddly above the title and had no
+// SEO value).
 const ITEMS = [
-  { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  duration: "3 weken", image: taxiDrechterlandImg, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
-  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      duration: "4 weken", image: feigroImg,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
-  { title: "Puur in Harmonie",      category: "Holistische Salon",       duration: "4 weken", image: puurInHarmonieImg,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
-  { title: "BeNoted",               category: "Financiële Marketing",    duration: "4 weken", image: benotedImg,          slug: "benoted",               url: "https://benoted.nl" },
-  { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", duration: "4 weken", image: daniqueKwakmanImg, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
-  { title: "Esveld Installatie",    category: "Installatiediensten",     duration: "4 weken", image: esveldInstallatieImg, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
-  { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", duration: "5 weken", image: prideMobilityImg,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
-  { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  duration: "5 weken", image: kyodaiOriginalsImg,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
+  { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  meta: "Maatwerk · Lokale SEO", image: taxiDrechterlandImg, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
+  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      meta: "Vakmanschap · Lokale SEO", image: feigroImg,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
+  { title: "Puur in Harmonie",      category: "Holistische Salon",       meta: "Web Design · Wellness", image: puurInHarmonieImg,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
+  { title: "BeNoted",               category: "Financiële Marketing",    meta: "Web Development · Fintech", image: benotedImg,          slug: "benoted",               url: "https://benoted.nl" },
+  { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", meta: "Web Design · Gezondheid", image: daniqueKwakmanImg, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
+  { title: "Esveld Installatie",    category: "Installatiediensten",     meta: "Web Design · Dienstverlening", image: esveldInstallatieImg, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
+  { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", meta: "WordPress · Maatwerk", image: prideMobilityImg,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
+  { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  meta: "E-commerce · Luxe Branding", image: kyodaiOriginalsImg,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
 ];
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
@@ -56,7 +59,7 @@ const ScrollPortfolio = () => {
                 category={item.category}
                 image={item.image}
                 slug={item.slug}
-                meta={item.duration}
+                meta={item.meta}
                 priority={i < 2}
               />
             </motion.div>
