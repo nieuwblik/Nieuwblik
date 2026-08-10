@@ -7,7 +7,7 @@ import puurInHarmonieImg from "@/assets/puurinharmonie.webp";
 import benotedImg from "@/assets/benoted.webp";
 import daniqueKwakmanImg from "@/assets/daniquekwakman.webp";
 import esveldInstallatieImg from "@/assets/esveldinstallatie.webp";
-import ericaVanDijkImg from "@/assets/ericavandijk.webp";
+import feigroImg from "@/assets/feigro-project-nieuwblik.webp";
 import kyodaiOriginalsImg from "@/assets/kyodai-originals.webp";
 
 // ── Brand tokens ───────────────────────────────────────────────
@@ -22,7 +22,7 @@ const ITEMS = [
   { title: "BeNoted",               category: "Financiële Marketing",    duration: "4 weken", image: benotedImg,          slug: "benoted",               url: "https://benoted.nl" },
   { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", duration: "4 weken", image: daniqueKwakmanImg, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
   { title: "Esveld Installatie",    category: "Installatiediensten",     duration: "4 weken", image: esveldInstallatieImg, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
-  { title: "Erica van Dijk",        category: "HR Interim & Advies",     duration: "3 weken", image: ericaVanDijkImg,      slug: "erica-van-dijk",        url: "https://ericavandijk.nl" },
+  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      duration: "4 weken", image: feigroImg,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
   { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  duration: "5 weken", image: kyodaiOriginalsImg,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
 ];
 
