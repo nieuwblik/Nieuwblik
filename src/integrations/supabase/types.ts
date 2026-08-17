@@ -387,10 +387,10 @@ export type Database = {
     }
     Functions: {
       admin_team: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
-          user_id: string
           name: string
+          user_id: string
         }[]
       }
       has_role: {
