@@ -10,6 +10,7 @@ import {
   Moon,
   PanelLeftClose,
   PanelLeftOpen,
+  Plus,
   Search,
   ShieldAlert,
   Sun,
@@ -23,6 +24,7 @@ import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo.webp";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
+import QuickCapture from "@/admin/components/QuickCapture";
 import { PROJECT_STATUS, PROJECT_STATUS_ORDER } from "@/admin/constants";
 import { initials } from "@/admin/format";
 import { useProjects, useTasks } from "@/admin/queries";
@@ -63,10 +65,12 @@ const RailContent = ({
   collapsed,
   onNavigate,
   onSearch,
+  onCapture,
 }: {
   collapsed: boolean;
   onNavigate?: () => void;
   onSearch: () => void;
+  onCapture: () => void;
 }) => {
   const { data: tasks = [] } = useTasks();
   const { data: projects = [] } = useProjects();
@@ -104,7 +108,31 @@ const RailContent = ({
         {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-4 w-auto opacity-90" />}
       </div>
 
+      {/* De handeling die het vaakst voorkomt staat bovenaan en altijd op
+          dezelfde plek: iets vastleggen wat een klant wil. */}
       <div className={cn("mt-6", collapsed ? "px-2" : "px-3")}>
+        <button
+          type="button"
+          onClick={onCapture}
+          title="Nieuwe taak (N)"
+          className={cn(
+            "flex w-full items-center rounded-lg bg-rail-accent/15 text-sm font-medium text-rail-accent transition-colors duration-150 hover:bg-rail-accent/25",
+            collapsed ? "h-10 justify-center" : "gap-2 px-3 py-2",
+          )}
+        >
+          <Plus className="h-4 w-4 shrink-0" />
+          {!collapsed && (
+            <>
+              Nieuwe taak
+              <kbd className="ml-auto rounded border border-rail-accent/30 px-1.5 py-0.5 font-sans text-[10px] leading-none">
+                N
+              </kbd>
+            </>
+          )}
+        </button>
+      </div>
+
+      <div className={cn("mt-2", collapsed ? "px-2" : "px-3")}>
         <button
           type="button"
           onClick={onSearch}
@@ -226,6 +254,33 @@ const AdminLayout = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [captureOpen, setCaptureOpen] = useState(false);
+
+  /*
+   * "N" opent het invoerscherm, zoals in veel werkomgevingen. Bewust zonder
+   * modifier: dit is de handeling die je de hele dag doet.
+   *
+   * Alleen wanneer je nergens in staat te typen, anders zou de letter n in
+   * een tekstveld het scherm openen in plaats van een n te tikken.
+   */
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "n" || event.metaKey || event.ctrlKey || event.altKey) return;
+
+      const el = document.activeElement;
+      const typend =
+        el instanceof HTMLInputElement ||
+        el instanceof HTMLTextAreaElement ||
+        (el instanceof HTMLElement && el.isContentEditable);
+      if (typend) return;
+
+      event.preventDefault();
+      setCaptureOpen(true);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
   const { theme, toggle: toggleTheme } = usePortalTheme();
 
   const [collapsed, setCollapsed] = useState(() => {
@@ -303,7 +358,11 @@ const AdminLayout = () => {
           )}
         >
           <div className="flex-1 overflow-y-auto">
-            <RailContent collapsed={collapsed} onSearch={() => setPaletteOpen(true)} />
+            <RailContent
+              collapsed={collapsed}
+              onSearch={() => setPaletteOpen(true)}
+              onCapture={() => setCaptureOpen(true)}
+            />
           </div>
 
           <div className={cn("mt-4 border-t border-rail-border pt-4", collapsed ? "px-2" : "px-3")}>
@@ -383,6 +442,10 @@ const AdminLayout = () => {
                     setMobileOpen(false);
                     setPaletteOpen(true);
                   }}
+                  onCapture={() => {
+                    setMobileOpen(false);
+                    setCaptureOpen(true);
+                  }}
                 />
               </SheetContent>
             </Sheet>
@@ -409,6 +472,7 @@ const AdminLayout = () => {
       </div>
 
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <QuickCapture open={captureOpen} onOpenChange={setCaptureOpen} />
     </div>
   );
 };
