@@ -15,6 +15,8 @@ interface QuickAddTaskProps {
    * dan, want daar staat al vast waar de taak onder hoort.
    */
   projectId?: string;
+  /** Zet de cursor meteen in het veld, bij aankomst vanaf de plusknop. */
+  autoFocus?: boolean;
 }
 
 const NO_PROJECT = "__none__";
@@ -24,7 +26,7 @@ const NO_PROJECT = "__none__";
  * Prioriteit en deadline blijven bewust weg — die zijn er zelden op het moment
  * dat je iets snel wilt noteren, en zijn achteraf in de taak zelf te zetten.
  */
-const QuickAddTask = ({ userId, projectId: fixedProject }: QuickAddTaskProps) => {
+const QuickAddTask = ({ userId, projectId: fixedProject, autoFocus }: QuickAddTaskProps) => {
   const [title, setTitle] = useState("");
   const [projectId, setProjectId] = useState(NO_PROJECT);
   const { data: projects = [] } = useProjects();
@@ -62,6 +64,7 @@ const QuickAddTask = ({ userId, projectId: fixedProject }: QuickAddTaskProps) =>
       className="flex flex-col gap-2 sm:flex-row"
     >
       <Input
+        autoFocus={autoFocus}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         // Enter wordt hier expliciet afgehandeld. De impliciete

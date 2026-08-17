@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { CheckSquare } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { CheckSquare, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS } from "@/admin/constants";
@@ -36,6 +36,7 @@ function tintFor(name: string): string {
  * te melden valt, zodat er geen lege ruimte gereserveerd wordt.
  */
 const ClientRowItem = ({ row }: { row: ClientRow }) => {
+  const navigate = useNavigate();
   const meta = [
     row.client.contact_name,
     row.client.city,
@@ -53,49 +54,63 @@ const ClientRowItem = ({ row }: { row: ClientRow }) => {
     ACTIVE_PROJECT_STATUSES.includes(row.status);
 
   return (
-    <li>
-      <Link to={row.to} className="flex items-center gap-3 px-3 py-2.5 transition-colors hover:bg-muted/60">
-        <span
-          className={cn(
-            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-            tintFor(row.client.name),
-          )}
-          aria-hidden="true"
-        >
-          {initials(row.client.name)}
-        </span>
+    // De regel is klikbaar via een overlay op de link, zodat de plusknop
+    // ernaast kan staan. Een knop binnen een link is ongeldige HTML.
+    <li className="relative flex items-center gap-3 px-3 py-2.5 transition-colors hover:bg-muted/60">
+      <span
+        className={cn(
+          "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+          tintFor(row.client.name),
+        )}
+        aria-hidden="true"
+      >
+        {initials(row.client.name)}
+      </span>
 
-        <div className="min-w-0 flex-1">
+      <div className="min-w-0 flex-1">
+        <Link to={row.to} className="after:absolute after:inset-0">
           <p className="truncate text-sm font-medium leading-tight">{row.client.name}</p>
-          {meta.length > 0 && (
-            <p className="mt-0.5 truncate text-xs text-muted-foreground">{meta.join(" · ")}</p>
-          )}
-        </div>
+        </Link>
+        {meta.length > 0 && <p className="mt-0.5 truncate text-xs text-muted-foreground">{meta.join(" · ")}</p>}
+      </div>
 
-        {row.openTasks > 0 && (
-          <span className="hidden shrink-0 items-center gap-1 text-xs text-muted-foreground sm:flex">
-            <CheckSquare className="h-3.5 w-3.5" />
-            {row.openTasks}
-          </span>
-        )}
-
-        {late && (
-          <span className="shrink-0 text-xs font-medium text-rose-600 dark:text-rose-400">
-            {deadlineLabel(row.deadline)}
-          </span>
-        )}
-
-        {row.status && (
-          <span className="hidden shrink-0 items-center gap-1.5 text-xs text-muted-foreground sm:flex">
-            <span className={cn("h-1.5 w-1.5 rounded-full", PROJECT_STATUS[row.status].dot)} />
-            {PROJECT_STATUS[row.status].label}
-          </span>
-        )}
-
-        <span className="hidden w-24 shrink-0 text-right text-xs text-muted-foreground/70 lg:block">
-          {timeAgo(row.activeAt)}
+      {row.openTasks > 0 && (
+        <span className="hidden shrink-0 items-center gap-1 text-xs text-muted-foreground sm:flex">
+          <CheckSquare className="h-3.5 w-3.5" />
+          {row.openTasks}
         </span>
-      </Link>
+      )}
+
+      {late && (
+        <span className="shrink-0 text-xs font-medium text-rose-600 dark:text-rose-400">
+          {deadlineLabel(row.deadline)}
+        </span>
+      )}
+
+      {/* Alleen een stip bij werk dat nog loopt. Bij een portfolio waar bijna
+          alles live is, zou "Live" op elke regel niets toevoegen. */}
+      {row.status && row.status !== "live" && (
+        <span
+          className={cn("h-2 w-2 shrink-0 rounded-full", PROJECT_STATUS[row.status].dot)}
+          title={PROJECT_STATUS[row.status].label}
+        />
+      )}
+
+      <span className="hidden w-24 shrink-0 text-right text-xs text-muted-foreground/70 lg:block">
+        {timeAgo(row.activeAt)}
+      </span>
+
+      {row.project && (
+        <button
+          type="button"
+          onClick={() => navigate(`/admin/projecten/${row.project!.id}`, { state: { nieuweTaak: true } })}
+          title={`Taak toevoegen bij ${row.client.name}`}
+          aria-label={`Taak toevoegen bij ${row.client.name}`}
+          className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <Plus className="h-4 w-4" />
+        </button>
+      )}
     </li>
   );
 };

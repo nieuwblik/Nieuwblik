@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, CheckSquare, ExternalLink, Mail, MapPin, Pencil, Phone, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -42,6 +42,9 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  // De plusknop in de klantenlijst stuurt hierheen om meteen te kunnen typen.
+  const vanafPlusknop = Boolean((location.state as { nieuweTaak?: boolean } | null)?.nieuweTaak);
   const { user } = useAdminAuth();
   const { data: project, isLoading, isError } = useProject(id);
   const { data: client } = useClient(project?.client_id ?? undefined);
@@ -249,7 +252,7 @@ const ProjectDetail = () => {
             <CardContent className="p-4">
               {/* Werk noteren gebeurt hier, binnen het project, en niet op een
                   centraal scherm waar je het project alsnog moet aanwijzen. */}
-              <QuickAddTask userId={user?.id ?? null} projectId={project.id} />
+              <QuickAddTask userId={user?.id ?? null} projectId={project.id} autoFocus={vanafPlusknop} />
 
               <div className="mb-2 mt-3 flex justify-end">
                 <Button
