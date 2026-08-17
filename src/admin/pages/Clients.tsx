@@ -1,52 +1,64 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Plus, Search, Users } from "lucide-react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { CheckSquare, Mail, Phone, Plus, Search, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
-import ClientDialog from "@/admin/components/ClientDialog";
+import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import StatusBadge from "@/admin/components/StatusBadge";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { CLIENT_STATUS, CLIENT_STATUS_ORDER, type ClientStatus } from "@/admin/constants";
-import { useClients, useProjects } from "@/admin/queries";
+import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
+import { daysUntil, deadlineLabel, timeAgo } from "@/admin/format";
+import { useCombinedRows } from "@/admin/rows";
 
+type Filter = ProjectStatus | "alle" | "actief";
+
+/**
+ * De gecombineerde lijst: klant en werk in één regel. Vervangt de losse
+ * klanten- en projectenlijst, die met één project per klant hetzelfde
+ * toonden onder twee namen.
+ */
 const Clients = () => {
   const { user } = useAdminAuth();
-  const { data: clients = [], isLoading } = useClients();
-  const { data: projects = [] } = useProjects();
+  const navigate = useNavigate();
+  const { rows, isLoading } = useCombinedRows();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<ClientStatus | "alle">("alle");
   const [dialogOpen, setDialogOpen] = useState(false);
   const location = useLocation();
 
-  // Aangeroepen vanuit het command-palet met { nieuw: true }.
+  // Het command-palet stuurt hierheen met { nieuw: true } om meteen het
+  // formulier te openen. De state wordt daarna gewist, anders springt de
+  // dialoog bij een refresh opnieuw open.
   useEffect(() => {
     if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
     setDialogOpen(true);
     window.history.replaceState({}, "");
   }, [location.state]);
 
-  /** Aantal projecten per klant, zodat de lijst laat zien waar het werk zit. */
-  const projectCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const project of projects) {
-      if (!project.client_id) continue;
-      counts.set(project.client_id, (counts.get(project.client_id) ?? 0) + 1);
-    }
-    return counts;
-  }, [projects]);
+  // Het filter leeft in de URL, zodat de fases in de zijbalk hierheen linken
+  // en een gefilterde weergave deelbaar is.
+  const statusParam = searchParams.get("status");
+  const known = statusParam === "alle" || PROJECT_STATUS_ORDER.includes(statusParam as ProjectStatus);
+  const filter: Filter = statusParam && known ? (statusParam as Filter) : "alle";
+
+  const setFilter = (next: Filter) =>
+    setSearchParams(next === "alle" ? {} : { status: next }, { replace: true });
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
-    return clients.filter((c) => {
-      if (filter !== "alle" && c.status !== filter) return false;
+    return rows.filter((row) => {
+      if (filter === "actief" && !(row.status && ACTIVE_PROJECT_STATUSES.includes(row.status))) return false;
+      if (filter !== "alle" && filter !== "actief" && row.status !== filter) return false;
       if (!term) return true;
-      return [c.name, c.contact_name, c.email, c.city].some((v) => (v ?? "").toLowerCase().includes(term));
+      return [row.client.name, row.client.contact_name, row.client.email, row.client.city, row.project?.name].some(
+        (value) => (value ?? "").toLowerCase().includes(term),
+      );
     });
-  }, [clients, search, filter]);
+  }, [rows, filter, search]);
 
   return (
     <div className="space-y-6">
@@ -54,7 +66,7 @@ const Clients = () => {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Klanten</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {clients.length} {clients.length === 1 ? "klant" : "klanten"}.
+            {rows.length} {rows.length === 1 ? "klant" : "klanten"} · laatst gewijzigd bovenaan
           </p>
         </div>
         <Button onClick={() => setDialogOpen(true)}>
@@ -73,15 +85,16 @@ const Clients = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Select value={filter} onValueChange={(v) => setFilter(v as ClientStatus | "alle")}>
-          <SelectTrigger className="w-[180px]">
+        <Select value={filter} onValueChange={(v) => setFilter(v as Filter)}>
+          <SelectTrigger className="w-[200px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="alle">Alle statussen</SelectItem>
-            {CLIENT_STATUS_ORDER.map((s) => (
+            <SelectItem value="alle">Alle fases</SelectItem>
+            <SelectItem value="actief">Lopend werk</SelectItem>
+            {PROJECT_STATUS_ORDER.map((s) => (
               <SelectItem key={s} value={s}>
-                {CLIENT_STATUS[s].label}
+                {PROJECT_STATUS[s].label}
               </SelectItem>
             ))}
           </SelectContent>
@@ -89,14 +102,14 @@ const Clients = () => {
       </div>
 
       {isLoading ? (
-        <p className="text-sm text-muted-foreground">Klanten laden…</p>
+        <p className="text-sm text-muted-foreground">Laden…</p>
       ) : visible.length === 0 ? (
         <EmptyState
           icon={Users}
-          title="Geen klanten gevonden"
-          description={clients.length === 0 ? "Voeg je eerste klant toe." : "Pas het filter of de zoekterm aan."}
+          title={rows.length === 0 ? "Nog geen klanten" : "Niets gevonden"}
+          description={rows.length === 0 ? "Voeg je eerste klant toe." : "Pas het filter of de zoekterm aan."}
           action={
-            clients.length === 0 ? (
+            rows.length === 0 ? (
               <Button onClick={() => setDialogOpen(true)}>
                 <Plus className="h-4 w-4" />
                 Nieuwe klant
@@ -105,41 +118,79 @@ const Clients = () => {
           }
         />
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-border bg-background">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Klant</TableHead>
-                <TableHead>Contactpersoon</TableHead>
-                <TableHead className="hidden md:table-cell">Plaats</TableHead>
-                <TableHead className="hidden lg:table-cell">E-mail</TableHead>
-                <TableHead className="text-right">Projecten</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {visible.map((client) => (
-                <TableRow key={client.id}>
-                  <TableCell className="font-medium">
-                    <Link to={`/admin/klanten/${client.id}`} className="hover:underline">
-                      {client.name}
-                    </Link>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">{client.contact_name || "—"}</TableCell>
-                  <TableCell className="hidden text-muted-foreground md:table-cell">{client.city || "—"}</TableCell>
-                  <TableCell className="hidden text-muted-foreground lg:table-cell">{client.email || "—"}</TableCell>
-                  <TableCell className="text-right tabular-nums">{projectCounts.get(client.id) ?? 0}</TableCell>
-                  <TableCell>
-                    <StatusBadge kind="client" value={client.status} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-background">
+          {visible.map((row) => {
+            const late =
+              row.deadline !== null &&
+              (daysUntil(row.deadline) ?? 1) < 0 &&
+              row.status !== null &&
+              ACTIVE_PROJECT_STATUSES.includes(row.status);
+
+            return (
+              <li key={row.key}>
+                <Link to={row.to} className="group flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/60">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-medium">{row.client.name}</p>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-x-3 text-xs text-muted-foreground">
+                      {row.client.contact_name && <span className="truncate">{row.client.contact_name}</span>}
+                      {row.client.city && <span>{row.client.city}</span>}
+                      {row.client.email && (
+                        <span className="hidden items-center gap-1 md:inline-flex">
+                          <Mail className="h-3 w-3" />
+                          {row.client.email}
+                        </span>
+                      )}
+                      {row.client.phone && (
+                        <span className="hidden items-center gap-1 lg:inline-flex">
+                          <Phone className="h-3 w-3" />
+                          {row.client.phone}
+                        </span>
+                      )}
+                      {row.otherProjects.length > 0 && (
+                        <span>
+                          +{row.otherProjects.length} {row.otherProjects.length === 1 ? "project" : "projecten"}
+                        </span>
+                      )}
+                      {!row.project && <span>Nog geen project</span>}
+                    </div>
+                  </div>
+
+                  {row.openTasks > 0 && (
+                    <span className="hidden shrink-0 items-center gap-1.5 text-xs text-muted-foreground sm:flex">
+                      <CheckSquare className="h-3.5 w-3.5" />
+                      {row.openTasks}
+                    </span>
+                  )}
+
+                  {row.deadline && (
+                    <span
+                      className={cn(
+                        "hidden shrink-0 text-xs md:block",
+                        late ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
+                      )}
+                    >
+                      {deadlineLabel(row.deadline)}
+                    </span>
+                  )}
+
+                  {row.status && <StatusBadge kind="project" value={row.status} className="shrink-0" />}
+
+                  <span className="hidden w-28 shrink-0 text-right text-xs text-muted-foreground lg:block">
+                    {timeAgo(row.activeAt)}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       )}
 
-      <ClientDialog open={dialogOpen} onOpenChange={setDialogOpen} userId={user?.id ?? null} />
+      <ClientProjectDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        userId={user?.id ?? null}
+        onCreated={(projectId) => navigate(`/admin/projecten/${projectId}`)}
+      />
     </div>
   );
 };

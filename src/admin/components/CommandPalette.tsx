@@ -1,14 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  CheckSquare,
-  Clock,
-  FolderKanban,
-  LayoutDashboard,
-  Plus,
-  Star,
-  Users,
-} from "lucide-react";
+import { CheckSquare, Clock, LayoutDashboard, Plus, Star, Users } from "lucide-react";
 
 import {
   CommandDialog,
@@ -22,7 +14,8 @@ import {
 } from "@/components/ui/command";
 import { PROJECT_STATUS } from "@/admin/constants";
 import { useRecentProjects } from "@/admin/recent";
-import { useClients, useProjects, useTasks } from "@/admin/queries";
+import { useCombinedRows } from "@/admin/rows";
+import { useTasks } from "@/admin/queries";
 
 interface CommandPaletteProps {
   open: boolean;
@@ -34,8 +27,7 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
   const recent = useRecentProjects();
   // Deze queries draaien elders in het portaal ook; react-query deelt de cache,
   // dus het palet openen kost geen extra netwerkverkeer.
-  const { data: projects = [] } = useProjects();
-  const { data: clients = [] } = useClients();
+  const { rows } = useCombinedRows();
   const { data: tasks = [] } = useTasks();
 
   const go = (to: string, state?: unknown) => {
@@ -66,30 +58,20 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
           </CommandGroup>
         )}
 
-        <CommandGroup heading="Projecten">
-          {projects.map((project) => (
-            <CommandItem
-              key={project.id}
-              value={`${project.name} ${project.client?.name ?? ""}`}
-              onSelect={() => go(`/admin/projecten/${project.id}`)}
-            >
-              <FolderKanban className="h-4 w-4 text-muted-foreground" />
-              <span className="truncate">{project.name}</span>
-              <CommandShortcut>{PROJECT_STATUS[project.status].label}</CommandShortcut>
-            </CommandItem>
-          ))}
-        </CommandGroup>
-
+        {/* Eén groep: klant en project zijn in het portaal hetzelfde, en twee
+            lijsten met dezelfde namen maakte zoeken alleen maar langzamer. */}
         <CommandGroup heading="Klanten">
-          {clients.map((client) => (
+          {rows.map((row) => (
             <CommandItem
-              key={client.id}
-              value={`${client.name} ${client.contact_name ?? ""} ${client.city ?? ""}`}
-              onSelect={() => go(`/admin/klanten/${client.id}`)}
+              key={row.key}
+              value={[row.client.name, row.client.contact_name, row.client.city, row.project?.name]
+                .filter(Boolean)
+                .join(" ")}
+              onSelect={() => go(row.to)}
             >
               <Users className="h-4 w-4 text-muted-foreground" />
-              <span className="truncate">{client.name}</span>
-              {client.city && <CommandShortcut>{client.city}</CommandShortcut>}
+              <span className="truncate">{row.client.name}</span>
+              {row.status && <CommandShortcut>{PROJECT_STATUS[row.status].label}</CommandShortcut>}
             </CommandItem>
           ))}
         </CommandGroup>
@@ -117,11 +99,10 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
             <Plus className="h-4 w-4 text-muted-foreground" />
             Nieuwe taak
           </CommandItem>
-          <CommandItem value="nieuw project aanmaken" onSelect={() => go("/admin/projecten", { nieuw: true })}>
-            <Plus className="h-4 w-4 text-muted-foreground" />
-            Nieuw project
-          </CommandItem>
-          <CommandItem value="nieuwe klant toevoegen" onSelect={() => go("/admin/klanten", { nieuw: true })}>
+          <CommandItem
+            value="nieuwe klant toevoegen nieuw project aanmaken"
+            onSelect={() => go("/admin/klanten", { nieuw: true })}
+          >
             <Plus className="h-4 w-4 text-muted-foreground" />
             Nieuwe klant
           </CommandItem>
@@ -132,11 +113,7 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
             <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
             Dashboard
           </CommandItem>
-          <CommandItem value="alle projecten" onSelect={() => go("/admin/projecten")}>
-            <FolderKanban className="h-4 w-4 text-muted-foreground" />
-            Projecten
-          </CommandItem>
-          <CommandItem value="alle klanten" onSelect={() => go("/admin/klanten")}>
+          <CommandItem value="alle klanten alle projecten" onSelect={() => go("/admin/klanten")}>
             <Users className="h-4 w-4 text-muted-foreground" />
             Klanten
           </CommandItem>

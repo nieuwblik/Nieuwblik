@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, CheckSquare, ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, CheckSquare, ExternalLink, Mail, MapPin, Pencil, Phone, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
-import ProjectDialog from "@/admin/components/ProjectDialog";
+import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
 import QuickAddTask from "@/admin/components/QuickAddTask";
 import StatusBadge from "@/admin/components/StatusBadge";
@@ -21,6 +21,7 @@ import { PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admi
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
 import {
+  useClient,
   useDeleteProject,
   useProject,
   useProjectFiles,
@@ -42,6 +43,7 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const { user } = useAdminAuth();
   const { data: project, isLoading, isError } = useProject(id);
+  const { data: client } = useClient(project?.client_id ?? undefined);
   const { data: allTasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
   const { data: files = [] } = useProjectFiles(id);
@@ -91,25 +93,42 @@ const ProjectDetail = () => {
   return (
     <div className="space-y-6">
       <Link
-        to="/admin/projecten"
+        to="/admin/klanten"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
-        Projecten
+        Klanten
       </Link>
 
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <h1 className="text-2xl font-semibold tracking-tight">{project.name}</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {project.client ? (
-              <Link to={`/admin/klanten/${project.client.id}`} className="hover:underline">
-                {project.client.name}
-              </Link>
-            ) : (
-              "Geen klant gekoppeld"
+          <h1 className="text-2xl font-semibold tracking-tight">{project.client?.name ?? project.name}</h1>
+
+          {/* Contactgegevens staan hier en niet op een aparte klantpagina: je
+              belt of mailt ze vanuit het werk, niet vanuit een adresboek. */}
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+            {project.client && project.client.name !== project.name && <span>{project.name}</span>}
+            {client?.contact_name && <span>{client.contact_name}</span>}
+            {client?.email && (
+              <a href={`mailto:${client.email}`} className="inline-flex items-center gap-1.5 hover:text-foreground">
+                <Mail className="h-3.5 w-3.5" />
+                {client.email}
+              </a>
             )}
-          </p>
+            {client?.phone && (
+              <a href={`tel:${client.phone}`} className="inline-flex items-center gap-1.5 hover:text-foreground">
+                <Phone className="h-3.5 w-3.5" />
+                {client.phone}
+              </a>
+            )}
+            {client?.city && (
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5" />
+                {client.city}
+              </span>
+            )}
+            {!project.client && <span>Geen klant gekoppeld</span>}
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Select value={project.status} onValueChange={(v) => void changeStatus(v as ProjectStatus)}>
@@ -256,7 +275,13 @@ const ProjectDetail = () => {
         </TabsContent>
       </Tabs>
 
-      <ProjectDialog open={editOpen} onOpenChange={setEditOpen} project={project} userId={user?.id ?? null} />
+      <ClientProjectDialog
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        client={client ?? null}
+        project={project}
+        userId={user?.id ?? null}
+      />
       <TaskDialog
         open={taskOpen}
         onOpenChange={setTaskOpen}

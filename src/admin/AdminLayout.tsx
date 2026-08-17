@@ -78,8 +78,8 @@ const RailContent = ({
   // NavLink kijkt alleen naar het pad, dus de statusfilters zouden allemaal
   // tegelijk actief lijken. Vandaar dat die rijen hun eigen actieve staat
   // bepalen op basis van de querystring.
-  const onProjectsPage = location.pathname === "/admin/projecten";
-  const activeStatus = onProjectsPage ? new URLSearchParams(location.search).get("status") : null;
+  const onClientsPage = location.pathname === "/admin/klanten";
+  const activeStatus = onClientsPage ? new URLSearchParams(location.search).get("status") : null;
 
   const openTasks = tasks.filter((t) => t.status !== "klaar").length;
 
@@ -90,10 +90,11 @@ const RailContent = ({
     count: projects.filter((p) => p.status === status).length,
   })).filter((row) => row.count > 0);
 
+  // Klanten en projecten zijn één ingang: met één project per klant toonden
+  // twee lijsten hetzelfde onder een andere naam.
   const nav: NavEntry[] = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
     { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
-    { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
     { to: "/admin/reviews", label: "Reviews", icon: Star, end: false, count: pendingReviews },
   ];
 
@@ -156,28 +157,28 @@ const RailContent = ({
       <div className={cn("mt-5 border-t border-rail-border pt-5", collapsed ? "px-2" : "px-3")}>
         {collapsed ? (
           <NavLink
-            to="/admin/projecten"
+            to="/admin/klanten"
             onClick={onNavigate}
-            title="Projecten"
+            title="Klanten"
             className={({ isActive }) => railItem(isActive, true)}
           >
-            <FolderKanban className="h-[18px] w-[18px]" />
+            <Users className="h-[18px] w-[18px]" />
           </NavLink>
         ) : (
           <>
             <div className="flex items-center">
               <Link
-                to="/admin/projecten"
+                to="/admin/klanten"
                 onClick={onNavigate}
                 className={cn(
                   "flex flex-1 items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-150",
-                  onProjectsPage && !activeStatus
+                  onClientsPage && !activeStatus
                     ? "bg-rail-active text-rail-fg"
                     : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
                 )}
               >
-                <FolderKanban className="h-[18px] w-[18px] shrink-0" />
-                Projecten
+                <Users className="h-[18px] w-[18px] shrink-0" />
+                Klanten
               </Link>
               {statusCounts.length > 0 && (
                 <button
@@ -199,7 +200,7 @@ const RailContent = ({
                 {statusCounts.map(({ status, count }) => (
                   <li key={status}>
                     <Link
-                      to={`/admin/projecten?status=${status}`}
+                      to={`/admin/klanten?status=${status}`}
                       onClick={onNavigate}
                       className={cn(
                         "flex items-center gap-3 rounded-lg py-1.5 pl-6 pr-3 text-sm transition-colors duration-150",
