@@ -10,6 +10,11 @@ import { useProjects, useSaveTask } from "@/admin/queries";
 interface QuickAddTaskProps {
   /** De taak komt op naam van wie hem toevoegt; dat is bijna altijd de bedoeling. */
   userId: string | null;
+  /**
+   * Vast project. Meegeven vanaf een projectpagina: de keuzelijst verdwijnt
+   * dan, want daar staat al vast waar de taak onder hoort.
+   */
+  projectId?: string;
 }
 
 const NO_PROJECT = "__none__";
@@ -19,11 +24,13 @@ const NO_PROJECT = "__none__";
  * Prioriteit en deadline blijven bewust weg — die zijn er zelden op het moment
  * dat je iets snel wilt noteren, en zijn achteraf in de taak zelf te zetten.
  */
-const QuickAddTask = ({ userId }: QuickAddTaskProps) => {
+const QuickAddTask = ({ userId, projectId: fixedProject }: QuickAddTaskProps) => {
   const [title, setTitle] = useState("");
   const [projectId, setProjectId] = useState(NO_PROJECT);
   const { data: projects = [] } = useProjects();
   const save = useSaveTask();
+
+  const target = fixedProject ?? (projectId === NO_PROJECT ? null : projectId);
 
   const create = async () => {
     const trimmed = title.trim();
@@ -33,7 +40,7 @@ const QuickAddTask = ({ userId }: QuickAddTaskProps) => {
       await save.mutateAsync({
         values: {
           title: trimmed.slice(0, 300),
-          project_id: projectId === NO_PROJECT ? null : projectId,
+          project_id: target,
           assigned_to: userId,
           created_by: userId,
         },
@@ -71,19 +78,21 @@ const QuickAddTask = ({ userId }: QuickAddTaskProps) => {
         className="flex-1"
         aria-label="Nieuwe taak"
       />
-      <Select value={projectId} onValueChange={setProjectId}>
-        <SelectTrigger className="sm:w-[200px]" aria-label="Project kiezen">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={NO_PROJECT}>Losse taak</SelectItem>
-          {projects.map((project) => (
-            <SelectItem key={project.id} value={project.id}>
-              {project.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {!fixedProject && (
+        <Select value={projectId} onValueChange={setProjectId}>
+          <SelectTrigger className="sm:w-[200px]" aria-label="Project kiezen">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={NO_PROJECT}>Losse taak</SelectItem>
+            {projects.map((project) => (
+              <SelectItem key={project.id} value={project.id}>
+                {project.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
       <Button type="submit" disabled={save.isPending || !title.trim()}>
         <Plus className="h-4 w-4" />
         <span className="sm:sr-only">Toevoegen</span>

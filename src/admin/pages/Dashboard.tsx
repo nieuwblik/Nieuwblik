@@ -1,311 +1,234 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  AlertTriangle,
-  CalendarClock,
-  CheckSquare,
-  Clock,
-  FolderKanban,
-  Plus,
-  Users,
-} from "lucide-react";
+import { ArrowRight, CheckSquare, Search, Users } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
-import QuickAddTask from "@/admin/components/QuickAddTask";
 import StatusBadge from "@/admin/components/StatusBadge";
 import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS_ORDER } from "@/admin/constants";
-import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
-import { useRecentProjects } from "@/admin/recent";
+import type { ProjectStatus } from "@/admin/constants";
+import { daysUntil, deadlineLabel, mostRecent, timeAgo } from "@/admin/format";
 import {
   useClients,
+  useLatestUpdatePerProject,
   useProjects,
-  useRecentUpdates,
   useTasks,
   useTeam,
   type TaskWithProject,
 } from "@/admin/queries";
 
-interface StatProps {
-  icon: typeof FolderKanban;
-  label: string;
-  value: number | string;
-  hint?: string;
+/**
+ * Eén regel op het beginscherm: een klant met het project waar je op klikt.
+ * Klanten zonder project krijgen ook een regel, anders vallen ze van het
+ * scherm zodra je ze net hebt aangemaakt.
+ */
+interface Row {
+  key: string;
   to: string;
-  alert?: boolean;
+  clientName: string;
+  projectName: string | null;
+  status: ProjectStatus;
+  hasProject: boolean;
+  deadline: string | null;
+  openTasks: number;
+  activeAt: string | null;
 }
-
-const Stat = ({ icon: Icon, label, value, hint, to, alert }: StatProps) => (
-  <Link
-    to={to}
-    className="rounded-lg border border-border bg-background p-4 transition-colors hover:border-foreground/20"
-  >
-    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-      <Icon className="h-4 w-4" />
-      {label}
-    </div>
-    <p className={cn("mt-2 text-3xl font-semibold tabular-nums", alert && "text-rose-600 dark:text-rose-400")}>{value}</p>
-    {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
-  </Link>
-);
 
 const Dashboard = () => {
   const { user, displayName } = useAdminAuth();
   const { data: projects = [], isLoading: projectsLoading } = useProjects();
-  const { data: tasks = [], isLoading: tasksLoading } = useTasks();
-  const { data: clients = [] } = useClients();
+  const { data: clients = [], isLoading: clientsLoading } = useClients();
+  const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
-  const { data: updates = [] } = useRecentUpdates(8);
-  const recent = useRecentProjects();
+  const { data: latestUpdate = {} } = useLatestUpdatePerProject();
+  const [search, setSearch] = useState("");
   const [taskOpen, setTaskOpen] = useState(false);
   const [editing, setEditing] = useState<TaskWithProject | null>(null);
 
-  const stats = useMemo(() => {
-    const openTasks = tasks.filter((t) => t.status !== "klaar");
-    return {
-      activeProjects: projects.filter((p) => ACTIVE_PROJECT_STATUSES.includes(p.status)).length,
-      liveProjects: projects.filter((p) => p.status === "live").length,
-      openTasks: openTasks.length,
-      overdueTasks: openTasks.filter((t) => (daysUntil(t.due_date) ?? 1) < 0).length,
-      mine: openTasks.filter((t) => t.assigned_to === user?.id),
-    };
-  }, [projects, tasks, user?.id]);
+  const rows = useMemo<Row[]>(() => {
+    const openPerProject = new Map<string, number>();
+    let latestTaskPerProject: Record<string, string> = {};
 
-  /** Projecten met een deadline binnen twee weken, of al verstreken. */
-  const upcoming = useMemo(
-    () =>
-      projects
-        .filter((p) => {
-          if (!p.deadline || !ACTIVE_PROJECT_STATUSES.includes(p.status)) return false;
-          const days = daysUntil(p.deadline);
-          return days !== null && days <= 14;
-        })
-        .sort((a, b) => (a.deadline ?? "").localeCompare(b.deadline ?? ""))
-        .slice(0, 6),
-    [projects],
+    for (const task of tasks) {
+      if (!task.project_id) continue;
+      if (task.status !== "klaar") {
+        openPerProject.set(task.project_id, (openPerProject.get(task.project_id) ?? 0) + 1);
+      }
+      const current = latestTaskPerProject[task.project_id];
+      if (!current || task.updated_at > current) {
+        latestTaskPerProject = { ...latestTaskPerProject, [task.project_id]: task.updated_at };
+      }
+    }
+
+    const projectRows: Row[] = projects.map((project) => ({
+      key: project.id,
+      to: `/admin/projecten/${project.id}`,
+      clientName: project.client?.name ?? project.name,
+      projectName: project.client && project.client.name !== project.name ? project.name : null,
+      status: project.status,
+      hasProject: true,
+      deadline: project.deadline,
+      openTasks: openPerProject.get(project.id) ?? 0,
+      // Laatste activiteit is het nieuwste van: het project zelf gewijzigd,
+      // een update geplaatst, of een taak aangeraakt.
+      activeAt: mostRecent(project.updated_at, latestUpdate[project.id], latestTaskPerProject[project.id]),
+    }));
+
+    const clientsWithProject = new Set(projects.map((p) => p.client_id).filter(Boolean));
+    const orphanRows: Row[] = clients
+      .filter((client) => !clientsWithProject.has(client.id))
+      .map((client) => ({
+        key: `klant-${client.id}`,
+        to: `/admin/klanten/${client.id}`,
+        clientName: client.name,
+        projectName: null,
+        status: "lead" as const,
+        hasProject: false,
+        deadline: null,
+        openTasks: 0,
+        activeAt: client.updated_at,
+      }));
+
+    // Nieuwste bovenaan: precies wat er als laatste is aangeraakt staat vooraan.
+    return [...projectRows, ...orphanRows].sort((a, b) => {
+      if (!a.activeAt) return 1;
+      if (!b.activeAt) return -1;
+      return new Date(b.activeAt).getTime() - new Date(a.activeAt).getTime();
+    });
+  }, [projects, clients, tasks, latestUpdate]);
+
+  const visible = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    if (!term) return rows;
+    return rows.filter(
+      (row) =>
+        row.clientName.toLowerCase().includes(term) || (row.projectName ?? "").toLowerCase().includes(term),
+    );
+  }, [rows, search]);
+
+  const myOpenTasks = useMemo(
+    () => tasks.filter((t) => t.status !== "klaar" && t.assigned_to === user?.id),
+    [tasks, user?.id],
   );
 
-  const pipeline = useMemo(
-    () =>
-      PROJECT_STATUS_ORDER.map((status) => ({
-        status,
-        count: projects.filter((p) => p.status === status).length,
-      })).filter((row) => row.count > 0),
-    [projects],
-  );
-
-  const openEditor = (task: TaskWithProject) => {
-    setEditing(task);
-    setTaskOpen(true);
-  };
-
-  // Alles opgeleverd en niets genoteerd: dan is een leeg dashboard correct maar
-  // niet behulpzaam, dus leggen we uit wat er te doen valt.
-  const nothingRunning = !projectsLoading && !tasksLoading && stats.activeProjects === 0 && tasks.length === 0;
+  const openTotal = tasks.filter((t) => t.status !== "klaar").length;
+  const overdue = tasks.filter((t) => t.status !== "klaar" && (daysUntil(t.due_date) ?? 1) < 0).length;
+  const isLoading = projectsLoading || clientsLoading;
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
+    <div className="space-y-8">
+      <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">
             Hallo{displayName ? `, ${displayName.split(/[\s@]/)[0]}` : ""}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">Dit staat er vandaag open.</p>
-        </div>
-        <Button
-          variant="outline"
-          onClick={() => {
-            setEditing(null);
-            setTaskOpen(true);
-          }}
-        >
-          <Plus className="h-4 w-4" />
-          Taak met details
-        </Button>
-      </div>
-
-      <QuickAddTask userId={user?.id ?? null} />
-
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <Stat
-          icon={FolderKanban}
-          label="Lopend werk"
-          value={projectsLoading ? "…" : stats.activeProjects}
-          hint={`${stats.liveProjects} live · ${projects.length} totaal`}
-          to="/admin/projecten"
-        />
-        <Stat
-          icon={CheckSquare}
-          label="Openstaande taken"
-          value={tasksLoading ? "…" : stats.openTasks}
-          hint={`${stats.mine.length} van jou`}
-          to="/admin/taken"
-        />
-        <Stat
-          icon={AlertTriangle}
-          label="Te laat"
-          value={tasksLoading ? "…" : stats.overdueTasks}
-          hint="Taken over de deadline"
-          to="/admin/taken"
-          alert={stats.overdueTasks > 0}
-        />
-        <Stat
-          icon={Users}
-          label="Klanten"
-          value={clients.length}
-          hint={`${clients.filter((c) => c.status === "actief").length} actief`}
-          to="/admin/klanten"
-        />
-      </div>
-
-      {nothingRunning && (
-        <Card className="border-dashed">
-          <CardContent className="p-4 text-sm text-muted-foreground">
-            Je {projects.length} sites staan erin als opgeleverd werk, dus er is niets lopend. Zet een project op{" "}
-            <span className="text-foreground">In bouw</span> of <span className="text-foreground">Onderhoud</span> zodra
-            er weer aan gewerkt wordt, of noteer hierboven je eerste taak.
-          </CardContent>
-        </Card>
-      )}
-
-      {recent.length > 0 && (
-        <div>
-          <p className="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-wide text-muted-foreground">
-            <Clock className="h-3.5 w-3.5" />
-            Recent bekeken
+          <p className="mt-1 text-sm text-muted-foreground">
+            {clients.length} klanten · {openTotal} openstaande {openTotal === 1 ? "taak" : "taken"}
+            {overdue > 0 && <span className="text-rose-600 dark:text-rose-400"> · {overdue} te laat</span>}
           </p>
-          <div className="flex flex-wrap gap-2">
-            {recent.map((project) => (
-              <Link
-                key={project.id}
-                to={`/admin/projecten/${project.id}`}
-                className="rounded-full border border-border bg-background px-3 py-1.5 text-sm transition-colors hover:border-foreground/20 hover:bg-muted"
-              >
-                {project.name}
-              </Link>
-            ))}
-          </div>
         </div>
-      )}
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-base">Mijn taken</CardTitle>
-            <CardDescription>Openstaand werk dat aan jou is toegewezen.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {stats.mine.length === 0 ? (
-              <EmptyState
-                icon={CheckSquare}
-                title="Niets openstaand"
-                description="Er staan geen taken op jouw naam."
-              />
-            ) : (
-              <TaskList tasks={stats.mine} team={team} onEdit={openEditor} />
-            )}
-          </CardContent>
-        </Card>
+        <div className="relative w-full sm:w-72">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            className="pl-9"
+            placeholder="Zoek een klant"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Deadlines</CardTitle>
-            <CardDescription>Projecten die binnen twee weken moeten staan.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {upcoming.length === 0 ? (
-              <EmptyState icon={CalendarClock} title="Geen deadlines in zicht" />
-            ) : (
-              <ul className="space-y-3">
-                {upcoming.map((project) => {
-                  const late = (daysUntil(project.deadline) ?? 1) < 0;
-                  return (
-                    <li key={project.id} className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <Link
-                          to={`/admin/projecten/${project.id}`}
-                          className="block truncate text-sm font-medium hover:underline"
-                        >
-                          {project.name}
-                        </Link>
-                        <p className="truncate text-xs text-muted-foreground">{project.client?.name ?? "Geen klant"}</p>
-                      </div>
+      <section>
+        <div className="mb-3 flex items-baseline justify-between">
+          <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Klanten</h2>
+          <span className="text-xs text-muted-foreground">Laatst gewijzigd bovenaan</span>
+        </div>
+
+        {isLoading ? (
+          <p className="text-sm text-muted-foreground">Laden…</p>
+        ) : visible.length === 0 ? (
+          <EmptyState
+            icon={Users}
+            title={rows.length === 0 ? "Nog geen klanten" : "Niets gevonden"}
+            description={rows.length === 0 ? "Voeg een klant toe om te beginnen." : "Pas je zoekterm aan."}
+          />
+        ) : (
+          <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-background">
+            {visible.map((row) => {
+              const late = row.deadline !== null && (daysUntil(row.deadline) ?? 1) < 0;
+              return (
+                <li key={row.key}>
+                  <Link
+                    to={row.to}
+                    className="group flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/60"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium">{row.clientName}</p>
+                      <p className="truncate text-sm text-muted-foreground">
+                        {row.projectName ?? (row.hasProject ? " " : "Nog geen project")}
+                      </p>
+                    </div>
+
+                    {row.openTasks > 0 && (
+                      <span className="hidden shrink-0 items-center gap-1.5 text-xs text-muted-foreground sm:flex">
+                        <CheckSquare className="h-3.5 w-3.5" />
+                        {row.openTasks}
+                      </span>
+                    )}
+
+                    {row.deadline && (
                       <span
                         className={cn(
-                          "shrink-0 text-xs",
+                          "hidden shrink-0 text-xs md:block",
                           late ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
                         )}
                       >
-                        {deadlineLabel(project.deadline)}
+                        {deadlineLabel(row.deadline)}
                       </span>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+                    )}
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Pijplijn</CardTitle>
-            <CardDescription>Verdeling over de fases.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {pipeline.length === 0 ? (
-              <EmptyState icon={FolderKanban} title="Nog geen projecten" />
-            ) : (
-              <ul className="space-y-2">
-                {pipeline.map(({ status, count }) => (
-                  <li key={status} className="flex items-center justify-between gap-3">
-                    <StatusBadge kind="project" value={status} />
-                    <span className="text-sm tabular-nums text-muted-foreground">{count}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </CardContent>
-        </Card>
+                    {row.hasProject && <StatusBadge kind="project" value={row.status} className="shrink-0" />}
 
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-base">Laatste activiteit</CardTitle>
-            <CardDescription>Updates en statuswijzigingen over alle projecten.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {updates.length === 0 ? (
-              <EmptyState icon={FolderKanban} title="Nog geen activiteit" />
-            ) : (
-              <ul className="space-y-3">
-                {updates.map((update) => (
-                  <li key={update.id} className="flex gap-3">
-                    <StatusBadge kind="update" value={update.kind} className="mt-0.5 shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-sm">{update.body}</p>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {update.project && (
-                          <Link to={`/admin/projecten/${update.project.id}`} className="hover:underline">
-                            {update.project.name}
-                          </Link>
-                        )}
-                        {update.project && " · "}
-                        {formatDateTime(update.created_at)}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+                    <span className="hidden w-28 shrink-0 text-right text-xs text-muted-foreground lg:block">
+                      {timeAgo(row.activeAt)}
+                    </span>
+
+                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/40 transition-colors group-hover:text-foreground" />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Mijn taken</CardTitle>
+          <CardDescription>
+            Openstaand werk op jouw naam, over alle projecten heen. Toevoegen doe je in het project zelf.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {myOpenTasks.length === 0 ? (
+            <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
+          ) : (
+            <TaskList
+              tasks={myOpenTasks}
+              team={team}
+              onEdit={(task) => {
+                setEditing(task);
+                setTaskOpen(true);
+              }}
+            />
+          )}
+        </CardContent>
+      </Card>
 
       <TaskDialog open={taskOpen} onOpenChange={setTaskOpen} task={editing} userId={user?.id ?? null} />
     </div>

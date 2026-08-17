@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import ProjectDialog from "@/admin/components/ProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
+import QuickAddTask from "@/admin/components/QuickAddTask";
 import StatusBadge from "@/admin/components/StatusBadge";
 import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
@@ -212,21 +213,25 @@ const ProjectDetail = () => {
         <TabsContent value="taken" className="mt-4">
           <Card>
             <CardContent className="p-4">
-              <div className="mb-2 flex justify-end">
+              {/* Werk noteren gebeurt hier, binnen het project, en niet op een
+                  centraal scherm waar je het project alsnog moet aanwijzen. */}
+              <QuickAddTask userId={user?.id ?? null} projectId={project.id} />
+
+              <div className="mb-2 mt-3 flex justify-end">
                 <Button
                   size="sm"
-                  variant="outline"
+                  variant="ghost"
                   onClick={() => {
                     setEditingTask(null);
                     setTaskOpen(true);
                   }}
                 >
                   <Plus className="h-4 w-4" />
-                  Taak
+                  Met deadline en prioriteit
                 </Button>
               </div>
               {tasks.length === 0 ? (
-                <EmptyState icon={CheckSquare} title="Nog geen taken" description="Voeg het eerste werk toe." />
+                <EmptyState icon={CheckSquare} title="Nog geen taken" description="Voeg hierboven het eerste werk toe." />
               ) : (
                 <TaskList
                   tasks={tasks}

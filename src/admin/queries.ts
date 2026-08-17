@@ -294,6 +294,42 @@ export function useRecentUpdates(limit = 8) {
   });
 }
 
+/**
+ * Laatste activiteit per project.
+ *
+ * projects.updated_at beweegt alleen mee bij een wijziging aan het project
+ * zelf, niet als er een update wordt geplaatst of een taak verandert. Voor
+ * "wat is hier het laatst gebeurd" moeten die drie bronnen samen, en dat
+ * gebeurt hier in plaats van in elke pagina opnieuw.
+ *
+ * De reductie draait op de client: bij deze omvang is dat sneller dan een
+ * ronde per project, en het scheelt een extra databasefunctie. Groeit het
+ * aantal updates ver voorbij deze limiet, dan is een trigger die
+ * projects.updated_at bijwerkt de betere oplossing.
+ */
+export function useLatestUpdatePerProject() {
+  return useQuery({
+    queryKey: [...adminKeys.recentUpdates, "per-project"] as const,
+    queryFn: async (): Promise<Record<string, string>> => {
+      const rows = unwrap(
+        await supabase
+          .from("project_updates")
+          .select("project_id, created_at")
+          .order("created_at", { ascending: false })
+          .limit(1000),
+      );
+
+      // Aflopend gesorteerd, dus de eerste die we per project tegenkomen is
+      // meteen de meest recente.
+      const latest: Record<string, string> = {};
+      for (const row of rows) {
+        if (!latest[row.project_id]) latest[row.project_id] = row.created_at;
+      }
+      return latest;
+    },
+  });
+}
+
 export function useAddUpdate() {
   const qc = useQueryClient();
   return useMutation({

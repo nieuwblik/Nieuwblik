@@ -1,4 +1,4 @@
-import { differenceInCalendarDays, format, isValid, parseISO } from "date-fns";
+import { differenceInCalendarDays, format, formatDistanceToNowStrict, isValid, parseISO } from "date-fns";
 import { nl } from "date-fns/locale";
 
 /** Datum uit de database (YYYY-MM-DD of ISO-timestamp) naar "12 aug 2026". */
@@ -12,6 +12,38 @@ export function formatDateTime(value: string | null | undefined): string {
   if (!value) return "—";
   const date = parseISO(value);
   return isValid(date) ? format(date, "d MMM yyyy 'om' HH:mm", { locale: nl }) : "—";
+}
+
+/** "3 dagen geleden" — voor de activiteitskolom op het beginscherm. */
+export function timeAgo(value: string | null | undefined): string {
+  if (!value) return "—";
+  const date = parseISO(value);
+  if (!isValid(date)) return "—";
+
+  // Onder de minuut leest "0 minuten geleden" raar.
+  if (Date.now() - date.getTime() < 60_000) return "zojuist";
+  return `${formatDistanceToNowStrict(date, { locale: nl })} geleden`;
+}
+
+/**
+ * De meest recente van een reeks tijdstippen; null als er geen bruikbare bij
+ * zit. Vergelijkt op geparste tijd en niet op de tekst: twee tijdstempels
+ * kunnen dezelfde tijd in een andere schrijfwijze bevatten ("Z" tegenover
+ * "+00:00"), en dan klopt een alfabetische vergelijking niet.
+ */
+export function mostRecent(...values: (string | null | undefined)[]): string | null {
+  let best: string | null = null;
+  let bestTime = -Infinity;
+
+  for (const value of values) {
+    if (!value) continue;
+    const time = parseISO(value).getTime();
+    if (Number.isNaN(time) || time <= bestTime) continue;
+    best = value;
+    bestTime = time;
+  }
+
+  return best;
 }
 
 /**
