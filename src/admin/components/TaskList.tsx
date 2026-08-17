@@ -8,12 +8,11 @@ import { cn } from "@/lib/utils";
 import StatusBadge from "@/admin/components/StatusBadge";
 import { PRIORITY_WEIGHT } from "@/admin/constants";
 import { daysUntil, deadlineLabel } from "@/admin/format";
-import { useDeleteTask, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
+import { useDeleteTask, useTasks, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
 
 interface TaskListProps {
   tasks: TaskWithProject[];
   team: TeamMember[];
-  onEdit: (task: TaskWithProject) => void;
   /** Uit bij de takenlijst binnen één project — de projectnaam is daar ruis. */
   showProject?: boolean;
 }
@@ -38,9 +37,18 @@ export function sortTasks(tasks: TaskWithProject[]): TaskWithProject[] {
   });
 }
 
-const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) => {
+const TaskList = ({ tasks, team, showProject = true }: TaskListProps) => {
   const update = useUpdateTask();
   const remove = useDeleteTask();
+  // De volledige set staat al in de react-query-cache; hieruit tellen we de
+  // stappen per taak, ook als de aanroeper een gefilterde lijst doorgeeft.
+  const { data: allTasks = [] } = useTasks();
+
+  const steps = (taskId: string) => {
+    const own = allTasks.filter((t) => t.parent_task_id === taskId);
+    if (own.length === 0) return null;
+    return `${own.filter((t) => t.status === "klaar").length}/${own.length} stappen`;
+  };
 
   const toggle = async (task: TaskWithProject, done: boolean) => {
     try {
@@ -65,7 +73,9 @@ const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) =>
 
   return (
     <ul className="divide-y divide-border">
-      {sortTasks(tasks).map((task) => {
+      {/* Stappen verschijnen op de pagina van hun eigen taak, niet los in
+          deze lijst: anders staat hetzelfde werk er twee keer in. */}
+      {sortTasks(tasks.filter((t) => !t.parent_task_id)).map((task) => {
         const done = task.status === "klaar";
         const overdue = !done && (daysUntil(task.due_date) ?? 1) < 0;
         const assignee = nameFor(task.assigned_to);
@@ -80,23 +90,21 @@ const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) =>
             />
 
             <div className="min-w-0 flex-1">
-              {/* De titel opent de taak: het potlood alleen was een klein doel
-                  voor iets wat je constant doet. De projectlink hieronder valt
-                  er bewust buiten, want een link in een knop is ongeldig. */}
-              <button type="button" onClick={() => onEdit(task)} className="block w-full text-left">
-                <p
-                  className={cn(
-                    "text-sm font-medium hover:underline",
-                    done && "text-muted-foreground line-through",
-                  )}
-                >
-                  {task.title}
-                </p>
-
-                {task.description && (
-                  <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
+              {/* De titel opent de volledige taakpagina, waar de details,
+                  foto's en losse stappen staan. */}
+              <Link
+                to={`/admin/taken/${task.id}`}
+                className={cn(
+                  "block text-sm font-medium hover:underline",
+                  done && "text-muted-foreground line-through",
                 )}
-              </button>
+              >
+                {task.title}
+              </Link>
+
+              {task.description && (
+                <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
+              )}
 
               <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                 {showProject && task.project && (
@@ -105,6 +113,7 @@ const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) =>
                   </Link>
                 )}
                 {assignee && <span>{assignee}</span>}
+                {steps(task.id) && <span>{steps(task.id)}</span>}
                 {task.due_date && (
                   <span className={cn(overdue && "font-medium text-rose-600 dark:text-rose-400")}>{deadlineLabel(task.due_date)}</span>
                 )}

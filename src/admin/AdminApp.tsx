@@ -7,6 +7,7 @@ import Clients from "@/admin/pages/Clients";
 import Dashboard from "@/admin/pages/Dashboard";
 import ProjectDetail from "@/admin/pages/ProjectDetail";
 import Reviews from "@/admin/pages/Reviews";
+import TaskDetail from "@/admin/pages/TaskDetail";
 import Tasks from "@/admin/pages/Tasks";
 
 /** Houdt een eventueel ?status=-filter vast bij het doorsturen. */
@@ -34,6 +35,7 @@ const AdminApp = () => (
         <Route path="klanten/:id" element={<ClientDetail />} />
         <Route path="projecten/:id" element={<ProjectDetail />} />
         <Route path="taken" element={<Tasks />} />
+        <Route path="taken/:id" element={<TaskDetail />} />
         <Route path="reviews" element={<Reviews />} />
         {/* Oude adressen uit eerdere versies van het portaal. */}
         <Route path="projecten" element={<ToClients />} />

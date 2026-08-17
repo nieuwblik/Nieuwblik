@@ -5,12 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ClientRowItem from "@/admin/components/ClientRowItem";
 import EmptyState from "@/admin/components/EmptyState";
-import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { daysUntil } from "@/admin/format";
 import { useCombinedRows } from "@/admin/rows";
-import { useTasks, useTeam, type TaskWithProject } from "@/admin/queries";
+import { useTasks, useTeam } from "@/admin/queries";
 
 const Dashboard = () => {
   const { user, displayName } = useAdminAuth();
@@ -18,8 +17,6 @@ const Dashboard = () => {
   const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
   const [search, setSearch] = useState("");
-  const [taskOpen, setTaskOpen] = useState(false);
-  const [editing, setEditing] = useState<TaskWithProject | null>(null);
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -97,19 +94,11 @@ const Dashboard = () => {
           {myOpenTasks.length === 0 ? (
             <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
           ) : (
-            <TaskList
-              tasks={myOpenTasks}
-              team={team}
-              onEdit={(task) => {
-                setEditing(task);
-                setTaskOpen(true);
-              }}
-            />
+            <TaskList tasks={myOpenTasks} team={team} />
           )}
         </CardContent>
       </Card>
 
-      <TaskDialog open={taskOpen} onOpenChange={setTaskOpen} task={editing} userId={user?.id ?? null} />
     </div>
   );
 };

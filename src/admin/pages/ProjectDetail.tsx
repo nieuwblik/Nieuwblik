@@ -22,6 +22,7 @@ import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/form
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
 import {
   useClient,
+  useDeleteClient,
   useDeleteProject,
   useProject,
   useProjectFiles,
@@ -49,10 +50,10 @@ const ProjectDetail = () => {
   const { data: files = [] } = useProjectFiles(id);
   const updateProject = useUpdateProject();
   const removeProject = useDeleteProject();
+  const removeClient = useDeleteClient();
 
   const [editOpen, setEditOpen] = useState(false);
   const [taskOpen, setTaskOpen] = useState(false);
-  const [editingTask, setEditingTask] = useState<TaskWithProject | null>(null);
 
   const tasks = useMemo(() => allTasks.filter((t) => t.project_id === id), [allTasks, id]);
   const openTasks = tasks.filter((t) => t.status !== "klaar").length;
@@ -75,14 +76,26 @@ const ProjectDetail = () => {
     }
   };
 
+  /**
+   * Klant en project zijn één geheel, dus verwijderen haalt allebei weg.
+   * De klant wissen is genoeg: het project hangt eraan met ON DELETE CASCADE,
+   * en daarmee gaan taken, updates en bestanden vanzelf mee. Alleen het
+   * project wissen zou een lege klantregel achterlaten.
+   */
   const handleDelete = async () => {
-    if (!window.confirm(`"${project.name}" verwijderen? Taken, updates en bestanden gaan mee.`)) return;
+    const naam = project.client?.name ?? project.name;
+    if (!window.confirm(`"${naam}" verwijderen? Het project, de taken, updates en bestanden gaan mee.`)) return;
+
     try {
-      await removeProject.mutateAsync(project.id);
+      if (project.client_id) {
+        await removeClient.mutateAsync(project.client_id);
+      } else {
+        await removeProject.mutateAsync(project.id);
+      }
       // Anders blijft er een dode snelkoppeling in "recent bekeken" staan.
       forgetRecentProject(project.id);
-      toast.success("Project verwijderd");
-      navigate("/admin/projecten");
+      toast.success(`"${naam}" verwijderd`);
+      navigate("/admin/klanten");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Verwijderen mislukt");
     }
@@ -242,10 +255,7 @@ const ProjectDetail = () => {
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={() => {
-                    setEditingTask(null);
-                    setTaskOpen(true);
-                  }}
+                  onClick={() => setTaskOpen(true)}
                 >
                   <Plus className="h-4 w-4" />
                   Met deadline en prioriteit
@@ -254,15 +264,7 @@ const ProjectDetail = () => {
               {tasks.length === 0 ? (
                 <EmptyState icon={CheckSquare} title="Nog geen taken" description="Voeg hierboven het eerste werk toe." />
               ) : (
-                <TaskList
-                  tasks={tasks}
-                  team={team}
-                  showProject={false}
-                  onEdit={(task) => {
-                    setEditingTask(task);
-                    setTaskOpen(true);
-                  }}
-                />
+                <TaskList tasks={tasks} team={team} showProject={false} />
               )}
             </CardContent>
           </Card>
@@ -287,7 +289,7 @@ const ProjectDetail = () => {
       <TaskDialog
         open={taskOpen}
         onOpenChange={setTaskOpen}
-        task={editingTask}
+        task={null}
         defaultProjectId={project.id}
         lockProject
         userId={user?.id ?? null}

@@ -66,11 +66,6 @@ const Tasks = () => {
     };
   }, [tasks, user?.id]);
 
-  const openEditor = (task: TaskWithProject) => {
-    setEditing(task);
-    setDialogOpen(true);
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -152,7 +147,7 @@ const Tasks = () => {
               description={tasks.length === 0 ? "Maak je eerste taak aan." : "Pas de filters aan."}
             />
           ) : (
-            <TaskList tasks={visible} team={team} onEdit={openEditor} />
+            <TaskList tasks={visible} team={team} />
           )}
         </CardContent>
       </Card>
