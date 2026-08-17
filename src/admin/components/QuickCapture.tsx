@@ -14,6 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import DatePicker from "@/admin/components/DatePicker";
 import { PRIORITY, PRIORITY_ORDER, type Priority } from "@/admin/constants";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { useSaveTask, useTasks } from "@/admin/queries";
@@ -22,6 +23,8 @@ import { useCombinedRows } from "@/admin/rows";
 interface QuickCaptureProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Voorgevulde deadline, bij openen vanaf een dag in de kalender. */
+  defaultDueDate?: string | null;
 }
 
 const NO_CLIENT = "__none__";
@@ -37,7 +40,7 @@ const NO_CLIENT = "__none__";
  * De eerste regel wordt de titel, de rest de omschrijving. Zo kun je een
  * mailtje in één keer plakken zonder eerst te knippen.
  */
-const QuickCapture = ({ open, onOpenChange }: QuickCaptureProps) => {
+const QuickCapture = ({ open, onOpenChange, defaultDueDate = null }: QuickCaptureProps) => {
   const { user } = useAdminAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,6 +51,7 @@ const QuickCapture = ({ open, onOpenChange }: QuickCaptureProps) => {
   const [text, setText] = useState("");
   const [projectId, setProjectId] = useState(NO_CLIENT);
   const [priority, setPriority] = useState<Priority>("normaal");
+  const [deadline, setDeadline] = useState<string | null>(null);
 
   /** Sta je al bij een klant of taak, dan is dat vrijwel altijd de juiste. */
   const projectUitContext = useMemo(() => {
@@ -64,8 +68,9 @@ const QuickCapture = ({ open, onOpenChange }: QuickCaptureProps) => {
     if (!open) return;
     setText("");
     setPriority("normaal");
+    setDeadline(defaultDueDate);
     setProjectId(projectUitContext ?? NO_CLIENT);
-  }, [open, projectUitContext]);
+  }, [open, projectUitContext, defaultDueDate]);
 
   const keuzes = useMemo(
     () =>
@@ -90,6 +95,9 @@ const QuickCapture = ({ open, onOpenChange }: QuickCaptureProps) => {
           description: omschrijving || null,
           project_id: projectId === NO_CLIENT ? null : projectId,
           priority,
+          // Een deadline is optioneel: veel verzoeken hebben er geen, en er
+          // een verzinnen maakt de kalender onbetrouwbaar.
+          due_date: deadline,
           assigned_to: user?.id ?? null,
           created_by: user?.id ?? null,
         },
@@ -165,6 +173,17 @@ const QuickCapture = ({ open, onOpenChange }: QuickCaptureProps) => {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Deadline</Label>
+              <DatePicker
+                value={deadline}
+                onChange={setDeadline}
+                placeholder="Geen deadline"
+                aria-label="Deadline"
+                className="h-10 border border-input"
+              />
             </div>
           </div>
         </div>

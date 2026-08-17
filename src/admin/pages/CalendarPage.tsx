@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import DatePicker from "@/admin/components/DatePicker";
 import EmptyState from "@/admin/components/EmptyState";
 import MonthGrid, { ACCENT, groepeerPerDag } from "@/admin/components/MonthGrid";
+import QuickCapture from "@/admin/components/QuickCapture";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { PRIORITY, PRIORITY_ORDER, type Priority } from "@/admin/constants";
 import { useSaveTask, useTasks, useTeam, useUpdateTask, type TaskWithProject } from "@/admin/queries";
@@ -40,6 +41,8 @@ const CalendarPage = () => {
   const [gekozenDag, setGekozenDag] = useState<Date>(() => new Date());
   const [open, setOpen] = useState<TaskWithProject | null>(null);
   const [titel, setTitel] = useState("");
+  // Datum waarvoor het invoerscherm openstaat; null als het dicht is.
+  const [nieuwOpDag, setNieuwOpDag] = useState<string | null>(null);
 
   const perDag = useMemo(() => groepeerPerDag(tasks), [tasks]);
   const dagSleutel = format(gekozenDag, "yyyy-MM-dd");
@@ -119,6 +122,10 @@ const CalendarPage = () => {
                   setOpen(null);
                 }}
                 onSelectTask={(taak) => setOpen(taak)}
+                onAddOnDay={(dag) => {
+                  setGekozenDag(dag);
+                  setNieuwOpDag(format(dag, "yyyy-MM-dd"));
+                }}
               />
 
               {actief && (
@@ -280,6 +287,14 @@ const CalendarPage = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Hetzelfde invoerscherm als elders, met de aangeklikte dag al ingevuld:
+          prioriteit en klant kies je daar in één keer mee. */}
+      <QuickCapture
+        open={nieuwOpDag !== null}
+        onOpenChange={(waarde) => !waarde && setNieuwOpDag(null)}
+        defaultDueDate={nieuwOpDag}
+      />
     </div>
   );
 };

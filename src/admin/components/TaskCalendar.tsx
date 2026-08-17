@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import MonthGrid, { ACCENT, groepeerPerDag } from "@/admin/components/MonthGrid";
+import QuickCapture from "@/admin/components/QuickCapture";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { useSaveTask, useTasks } from "@/admin/queries";
 
@@ -24,6 +25,7 @@ const TaskCalendar = () => {
   const [maand, setMaand] = useState(() => startOfMonth(new Date()));
   const [gekozenDag, setGekozenDag] = useState<Date>(() => new Date());
   const [titel, setTitel] = useState("");
+  const [nieuwOpDag, setNieuwOpDag] = useState<string | null>(null);
 
   const perDag = useMemo(() => groepeerPerDag(tasks), [tasks]);
   const dagSleutel = format(gekozenDag, "yyyy-MM-dd");
@@ -65,7 +67,17 @@ const TaskCalendar = () => {
         </Link>
       </div>
 
-      <MonthGrid maand={maand} gekozenDag={gekozenDag} perDag={perDag} onSelectDay={setGekozenDag} compact />
+      <MonthGrid
+        maand={maand}
+        gekozenDag={gekozenDag}
+        perDag={perDag}
+        onSelectDay={setGekozenDag}
+        onAddOnDay={(dag) => {
+          setGekozenDag(dag);
+          setNieuwOpDag(format(dag, "yyyy-MM-dd"));
+        }}
+        compact
+      />
 
       <div>
         <p className="text-sm font-medium">{format(gekozenDag, "EEEE d MMMM", { locale: nl })}</p>
@@ -101,6 +113,12 @@ const TaskCalendar = () => {
           </Button>
         </div>
       </div>
+
+      <QuickCapture
+        open={nieuwOpDag !== null}
+        onOpenChange={(waarde) => !waarde && setNieuwOpDag(null)}
+        defaultDueDate={nieuwOpDag}
+      />
     </div>
   );
 };

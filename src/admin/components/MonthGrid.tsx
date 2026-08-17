@@ -11,6 +11,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { nl } from "date-fns/locale";
+import { Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { PRIORITY_WEIGHT, type Priority } from "@/admin/constants";
@@ -47,6 +48,8 @@ interface MonthGridProps {
   perDag: Map<string, TaskWithProject[]>;
   onSelectDay: (dag: Date) => void;
   onSelectTask?: (taak: TaskWithProject) => void;
+  /** Plusje rechtsonder in de cel om meteen op die dag iets vast te leggen. */
+  onAddOnDay?: (dag: Date) => void;
   /** Compact toont alleen stippen; ruim toont de titels in de cel. */
   compact?: boolean;
 }
@@ -59,7 +62,15 @@ interface MonthGridProps {
  * staan stippen die zeggen hoeveel en hoe dringend, en lees je de details in
  * het paneel eronder.
  */
-const MonthGrid = ({ maand, gekozenDag, perDag, onSelectDay, onSelectTask, compact }: MonthGridProps) => {
+const MonthGrid = ({
+  maand,
+  gekozenDag,
+  perDag,
+  onSelectDay,
+  onSelectTask,
+  onAddOnDay,
+  compact,
+}: MonthGridProps) => {
   const dagen = useMemo(
     () =>
       eachDayOfInterval({
@@ -101,7 +112,7 @@ const MonthGrid = ({ maand, gekozenDag, perDag, onSelectDay, onSelectTask, compa
               aria-label={format(dag, "d MMMM yyyy", { locale: nl })}
               aria-pressed={gekozen}
               className={cn(
-                "flex cursor-pointer flex-col gap-1 rounded-lg border p-1.5 text-left transition-colors",
+                "group relative flex cursor-pointer flex-col gap-1 rounded-lg border p-1.5 text-left transition-colors",
                 compact ? "h-16" : "h-28 lg:h-32",
                 zwaarste ? ACCENT[zwaarste].cel : "border-border bg-background hover:bg-muted/50",
                 buitenMaand && "opacity-40",
@@ -155,6 +166,22 @@ const MonthGrid = ({ maand, gekozenDag, perDag, onSelectDay, onSelectTask, compa
                     <span className="px-0.5 text-[11px] text-muted-foreground">+{taken.length - 3} meer</span>
                   )}
                 </span>
+              )}
+
+              {/* Verschijnt bij hover of toetsfocus: altijd tonen zou zesendertig
+                  plusjes op het scherm zetten die je zelden gebruikt. */}
+              {onAddOnDay && (
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onAddOnDay(dag);
+                  }}
+                  aria-label={`Toevoegen op ${format(dag, "d MMMM yyyy", { locale: nl })}`}
+                  className="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-md bg-background/80 text-muted-foreground opacity-0 transition-opacity hover:bg-muted hover:text-foreground focus-visible:opacity-100 group-hover:opacity-100"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                </button>
               )}
             </div>
           );
