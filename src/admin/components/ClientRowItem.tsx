@@ -21,7 +21,7 @@ const TINTS = [
   "bg-teal-100 text-teal-800 dark:bg-teal-400/15 dark:text-teal-300",
 ];
 
-function tintFor(name: string): string {
+export function tintFor(name: string): string {
   let hash = 0;
   for (let i = 0; i < name.length; i += 1) hash = (hash * 31 + name.charCodeAt(i)) % 9973;
   return TINTS[hash % TINTS.length];
