@@ -6,16 +6,18 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  Search,
   ShieldAlert,
   Star,
   Users,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import SEOHead from "@/components/SEOHead";
 import { cn } from "@/lib/utils";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
+import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
 import { initials } from "@/admin/format";
 
 const NAV = [
@@ -64,6 +66,9 @@ const AdminLayout = () => {
   const { status, displayName, signOut } = useAdminAuth();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useCommandPaletteShortcut(setPaletteOpen);
 
   if (status === "loading") {
     return (
@@ -110,6 +115,15 @@ const AdminLayout = () => {
             <span className="text-sm font-semibold tracking-tight">Nieuwblik Portaal</span>
           </div>
           <div className="flex-1 overflow-y-auto p-3">
+            <button
+              type="button"
+              onClick={() => setPaletteOpen(true)}
+              className="mb-3 flex w-full items-center gap-2 rounded-md border border-input px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <Search className="h-4 w-4 shrink-0" />
+              Zoeken
+              <kbd className="ml-auto rounded border bg-muted px-1.5 py-0.5 font-sans text-[10px]">⌘K</kbd>
+            </button>
             <NavItems />
           </div>
           <div className="border-t border-border p-3">
@@ -137,8 +151,13 @@ const AdminLayout = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-64 p-4">
-                <p className="mb-4 text-sm font-semibold">Nieuwblik Portaal</p>
-                <NavItems onNavigate={() => setMobileOpen(false)} />
+                {/* Radix eist een titel in elke dialoogschil, anders kondigt een
+                    schermlezer alleen "dialog" aan. */}
+                <SheetTitle className="mb-1 text-sm font-semibold">Nieuwblik Portaal</SheetTitle>
+                <SheetDescription className="sr-only">Navigatie door het portaal</SheetDescription>
+                <div className="mt-4">
+                  <NavItems onNavigate={() => setMobileOpen(false)} />
+                </div>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -151,6 +170,15 @@ const AdminLayout = () => {
               </SheetContent>
             </Sheet>
             <span className="text-sm font-semibold">Nieuwblik Portaal</span>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="ml-auto"
+              aria-label="Zoeken"
+              onClick={() => setPaletteOpen(true)}
+            >
+              <Search className="h-5 w-5" />
+            </Button>
           </header>
 
           <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
@@ -158,6 +186,8 @@ const AdminLayout = () => {
           </main>
         </div>
       </div>
+
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>
   );
 };

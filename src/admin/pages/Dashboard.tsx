@@ -1,17 +1,27 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, CalendarClock, CheckSquare, FolderKanban, Plus, Users } from "lucide-react";
+import {
+  AlertTriangle,
+  CalendarClock,
+  CheckSquare,
+  Clock,
+  FolderKanban,
+  Plus,
+  Users,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
+import QuickAddTask from "@/admin/components/QuickAddTask";
 import StatusBadge from "@/admin/components/StatusBadge";
 import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER } from "@/admin/constants";
+import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS_ORDER } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
+import { useRecentProjects } from "@/admin/recent";
 import {
   useClients,
   useProjects,
@@ -51,6 +61,7 @@ const Dashboard = () => {
   const { data: clients = [] } = useClients();
   const { data: team = [] } = useTeam();
   const { data: updates = [] } = useRecentUpdates(8);
+  const recent = useRecentProjects();
   const [taskOpen, setTaskOpen] = useState(false);
   const [editing, setEditing] = useState<TaskWithProject | null>(null);
 
@@ -61,10 +72,9 @@ const Dashboard = () => {
       liveProjects: projects.filter((p) => p.status === "live").length,
       openTasks: openTasks.length,
       overdueTasks: openTasks.filter((t) => (daysUntil(t.due_date) ?? 1) < 0).length,
-      clients: clients.length,
       mine: openTasks.filter((t) => t.assigned_to === user?.id),
     };
-  }, [projects, tasks, clients, user?.id]);
+  }, [projects, tasks, user?.id]);
 
   /** Projecten met een deadline binnen twee weken, of al verstreken. */
   const upcoming = useMemo(
@@ -94,6 +104,10 @@ const Dashboard = () => {
     setTaskOpen(true);
   };
 
+  // Alles opgeleverd en niets genoteerd: dan is een leeg dashboard correct maar
+  // niet behulpzaam, dus leggen we uit wat er te doen valt.
+  const nothingRunning = !projectsLoading && !tasksLoading && stats.activeProjects === 0 && tasks.length === 0;
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -104,22 +118,25 @@ const Dashboard = () => {
           <p className="mt-1 text-sm text-muted-foreground">Dit staat er vandaag open.</p>
         </div>
         <Button
+          variant="outline"
           onClick={() => {
             setEditing(null);
             setTaskOpen(true);
           }}
         >
           <Plus className="h-4 w-4" />
-          Nieuwe taak
+          Taak met details
         </Button>
       </div>
+
+      <QuickAddTask userId={user?.id ?? null} />
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Stat
           icon={FolderKanban}
-          label="Actieve projecten"
+          label="Lopend werk"
           value={projectsLoading ? "…" : stats.activeProjects}
-          hint={`${stats.liveProjects} live`}
+          hint={`${stats.liveProjects} live · ${projects.length} totaal`}
           to="/admin/projecten"
         />
         <Stat
@@ -137,8 +154,44 @@ const Dashboard = () => {
           to="/admin/taken"
           alert={stats.overdueTasks > 0}
         />
-        <Stat icon={Users} label="Klanten" value={clients.length} to="/admin/klanten" />
+        <Stat
+          icon={Users}
+          label="Klanten"
+          value={clients.length}
+          hint={`${clients.filter((c) => c.status === "actief").length} actief`}
+          to="/admin/klanten"
+        />
       </div>
+
+      {nothingRunning && (
+        <Card className="border-dashed">
+          <CardContent className="p-4 text-sm text-muted-foreground">
+            Je {projects.length} sites staan erin als opgeleverd werk, dus er is niets lopend. Zet een project op{" "}
+            <span className="text-foreground">In bouw</span> of <span className="text-foreground">Onderhoud</span> zodra
+            er weer aan gewerkt wordt, of noteer hierboven je eerste taak.
+          </CardContent>
+        </Card>
+      )}
+
+      {recent.length > 0 && (
+        <div>
+          <p className="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-wide text-muted-foreground">
+            <Clock className="h-3.5 w-3.5" />
+            Recent bekeken
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {recent.map((project) => (
+              <Link
+                key={project.id}
+                to={`/admin/projecten/${project.id}`}
+                className="rounded-full border border-border bg-background px-3 py-1.5 text-sm transition-colors hover:border-foreground/20 hover:bg-muted"
+              >
+                {project.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
@@ -182,7 +235,12 @@ const Dashboard = () => {
                         </Link>
                         <p className="truncate text-xs text-muted-foreground">{project.client?.name ?? "Geen klant"}</p>
                       </div>
-                      <span className={cn("shrink-0 text-xs", late ? "font-medium text-rose-600" : "text-muted-foreground")}>
+                      <span
+                        className={cn(
+                          "shrink-0 text-xs",
+                          late ? "font-medium text-rose-600" : "text-muted-foreground",
+                        )}
+                      >
                         {deadlineLabel(project.deadline)}
                       </span>
                     </li>

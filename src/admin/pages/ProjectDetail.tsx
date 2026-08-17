@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, CheckSquare, ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -18,6 +18,7 @@ import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
+import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
 import {
   useDeleteProject,
   useProject,
@@ -53,6 +54,12 @@ const ProjectDetail = () => {
   const tasks = useMemo(() => allTasks.filter((t) => t.project_id === id), [allTasks, id]);
   const openTasks = tasks.filter((t) => t.status !== "klaar").length;
 
+  // Voedt "recent bekeken" op het dashboard en in het command-palet. Staat
+  // boven de vroege returns, want hooks moeten elke render draaien.
+  useEffect(() => {
+    if (project) recordRecentProject({ id: project.id, name: project.name });
+  }, [project]);
+
   if (isLoading) return <p className="text-sm text-muted-foreground">Project laden…</p>;
   if (isError || !project) return <p className="text-sm text-muted-foreground">Dit project bestaat niet (meer).</p>;
 
@@ -69,6 +76,8 @@ const ProjectDetail = () => {
     if (!window.confirm(`"${project.name}" verwijderen? Taken, updates en bestanden gaan mee.`)) return;
     try {
       await removeProject.mutateAsync(project.id);
+      // Anders blijft er een dode snelkoppeling in "recent bekeken" staan.
+      forgetRecentProject(project.id);
       toast.success("Project verwijderd");
       navigate("/admin/projecten");
     } catch (error) {

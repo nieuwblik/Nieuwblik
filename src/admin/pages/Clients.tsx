@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Plus, Search, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,14 @@ const Clients = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<ClientStatus | "alle">("alle");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const location = useLocation();
+
+  // Aangeroepen vanuit het command-palet met { nieuw: true }.
+  useEffect(() => {
+    if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
+    setDialogOpen(true);
+    window.history.replaceState({}, "");
+  }, [location.state]);
 
   /** Aantal projecten per klant, zodat de lijst laat zien waar het werk zit. */
   const projectCounts = useMemo(() => {

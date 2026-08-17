@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { CheckSquare, Plus, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,17 @@ const Tasks = () => {
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<TaskWithProject | null>(null);
+  const location = useLocation();
+
+  // Het command-palet stuurt hierheen met { nieuw: true } om meteen het
+  // formulier te openen. De state wordt daarna gewist, anders springt de
+  // dialoog bij een refresh opnieuw open.
+  useEffect(() => {
+    if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
+    setEditing(null);
+    setDialogOpen(true);
+    window.history.replaceState({}, "");
+  }, [location.state]);
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();

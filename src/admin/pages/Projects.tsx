@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ExternalLink, FolderKanban, Plus, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,14 @@ const Projects = () => {
   const [filter, setFilter] = useState<Filter>("actief");
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const location = useLocation();
+
+  // Aangeroepen vanuit het command-palet met { nieuw: true }.
+  useEffect(() => {
+    if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
+    setDialogOpen(true);
+    window.history.replaceState({}, "");
+  }, [location.state]);
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
