@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import ClientRowItem from "@/admin/components/ClientRowItem";
 import EmptyState from "@/admin/components/EmptyState";
+import TaskCalendar from "@/admin/components/TaskCalendar";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { daysUntil } from "@/admin/format";
@@ -60,6 +61,32 @@ const Dashboard = () => {
         </div>
       </div>
 
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Mijn taken</CardTitle>
+          <CardDescription>Openstaand werk op jouw naam, over alle klanten heen.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {myOpenTasks.length === 0 ? (
+            <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
+          ) : (
+            <TaskList tasks={myOpenTasks} team={team} />
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Planning</CardTitle>
+          <CardDescription>
+            Deadlines per dag, gekleurd naar prioriteit. Klik een dag om er werk op te zetten.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <TaskCalendar />
+        </CardContent>
+      </Card>
+
       <section>
         <div className="mb-3 flex items-baseline justify-between">
           <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Klanten</h2>
@@ -82,23 +109,6 @@ const Dashboard = () => {
           </ul>
         )}
       </section>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Mijn taken</CardTitle>
-          <CardDescription>
-            Openstaand werk op jouw naam, over alle klanten heen. Toevoegen doe je bij de klant zelf.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {myOpenTasks.length === 0 ? (
-            <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
-          ) : (
-            <TaskList tasks={myOpenTasks} team={team} />
-          )}
-        </CardContent>
-      </Card>
-
     </div>
   );
 };

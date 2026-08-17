@@ -8,6 +8,7 @@ import {
   CircleDot,
   Clock,
   Flag,
+  Paperclip,
   Plus,
   Trash2,
   UserRound,
@@ -20,12 +21,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import StatusBadge from "@/admin/components/StatusBadge";
+import DatePicker from "@/admin/components/DatePicker";
 import TaskImages from "@/admin/components/TaskImages";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import {
@@ -40,6 +43,7 @@ import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
 import {
   useDeleteTask,
   useSaveTask,
+  useTaskFileCounts,
   useTasks,
   useTeam,
   useUpdateTask,
@@ -59,14 +63,29 @@ const Row = ({ icon: Icon, label, children }: { icon: LucideIcon; label: string;
   </div>
 );
 
-/** Eén subtaak: afvinken, doorklikken, verwijderen. */
-const SubtaskRow = ({ task, onDelete }: { task: TaskWithProject; onDelete: () => void }) => {
+/**
+ * Eén stap. Een stap is zelf een volledige taak, dus prioriteit en foto's
+ * horen er gewoon bij. Ze staan hier in de regel zodat je er niet voor hoeft
+ * door te klikken; de titel opent nog wel de eigen pagina met omschrijving,
+ * deadline en toewijzing.
+ */
+const SubtaskRow = ({
+  task,
+  userId,
+  fotoAantal,
+  onDelete,
+}: {
+  task: TaskWithProject;
+  userId: string | null;
+  fotoAantal: number;
+  onDelete: () => void;
+}) => {
   const update = useUpdateTask();
   const done = task.status === "klaar";
   const overdue = !done && (daysUntil(task.due_date) ?? 1) < 0;
 
   return (
-    <li className="flex items-center gap-3 py-2">
+    <li className="flex items-center gap-2 py-2">
       <Checkbox
         checked={done}
         onCheckedChange={(checked) =>
@@ -82,14 +101,58 @@ const SubtaskRow = ({ task, onDelete }: { task: TaskWithProject; onDelete: () =>
       >
         {task.title}
       </Link>
+
       {task.due_date && (
         <span
-          className={cn("shrink-0 text-xs", overdue ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground")}
+          className={cn(
+            "shrink-0 text-xs",
+            overdue ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
+          )}
         >
           {deadlineLabel(task.due_date)}
         </span>
       )}
-      {task.priority !== "normaal" && <StatusBadge kind="priority" value={task.priority} className="shrink-0" />}
+
+      <Select
+        value={task.priority}
+        onValueChange={(v) =>
+          void update
+            .mutateAsync({ id: task.id, values: { priority: v as Priority } })
+            .catch((error: Error) => toast.error(error.message))
+        }
+      >
+        <SelectTrigger
+          aria-label={`Prioriteit van "${task.title}"`}
+          className="h-7 w-auto gap-1 border-0 bg-transparent px-2 text-xs shadow-none hover:bg-muted focus:ring-0"
+        >
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {PRIORITY_ORDER.map((p) => (
+            <SelectItem key={p} value={p}>
+              {PRIORITY[p].label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={`Bijlagen bij "${task.title}"`}
+            className={cn("h-7 shrink-0 gap-1 px-2 text-xs", fotoAantal === 0 && "text-muted-foreground")}
+          >
+            <Paperclip className="h-3.5 w-3.5" />
+            {fotoAantal > 0 && <span className="tabular-nums">{fotoAantal}</span>}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80 p-3">
+          <TaskImages taskId={task.id} userId={userId} />
+        </PopoverContent>
+      </Popover>
+
       <Button
         variant="ghost"
         size="icon"
@@ -126,6 +189,8 @@ const TaskDetail = () => {
     [tasks, task?.parent_task_id],
   );
   const subtasks = useMemo(() => tasks.filter((t) => t.parent_task_id === id), [tasks, id]);
+  const subtaskIds = useMemo(() => subtasks.map((t) => t.id), [subtasks]);
+  const { data: fotoAantallen = {} } = useTaskFileCounts(subtaskIds);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -286,6 +351,8 @@ const TaskDetail = () => {
                       <SubtaskRow
                         key={sub.id}
                         task={sub}
+                        userId={user?.id ?? null}
+                        fotoAantal={fotoAantallen[sub.id] ?? 0}
                         onDelete={() => {
                           if (!window.confirm(`"${sub.title}" verwijderen?`)) return;
                           void remove.mutateAsync(sub.id).catch((error: Error) => toast.error(error.message));
@@ -383,12 +450,10 @@ const TaskDetail = () => {
               </Row>
 
               <Row icon={CalendarDays} label="Deadline">
-                <Input
-                  type="date"
-                  value={task.due_date ?? ""}
-                  onChange={(e) => void patch({ due_date: e.target.value || null })}
+                <DatePicker
+                  value={task.due_date}
+                  onChange={(waarde) => void patch({ due_date: waarde })}
                   aria-label="Deadline"
-                  className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus-visible:ring-0"
                 />
               </Row>
 

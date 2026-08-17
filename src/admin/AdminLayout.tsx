@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
 import {
+  CalendarDays,
   CheckSquare,
   ChevronDown,
   FolderKanban,
@@ -97,6 +98,7 @@ const RailContent = ({
   const nav: NavEntry[] = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
     { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
+    { to: "/admin/kalender", label: "Kalender", icon: CalendarDays, end: false },
   ];
 
   return (

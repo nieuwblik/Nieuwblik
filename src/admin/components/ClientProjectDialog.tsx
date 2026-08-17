@@ -26,6 +26,7 @@ import {
   type Priority,
   type ProjectStatus,
 } from "@/admin/constants";
+import DatePicker from "@/admin/components/DatePicker";
 import { useSaveClient, useSaveProject, type Client, type Project } from "@/admin/queries";
 
 interface ClientProjectDialogProps {
@@ -291,21 +292,21 @@ const ClientProjectDialog = ({
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="cp-start">Startdatum</Label>
-                <Input
-                  id="cp-start"
-                  type="date"
-                  value={form.start_date}
-                  onChange={(e) => set("start_date", e.target.value)}
+                <Label>Startdatum</Label>
+                <DatePicker
+                  value={form.start_date || null}
+                  onChange={(waarde) => set("start_date", waarde ?? "")}
+                  aria-label="Startdatum"
+                  className="h-10 border border-input"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cp-deadline">Deadline</Label>
-                <Input
-                  id="cp-deadline"
-                  type="date"
-                  value={form.deadline}
-                  onChange={(e) => set("deadline", e.target.value)}
+                <Label>Deadline</Label>
+                <DatePicker
+                  value={form.deadline || null}
+                  onChange={(waarde) => set("deadline", waarde ?? "")}
+                  aria-label="Deadline"
+                  className="h-10 border border-input"
                 />
               </div>
             </div>

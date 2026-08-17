@@ -423,6 +423,26 @@ export async function getFileUrl(storagePath: string): Promise<string> {
 
 export type TaskFile = Tables<"task_files">;
 
+/**
+ * Aantal foto's per taak, voor een reeks taken tegelijk. Eén verzoek voor de
+ * hele stappenlijst in plaats van één per stap.
+ */
+export function useTaskFileCounts(taskIds: string[]) {
+  const sleutel = [...taskIds].sort().join(",");
+  return useQuery({
+    queryKey: [...adminKeys.taskFiles("aantallen"), sleutel] as const,
+    enabled: taskIds.length > 0,
+    // Bestaat de tabel nog niet, dan heeft opnieuw proberen geen zin.
+    retry: false,
+    queryFn: async (): Promise<Record<string, number>> => {
+      const rows = unwrap(await supabase.from("task_files").select("task_id").in("task_id", taskIds));
+      const counts: Record<string, number> = {};
+      for (const row of rows) counts[row.task_id] = (counts[row.task_id] ?? 0) + 1;
+      return counts;
+    },
+  });
+}
+
 export function useTaskFiles(taskId: string | undefined) {
   return useQuery({
     queryKey: adminKeys.taskFiles(taskId ?? ""),
@@ -481,7 +501,7 @@ export function useUploadTaskImage(taskId: string) {
         throw new Error(rowError.message);
       }
     },
-    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.taskFiles(taskId) }),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ["admin", "taakfotos"] }),
   });
 }
 
@@ -495,6 +515,6 @@ export function useDeleteTaskImage(taskId: string) {
       const { error } = await supabase.from("task_files").delete().eq("id", file.id);
       if (error) throw new Error(error.message);
     },
-    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.taskFiles(taskId) }),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ["admin", "taakfotos"] }),
   });
 }
