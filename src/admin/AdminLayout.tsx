@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
 import {
   CalendarDays,
   CheckSquare,
-  ChevronDown,
-  FolderKanban,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -26,9 +24,8 @@ import logoSrc from "@/assets/logo.webp";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
 import QuickCapture from "@/admin/components/QuickCapture";
-import { PROJECT_STATUS, PROJECT_STATUS_ORDER } from "@/admin/constants";
 import { initials } from "@/admin/format";
-import { useProjects, useTasks } from "@/admin/queries";
+import { useTasks } from "@/admin/queries";
 import { usePortalTheme } from "@/admin/theme";
 
 const COLLAPSE_KEY = "nieuwblik:portaal:zijbalk-ingeklapt";
@@ -74,29 +71,16 @@ const RailContent = ({
   onCapture: () => void;
 }) => {
   const { data: tasks = [] } = useTasks();
-  const { data: projects = [] } = useProjects();
-  const [statusOpen, setStatusOpen] = useState(true);
-  const location = useLocation();
-
-  // NavLink kijkt alleen naar het pad, dus de statusfilters zouden allemaal
-  // tegelijk actief lijken. Vandaar dat die rijen hun eigen actieve staat
-  // bepalen op basis van de querystring.
-  const onClientsPage = location.pathname === "/admin/klanten";
-  const activeStatus = onClientsPage ? new URLSearchParams(location.search).get("status") : null;
 
   const openTasks = tasks.filter((t) => t.status !== "klaar").length;
 
-  // Alleen fases tonen waar daadwerkelijk projecten in zitten. Een rij lege
-  // filters is ruis, en de lijst groeit vanzelf mee als er werk bij komt.
-  const statusCounts = PROJECT_STATUS_ORDER.map((status) => ({
-    status,
-    count: projects.filter((p) => p.status === status).length,
-  })).filter((row) => row.count > 0);
-
   // Klanten en projecten zijn één ingang: met één project per klant toonden
-  // twee lijsten hetzelfde onder een andere naam.
+  // twee lijsten hetzelfde onder een andere naam. Filteren op fase gebeurt op
+  // de klantenpagina zelf; in de zijbalk was dat een rij die naar dezelfde
+  // lijst wees zolang alles live staat.
   const nav: NavEntry[] = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
+    { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
     { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
     { to: "/admin/kalender", label: "Kalender", icon: CalendarDays, end: false },
   ];
@@ -180,73 +164,6 @@ const RailContent = ({
           </NavLink>
         ))}
       </nav>
-
-      <div className={cn("mt-5 border-t border-rail-border pt-5", collapsed ? "px-2" : "px-3")}>
-        {collapsed ? (
-          <NavLink
-            to="/admin/klanten"
-            onClick={onNavigate}
-            title="Klanten"
-            className={({ isActive }) => railItem(isActive, true)}
-          >
-            <Users className="h-[18px] w-[18px]" />
-          </NavLink>
-        ) : (
-          <>
-            <div className="flex items-center">
-              <Link
-                to="/admin/klanten"
-                onClick={onNavigate}
-                className={cn(
-                  "flex flex-1 items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-150",
-                  onClientsPage && !activeStatus
-                    ? "bg-rail-active text-rail-fg"
-                    : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
-                )}
-              >
-                <Users className="h-[18px] w-[18px] shrink-0" />
-                Klanten
-              </Link>
-              {statusCounts.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setStatusOpen((open) => !open)}
-                  aria-expanded={statusOpen}
-                  aria-label={statusOpen ? "Fases inklappen" : "Fases uitklappen"}
-                  className="ml-1 rounded-md p-1.5 text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg"
-                >
-                  <ChevronDown
-                    className={cn("h-4 w-4 transition-transform duration-150", statusOpen && "rotate-180")}
-                  />
-                </button>
-              )}
-            </div>
-
-            {statusOpen && statusCounts.length > 0 && (
-              <ul className="mt-1 space-y-0.5">
-                {statusCounts.map(({ status, count }) => (
-                  <li key={status}>
-                    <Link
-                      to={`/admin/klanten?status=${status}`}
-                      onClick={onNavigate}
-                      className={cn(
-                        "flex items-center gap-3 rounded-lg py-1.5 pl-6 pr-3 text-sm transition-colors duration-150",
-                        activeStatus === status
-                          ? "bg-rail-active text-rail-fg"
-                          : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
-                      )}
-                    >
-                      <span className={cn("h-2 w-2 shrink-0 rounded-full", PROJECT_STATUS[status].dot)} />
-                      {PROJECT_STATUS[status].label}
-                      <span className="ml-auto text-xs tabular-nums">{count}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </>
-        )}
-      </div>
     </>
   );
 };
