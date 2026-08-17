@@ -1,6 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ListChecks, Plus, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarDays,
+  CircleCheck,
+  CircleDashed,
+  CircleDot,
+  Clock,
+  Flag,
+  Plus,
+  Trash2,
+  UserRound,
+  type LucideIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +20,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -34,6 +47,17 @@ import {
 } from "@/admin/queries";
 
 const NONE = "__none__";
+
+/** Eén eigenschap: icoon en label links, de waarde rechts. */
+const Row = ({ icon: Icon, label, children }: { icon: LucideIcon; label: string; children: React.ReactNode }) => (
+  <div className="flex items-center gap-2 px-3 py-2.5">
+    <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
+    {/* Vast label, maar smal: de waarde ernaast is wat je leest, en een
+        e-mailadres past anders niet in deze kolom. */}
+    <span className="w-24 shrink-0 truncate text-sm text-muted-foreground">{label}</span>
+    <div className="min-w-0 flex-1">{children}</div>
+  </div>
+);
 
 /** Eén subtaak: afvinken, doorklikken, verwijderen. */
 const SubtaskRow = ({ task, onDelete }: { task: TaskWithProject; onDelete: () => void }) => {
@@ -303,13 +327,15 @@ const TaskDetail = () => {
           </Card>
         </div>
 
+        {/* Eigenschappen als label-met-waarde-rijen: je leest ze vaker dan je
+            ze wijzigt, en een kolom formuliervelden trekt daar te veel
+            aandacht naartoe. Wijzigen kan nog steeds direct in de rij. */}
         <aside className="space-y-4 xl:sticky xl:top-4">
           <Card>
-            <CardContent className="space-y-4 p-4">
-              <div className="space-y-2">
-                <Label htmlFor="td-status">Status</Label>
+            <CardContent className="divide-y divide-border p-0">
+              <Row icon={CircleDot} label="Status">
                 <Select value={task.status} onValueChange={(v) => void patch({ status: v as TaskStatus })}>
-                  <SelectTrigger id="td-status">
+                  <SelectTrigger className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus:ring-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -320,12 +346,11 @@ const TaskDetail = () => {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </Row>
 
-              <div className="space-y-2">
-                <Label htmlFor="td-priority">Prioriteit</Label>
+              <Row icon={Flag} label="Prioriteit">
                 <Select value={task.priority} onValueChange={(v) => void patch({ priority: v as Priority })}>
-                  <SelectTrigger id="td-priority">
+                  <SelectTrigger className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus:ring-0">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -336,15 +361,14 @@ const TaskDetail = () => {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </Row>
 
-              <div className="space-y-2">
-                <Label htmlFor="td-assignee">Toegewezen aan</Label>
+              <Row icon={UserRound} label="Toegewezen aan">
                 <Select
                   value={task.assigned_to ?? NONE}
                   onValueChange={(v) => void patch({ assigned_to: v === NONE ? null : v })}
                 >
-                  <SelectTrigger id="td-assignee">
+                  <SelectTrigger className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus:ring-0">
                     <SelectValue placeholder="Niemand" />
                   </SelectTrigger>
                   <SelectContent>
@@ -356,24 +380,42 @@ const TaskDetail = () => {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </Row>
 
-              <div className="space-y-2">
-                <Label htmlFor="td-due">Deadline</Label>
+              <Row icon={CalendarDays} label="Deadline">
                 <Input
-                  id="td-due"
                   type="date"
                   value={task.due_date ?? ""}
                   onChange={(e) => void patch({ due_date: e.target.value || null })}
+                  aria-label="Deadline"
+                  className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus-visible:ring-0"
                 />
-              </div>
+              </Row>
+
+              {/* Alleen tonen als er stappen zijn: een balk op 0% bij een taak
+                  zonder stappen suggereert achterstand die er niet is. */}
+              {!parent && subtasks.length > 0 && (
+                <Row icon={CircleDashed} label="Voortgang">
+                  <div className="flex items-center gap-3 px-2">
+                    <Progress value={(doneCount / subtasks.length) * 100} className="w-24" />
+                    <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
+                      {Math.round((doneCount / subtasks.length) * 100)}%
+                    </span>
+                  </div>
+                </Row>
+              )}
+
+              <Row icon={Clock} label="Aangemaakt">
+                <span className="px-2 text-sm text-muted-foreground">{formatDateTime(task.created_at)}</span>
+              </Row>
+
+              {task.completed_at && (
+                <Row icon={CircleCheck} label="Afgerond">
+                  <span className="px-2 text-sm text-muted-foreground">{formatDateTime(task.completed_at)}</span>
+                </Row>
+              )}
             </CardContent>
           </Card>
-
-          <p className="px-1 text-xs text-muted-foreground">
-            Aangemaakt {formatDateTime(task.created_at)}
-            {task.completed_at && ` · afgerond ${formatDateTime(task.completed_at)}`}
-          </p>
         </aside>
       </div>
     </div>
