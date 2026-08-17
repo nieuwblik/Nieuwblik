@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CheckSquare, Clock, LayoutDashboard, Plus, Star, Users } from "lucide-react";
+import { CheckSquare, Clock, LayoutDashboard, Plus, Users } from "lucide-react";
 
 import {
   CommandDialog,
@@ -120,10 +120,6 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
           <CommandItem value="alle taken" onSelect={() => go("/admin/taken")}>
             <CheckSquare className="h-4 w-4 text-muted-foreground" />
             Taken
-          </CommandItem>
-          <CommandItem value="reviews beoordelingen" onSelect={() => go("/admin/reviews")}>
-            <Star className="h-4 w-4 text-muted-foreground" />
-            Reviews
           </CommandItem>
         </CommandGroup>
       </CommandList>

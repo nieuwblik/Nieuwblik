@@ -12,7 +12,6 @@ import {
   PanelLeftOpen,
   Search,
   ShieldAlert,
-  Star,
   Sun,
   Users,
 } from "lucide-react";
@@ -26,7 +25,7 @@ import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
 import { PROJECT_STATUS, PROJECT_STATUS_ORDER } from "@/admin/constants";
 import { initials } from "@/admin/format";
-import { usePendingReviewCount, useProjects, useTasks } from "@/admin/queries";
+import { useProjects, useTasks } from "@/admin/queries";
 import { usePortalTheme } from "@/admin/theme";
 
 const COLLAPSE_KEY = "nieuwblik:portaal:zijbalk-ingeklapt";
@@ -71,7 +70,6 @@ const RailContent = ({
 }) => {
   const { data: tasks = [] } = useTasks();
   const { data: projects = [] } = useProjects();
-  const { data: pendingReviews = 0 } = usePendingReviewCount();
   const [statusOpen, setStatusOpen] = useState(true);
   const location = useLocation();
 
@@ -95,7 +93,6 @@ const RailContent = ({
   const nav: NavEntry[] = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
     { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
-    { to: "/admin/reviews", label: "Reviews", icon: Star, end: false, count: pendingReviews },
   ];
 
   return (

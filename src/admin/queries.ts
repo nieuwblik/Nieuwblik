@@ -36,7 +36,6 @@ export const adminKeys = {
   files: (projectId: string) => ["admin", "files", projectId] as const,
   taskFiles: (taskId: string) => ["admin", "taakfotos", taskId] as const,
   team: ["admin", "team"] as const,
-  reviews: ["admin", "reviews"] as const,
 };
 
 /** Gooit de Supabase-fout door zodat react-query hem als error-state oppakt. */
@@ -57,25 +56,6 @@ export function useTeam() {
     queryKey: adminKeys.team,
     queryFn: async (): Promise<TeamMember[]> => unwrap(await supabase.rpc("admin_team")),
     staleTime: 5 * 60 * 1000,
-  });
-}
-
-/**
- * Aantal reviews dat nog beoordeeld moet worden, voor de badge in de nav.
- * Haalt alleen de telling op, niet de rijen zelf.
- */
-export function usePendingReviewCount() {
-  return useQuery({
-    queryKey: [...adminKeys.reviews, "openstaand"] as const,
-    queryFn: async (): Promise<number> => {
-      const { count, error } = await supabase
-        .from("reviews")
-        .select("id", { count: "exact", head: true })
-        .eq("is_approved", false);
-      if (error) throw new Error(error.message);
-      return count ?? 0;
-    },
-    staleTime: 60 * 1000,
   });
 }
 
