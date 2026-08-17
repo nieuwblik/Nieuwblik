@@ -186,7 +186,7 @@ const TaskDetail = () => {
       : "/admin/taken";
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="space-y-6">
       <Link to={backTo} className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" />
         {parent ? parent.title : (task.project?.name ?? "Taken")}
@@ -222,154 +222,163 @@ const TaskDetail = () => {
         </Button>
       </div>
 
-      <Card>
-        <CardContent className="grid gap-4 p-4 sm:grid-cols-2">
+      {/* Inhoud links, eigenschappen in een vaste kolom ernaast. Alles over de
+          volle breedte uitrekken zou een omschrijvingsveld opleveren waarin
+          een regel tekst te lang wordt om prettig te lezen. */}
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="min-w-0 space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="td-status">Status</Label>
-            <Select value={task.status} onValueChange={(v) => void patch({ status: v as TaskStatus })}>
-              <SelectTrigger id="td-status">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {TASK_STATUS_ORDER.map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {TASK_STATUS[s].label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="td-priority">Prioriteit</Label>
-            <Select value={task.priority} onValueChange={(v) => void patch({ priority: v as Priority })}>
-              <SelectTrigger id="td-priority">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {PRIORITY_ORDER.map((p) => (
-                  <SelectItem key={p} value={p}>
-                    {PRIORITY[p].label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="td-assignee">Toegewezen aan</Label>
-            <Select
-              value={task.assigned_to ?? NONE}
-              onValueChange={(v) => void patch({ assigned_to: v === NONE ? null : v })}
-            >
-              <SelectTrigger id="td-assignee">
-                <SelectValue placeholder="Niemand" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={NONE}>Niemand</SelectItem>
-                {team.map((m) => (
-                  <SelectItem key={m.user_id} value={m.user_id}>
-                    {m.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="td-due">Deadline</Label>
-            <Input
-              id="td-due"
-              type="date"
-              value={task.due_date ?? ""}
-              onChange={(e) => void patch({ due_date: e.target.value || null })}
+            <Label htmlFor="td-description">Omschrijving</Label>
+            <Textarea
+              id="td-description"
+              rows={6}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              onBlur={() =>
+                description !== (task.description ?? "") && void patch({ description: description.trim() || null })
+              }
+              placeholder="Wat moet er precies gebeuren?"
+              maxLength={10000}
+              className="max-w-3xl"
             />
           </div>
-        </CardContent>
-      </Card>
 
-      <div className="space-y-2">
-        <Label htmlFor="td-description">Omschrijving</Label>
-        <Textarea
-          id="td-description"
-          rows={5}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          onBlur={() => description !== (task.description ?? "") && void patch({ description: description.trim() || null })}
-          placeholder="Wat moet er precies gebeuren?"
-          maxLength={10000}
-        />
-      </div>
+          {/* Subtaken alleen op het hoofdniveau: dieper nesten maakt een lijst
+              onleesbaar, en de database weigert het ook. */}
+          {!parent && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Stappen</CardTitle>
+                <CardDescription>
+                  {subtasks.length === 0
+                    ? "Splits deze taak op in losse stappen."
+                    : `${doneCount} van ${subtasks.length} klaar`}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {subtasks.length > 0 && (
+                  <ul className="divide-y divide-border">
+                    {subtasks.map((sub) => (
+                      <SubtaskRow
+                        key={sub.id}
+                        task={sub}
+                        onDelete={() => {
+                          if (!window.confirm(`"${sub.title}" verwijderen?`)) return;
+                          void remove.mutateAsync(sub.id).catch((error: Error) => toast.error(error.message));
+                        }}
+                      />
+                    ))}
+                  </ul>
+                )}
 
-      {/* Subtaken alleen op het hoofdniveau: dieper nesten maakt een lijst
-          onleesbaar, en de database weigert het ook. */}
-      {!parent && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Stappen</CardTitle>
-            <CardDescription>
-              {subtasks.length === 0
-                ? "Splits deze taak op in losse stappen."
-                : `${doneCount} van ${subtasks.length} klaar`}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {subtasks.length === 0 ? (
-              <EmptyState icon={ListChecks} title="Nog geen stappen" />
-            ) : (
-              <ul className="divide-y divide-border">
-                {subtasks.map((sub) => (
-                  <SubtaskRow
-                    key={sub.id}
-                    task={sub}
-                    onDelete={() => {
-                      if (!window.confirm(`"${sub.title}" verwijderen?`)) return;
-                      void remove
-                        .mutateAsync(sub.id)
-                        .catch((error: Error) => toast.error(error.message));
+                <div className="flex gap-2">
+                  <Input
+                    value={subtaskTitle}
+                    onChange={(e) => setSubtaskTitle(e.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key !== "Enter") return;
+                      event.preventDefault();
+                      void addSubtask();
                     }}
+                    placeholder="Stap toevoegen en op Enter drukken…"
+                    maxLength={300}
+                    aria-label="Nieuwe stap"
                   />
-                ))}
-              </ul>
-            )}
+                  <Button variant="outline" onClick={() => void addSubtask()} disabled={!subtaskTitle.trim()}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-            <div className="flex gap-2">
-              <Input
-                value={subtaskTitle}
-                onChange={(e) => setSubtaskTitle(e.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key !== "Enter") return;
-                  event.preventDefault();
-                  void addSubtask();
-                }}
-                placeholder="Stap toevoegen en op Enter drukken…"
-                maxLength={300}
-                aria-label="Nieuwe stap"
-              />
-              <Button variant="outline" onClick={() => void addSubtask()} disabled={!subtaskTitle.trim()}>
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Foto&apos;s</CardTitle>
+              <CardDescription>Screenshots en beeldmateriaal bij deze taak.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <TaskImages taskId={task.id} userId={user?.id ?? null} />
+            </CardContent>
+          </Card>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Foto's</CardTitle>
-          <CardDescription>Screenshots en beeldmateriaal bij deze taak.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TaskImages taskId={task.id} userId={user?.id ?? null} />
-        </CardContent>
-      </Card>
+        <aside className="space-y-4 xl:sticky xl:top-4">
+          <Card>
+            <CardContent className="space-y-4 p-4">
+              <div className="space-y-2">
+                <Label htmlFor="td-status">Status</Label>
+                <Select value={task.status} onValueChange={(v) => void patch({ status: v as TaskStatus })}>
+                  <SelectTrigger id="td-status">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {TASK_STATUS_ORDER.map((s) => (
+                      <SelectItem key={s} value={s}>
+                        {TASK_STATUS[s].label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
 
-      <p className="text-xs text-muted-foreground">
-        Aangemaakt {formatDateTime(task.created_at)}
-        {task.completed_at && ` · afgerond ${formatDateTime(task.completed_at)}`}
-      </p>
+              <div className="space-y-2">
+                <Label htmlFor="td-priority">Prioriteit</Label>
+                <Select value={task.priority} onValueChange={(v) => void patch({ priority: v as Priority })}>
+                  <SelectTrigger id="td-priority">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PRIORITY_ORDER.map((p) => (
+                      <SelectItem key={p} value={p}>
+                        {PRIORITY[p].label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="td-assignee">Toegewezen aan</Label>
+                <Select
+                  value={task.assigned_to ?? NONE}
+                  onValueChange={(v) => void patch({ assigned_to: v === NONE ? null : v })}
+                >
+                  <SelectTrigger id="td-assignee">
+                    <SelectValue placeholder="Niemand" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={NONE}>Niemand</SelectItem>
+                    {team.map((m) => (
+                      <SelectItem key={m.user_id} value={m.user_id}>
+                        {m.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="td-due">Deadline</Label>
+                <Input
+                  id="td-due"
+                  type="date"
+                  value={task.due_date ?? ""}
+                  onChange={(e) => void patch({ due_date: e.target.value || null })}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <p className="px-1 text-xs text-muted-foreground">
+            Aangemaakt {formatDateTime(task.created_at)}
+            {task.completed_at && ` · afgerond ${formatDateTime(task.completed_at)}`}
+          </p>
+        </aside>
+      </div>
     </div>
   );
 };
 
 export default TaskDetail;
+

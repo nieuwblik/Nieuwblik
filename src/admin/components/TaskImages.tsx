@@ -66,7 +66,7 @@ const Thumb = ({ file, onDelete }: { file: TaskFile; onDelete: () => void }) => 
 };
 
 const TaskImages = ({ taskId, userId }: TaskImagesProps) => {
-  const { data: files = [], isLoading } = useTaskFiles(taskId);
+  const { data: files = [], isLoading, isError } = useTaskFiles(taskId);
   const upload = useUploadTaskImage(taskId);
   const remove = useDeleteTaskImage(taskId);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -108,7 +108,7 @@ const TaskImages = ({ taskId, userId }: TaskImagesProps) => {
   return (
     <div className="space-y-3">
       {files.length > 0 && (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-4">
           {files.map((file) => (
             <Thumb key={file.id} file={file} onDelete={() => void handleDelete(file)} />
           ))}
@@ -158,7 +158,10 @@ const TaskImages = ({ taskId, userId }: TaskImagesProps) => {
         />
       </div>
 
-      {isLoading && <p className="text-xs text-muted-foreground">Foto's laden…</p>}
+      {/* Bij een fout niet blijven melden dat er geladen wordt: dat suggereert
+          dat er nog iets aankomt. */}
+      {isLoading && !isError && <p className="text-xs text-muted-foreground">Foto&apos;s laden…</p>}
+      {isError && <p className="text-xs text-muted-foreground">Foto&apos;s konden niet geladen worden.</p>}
     </div>
   );
 };
