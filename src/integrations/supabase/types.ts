@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      clients: {
+        Row: {
+          city: string | null
+          contact_name: string | null
+          created_at: string
+          created_by: string | null
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          status: Database["public"]["Enums"]["client_status"]
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          city?: string | null
+          contact_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["client_status"]
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          city?: string | null
+          contact_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["client_status"]
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       contact_rate_limits: {
         Row: {
           created_at: string
@@ -35,6 +80,7 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string | null
+          display_name: string | null
           email: string
           id: string
           updated_at: string | null
@@ -42,6 +88,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          display_name?: string | null
           email: string
           id?: string
           updated_at?: string | null
@@ -49,12 +96,154 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          display_name?: string | null
           email?: string
           id?: string
           updated_at?: string | null
           user_id?: string
         }
         Relationships: []
+      }
+      project_files: {
+        Row: {
+          created_at: string
+          file_name: string
+          file_size: number | null
+          id: string
+          mime_type: string | null
+          project_id: string
+          storage_path: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          file_size?: number | null
+          id?: string
+          mime_type?: string | null
+          project_id: string
+          storage_path: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          file_size?: number | null
+          id?: string
+          mime_type?: string | null
+          project_id?: string
+          storage_path?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_files_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_updates: {
+        Row: {
+          author_id: string | null
+          body: string
+          created_at: string
+          id: string
+          kind: Database["public"]["Enums"]["update_kind"]
+          project_id: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          body: string
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["update_kind"]
+          project_id: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["update_kind"]
+          project_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_updates_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          budget_cents: number | null
+          client_id: string | null
+          created_at: string
+          created_by: string | null
+          deadline: string | null
+          description: string | null
+          id: string
+          launched_on: string | null
+          live_url: string | null
+          name: string
+          portfolio_slug: string | null
+          priority: Database["public"]["Enums"]["priority_level"]
+          start_date: string | null
+          status: Database["public"]["Enums"]["project_status"]
+          updated_at: string
+        }
+        Insert: {
+          budget_cents?: number | null
+          client_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          launched_on?: string | null
+          live_url?: string | null
+          name: string
+          portfolio_slug?: string | null
+          priority?: Database["public"]["Enums"]["priority_level"]
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          updated_at?: string
+        }
+        Update: {
+          budget_cents?: number | null
+          client_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          launched_on?: string | null
+          live_url?: string | null
+          name?: string
+          portfolio_slug?: string | null
+          priority?: Database["public"]["Enums"]["priority_level"]
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "projects_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reviews: {
         Row: {
@@ -91,6 +280,59 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      tasks: {
+        Row: {
+          assigned_to: string | null
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: Database["public"]["Enums"]["priority_level"]
+          project_id: string | null
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["priority_level"]
+          project_id?: string | null
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["priority_level"]
+          project_id?: string | null
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -144,6 +386,13 @@ export type Database = {
       }
     }
     Functions: {
+      admin_team: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          user_id: string
+          name: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -154,6 +403,20 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      client_status: "prospect" | "actief" | "inactief"
+      priority_level: "laag" | "normaal" | "hoog" | "urgent"
+      project_status:
+        | "lead"
+        | "offerte"
+        | "in_ontwerp"
+        | "in_bouw"
+        | "review"
+        | "live"
+        | "onderhoud"
+        | "gepauzeerd"
+        | "geannuleerd"
+      task_status: "todo" | "bezig" | "wacht" | "klaar"
+      update_kind: "update" | "notitie" | "mijlpaal"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -282,6 +545,21 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      client_status: ["prospect", "actief", "inactief"],
+      priority_level: ["laag", "normaal", "hoog", "urgent"],
+      project_status: [
+        "lead",
+        "offerte",
+        "in_ontwerp",
+        "in_bouw",
+        "review",
+        "live",
+        "onderhoud",
+        "gepauzeerd",
+        "geannuleerd",
+      ],
+      task_status: ["todo", "bezig", "wacht", "klaar"],
+      update_kind: ["update", "notitie", "mijlpaal"],
     },
   },
 } as const

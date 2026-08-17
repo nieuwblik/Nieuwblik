@@ -33,6 +33,10 @@ const shouldBypassCache = (request) => {
   // Never cache JS; stale JS can cause React to load twice
   if (request.destination === "script") return true;
 
+  // Het interne portaal blijft buiten elke cache: niets van de beheeromgeving
+  // hoort achter te blijven op een apparaat nadat iemand is uitgelogd.
+  if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) return true;
+
   return false;
 };
 

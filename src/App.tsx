@@ -43,9 +43,9 @@ import WebdesignBureau from "./pages/WebdesignBureau";
 import RegionalHub from "./pages/RegionalHub";
 
 
-// Lazy load admin pages only (rarely used by public visitors)
+// Het portaal is één lazy chunk: publieke bezoekers laden er niets van.
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminApp = lazy(() => import("./admin/AdminApp"));
 
 const queryClient = new QueryClient();
 
@@ -70,20 +70,19 @@ const NAV_QUICK_LINKS: UnderlayNavItem[] = [
   { label: "Cookies", href: "/cookies" },
 ];
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <SmoothScroll />
+/**
+ * De publieke site: nav, smooth scroll en de bezoekerswidgets horen hier.
+ * Het portaal valt hier bewust buiten — een dashboard met tabellen wil geen
+ * meebewegende marketingheader of Lenis-scroll.
+ */
+const PublicSite = () => (
+  <>
+    <SmoothScroll />
+    <CookieConsent />
+    <WhatsAppButton />
+    <FreeAnalysisPopup />
 
-        <CookieConsent />
-        <WhatsAppButton />
-        <FreeAnalysisPopup />
-
-        <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
+    <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/diensten" element={<Services />} />
@@ -112,6 +111,21 @@ const App = () => (
           <Route path="/regio/:slug" element={<RegionalHub />} />
 
           <Route path="/:landingPath" element={<LandingRouter />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+    </UnderlayNav>
+  </>
+);
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <ScrollToTop />
+
+        <Routes>
           <Route
             path="/admin/login"
             element={
@@ -121,16 +135,15 @@ const App = () => (
             }
           />
           <Route
-            path="/admin/dashboard"
+            path="/admin/*"
             element={
               <Suspense fallback={null}>
-                <AdminDashboard />
+                <AdminApp />
               </Suspense>
             }
           />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<PublicSite />} />
         </Routes>
-        </UnderlayNav>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

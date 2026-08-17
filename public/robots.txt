@@ -4,10 +4,8 @@
 User-agent: *
 Allow: /
 
-# Disallow admin and authentication pages
-Disallow: /admin/
-Disallow: /admin/login
-Disallow: /admin/dashboard
+# Intern portaal — dekt /admin en alles eronder
+Disallow: /admin
 
 # Sitemap location
 Sitemap: https://www.nieuwblik.com/sitemap.xml

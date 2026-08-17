@@ -12,3 +12,9 @@ https://www.nieuwblik.nl/* https://www.nieuwblik.com/:splat 301!
 http://nieuwblik.com/* https://www.nieuwblik.com/:splat 301!
 http://www.nieuwblik.com/* https://www.nieuwblik.com/:splat 301!
 https://nieuwblik.com/* https://www.nieuwblik.com/:splat 301!
+
+# SPA-fallback: de router draait in de browser, dus elk onbekend pad moet
+# index.html krijgen. Zonder deze regel geeft een refresh of directe link op
+# een subpagina (/portfolio/..., /admin/projecten/...) een 404 van de server.
+# Moet als laatste staan: de redirects hierboven gaan voor.
+/* /index.html 200

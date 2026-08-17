@@ -1,0 +1,125 @@
+import { Link } from "react-router-dom";
+import { Pencil, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
+import StatusBadge from "@/admin/components/StatusBadge";
+import { PRIORITY_WEIGHT } from "@/admin/constants";
+import { daysUntil, deadlineLabel } from "@/admin/format";
+import { useDeleteTask, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
+
+interface TaskListProps {
+  tasks: TaskWithProject[];
+  team: TeamMember[];
+  onEdit: (task: TaskWithProject) => void;
+  /** Uit bij de takenlijst binnen één project — de projectnaam is daar ruis. */
+  showProject?: boolean;
+}
+
+/**
+ * Openstaand werk eerst, daarop urgentie, en pas daarna de deadline.
+ * Afgeronde taken zakken naar beneden in plaats van te verdwijnen, zodat je
+ * ziet wat er vandaag al gedaan is.
+ */
+export function sortTasks(tasks: TaskWithProject[]): TaskWithProject[] {
+  return [...tasks].sort((a, b) => {
+    if ((a.status === "klaar") !== (b.status === "klaar")) return a.status === "klaar" ? 1 : -1;
+
+    const priority = PRIORITY_WEIGHT[a.priority] - PRIORITY_WEIGHT[b.priority];
+    if (priority !== 0) return priority;
+
+    // Taken zonder deadline achteraan binnen dezelfde prioriteit.
+    if (a.due_date && b.due_date) return a.due_date.localeCompare(b.due_date);
+    if (a.due_date) return -1;
+    if (b.due_date) return 1;
+    return b.created_at.localeCompare(a.created_at);
+  });
+}
+
+const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) => {
+  const update = useUpdateTask();
+  const remove = useDeleteTask();
+
+  const toggle = async (task: TaskWithProject, done: boolean) => {
+    try {
+      await update.mutateAsync({ id: task.id, values: { status: done ? "klaar" : "todo" } });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Bijwerken mislukt");
+    }
+  };
+
+  const handleDelete = async (task: TaskWithProject) => {
+    if (!window.confirm(`Taak "${task.title}" verwijderen?`)) return;
+    try {
+      await remove.mutateAsync(task.id);
+      toast.success("Taak verwijderd");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Verwijderen mislukt");
+    }
+  };
+
+  const nameFor = (userId: string | null) =>
+    userId ? (team.find((m) => m.user_id === userId)?.name ?? "Onbekend") : null;
+
+  return (
+    <ul className="divide-y divide-border">
+      {sortTasks(tasks).map((task) => {
+        const done = task.status === "klaar";
+        const overdue = !done && (daysUntil(task.due_date) ?? 1) < 0;
+        const assignee = nameFor(task.assigned_to);
+
+        return (
+          <li key={task.id} className="flex items-start gap-3 py-3">
+            <Checkbox
+              checked={done}
+              onCheckedChange={(checked) => void toggle(task, checked === true)}
+              aria-label={done ? "Markeer als open" : "Markeer als klaar"}
+              className="mt-1"
+            />
+
+            <div className="min-w-0 flex-1">
+              <p className={cn("text-sm font-medium", done && "text-muted-foreground line-through")}>{task.title}</p>
+
+              {task.description && (
+                <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
+              )}
+
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                {showProject && task.project && (
+                  <Link to={`/admin/projecten/${task.project.id}`} className="hover:text-foreground hover:underline">
+                    {task.project.name}
+                  </Link>
+                )}
+                {assignee && <span>{assignee}</span>}
+                {task.due_date && (
+                  <span className={cn(overdue && "font-medium text-rose-600")}>{deadlineLabel(task.due_date)}</span>
+                )}
+              </div>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-1">
+              {task.priority !== "normaal" && <StatusBadge kind="priority" value={task.priority} />}
+              {!done && task.status !== "todo" && <StatusBadge kind="task" value={task.status} />}
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onEdit(task)} aria-label="Bewerken">
+                <Pencil className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                onClick={() => void handleDelete(task)}
+                aria-label="Verwijderen"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+export default TaskList;

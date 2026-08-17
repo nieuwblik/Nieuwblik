@@ -1,70 +1,76 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "sonner";
 import SEOHead from "@/components/SEOHead";
+
+interface LocationState {
+  from?: string;
+}
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  /** Terug naar de pagina die om een login vroeg, anders het dashboard. */
+  const target = (location.state as LocationState | null)?.from ?? "/admin";
+
+  // Al ingelogd als admin? Dan hoeft dit scherm niet getoond te worden.
   useEffect(() => {
-    checkUser();
-  }, []);
+    let active = true;
 
-  const checkUser = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', session.user.id)
-        .eq('role', 'admin')
-        .single();
-      
-      if (roles) {
-        navigate('/admin/dashboard');
-      }
-    }
-  };
+    void (async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session || !active) return;
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+      const { data: isAdmin } = await supabase.rpc("has_role", {
+        _user_id: session.user.id,
+        _role: "admin",
+      });
+      if (active && isAdmin) navigate(target, { replace: true });
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [navigate, target]);
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
 
-      if (data.user) {
-        const { data: roles } = await supabase
-          .from('user_roles')
-          .select('role')
-          .eq('user_id', data.user.id)
-          .eq('role', 'admin')
-          .single();
+      // De rolcheck draait op has_role, dezelfde functie waar de RLS-policies
+      // op steunen. Zonder adminrol meteen weer uitloggen, zodat er geen
+      // half-ingelogde sessie blijft hangen.
+      const { data: isAdmin } = await supabase.rpc("has_role", {
+        _user_id: data.user.id,
+        _role: "admin",
+      });
 
-        if (!roles) {
-          await supabase.auth.signOut();
-          toast.error("Je hebt geen admin rechten");
-          return;
-        }
-
-        toast.success("Succesvol ingelogd");
-        navigate('/admin/dashboard');
+      if (!isAdmin) {
+        await supabase.auth.signOut();
+        toast.error("Dit account heeft geen toegang tot het portaal");
+        return;
       }
-    } catch (error: any) {
-      console.error("Admin login error:", error);
+
+      toast.success("Welkom terug");
+      navigate(target, { replace: true });
+    } catch {
+      // Bewust één algemene melding: geen signaal of het e-mailadres bestaat.
       toast.error("Inloggen mislukt. Controleer je gegevens.");
     } finally {
       setIsLoading(false);
@@ -72,36 +78,38 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-6">
       <SEOHead
-        title="Admin Login - Nieuwblik"
+        title="Inloggen — Nieuwblik Portaal"
         description="Interne inlogpagina voor Nieuwblik."
         noIndex={true}
         includeOrganizationSchema={false}
       />
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Admin Login</CardTitle>
-          <CardDescription>Log in om reviews te beheren</CardDescription>
+          <CardTitle>Nieuwblik Portaal</CardTitle>
+          <CardDescription>Log in met je Nieuwblik-account.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <Label htmlFor="email">Email</Label>
+            <div className="space-y-2">
+              <Label htmlFor="email">E-mailadres</Label>
               <Input
                 id="email"
                 type="email"
+                autoComplete="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="admin@nieuwblik.nl"
+                placeholder="jij@nieuwblik.com"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <Label htmlFor="password">Wachtwoord</Label>
               <Input
                 id="password"
                 type="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -109,7 +117,7 @@ const AdminLogin = () => {
               />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Inloggen..." : "Inloggen"}
+              {isLoading ? "Inloggen…" : "Inloggen"}
             </Button>
           </form>
         </CardContent>
