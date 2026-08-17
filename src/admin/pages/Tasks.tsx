@@ -22,7 +22,9 @@ const Tasks = () => {
   const { data: tasks = [], isLoading } = useTasks();
   const { data: team = [] } = useTeam();
   const [owner, setOwner] = useState<Owner>("iedereen");
-  const [status, setStatus] = useState<StatusFilter>("open");
+  // Standaard alles: de lijst zet afgerond werk zelf in een opgevouwen vak,
+  // dus vooraf filteren zou dat vak permanent leeg houden.
+  const [status, setStatus] = useState<StatusFilter>("alle");
   const [search, setSearch] = useState("");
   const location = useLocation();
   const { createTask, isPending } = useCreateTask();
