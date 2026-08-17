@@ -61,6 +61,19 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Zijbalk van het portaal. Blijft donker in beide thema's, dus deze
+        // tokens staan bewust los van de --background/--foreground-set die
+        // met de thema-schakelaar meebeweegt.
+        rail: {
+          DEFAULT: "hsl(var(--rail))",
+          panel: "hsl(var(--rail-panel))",
+          fg: "hsl(var(--rail-fg))",
+          muted: "hsl(var(--rail-muted))",
+          hover: "hsl(var(--rail-hover))",
+          active: "hsl(var(--rail-active))",
+          border: "hsl(var(--rail-border))",
+          accent: "hsl(var(--rail-accent))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

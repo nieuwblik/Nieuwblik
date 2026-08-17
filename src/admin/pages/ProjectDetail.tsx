@@ -146,7 +146,7 @@ const ProjectDetail = () => {
             <StatusBadge kind="priority" value={project.priority} />
           </Field>
           <Field label="Deadline">
-            <span className={cn(late && project.status !== "live" && "font-medium text-rose-600")}>
+            <span className={cn(late && project.status !== "live" && "font-medium text-rose-600 dark:text-rose-400")}>
               {deadlineLabel(project.deadline)}
             </span>
           </Field>

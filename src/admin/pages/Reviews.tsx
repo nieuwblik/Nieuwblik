@@ -87,7 +87,10 @@ const Reviews = () => {
                 </TableHeader>
                 <TableBody>
                   {reviews.map((review) => (
-                    <TableRow key={review.id} className={review.is_approved ? undefined : "bg-amber-50/50"}>
+                    <TableRow
+                      key={review.id}
+                      className={review.is_approved ? undefined : "bg-amber-50/50 dark:bg-amber-400/10"}
+                    >
                       <TableCell className="font-medium">{review.name}</TableCell>
                       <TableCell className="hidden text-muted-foreground md:table-cell">
                         {review.company || "—"}

@@ -94,7 +94,7 @@ const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) =>
                 )}
                 {assignee && <span>{assignee}</span>}
                 {task.due_date && (
-                  <span className={cn(overdue && "font-medium text-rose-600")}>{deadlineLabel(task.due_date)}</span>
+                  <span className={cn(overdue && "font-medium text-rose-600 dark:text-rose-400")}>{deadlineLabel(task.due_date)}</span>
                 )}
               </div>
             </div>

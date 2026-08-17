@@ -59,6 +59,25 @@ export function useTeam() {
   });
 }
 
+/**
+ * Aantal reviews dat nog beoordeeld moet worden, voor de badge in de nav.
+ * Haalt alleen de telling op, niet de rijen zelf.
+ */
+export function usePendingReviewCount() {
+  return useQuery({
+    queryKey: [...adminKeys.reviews, "openstaand"] as const,
+    queryFn: async (): Promise<number> => {
+      const { count, error } = await supabase
+        .from("reviews")
+        .select("id", { count: "exact", head: true })
+        .eq("is_approved", false);
+      if (error) throw new Error(error.message);
+      return count ?? 0;
+    },
+    staleTime: 60 * 1000,
+  });
+}
+
 // ---------------------------------------------------------------- clients
 
 export function useClients() {

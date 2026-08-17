@@ -78,7 +78,7 @@ const Tasks = () => {
           <h1 className="text-2xl font-semibold tracking-tight">Taken</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {counts.open} openstaand · {counts.mine} van jou
-            {counts.overdue > 0 && <span className="text-rose-600"> · {counts.overdue} te laat</span>}
+            {counts.overdue > 0 && <span className="text-rose-600 dark:text-rose-400"> · {counts.overdue} te laat</span>}
           </p>
         </div>
         <Button

@@ -75,34 +75,39 @@ All colors MUST be HSL.
     --sidebar-ring: 160 84% 16%;
   }
 
+  /* Donkere modus van het portaal. Alle neutralen zijn naar de merkhue (160)
+     getint in plaats van puur grijs: puur zwart op een scherm oogt als een
+     gat, en een getinte neutraal houdt het geheel bij het groen van het merk.
+     Het werkvlak is bewust iets donkerder dan de kaarten erop, zodat diepte
+     uit helderheid komt en niet uit slagschaduwen. */
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
+    --background: 160 12% 6%;
+    --foreground: 150 10% 95%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
+    --card: 160 10% 9%;
+    --card-foreground: 150 10% 95%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 160 11% 8%;
+    --popover-foreground: 150 10% 95%;
 
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 150 10% 95%;
+    --primary-foreground: 160 14% 7%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 160 9% 14%;
+    --secondary-foreground: 150 10% 95%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 160 9% 13%;
+    --muted-foreground: 150 6% 62%;
 
-    --accent: 160 84% 16%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 160 60% 45%;
+    --accent-foreground: 160 14% 7%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 150 10% 95%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 160 84% 16%;
+    --border: 160 8% 17%;
+    --input: 160 8% 17%;
+    --ring: 160 60% 45%;
 
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 100%;
@@ -348,6 +353,19 @@ All colors MUST be HSL.
   --sw-green: 160 84% 16%;
   --sw-green-bright: 160 84% 30%;
   --sw-rule: 160 12% 8%;              /* used with low alpha for hairlines */
+
+  /* Zijbalk van het portaal. Gebouwd op --sw-ink, zodat de donkere kant van
+     de beheeromgeving hetzelfde groen-getinte zwart gebruikt als de publieke
+     site in plaats van een tweede, net iets ander zwart. Deze waarden staan
+     los van het thema: de zijbalk blijft donker, ook in lichte modus. */
+  --rail: 160 14% 7%;
+  --rail-panel: 160 12% 11%;          /* verhoogd vlak binnen de zijbalk */
+  --rail-fg: 150 12% 94%;
+  --rail-muted: 150 6% 58%;
+  --rail-hover: 160 11% 14%;
+  --rail-active: 160 12% 18%;
+  --rail-border: 160 10% 17%;
+  --rail-accent: 160 60% 55%;         /* helder genoeg om op zwart te leven */
 }
 
 .sw-paper { background-color: hsl(var(--sw-paper)); }

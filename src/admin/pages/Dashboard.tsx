@@ -49,7 +49,7 @@ const Stat = ({ icon: Icon, label, value, hint, to, alert }: StatProps) => (
       <Icon className="h-4 w-4" />
       {label}
     </div>
-    <p className={cn("mt-2 text-3xl font-semibold tabular-nums", alert && "text-rose-600")}>{value}</p>
+    <p className={cn("mt-2 text-3xl font-semibold tabular-nums", alert && "text-rose-600 dark:text-rose-400")}>{value}</p>
     {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
   </Link>
 );
@@ -238,7 +238,7 @@ const Dashboard = () => {
                       <span
                         className={cn(
                           "shrink-0 text-xs",
-                          late ? "font-medium text-rose-600" : "text-muted-foreground",
+                          late ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
                         )}
                       >
                         {deadlineLabel(project.deadline)}

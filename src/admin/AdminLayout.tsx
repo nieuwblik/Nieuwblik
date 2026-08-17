@@ -1,14 +1,19 @@
-import { useState } from "react";
-import { NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, NavLink, Navigate, Outlet, useLocation } from "react-router-dom";
 import {
   CheckSquare,
+  ChevronDown,
   FolderKanban,
   LayoutDashboard,
   LogOut,
   Menu,
+  Moon,
+  PanelLeftClose,
+  PanelLeftOpen,
   Search,
   ShieldAlert,
   Star,
+  Sun,
   Users,
 } from "lucide-react";
 
@@ -16,17 +21,15 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import SEOHead from "@/components/SEOHead";
 import { cn } from "@/lib/utils";
+import logoSrc from "@/assets/logo.webp";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
+import { PROJECT_STATUS, PROJECT_STATUS_ORDER } from "@/admin/constants";
 import { initials } from "@/admin/format";
+import { usePendingReviewCount, useProjects, useTasks } from "@/admin/queries";
+import { usePortalTheme } from "@/admin/theme";
 
-const NAV = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
-  { to: "/admin/projecten", label: "Projecten", icon: FolderKanban, end: false },
-  { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
-  { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false },
-  { to: "/admin/reviews", label: "Reviews", icon: Star, end: false },
-];
+const COLLAPSE_KEY = "nieuwblik:portaal:zijbalk-ingeklapt";
 
 /** Het portaal wordt nooit geïndexeerd, ongeacht welke subpagina open staat. */
 const AdminSEO = () => (
@@ -38,37 +41,220 @@ const AdminSEO = () => (
   />
 );
 
-const NavItems = ({ onNavigate }: { onNavigate?: () => void }) => (
-  <nav className="flex flex-col gap-1">
-    {NAV.map(({ to, label, icon: Icon, end }) => (
-      <NavLink
-        key={to}
-        to={to}
-        end={end}
-        onClick={onNavigate}
-        className={({ isActive }) =>
-          cn(
-            "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-            isActive
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground",
-          )
-        }
-      >
-        <Icon className="h-4 w-4 shrink-0" />
-        {label}
-      </NavLink>
-    ))}
-  </nav>
-);
+interface NavEntry {
+  to: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  end: boolean;
+  count?: number;
+}
+
+const railItem = (isActive: boolean, collapsed: boolean) =>
+  cn(
+    "group flex items-center rounded-lg text-sm transition-colors duration-150",
+    collapsed ? "h-10 w-10 justify-center" : "gap-3 px-3 py-2",
+    isActive ? "bg-rail-active text-rail-fg" : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+  );
+
+/**
+ * De inhoud van de zijbalk, gedeeld door de vaste balk op desktop en het
+ * uitschuifpaneel op mobiel. Ingeklapt bestaat alleen op desktop.
+ */
+const RailContent = ({
+  collapsed,
+  onNavigate,
+  onSearch,
+}: {
+  collapsed: boolean;
+  onNavigate?: () => void;
+  onSearch: () => void;
+}) => {
+  const { data: tasks = [] } = useTasks();
+  const { data: projects = [] } = useProjects();
+  const { data: pendingReviews = 0 } = usePendingReviewCount();
+  const [statusOpen, setStatusOpen] = useState(true);
+  const location = useLocation();
+
+  // NavLink kijkt alleen naar het pad, dus de statusfilters zouden allemaal
+  // tegelijk actief lijken. Vandaar dat die rijen hun eigen actieve staat
+  // bepalen op basis van de querystring.
+  const onProjectsPage = location.pathname === "/admin/projecten";
+  const activeStatus = onProjectsPage ? new URLSearchParams(location.search).get("status") : null;
+
+  const openTasks = tasks.filter((t) => t.status !== "klaar").length;
+
+  // Alleen fases tonen waar daadwerkelijk projecten in zitten. Een rij lege
+  // filters is ruis, en de lijst groeit vanzelf mee als er werk bij komt.
+  const statusCounts = PROJECT_STATUS_ORDER.map((status) => ({
+    status,
+    count: projects.filter((p) => p.status === status).length,
+  })).filter((row) => row.count > 0);
+
+  const nav: NavEntry[] = [
+    { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
+    { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
+    { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
+    { to: "/admin/reviews", label: "Reviews", icon: Star, end: false, count: pendingReviews },
+  ];
+
+  return (
+    <>
+      <div className={cn("flex items-center", collapsed ? "justify-center px-2" : "gap-3 px-4")}>
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-rail-panel text-sm font-semibold text-rail-fg">
+          N
+        </span>
+        {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-4 w-auto opacity-90" />}
+      </div>
+
+      <div className={cn("mt-6", collapsed ? "px-2" : "px-3")}>
+        <button
+          type="button"
+          onClick={onSearch}
+          title="Zoeken (Cmd+K)"
+          className={cn(
+            "flex w-full items-center rounded-lg border border-rail-border text-sm text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg",
+            collapsed ? "h-10 justify-center" : "gap-2 px-3 py-2",
+          )}
+        >
+          <Search className="h-4 w-4 shrink-0" />
+          {!collapsed && (
+            <>
+              Zoeken
+              <kbd className="ml-auto rounded border border-rail-border px-1.5 py-0.5 font-sans text-[10px] leading-none">
+                ⌘K
+              </kbd>
+            </>
+          )}
+        </button>
+      </div>
+
+      <nav className={cn("mt-4 flex flex-col gap-1", collapsed ? "px-2" : "px-3")}>
+        {nav.map(({ to, label, icon: Icon, end, count }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            onClick={onNavigate}
+            title={collapsed ? label : undefined}
+            className={({ isActive }) => railItem(isActive, collapsed)}
+          >
+            <Icon className="h-[18px] w-[18px] shrink-0" />
+            {!collapsed && (
+              <>
+                {label}
+                {count !== undefined && count > 0 && (
+                  <span className="ml-auto text-xs tabular-nums text-rail-muted">
+                    {count > 99 ? "99+" : count}
+                  </span>
+                )}
+              </>
+            )}
+          </NavLink>
+        ))}
+      </nav>
+
+      <div className={cn("mt-5 border-t border-rail-border pt-5", collapsed ? "px-2" : "px-3")}>
+        {collapsed ? (
+          <NavLink
+            to="/admin/projecten"
+            onClick={onNavigate}
+            title="Projecten"
+            className={({ isActive }) => railItem(isActive, true)}
+          >
+            <FolderKanban className="h-[18px] w-[18px]" />
+          </NavLink>
+        ) : (
+          <>
+            <div className="flex items-center">
+              <Link
+                to="/admin/projecten"
+                onClick={onNavigate}
+                className={cn(
+                  "flex flex-1 items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-150",
+                  onProjectsPage && !activeStatus
+                    ? "bg-rail-active text-rail-fg"
+                    : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+                )}
+              >
+                <FolderKanban className="h-[18px] w-[18px] shrink-0" />
+                Projecten
+              </Link>
+              {statusCounts.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setStatusOpen((open) => !open)}
+                  aria-expanded={statusOpen}
+                  aria-label={statusOpen ? "Fases inklappen" : "Fases uitklappen"}
+                  className="ml-1 rounded-md p-1.5 text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg"
+                >
+                  <ChevronDown
+                    className={cn("h-4 w-4 transition-transform duration-150", statusOpen && "rotate-180")}
+                  />
+                </button>
+              )}
+            </div>
+
+            {statusOpen && statusCounts.length > 0 && (
+              <ul className="mt-1 space-y-0.5">
+                {statusCounts.map(({ status, count }) => (
+                  <li key={status}>
+                    <Link
+                      to={`/admin/projecten?status=${status}`}
+                      onClick={onNavigate}
+                      className={cn(
+                        "flex items-center gap-3 rounded-lg py-1.5 pl-6 pr-3 text-sm transition-colors duration-150",
+                        activeStatus === status
+                          ? "bg-rail-active text-rail-fg"
+                          : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+                      )}
+                    >
+                      <span className={cn("h-2 w-2 shrink-0 rounded-full", PROJECT_STATUS[status].dot)} />
+                      {PROJECT_STATUS[status].label}
+                      <span className="ml-auto text-xs tabular-nums">{count}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+      </div>
+    </>
+  );
+};
 
 const AdminLayout = () => {
   const { status, displayName, signOut } = useAdminAuth();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const { theme, toggle: toggleTheme } = usePortalTheme();
+
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem(COLLAPSE_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleCollapsed = useCallback(() => {
+    setCollapsed((current) => {
+      const next = !current;
+      try {
+        localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
+      } catch {
+        // Voorkeur geldt dan alleen deze sessie.
+      }
+      return next;
+    });
+  }, []);
 
   useCommandPaletteShortcut(setPaletteOpen);
+
+  // Bij een routewissel gaat het mobiele paneel dicht; anders blijft het over
+  // de nieuwe pagina heen staan.
+  useEffect(() => setMobileOpen(false), [location.pathname]);
 
   if (status === "loading") {
     return (
@@ -80,7 +266,6 @@ const AdminLayout = () => {
   }
 
   if (status === "unauthenticated") {
-    // Het huidige pad meegeven, zodat je na inloggen terugkomt waar je was.
     return <Navigate to="/admin/login" replace state={{ from: location.pathname + location.search }} />;
   }
 
@@ -106,82 +291,120 @@ const AdminLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-muted/40">
       <AdminSEO />
 
-      <div className="flex min-h-screen">
-        <aside className="hidden w-60 shrink-0 flex-col border-r border-border bg-background lg:flex">
-          <div className="flex h-16 items-center border-b border-border px-5">
-            <span className="text-sm font-semibold tracking-tight">Nieuwblik Portaal</span>
+      <div className="flex min-h-screen lg:gap-4 lg:p-4">
+        {/* De zijbalk is een zwevend paneel op het werkvlak, niet een kolom
+            die tegen de schermrand plakt. Breedte wisselt zonder overgang:
+            layout-eigenschappen animeren geeft schokkerige herberekening. */}
+        <aside
+          className={cn(
+            "hidden shrink-0 flex-col rounded-2xl bg-rail py-5 lg:sticky lg:top-4 lg:flex lg:h-[calc(100vh-2rem)]",
+            collapsed ? "w-[76px]" : "w-64",
+          )}
+        >
+          <div className="flex-1 overflow-y-auto">
+            <RailContent collapsed={collapsed} onSearch={() => setPaletteOpen(true)} />
           </div>
-          <div className="flex-1 overflow-y-auto p-3">
-            <button
-              type="button"
-              onClick={() => setPaletteOpen(true)}
-              className="mb-3 flex w-full items-center gap-2 rounded-md border border-input px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+
+          <div className={cn("mt-4 border-t border-rail-border pt-4", collapsed ? "px-2" : "px-3")}>
+            <div
+              className={cn(
+                "flex items-center rounded-lg py-2",
+                collapsed ? "justify-center" : "gap-3 px-3",
+              )}
+              title={collapsed ? displayName : undefined}
             >
-              <Search className="h-4 w-4 shrink-0" />
-              Zoeken
-              <kbd className="ml-auto rounded border bg-muted px-1.5 py-0.5 font-sans text-[10px]">⌘K</kbd>
-            </button>
-            <NavItems />
-          </div>
-          <div className="border-t border-border p-3">
-            <div className="flex items-center gap-3 rounded-md px-2 py-2">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rail-accent/20 text-xs font-semibold text-rail-accent">
                 {initials(displayName)}
-              </div>
-              <span className="min-w-0 flex-1 truncate text-sm" title={displayName}>
-                {displayName}
               </span>
+              {!collapsed && (
+                <span className="min-w-0 flex-1 truncate text-sm text-rail-fg" title={displayName}>
+                  {displayName}
+                </span>
+              )}
             </div>
-            <Button variant="ghost" size="sm" className="mt-1 w-full justify-start" onClick={() => void signOut()}>
-              <LogOut className="h-4 w-4" />
-              Uitloggen
-            </Button>
+
+            <div className={cn("mt-1 flex items-center gap-1", collapsed && "flex-col")}>
+              <button
+                type="button"
+                onClick={toggleTheme}
+                title={theme === "dark" ? "Naar lichte modus" : "Naar donkere modus"}
+                aria-label={theme === "dark" ? "Naar lichte modus" : "Naar donkere modus"}
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg"
+              >
+                {theme === "dark" ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
+              </button>
+
+              <button
+                type="button"
+                onClick={toggleCollapsed}
+                title={collapsed ? "Zijbalk uitklappen" : "Zijbalk inklappen"}
+                aria-label={collapsed ? "Zijbalk uitklappen" : "Zijbalk inklappen"}
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg"
+              >
+                {collapsed ? (
+                  <PanelLeftOpen className="h-[18px] w-[18px]" />
+                ) : (
+                  <PanelLeftClose className="h-[18px] w-[18px]" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                title="Uitloggen"
+                aria-label="Uitloggen"
+                className={cn(
+                  "flex h-9 w-9 items-center justify-center rounded-lg text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg",
+                  !collapsed && "ml-auto",
+                )}
+              >
+                <LogOut className="h-[18px] w-[18px]" />
+              </button>
+            </div>
           </div>
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex h-16 items-center gap-3 border-b border-border bg-background px-4 lg:hidden">
+          <header className="flex h-16 items-center gap-2 border-b border-border bg-background px-4 lg:hidden">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Menu openen">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-64 p-4">
-                {/* Radix eist een titel in elke dialoogschil, anders kondigt een
-                    schermlezer alleen "dialog" aan. */}
-                <SheetTitle className="mb-1 text-sm font-semibold">Nieuwblik Portaal</SheetTitle>
+              <SheetContent side="left" className="w-72 border-rail-border bg-rail px-0 py-5">
+                <SheetTitle className="sr-only">Nieuwblik Portaal</SheetTitle>
                 <SheetDescription className="sr-only">Navigatie door het portaal</SheetDescription>
-                <div className="mt-4">
-                  <NavItems onNavigate={() => setMobileOpen(false)} />
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-4 w-full justify-start"
-                  onClick={() => void signOut()}
-                >
-                  <LogOut className="h-4 w-4" />
-                  Uitloggen
-                </Button>
+                <RailContent
+                  collapsed={false}
+                  onNavigate={() => setMobileOpen(false)}
+                  onSearch={() => {
+                    setMobileOpen(false);
+                    setPaletteOpen(true);
+                  }}
+                />
               </SheetContent>
             </Sheet>
+
             <span className="text-sm font-semibold">Nieuwblik Portaal</span>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="ml-auto"
-              aria-label="Zoeken"
-              onClick={() => setPaletteOpen(true)}
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Naar lichte modus" : "Naar donkere modus"}
+              className="ml-auto flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
             >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+            <Button variant="ghost" size="icon" aria-label="Zoeken" onClick={() => setPaletteOpen(true)}>
               <Search className="h-5 w-5" />
             </Button>
           </header>
 
-          <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
+          <main className="min-w-0 flex-1 rounded-none bg-background p-4 sm:p-6 lg:rounded-2xl lg:p-8">
             <Outlet />
           </main>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { ExternalLink, FolderKanban, Plus, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -20,10 +20,24 @@ type Filter = ProjectStatus | "alle" | "actief";
 const Projects = () => {
   const { user } = useAdminAuth();
   const { data: projects = [], isLoading } = useProjects();
-  const [filter, setFilter] = useState<Filter>("actief");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const location = useLocation();
+
+  // Het filter leeft in de URL, zodat de statusrijen in de zijbalk hierheen
+  // kunnen linken en een gefilterde weergave deelbaar en bookmarkbaar is.
+  const statusParam = searchParams.get("status");
+  const isKnownFilter = statusParam === "alle" || PROJECT_STATUS_ORDER.includes(statusParam as ProjectStatus);
+  // Zonder (of met een onbekende) parameter tonen we lopend werk; dat is waar
+  // je bij het openen van deze pagina bijna altijd naar op zoek bent.
+  const filter: Filter = statusParam && isKnownFilter ? (statusParam as Filter) : "actief";
+
+  const setFilter = (next: Filter) => {
+    setSearchParams(next === "actief" ? {} : { status: next }, {
+      replace: true,
+    });
+  };
 
   // Aangeroepen vanuit het command-palet met { nieuw: true }.
   useEffect(() => {
@@ -94,9 +108,7 @@ const Projects = () => {
           icon={FolderKanban}
           title="Geen projecten gevonden"
           description={
-            projects.length === 0
-              ? "Maak je eerste project aan om te beginnen."
-              : "Pas het filter of de zoekterm aan."
+            projects.length === 0 ? "Maak je eerste project aan om te beginnen." : "Pas het filter of de zoekterm aan."
           }
           action={
             projects.length === 0 ? (
@@ -117,9 +129,7 @@ const Projects = () => {
                   <div className="flex items-start justify-between gap-2">
                     <Link to={`/admin/projecten/${project.id}`} className="min-w-0">
                       <p className="truncate font-medium hover:underline">{project.name}</p>
-                      <p className="truncate text-sm text-muted-foreground">
-                        {project.client?.name ?? "Geen klant"}
-                      </p>
+                      <p className="truncate text-sm text-muted-foreground">{project.client?.name ?? "Geen klant"}</p>
                     </Link>
                     <StatusBadge kind="project" value={project.status} className="shrink-0" />
                   </div>
@@ -130,7 +140,9 @@ const Projects = () => {
 
                   <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
                     {project.deadline && (
-                      <span className={cn(late && "font-medium text-rose-600")}>{deadlineLabel(project.deadline)}</span>
+                      <span className={cn(late && "font-medium text-rose-600 dark:text-rose-400")}>
+                        {deadlineLabel(project.deadline)}
+                      </span>
                     )}
                     {project.budget_cents !== null && <span>{formatBudget(project.budget_cents)}</span>}
                     {project.priority !== "normaal" && <StatusBadge kind="priority" value={project.priority} />}
