@@ -7,12 +7,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import EmptyState from "@/admin/components/EmptyState";
-import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { TASK_STATUS, TASK_STATUS_ORDER, type TaskStatus } from "@/admin/constants";
 import { daysUntil } from "@/admin/format";
-import { useTasks, useTeam, type TaskWithProject } from "@/admin/queries";
+import { useTasks, useTeam } from "@/admin/queries";
+import { useCreateTask } from "@/admin/useCreateTask";
 
 type Owner = "iedereen" | "ik" | "niemand" | string;
 type StatusFilter = TaskStatus | "open" | "alle";
@@ -24,19 +24,16 @@ const Tasks = () => {
   const [owner, setOwner] = useState<Owner>("iedereen");
   const [status, setStatus] = useState<StatusFilter>("open");
   const [search, setSearch] = useState("");
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [editing, setEditing] = useState<TaskWithProject | null>(null);
   const location = useLocation();
+  const { createTask, isPending } = useCreateTask();
 
-  // Het command-palet stuurt hierheen met { nieuw: true } om meteen het
-  // formulier te openen. De state wordt daarna gewist, anders springt de
-  // dialoog bij een refresh opnieuw open.
+  // Het command-palet stuurt hierheen met { nieuw: true }. De state wordt
+  // meteen gewist, anders maakt een refresh nog een lege taak aan.
   useEffect(() => {
     if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
-    setEditing(null);
-    setDialogOpen(true);
     window.history.replaceState({}, "");
-  }, [location.state]);
+    void createTask(null);
+  }, [location.state, createTask]);
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -76,12 +73,7 @@ const Tasks = () => {
             {counts.overdue > 0 && <span className="text-rose-600 dark:text-rose-400"> · {counts.overdue} te laat</span>}
           </p>
         </div>
-        <Button
-          onClick={() => {
-            setEditing(null);
-            setDialogOpen(true);
-          }}
-        >
+        <Button disabled={isPending} onClick={() => void createTask(null)}>
           <Plus className="h-4 w-4" />
           Nieuwe taak
         </Button>
@@ -152,7 +144,6 @@ const Tasks = () => {
         </CardContent>
       </Card>
 
-      <TaskDialog open={dialogOpen} onOpenChange={setDialogOpen} task={editing} userId={user?.id ?? null} />
     </div>
   );
 };

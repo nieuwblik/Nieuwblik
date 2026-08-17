@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ListChecks, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -106,6 +106,27 @@ const TaskDetail = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subtaskTitle, setSubtaskTitle] = useState("");
+  const titleRef = useRef<HTMLInputElement>(null);
+  const didFocus = useRef(false);
+  const location = useLocation();
+
+  /*
+   * Net aangemaakt via een plusknop: de werktitel staat geselecteerd, zodat
+   * je meteen de echte titel kunt typen zonder eerst te wissen.
+   *
+   * Wacht op een gevulde titel: de taak wordt een tik later geladen dan de
+   * eerste render, en selecteren vóór dat moment gaat bij de volgende render
+   * weer verloren. De ref zorgt dat het daarna bij één keer blijft.
+   */
+  useEffect(() => {
+    if (didFocus.current || !title || !titleRef.current) return;
+    if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
+
+    didFocus.current = true;
+    titleRef.current.focus();
+    titleRef.current.select();
+    window.history.replaceState({}, "");
+  }, [location.state, title]);
 
   // Lokale kopie voor de vrije tekstvelden, zodat typen niet per aanslag naar
   // de database gaat. De rest slaat direct op bij het kiezen.
@@ -179,6 +200,7 @@ const TaskDetail = () => {
           className="mt-2"
         />
         <input
+          ref={titleRef}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           onBlur={() => title.trim() && title !== task.title && void patch({ title: title.trim() })}

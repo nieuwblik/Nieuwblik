@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CheckSquare, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS } from "@/admin/constants";
 import { daysUntil, deadlineLabel, initials, timeAgo } from "@/admin/format";
 import type { ClientRow } from "@/admin/rows";
+import { useCreateTask } from "@/admin/useCreateTask";
 
 /**
  * Gedempte tinten voor het monogram. Geen betekenis, wel houvast: dezelfde
@@ -36,7 +37,7 @@ function tintFor(name: string): string {
  * te melden valt, zodat er geen lege ruimte gereserveerd wordt.
  */
 const ClientRowItem = ({ row }: { row: ClientRow }) => {
-  const navigate = useNavigate();
+  const { createTask, isPending } = useCreateTask();
   const meta = [
     row.client.contact_name,
     row.client.city,
@@ -103,10 +104,11 @@ const ClientRowItem = ({ row }: { row: ClientRow }) => {
       {row.project && (
         <button
           type="button"
-          onClick={() => navigate(`/admin/projecten/${row.project!.id}`, { state: { nieuweTaak: true } })}
-          title={`Taak toevoegen bij ${row.client.name}`}
-          aria-label={`Taak toevoegen bij ${row.client.name}`}
-          className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          disabled={isPending}
+          onClick={() => void createTask(row.project!.id)}
+          title={`Nieuwe taak voor ${row.client.name}`}
+          aria-label={`Nieuwe taak voor ${row.client.name}`}
+          className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
         >
           <Plus className="h-4 w-4" />
         </button>

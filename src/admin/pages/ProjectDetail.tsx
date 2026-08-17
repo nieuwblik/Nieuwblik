@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, CheckSquare, ExternalLink, Mail, MapPin, Pencil, Phone, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -11,15 +11,14 @@ import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
-import QuickAddTask from "@/admin/components/QuickAddTask";
 import StatusBadge from "@/admin/components/StatusBadge";
-import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
 import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
+import { useCreateTask } from "@/admin/useCreateTask";
 import {
   useClient,
   useDeleteClient,
@@ -42,9 +41,7 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
-  // De plusknop in de klantenlijst stuurt hierheen om meteen te kunnen typen.
-  const vanafPlusknop = Boolean((location.state as { nieuweTaak?: boolean } | null)?.nieuweTaak);
+  const { createTask, isPending } = useCreateTask();
   const { user } = useAdminAuth();
   const { data: project, isLoading, isError } = useProject(id);
   const { data: client } = useClient(project?.client_id ?? undefined);
@@ -250,22 +247,27 @@ const ProjectDetail = () => {
         <TabsContent value="taken" className="mt-4">
           <Card>
             <CardContent className="p-4">
-              {/* Werk noteren gebeurt hier, binnen het project, en niet op een
-                  centraal scherm waar je het project alsnog moet aanwijzen. */}
-              <QuickAddTask userId={user?.id ?? null} projectId={project.id} autoFocus={vanafPlusknop} />
-
-              <div className="mb-2 mt-3 flex justify-end">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => setTaskOpen(true)}
-                >
+              {/* Eén knop, geen invoerveld vooraf: de taakpagina is de plek
+                  waar je alles invult, dus daar kom je meteen terecht. */}
+              <div className="mb-3 flex justify-end">
+                <Button size="sm" disabled={isPending} onClick={() => void createTask(project.id)}>
                   <Plus className="h-4 w-4" />
-                  Met deadline en prioriteit
+                  Nieuwe taak
                 </Button>
               </div>
+
               {tasks.length === 0 ? (
-                <EmptyState icon={CheckSquare} title="Nog geen taken" description="Voeg hierboven het eerste werk toe." />
+                <EmptyState
+                  icon={CheckSquare}
+                  title="Nog geen taken"
+                  description="Maak de eerste taak aan om bij te houden wat er moet gebeuren."
+                  action={
+                    <Button disabled={isPending} onClick={() => void createTask(project.id)}>
+                      <Plus className="h-4 w-4" />
+                      Nieuwe taak
+                    </Button>
+                  }
+                />
               ) : (
                 <TaskList tasks={tasks} team={team} showProject={false} />
               )}
@@ -287,14 +289,6 @@ const ProjectDetail = () => {
         onOpenChange={setEditOpen}
         client={client ?? null}
         project={project}
-        userId={user?.id ?? null}
-      />
-      <TaskDialog
-        open={taskOpen}
-        onOpenChange={setTaskOpen}
-        task={null}
-        defaultProjectId={project.id}
-        lockProject
         userId={user?.id ?? null}
       />
     </div>
