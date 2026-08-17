@@ -1,17 +1,14 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, CheckSquare, Search, Users } from "lucide-react";
+import { CheckSquare, Search, Users } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import ClientRowItem from "@/admin/components/ClientRowItem";
 import EmptyState from "@/admin/components/EmptyState";
-import StatusBadge from "@/admin/components/StatusBadge";
 import TaskDialog from "@/admin/components/TaskDialog";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { ACTIVE_PROJECT_STATUSES } from "@/admin/constants";
-import { daysUntil, deadlineLabel, timeAgo } from "@/admin/format";
+import { daysUntil } from "@/admin/format";
 import { useCombinedRows } from "@/admin/rows";
 import { useTasks, useTeam, type TaskWithProject } from "@/admin/queries";
 
@@ -82,55 +79,9 @@ const Dashboard = () => {
           />
         ) : (
           <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-background">
-            {visible.map((row) => {
-              const late =
-                row.deadline !== null &&
-                (daysUntil(row.deadline) ?? 1) < 0 &&
-                row.status !== null &&
-                ACTIVE_PROJECT_STATUSES.includes(row.status);
-
-              return (
-                <li key={row.key}>
-                  <Link
-                    to={row.to}
-                    className="group flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/60"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium">{row.client.name}</p>
-                      <p className="truncate text-sm text-muted-foreground">
-                        {row.client.contact_name ?? (row.project ? " " : "Nog geen project")}
-                      </p>
-                    </div>
-
-                    {row.openTasks > 0 && (
-                      <span className="hidden shrink-0 items-center gap-1.5 text-xs text-muted-foreground sm:flex">
-                        <CheckSquare className="h-3.5 w-3.5" />
-                        {row.openTasks}
-                      </span>
-                    )}
-
-                    {row.deadline && (
-                      <span
-                        className={cn(
-                          "hidden shrink-0 text-xs md:block",
-                          late ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
-                        )}
-                      >
-                        {deadlineLabel(row.deadline)}
-                      </span>
-                    )}
-
-                    {row.status && <StatusBadge kind="project" value={row.status} className="shrink-0" />}
-
-                    <span className="hidden w-28 shrink-0 text-right text-xs text-muted-foreground lg:block">
-                      {timeAgo(row.activeAt)}
-                    </span>
-
-                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground/40 transition-colors group-hover:text-foreground" />
-                  </Link>
-                </li>
-              );
-            })}
+            {visible.map((row) => (
+              <ClientRowItem key={row.key} row={row} />
+            ))}
           </ul>
         )}
       </section>

@@ -13,7 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import TaskImages from "@/admin/components/TaskImages";
 import {
   PRIORITY,
   PRIORITY_ORDER,
@@ -211,6 +213,18 @@ const TaskDialog = ({ open, onOpenChange, task, defaultProjectId, lockProject, u
               maxLength={10000}
             />
           </div>
+
+          {/* Foto's hangen aan een bestaande taak, dus deze sectie verschijnt
+              pas nadat de taak is opgeslagen. */}
+          {task && (
+            <>
+              <Separator />
+              <div className="space-y-2">
+                <Label>Foto's</Label>
+                <TaskImages taskId={task.id} userId={userId} />
+              </div>
+            </>
+          )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>

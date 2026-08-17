@@ -34,6 +34,7 @@ export const adminKeys = {
   updates: (projectId: string) => ["admin", "updates", projectId] as const,
   recentUpdates: ["admin", "updates", "recent"] as const,
   files: (projectId: string) => ["admin", "files", projectId] as const,
+  taskFiles: (taskId: string) => ["admin", "taakfotos", taskId] as const,
   team: ["admin", "team"] as const,
   reviews: ["admin", "reviews"] as const,
 };
@@ -436,4 +437,84 @@ export async function getFileUrl(storagePath: string): Promise<string> {
   const { data, error } = await supabase.storage.from(STORAGE_BUCKET).createSignedUrl(storagePath, 60);
   if (error || !data) throw new Error(error?.message ?? "Kon geen downloadlink maken");
   return data.signedUrl;
+}
+
+// ---------------------------------------------------------------- taakfoto's
+
+export type TaskFile = Tables<"task_files">;
+
+export function useTaskFiles(taskId: string | undefined) {
+  return useQuery({
+    queryKey: adminKeys.taskFiles(taskId ?? ""),
+    enabled: Boolean(taskId),
+    queryFn: async (): Promise<TaskFile[]> =>
+      unwrap(
+        await supabase
+          .from("task_files")
+          .select("*")
+          .eq("task_id", taskId!)
+          .order("created_at", { ascending: true }),
+      ),
+  });
+}
+
+/**
+ * Foto's worden in de browser al naar WebP omgezet, dus hier komt een blob
+ * binnen in plaats van het oorspronkelijke bestand.
+ */
+export function useUploadTaskImage(taskId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      image,
+      userId,
+    }: {
+      image: { blob: Blob; name: string; width: number; height: number };
+      userId: string | null;
+    }) => {
+      const safe = image.name
+        .normalize("NFKD")
+        .replace(/[^\w.-]+/g, "-")
+        .replace(/-+/g, "-")
+        .slice(-120);
+      const storagePath = `taken/${taskId}/${crypto.randomUUID()}-${safe}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from(STORAGE_BUCKET)
+        .upload(storagePath, image.blob, { cacheControl: "3600", contentType: "image/webp", upsert: false });
+      if (uploadError) throw new Error(uploadError.message);
+
+      const { error: rowError } = await supabase.from("task_files").insert({
+        task_id: taskId,
+        storage_path: storagePath,
+        file_name: image.name.slice(0, 300),
+        file_size: image.blob.size,
+        mime_type: "image/webp",
+        width: image.width,
+        height: image.height,
+        uploaded_by: userId,
+      });
+
+      if (rowError) {
+        // Anders blijft er een onvindbare foto in de bucket achter.
+        await supabase.storage.from(STORAGE_BUCKET).remove([storagePath]);
+        throw new Error(rowError.message);
+      }
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.taskFiles(taskId) }),
+  });
+}
+
+export function useDeleteTaskImage(taskId: string) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (file: TaskFile) => {
+      const { error: storageError } = await supabase.storage.from(STORAGE_BUCKET).remove([file.storage_path]);
+      if (storageError) throw new Error(storageError.message);
+
+      const { error } = await supabase.from("task_files").delete().eq("id", file.id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.taskFiles(taskId) }),
+  });
 }

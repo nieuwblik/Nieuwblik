@@ -214,10 +214,12 @@ const ProjectDetail = () => {
         </Card>
       )}
 
-      <Tabs defaultValue="updates">
+      {/* Taken staan vooraan: bij het openen van een project wil je zien wat
+          er te doen is, niet wat er is gebeurd. */}
+      <Tabs defaultValue="taken">
         <TabsList>
-          <TabsTrigger value="updates">Tijdlijn</TabsTrigger>
           <TabsTrigger value="taken">Taken{openTasks > 0 && ` (${openTasks})`}</TabsTrigger>
+          <TabsTrigger value="updates">Tijdlijn</TabsTrigger>
           <TabsTrigger value="bestanden">Bestanden{files.length > 0 && ` (${files.length})`}</TabsTrigger>
         </TabsList>
 

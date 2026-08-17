@@ -281,6 +281,53 @@ export type Database = {
         }
         Relationships: []
       }
+      task_files: {
+        Row: {
+          created_at: string
+          file_name: string
+          file_size: number | null
+          height: number | null
+          id: string
+          mime_type: string | null
+          storage_path: string
+          task_id: string
+          uploaded_by: string | null
+          width: number | null
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          file_size?: number | null
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          storage_path: string
+          task_id: string
+          uploaded_by?: string | null
+          width?: number | null
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          file_size?: number | null
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          storage_path?: string
+          task_id?: string
+          uploaded_by?: string | null
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_files_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           assigned_to: string | null

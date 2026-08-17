@@ -1,17 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { CheckSquare, Mail, Phone, Plus, Search, Users } from "lucide-react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { Plus, Search, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
-import StatusBadge from "@/admin/components/StatusBadge";
+import ClientRowItem from "@/admin/components/ClientRowItem";
+import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
-import { daysUntil, deadlineLabel, timeAgo } from "@/admin/format";
 import { useCombinedRows } from "@/admin/rows";
 
 type Filter = ProjectStatus | "alle" | "actief";
@@ -119,69 +117,9 @@ const Clients = () => {
         />
       ) : (
         <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-background">
-          {visible.map((row) => {
-            const late =
-              row.deadline !== null &&
-              (daysUntil(row.deadline) ?? 1) < 0 &&
-              row.status !== null &&
-              ACTIVE_PROJECT_STATUSES.includes(row.status);
-
-            return (
-              <li key={row.key}>
-                <Link to={row.to} className="group flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/60">
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium">{row.client.name}</p>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-x-3 text-xs text-muted-foreground">
-                      {row.client.contact_name && <span className="truncate">{row.client.contact_name}</span>}
-                      {row.client.city && <span>{row.client.city}</span>}
-                      {row.client.email && (
-                        <span className="hidden items-center gap-1 md:inline-flex">
-                          <Mail className="h-3 w-3" />
-                          {row.client.email}
-                        </span>
-                      )}
-                      {row.client.phone && (
-                        <span className="hidden items-center gap-1 lg:inline-flex">
-                          <Phone className="h-3 w-3" />
-                          {row.client.phone}
-                        </span>
-                      )}
-                      {row.otherProjects.length > 0 && (
-                        <span>
-                          +{row.otherProjects.length} {row.otherProjects.length === 1 ? "project" : "projecten"}
-                        </span>
-                      )}
-                      {!row.project && <span>Nog geen project</span>}
-                    </div>
-                  </div>
-
-                  {row.openTasks > 0 && (
-                    <span className="hidden shrink-0 items-center gap-1.5 text-xs text-muted-foreground sm:flex">
-                      <CheckSquare className="h-3.5 w-3.5" />
-                      {row.openTasks}
-                    </span>
-                  )}
-
-                  {row.deadline && (
-                    <span
-                      className={cn(
-                        "hidden shrink-0 text-xs md:block",
-                        late ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
-                      )}
-                    >
-                      {deadlineLabel(row.deadline)}
-                    </span>
-                  )}
-
-                  {row.status && <StatusBadge kind="project" value={row.status} className="shrink-0" />}
-
-                  <span className="hidden w-28 shrink-0 text-right text-xs text-muted-foreground lg:block">
-                    {timeAgo(row.activeAt)}
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
+          {visible.map((row) => (
+            <ClientRowItem key={row.key} row={row} />
+          ))}
         </ul>
       )}
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Pencil, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -80,11 +80,23 @@ const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) =>
             />
 
             <div className="min-w-0 flex-1">
-              <p className={cn("text-sm font-medium", done && "text-muted-foreground line-through")}>{task.title}</p>
+              {/* De titel opent de taak: het potlood alleen was een klein doel
+                  voor iets wat je constant doet. De projectlink hieronder valt
+                  er bewust buiten, want een link in een knop is ongeldig. */}
+              <button type="button" onClick={() => onEdit(task)} className="block w-full text-left">
+                <p
+                  className={cn(
+                    "text-sm font-medium hover:underline",
+                    done && "text-muted-foreground line-through",
+                  )}
+                >
+                  {task.title}
+                </p>
 
-              {task.description && (
-                <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
-              )}
+                {task.description && (
+                  <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
+                )}
+              </button>
 
               <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                 {showProject && task.project && (
@@ -102,9 +114,6 @@ const TaskList = ({ tasks, team, onEdit, showProject = true }: TaskListProps) =>
             <div className="flex shrink-0 items-center gap-1">
               {task.priority !== "normaal" && <StatusBadge kind="priority" value={task.priority} />}
               {!done && task.status !== "todo" && <StatusBadge kind="task" value={task.status} />}
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onEdit(task)} aria-label="Bewerken">
-                <Pencil className="h-4 w-4" />
-              </Button>
               <Button
                 variant="ghost"
                 size="icon"
