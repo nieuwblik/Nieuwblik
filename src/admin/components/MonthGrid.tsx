@@ -120,7 +120,7 @@ const MonthGrid = ({
                 // mee met het scherm, dus een vaste hoogte gaf bij elke breedte
                 // een andere verhouding. Op telefoon zou 4:3 de maand over drie
                 // schermen uitsmeren, daar dus een lage vaste hoogte.
-                compact ? "h-11 sm:h-16" : "h-12 sm:aspect-[4/3] sm:h-auto",
+                compact ? "h-11 sm:aspect-[4/3] sm:h-auto" : "h-12 sm:aspect-[4/3] sm:h-auto",
                 zwaarste ? ACCENT[zwaarste].cel : "border-border bg-background hover:bg-muted/50",
                 buitenMaand && "opacity-40",
                 gekozen && "ring-2 ring-ring ring-offset-1 ring-offset-background",
