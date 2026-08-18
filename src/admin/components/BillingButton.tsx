@@ -99,61 +99,78 @@ const BillingButton = ({ client }: { client: Client }) => {
         </button>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="w-72 space-y-3">
-        <div className="space-y-1.5">
-          <Label htmlFor="fb-cyclus">Facturatie</Label>
-          <Select
-            value={cyclus || GEEN}
-            onValueChange={(v) => setCyclus(v === GEEN ? "" : (v as BillingCycle))}
-          >
-            <SelectTrigger id="fb-cyclus">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={GEEN}>Geen</SelectItem>
-              {BILLING_CYCLE_ORDER.map((c) => (
-                <SelectItem key={c} value={c}>
-                  {BILLING_CYCLE[c].label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      {/* Kop, romp en voet met eigen randen: zonder die scheiding lopen de
+          labels, velden en de knop als één blok in elkaar over. */}
+      <PopoverContent align="end" className="w-80 p-0">
+        <div className="border-b border-border px-4 py-3">
+          <p className="text-sm font-medium leading-none">Facturatie</p>
+          <p className="mt-1 text-xs text-muted-foreground">Wat er periodiek in rekening gaat.</p>
         </div>
 
-        {/* Datum en bedrag horen bij een lopend contract; zonder cyclus is er
-            niets om ze aan op te hangen. */}
-        {cyclus && (
-          <>
-            <div className="space-y-1.5">
-              <Label>Ingegaan op</Label>
-              <DatePicker
-                value={start || null}
-                onChange={(waarde) => setStart(waarde ?? "")}
-                aria-label="Ingangsdatum facturatie"
-                className="h-10 w-full border border-input"
-              />
-            </div>
+        <div className="space-y-4 px-4 py-4">
+          <div className="space-y-1.5">
+            <Label htmlFor="fb-cyclus" className="text-xs font-normal text-muted-foreground">
+              Cyclus
+            </Label>
+            <Select value={cyclus || GEEN} onValueChange={(v) => setCyclus(v === GEEN ? "" : (v as BillingCycle))}>
+              <SelectTrigger id="fb-cyclus">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={GEEN}>Geen</SelectItem>
+                {BILLING_CYCLE_ORDER.map((c) => (
+                  <SelectItem key={c} value={c}>
+                    {BILLING_CYCLE[c].label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="fb-bedrag">Bedrag per {BILLING_CYCLE[cyclus].periode}</Label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
-                <Input
-                  id="fb-bedrag"
-                  className="pl-7"
-                  inputMode="decimal"
-                  placeholder="0,00"
-                  value={bedrag}
-                  onChange={(e) => setBedrag(e.target.value)}
+          {/* Datum en bedrag horen bij een lopend contract; zonder cyclus is er
+              niets om ze aan op te hangen. */}
+          {cyclus && (
+            <>
+              <div className="space-y-1.5">
+                <Label className="text-xs font-normal text-muted-foreground">Ingegaan op</Label>
+                <DatePicker
+                  value={start || null}
+                  onChange={(waarde) => setStart(waarde ?? "")}
+                  aria-label="Ingangsdatum facturatie"
+                  className="h-10 w-full border border-input"
                 />
               </div>
-            </div>
-          </>
-        )}
 
-        <Button className="w-full" onClick={() => void opslaan()} disabled={save.isPending}>
-          Opslaan
-        </Button>
+              <div className="space-y-1.5">
+                <Label htmlFor="fb-bedrag" className="text-xs font-normal text-muted-foreground">
+                  Bedrag per {BILLING_CYCLE[cyclus].periode}
+                </Label>
+                <div className="relative">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                    €
+                  </span>
+                  <Input
+                    id="fb-bedrag"
+                    className="pl-7 tabular-nums"
+                    inputMode="decimal"
+                    placeholder="0,00"
+                    value={bedrag}
+                    onChange={(e) => setBedrag(e.target.value)}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="flex items-center justify-end gap-2 border-t border-border px-4 py-3">
+          <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>
+            Annuleren
+          </Button>
+          <Button size="sm" onClick={() => void opslaan()} disabled={save.isPending}>
+            Opslaan
+          </Button>
+        </div>
       </PopoverContent>
     </Popover>
   );
