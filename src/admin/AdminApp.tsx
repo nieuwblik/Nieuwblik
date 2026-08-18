@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AdminAuthProvider } from "@/admin/AdminAuthContext";
 import AdminLayout from "@/admin/AdminLayout";
 import CalendarPage from "@/admin/pages/CalendarPage";
+import Hosting from "@/admin/pages/Hosting";
 import ClientDetail from "@/admin/pages/ClientDetail";
 import Clients from "@/admin/pages/Clients";
 import Dashboard from "@/admin/pages/Dashboard";
@@ -35,6 +36,7 @@ const AdminApp = () => (
         <Route path="klanten/:id" element={<ClientDetail />} />
         <Route path="projecten/:id" element={<ProjectDetail />} />
         <Route path="kalender" element={<CalendarPage />} />
+        <Route path="hosting" element={<Hosting />} />
         <Route path="taken" element={<Tasks />} />
         <Route path="taken/:id" element={<TaskDetail />} />
         {/* Oude adressen uit eerdere versies van het portaal. */}

@@ -35,6 +35,7 @@ export const adminKeys = {
   recentUpdates: ["admin", "updates", "recent"] as const,
   files: (projectId: string) => ["admin", "files", projectId] as const,
   taskFiles: (taskId: string) => ["admin", "taakfotos", taskId] as const,
+  invoiced: ["admin", "gefactureerd"] as const,
   team: ["admin", "team"] as const,
 };
 
@@ -44,6 +45,62 @@ function unwrap<T>({ data, error }: { data: T | null; error: { message: string }
   return data as T;
 }
 
+
+// ------------------------------------------------------- hostingfacturatie
+
+export type InvoicedPeriod = Tables<"invoiced_periods">;
+
+/**
+ * Alles wat ooit is afgevinkt. Het zijn er hooguit een paar honderd per jaar,
+ * dus in één keer ophalen is goedkoper dan per klant of per maand vragen — en
+ * de kalender kan er meteen elke maand mee vullen.
+ */
+export function useInvoicedPeriods() {
+  return useQuery({
+    queryKey: adminKeys.invoiced,
+    queryFn: async (): Promise<InvoicedPeriod[]> =>
+      unwrap(await supabase.from("invoiced_periods").select("*").order("period_date", { ascending: false })),
+  });
+}
+
+/** Afvinken en weer terugdraaien; de datum is de sleutel van de periode. */
+export function useMarkInvoiced() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      clientId,
+      periodDate,
+      userId,
+      gefactureerd,
+    }: {
+      clientId: string;
+      periodDate: string;
+      userId: string | null;
+      gefactureerd: boolean;
+    }) => {
+      if (!gefactureerd) {
+        const { error } = await supabase
+          .from("invoiced_periods")
+          .delete()
+          .eq("client_id", clientId)
+          .eq("period_date", periodDate);
+        if (error) throw new Error(error.message);
+        return;
+      }
+
+      // Twee keer aanvinken mag geen fout geven: de unieke sleutel vangt de
+      // dubbele rij op, upsert maakt er een stille no-op van.
+      const { error } = await supabase
+        .from("invoiced_periods")
+        .upsert(
+          { client_id: clientId, period_date: periodDate, invoiced_by: userId },
+          { onConflict: "client_id,period_date" },
+        );
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.invoiced }),
+  });
+}
 // ---------------------------------------------------------------- team
 
 /**

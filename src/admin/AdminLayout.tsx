@@ -10,6 +10,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Plus,
+  Receipt,
   Search,
   ShieldAlert,
   Sun,
@@ -83,6 +84,7 @@ const RailContent = ({
     { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
     { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
     { to: "/admin/kalender", label: "Kalender", icon: CalendarDays, end: false },
+    { to: "/admin/hosting", label: "Hosting", icon: Receipt, end: false },
   ];
 
   return (
