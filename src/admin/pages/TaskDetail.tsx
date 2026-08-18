@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   CalendarDays,
+  ChevronDown,
   CircleCheck,
   CircleDashed,
   CircleDot,
@@ -198,6 +199,9 @@ const TaskDetail = () => {
   const [description, setDescription] = useState("");
   const [subtaskTitle, setSubtaskTitle] = useState("");
   const titleRef = useRef<HTMLInputElement>(null);
+  const beschrijvingRef = useRef<HTMLTextAreaElement>(null);
+  const [uitgeklapt, setUitgeklapt] = useState(false);
+  const [looptOver, setLooptOver] = useState(false);
   const didFocus = useRef(false);
   const location = useLocation();
 
@@ -226,6 +230,26 @@ const TaskDetail = () => {
     setTitle(task.title);
     setDescription(task.description ?? "");
   }, [task?.id, task?.title, task?.description]);
+
+  /*
+   * Een offerte van vijfduizend tekens door een venster van zes regels lezen
+   * werkt niet. Uitgeklapt volgt het veld de hoogte van de inhoud, ook terwijl
+   * je typt; ingeklapt meten we of er iets te tonen valt.
+   */
+  useEffect(() => {
+    const el = beschrijvingRef.current;
+    if (!el) return;
+
+    if (uitgeklapt) {
+      // Eerst leegmaken, anders groeit hij alleen maar en krimpt nooit.
+      el.style.height = "auto";
+      el.style.height = `${el.scrollHeight}px`;
+      return;
+    }
+
+    el.style.height = "";
+    setLooptOver(el.scrollHeight > el.clientHeight + 4);
+  }, [description, uitgeklapt]);
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Taak laden…</p>;
   if (!task) return <p className="text-sm text-muted-foreground">Deze taak bestaat niet (meer).</p>;
@@ -319,11 +343,12 @@ const TaskDetail = () => {
       {/* Inhoud links, eigenschappen in een vaste kolom ernaast. Alles over de
           volle breedte uitrekken zou een omschrijvingsveld opleveren waarin
           een regel tekst te lang wordt om prettig te lezen. */}
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0 space-y-6">
-          <div className="space-y-2">
+          <div className="max-w-3xl space-y-2">
             <Label htmlFor="td-description">Omschrijving</Label>
             <Textarea
+              ref={beschrijvingRef}
               id="td-description"
               rows={6}
               value={description}
@@ -333,8 +358,21 @@ const TaskDetail = () => {
               }
               placeholder="Wat moet er precies gebeuren?"
               maxLength={10000}
-              className="max-w-3xl"
+              className={uitgeklapt ? "resize-none overflow-hidden" : undefined}
             />
+
+            {/* Alleen tonen als er iets te tonen valt: bij drie regels tekst is
+                een knop om uit te klappen alleen maar ruis. */}
+            {(looptOver || uitgeklapt) && (
+              <button
+                type="button"
+                onClick={() => setUitgeklapt((v) => !v)}
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-150", uitgeklapt && "rotate-180")} />
+                {uitgeklapt ? "Inklappen" : "Alles tonen"}
+              </button>
+            )}
           </div>
 
           {/* Subtaken alleen op het hoofdniveau: dieper nesten maakt een lijst
