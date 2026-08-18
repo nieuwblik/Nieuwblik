@@ -140,9 +140,12 @@ const ClientProjectDialog = ({
       city: form.city.trim() || null,
       status: form.clientStatus,
       notes: form.notes.trim() || null,
+      // Zonder cyclus gaan de datum en de notitie ook leeg: ze horen bij het
+      // contract, en het veld staat dan verborgen — anders blijft er een
+      // notitie achter bij een klant die niets meer betaalt.
       billing_cycle: form.billingCycle || null,
       billing_start: form.billingCycle ? form.billingStart || null : null,
-      billing_note: form.billingNote.trim() || null,
+      billing_note: form.billingCycle ? form.billingNote.trim() || null : null,
     };
 
     const projectValues = {
