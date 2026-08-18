@@ -16,8 +16,14 @@ import { useSaveClient, type Client } from "@/admin/queries";
 /** Radix Select verdraagt geen lege waarde als item. */
 const GEEN = "__geen__";
 
-const toonBedrag = (centen: number | null) =>
-  centen == null ? null : `€ ${(centen / 100).toLocaleString("nl-NL", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+const toonBedrag = (centen: number | null) => {
+  if (centen == null) return null;
+  const decimalen = centen % 100 === 0 ? 0 : 2;
+  return `€ ${(centen / 100).toLocaleString("nl-NL", {
+    minimumFractionDigits: decimalen,
+    maximumFractionDigits: decimalen,
+  })}`;
+};
 
 /**
  * De facturatie van één klant, met het invulmenu eraan vast.
@@ -91,7 +97,9 @@ const BillingButton = ({ client }: { client: Client }) => {
                 <span className="tabular-nums">{toonBedrag(client.billing_amount_cents)}</span>
               )}
               {volgende && (
-                <span className="text-muted-foreground">{format(volgende, "d MMM", { locale: nl })}</span>
+                <span className="text-muted-foreground">
+                  · {format(volgende, "d MMM", { locale: nl })}
+                </span>
               )}
             </>
           ) : (
