@@ -16,7 +16,6 @@ export type Database = {
     Tables: {
       clients: {
         Row: {
-          billing_amount_cents: number | null
           billing_cycle: Database["public"]["Enums"]["billing_cycle"] | null
           billing_note: string | null
           billing_start: string | null
@@ -34,7 +33,6 @@ export type Database = {
           website: string | null
         }
         Insert: {
-          billing_amount_cents?: number | null
           billing_cycle?: Database["public"]["Enums"]["billing_cycle"] | null
           billing_note?: string | null
           billing_start?: string | null
@@ -52,7 +50,6 @@ export type Database = {
           website?: string | null
         }
         Update: {
-          billing_amount_cents?: number | null
           billing_cycle?: Database["public"]["Enums"]["billing_cycle"] | null
           billing_note?: string | null
           billing_start?: string | null
