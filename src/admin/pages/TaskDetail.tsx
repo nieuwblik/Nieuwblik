@@ -157,7 +157,7 @@ const SubtaskRow = ({
       <Button
         variant="ghost"
         size="icon"
-        className="h-7 w-7 shrink-0 text-muted-foreground hover:text-destructive"
+        className="h-7 w-7 shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
         onClick={onDelete}
         aria-label="Verwijderen"
       >
@@ -308,7 +308,7 @@ const TaskDetail = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="shrink-0 text-muted-foreground hover:text-destructive"
+          className="shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
           onClick={() => void handleDelete()}
           aria-label="Taak verwijderen"
         >

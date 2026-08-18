@@ -143,7 +143,7 @@ const ProjectFiles = ({ projectId, userId, team }: ProjectFilesProps) => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                className="h-8 w-8 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
                 onClick={() => void handleDelete(file)}
                 aria-label="Verwijderen"
               >

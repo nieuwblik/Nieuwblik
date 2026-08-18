@@ -168,7 +168,7 @@ const ProjectDetail = () => {
           </Button>
           <Button
             variant="ghost"
-            className="text-muted-foreground hover:text-destructive"
+            className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
             onClick={() => void handleDelete()}
           >
             <Trash2 className="h-4 w-4" />

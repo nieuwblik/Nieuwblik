@@ -53,7 +53,7 @@ const Thumb = ({ file, onDelete }: { file: TaskFile; onDelete: () => void }) => 
         type="button"
         onClick={onDelete}
         aria-label={`"${file.file_name}" verwijderen`}
-        className="absolute right-1.5 top-1.5 rounded-md bg-background/90 p-1.5 text-muted-foreground opacity-0 transition-opacity hover:text-destructive focus-visible:opacity-100 group-hover:opacity-100"
+        className="absolute right-1.5 top-1.5 rounded-md bg-background/90 p-1.5 text-muted-foreground opacity-0 transition-opacity hover:bg-destructive/10 hover:text-destructive focus-visible:opacity-100 group-hover:opacity-100"
       >
         <Trash2 className="h-3.5 w-3.5" />
       </button>
