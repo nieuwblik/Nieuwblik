@@ -9,6 +9,19 @@ export const BILLING_CYCLE: Record<BillingCycle, { label: string; kort: string; 
   jaarlijks: { label: "Jaarlijks", kort: "p/j", periode: "jaar" },
 };
 
+/**
+ * Centen als bedrag. Hele euro's zonder decimalen, anders precies twee:
+ * "€ 24,5" leest niet als geld, en "€ 45,00" is nodeloos breed in een lijst.
+ */
+export function formatEuro(centen: number | null | undefined): string | null {
+  if (centen == null) return null;
+  const decimalen = centen % 100 === 0 ? 0 : 2;
+  return `€ ${(centen / 100).toLocaleString("nl-NL", {
+    minimumFractionDigits: decimalen,
+    maximumFractionDigits: decimalen,
+  })}`;
+}
+
 export const BILLING_CYCLE_ORDER = Object.keys(BILLING_CYCLE) as BillingCycle[];
 
 export interface Termijn {

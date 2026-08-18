@@ -10,20 +10,11 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import DatePicker from "@/admin/components/DatePicker";
-import { BILLING_CYCLE, BILLING_CYCLE_ORDER, volgendeTermijn, type BillingCycle } from "@/admin/billing";
+import { BILLING_CYCLE, BILLING_CYCLE_ORDER, formatEuro, volgendeTermijn, type BillingCycle } from "@/admin/billing";
 import { useSaveClient, type Client } from "@/admin/queries";
 
 /** Radix Select verdraagt geen lege waarde als item. */
 const GEEN = "__geen__";
-
-const toonBedrag = (centen: number | null) => {
-  if (centen == null) return null;
-  const decimalen = centen % 100 === 0 ? 0 : 2;
-  return `€ ${(centen / 100).toLocaleString("nl-NL", {
-    minimumFractionDigits: decimalen,
-    maximumFractionDigits: decimalen,
-  })}`;
-};
 
 /**
  * De facturatie van één klant, met het invulmenu eraan vast.
@@ -93,8 +84,8 @@ const BillingButton = ({ client }: { client: Client }) => {
           {client.billing_cycle ? (
             <>
               <span>{BILLING_CYCLE[client.billing_cycle].label}</span>
-              {toonBedrag(client.billing_amount_cents) && (
-                <span className="tabular-nums">{toonBedrag(client.billing_amount_cents)}</span>
+              {formatEuro(client.billing_amount_cents) && (
+                <span className="tabular-nums">{formatEuro(client.billing_amount_cents)}</span>
               )}
               {volgende && (
                 <span className="text-muted-foreground">

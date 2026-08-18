@@ -11,7 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { BILLING_CYCLE, dagSleutel, termijnen } from "@/admin/billing";
+import BillingCalendar, { type BillingMoment } from "@/admin/components/BillingCalendar";
+import { BILLING_CYCLE, formatEuro, termijnen } from "@/admin/billing";
 import { useClients, useInvoicedPeriods, useMarkInvoiced, type Client } from "@/admin/queries";
 
 interface Regel {
@@ -67,6 +68,31 @@ const Hosting = () => {
   const open = regels.filter((r) => !r.gefactureerd);
   const vandaag = startOfDay(new Date());
 
+  // Wat er deze maand aan facturen uit kan. Contracten zonder bedrag tellen
+  // niet mee; die zouden het totaal stilletjes te laag maken.
+  const maandTotaal = regels.reduce((som, r) => som + (r.client.billing_amount_cents ?? 0), 0);
+  const zonderBedrag = regels.filter((r) => r.client.billing_amount_cents == null).length;
+
+  const perDagKalender = useMemo(() => {
+    const map = new Map<string, BillingMoment[]>();
+    for (const r of regels) {
+      const lijst = map.get(r.sleutel) ?? [];
+      lijst.push({
+        clientId: r.client.id,
+        clientNaam: r.client.name,
+        cyclus: r.client.billing_cycle!,
+        sleutel: r.sleutel,
+        gefactureerd: r.gefactureerd,
+      });
+      map.set(r.sleutel, lijst);
+    }
+    // Jaarlijks eerst: dat is wat je in een volle cel als eerste wilt zien.
+    for (const lijst of map.values()) {
+      lijst.sort((a, b) => (a.cyclus === b.cyclus ? 0 : a.cyclus === "jaarlijks" ? -1 : 1));
+    }
+    return map;
+  }, [regels]);
+
   // Achterstallig: de datum is geweest en er staat geen vinkje. Dat is waar je
   // deze pagina voor opent.
   const achterstallig = useMemo(() => {
@@ -116,7 +142,13 @@ const Hosting = () => {
         {regel.client.name}
       </Link>
 
-      <span className="shrink-0 text-xs text-muted-foreground">
+      {formatEuro(regel.client.billing_amount_cents) && (
+        <span className="w-20 shrink-0 text-right text-sm tabular-nums">
+          {formatEuro(regel.client.billing_amount_cents)}
+        </span>
+      )}
+
+      <span className="w-24 shrink-0 text-right text-xs text-muted-foreground">
         {BILLING_CYCLE[regel.client.billing_cycle!].label}
       </span>
     </li>
@@ -161,9 +193,17 @@ const Hosting = () => {
               {format(maand, "LLLL yyyy", { locale: nl })}
             </CardTitle>
             <CardDescription>
-              {regels.length === 0
-                ? "Deze maand valt er niets te factureren."
-                : `${regels.length} ${regels.length === 1 ? "moment" : "momenten"}, waarvan ${open.length} open.`}
+              {regels.length === 0 ? (
+                "Deze maand valt er niets te factureren."
+              ) : (
+                <>
+                  {regels.length} {regels.length === 1 ? "moment" : "momenten"}, waarvan {open.length} open
+                  {maandTotaal > 0 && <> · {formatEuro(maandTotaal)}</>}
+                  {zonderBedrag > 0 && (
+                    <> · {zonderBedrag} zonder bedrag</>
+                  )}
+                </>
+              )}
             </CardDescription>
           </div>
 
@@ -189,10 +229,19 @@ const Hosting = () => {
               title="Nog geen contracten"
               description="Zet bij een klant de facturatie en de ingangsdatum, dan verschijnen de momenten hier."
             />
-          ) : regels.length === 0 ? (
-            <p className="py-3 text-sm text-muted-foreground">Niets in deze maand.</p>
           ) : (
-            <ul className="space-y-1">{regels.map((r) => rij(r, false))}</ul>
+            <div className="space-y-5">
+              {/* Het rooster is om te zien aankomen, de lijst eronder om af te
+                  vinken. Een jaarcontract valt in het rooster op, want dat is
+                  het moment dat je één keer per jaar niet mag missen. */}
+              <BillingCalendar maand={maand} perDag={perDagKalender} />
+
+              {regels.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Niets in deze maand.</p>
+              ) : (
+                <ul className="space-y-1 border-t border-border pt-4">{regels.map((r) => rij(r, false))}</ul>
+              )}
+            </div>
           )}
         </CardContent>
       </Card>
