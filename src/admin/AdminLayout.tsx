@@ -90,11 +90,10 @@ const RailContent = ({
 
   return (
     <>
-      <div className={cn("flex items-center", collapsed ? "justify-center px-2" : "gap-3 px-4")}>
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-rail-panel text-sm font-semibold text-rail-fg">
-          N
-        </span>
-        {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-4 w-auto opacity-90" />}
+      <div className={cn("flex h-9 items-center", collapsed ? "justify-center px-2" : "gap-3 px-4")}>
+        {/* Ingeklapt blijft de balk leeg maar wel even hoog, zodat de navigatie
+            niet omhoog springt zodra je de zijbalk smaller maakt. */}
+        {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-[21px] w-auto opacity-90" />}
       </div>
 
       {/* De handeling die het vaakst voorkomt staat bovenaan en altijd op

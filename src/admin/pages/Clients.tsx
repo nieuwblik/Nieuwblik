@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
-import ClientCard from "@/admin/components/ClientCard";
+import ClientGrid from "@/admin/components/ClientGrid";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
@@ -64,7 +64,7 @@ const Clients = () => {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Klanten</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {rows.length} {rows.length === 1 ? "klant" : "klanten"} · laatst gewijzigd bovenaan
+            {rows.length} {rows.length === 1 ? "klant" : "klanten"} · openstaand werk bovenaan
           </p>
         </div>
         <Button onClick={() => setDialogOpen(true)}>
@@ -118,11 +118,7 @@ const Clients = () => {
       ) : (
         // Zelfde raster als op het beginscherm: één manier om naar je klanten
         // te kijken, of je nu binnenkomt of gericht zoekt.
-        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-          {visible.map((row) => (
-            <ClientCard key={row.key} row={row} />
-          ))}
-        </ul>
+        <ClientGrid rows={visible} />
       )}
 
       <ClientProjectDialog

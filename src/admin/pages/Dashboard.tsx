@@ -5,7 +5,7 @@ import { CheckSquare, Search, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import ClientCard from "@/admin/components/ClientCard";
+import ClientGrid from "@/admin/components/ClientGrid";
 import EmptyState from "@/admin/components/EmptyState";
 import TaskCalendar from "@/admin/components/TaskCalendar";
 import TaskList from "@/admin/components/TaskList";
@@ -172,7 +172,7 @@ const Dashboard = () => {
       <section>
         <div className="mb-3 flex items-baseline justify-between">
           <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Klanten</h2>
-          <span className="text-xs text-muted-foreground">Laatst gewijzigd bovenaan</span>
+          <span className="text-xs text-muted-foreground">Openstaand werk bovenaan</span>
         </div>
 
         {isLoading ? (
@@ -180,14 +180,7 @@ const Dashboard = () => {
         ) : rows.length === 0 ? (
           <EmptyState icon={Users} title="Nog geen klanten" description="Voeg een klant toe om te beginnen." />
         ) : (
-          // Vier op een rij op een breed scherm, minder naarmate er minder
-          // plek is. Onder de 640 pixels twee: één kaart per rij maakt van
-          // twintig klanten een eindeloze pagina.
-          <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-            {rows.map((row) => (
-              <ClientCard key={row.key} row={row} />
-            ))}
-          </ul>
+          <ClientGrid rows={rows} />
         )}
       </section>
     </div>
