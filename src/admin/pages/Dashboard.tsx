@@ -5,7 +5,8 @@ import { CheckSquare, Search, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import ClientRowItem, { tintFor } from "@/admin/components/ClientRowItem";
+import ClientCard from "@/admin/components/ClientCard";
+import { tintFor } from "@/admin/components/ClientRowItem";
 import EmptyState from "@/admin/components/EmptyState";
 import TaskCalendar from "@/admin/components/TaskCalendar";
 import TaskList from "@/admin/components/TaskList";
@@ -180,9 +181,12 @@ const Dashboard = () => {
         ) : rows.length === 0 ? (
           <EmptyState icon={Users} title="Nog geen klanten" description="Voeg een klant toe om te beginnen." />
         ) : (
-          <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-background">
+          // Vier op een rij op een breed scherm, minder naarmate er minder
+          // plek is. Onder de 640 pixels twee: één kaart per rij maakt van
+          // twintig klanten een eindeloze pagina.
+          <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
             {rows.map((row) => (
-              <ClientRowItem key={row.key} row={row} />
+              <ClientCard key={row.key} row={row} />
             ))}
           </ul>
         )}
