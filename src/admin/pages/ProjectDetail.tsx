@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, CheckSquare, ExternalLink, Mail, MapPin, Pencil, Phone, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, CheckSquare, ExternalLink, Mail, MapPin, Pencil, Phone, Plus, Receipt, Trash2 } from "lucide-react";
+import { format } from "date-fns";
+import { nl } from "date-fns/locale";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
@@ -15,7 +16,7 @@ import StatusBadge from "@/admin/components/StatusBadge";
 import TaskList from "@/admin/components/TaskList";
 import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
+import { BILLING_CYCLE, volgendeTermijn } from "@/admin/billing";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
 import { useConfirm } from "@/admin/useConfirm";
@@ -28,7 +29,6 @@ import {
   useProjectFiles,
   useTasks,
   useTeam,
-  useUpdateProject,
   type TaskWithProject,
 } from "@/admin/queries";
 
@@ -49,7 +49,6 @@ const ProjectDetail = () => {
   const { data: allTasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
   const { data: files = [] } = useProjectFiles(id);
-  const updateProject = useUpdateProject();
   const removeProject = useDeleteProject();
   const removeClient = useDeleteClient();
   const { vraagBevestiging, dialoog } = useConfirm();
@@ -68,15 +67,6 @@ const ProjectDetail = () => {
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Project laden…</p>;
   if (isError || !project) return <p className="text-sm text-muted-foreground">Dit project bestaat niet (meer).</p>;
-
-  const changeStatus = async (status: ProjectStatus) => {
-    try {
-      await updateProject.mutateAsync({ id: project.id, values: { status } });
-      toast.success(`Status: ${PROJECT_STATUS[status].label}`);
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Statuswijziging mislukt");
-    }
-  };
 
   /**
    * Klant en project zijn één geheel, dus verwijderen haalt allebei weg.
@@ -106,6 +96,8 @@ const ProjectDetail = () => {
       toast.error(error instanceof Error ? error.message : "Verwijderen mislukt");
     }
   };
+
+  const volgendeFactuur = volgendeTermijn(client?.billing_start ?? null, client?.billing_cycle ?? null);
 
   const late = (daysUntil(project.deadline) ?? 1) < 0;
 
@@ -150,18 +142,31 @@ const ProjectDetail = () => {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Select value={project.status} onValueChange={(v) => void changeStatus(v as ProjectStatus)}>
-            <SelectTrigger className="w-[170px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {PROJECT_STATUS_ORDER.map((s) => (
-                <SelectItem key={s} value={s}>
-                  {PROJECT_STATUS[s].label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {/* De fase stond hier als keuzelijst, maar met bijna alles op "live"
+              zei die niets. Wat je hier wél wilt weten: loopt er een contract,
+              en wanneer mag de volgende factuur eruit. De fase staat nog in de
+              kaart hieronder en is aanpasbaar via Bewerken. */}
+          <button
+            type="button"
+            onClick={() => setEditOpen(true)}
+            title="Facturatie aanpassen"
+            className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm transition-colors duration-150 hover:bg-muted"
+          >
+            <Receipt className="h-4 w-4 shrink-0 text-muted-foreground" />
+            {client?.billing_cycle ? (
+              <>
+                <span>{BILLING_CYCLE[client.billing_cycle].label}</span>
+                {volgendeFactuur && (
+                  <span className="text-muted-foreground">
+                    volgende {format(volgendeFactuur, "d MMM", { locale: nl })}
+                  </span>
+                )}
+              </>
+            ) : (
+              <span className="text-muted-foreground">Geen facturatie</span>
+            )}
+          </button>
+
           <Button variant="outline" onClick={() => setEditOpen(true)}>
             <Pencil className="h-4 w-4" />
             Bewerken
