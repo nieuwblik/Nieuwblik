@@ -27,6 +27,7 @@ import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/Co
 import QuickCapture from "@/admin/components/QuickCapture";
 import { initials } from "@/admin/format";
 import { useTasks } from "@/admin/queries";
+import { usePortalPwa } from "@/admin/pwa";
 import { usePortalTheme } from "@/admin/theme";
 
 const COLLAPSE_KEY = "nieuwblik:portaal:zijbalk-ingeklapt";
@@ -203,6 +204,7 @@ const AdminLayout = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
   const { theme, toggle: toggleTheme } = usePortalTheme();
+  usePortalPwa();
 
   const [collapsed, setCollapsed] = useState(() => {
     try {

@@ -57,13 +57,13 @@ const TaskCalendar = () => {
      * de volle breedte werden het lage, brede stroken — en je ziet de gekozen
      * dag zonder te scrollen.
      */
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_17rem]">
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_17rem]">
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-1">
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7"
+            className="h-9 w-9"
             onClick={() => setMaand(subMonths(maand, 1))}
             aria-label="Vorige maand"
           >
@@ -75,7 +75,7 @@ const TaskCalendar = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7"
+            className="h-9 w-9"
             onClick={() => setMaand(addMonths(maand, 1))}
             aria-label="Volgende maand"
           >

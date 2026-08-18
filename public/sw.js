@@ -1,12 +1,16 @@
 // Service Worker for caching and offline support
 // NOTE: Keep caching conservative to avoid serving stale JS bundles (can break React hooks).
 
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3";
 const CACHE_NAME = `nieuwblik-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `nieuwblik-runtime-${CACHE_VERSION}`;
 
 // Assets to cache on install (keep this list small + always available)
 const PRECACHE_ASSETS = ["/", "/index.html", "/favicon.png", "/og-image.webp", "/robots.txt", "/sitemap.xml"];
+
+// De start-URL van de geïnstalleerde app moet offline een antwoord geven,
+// anders biedt de browser hem niet aan als installeerbaar.
+const PORTAAL_SHELL = "/index.html";
 
 const isSameOrigin = (request) => {
   try {
@@ -16,6 +20,9 @@ const isSameOrigin = (request) => {
     return false;
   }
 };
+
+/** Een paginabezoek binnen het portaal, niet een los bestand. */
+const isNavigatie = (url) => !url.pathname.split("/").pop().includes(".");
 
 const shouldBypassCache = (request) => {
   const url = new URL(request.url);
@@ -50,7 +57,7 @@ const networkFirst = async (request) => {
     return response;
   } catch {
     const cached = await cache.match(request);
-    return cached || (await caches.match("/index.html"));
+    return cached || (await caches.match(PORTAAL_SHELL));
   }
 };
 

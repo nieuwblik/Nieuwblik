@@ -87,7 +87,7 @@ const CalendarPage = () => {
         </p>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <Card>
           <CardContent className="p-4">
             <div className="mb-4 flex flex-wrap items-center gap-2">

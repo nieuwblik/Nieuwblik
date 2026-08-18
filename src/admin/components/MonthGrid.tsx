@@ -185,7 +185,7 @@ const MonthGrid = ({
                     onAddOnDay(dag);
                   }}
                   aria-label={`Toevoegen op ${format(dag, "d MMMM yyyy", { locale: nl })}`}
-                  className="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-md bg-background/80 text-muted-foreground opacity-0 transition-opacity hover:bg-muted hover:text-foreground focus-visible:opacity-100 group-hover:opacity-100"
+                  className="absolute bottom-1 right-1 flex h-6 w-6 items-center justify-center rounded-md bg-background/80 text-muted-foreground opacity-0 transition-opacity hover:bg-muted hover:text-foreground focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-60"
                 >
                   <Plus className="h-3.5 w-3.5" />
                 </button>

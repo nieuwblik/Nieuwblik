@@ -19,7 +19,9 @@ const Checkbox = React.forwardRef<
   <CheckboxPrimitive.Root
     ref={ref}
     className={cn(
-      "peer h-4 w-4 shrink-0 rounded-[4px] border border-primary/50 ring-offset-background",
+      "peer relative h-4 w-4 shrink-0 rounded-[4px] border border-primary/50 ring-offset-background",
+      // Onzichtbaar raakgebied rondom: met een vinger mik je niet op 16 pixels.
+      "after:absolute after:-inset-2.5 after:content-['']",
       "transition-[background-color,border-color,transform] duration-150 ease-out",
       "hover:border-primary active:scale-90",
       "data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",

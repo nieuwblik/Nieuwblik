@@ -134,21 +134,28 @@ const Hosting = () => {
         aria-label={`${regel.client.name} — ${format(regel.datum, "d MMMM yyyy", { locale: nl })} gefactureerd`}
       />
 
-      <span className="w-24 shrink-0 text-xs tabular-nums text-muted-foreground">
+      {/* Op een telefoon passen vier kolommen niet naast elkaar: de naam werd
+          er volledig uitgedrukt. Datum en cyclus zakken daar onder de naam. */}
+      <span className="hidden w-24 shrink-0 text-xs tabular-nums text-muted-foreground sm:block">
         {format(regel.datum, toonMaand ? "d MMM yyyy" : "d MMMM", { locale: nl })}
       </span>
 
-      <Link to={`/admin/klanten`} className="min-w-0 flex-1 truncate text-sm font-medium hover:underline">
-        {regel.client.name}
-      </Link>
+      <div className="min-w-0 flex-1">
+        <Link to="/admin/klanten" className="block truncate text-sm font-medium hover:underline">
+          {regel.client.name}
+        </Link>
+        <span className="text-xs text-muted-foreground sm:hidden">
+          {format(regel.datum, "d MMM yyyy", { locale: nl })} · {BILLING_CYCLE[regel.client.billing_cycle!].label}
+        </span>
+      </div>
 
       {formatEuro(regel.client.billing_amount_cents) && (
-        <span className="w-20 shrink-0 text-right text-sm tabular-nums">
+        <span className="shrink-0 text-right text-sm tabular-nums sm:w-20">
           {formatEuro(regel.client.billing_amount_cents)}
         </span>
       )}
 
-      <span className="w-24 shrink-0 text-right text-xs text-muted-foreground">
+      <span className="hidden w-24 shrink-0 text-right text-xs text-muted-foreground sm:block">
         {BILLING_CYCLE[regel.client.billing_cycle!].label}
       </span>
     </li>
@@ -187,7 +194,9 @@ const Hosting = () => {
       )}
 
       <Card>
-        <CardHeader className="flex-row items-center justify-between space-y-0">
+        {/* Naast elkaar zodra het past; op een telefoon zou de maandtitel
+            anders in drie regels naast de knoppen breken. */}
+        <CardHeader className="flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <CardTitle className="text-base first-letter:uppercase">
               {format(maand, "LLLL yyyy", { locale: nl })}
@@ -208,13 +217,13 @@ const Hosting = () => {
           </div>
 
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setMaand(subMonths(maand, 1))} aria-label="Vorige maand">
+            <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setMaand(subMonths(maand, 1))} aria-label="Vorige maand">
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="sm" onClick={() => setMaand(startOfMonth(new Date()))}>
               Deze maand
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setMaand(addMonths(maand, 1))} aria-label="Volgende maand">
+            <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setMaand(addMonths(maand, 1))} aria-label="Volgende maand">
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
