@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
-import ClientRowItem from "@/admin/components/ClientRowItem";
+import ClientCard from "@/admin/components/ClientCard";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
@@ -116,9 +116,11 @@ const Clients = () => {
           }
         />
       ) : (
-        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-background">
+        // Zelfde raster als op het beginscherm: één manier om naar je klanten
+        // te kijken, of je nu binnenkomt of gericht zoekt.
+        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
           {visible.map((row) => (
-            <ClientRowItem key={row.key} row={row} />
+            <ClientCard key={row.key} row={row} />
           ))}
         </ul>
       )}

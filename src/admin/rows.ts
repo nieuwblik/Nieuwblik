@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import type { ProjectStatus } from "@/admin/constants";
+import { PRIORITY_WEIGHT, type Priority, type ProjectStatus } from "@/admin/constants";
 import { mostRecent } from "@/admin/format";
 import {
   useClients,
@@ -30,6 +30,8 @@ export interface ClientRow {
   status: ProjectStatus | null;
   deadline: string | null;
   openTasks: number;
+  /** Zwaarste prioriteit onder het openstaande werk; null als er niets ligt. */
+  urgentie: Priority | null;
   /** Nieuwste van: project gewijzigd, update geplaatst, taak aangeraakt. */
   activeAt: string | null;
 }
@@ -54,12 +56,18 @@ export function useCombinedRows(): CombinedRows {
 
   const rows = useMemo<ClientRow[]>(() => {
     const openPerProject = new Map<string, number>();
+    const zwaarstePerProject = new Map<string, Priority>();
     const latestTask = new Map<string, string>();
 
     for (const task of tasks) {
       if (!task.project_id) continue;
       if (task.status !== "klaar") {
         openPerProject.set(task.project_id, (openPerProject.get(task.project_id) ?? 0) + 1);
+
+        const huidig = zwaarstePerProject.get(task.project_id);
+        if (!huidig || PRIORITY_WEIGHT[task.priority] < PRIORITY_WEIGHT[huidig]) {
+          zwaarstePerProject.set(task.project_id, task.priority);
+        }
       }
       const current = latestTask.get(task.project_id);
       if (!current || task.updated_at > current) latestTask.set(task.project_id, task.updated_at);
@@ -100,6 +108,12 @@ export function useCombinedRows(): CombinedRows {
         status: primary?.status ?? null,
         deadline: primary?.deadline ?? null,
         openTasks: sorted.reduce((total, p) => total + (openPerProject.get(p.id) ?? 0), 0),
+        urgentie: sorted.reduce<Priority | null>((zwaarste, p) => {
+          const eigen = zwaarstePerProject.get(p.id);
+          if (!eigen) return zwaarste;
+          if (!zwaarste) return eigen;
+          return PRIORITY_WEIGHT[eigen] < PRIORITY_WEIGHT[zwaarste] ? eigen : zwaarste;
+        }, null),
         activeAt: primary ? activityOf(primary) : client.updated_at,
       };
     };
@@ -133,6 +147,7 @@ export function useCombinedRows(): CombinedRows {
       status: project.status,
       deadline: project.deadline,
       openTasks: openPerProject.get(project.id) ?? 0,
+      urgentie: zwaarstePerProject.get(project.id) ?? null,
       activeAt: activityOf(project),
     }));
 

@@ -6,13 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import ClientCard from "@/admin/components/ClientCard";
-import { tintFor } from "@/admin/components/ClientRowItem";
 import EmptyState from "@/admin/components/EmptyState";
 import TaskCalendar from "@/admin/components/TaskCalendar";
 import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { PROJECT_STATUS } from "@/admin/constants";
-import { daysUntil, initials } from "@/admin/format";
+import { daysUntil, initials, tintFor } from "@/admin/format";
 import { useCombinedRows } from "@/admin/rows";
 import { useTasks, useTeam } from "@/admin/queries";
 

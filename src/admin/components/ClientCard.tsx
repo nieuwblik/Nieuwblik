@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { CheckSquare, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { projects as portfolio } from "@/data/projects";
-import { tintFor } from "@/admin/components/ClientRowItem";
-import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS } from "@/admin/constants";
-import { daysUntil, deadlineLabel, initials } from "@/admin/format";
+import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, type Priority } from "@/admin/constants";
+import { daysUntil, deadlineLabel, initials, tintFor } from "@/admin/format";
 import type { ClientRow } from "@/admin/rows";
 import { useCreateTask } from "@/admin/useCreateTask";
 
@@ -17,6 +16,19 @@ import { useCreateTask } from "@/admin/useCreateTask";
 const beeldPerSlug = new Map(portfolio.map((p) => [p.slug, p.image]));
 
 /**
+ * Tint onder de kaart per urgentie. Zonder werk blijft het de neutrale
+ * kaartkleur; ligt er iets, dan kleurt de voet mee met het zwaarste dat er
+ * ligt. Zo zie je van een afstand welke klant aandacht vraagt, zonder dat de
+ * kaart van hoogte verandert.
+ */
+const VOET: Record<Priority, { vlak: string; stip: string }> = {
+  urgent: { vlak: "bg-rose-500/15", stip: "bg-rose-500" },
+  hoog: { vlak: "bg-orange-500/15", stip: "bg-orange-500" },
+  normaal: { vlak: "bg-sky-500/10", stip: "bg-sky-500" },
+  laag: { vlak: "bg-slate-500/10", stip: "bg-slate-400" },
+};
+
+/**
  * Eén klant als kaart, met het portfoliobeeld erboven.
  *
  * Een lijst met namen dwingt je te lezen; een raster met beelden laat je
@@ -26,6 +38,7 @@ const beeldPerSlug = new Map(portfolio.map((p) => [p.slug, p.image]));
 const ClientCard = ({ row }: { row: ClientRow }) => {
   const { createTask, isPending } = useCreateTask();
   const beeld = row.project?.portfolio_slug ? beeldPerSlug.get(row.project.portfolio_slug) : undefined;
+  const voet = row.urgentie ? VOET[row.urgentie] : null;
 
   const meta = [row.client.contact_name, row.client.city].filter(Boolean);
 
@@ -36,7 +49,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
     ACTIVE_PROJECT_STATUSES.includes(row.status);
 
   return (
-    <li className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors duration-200 hover:border-foreground/20">
+    <li className="group relative flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors duration-200 hover:border-foreground/20">
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         {beeld ? (
           <img
@@ -62,13 +75,31 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         {/* Alleen bij werk dat nog loopt: bij een portfolio waar bijna alles
             live is, zou een badge op elke kaart niets zeggen. */}
         {row.status && row.status !== "live" && (
-          <span className="absolute left-2 top-2 rounded-md bg-background/90 px-2 py-0.5 text-[11px] font-medium backdrop-blur">
+          <span className="absolute left-2 top-2 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium backdrop-blur">
             {PROJECT_STATUS[row.status].label}
+          </span>
+        )}
+
+        {/* Het aantal ligt over het beeld en niet in de voet: daar zou het de
+            kaart hoger maken zodra er werk is, en dan staat het raster scheef. */}
+        {row.openTasks > 0 && (
+          <span
+            title={`${row.openTasks} open ${row.openTasks === 1 ? "taak" : "taken"}`}
+            className="absolute right-2 top-2 flex items-center gap-1.5 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium tabular-nums backdrop-blur"
+          >
+            <span className={cn("h-1.5 w-1.5 rounded-full", voet?.stip)} />
+            {row.openTasks}
+          </span>
+        )}
+
+        {late && (
+          <span className="absolute bottom-2 left-2 rounded bg-rose-600/90 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur">
+            {deadlineLabel(row.deadline)}
           </span>
         )}
       </div>
 
-      <div className="flex flex-1 items-start gap-2 p-3">
+      <div className={cn("flex items-center gap-2 p-3 transition-colors duration-200", voet?.vlak)}>
         <div className="min-w-0 flex-1">
           {/* De hele kaart is klikbaar via een overlay; de plusknop ligt er met
               een eigen laag bovenop. Een knop ín een link is ongeldige HTML. */}
@@ -76,21 +107,9 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
             <p className="truncate text-sm font-medium leading-tight">{row.client.name}</p>
           </Link>
 
-          {meta.length > 0 && (
-            <p className="mt-0.5 truncate text-xs text-muted-foreground">{meta.join(" · ")}</p>
-          )}
-
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-muted-foreground">
-            {row.openTasks > 0 && (
-              <span className="flex items-center gap-1">
-                <CheckSquare className="h-3.5 w-3.5" />
-                {row.openTasks}
-              </span>
-            )}
-            {late && (
-              <span className="font-medium text-rose-600 dark:text-rose-400">{deadlineLabel(row.deadline)}</span>
-            )}
-          </div>
+          {/* Altijd een tweede regel, ook als er niets te melden valt: anders
+              verspringt de hoogte per kaart. */}
+          <p className="mt-0.5 truncate text-xs text-muted-foreground">{meta.join(" · ") || " "}</p>
         </div>
 
         {row.project && (
@@ -100,7 +119,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
             onClick={() => void createTask(row.project!.id)}
             title={`Nieuwe taak voor ${row.client.name}`}
             aria-label={`Nieuwe taak voor ${row.client.name}`}
-            className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
+            className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground disabled:opacity-50"
           >
             <Plus className="h-4 w-4" />
           </button>
