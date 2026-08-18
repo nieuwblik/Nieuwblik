@@ -8,9 +8,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import MonthGrid, { ACCENT, groepeerPerDag } from "@/admin/components/MonthGrid";
+import MonthGrid, { groepeerPerDag } from "@/admin/components/MonthGrid";
 import QuickCapture from "@/admin/components/QuickCapture";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
+import { ACCENT } from "@/admin/constants";
 import { useSaveTask, useTasks } from "@/admin/queries";
 
 /**

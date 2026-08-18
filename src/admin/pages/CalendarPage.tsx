@@ -14,10 +14,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import DatePicker from "@/admin/components/DatePicker";
 import EmptyState from "@/admin/components/EmptyState";
-import MonthGrid, { ACCENT, groepeerPerDag } from "@/admin/components/MonthGrid";
+import MonthGrid, { groepeerPerDag } from "@/admin/components/MonthGrid";
 import QuickCapture from "@/admin/components/QuickCapture";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { PRIORITY, PRIORITY_ORDER, type Priority } from "@/admin/constants";
+import { ACCENT, PRIORITY, PRIORITY_ORDER, type Priority } from "@/admin/constants";
 import { useSaveTask, useTasks, useTeam, useUpdateTask, type TaskWithProject } from "@/admin/queries";
 import { CalendarDays } from "lucide-react";
 

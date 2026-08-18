@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -13,17 +13,12 @@ import {
 import { nl } from "date-fns/locale";
 import { Plus } from "lucide-react";
 
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { PRIORITY_WEIGHT, type Priority } from "@/admin/constants";
+import DayPlanCard from "@/admin/components/DayPlanCard";
+import { ACCENT, PRIORITY_WEIGHT } from "@/admin/constants";
 import type { TaskWithProject } from "@/admin/queries";
 
-/** Accentkleur per prioriteit: streepje voor de taak, tint achter de dag. */
-export const ACCENT: Record<Priority, { balk: string; stip: string; cel: string }> = {
-  urgent: { balk: "bg-rose-500", stip: "bg-rose-500", cel: "bg-rose-500/10 border-rose-500/30" },
-  hoog: { balk: "bg-orange-500", stip: "bg-orange-500", cel: "bg-orange-500/10 border-orange-500/30" },
-  normaal: { balk: "bg-sky-500", stip: "bg-sky-500", cel: "bg-sky-500/10 border-sky-500/30" },
-  laag: { balk: "bg-slate-400", stip: "bg-slate-400", cel: "bg-slate-400/10 border-slate-400/30" },
-};
 
 const DAGEN = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 
@@ -71,6 +66,8 @@ const MonthGrid = ({
   onAddOnDay,
   compact,
 }: MonthGridProps) => {
+  const [openDag, setOpenDag] = useState<string | null>(null);
+
   const dagen = useMemo(
     () =>
       eachDayOfInterval({
@@ -98,9 +95,8 @@ const MonthGrid = ({
           const buitenMaand = !isSameMonth(dag, maand);
           const gekozen = isSameDay(dag, gekozenDag);
 
-          return (
+          const cel = (
             <div
-              key={sleutel}
               role="button"
               tabIndex={0}
               onClick={() => onSelectDay(dag)}
@@ -188,6 +184,28 @@ const MonthGrid = ({
                 </button>
               )}
             </div>
+          );
+
+          // Een lege dag opent niets: dan is de cel gewoon een knop om de dag
+          // te kiezen. Alleen waar werk staat valt er iets te lezen.
+          if (taken.length === 0) return <div key={sleutel}>{cel}</div>;
+
+          return (
+            <Popover
+              key={sleutel}
+              open={openDag === sleutel}
+              onOpenChange={(open) => setOpenDag(open ? sleutel : null)}
+            >
+              <PopoverTrigger asChild>{cel}</PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="center" sideOffset={6}>
+                <DayPlanCard
+                  dag={dag}
+                  taken={taken}
+                  onAdd={onAddOnDay ? () => { setOpenDag(null); onAddOnDay(dag); } : undefined}
+                  onNavigate={() => setOpenDag(null)}
+                />
+              </PopoverContent>
+            </Popover>
           );
         })}
       </div>

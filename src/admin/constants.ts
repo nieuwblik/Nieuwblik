@@ -191,3 +191,14 @@ export const UPDATE_KIND: Record<UpdateKind, Meta> = {
       "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/25",
   },
 };
+
+/**
+ * Accentkleur per prioriteit in de kalender: streepje voor de taak, stip in
+ * de compacte cel, tint achter de dag.
+ */
+export const ACCENT: Record<Priority, { balk: string; stip: string; cel: string }> = {
+  urgent: { balk: "bg-rose-500", stip: "bg-rose-500", cel: "bg-rose-500/10 border-rose-500/30" },
+  hoog: { balk: "bg-orange-500", stip: "bg-orange-500", cel: "bg-orange-500/10 border-orange-500/30" },
+  normaal: { balk: "bg-sky-500", stip: "bg-sky-500", cel: "bg-sky-500/10 border-sky-500/30" },
+  laag: { balk: "bg-slate-400", stip: "bg-slate-400", cel: "bg-slate-400/10 border-slate-400/30" },
+};
