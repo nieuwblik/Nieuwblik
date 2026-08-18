@@ -36,7 +36,13 @@ export function usePortalTheme() {
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
-    return () => root.classList.remove("dark");
+    // Merkt de pagina als portaal, zodat opmaak die niet via Tailwind kan —
+    // de schuifbalken — alleen hier geldt en de publieke site ongemoeid laat.
+    root.classList.add("portaal");
+    return () => {
+      root.classList.remove("dark");
+      root.classList.remove("portaal");
+    };
   }, [theme]);
 
   // Zolang er geen expliciete keuze is opgeslagen, blijft het portaal het

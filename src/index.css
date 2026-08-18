@@ -466,3 +466,52 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Schuifbalken in het portaal
+
+   De standaardbalk van het besturingssysteem is breed, hard en trekt de
+   aandacht naar zichzelf toe in plaats van naar de inhoud. Hier een smalle
+   balk die de themakleuren volgt en pas opvalt als je hem aanwijst.
+
+   Alleen binnen .portaal: de publieke site houdt de vertrouwde systeembalk.
+   --------------------------------------------------------------------------- */
+/* scrollbar-width erft niet, dus ook op de nakomelingen: anders houdt een
+   tekstvak of popover in Firefox alsnog de brede systeembalk. */
+.portaal,
+.portaal * {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.portaal ::-webkit-scrollbar,
+.portaal::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.portaal ::-webkit-scrollbar-track,
+.portaal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* De rand is doorzichtig en wordt uit de achtergrond geknipt: dat geeft de
+   duim lucht rondom zonder een tweede kleur nodig te hebben. */
+.portaal ::-webkit-scrollbar-thumb,
+.portaal::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--border));
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+.portaal ::-webkit-scrollbar-thumb:hover,
+.portaal::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.6);
+  background-clip: content-box;
+}
+
+.portaal ::-webkit-scrollbar-corner,
+.portaal::-webkit-scrollbar-corner {
+  background: transparent;
+}
