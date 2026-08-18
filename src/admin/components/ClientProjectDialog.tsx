@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { BILLING_CYCLE, BILLING_CYCLE_ORDER, type BillingCycle } from "@/admin/billing";
 import {
   CLIENT_STATUS,
   CLIENT_STATUS_ORDER,
@@ -41,8 +40,6 @@ interface ClientProjectDialogProps {
   onCreated?: (projectId: string) => void;
 }
 
-const GEEN = "__geen__";
-
 const EMPTY = {
   name: "",
   contact_name: "",
@@ -52,9 +49,6 @@ const EMPTY = {
   city: "",
   clientStatus: "actief" as ClientStatus,
   notes: "",
-  billingCycle: "" as BillingCycle | "",
-  billingStart: "",
-  billingNote: "",
   status: "lead" as ProjectStatus,
   priority: "normaal" as Priority,
   start_date: "",
@@ -98,9 +92,6 @@ const ClientProjectDialog = ({
             city: client.city ?? "",
             clientStatus: client.status,
             notes: client.notes ?? "",
-            billingCycle: client.billing_cycle ?? "",
-            billingStart: client.billing_start ?? "",
-            billingNote: client.billing_note ?? "",
             status: project?.status ?? "lead",
             priority: project?.priority ?? "normaal",
             start_date: project?.start_date ?? "",
@@ -140,12 +131,6 @@ const ClientProjectDialog = ({
       city: form.city.trim() || null,
       status: form.clientStatus,
       notes: form.notes.trim() || null,
-      // Zonder cyclus gaan de datum en de notitie ook leeg: ze horen bij het
-      // contract, en het veld staat dan verborgen — anders blijft er een
-      // notitie achter bij een klant die niets meer betaalt.
-      billing_cycle: form.billingCycle || null,
-      billing_start: form.billingCycle ? form.billingStart || null : null,
-      billing_note: form.billingCycle ? form.billingNote.trim() || null : null,
     };
 
     const projectValues = {
@@ -358,57 +343,6 @@ const ClientProjectDialog = ({
                 maxLength={10000}
               />
             </div>
-
-            {/* Hosting en onderhoud: wat er periodiek gefactureerd wordt. De
-                datums zelf staan nergens opgeslagen — die volgen hieruit, en
-                verschijnen op de hostingpagina. */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="cp-billing">Facturatie</Label>
-                <Select
-                  value={form.billingCycle || GEEN}
-                  onValueChange={(v) => set("billingCycle", v === GEEN ? "" : (v as BillingCycle))}
-                >
-                  <SelectTrigger id="cp-billing">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={GEEN}>Geen</SelectItem>
-                    {BILLING_CYCLE_ORDER.map((c) => (
-                      <SelectItem key={c} value={c}>
-                        {BILLING_CYCLE[c].label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {form.billingCycle && (
-                <div className="space-y-2">
-                  <Label>Ingegaan op</Label>
-                  <DatePicker
-                    value={form.billingStart || null}
-                    onChange={(waarde) => set("billingStart", waarde ?? "")}
-                    aria-label="Ingangsdatum facturatie"
-                    className="h-10 border border-input"
-                  />
-                </div>
-              )}
-            </div>
-
-            {form.billingCycle && (
-              <div className="space-y-2">
-                <Label htmlFor="cp-billing-note">Notitie bij de facturatie</Label>
-                <Textarea
-                  id="cp-billing-note"
-                  rows={2}
-                  placeholder="Wat er onder het contract valt, afwijkende afspraken…"
-                  value={form.billingNote}
-                  onChange={(e) => set("billingNote", e.target.value)}
-                  maxLength={2000}
-                />
-              </div>
-            )}
 
             <div className="space-y-2">
               <Label htmlFor="cp-notes">Interne notities</Label>

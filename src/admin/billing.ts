@@ -4,9 +4,9 @@ import type { Database } from "@/integrations/supabase/types";
 
 export type BillingCycle = Database["public"]["Enums"]["billing_cycle"];
 
-export const BILLING_CYCLE: Record<BillingCycle, { label: string; kort: string }> = {
-  maandelijks: { label: "Maandelijks", kort: "p/m" },
-  jaarlijks: { label: "Jaarlijks", kort: "p/j" },
+export const BILLING_CYCLE: Record<BillingCycle, { label: string; kort: string; periode: string }> = {
+  maandelijks: { label: "Maandelijks", kort: "p/m", periode: "maand" },
+  jaarlijks: { label: "Jaarlijks", kort: "p/j", periode: "jaar" },
 };
 
 export const BILLING_CYCLE_ORDER = Object.keys(BILLING_CYCLE) as BillingCycle[];

@@ -16,7 +16,7 @@ import StatusBadge from "@/admin/components/StatusBadge";
 import TaskList from "@/admin/components/TaskList";
 import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { BILLING_CYCLE, volgendeTermijn } from "@/admin/billing";
+import BillingButton from "@/admin/components/BillingButton";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
 import { useConfirm } from "@/admin/useConfirm";
@@ -97,8 +97,6 @@ const ProjectDetail = () => {
     }
   };
 
-  const volgendeFactuur = volgendeTermijn(client?.billing_start ?? null, client?.billing_cycle ?? null);
-
   const late = (daysUntil(project.deadline) ?? 1) < 0;
 
   return (
@@ -146,26 +144,7 @@ const ProjectDetail = () => {
               zei die niets. Wat je hier wél wilt weten: loopt er een contract,
               en wanneer mag de volgende factuur eruit. De fase staat nog in de
               kaart hieronder en is aanpasbaar via Bewerken. */}
-          <button
-            type="button"
-            onClick={() => setEditOpen(true)}
-            title="Facturatie aanpassen"
-            className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm transition-colors duration-150 hover:bg-muted"
-          >
-            <Receipt className="h-4 w-4 shrink-0 text-muted-foreground" />
-            {client?.billing_cycle ? (
-              <>
-                <span>{BILLING_CYCLE[client.billing_cycle].label}</span>
-                {volgendeFactuur && (
-                  <span className="text-muted-foreground">
-                    volgende {format(volgendeFactuur, "d MMM", { locale: nl })}
-                  </span>
-                )}
-              </>
-            ) : (
-              <span className="text-muted-foreground">Geen facturatie</span>
-            )}
-          </button>
+          {client && <BillingButton client={client} />}
 
           <Button variant="outline" onClick={() => setEditOpen(true)}>
             <Pencil className="h-4 w-4" />

@@ -121,6 +121,7 @@ export function useCombinedRows(): CombinedRows {
         status: "actief",
         notes: null,
         billing_cycle: null,
+        billing_amount_cents: null,
         billing_start: null,
         billing_note: null,
         created_by: null,
