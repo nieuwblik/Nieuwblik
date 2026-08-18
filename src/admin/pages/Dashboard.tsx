@@ -16,7 +16,7 @@ import { useCombinedRows } from "@/admin/rows";
 import { useTasks, useTeam } from "@/admin/queries";
 
 const Dashboard = () => {
-  const { user, displayName } = useAdminAuth();
+  const { displayName } = useAdminAuth();
   const { rows, isLoading } = useCombinedRows();
   const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
@@ -50,10 +50,12 @@ const Dashboard = () => {
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, [search]);
 
-  const myOpenTasks = useMemo(
-    () => tasks.filter((t) => t.status !== "klaar" && t.assigned_to === user?.id),
-    [tasks, user?.id],
-  );
+  /*
+   * Alles wat openstaat, niet alleen wat op jouw naam staat. Met z'n tweeën
+   * werk je door dezelfde stapel: een taak die bij je collega ligt wil je hier
+   * ook zien. Bij wie hij ligt staat per regel vermeld.
+   */
+  const openTasks = useMemo(() => tasks.filter((t) => t.status !== "klaar"), [tasks]);
 
   const openTotal = tasks.filter((t) => t.status !== "klaar").length;
   const overdue = tasks.filter((t) => t.status !== "klaar" && (daysUntil(t.due_date) ?? 1) < 0).length;
@@ -141,15 +143,15 @@ const Dashboard = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Mijn taken</CardTitle>
-          <CardDescription>Openstaand werk op jouw naam, over alle klanten heen.</CardDescription>
+          <CardTitle className="text-base">Openstaande taken</CardTitle>
+          <CardDescription>Al het werk dat nog loopt, over alle klanten en beide van jullie heen.</CardDescription>
         </CardHeader>
         <CardContent>
           <TaskList
-            tasks={myOpenTasks}
+            tasks={openTasks}
             team={team}
             empty={
-              <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
+              <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staat geen werk meer open." />
             }
           />
         </CardContent>
