@@ -78,6 +78,7 @@ const TaskCalendar = () => {
           setNieuwOpDag(format(dag, "yyyy-MM-dd"));
         }}
         compact
+        dagPopup
       />
 
       <div>

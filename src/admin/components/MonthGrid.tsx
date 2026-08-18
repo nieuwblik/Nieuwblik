@@ -47,6 +47,12 @@ interface MonthGridProps {
   onAddOnDay?: (dag: Date) => void;
   /** Compact toont alleen stippen; ruim toont de titels in de cel. */
   compact?: boolean;
+  /**
+   * Opent bij een dag met werk een kaart met de volledige planning. Uit waar
+   * die details al ergens anders staan — op de kalenderpagina doet het paneel
+   * ernaast dat werk, en zou de kaart het rooster alleen maar afdekken.
+   */
+  dagPopup?: boolean;
 }
 
 /**
@@ -65,6 +71,7 @@ const MonthGrid = ({
   onSelectTask,
   onAddOnDay,
   compact,
+  dagPopup,
 }: MonthGridProps) => {
   const [openDag, setOpenDag] = useState<string | null>(null);
 
@@ -188,7 +195,7 @@ const MonthGrid = ({
 
           // Een lege dag opent niets: dan is de cel gewoon een knop om de dag
           // te kiezen. Alleen waar werk staat valt er iets te lezen.
-          if (taken.length === 0) return <div key={sleutel}>{cel}</div>;
+          if (!dagPopup || taken.length === 0) return <div key={sleutel}>{cel}</div>;
 
           return (
             <Popover
