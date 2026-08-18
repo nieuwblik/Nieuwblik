@@ -215,7 +215,7 @@ const TaskList = ({ tasks, team, showProject = true, empty }: TaskListProps) => 
   return (
     <div>
       {open.length > 0 ? (
-        <ul className="divide-y divide-border">{open.map(row)}</ul>
+        <ul className="space-y-2">{open.map(row)}</ul>
       ) : afgerond.length > 0 ? (
         <p className="py-3 text-sm text-muted-foreground">Alles afgerond.</p>
       ) : (
@@ -238,7 +238,7 @@ const TaskList = ({ tasks, team, showProject = true, empty }: TaskListProps) => 
           </button>
 
           {afgerondOpen && (
-            <ul className="divide-y divide-border border-t border-border px-3">{afgerond.map(row)}</ul>
+            <ul className="space-y-2 border-t border-border px-3 py-2">{afgerond.map(row)}</ul>
           )}
         </div>
       )}
