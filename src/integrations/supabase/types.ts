@@ -16,6 +16,9 @@ export type Database = {
     Tables: {
       clients: {
         Row: {
+          billing_cycle: Database["public"]["Enums"]["billing_cycle"] | null
+          billing_note: string | null
+          billing_start: string | null
           city: string | null
           contact_name: string | null
           created_at: string
@@ -30,6 +33,9 @@ export type Database = {
           website: string | null
         }
         Insert: {
+          billing_cycle?: Database["public"]["Enums"]["billing_cycle"] | null
+          billing_note?: string | null
+          billing_start?: string | null
           city?: string | null
           contact_name?: string | null
           created_at?: string
@@ -44,6 +50,9 @@ export type Database = {
           website?: string | null
         }
         Update: {
+          billing_cycle?: Database["public"]["Enums"]["billing_cycle"] | null
+          billing_note?: string | null
+          billing_start?: string | null
           city?: string | null
           contact_name?: string | null
           created_at?: string
@@ -76,6 +85,41 @@ export type Database = {
           ip_address?: string
         }
         Relationships: []
+      }
+      invoiced_periods: {
+        Row: {
+          client_id: string
+          id: string
+          invoiced_at: string
+          invoiced_by: string | null
+          note: string | null
+          period_date: string
+        }
+        Insert: {
+          client_id: string
+          id?: string
+          invoiced_at?: string
+          invoiced_by?: string | null
+          note?: string | null
+          period_date: string
+        }
+        Update: {
+          client_id?: string
+          id?: string
+          invoiced_at?: string
+          invoiced_by?: string | null
+          note?: string | null
+          period_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoiced_periods_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -460,6 +504,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      billing_cycle: "maandelijks" | "jaarlijks"
       client_status: "prospect" | "actief" | "inactief"
       priority_level: "laag" | "normaal" | "hoog" | "urgent"
       project_status:
@@ -602,6 +647,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      billing_cycle: ["maandelijks", "jaarlijks"],
       client_status: ["prospect", "actief", "inactief"],
       priority_level: ["laag", "normaal", "hoog", "urgent"],
       project_status: [
