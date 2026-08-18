@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -16,6 +16,12 @@ interface TaskListProps {
   team: TeamMember[];
   /** Uit bij de takenlijst binnen één project — de projectnaam is daar ruis. */
   showProject?: boolean;
+  /**
+   * Wat te tonen als er niets staat. Hoort hier en niet bij de aanroeper: die
+   * zou de lijst vervangen op het moment dat je de laatste taak afvinkt, en
+   * daarmee de afloop halverwege afbreken.
+   */
+  empty?: ReactNode;
 }
 
 /**
@@ -35,7 +41,7 @@ export function sortTasks(tasks: TaskWithProject[]): TaskWithProject[] {
   });
 }
 
-const TaskList = ({ tasks, team, showProject = true }: TaskListProps) => {
+const TaskList = ({ tasks, team, showProject = true, empty }: TaskListProps) => {
   const update = useUpdateTask();
   const remove = useDeleteTask();
   const [afgerondOpen, setAfgerondOpen] = useState(false);
@@ -49,10 +55,41 @@ const TaskList = ({ tasks, team, showProject = true }: TaskListProps) => {
     return `${own.filter((t) => t.status === "klaar").length}/${own.length} stappen`;
   };
 
+  /*
+   * Een afgevinkte taak valt meteen uit de lijst, want de aanroeper filtert op
+   * openstaand werk. Dan zie je je eigen vinkje niet: de regel is al weg. We
+   * houden hem daarom even vast — streep, vervagen, dan pas inklappen.
+   */
+  const [netAf, setNetAf] = useState<Record<string, { taak: TaskWithProject; vertrekt: boolean }>>({});
+  const timers = useRef<number[]>([]);
+
+  useEffect(() => () => timers.current.forEach(window.clearTimeout), []);
+
+  const laatLos = (id: string) =>
+    setNetAf((huidig) => {
+      const { [id]: _weg, ...rest } = huidig;
+      return rest;
+    });
+
   const toggle = async (task: TaskWithProject, done: boolean) => {
+    if (done) {
+      setNetAf((huidig) => ({ ...huidig, [task.id]: { taak: { ...task, status: "klaar" }, vertrekt: false } }));
+      timers.current.push(
+        window.setTimeout(
+          () =>
+            setNetAf((huidig) =>
+              huidig[task.id] ? { ...huidig, [task.id]: { ...huidig[task.id], vertrekt: true } } : huidig,
+            ),
+          420,
+        ),
+        window.setTimeout(() => laatLos(task.id), 640),
+      );
+    }
+
     try {
       await update.mutateAsync({ id: task.id, values: { status: done ? "klaar" : "todo" } });
     } catch (error) {
+      laatLos(task.id);
       toast.error(error instanceof Error ? error.message : "Bijwerken mislukt");
     }
   };
@@ -74,9 +111,22 @@ const TaskList = ({ tasks, team, showProject = true }: TaskListProps) => {
     const done = task.status === "klaar";
     const overdue = !done && (daysUntil(task.due_date) ?? 1) < 0;
     const assignee = nameFor(task.assigned_to);
+    const afscheid = netAf[task.id];
 
     return (
-      <li key={task.id} className="flex items-start gap-3 py-3">
+      <li
+        key={task.id}
+        className={cn(
+          // De regel loopt iets buiten de lijst zodat het hover-vlak breder is
+          // dan de tekst; anders lijkt aanwijzen niet te reageren.
+          "-mx-2 flex items-start gap-3 rounded-lg px-2 py-3 transition-[background-color,opacity] duration-200 hover:bg-muted/40",
+          done && "opacity-60",
+          // Alleen de vertrekkende regel krijgt een hoogte-overgang: bij alle
+          // regels zou overflow-hidden de badges kunnen afknippen.
+          afscheid && "max-h-40 overflow-hidden transition-[max-height,opacity,padding] duration-200 ease-in",
+          afscheid?.vertrekt && "max-h-0 py-0 opacity-0",
+        )}
+      >
         <Checkbox
           checked={done}
           onCheckedChange={(checked) => void toggle(task, checked === true)}
@@ -89,9 +139,22 @@ const TaskList = ({ tasks, team, showProject = true }: TaskListProps) => {
               en losse stappen staan. */}
           <Link
             to={`/admin/taken/${task.id}`}
-            className={cn("block text-sm font-medium hover:underline", done && "text-muted-foreground line-through")}
+            className={cn(
+              "block text-sm font-medium transition-colors duration-200",
+              done ? "text-muted-foreground" : "hover:underline",
+            )}
           >
-            {task.title}
+            {/* De doorhaalstreep groeit door de tekst heen in plaats van er
+                ineens te staan. Een achtergrondlijn en geen line-through:
+                die laatste is niet te animeren. */}
+            <span
+              className={cn(
+                "bg-[linear-gradient(currentColor,currentColor)] bg-[position:0_55%] bg-no-repeat transition-[background-size] duration-200 ease-out",
+                done ? "bg-[length:100%_1px]" : "bg-[length:0%_1px]",
+              )}
+            >
+              {task.title}
+            </span>
           </Link>
 
           {task.description && !done && (
@@ -134,18 +197,29 @@ const TaskList = ({ tasks, team, showProject = true }: TaskListProps) => {
   // Stappen verschijnen op de pagina van hun eigen taak, niet los in deze
   // lijst: anders staat hetzelfde werk er twee keer in.
   const eigen = tasks.filter((t) => !t.parent_task_id);
-  const open = sortTasks(eigen.filter((t) => t.status !== "klaar"));
+  const wachtend = new Set(Object.keys(netAf));
+
+  // De net afgevinkte taak houdt zijn oorspronkelijke prioriteit, dus de
+  // sortering laat hem staan waar hij stond terwijl hij vervaagt.
+  const open = sortTasks([
+    ...eigen.filter((t) => t.status !== "klaar" && !wachtend.has(t.id)),
+    ...Object.values(netAf).map((v) => v.taak),
+  ]);
+
   // Laatst afgevinkt bovenaan: dat is meestal wat je nog even wilt nakijken.
+  // Wie nog aan het vertrekken is, staat hierboven en hoort er nog niet bij.
   const afgerond = eigen
-    .filter((t) => t.status === "klaar")
+    .filter((t) => t.status === "klaar" && !wachtend.has(t.id))
     .sort((a, b) => (b.completed_at ?? b.updated_at).localeCompare(a.completed_at ?? a.updated_at));
 
   return (
     <div>
       {open.length > 0 ? (
         <ul className="divide-y divide-border">{open.map(row)}</ul>
+      ) : afgerond.length > 0 ? (
+        <p className="py-3 text-sm text-muted-foreground">Alles afgerond.</p>
       ) : (
-        afgerond.length > 0 && <p className="py-3 text-sm text-muted-foreground">Alles afgerond.</p>
+        empty
       )}
 
       {/* Afgerond werk verdwijnt niet, maar staat wel opgevouwen: je wilt

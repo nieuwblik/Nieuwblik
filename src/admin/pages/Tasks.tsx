@@ -134,14 +134,18 @@ const Tasks = () => {
         <CardContent>
           {isLoading ? (
             <p className="text-sm text-muted-foreground">Taken laden…</p>
-          ) : visible.length === 0 ? (
-            <EmptyState
-              icon={CheckSquare}
-              title="Geen taken gevonden"
-              description={tasks.length === 0 ? "Maak je eerste taak aan." : "Pas de filters aan."}
-            />
           ) : (
-            <TaskList tasks={visible} team={team} />
+            <TaskList
+              tasks={visible}
+              team={team}
+              empty={
+                <EmptyState
+                  icon={CheckSquare}
+                  title="Geen taken gevonden"
+                  description={tasks.length === 0 ? "Maak je eerste taak aan." : "Pas de filters aan."}
+                />
+              }
+            />
           )}
         </CardContent>
       </Card>

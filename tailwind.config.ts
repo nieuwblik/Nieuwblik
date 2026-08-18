@@ -149,6 +149,16 @@ export default {
             opacity: "1",
           },
         },
+        // Het vinkje tekent zichzelf: pathLength="1" normaliseert de lijn,
+        // zodat de offset ongeacht de padlengte van 1 naar 0 loopt.
+        "check-draw": {
+          from: {
+            strokeDashoffset: "1",
+          },
+          to: {
+            strokeDashoffset: "0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -158,6 +168,7 @@ export default {
         "infinite-scroll": "infinite-scroll 30s linear infinite",
         "slide-in-bottom": "slide-in-bottom 0.3s ease-out",
         "fade-in": "fade-in 0.3s ease-out",
+        "check-draw": "check-draw 180ms cubic-bezier(0.65, 0, 0.35, 1) forwards",
       },
     },
   },

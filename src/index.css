@@ -453,3 +453,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-weight: 700 !important;
 }
+/* Wie in het systeem heeft aangegeven bewegingsgevoelig te zijn, krijgt de
+   overgangen niet. De terugkoppeling blijft: kleuren wisselen nog steeds,
+   alleen zonder de beweging ernaartoe. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

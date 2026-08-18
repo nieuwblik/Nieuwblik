@@ -256,21 +256,24 @@ const ProjectDetail = () => {
                 </Button>
               </div>
 
-              {tasks.length === 0 ? (
-                <EmptyState
-                  icon={CheckSquare}
-                  title="Nog geen taken"
-                  description="Maak de eerste taak aan om bij te houden wat er moet gebeuren."
-                  action={
-                    <Button disabled={isPending} onClick={() => void createTask(project.id)}>
-                      <Plus className="h-4 w-4" />
-                      Nieuwe taak
-                    </Button>
-                  }
-                />
-              ) : (
-                <TaskList tasks={tasks} team={team} showProject={false} />
-              )}
+              <TaskList
+                tasks={tasks}
+                team={team}
+                showProject={false}
+                empty={
+                  <EmptyState
+                    icon={CheckSquare}
+                    title="Nog geen taken"
+                    description="Maak de eerste taak aan om bij te houden wat er moet gebeuren."
+                    action={
+                      <Button disabled={isPending} onClick={() => void createTask(project.id)}>
+                        <Plus className="h-4 w-4" />
+                        Nieuwe taak
+                      </Button>
+                    }
+                  />
+                }
+              />
             </CardContent>
           </Card>
         </TabsContent>

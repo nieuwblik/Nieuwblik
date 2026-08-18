@@ -145,11 +145,13 @@ const Dashboard = () => {
           <CardDescription>Openstaand werk op jouw naam, over alle klanten heen.</CardDescription>
         </CardHeader>
         <CardContent>
-          {myOpenTasks.length === 0 ? (
-            <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
-          ) : (
-            <TaskList tasks={myOpenTasks} team={team} />
-          )}
+          <TaskList
+            tasks={myOpenTasks}
+            team={team}
+            empty={
+              <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staan geen taken op jouw naam." />
+            }
+          />
         </CardContent>
       </Card>
 
