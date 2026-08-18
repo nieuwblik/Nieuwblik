@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import { formatDateTime, formatFileSize } from "@/admin/format";
+import { useConfirm } from "@/admin/useConfirm";
 import {
   getFileUrl,
   useDeleteFile,
@@ -28,6 +29,7 @@ const ProjectFiles = ({ projectId, userId, team }: ProjectFilesProps) => {
   const { data: files = [], isLoading } = useProjectFiles(projectId);
   const upload = useUploadFile(projectId);
   const remove = useDeleteFile(projectId);
+  const { vraagBevestiging, dialoog } = useConfirm();
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
 
@@ -62,7 +64,7 @@ const ProjectFiles = ({ projectId, userId, team }: ProjectFilesProps) => {
   };
 
   const handleDelete = async (file: ProjectFile) => {
-    if (!window.confirm(`"${file.file_name}" definitief verwijderen?`)) return;
+    if (!(await vraagBevestiging({ titel: `"${file.file_name}" definitief verwijderen?` }))) return;
     try {
       await remove.mutateAsync(file);
       toast.success("Bestand verwijderd");
@@ -151,6 +153,8 @@ const ProjectFiles = ({ projectId, userId, team }: ProjectFilesProps) => {
           ))}
         </ul>
       )}
+
+      {dialoog}
     </div>
   );
 };

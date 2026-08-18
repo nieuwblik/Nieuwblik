@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { formatFileSize } from "@/admin/format";
 import { getFileUrl, useDeleteTaskImage, useTaskFiles, useUploadTaskImage, type TaskFile } from "@/admin/queries";
 import { isSupportedImage, toWebp } from "@/admin/webp";
+import { useConfirm } from "@/admin/useConfirm";
 
 interface TaskImagesProps {
   taskId: string;
@@ -69,6 +70,7 @@ const TaskImages = ({ taskId, userId }: TaskImagesProps) => {
   const { data: files = [], isLoading, isError } = useTaskFiles(taskId);
   const upload = useUploadTaskImage(taskId);
   const remove = useDeleteTaskImage(taskId);
+  const { vraagBevestiging, dialoog } = useConfirm();
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -97,7 +99,7 @@ const TaskImages = ({ taskId, userId }: TaskImagesProps) => {
   };
 
   const handleDelete = async (file: TaskFile) => {
-    if (!window.confirm(`"${file.file_name}" verwijderen?`)) return;
+    if (!(await vraagBevestiging({ titel: `"${file.file_name}" verwijderen?` }))) return;
     try {
       await remove.mutateAsync(file);
     } catch (error) {
@@ -162,6 +164,8 @@ const TaskImages = ({ taskId, userId }: TaskImagesProps) => {
           dat er nog iets aankomt. */}
       {isLoading && !isError && <p className="text-xs text-muted-foreground">Foto&apos;s laden…</p>}
       {isError && <p className="text-xs text-muted-foreground">Foto&apos;s konden niet geladen worden.</p>}
+
+      {dialoog}
     </div>
   );
 };

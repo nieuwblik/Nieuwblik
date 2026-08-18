@@ -18,6 +18,7 @@ import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
+import { useConfirm } from "@/admin/useConfirm";
 import { useCreateTask } from "@/admin/useCreateTask";
 import {
   useClient,
@@ -51,6 +52,7 @@ const ProjectDetail = () => {
   const updateProject = useUpdateProject();
   const removeProject = useDeleteProject();
   const removeClient = useDeleteClient();
+  const { vraagBevestiging, dialoog } = useConfirm();
 
   const [editOpen, setEditOpen] = useState(false);
   const [taskOpen, setTaskOpen] = useState(false);
@@ -84,7 +86,11 @@ const ProjectDetail = () => {
    */
   const handleDelete = async () => {
     const naam = project.client?.name ?? project.name;
-    if (!window.confirm(`"${naam}" verwijderen? Het project, de taken, updates en bestanden gaan mee.`)) return;
+    const door = await vraagBevestiging({
+      titel: `"${naam}" verwijderen?`,
+      beschrijving: "Het project, de taken, updates en bestanden gaan mee.",
+    });
+    if (!door) return;
 
     try {
       if (project.client_id) {
@@ -294,6 +300,8 @@ const ProjectDetail = () => {
         project={project}
         userId={user?.id ?? null}
       />
+
+      {dialoog}
     </div>
   );
 };

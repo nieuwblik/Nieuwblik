@@ -10,6 +10,7 @@ import StatusBadge from "@/admin/components/StatusBadge";
 import { formatDateTime } from "@/admin/format";
 import { useAddUpdate, useDeleteUpdate, useProjectUpdates, type TeamMember } from "@/admin/queries";
 import type { UpdateKind } from "@/admin/constants";
+import { useConfirm } from "@/admin/useConfirm";
 
 interface UpdatesTimelineProps {
   projectId: string;
@@ -21,6 +22,7 @@ const UpdatesTimeline = ({ projectId, userId, team }: UpdatesTimelineProps) => {
   const { data: updates = [], isLoading } = useProjectUpdates(projectId);
   const add = useAddUpdate();
   const remove = useDeleteUpdate(projectId);
+  const { vraagBevestiging, dialoog } = useConfirm();
   const [body, setBody] = useState("");
   const [kind, setKind] = useState<UpdateKind>("update");
 
@@ -39,7 +41,7 @@ const UpdatesTimeline = ({ projectId, userId, team }: UpdatesTimelineProps) => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Dit bericht verwijderen?")) return;
+    if (!(await vraagBevestiging({ titel: "Dit bericht verwijderen?" }))) return;
     try {
       await remove.mutateAsync(id);
     } catch (error) {
@@ -113,6 +115,8 @@ const UpdatesTimeline = ({ projectId, userId, team }: UpdatesTimelineProps) => {
           ))}
         </ol>
       )}
+
+      {dialoog}
     </div>
   );
 };

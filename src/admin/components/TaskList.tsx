@@ -10,6 +10,7 @@ import StatusBadge from "@/admin/components/StatusBadge";
 import { PRIORITY_WEIGHT } from "@/admin/constants";
 import { daysUntil, deadlineLabel } from "@/admin/format";
 import { useDeleteTask, useTasks, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
+import { useConfirm } from "@/admin/useConfirm";
 
 interface TaskListProps {
   tasks: TaskWithProject[];
@@ -44,6 +45,7 @@ export function sortTasks(tasks: TaskWithProject[]): TaskWithProject[] {
 const TaskList = ({ tasks, team, showProject = true, empty }: TaskListProps) => {
   const update = useUpdateTask();
   const remove = useDeleteTask();
+  const { vraagBevestiging, dialoog } = useConfirm();
   const [afgerondOpen, setAfgerondOpen] = useState(false);
   // De volledige set staat al in de react-query-cache; hieruit tellen we de
   // stappen per taak, ook als de aanroeper een gefilterde lijst doorgeeft.
@@ -95,7 +97,7 @@ const TaskList = ({ tasks, team, showProject = true, empty }: TaskListProps) => 
   };
 
   const handleDelete = async (task: TaskWithProject) => {
-    if (!window.confirm(`Taak "${task.title}" verwijderen?`)) return;
+    if (!(await vraagBevestiging({ titel: `Taak "${task.title}" verwijderen?` }))) return;
     try {
       await remove.mutateAsync(task.id);
       toast.success("Taak verwijderd");
@@ -242,6 +244,8 @@ const TaskList = ({ tasks, team, showProject = true, empty }: TaskListProps) => 
           )}
         </div>
       )}
+
+      {dialoog}
     </div>
   );
 };

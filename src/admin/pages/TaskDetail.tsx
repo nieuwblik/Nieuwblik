@@ -40,6 +40,7 @@ import {
   type TaskStatus,
 } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
+import { useConfirm } from "@/admin/useConfirm";
 import {
   useDeleteTask,
   useSaveTask,
@@ -182,6 +183,7 @@ const TaskDetail = () => {
   const update = useUpdateTask();
   const save = useSaveTask();
   const remove = useDeleteTask();
+  const { vraagBevestiging, dialoog } = useConfirm();
 
   const task = useMemo(() => tasks.find((t) => t.id === id) ?? null, [tasks, id]);
   const parent = useMemo(
@@ -256,8 +258,11 @@ const TaskDetail = () => {
   };
 
   const handleDelete = async () => {
-    const extra = subtasks.length > 0 ? ` De ${subtasks.length} stappen eronder gaan mee.` : "";
-    if (!window.confirm(`"${task.title}" verwijderen?${extra}`)) return;
+    const door = await vraagBevestiging({
+      titel: `"${task.title}" verwijderen?`,
+      beschrijving: subtasks.length > 0 ? `De ${subtasks.length} stappen eronder gaan mee.` : undefined,
+    });
+    if (!door) return;
     try {
       await remove.mutateAsync(task.id);
       toast.success("Taak verwijderd");
@@ -354,8 +359,10 @@ const TaskDetail = () => {
                         userId={user?.id ?? null}
                         fotoAantal={fotoAantallen[sub.id] ?? 0}
                         onDelete={() => {
-                          if (!window.confirm(`"${sub.title}" verwijderen?`)) return;
-                          void remove.mutateAsync(sub.id).catch((error: Error) => toast.error(error.message));
+                          void (async () => {
+                            if (!(await vraagBevestiging({ titel: `"${sub.title}" verwijderen?` }))) return;
+                            await remove.mutateAsync(sub.id).catch((error: Error) => toast.error(error.message));
+                          })();
                         }}
                       />
                     ))}
@@ -483,6 +490,8 @@ const TaskDetail = () => {
           </Card>
         </aside>
       </div>
+
+      {dialoog}
     </div>
   );
 };
