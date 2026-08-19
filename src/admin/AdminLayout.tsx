@@ -7,7 +7,6 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -135,24 +134,28 @@ const RailContent = ({
 };
 
 /**
- * Onderin de zijbalk, achter een streep: wat er wel bij hoort maar geen deel
- * van je werkdag is. De referentie heeft daar instellingen en support; wij
- * hebben die pagina's niet, dus staat er wat we wél hebben.
+ * Onderin de zijbalk, achter een streep: het in- en uitklappen zelf. Het zat
+ * eerst als rond knopje op de rand, maar dat is een bedieningselement dat over
+ * de inhoud heen zweeft; onderin staat het waar de rest van de balk staat.
  */
-const RailFooter = ({ collapsed }: { collapsed: boolean }) => (
-  <a
-    href="/"
-    target="_blank"
-    rel="noopener noreferrer"
-    title="Website bekijken"
+const RailFooter = ({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) => (
+  <button
+    type="button"
+    onClick={onToggle}
+    title={collapsed ? "Zijbalk uitklappen" : "Zijbalk inklappen"}
+    aria-label={collapsed ? "Zijbalk uitklappen" : "Zijbalk inklappen"}
     className={cn(
       "flex items-center rounded-lg text-sm text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg",
-      collapsed ? "h-10 w-10 justify-center" : "gap-3 px-3 py-2.5",
+      collapsed ? "h-10 w-10 justify-center" : "w-full gap-3 px-3 py-2.5",
     )}
   >
-    <ExternalLink className="h-[18px] w-[18px] shrink-0" />
-    {!collapsed && "Website bekijken"}
-  </a>
+    {collapsed ? (
+      <ChevronRight className="h-[18px] w-[18px] shrink-0" />
+    ) : (
+      <ChevronLeft className="h-[18px] w-[18px] shrink-0" />
+    )}
+    {!collapsed && "Inklappen"}
+  </button>
 );
 
 const AdminLayout = () => {
@@ -309,43 +312,32 @@ const AdminLayout = () => {
   );
 
   return (
-    <div className="min-h-screen bg-muted/40">
+    <div className="min-h-screen bg-background">
       <AdminSEO />
 
-      <div className="flex min-h-screen lg:gap-4 lg:p-4">
-        {/* De zijbalk is een zwevend paneel op het werkvlak, niet een kolom
-            die tegen de schermrand plakt. Breedte wisselt zonder overgang:
-            layout-eigenschappen animeren geeft schokkerige herberekening. */}
+      <div className="flex min-h-screen">
+        {/* Eén doorlopend vlak: de balk staat tegen de schermrand en loopt
+            van boven tot onder, zonder tussenruimte of afronding. Breedte
+            wisselt zonder overgang: layout-eigenschappen animeren geeft
+            schokkerige herberekening. */}
         <aside
           className={cn(
-            "relative hidden shrink-0 flex-col rounded-2xl bg-rail py-5 lg:sticky lg:top-4 lg:flex lg:h-[calc(100vh-2rem)]",
+            "hidden shrink-0 flex-col bg-rail py-5 lg:sticky lg:top-0 lg:flex lg:h-screen",
             collapsed ? "w-[76px]" : "w-64",
           )}
         >
-          {/* De knop ligt op de rand tussen balk en werkvlak, precies waar de
-              balk breder of smaller wordt. */}
-          <button
-            type="button"
-            onClick={toggleCollapsed}
-            title={collapsed ? "Zijbalk uitklappen" : "Zijbalk inklappen"}
-            aria-label={collapsed ? "Zijbalk uitklappen" : "Zijbalk inklappen"}
-            className="absolute -right-3 top-16 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-sm transition-colors duration-150 hover:text-foreground"
-          >
-            {collapsed ? <ChevronRight className="h-3.5 w-3.5" /> : <ChevronLeft className="h-3.5 w-3.5" />}
-          </button>
-
           <div className="flex-1 overflow-y-auto">
             <RailContent collapsed={collapsed} />
           </div>
 
           <div className={cn("mt-4 border-t border-rail-border pt-4", collapsed ? "px-2" : "px-3")}>
-            <RailFooter collapsed={collapsed} />
+            <RailFooter collapsed={collapsed} onToggle={toggleCollapsed} />
           </div>
         </aside>
 
-        {/* Bovenbalk en inhoud zitten in hetzelfde witte vlak, zoals in de
+        {/* Bovenbalk en inhoud zitten in hetzelfde vlak, zoals in de
             referentie: de balk hoort bij de pagina, niet bij het venster. */}
-        <div className="flex min-w-0 flex-1 flex-col bg-background lg:rounded-2xl">
+        <div className="flex min-w-0 flex-1 flex-col">
           <header className="flex h-16 shrink-0 items-center gap-3 border-b border-border px-4 sm:px-6 lg:px-8">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
@@ -356,14 +348,9 @@ const AdminLayout = () => {
               <SheetContent side="left" className="w-72 border-rail-border bg-rail px-0 py-5">
                 <SheetTitle className="sr-only">Nieuwblik Portaal</SheetTitle>
                 <SheetDescription className="sr-only">Navigatie door het portaal</SheetDescription>
-                <div className="flex h-full flex-col">
-                  <div className="flex-1 overflow-y-auto">
-                    <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
-                  </div>
-                  <div className="mt-4 border-t border-rail-border px-3 pt-4">
-                    <RailFooter collapsed={false} />
-                  </div>
-                </div>
+                {/* Geen inklapknop in het uitschuifpaneel: dat sluit je door
+                    ernaast te tikken, inklappen bestaat daar niet. */}
+                <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
               </SheetContent>
             </Sheet>
 
