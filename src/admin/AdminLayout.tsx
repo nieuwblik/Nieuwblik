@@ -101,16 +101,10 @@ const RailContent = ({
 
   return (
     <>
-      <div className={cn("flex h-10 items-center", collapsed ? "justify-center px-2" : "gap-3 px-4")}>
-        {/* Ingeklapt blijft de balk leeg maar wel even hoog, zodat de navigatie
-            niet omhoog springt zodra je de zijbalk smaller maakt. */}
-        {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />}
-      </div>
-
       {/* Ingeklapt zijn de rijen 40 breed in een balk van 76: zonder centreren
           houden ze links 8 en rechts 28 over, en dan staat de hele kolom
           scheef. */}
-      <nav className={cn("mt-8 flex flex-col gap-1", collapsed ? "items-center px-2" : "px-3")}>
+      <nav className={cn("flex flex-col gap-1", collapsed ? "items-center px-2" : "px-3")}>
         {nav.map(({ to, label, icon: Icon, end, count }) => (
           <NavLink
             key={to}
@@ -274,12 +268,10 @@ const AdminLayout = () => {
         onClick={onClick}
         title={label}
         aria-label={label}
-        className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+        className="relative flex h-9 w-9 items-center justify-center rounded-lg text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg"
       >
         <Icon className="h-[18px] w-[18px]" />
-        {stip && (
-          <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-rose-500 ring-2 ring-background" />
-        )}
+        {stip && <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-rose-500 ring-2 ring-rail" />}
       </button>
     );
   };
@@ -289,13 +281,13 @@ const AdminLayout = () => {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex items-center gap-1.5 rounded-lg p-1 transition-colors duration-150 hover:bg-muted"
+          className="flex items-center gap-1.5 rounded-lg p-1 transition-colors duration-150 hover:bg-rail-hover"
           aria-label="Account"
         >
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-rail-accent/20 text-xs font-semibold text-rail-accent">
             {initials(displayName)}
           </span>
-          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+          <ChevronDown className="h-4 w-4 text-rail-muted" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
@@ -318,14 +310,84 @@ const AdminLayout = () => {
     <div className="min-h-screen bg-background">
       <AdminSEO />
 
-      <div className="flex min-h-screen">
-        {/* Eén doorlopend vlak: de balk staat tegen de schermrand en loopt
-            van boven tot onder, zonder tussenruimte of afronding. Breedte
-            wisselt zonder overgang: layout-eigenschappen animeren geeft
-            schokkerige herberekening. */}
+      {/* De balk loopt over de volle breedte, met het logo erin. Daardoor
+          blijft het merk staan wanneer je de zijbalk inklapt, en hoeft het
+          niet mee te krimpen tot iets onleesbaars. Donker als de zijbalk:
+          samen vormen ze één vlak, en het logo is licht. */}
+      <header className="sticky top-0 z-40 flex h-16 items-center gap-3 bg-rail px-4 lg:px-5">
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              aria-label="Menu openen"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg lg:hidden"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-72 border-rail-border bg-rail px-0 py-5">
+            <SheetTitle className="sr-only">Nieuwblik Portaal</SheetTitle>
+            <SheetDescription className="sr-only">Navigatie door het portaal</SheetDescription>
+            {/* Op een telefoon staat het logo niet in de balk - daar is de
+                ruimte te krap - dus staat het hier. */}
+            <div className="mb-6 px-4">
+              <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />
+            </div>
+            {/* Geen inklapknop in het uitschuifpaneel: dat sluit je door
+                ernaast te tikken, inklappen bestaat daar niet. */}
+            <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
+          </SheetContent>
+        </Sheet>
+
+        {/* Op grote schermen is dit blok precies zo breed dat de zoekbalk op
+            de contentkolom begint: 20 padding + 224 + 12 tussenruimte = 256. */}
+        <div className="hidden shrink-0 sm:block lg:w-56">
+          <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />
+        </div>
+
+        {/* Zoeken is een veld en geen knop: je typt erin, en dat wil je
+            zien voordat je klikt. Het opent hetzelfde palet als ⌘K. */}
+        <button
+          type="button"
+          onClick={() => setPaletteOpen(true)}
+          className="flex h-10 min-w-0 flex-1 items-center gap-3 rounded-lg bg-rail-panel px-3 text-sm text-rail-muted transition-colors duration-150 hover:bg-rail-hover sm:max-w-md"
+        >
+          <Search className="h-4 w-4 shrink-0" />
+          <span className="truncate">Zoek of typ een opdracht</span>
+          <kbd className="ml-auto hidden shrink-0 rounded border border-rail-border px-1.5 py-0.5 font-sans text-[10px] leading-none sm:block">
+            ⌘K
+          </kbd>
+        </button>
+
+        <div className="ml-auto flex items-center gap-1">
+          {/* Een taak vastleggen blijft ook op de telefoon bereikbaar: daar
+              is geen N-toets, en dit is waar het portaal voor bedoeld is. */}
+          {balkKnop(Zap, "Nieuwe taak (N)", () => setCaptureOpen(true))}
+          <span className="hidden sm:contents">
+            {balkKnop(UserPlus, "Nieuwe klant", () => navigate("/admin/klanten", { state: { nieuw: true } }))}
+          </span>
+
+          {/* Geen meldingencentrum, wel het enige wat er echt om roept:
+              werk dat over de datum is. */}
+          {balkKnop(
+            Bell,
+            teLaat > 0 ? `${teLaat} ${teLaat === 1 ? "taak" : "taken"} te laat` : "Niets te laat",
+            () => navigate("/admin/taken"),
+            teLaat > 0,
+          )}
+
+          <span className="mx-1 hidden h-6 w-px bg-rail-border sm:block" />
+          {accountMenu}
+        </div>
+      </header>
+
+      <div className="flex min-h-[calc(100vh-4rem)]">
+        {/* Onder de balk, tegen de schermrand, zonder tussenruimte of
+            afronding. Breedte wisselt zonder overgang: layout-eigenschappen
+            animeren geeft schokkerige herberekening. */}
         <aside
           className={cn(
-            "hidden shrink-0 flex-col bg-rail py-5 lg:sticky lg:top-0 lg:flex lg:h-screen",
+            "hidden shrink-0 flex-col bg-rail py-5 lg:sticky lg:top-16 lg:flex lg:h-[calc(100vh-4rem)]",
             collapsed ? "w-[76px]" : "w-64",
           )}
         >
@@ -343,65 +405,9 @@ const AdminLayout = () => {
           </div>
         </aside>
 
-        {/* Bovenbalk en inhoud zitten in hetzelfde vlak, zoals in de
-            referentie: de balk hoort bij de pagina, niet bij het venster. */}
-        <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex h-16 shrink-0 items-center gap-3 border-b border-border px-4 sm:px-6 lg:px-8">
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Menu openen">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-72 border-rail-border bg-rail px-0 py-5">
-                <SheetTitle className="sr-only">Nieuwblik Portaal</SheetTitle>
-                <SheetDescription className="sr-only">Navigatie door het portaal</SheetDescription>
-                {/* Geen inklapknop in het uitschuifpaneel: dat sluit je door
-                    ernaast te tikken, inklappen bestaat daar niet. */}
-                <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
-              </SheetContent>
-            </Sheet>
-
-            {/* Zoeken is een veld en geen knop: je typt erin, en dat wil je
-                zien voordat je klikt. Het opent hetzelfde palet als ⌘K. */}
-            <button
-              type="button"
-              onClick={() => setPaletteOpen(true)}
-              className="flex h-10 min-w-0 flex-1 items-center gap-3 rounded-lg bg-muted px-3 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted/70 sm:max-w-md"
-            >
-              <Search className="h-4 w-4 shrink-0" />
-              <span className="truncate">Zoek of typ een opdracht</span>
-              <kbd className="ml-auto hidden shrink-0 rounded border border-border px-1.5 py-0.5 font-sans text-[10px] leading-none sm:block">
-                ⌘K
-              </kbd>
-            </button>
-
-            <div className="ml-auto flex items-center gap-1">
-              {/* Een taak vastleggen blijft ook op de telefoon bereikbaar: daar
-                  is geen N-toets, en dit is waar het portaal voor bedoeld is. */}
-              {balkKnop(Zap, "Nieuwe taak (N)", () => setCaptureOpen(true))}
-              <span className="hidden sm:contents">
-                {balkKnop(UserPlus, "Nieuwe klant", () => navigate("/admin/klanten", { state: { nieuw: true } }))}
-              </span>
-
-              {/* Geen meldingencentrum, wel het enige wat er echt om roept:
-                  werk dat over de datum is. */}
-              {balkKnop(
-                Bell,
-                teLaat > 0 ? `${teLaat} ${teLaat === 1 ? "taak" : "taken"} te laat` : "Niets te laat",
-                () => navigate("/admin/taken"),
-                teLaat > 0,
-              )}
-
-              <span className="mx-1 hidden h-6 w-px bg-border sm:block" />
-              {accountMenu}
-            </div>
-          </header>
-
-          <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
-            <Outlet />
-          </main>
-        </div>
+        <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">
+          <Outlet />
+        </main>
       </div>
 
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
