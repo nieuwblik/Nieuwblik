@@ -107,7 +107,10 @@ const RailContent = ({
         {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-[21px] w-auto opacity-90" />}
       </div>
 
-      <nav className={cn("mt-8 flex flex-col gap-1", collapsed ? "px-2" : "px-3")}>
+      {/* Ingeklapt zijn de rijen 40 breed in een balk van 76: zonder centreren
+          houden ze links 8 en rechts 28 over, en dan staat de hele kolom
+          scheef. */}
+      <nav className={cn("mt-8 flex flex-col gap-1", collapsed ? "items-center px-2" : "px-3")}>
         {nav.map(({ to, label, icon: Icon, end, count }) => (
           <NavLink
             key={to}
@@ -330,7 +333,12 @@ const AdminLayout = () => {
             <RailContent collapsed={collapsed} />
           </div>
 
-          <div className={cn("mt-4 border-t border-rail-border pt-4", collapsed ? "px-2" : "px-3")}>
+          <div
+            className={cn(
+              "mt-4 border-t border-rail-border pt-4",
+              collapsed ? "flex justify-center px-2" : "px-3",
+            )}
+          >
             <RailFooter collapsed={collapsed} onToggle={toggleCollapsed} />
           </div>
         </aside>
