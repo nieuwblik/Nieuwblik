@@ -20,12 +20,17 @@ const beeldPerSlug = new Map(portfolio.map((p) => [p.slug, p.image]));
  * kaartkleur; ligt er iets, dan kleurt de voet mee met het zwaarste dat er
  * ligt. Zo zie je van een afstand welke klant aandacht vraagt, zonder dat de
  * kaart van hoogte verandert.
+ *
+ * Warm oplopend in plaats van vier losse kleuren: blauw voor "normaal" week
+ * terug in de kaart in plaats van op te vallen, terwijl juist dat de meest
+ * voorkomende stand is. Rood blijft apart, want alarm hoort niet op een
+ * schaal te staan.
  */
 const VOET: Record<Priority, { vlak: string; stip: string }> = {
-  urgent: { vlak: "bg-rose-500/15", stip: "bg-rose-500" },
-  hoog: { vlak: "bg-orange-500/15", stip: "bg-orange-500" },
-  normaal: { vlak: "bg-sky-500/10", stip: "bg-sky-500" },
-  laag: { vlak: "bg-slate-500/10", stip: "bg-slate-400" },
+  urgent: { vlak: "bg-rose-500/30", stip: "bg-rose-500" },
+  hoog: { vlak: "bg-orange-500/30", stip: "bg-orange-500" },
+  normaal: { vlak: "bg-amber-400/30", stip: "bg-amber-500" },
+  laag: { vlak: "bg-slate-400/20", stip: "bg-slate-400" },
 };
 
 /**
