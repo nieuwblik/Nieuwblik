@@ -293,11 +293,13 @@ const AdminLayout = () => {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="truncate font-normal text-muted-foreground">{displayName}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={toggleTheme}>
+        {/* Vanaf sm staat dit als eigen knop in de balk; twee knoppen voor
+            hetzelfde naast elkaar is verwarrend. */}
+        <DropdownMenuItem className="sm:hidden" onSelect={toggleTheme}>
           {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           {theme === "dark" ? "Lichte modus" : "Donkere modus"}
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="sm:hidden" />
         <DropdownMenuItem onSelect={() => void signOut()}>
           <LogOut className="h-4 w-4" />
           Uitloggen
@@ -375,6 +377,16 @@ const AdminLayout = () => {
             () => navigate("/admin/taken"),
             teLaat > 0,
           )}
+
+          {/* Op een telefoon zou een vijfde knop het zoekveld platdrukken;
+              daar staat het omschakelen in het accountmenu. */}
+          <span className="hidden sm:contents">
+            {balkKnop(
+              theme === "dark" ? Sun : Moon,
+              theme === "dark" ? "Naar lichte modus" : "Naar donkere modus",
+              toggleTheme,
+            )}
+          </span>
 
           <span className="mx-1 hidden h-6 w-px bg-rail-border sm:block" />
           {accountMenu}
