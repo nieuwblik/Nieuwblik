@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
+import { korteNaam } from "@/admin/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
@@ -111,7 +112,13 @@ export function useMarkInvoiced() {
 export function useTeam() {
   return useQuery({
     queryKey: adminKeys.team,
-    queryFn: async (): Promise<TeamMember[]> => unwrap(await supabase.rpc("admin_team")),
+    // De RPC valt terug op het e-mailadres als er geen naam is ingevuld. Dat
+    // adres hoort niet op elke taakregel: het kost drie keer zoveel breedte
+    // als een voornaam en zegt niets extra's.
+    queryFn: async (): Promise<TeamMember[]> => {
+      const leden = unwrap(await supabase.rpc("admin_team"));
+      return leden.map((lid) => ({ ...lid, name: korteNaam(lid.name) }));
+    },
     staleTime: 5 * 60 * 1000,
   });
 }

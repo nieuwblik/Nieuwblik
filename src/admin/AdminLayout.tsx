@@ -15,6 +15,7 @@ import {
   Search,
   ShieldAlert,
   Sun,
+  UserPen,
   UserPlus,
   Users,
   Zap,
@@ -35,6 +36,7 @@ import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo.webp";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
+import ProfileNameDialog from "@/admin/components/ProfileNameDialog";
 import QuickCapture from "@/admin/components/QuickCapture";
 import { daysUntil, initials } from "@/admin/format";
 import { useTasks } from "@/admin/queries";
@@ -162,6 +164,7 @@ const AdminLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [captureOpen, setCaptureOpen] = useState(false);
+  const [naamOpen, setNaamOpen] = useState(false);
   const { data: tasks = [] } = useTasks();
 
   const teLaat = tasks.filter((t) => t.status !== "klaar" && (daysUntil(t.due_date) ?? 1) < 0).length;
@@ -292,6 +295,11 @@ const AdminLayout = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="truncate font-normal text-muted-foreground">{displayName}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onSelect={() => setNaamOpen(true)}>
+          <UserPen className="h-4 w-4" />
+          Naam wijzigen
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         {/* Vanaf sm staat dit als eigen knop in de balk; twee knoppen voor
             hetzelfde naast elkaar is verwarrend. */}
@@ -432,6 +440,7 @@ const AdminLayout = () => {
 
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       <QuickCapture open={captureOpen} onOpenChange={setCaptureOpen} />
+      <ProfileNameDialog open={naamOpen} onOpenChange={setNaamOpen} />
     </div>
   );
 };

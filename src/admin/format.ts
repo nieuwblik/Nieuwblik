@@ -107,6 +107,18 @@ export function formatBudget(cents: number | null | undefined): string {
   }).format(cents / 100);
 }
 
+/**
+ * Een naam die terugvalt op een e-mailadres: toon dan alleen het deel ervoor.
+ * Een volledig adres kost drie keer zoveel breedte als een voornaam en zegt
+ * op een taakregel niets extra's. Zodra iemand een echte naam invult, laat
+ * deze functie die met rust.
+ */
+export function korteNaam(value: string | null | undefined): string {
+  if (!value) return "";
+  const at = value.indexOf("@");
+  return at > 0 ? value.slice(0, at) : value;
+}
+
 /** Initialen voor de avatar in de zijbalk. */
 export function initials(name: string): string {
   const parts = name.trim().split(/[\s@.]+/).filter(Boolean);

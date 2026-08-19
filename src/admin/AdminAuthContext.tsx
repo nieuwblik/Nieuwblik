@@ -16,6 +16,8 @@ interface AdminAuthValue {
   user: User | null;
   /** Weergavenaam uit profiles, met het e-mailadres als terugval. */
   displayName: string;
+  /** Leest het profiel opnieuw, na het wijzigen van je naam. */
+  refreshProfile: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -97,8 +99,22 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
     await supabase.auth.signOut();
   }, []);
 
+  /** Na het wijzigen van je naam: opnieuw lezen zonder de sessie aan te raken. */
+  const refreshProfile = useCallback(async () => {
+    if (!user) return;
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name, email")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (!activeRef.current) return;
+    setDisplayName(profile?.display_name || profile?.email || user.email || "");
+  }, [user]);
+
   return (
-    <AdminAuthContext.Provider value={{ status, user, displayName, signOut }}>{children}</AdminAuthContext.Provider>
+    <AdminAuthContext.Provider value={{ status, user, displayName, signOut, refreshProfile }}>
+      {children}
+    </AdminAuthContext.Provider>
   );
 };
 

@@ -141,6 +141,18 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Bovenaan wie aandacht vraagt: klanten waar werk ligt, zwaarste
+          urgentie eerst. Dat is de vraag waarmee je het portaal opent. */}
+      {!isLoading && rows.some((r) => r.openTasks > 0) && (
+        <section>
+          <div className="mb-3 flex items-baseline justify-between">
+            <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Vraagt aandacht</h2>
+            <span className="text-xs text-muted-foreground">Urgentste bovenaan</span>
+          </div>
+          <ClientGrid rows={rows} groep="werk" />
+        </section>
+      )}
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Openstaande taken</CardTitle>
@@ -171,8 +183,8 @@ const Dashboard = () => {
 
       <section>
         <div className="mb-3 flex items-baseline justify-between">
-          <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Klanten</h2>
-          <span className="text-xs text-muted-foreground">Openstaand werk bovenaan</span>
+          <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Overige klanten</h2>
+          <span className="text-xs text-muted-foreground">Niets openstaand</span>
         </div>
 
         {isLoading ? (
@@ -180,7 +192,7 @@ const Dashboard = () => {
         ) : rows.length === 0 ? (
           <EmptyState icon={Users} title="Nog geen klanten" description="Voeg een klant toe om te beginnen." />
         ) : (
-          <ClientGrid rows={rows} />
+          <ClientGrid rows={rows} groep="rest" />
         )}
       </section>
     </div>
