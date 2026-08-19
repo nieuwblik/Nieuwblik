@@ -327,17 +327,25 @@ const AdminLayout = () => {
               <Menu className="h-5 w-5" />
             </button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-72 border-rail-border bg-rail px-0 py-5">
+          {/* Zonder kruisje rechtsboven: het paneel sluit met dezelfde knop
+              onderin als waarmee je de zijbalk op een groot scherm inklapt.
+              Eén plek, op elk formaat. */}
+          <SheetContent hideClose side="left" className="flex w-72 flex-col border-rail-border bg-rail p-0">
             <SheetTitle className="sr-only">Nieuwblik Portaal</SheetTitle>
             <SheetDescription className="sr-only">Navigatie door het portaal</SheetDescription>
-            {/* Op een telefoon staat het logo niet in de balk - daar is de
-                ruimte te krap - dus staat het hier. */}
-            <div className="mb-6 px-4">
-              <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />
+
+            <div className="flex-1 overflow-y-auto py-5">
+              {/* Op een telefoon staat het logo niet in de balk - daar is de
+                  ruimte te krap - dus staat het hier. */}
+              <div className="mb-6 px-4">
+                <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />
+              </div>
+              <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
             </div>
-            {/* Geen inklapknop in het uitschuifpaneel: dat sluit je door
-                ernaast te tikken, inklappen bestaat daar niet. */}
-            <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
+
+            <div className="border-t border-rail-border px-3 py-4">
+              <RailFooter collapsed={false} onToggle={() => setMobileOpen(false)} />
+            </div>
           </SheetContent>
         </Sheet>
 
