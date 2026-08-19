@@ -26,6 +26,24 @@ export function timeAgo(value: string | null | undefined): string {
 }
 
 /**
+ * Tijdstip zoals je het uitspreekt: "Vandaag 14:30", "Gisteren 09:00", en
+ * daarbuiten met de datum erbij. Voor tijdlijnen, waar het merendeel van de
+ * regels van vandaag of gisteren is en een volle datum alleen ruis toevoegt.
+ */
+export function momentLabel(value: string | null | undefined): string {
+  if (!value) return "—";
+  const date = parseISO(value);
+  if (!isValid(date)) return "—";
+
+  const dagen = differenceInCalendarDays(date, new Date());
+  const tijd = format(date, "HH:mm");
+  if (dagen === 0) return `Vandaag ${tijd}`;
+  if (dagen === -1) return `Gisteren ${tijd}`;
+  if (dagen === 1) return `Morgen ${tijd}`;
+  return `${format(date, "d MMM", { locale: nl })} ${tijd}`;
+}
+
+/**
  * De meest recente van een reeks tijdstippen; null als er geen bruikbare bij
  * zit. Vergelijkt op geparste tijd en niet op de tekst: twee tijdstempels
  * kunnen dezelfde tijd in een andere schrijfwijze bevatten ("Z" tegenover
