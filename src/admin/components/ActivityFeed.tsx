@@ -1,8 +1,9 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
+import { Check, Flag, MessageSquare, Paperclip, Plus, type LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { UPDATE_KIND } from "@/admin/constants";
-import { initials, momentLabel, tintFor } from "@/admin/format";
+import { momentLabel } from "@/admin/format";
 import { useProjectFiles, useProjectUpdates, useTasks, type TeamMember } from "@/admin/queries";
 
 interface ActivityFeedProps {
@@ -15,21 +16,35 @@ interface ActivityFeedProps {
 
 interface Gebeurtenis {
   id: string;
+  /** Waar het over gaat: de taaknaam, het bericht, de bestandsnaam. */
+  onderwerp: string;
+  /** Wat ermee gebeurde, kort. */
+  actie: string;
   wie: string;
-  wat: string;
-  detail: string | null;
   wanneer: string;
-  chip?: { label: string; className: string };
+  icoon: LucideIcon;
+  kleur: string;
+  /** Waar je heen gaat als je erop klikt; niet alles heeft een eigen pagina. */
+  to?: string;
 }
+
+const SOORT = {
+  af: { icoon: Check, kleur: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" },
+  nieuw: { icoon: Plus, kleur: "bg-muted text-muted-foreground" },
+  bericht: { icoon: MessageSquare, kleur: "bg-sky-500/15 text-sky-600 dark:text-sky-400" },
+  mijlpaal: { icoon: Flag, kleur: "bg-amber-500/15 text-amber-600 dark:text-amber-400" },
+  bestand: { icoon: Paperclip, kleur: "bg-muted text-muted-foreground" },
+};
 
 /**
  * Wat er de laatste tijd bij deze klant is gebeurd, uit alle hoeken bij
  * elkaar: geplaatste berichten, afgeronde en aangemaakte taken, geüploade
  * bestanden. Alleen lezen — plaatsen doe je op de tijdlijn zelf.
  *
- * Zonder deze samenvoeging moet je drie tabbladen langs om te zien of er iets
- * beweegt bij een klant, en dat is precies de vraag waarmee je zo'n pagina
- * opent.
+ * Het onderwerp staat vooraan en de handeling eronder, en niet andersom. Met
+ * z'n tweeën is "Jij maakte een taak aan" op elke regel hetzelfde; waar het
+ * om gaat is wélke taak. Het soort gebeurtenis zit in het icoon, zodat je aan
+ * de linkerrand al ziet of er iets af is of juist bij is gekomen.
  */
 const ActivityFeed = ({ projectId, team, userId, limit = 6 }: ActivityFeedProps) => {
   const { data: updates = [] } = useProjectUpdates(projectId);
@@ -47,54 +62,42 @@ const ActivityFeed = ({ projectId, team, userId, limit = 6 }: ActivityFeedProps)
     const alles: Gebeurtenis[] = [];
 
     for (const update of updates) {
+      const soort = update.kind === "mijlpaal" ? SOORT.mijlpaal : SOORT.bericht;
       alles.push({
         id: `update-${update.id}`,
+        onderwerp: update.body,
+        actie: update.kind === "mijlpaal" ? "Mijlpaal" : update.kind === "notitie" ? "Notitie" : "Update",
         wie: naam(update.author_id),
-        wat: `plaatste een ${UPDATE_KIND[update.kind].label.toLowerCase()}`,
-        detail: update.body,
         wanneer: update.created_at,
-        chip: { label: UPDATE_KIND[update.kind].label, className: UPDATE_KIND[update.kind].className },
+        ...soort,
       });
     }
 
     for (const task of taken) {
-      if (task.status === "klaar" && task.completed_at) {
-        alles.push({
-          id: `af-${task.id}`,
-          wie: naam(task.assigned_to ?? task.created_by),
-          wat: "rondde een taak af",
-          detail: task.title,
-          wanneer: task.completed_at,
-          chip: {
-            label: "Afgerond",
-            className:
-              "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/25",
-          },
-        });
-      } else {
-        alles.push({
-          id: `nieuw-${task.id}`,
-          wie: naam(task.created_by),
-          wat: "maakte een taak aan",
-          detail: task.title,
-          wanneer: task.created_at,
-        });
-      }
+      const af = task.status === "klaar" && task.completed_at;
+      alles.push({
+        id: af ? `af-${task.id}` : `nieuw-${task.id}`,
+        onderwerp: task.title,
+        actie: af ? "Taak afgerond" : "Taak aangemaakt",
+        wie: naam(af ? (task.assigned_to ?? task.created_by) : task.created_by),
+        wanneer: af ? task.completed_at! : task.created_at,
+        to: `/admin/taken/${task.id}`,
+        ...(af ? SOORT.af : SOORT.nieuw),
+      });
     }
 
     for (const file of files) {
       alles.push({
         id: `bestand-${file.id}`,
+        onderwerp: file.file_name,
+        actie: "Bestand toegevoegd",
         wie: naam(file.uploaded_by),
-        wat: "voegde een bestand toe",
-        detail: file.file_name,
         wanneer: file.created_at,
+        ...SOORT.bestand,
       });
     }
 
-    return alles
-      .sort((a, b) => new Date(b.wanneer).getTime() - new Date(a.wanneer).getTime())
-      .slice(0, limit);
+    return alles.sort((a, b) => new Date(b.wanneer).getTime() - new Date(a.wanneer).getTime()).slice(0, limit);
   }, [updates, allTasks, files, team, userId, projectId, limit]);
 
   if (gebeurtenissen.length === 0) {
@@ -103,41 +106,40 @@ const ActivityFeed = ({ projectId, team, userId, limit = 6 }: ActivityFeedProps)
 
   return (
     <ol className="space-y-4">
-      {gebeurtenissen.map((g, i) => (
-        <li key={g.id} className="relative flex gap-3">
-          {/* De lijn verbindt de bolletjes en stopt bij de laatste, anders
-              wijst hij naar beneden alsof er nog iets komt. */}
-          {i < gebeurtenissen.length - 1 && (
-            <span aria-hidden="true" className="absolute left-4 top-9 h-[calc(100%-1rem)] w-px bg-border" />
-          )}
+      {gebeurtenissen.map((g, i) => {
+        const Icoon = g.icoon;
 
-          <span
-            className={cn(
-              "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold",
-              tintFor(g.wie),
+        return (
+          <li key={g.id} className="relative flex gap-3">
+            {/* De lijn verbindt de bolletjes en stopt bij de laatste, anders
+                wijst hij naar beneden alsof er nog iets komt. */}
+            {i < gebeurtenissen.length - 1 && (
+              <span aria-hidden="true" className="absolute left-4 top-9 h-[calc(100%-1rem)] w-px bg-border" />
             )}
-            aria-hidden="true"
-          >
-            {initials(g.wie)}
-          </span>
 
-          <div className="min-w-0 flex-1 pb-1">
-            <p className="text-sm leading-snug">
-              <span className="font-medium">{g.wie}</span> <span className="text-muted-foreground">{g.wat}</span>
-            </p>
-            {g.detail && <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{g.detail}</p>}
+            <span
+              className={cn("relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full", g.kleur)}
+              aria-hidden="true"
+            >
+              <Icoon className="h-4 w-4" />
+            </span>
 
-            <div className="mt-1 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-muted-foreground">{momentLabel(g.wanneer)}</span>
-              {g.chip && (
-                <span className={cn("rounded border px-1.5 py-0.5 text-[11px] font-medium", g.chip.className)}>
-                  {g.chip.label}
-                </span>
+            <div className="min-w-0 flex-1 pb-1">
+              {g.to ? (
+                <Link to={g.to} className="block text-sm font-medium leading-snug hover:underline">
+                  <span className="line-clamp-2">{g.onderwerp}</span>
+                </Link>
+              ) : (
+                <p className="line-clamp-2 text-sm font-medium leading-snug">{g.onderwerp}</p>
               )}
+
+              <p className="mt-1 text-xs text-muted-foreground">
+                {g.actie} · {g.wie} · {momentLabel(g.wanneer)}
+              </p>
             </div>
-          </div>
-        </li>
-      ))}
+          </li>
+        );
+      })}
     </ol>
   );
 };
