@@ -357,9 +357,7 @@ const AdminLayout = () => {
           </SheetContent>
         </Sheet>
 
-        {/* Op grote schermen is dit blok precies zo breed dat de zoekbalk op
-            de contentkolom begint: 20 padding + 224 + 12 tussenruimte = 256. */}
-        <div className="hidden shrink-0 sm:block lg:w-56">
+        <div className="hidden shrink-0 sm:block">
           <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90 brightness-0 dark:invert" />
         </div>
 
@@ -368,7 +366,7 @@ const AdminLayout = () => {
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
-          className="flex h-10 min-w-0 flex-1 items-center gap-3 rounded-lg bg-rail-panel px-3 text-sm text-rail-muted transition-colors duration-150 hover:bg-rail-hover sm:max-w-md"
+          className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-3 rounded-lg bg-rail-panel px-3 text-sm text-rail-muted transition-colors duration-150 hover:bg-rail-hover sm:max-w-md"
         >
           <Search className="h-4 w-4 shrink-0" />
           <span className="truncate">Zoek of typ een opdracht</span>
@@ -377,7 +375,7 @@ const AdminLayout = () => {
           </kbd>
         </button>
 
-        <div className="ml-auto flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1">
           {/* Een taak vastleggen blijft ook op de telefoon bereikbaar: daar
               is geen N-toets, en dit is waar het portaal voor bedoeld is. */}
           {balkKnop(Zap, "Nieuwe taak (N)", () => setCaptureOpen(true))}
