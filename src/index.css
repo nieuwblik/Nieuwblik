@@ -354,12 +354,24 @@ All colors MUST be HSL.
   --sw-green-bright: 160 84% 30%;
   --sw-rule: 160 12% 8%;              /* used with low alpha for hairlines */
 
-  /* Zijbalk van het portaal. Gebouwd op --sw-ink, zodat de donkere kant van
-     de beheeromgeving hetzelfde groen-getinte zwart gebruikt als de publieke
-     site in plaats van een tweede, net iets ander zwart. Deze waarden staan
-     los van het thema: de zijbalk blijft donker, ook in lichte modus. */
+  /* Zijbalk en bovenbalk van het portaal. Gebouwd op --sw-ink en --sw-paper,
+     zodat de beheeromgeving hetzelfde groen-getinte zwart en dezelfde warme
+     off-white gebruikt als de publieke site, in plaats van een tweede, net
+     iets ander zwart en wit. Hieronder de lichte modus; de donkere staat in
+     het .dark-blok eronder. */
+  --rail: 150 14% 97.5%;
+  --rail-panel: 150 10% 93%;          /* verdiept vlak binnen de balk */
+  --rail-fg: 160 14% 7%;
+  --rail-muted: 160 6% 36%;
+  --rail-hover: 150 10% 94%;
+  --rail-active: 150 12% 90%;
+  --rail-border: 150 8% 87%;
+  --rail-accent: 160 84% 22%;         /* donker genoeg om op wit te leven */
+}
+
+.dark {
   --rail: 160 14% 7%;
-  --rail-panel: 160 12% 11%;          /* verhoogd vlak binnen de zijbalk */
+  --rail-panel: 160 12% 11%;
   --rail-fg: 150 12% 94%;
   --rail-muted: 150 6% 58%;
   --rail-hover: 160 11% 14%;
@@ -367,6 +379,7 @@ All colors MUST be HSL.
   --rail-border: 160 10% 17%;
   --rail-accent: 160 60% 55%;         /* helder genoeg om op zwart te leven */
 }
+
 
 .sw-paper { background-color: hsl(var(--sw-paper)); }
 .sw-ink   { color: hsl(var(--sw-ink)); }

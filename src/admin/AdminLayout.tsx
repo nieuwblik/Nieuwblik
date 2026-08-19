@@ -316,7 +316,7 @@ const AdminLayout = () => {
           blijft het merk staan wanneer je de zijbalk inklapt, en hoeft het
           niet mee te krimpen tot iets onleesbaars. Donker als de zijbalk:
           samen vormen ze één vlak, en het logo is licht. */}
-      <header className="sticky top-0 z-40 flex h-16 items-center gap-3 bg-rail px-4 lg:px-5">
+      <header className="sticky top-0 z-40 flex h-16 items-center gap-3 border-b border-rail-border bg-rail px-4 lg:px-5">
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild>
             <button
@@ -338,7 +338,7 @@ const AdminLayout = () => {
               {/* Op een telefoon staat het logo niet in de balk - daar is de
                   ruimte te krap - dus staat het hier. */}
               <div className="mb-6 px-4">
-                <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />
+                <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90 brightness-0 dark:invert" />
               </div>
               <RailContent collapsed={false} onNavigate={() => setMobileOpen(false)} />
             </div>
@@ -352,7 +352,7 @@ const AdminLayout = () => {
         {/* Op grote schermen is dit blok precies zo breed dat de zoekbalk op
             de contentkolom begint: 20 padding + 224 + 12 tussenruimte = 256. */}
         <div className="hidden shrink-0 sm:block lg:w-56">
-          <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />
+          <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90 brightness-0 dark:invert" />
         </div>
 
         {/* Zoeken is een veld en geen knop: je typt erin, en dat wil je
@@ -407,7 +407,7 @@ const AdminLayout = () => {
             animeren geeft schokkerige herberekening. */}
         <aside
           className={cn(
-            "hidden shrink-0 flex-col bg-rail py-5 lg:sticky lg:top-16 lg:flex lg:h-[calc(100vh-4rem)]",
+            "hidden shrink-0 flex-col border-r border-rail-border bg-rail py-5 lg:sticky lg:top-16 lg:flex lg:h-[calc(100vh-4rem)]",
             collapsed ? "w-[76px]" : "w-64",
           )}
         >
