@@ -101,10 +101,10 @@ const RailContent = ({
 
   return (
     <>
-      <div className={cn("flex h-9 items-center", collapsed ? "justify-center px-2" : "gap-3 px-4")}>
+      <div className={cn("flex h-10 items-center", collapsed ? "justify-center px-2" : "gap-3 px-4")}>
         {/* Ingeklapt blijft de balk leeg maar wel even hoog, zodat de navigatie
             niet omhoog springt zodra je de zijbalk smaller maakt. */}
-        {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-[21px] w-auto opacity-90" />}
+        {!collapsed && <img src={logoSrc} alt="Nieuwblik" className="h-7 w-auto opacity-90" />}
       </div>
 
       {/* Ingeklapt zijn de rijen 40 breed in een balk van 76: zonder centreren
