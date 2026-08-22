@@ -191,7 +191,7 @@ const Index = () => {
             </div>
             <span className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.8)" }}>
               5,0 op Google,{" "}
-              <span style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>op basis van 15+ reviews</span>
+              <span style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>op basis van 19+ reviews</span>
             </span>
           </div>
         </div>
