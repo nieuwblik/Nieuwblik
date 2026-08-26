@@ -233,6 +233,7 @@ export type Database = {
       projects: {
         Row: {
           budget_cents: number | null
+          built_with_tanstack: boolean
           client_id: string | null
           created_at: string
           created_by: string | null
@@ -250,6 +251,7 @@ export type Database = {
         }
         Insert: {
           budget_cents?: number | null
+          built_with_tanstack?: boolean
           client_id?: string | null
           created_at?: string
           created_by?: string | null
@@ -267,6 +269,7 @@ export type Database = {
         }
         Update: {
           budget_cents?: number | null
+          built_with_tanstack?: boolean
           client_id?: string | null
           created_at?: string
           created_by?: string | null
