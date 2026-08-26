@@ -347,7 +347,7 @@ const ClientProjectDialog = ({
               <span className="text-sm">
                 Gemaakt met TanStack
                 <span className="mt-0.5 block text-xs text-muted-foreground">
-                  Zet dit aan als deze site op TanStack draait en niet op de standaardopzet.
+                  Zet dit aan als deze site op TanStack draait. Zonder vinkje staat hij op React.
                 </span>
               </span>
             </label>

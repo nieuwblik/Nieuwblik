@@ -122,7 +122,7 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
               : "Geen afspraak"}
           </Rij>
           <Rij icon={Code2} label="Gebouwd op">
-            {project.built_with_tanstack ? "TanStack" : "Standaardopzet"}
+            {project.built_with_tanstack ? "TanStack" : "React"}
           </Rij>
         </div>
       </TabsContent>
