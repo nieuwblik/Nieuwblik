@@ -9,3 +9,8 @@ ALTER TABLE public.projects
 
 COMMENT ON COLUMN public.projects.built_with_tanstack IS
   'Aangevinkt wanneer de site op TanStack is gebouwd; zonder vinkje op React.';
+
+-- PostgREST houdt het schema in een cache. Zonder deze melding blijft hij
+-- "Could not find the built_with_tanstack column" geven tot hij zichzelf
+-- ververst.
+NOTIFY pgrst, 'reload schema';
