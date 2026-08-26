@@ -97,8 +97,8 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
           <ActivityFeed projectId={project.id} team={team} userId={userId} />
         </div>
 
-        {/* De vier dingen die je bij een klant het vaakst wilt weten. De rest
-            staat onder Gegevens, één klik verderop. */}
+        {/* Wat je bij een klant het vaakst wilt weten. De rest staat onder
+            Gegevens, één klik verderop. */}
         <div className="space-y-4 border-t border-border pt-6">
           <Kopje>Projectinfo</Kopje>
           <Rij icon={Flag} label="Fase">
@@ -120,6 +120,9 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
                   .filter(Boolean)
                   .join(" · ")
               : "Geen afspraak"}
+          </Rij>
+          <Rij icon={Code2} label="Gebouwd op">
+            {project.built_with_tanstack ? "TanStack" : "Standaardopzet"}
           </Rij>
         </div>
       </TabsContent>
@@ -166,9 +169,6 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
           </Rij>
           <Rij icon={Rocket} label="Opgeleverd">
             {formatDate(project.launched_on)}
-          </Rij>
-          <Rij icon={Code2} label="Gebouwd op">
-            {project.built_with_tanstack ? "TanStack" : "Standaardopzet"}
           </Rij>
           <Rij icon={Globe} label="Live website">
             {project.live_url ? (
