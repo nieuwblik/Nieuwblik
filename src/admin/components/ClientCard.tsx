@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Plus } from "lucide-react";
+import { Code2, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { projects as portfolio } from "@/data/projects";
@@ -108,9 +108,24 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         <div className="min-w-0 flex-1">
           {/* De hele kaart is klikbaar via een overlay; de plusknop ligt er met
               een eigen laag bovenop. Een knop ín een link is ongeldige HTML. */}
-          <Link to={row.to} className="after:absolute after:inset-0">
-            <p className="truncate text-sm font-medium leading-tight">{row.client.name}</p>
-          </Link>
+          <div className="flex min-w-0 items-center gap-1.5">
+            <Link to={row.to} className="min-w-0 after:absolute after:inset-0">
+              <p className="truncate text-sm font-medium leading-tight">{row.client.name}</p>
+            </Link>
+
+            {/* Alleen bij TanStack: bij React zou het op bijna elke kaart staan
+                en dus niets meer onderscheiden. */}
+            {row.tanstack && (
+              <span
+                title="Gemaakt met TanStack"
+                aria-label="Gemaakt met TanStack"
+                role="img"
+                className="shrink-0 text-muted-foreground"
+              >
+                <Code2 className="h-3.5 w-3.5" />
+              </span>
+            )}
+          </div>
 
           {/* Altijd een tweede regel, ook als er niets te melden valt: anders
               verspringt de hoogte per kaart. */}

@@ -32,6 +32,8 @@ export interface ClientRow {
   openTasks: number;
   /** Zwaarste prioriteit onder het openstaande werk; null als er niets ligt. */
   urgentie: Priority | null;
+  /** Draait de site van deze klant op TanStack? */
+  tanstack: boolean;
   /** Nieuwste van: project gewijzigd, update geplaatst, taak aangeraakt. */
   activeAt: string | null;
 }
@@ -106,6 +108,7 @@ export function useCombinedRows(): CombinedRows {
         project: primary ?? null,
         otherProjects: rest,
         status: primary?.status ?? null,
+        tanstack: primary?.built_with_tanstack ?? false,
         deadline: primary?.deadline ?? null,
         openTasks: sorted.reduce((total, p) => total + (openPerProject.get(p.id) ?? 0), 0),
         urgentie: sorted.reduce<Priority | null>((zwaarste, p) => {
@@ -145,6 +148,7 @@ export function useCombinedRows(): CombinedRows {
       project,
       otherProjects: [],
       status: project.status,
+      tanstack: project.built_with_tanstack,
       deadline: project.deadline,
       openTasks: openPerProject.get(project.id) ?? 0,
       urgentie: zwaarstePerProject.get(project.id) ?? null,
