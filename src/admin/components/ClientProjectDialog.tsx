@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -56,6 +57,7 @@ const EMPTY = {
   live_url: "",
   budget: "",
   description: "",
+  built_with_tanstack: false,
 };
 
 /**
@@ -99,6 +101,7 @@ const ClientProjectDialog = ({
             live_url: project?.live_url ?? "",
             budget: project?.budget_cents == null ? "" : String(project.budget_cents / 100),
             description: project?.description ?? "",
+            built_with_tanstack: project?.built_with_tanstack ?? false,
           }
         : EMPTY,
     );
@@ -142,6 +145,7 @@ const ClientProjectDialog = ({
       live_url: form.live_url.trim() || null,
       budget_cents: budget ? Math.round(Number(budget) * 100) : null,
       description: form.description.trim() || null,
+      built_with_tanstack: form.built_with_tanstack,
     };
 
     try {
@@ -332,6 +336,21 @@ const ClientProjectDialog = ({
                 />
               </div>
             </div>
+
+            {/* Onder de live-URL: het gaat over hoe díe site in elkaar zit. */}
+            <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/40">
+              <Checkbox
+                checked={form.built_with_tanstack}
+                onCheckedChange={(checked) => set("built_with_tanstack", checked === true)}
+                className="mt-0.5"
+              />
+              <span className="text-sm">
+                Gemaakt met TanStack
+                <span className="mt-0.5 block text-xs text-muted-foreground">
+                  Zet dit aan als deze site op TanStack draait en niet op de standaardopzet.
+                </span>
+              </span>
+            </label>
 
             <div className="space-y-2">
               <Label htmlFor="cp-description">Omschrijving</Label>

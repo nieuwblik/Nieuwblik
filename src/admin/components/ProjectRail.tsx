@@ -4,6 +4,7 @@ import {
   CalendarClock,
   CalendarDays,
   CircleDollarSign,
+  Code2,
   ExternalLink,
   Flag,
   Globe,
@@ -165,6 +166,9 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
           </Rij>
           <Rij icon={Rocket} label="Opgeleverd">
             {formatDate(project.launched_on)}
+          </Rij>
+          <Rij icon={Code2} label="Gebouwd op">
+            {project.built_with_tanstack ? "TanStack" : "Standaardopzet"}
           </Rij>
           <Rij icon={Globe} label="Live website">
             {project.live_url ? (
