@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Star } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { reviewSchema, type ReviewFormData } from "@/lib/validationSchemas";
 
@@ -42,6 +41,9 @@ const ReviewForm = () => {
         return;
       }
 
+      // Supabase pas in de browser laden: de client is een CommonJS-bundel en
+      // mag niet in de servergraaf terechtkomen (SSR-fout "exports is not defined").
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase
         .from('reviews')
         .insert({

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { AnimatedButton } from "@/components/ui/animated-button";
 
 interface Review {
@@ -22,6 +21,9 @@ const ReviewsDisplay = () => {
 
   const fetchReviews = async () => {
     try {
+      // Supabase pas in de browser laden: de client is een CommonJS-bundel en
+      // mag niet in de servergraaf terechtkomen (SSR-fout "exports is not defined").
+      const { supabase } = await import("@/integrations/supabase/client");
       const { data, error } = await supabase
         .from('reviews_public')
         .select('*')
