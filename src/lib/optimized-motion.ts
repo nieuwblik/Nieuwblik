@@ -15,7 +15,7 @@ import { Variants } from "framer-motion";
  * Optimized stagger container voor lijsten en grids
  * Gebruik: Voor parent containers met meerdere children
  */
-export const optimizedStaggerContainer = (shouldReduceMotion: boolean = false): Variants => ({
+export const optimizedStaggerContainer = (shouldReduceMotion: boolean | null = false): Variants => ({
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -30,7 +30,7 @@ export const optimizedStaggerContainer = (shouldReduceMotion: boolean = false): 
  * Optimized stagger item voor individuele items in een lijst
  * Gebruik: Voor child elementen binnen een stagger container
  */
-export const optimizedStaggerItem = (shouldReduceMotion: boolean = false): Variants => ({
+export const optimizedStaggerItem = (shouldReduceMotion: boolean | null = false): Variants => ({
     hidden: {
         opacity: 0,
         y: shouldReduceMotion ? 0 : 30
@@ -49,7 +49,7 @@ export const optimizedStaggerItem = (shouldReduceMotion: boolean = false): Varia
  * Optimized fade up animatie
  * Gebruik: Voor hero secties en grote content blocks
  */
-export const optimizedFadeUp = (shouldReduceMotion: boolean = false): Variants => ({
+export const optimizedFadeUp = (shouldReduceMotion: boolean | null = false): Variants => ({
     hidden: {
         opacity: 0,
         y: shouldReduceMotion ? 0 : 40
@@ -68,7 +68,7 @@ export const optimizedFadeUp = (shouldReduceMotion: boolean = false): Variants =
  * Optimized scale up animatie
  * Gebruik: Voor cards en interactive elementen
  */
-export const optimizedScaleUp = (shouldReduceMotion: boolean = false): Variants => ({
+export const optimizedScaleUp = (shouldReduceMotion: boolean | null = false): Variants => ({
     hidden: {
         opacity: 0,
         scale: shouldReduceMotion ? 1 : 0.95
@@ -87,7 +87,7 @@ export const optimizedScaleUp = (shouldReduceMotion: boolean = false): Variants 
  * Optimized slide in from left
  * Gebruik: Voor side-by-side content
  */
-export const optimizedSlideInLeft = (shouldReduceMotion: boolean = false): Variants => ({
+export const optimizedSlideInLeft = (shouldReduceMotion: boolean | null = false): Variants => ({
     hidden: {
         opacity: 0,
         x: shouldReduceMotion ? 0 : -40
@@ -106,7 +106,7 @@ export const optimizedSlideInLeft = (shouldReduceMotion: boolean = false): Varia
  * Optimized slide in from right
  * Gebruik: Voor side-by-side content
  */
-export const optimizedSlideInRight = (shouldReduceMotion: boolean = false): Variants => ({
+export const optimizedSlideInRight = (shouldReduceMotion: boolean | null = false): Variants => ({
     hidden: {
         opacity: 0,
         x: shouldReduceMotion ? 0 : 40

@@ -9,6 +9,9 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    // Vervangt het oude voorladen-op-intentie uit App.tsx: chunks van een
+    // route worden opgehaald zodra de muis boven een link hangt.
+    defaultPreload: "intent",
     defaultPreloadStaleTime: 0,
   });
 

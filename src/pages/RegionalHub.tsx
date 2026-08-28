@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "@/lib/router-compat";
 import { MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -24,7 +24,7 @@ interface RegionHubData {
   faq: { q: string; a: string }[];
 }
 
-const HUBS: RegionHubData[] = [
+export const HUBS: RegionHubData[] = [
   {
     slug: "noord-holland",
     name: "Noord-Holland",

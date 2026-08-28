@@ -14,6 +14,12 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    ssr: {
+      // Supabase publiceert CJS-bestanden die de dev-SSR-resolver niet vindt
+      // ("Cannot find module .../postgrest-js/dist/index.cjs"); bundelen lost
+      // dat op in dev én prod.
+      noExternal: [/^@supabase\//],
+    },
     plugins: [
       // Levert varianten per schermbreedte voor imports met ?w=...&as=srcset
       // (src/data/projects.ts, src/components/ScrollPortfolio.tsx).

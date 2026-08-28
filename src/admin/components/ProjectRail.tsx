@@ -70,7 +70,7 @@ const Kopje = ({ children }: { children: React.ReactNode }) => (
  */
 const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
   const late = (daysUntil(project.deadline) ?? 1) < 0 && project.status !== "live";
-  const volgende = volgendeTermijn(client?.billing_start, client?.billing_cycle);
+  const volgende = volgendeTermijn(client?.billing_start ?? null, client?.billing_cycle ?? null);
 
   return (
     <Tabs defaultValue="activiteit">

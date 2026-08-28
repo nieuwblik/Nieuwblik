@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "@/lib/router-compat";
 import { useEffect } from "react";
 import puurMobiel2Img from "@/assets/recente-projecten/puurinharmonie-mobiel2.webp";
 import Footer from "@/components/Footer";
@@ -30,6 +30,7 @@ const PortfolioDetail = () => {
             }, 3000);
             return () => clearTimeout(timeout);
         }
+        return undefined;
     }, [project, navigate]);
 
     if (!project) {

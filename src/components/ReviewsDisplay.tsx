@@ -29,7 +29,7 @@ const ReviewsDisplay = () => {
         .limit(6);
 
       if (error) throw error;
-      setReviews(data || []);
+      setReviews((data ?? []) as Review[]);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     } finally {

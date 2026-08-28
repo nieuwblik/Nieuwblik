@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import gsap from "gsap";
 import { useReducedMotion } from "@/lib/reduced-motion";
 
@@ -60,8 +60,7 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
             sizes="(min-width: 1280px) 600px, (min-width: 768px) 45vw, 92vw"
             alt={`${title} — website ontworpen door Nieuwblik`}
             loading={priority ? "eager" : "lazy"}
-            // @ts-expect-error fetchpriority isn't in React 18's img attribute types yet
-            fetchpriority={priority ? "high" : "auto"}
+            fetchPriority={priority ? "high" : "auto"}
             decoding="async"
             onLoad={() => setLoaded(true)}
             className={`w-full h-full object-cover object-top transition-[opacity,filter,transform] duration-500 ease-out will-change-transform group-hover:grayscale group-hover:blur-[6px] group-hover:scale-[1.04] ${loaded ? "opacity-100" : "opacity-0"}`}

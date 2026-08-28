@@ -1,0 +1,10 @@
+{
+  "functions": [
+    {
+      "name": "send-contact-email",
+      "classification": "internal-only",
+      "signal": "called from src/components/ContactForm.tsx and src/pages/GratisWebsiteAnalyse.tsx via supabase.functions.invoke; left in place because the user explicitly forbade any changes under supabase/",
+      "outcome": "left"
+    }
+  ]
+}

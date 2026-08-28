@@ -15,6 +15,7 @@ const CookieConsent = () => {
       const timer = setTimeout(() => setShowBanner(true), 1500);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, []);
 
   const acceptCookies = () => {

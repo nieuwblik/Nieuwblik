@@ -34,7 +34,8 @@ const ClientDetail = () => {
   if (isLoading || projectsLoading) return <p className="text-sm text-muted-foreground">Laden…</p>;
   if (isError || !client) return <p className="text-sm text-muted-foreground">Deze klant bestaat niet (meer).</p>;
 
-  if (own.length > 0) return <Navigate to={`/admin/projecten/${own[0].id}`} replace />;
+  const eerste = own[0];
+  if (eerste) return <Navigate to={`/admin/projecten/${eerste.id}`} replace />;
 
   return (
     <div>

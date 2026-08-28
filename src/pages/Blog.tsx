@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Clock, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/data/blogPosts";
 import { AnimatedButton } from "@/components/ui/animated-button";

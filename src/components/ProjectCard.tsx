@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { easings, modalVariants, overlayVariants, staggerContainer, staggerItem } from "@/lib/motion";
 interface ProjectCardProps {

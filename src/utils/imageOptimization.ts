@@ -40,8 +40,8 @@ export const lazyLoadImage = (img: HTMLImageElement) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lazyImage = entry.target as HTMLImageElement;
-          if (lazyImage.dataset.src) {
-            lazyImage.src = lazyImage.dataset.src;
+          if (lazyImage.dataset['src']) {
+            lazyImage.src = lazyImage.dataset['src'];
             lazyImage.classList.add('loaded');
             observer.unobserve(lazyImage);
           }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "@/lib/router-compat";
 import { getCityBySlug } from "@/data/cities";
 import { getIndustryBySlug } from "@/data/industries";
 import CityLanding from "./CityLanding";

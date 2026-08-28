@@ -265,7 +265,7 @@ const Portfolio = () => {
                       category={project.category}
                       description={project.description}
                       image={project.image}
-                      imageSet={project.imageSet}
+                      {...(project.imageSet ? { imageSet: project.imageSet } : {})}
                       slug={project.slug}
                       meta={project.tags.slice(0, 2).join(" · ")}
                       priority={index < 2}

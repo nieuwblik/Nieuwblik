@@ -1,5 +1,6 @@
+import type { JSX } from "react";
 import DOMPurify from "dompurify";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate } from "@/lib/router-compat";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Footer from "@/components/Footer";
@@ -153,7 +154,7 @@ const BlogPost = () => {
         parts.push(<em key={match.index}>{match[4]}</em>);
       } else if (match[5]) {
         // [link](url)
-        const href = match[7];
+        const href = match[7] ?? "";
         const isAnchor = href.startsWith('#');
         parts.push(
           <a
@@ -236,7 +237,7 @@ const BlogPost = () => {
       if (section.includes('|') && section.includes('---')) {
         const lines = section.split('\n').filter(line => line.trim());
         if (lines.length >= 2) {
-          const headerLine = lines[0];
+          const headerLine = lines[0] ?? "";
           const dataLines = lines.slice(2);
           const headers = headerLine.split('|').map(h => h.trim()).filter(h => h);
 
@@ -504,7 +505,7 @@ const BlogPost = () => {
           articlePublishedTime={post.date}
           articleModifiedTime={post.date}
           articleAuthor="Justin Slok"
-          structuredData={structuredData || undefined}
+          {...(structuredData ? { structuredData } : {})}
           breadcrumbs={[
             { name: "Home", url: "https://www.nieuwblik.com" },
             { name: "Blog", url: "https://www.nieuwblik.com/blog" },
@@ -529,22 +530,25 @@ const BlogPost = () => {
       {/* Reading Progress Bar — portalled to <body>. UnderlayNav tweens `x` on
           the <main> that wraps this page, and a transformed ancestor becomes the
           containing block for its position:fixed descendants: left in place this
-          bar would stop tracking the viewport and slide with the page. */}
-      {createPortal(
-        <motion.div
-          className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50"
-          initial={{ scaleX: 0, transformOrigin: "left" }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5 }}
-        >
+          bar would stop tracking the viewport and slide with the page.
+          Alleen in de browser: op de server bestaat document niet, en portals
+          doen niet mee aan hydration, dus dit is veilig. */}
+      {typeof document !== "undefined" &&
+        createPortal(
           <motion.div
-            className="h-full bg-accent"
-            style={{ width: `${scrollProgress}%` }}
-            transition={{ duration: 0.1 }}
-          />
-        </motion.div>,
-        document.body
-      )}
+            className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50"
+            initial={{ scaleX: 0, transformOrigin: "left" }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              className="h-full bg-accent"
+              style={{ width: `${scrollProgress}%` }}
+              transition={{ duration: 0.1 }}
+            />
+          </motion.div>,
+          document.body
+        )}
 
       {/* Back to Blog */}
       <motion.section
@@ -586,31 +590,34 @@ const BlogPost = () => {
             {/* Table of Contents - Mobile — portalled to <body> for the same
                 reason as the progress bar above: the <main> wrapper gets
                 transformed, which would otherwise re-anchor this fixed button
-                to main instead of the viewport. */}
-            {createPortal(
-              <div className="lg:hidden fixed bottom-6 right-6 z-40">
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <motion.div
-                      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                      whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                    >
-                      <Button size="lg" className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90">
-                        <Menu className="h-6 w-6" />
-                      </Button>
-                    </motion.div>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-80">
-                    <TableOfContents
-                      items={tocItems}
-                      activeSection={activeSection}
-                      onItemClick={scrollToSection}
-                    />
-                  </SheetContent>
-                </Sheet>
-              </div>,
-              document.body
-            )}
+                to main instead of the viewport. Alleen in de browser: op de
+                server bestaat document niet, en portals doen niet mee aan
+                hydration, dus dit is veilig. */}
+            {typeof document !== "undefined" &&
+              createPortal(
+                <div className="lg:hidden fixed bottom-6 right-6 z-40">
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <motion.div
+                        whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                        whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                      >
+                        <Button size="lg" className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90">
+                          <Menu className="h-6 w-6" />
+                        </Button>
+                      </motion.div>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-80">
+                      <TableOfContents
+                        items={tocItems}
+                        activeSection={activeSection}
+                        onItemClick={scrollToSection}
+                      />
+                    </SheetContent>
+                  </Sheet>
+                </div>,
+                document.body
+              )}
 
             {/* Main Content */}
             <div className="lg:col-span-2">

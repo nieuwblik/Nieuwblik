@@ -33,6 +33,7 @@ export const logWebVitals = () => {
   const lcpObserver = new PerformanceObserver((list) => {
     const entries = list.getEntries();
     const lastEntry = entries[entries.length - 1];
+    if (!lastEntry) return;
     const lcp = lastEntry.startTime;
     console.log(`LCP: ${lcp.toFixed(2)}ms`, getRating('LCP', lcp));
   });
