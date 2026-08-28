@@ -50,6 +50,11 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
           <img
             src={image}
             srcSet={imageSet}
+            // Alle portfoliobeelden zijn 16:10, net als de houder eromheen.
+            // Expliciete maten geven de browser de verhouding voordat het
+            // bestand binnen is.
+            width={1600}
+            height={1000}
             // Twee kaarten naast elkaar vanaf 768, daaronder de volle breedte
             // min de marges. Zonder dit pakt de browser de grootste variant.
             sizes="(min-width: 1280px) 600px, (min-width: 768px) 45vw, 92vw"

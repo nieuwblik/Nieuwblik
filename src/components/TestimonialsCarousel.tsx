@@ -165,7 +165,10 @@ const TestimonialsCarousel = () => {
             {Array.from({ length: totalPossibleIndices + 1 }).map((_, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => setCurrentIndex(i)}
+                aria-label={`Ga naar review ${i + 1} van ${totalPossibleIndices + 1}`}
+                aria-current={i === currentIndex}
                 className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 md:w-12 bg-white' : 'w-2 md:w-4 bg-white/10 hover:bg-white/30'
                   }`}
               />
