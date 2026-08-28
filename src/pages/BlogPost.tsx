@@ -59,6 +59,10 @@ const BlogPost = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
+  // Portals pas na hydration renderen: de server rendert ze niet, en een
+  // verschil tijdens de eerste client-render geeft een hydration-mismatch.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const shouldReduceMotion = useReducedMotion();
 
   const post = blogPosts.find(p => p.slug === slug);
@@ -388,12 +392,17 @@ const BlogPost = () => {
         );
       }
 
-      // HTML content (sanitized)
+      // HTML content (sanitized in de browser). Op de server heeft DOMPurify
+      // geen window en bestaat sanitize niet; de bloginhoud komt uit onze
+      // eigen repo (src/data/blogPosts.ts), dus server-side is de bron al
+      // vertrouwd. De browser sanitised alsnog bij hydration.
       if (section.includes('<div') || section.includes('<a')) {
-        const sanitized = DOMPurify.sanitize(section, {
-          ALLOWED_TAGS: ['div', 'a', 'svg', 'path', 'g', 'defs', 'clipPath', 'rect'],
-          ALLOWED_ATTR: ['href', 'target', 'rel', 'style', 'class', 'width', 'height', 'viewBox', 'fill', 'xmlns', 'd', 'clip-path', 'id'],
-        });
+        const sanitized = typeof window === "undefined"
+          ? section
+          : DOMPurify.sanitize(section, {
+              ALLOWED_TAGS: ['div', 'a', 'svg', 'path', 'g', 'defs', 'clipPath', 'rect'],
+              ALLOWED_ATTR: ['href', 'target', 'rel', 'style', 'class', 'width', 'height', 'viewBox', 'fill', 'xmlns', 'd', 'clip-path', 'id'],
+            });
         return (
           <div
             key={index}
@@ -533,7 +542,7 @@ const BlogPost = () => {
           bar would stop tracking the viewport and slide with the page.
           Alleen in de browser: op de server bestaat document niet, en portals
           doen niet mee aan hydration, dus dit is veilig. */}
-      {typeof document !== "undefined" &&
+      {mounted &&
         createPortal(
           <motion.div
             className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50"
@@ -593,7 +602,7 @@ const BlogPost = () => {
                 to main instead of the viewport. Alleen in de browser: op de
                 server bestaat document niet, en portals doen niet mee aan
                 hydration, dus dit is veilig. */}
-            {typeof document !== "undefined" &&
+            {mounted &&
               createPortal(
                 <div className="lg:hidden fixed bottom-6 right-6 z-40">
                   <Sheet>

@@ -1,9 +1,22 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { unstable_HistoryRouter as HistoryRouter, Routes, Route } from "react-router-dom";
+import { createBrowserHistory, type History } from "@remix-run/router";
 
 // Het portaal blijft exact zoals het was: client-side, lazy geladen, op de
-// echte react-router. Deze brug mount de oude BrowserRouter onder de
+// echte react-router. Deze brug mount de oude router onder de
 // TanStack-route /admin/*, zodat niets in src/admin/ hoeft te veranderen.
+//
+// We gebruiken een vooraf aangemaakte history in plaats van BrowserRouter:
+// BrowserRouter maakt zijn history tijdens het renderen aan en schrijft
+// daarbij direct naar window.history, wat de TanStack-router midden in een
+// render een state-update geeft (React-waarschuwing). Door de history in
+// een effect (buiten de render) aan te maken gebeurt dat niet.
+let adminHistory: History | null = null;
+const getAdminHistory = (): History => {
+  if (!adminHistory) adminHistory = createBrowserHistory({ v5Compat: true });
+  return adminHistory;
+};
+
 const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
 const AdminApp = lazy(() => import("@/admin/AdminApp"));
 
@@ -20,15 +33,20 @@ const HardNavigate = () => {
 };
 
 const AdminBridge = () => {
-  // Mount de tweede router pas ná de eerste commit van TanStack, anders
-  // waarschuwt React over een state-update tijdens het renderen van
-  // BrowserRouter (twee routers die elkaars overgang raken).
+  // Maak de history aan én mount de tweede router pas ná de eerste commit
+  // van TanStack, zodat beide buiten de render-fase gebeuren.
   const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
+  useEffect(() => {
+    getAdminHistory();
+    setReady(true);
+  }, []);
   if (!ready) return null;
 
   return (
-    <BrowserRouter future={{ v7_startTransition: true }}>
+    <HistoryRouter
+      history={getAdminHistory()}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: false }}
+    >
       <Routes>
         <Route
           path="/admin/login"
@@ -48,7 +66,7 @@ const AdminBridge = () => {
         />
         <Route path="*" element={<HardNavigate />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 
