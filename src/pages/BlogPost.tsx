@@ -542,7 +542,7 @@ const BlogPost = () => {
           bar would stop tracking the viewport and slide with the page.
           Alleen in de browser: op de server bestaat document niet, en portals
           doen niet mee aan hydration, dus dit is veilig. */}
-      {typeof document !== "undefined" &&
+      {mounted &&
         createPortal(
           <motion.div
             className="fixed top-0 left-0 right-0 h-1 bg-secondary z-50"
@@ -602,7 +602,7 @@ const BlogPost = () => {
                 to main instead of the viewport. Alleen in de browser: op de
                 server bestaat document niet, en portals doen niet mee aan
                 hydration, dus dit is veilig. */}
-            {typeof document !== "undefined" &&
+            {mounted &&
               createPortal(
                 <div className="lg:hidden fixed bottom-6 right-6 z-40">
                   <Sheet>
