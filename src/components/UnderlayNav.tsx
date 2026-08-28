@@ -15,7 +15,9 @@ import { useGSAP } from "@gsap/react";
 import { getLenis } from "@/components/SmoothScroll";
 import logoSrc from "@/assets/logo.webp";
 
-gsap.registerPlugin(CustomEase);
+// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
+// gebruikt requestAnimationFrame. Op de server valt dat om.
+if (typeof window !== "undefined") gsap.registerPlugin(CustomEase);
 
 // Registered once at module scope — re-creating it per mount would throw away
 // and rebuild the same curve on every navigation.

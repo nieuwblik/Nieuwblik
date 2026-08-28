@@ -3,7 +3,9 @@ import { useLocation } from "@/lib/router-compat";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
+// gebruikt requestAnimationFrame. Op de server valt dat om.
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 // Shared instance so route changes can jump to top instantly.
 let lenisInstance: import("lenis").default | null = null;

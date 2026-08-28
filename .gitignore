@@ -25,3 +25,7 @@ dist-ssr
 
 .claude/
 .impeccable/
+
+# Build- en previewuitvoer van TanStack Start / Nitro
+.output/
+.wrangler/

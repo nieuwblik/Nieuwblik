@@ -2,7 +2,9 @@ import { lazy, Suspense } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
+// gebruikt requestAnimationFrame. Op de server valt dat om.
+if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 

@@ -3,7 +3,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { RefObject } from "react";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
+// gebruikt requestAnimationFrame. Op de server valt dat om.
+if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
  * Consistent, professional scroll reveal for section headings + subheadings.

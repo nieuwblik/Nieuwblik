@@ -9,7 +9,6 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, ArrowLeft, Globe, ShoppingCart, RefreshCw, HelpCircle, Check } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import confetti from "canvas-confetti";
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
 
 type ProjectType = "website" | "webshop" | "refresh" | "anders";
@@ -134,7 +133,10 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
         throw error;
       }
 
-      // Trigger confetti animation
+      // canvas-confetti is CommonJS en breekt server-rendering zodra hij
+      // bovenaan staat. Hier opgehaald: dit draait alleen na een
+      // geslaagde verzending, dus altijd in de browser.
+      const { default: confetti } = await import("canvas-confetti");
       confetti({
         particleCount: 100,
         spread: 70,
