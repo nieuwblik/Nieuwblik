@@ -22,6 +22,32 @@ import eenbundelgelukImg from "@/assets/bundelgeluk-portfolio-nieuw.webp";
 import taxidrechterlandImg from "@/assets/taxidrechterland.webp";
 import feigroImg from "@/assets/feigro-project-nieuwblik.webp";
 
+// Zelfde bestanden, maar als set varianten per schermbreedte. De browser
+// kiest er zelf de kleinste uit die groot genoeg is.
+import benotedImgSet from "@/assets/benoted-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import bushidoshopImgSet from "@/assets/bushidoshop-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import carbon6ImgSet from "@/assets/carbon6-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import ericavandijkImgSet from "@/assets/ericavandijk-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import daniquekwakmanImgSet from "@/assets/daniquekwakman.webp?w=480;800;1200&format=webp&as=srcset";
+import caspernieskensptImgSet from "@/assets/casper-nieuwe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import edventureboatsImgSet from "@/assets/edventureboats-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import esveldinstallatieImgSet from "@/assets/esveld-nieuwe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import interieurstudiolaanSet from "@/assets/interieurstudiolaan-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import karateschoolcorslokImgSet from "@/assets/karateschoolcorslok-nieuwe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import kyodaioriginalsImgSet from "@/assets/kyodai-originals.webp?w=480;800;1200&format=webp&as=srcset";
+import mhbtechniekImgSet from "@/assets/mhb-techniek-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import feitsmadakwerkenImgSet from "@/assets/feitsma-nieuwe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import greenProfitImgSet from "@/assets/greenprofit-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import rrsroyalImgSet from "@/assets/rrsroyal-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import puurCaseImgSet from "@/assets/puurinharmonie.webp?w=480;800;1200&format=webp&as=srcset";
+import puurCase1ImgSet from "@/assets/projects/puurinharmonie-case-1.webp?w=480;800;1200&format=webp&as=srcset";
+import pridemobilityImgSet from "@/assets/pridemobility-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import quantumrehabImgSet from "@/assets/quantumrehab-nieuwe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import aardingsbedrijfImgSet from "@/assets/aardingsbededrijfwestfriesland-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import eenbundelgelukImgSet from "@/assets/bundelgeluk-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
+import taxidrechterlandImgSet from "@/assets/taxidrechterland.webp?w=480;800;1200&format=webp&as=srcset";
+import feigroImgSet from "@/assets/feigro-project-nieuwblik.webp?w=480;800;1200&format=webp&as=srcset";
+
 export interface ProjectDetail {
   year: string;
   goal: string;
@@ -44,6 +70,8 @@ export interface Project {
   description: string;
   tags: string[];
   image: string;
+  /** Varianten per breedte, voor het srcset-attribuut. */
+  imageSet?: string;
   url: string;
   detail?: ProjectDetail;
   gallery?: string[];
@@ -59,6 +87,7 @@ export const projects: Project[] = [
     description: "Een snelle taxiwebsite voor Hoogkarspel en omstreken, met een boekingsformulier dat de ritwens van de klant direct omzet in een kant-en-klaar WhatsApp-bericht voor de chauffeur.",
     tags: ["Maatwerk", "WhatsApp Boekingsformulier", "Lokale SEO", "Conversiegericht"],
     image: taxidrechterlandImg,
+    imageSet: taxidrechterlandImgSet,
     url: "https://taxidrechterland.nl",
     detail: {
       year: "2026",
@@ -75,6 +104,7 @@ export const projects: Project[] = [
     description: "Een krachtige merkwebsite voor dakdekkersbedrijf Feigro, met een directe lekkage-melder naast het reguliere offertetraject.",
     tags: ["Web Design", "Vakmanschap", "Leadgeneratie", "Lokale SEO"],
     image: feigroImg,
+    imageSet: feigroImgSet,
     url: "https://feigro.nl",
     detail: {
       year: "2026",
@@ -91,6 +121,7 @@ export const projects: Project[] = [
     description: "Een sfeervolle webshop en merkwebsite voor handgemaakte natuurlijke huidverzorging en kruidenthee uit Enkhuizen.",
     tags: ["Webshop", "Persoonlijke Branding", "WhatsApp Integratie", "Natuurlijk Design"],
     image: eenbundelgelukImg,
+    imageSet: eenbundelgelukImgSet,
     url: "https://www.eenbundelgeluk.nl",
     detail: {
       year: "2026",
@@ -107,6 +138,7 @@ export const projects: Project[] = [
     description: "Een conversiegerichte website voor specialistische aardingsdiensten met sterke lokale zichtbaarheid in West-Friesland.",
     tags: ["Web Design", "Leadgeneratie", "Lokale SEO", "Techniek"],
     image: aardingsbedrijfImg,
+    imageSet: aardingsbedrijfImgSet,
     url: "https://www.aardingsbedrijfwestfriesland.nl",
     detail: {
       year: "2026",
@@ -123,6 +155,7 @@ export const projects: Project[] = [
     description: "Een innovatief digitaal platform voor wereldwijd marktleider in geavanceerde elektrische rolstoelen, met maatwerk dealerportaal en interactieve productconfiguraties.",
     tags: ["WordPress", "Elementor", "Custom Dashboard", "Maatwerk"],
     image: quantumrehabImg,
+    imageSet: quantumrehabImgSet,
     url: "https://quantumrehab.eu",
     detail: {
       year: "2025",
@@ -145,6 +178,7 @@ export const projects: Project[] = [
     description: "Een compleet nieuwe digitale ervaring voor het toonaangevende mobiliteitsmerk, met maatwerk dashboard, beveiligde login en interactieve productweergaven.",
     tags: ["WordPress", "Elementor", "Custom Dashboard", "Maatwerk"],
     image: pridemobilityImg,
+    imageSet: pridemobilityImgSet,
     url: "https://www.pridemobility.eu",
     detail: {
       year: "2025",
@@ -167,6 +201,7 @@ export const projects: Project[] = [
     description: "Digitale rust en balans voor een holistische salon. Een minimalistische ervaring die even ontspannend is als de behandeling zelf.",
     tags: ["Web Design", "Wellness", "E-commerce", "Stripe"],
     image: puurCaseImg,
+    imageSet: puurCaseImgSet,
     url: "https://www.puurinharmonie.nl",
     gallery: [puurCase1Img],
     detail: {
@@ -184,6 +219,7 @@ export const projects: Project[] = [
     description: "High-performance platform voor financiële marketing met AI-native development, enterprise-grade beveiliging en internationale schaalbaarheid.",
     tags: ["Web Development", "AI-Native", "Fintech", "Marketing"],
     image: benotedImg,
+    imageSet: benotedImgSet,
     url: "https://benoted.nl",
     detail: {
       year: "2025 - 2026",
@@ -200,6 +236,7 @@ export const projects: Project[] = [
     description: "Holistische gezondheidswebsite gericht op hormoonbalans, darmgezondheid en energie optimalisatie.",
     tags: ["Web Design", "Gezondheid", "Therapie"],
     image: daniquekwakmanImg,
+    imageSet: daniquekwakmanImgSet,
     url: "https://daniquekwakman.nl",
     detail: {
       year: "2023",
@@ -216,6 +253,7 @@ export const projects: Project[] = [
     description: "Professionele website voor HR interim manager en adviseur met focus op expertise en vertrouwen.",
     tags: ["Web Design", "HR", "Zakelijke Diensten"],
     image: ericavandijkImg,
+    imageSet: ericavandijkImgSet,
     url: "https://ericavandijk.nl",
     detail: {
       year: "2024",
@@ -232,6 +270,7 @@ export const projects: Project[] = [
     description: "E-commerce platform voor Japanse vechtsportartikelen en authentieke culturele items.",
     tags: ["E-commerce", "Web Design", "Branding"],
     image: bushidoshopImg,
+    imageSet: bushidoshopImgSet,
     url: "https://bushidoshop.nl",
     detail: {
       year: "2023",
@@ -248,6 +287,7 @@ export const projects: Project[] = [
     description: "Modern vastgoed platform met geavanceerde zoekfunctie en kamer browse features.",
     tags: ["Web Development", "Vastgoed", "UI/UX"],
     image: carbon6Img,
+    imageSet: carbon6ImgSet,
     url: "https://carbon6.nl",
     detail: {
       year: "2024",
@@ -264,6 +304,7 @@ export const projects: Project[] = [
     description: "Professioneel fitness coaching platform met gepersonaliseerde trainingsprogramma's.",
     tags: ["Web Design", "Fitness", "Branding"],
     image: caspernieskensptImg,
+    imageSet: caspernieskensptImgSet,
     url: "https://caspernieskenspt.com",
     detail: {
       year: "2024",
@@ -280,6 +321,7 @@ export const projects: Project[] = [
     description: "Water avontuur boekingsplatform voor spannende boot ervaringen.",
     tags: ["Web Design", "Boekingssysteem", "Toerisme"],
     image: edventureboatsImg,
+    imageSet: edventureboatsImgSet,
     url: "https://edventureboats.com",
     detail: {
       year: "2023",
@@ -296,6 +338,7 @@ export const projects: Project[] = [
     description: "Professionele HVAC en installatiediensten website met klant portal.",
     tags: ["Web Design", "Dienstverlening", "Contact Formulieren"],
     image: esveldinstallatieImg,
+    imageSet: esveldinstallatieImgSet,
     url: "https://esveldinstallatie.nl",
     detail: {
       year: "2024",
@@ -312,6 +355,7 @@ export const projects: Project[] = [
     description: "Elegante interieur design showcase met portfolio galerij en consultatieaanvraag.",
     tags: ["Web Design", "Interieur Design", "Portfolio"],
     image: interieurstudiolaan,
+    imageSet: interieurstudiolaanSet,
     url: "https://interieurstudiolaan.nl",
     detail: {
       year: "2023",
@@ -328,6 +372,7 @@ export const projects: Project[] = [
     description: "Dynamische karateschool website met lesroosters en leden portal.",
     tags: ["Web Design", "Sport", "Community"],
     image: karateschoolcorslokImg,
+    imageSet: karateschoolcorslokImgSet,
     url: "https://karateschoolcorslok.nl",
     detail: {
       year: "2024",
@@ -344,6 +389,7 @@ export const projects: Project[] = [
     description: "Een digitale galerie voor museumwaardige Japanse zwaarden en wapenrustingen, gebouwd rondom authenticiteit, vertrouwen en verhalen over herkomst.",
     tags: ["E-commerce", "Galerie", "Authenticatie", "Luxe Branding"],
     image: kyodaioriginalsImg,
+    imageSet: kyodaioriginalsImgSet,
     url: "https://www.kyodaioriginals.nl",
     detail: {
       year: "2023",
@@ -360,6 +406,7 @@ export const projects: Project[] = [
     description: "Smart home technologie oplossingen met service boeking en consultatie features.",
     tags: ["Web Development", "Technologie", "Dienstverlening"],
     image: mhbtechniekImg,
+    imageSet: mhbtechniekImgSet,
     url: "https://mhbtechniek.nl",
     detail: {
       year: "2024",
@@ -376,6 +423,7 @@ export const projects: Project[] = [
     description: "Premium dakdekkersdiensten website met project showcase en consultatieaanvraag.",
     tags: ["Web Design", "Bouw", "Dienstverlening"],
     image: feitsmadakwerkenImg,
+    imageSet: feitsmadakwerkenImgSet,
     url: "https://feitsmadakwerken.nl",
     detail: {
       year: "2024",
@@ -392,6 +440,7 @@ export const projects: Project[] = [
     description: "Duurzaam bouwen en energie oplossingen platform met uitgebreid dienstenaanbod.",
     tags: ["Web Design", "Duurzaamheid", "Diensten"],
     image: greenProfitImg,
+    imageSet: greenProfitImgSet,
     url: "https://green-profit.nl",
     detail: {
       year: "2023",
@@ -408,6 +457,7 @@ export const projects: Project[] = [
     description: "Complete bouwpartnership website met projectmanagement features.",
     tags: ["Web Design", "Bouw", "Zakelijk"],
     image: rrsroyalImg,
+    imageSet: rrsroyalImgSet,
     url: "https://rrsroyal.nl",
     detail: {
       year: "2024",

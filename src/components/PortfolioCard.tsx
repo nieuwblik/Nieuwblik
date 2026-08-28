@@ -7,6 +7,8 @@ export interface PortfolioCardProps {
   title: string;
   category: string;
   image: string;
+  /** Varianten per breedte; de browser kiest de kleinste die groot genoeg is. */
+  imageSet?: string;
   slug: string;
   /** Small line above the title — homepage uses this for project duration. */
   meta?: string;
@@ -23,7 +25,7 @@ export interface PortfolioCardProps {
  * /portfolio: filter-switch stagger + exit), so this only owns the hover
  * "roll" (title slides up, duplicate enters from below) and the static markup.
  */
-export default function PortfolioCard({ title, category, image, slug, meta, description, priority }: PortfolioCardProps) {
+export default function PortfolioCard({ title, category, image, imageSet, slug, meta, description, priority }: PortfolioCardProps) {
   const shouldReduceMotion = useReducedMotion();
   const [loaded, setLoaded] = useState(false);
 
@@ -47,6 +49,10 @@ export default function PortfolioCard({ title, category, image, slug, meta, desc
         >
           <img
             src={image}
+            srcSet={imageSet}
+            // Twee kaarten naast elkaar vanaf 768, daaronder de volle breedte
+            // min de marges. Zonder dit pakt de browser de grootste variant.
+            sizes="(min-width: 1280px) 600px, (min-width: 768px) 45vw, 92vw"
             alt={`${title} — website ontworpen door Nieuwblik`}
             loading={priority ? "eager" : "lazy"}
             // @ts-expect-error fetchpriority isn't in React 18's img attribute types yet

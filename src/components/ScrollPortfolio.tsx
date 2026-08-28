@@ -10,6 +10,16 @@ import esveldInstallatieImg from "@/assets/esveldinstallatie.webp";
 import feigroImg from "@/assets/feigro-project-nieuwblik.webp";
 import kyodaiOriginalsImg from "@/assets/kyodai-originals.webp";
 
+// Dezelfde beelden als varianten per schermbreedte.
+import taxiDrechterlandImgSet from "@/assets/taxidrechterland.webp?w=480;800;1200&format=webp&as=srcset";
+import prideMobilityImgSet from "@/assets/pride-mobility.webp?w=480;800;1200&format=webp&as=srcset";
+import puurInHarmonieImgSet from "@/assets/puurinharmonie.webp?w=480;800;1200&format=webp&as=srcset";
+import benotedImgSet from "@/assets/benoted.webp?w=480;800;1200&format=webp&as=srcset";
+import daniqueKwakmanImgSet from "@/assets/daniquekwakman.webp?w=480;800;1200&format=webp&as=srcset";
+import esveldInstallatieImgSet from "@/assets/esveldinstallatie.webp?w=480;800;1200&format=webp&as=srcset";
+import feigroImgSet from "@/assets/feigro-project-nieuwblik.webp?w=480;800;1200&format=webp&as=srcset";
+import kyodaiOriginalsImgSet from "@/assets/kyodai-originals.webp?w=480;800;1200&format=webp&as=srcset";
+
 // ── Brand tokens ───────────────────────────────────────────────
 const R2 = "https://pub-db1d62b400114ea6902679b432e6b4c7.r2.dev/nieuwblik-portfolio";
 
@@ -19,14 +29,14 @@ const R2 = "https://pub-db1d62b400114ea6902679b432e6b4c7.r2.dev/nieuwblik-portfo
 // that used to sit here (dropped: it read oddly above the title and had no
 // SEO value).
 const ITEMS = [
-  { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  meta: "Maatwerk · Lokale SEO", image: taxiDrechterlandImg, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
-  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      meta: "Vakmanschap · Lokale SEO", image: feigroImg,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
-  { title: "Puur in Harmonie",      category: "Holistische Salon",       meta: "Web Design · Wellness", image: puurInHarmonieImg,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
-  { title: "BeNoted",               category: "Financiële Marketing",    meta: "Web Development · Fintech", image: benotedImg,          slug: "benoted",               url: "https://benoted.nl" },
-  { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", meta: "Web Design · Gezondheid", image: daniqueKwakmanImg, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
-  { title: "Esveld Installatie",    category: "Installatiediensten",     meta: "Web Design · Dienstverlening", image: esveldInstallatieImg, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
-  { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", meta: "WordPress · Maatwerk", image: prideMobilityImg,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
-  { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  meta: "E-commerce · Luxe Branding", image: kyodaiOriginalsImg,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
+  { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  meta: "Maatwerk · Lokale SEO", image: taxiDrechterlandImg, imageSet: taxiDrechterlandImgSet, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
+  { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      meta: "Vakmanschap · Lokale SEO", image: feigroImg, imageSet: feigroImgSet,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
+  { title: "Puur in Harmonie",      category: "Holistische Salon",       meta: "Web Design · Wellness", image: puurInHarmonieImg, imageSet: puurInHarmonieImgSet,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
+  { title: "BeNoted",               category: "Financiële Marketing",    meta: "Web Development · Fintech", image: benotedImg, imageSet: benotedImgSet,          slug: "benoted",               url: "https://benoted.nl" },
+  { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", meta: "Web Design · Gezondheid", image: daniqueKwakmanImg, imageSet: daniqueKwakmanImgSet, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
+  { title: "Esveld Installatie",    category: "Installatiediensten",     meta: "Web Design · Dienstverlening", image: esveldInstallatieImg, imageSet: esveldInstallatieImgSet, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
+  { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", meta: "WordPress · Maatwerk", image: prideMobilityImg, imageSet: prideMobilityImgSet,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },
+  { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  meta: "E-commerce · Luxe Branding", image: kyodaiOriginalsImg, imageSet: kyodaiOriginalsImgSet,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
 ];
 
 const EASE = [0.25, 0.1, 0.25, 1] as const;
@@ -58,6 +68,7 @@ const ScrollPortfolio = () => {
                 title={item.title}
                 category={item.category}
                 image={item.image}
+                imageSet={item.imageSet}
                 slug={item.slug}
                 meta={item.meta}
                 priority={i < 2}
