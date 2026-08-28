@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Het portaal blijft exact zoals het was: client-side, lazy geladen, op de
@@ -19,28 +19,37 @@ const HardNavigate = () => {
   return null;
 };
 
-const AdminBridge = () => (
-  <BrowserRouter future={{ v7_startTransition: true }}>
-    <Routes>
-      <Route
-        path="/admin/login"
-        element={
-          <Suspense fallback={null}>
-            <AdminLogin />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/admin/*"
-        element={
-          <Suspense fallback={null}>
-            <AdminApp />
-          </Suspense>
-        }
-      />
-      <Route path="*" element={<HardNavigate />} />
-    </Routes>
-  </BrowserRouter>
-);
+const AdminBridge = () => {
+  // Mount de tweede router pas ná de eerste commit van TanStack, anders
+  // waarschuwt React over een state-update tijdens het renderen van
+  // BrowserRouter (twee routers die elkaars overgang raken).
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  if (!ready) return null;
+
+  return (
+    <BrowserRouter future={{ v7_startTransition: true }}>
+      <Routes>
+        <Route
+          path="/admin/login"
+          element={
+            <Suspense fallback={null}>
+              <AdminLogin />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={null}>
+              <AdminApp />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<HardNavigate />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default AdminBridge;
