@@ -29,7 +29,7 @@ const HeroImage = ({ shouldReduceMotion }: { shouldReduceMotion: boolean | null 
       />
       {!shouldReduceMotion && (
         <motion.div
-          className="absolute bottom-[38%] left-[2%] bg-white/90 backdrop-blur shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-border/50 z-20 hidden md:flex"
+          className="absolute bottom-[38%] left-[2%] bg-white/90 backdrop-blur-sm shadow-lg rounded-full px-4 py-2 flex items-center gap-2 border border-border/50 z-20 hidden md:flex"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}

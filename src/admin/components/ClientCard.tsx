@@ -80,7 +80,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         {/* Alleen bij werk dat nog loopt: bij een portfolio waar bijna alles
             live is, zou een badge op elke kaart niets zeggen. */}
         {row.status && row.status !== "live" && (
-          <span className="absolute left-2 top-2 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium backdrop-blur">
+          <span className="absolute left-2 top-2 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium backdrop-blur-sm">
             {PROJECT_STATUS[row.status].label}
           </span>
         )}
@@ -90,7 +90,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         {row.openTasks > 0 && (
           <span
             title={`${row.openTasks} open ${row.openTasks === 1 ? "taak" : "taken"}`}
-            className="absolute right-2 top-2 flex items-center gap-1.5 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium tabular-nums backdrop-blur"
+            className="absolute right-2 top-2 flex items-center gap-1.5 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium tabular-nums backdrop-blur-sm"
           >
             <span className={cn("h-1.5 w-1.5 rounded-full", voet?.stip)} />
             {row.openTasks}
@@ -98,7 +98,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         )}
 
         {late && (
-          <span className="absolute bottom-2 left-2 rounded bg-rose-600/90 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur">
+          <span className="absolute bottom-2 left-2 rounded bg-rose-600/90 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
             {deadlineLabel(row.deadline)}
           </span>
         )}
