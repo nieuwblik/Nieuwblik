@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { unstable_HistoryRouter as HistoryRouter, Routes, Route } from "react-router-dom";
-import { createBrowserHistory, type BrowserHistory } from "history";
+import { createBrowserHistory, type History } from "@remix-run/router";
 
 // Het portaal blijft exact zoals het was: client-side, lazy geladen, op de
 // echte react-router. Deze brug mount de oude router onder de
@@ -9,11 +9,11 @@ import { createBrowserHistory, type BrowserHistory } from "history";
 // We gebruiken een vooraf aangemaakte history in plaats van BrowserRouter:
 // BrowserRouter maakt zijn history tijdens het renderen aan en schrijft
 // daarbij direct naar window.history, wat de TanStack-router midden in een
-// render een state-update geeft (React-waarschuwing). Door de history één
-// keer buiten React aan te maken gebeurt dat niet.
-let adminHistory: BrowserHistory | null = null;
-const getAdminHistory = (): BrowserHistory => {
-  if (!adminHistory) adminHistory = createBrowserHistory();
+// render een state-update geeft (React-waarschuwing). Door de history in
+// een effect (buiten de render) aan te maken gebeurt dat niet.
+let adminHistory: History | null = null;
+const getAdminHistory = (): History => {
+  if (!adminHistory) adminHistory = createBrowserHistory({ v5Compat: true });
   return adminHistory;
 };
 
@@ -33,13 +33,20 @@ const HardNavigate = () => {
 };
 
 const AdminBridge = () => {
-  // Mount de tweede router pas ná de eerste commit van TanStack.
+  // Maak de history aan én mount de tweede router pas ná de eerste commit
+  // van TanStack, zodat beide buiten de render-fase gebeuren.
   const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
+  useEffect(() => {
+    getAdminHistory();
+    setReady(true);
+  }, []);
   if (!ready) return null;
 
   return (
-    <HistoryRouter history={getAdminHistory()} future={{ v7_startTransition: true }}>
+    <HistoryRouter
+      history={getAdminHistory()}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: false }}
+    >
       <Routes>
         <Route
           path="/admin/login"
