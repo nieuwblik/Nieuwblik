@@ -1,21 +1,19 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Lenis from "lenis";
-import "lenis/dist/lenis.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Shared instance so route changes can jump to top instantly.
-let lenisInstance: Lenis | null = null;
+let lenisInstance: import("lenis").default | null = null;
 
 /**
  * The live Lenis instance, or null when smooth scroll is disabled (reduced
  * motion, touch, macOS) or not mounted yet. Consumers that lock page scroll
  * must stop/start it — hiding body overflow alone won't stop Lenis.
  */
-export const getLenis = (): Lenis | null => lenisInstance;
+export const getLenis = (): import("lenis").default | null => lenisInstance;
 
 /**
  * Global smooth-scroll. Lenis is position-based (it sets scrollTop rather than
@@ -34,25 +32,43 @@ const SmoothScroll = () => {
     const isMac = /Mac/.test(window.navigator.platform ?? "") || /Macintosh/.test(window.navigator.userAgent);
     if (prefersReduced || isTouch || isMac) return;
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.4,
-    });
-    lenisInstance = lenis;
+    // Lenis wordt hier pas opgehaald, niet bovenaan het bestand. Op een
+    // telefoon staat smooth scroll uit, en een statische import zou de code
+    // dan alsnog downloaden en uitvoeren voor niets — precies het werk waar
+    // een langzaam toestel op vastloopt.
+    let opgeruimd = false;
+    let stop: (() => void) | null = null;
 
-    lenis.on("scroll", ScrollTrigger.update);
+    void (async () => {
+      const { default: Lenis } = await import("lenis");
+      await import("lenis/dist/lenis.css");
+      if (opgeruimd) return;
 
-    const tick = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
+      const lenis = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.4,
+      });
+      lenisInstance = lenis;
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      const tick = (time: number) => lenis.raf(time * 1000);
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
+
+      stop = () => {
+        gsap.ticker.remove(tick);
+        lenis.destroy();
+        lenisInstance = null;
+      };
+    })();
 
     return () => {
-      gsap.ticker.remove(tick);
-      lenis.destroy();
-      lenisInstance = null;
+      opgeruimd = true;
+      stop?.();
     };
   }, []);
 

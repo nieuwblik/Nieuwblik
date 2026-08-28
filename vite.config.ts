@@ -101,6 +101,10 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-toast',
           ],
           'form-libs': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          // Eigen chunk, anders schuift de ondergrens hierboven de
+          // smooth-scrollcode in een willekeurig ander bestand. Hij wordt
+          // alleen dynamisch geimporteerd, dus mobiel haalt hem nooit op.
+          'smooth-scroll': ['lenis'],
         },
       },
     },
