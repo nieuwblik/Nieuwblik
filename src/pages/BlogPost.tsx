@@ -59,6 +59,10 @@ const BlogPost = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const [tocItems, setTocItems] = useState<TocItem[]>([]);
+  // Portals pas na hydration renderen: de server rendert ze niet, en een
+  // verschil tijdens de eerste client-render geeft een hydration-mismatch.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const shouldReduceMotion = useReducedMotion();
 
   const post = blogPosts.find(p => p.slug === slug);
