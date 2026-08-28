@@ -87,6 +87,11 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
+        // Zonder ondergrens knipt Rollup elk gedeeld icoontje in een eigen
+        // bestandje: 47 van de 87 chunks waren kleiner dan 5 KB. Over een
+        // trage mobiele verbinding kost elk daarvan een aparte ronde, en dan
+        // blijft de pagina seconden lang bijvullen.
+        experimentalMinChunkSize: 20000,
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-components': [

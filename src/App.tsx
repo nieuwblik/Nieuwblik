@@ -153,9 +153,10 @@ const PublicSite = () => {
     <FreeAnalysisPopup />
 
     <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
-        {/* Leeg tijdens het laden van een chunk. In de praktijk zie je dit
-            zelden: de chunks zijn na het laden van de pagina al binnen. */}
-        <Suspense fallback={null}>
+        {/* De terugval is een dekkend vlak van schermhoogte, geen null. Het
+            menu ligt achter de pagina; met een lege terugval kijk je daar
+            doorheen en flitst de menuachtergrond voorbij. */}
+        <Suspense fallback={<div className="min-h-screen bg-background" />}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/diensten" element={<Services />} />
