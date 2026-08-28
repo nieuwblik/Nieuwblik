@@ -1,0 +1,598 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Nieuwblik Design System - Luxury Minimalism (Tailwind v4 port van index.css
+ * + tailwind.config.ts). Alle kleuren blijven HSL-triplets in :root/.dark;
+ * het @theme inline blok koppelt ze aan utilityklassen (bg-primary etc.).
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-epilogue: "Epilogue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-ring-offset-background: hsl(var(--background));
+
+  /* Zijbalk van het portaal — losse tokens, bewegen niet mee met het thema. */
+  --color-rail: hsl(var(--rail));
+  --color-rail-panel: hsl(var(--rail-panel));
+  --color-rail-fg: hsl(var(--rail-fg));
+  --color-rail-muted: hsl(var(--rail-muted));
+  --color-rail-hover: hsl(var(--rail-hover));
+  --color-rail-active: hsl(var(--rail-active));
+  --color-rail-border: hsl(var(--rail-border));
+  --color-rail-accent: hsl(var(--rail-accent));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-gradient-shift: gradient-shift 8s ease infinite;
+  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  --animate-infinite-scroll: infinite-scroll 30s linear infinite;
+  --animate-slide-in-bottom: slide-in-bottom 0.3s ease-out;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-check-draw: check-draw 180ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(22, 119, 85, 0.3), 0 0 40px rgba(22, 119, 85, 0.1); }
+  50% { box-shadow: 0 0 30px rgba(22, 119, 85, 0.5), 0 0 60px rgba(22, 119, 85, 0.2); }
+}
+@keyframes infinite-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes slide-in-bottom {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+/* Het vinkje tekent zichzelf: pathLength="1" normaliseert de lijn,
+   zodat de offset ongeacht de padlengte van 1 naar 0 loopt. */
+@keyframes check-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* v3 container-config (center, padding 2rem, max 1400px) als v4-utility. */
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (min-width: 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    text-rendering: optimizeSpeed;
+  }
+
+  :root {
+    /* Nieuwblik Brand Colors - Luxury Minimalism */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    /* Primary Black for text and dark elements */
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Soft Grey for subtle backgrounds */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Forest Green - Reserved for CTAs and critical highlights */
+    --accent: 160 84% 16%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 160 84% 16%;
+
+    --radius: 0.375rem;
+
+    /* Custom design tokens */
+    --luxury-spacing: 6rem;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Dynamic header height - measured and set via JS in UnderlayNav */
+    --header-height: 120px;
+
+    /* Width of the underlay menu revealed behind the page (UnderlayNav) */
+    --menu-width: 30em;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 0 0% 0%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 160 84% 16%;
+  }
+
+  /* Donkere modus van het portaal. Alle neutralen zijn naar de merkhue (160)
+     getint in plaats van puur grijs. */
+  .dark {
+    --background: 160 12% 6%;
+    --foreground: 150 10% 95%;
+
+    --card: 160 10% 9%;
+    --card-foreground: 150 10% 95%;
+
+    --popover: 160 11% 8%;
+    --popover-foreground: 150 10% 95%;
+
+    --primary: 150 10% 95%;
+    --primary-foreground: 160 14% 7%;
+
+    --secondary: 160 9% 14%;
+    --secondary-foreground: 150 10% 95%;
+
+    --muted: 160 9% 13%;
+    --muted-foreground: 150 6% 62%;
+
+    --accent: 160 60% 45%;
+    --accent-foreground: 160 14% 7%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 150 10% 95%;
+
+    --border: 160 8% 17%;
+    --input: 160 8% 17%;
+    --ring: 160 60% 45%;
+
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 160 84% 16%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  /* Reserve the scrollbar gutter permanently. UnderlayNav locks body scroll
+     while the menu is open; without a stable gutter that lock removes the
+     scrollbar and the whole page jumps ~15px sideways mid-animation. */
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-weight: 400;
+    font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-normal tracking-tight;
+  }
+
+  h1 {
+    @apply text-5xl md:text-7xl lg:text-8xl;
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold;
+  }
+}
+
+@layer utilities {
+  /* Sub-page hero heading — 30% smaller than the base 5xl/7xl/8xl scale,
+     kept as one shared class so every inner page's H1 scales down together. */
+  .text-display {
+    @apply font-extrabold tracking-tight;
+    font-size: 2.1rem;
+  }
+  @media (min-width: 768px) {
+    .text-display {
+      font-size: 3.15rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .text-display {
+      font-size: 4.2rem;
+    }
+  }
+
+  .text-accent-light {
+    @apply text-sm md:text-base font-light tracking-wide;
+  }
+
+  .pause-animation {
+    animation-play-state: paused;
+  }
+
+  .story-link * {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  .pulse {
+    animation: nb-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Dynamic header-aware padding */
+  .pt-header {
+    padding-top: calc(var(--header-height) + 2rem);
+  }
+
+  @media (min-width: 640px) {
+    .pt-header {
+      padding-top: calc(var(--header-height) + 2.5rem);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .pt-header {
+      padding-top: calc(var(--header-height) + 3rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pt-header {
+      padding-top: calc(var(--header-height) + 4rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .pt-header {
+      padding-top: calc(var(--header-height) + 6rem);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out;
+  }
+}
+
+@keyframes nb-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@layer components {
+  /* The site's main button (AnimatedButton, see ui/animated-button.tsx) —
+     the roll/arrow motion is GSAP-driven from the component; this just
+     covers what Tailwind's arbitrary values can't. */
+  .animated-btn {
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+  }
+
+  .animated-btn:active {
+    transform: scale(0.97);
+  }
+
+  .animated-btn:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+  /* ── Underlay navigation ──────────────────────────────────────────────── */
+
+  /* Narrow screens: the fixed 30em panel would leave almost no page visible. */
+  @media (max-width: 767px) {
+    :root {
+      --menu-width: 80vw;
+    }
+  }
+
+  /* Projects section pulled up over the hero so the top row of cards overlaps
+     it by 20% of a card's height — see the original derivation in git history:
+     card height tracks the viewport, so the calc()s derive it from vw. */
+  .sw-projects-overlap {
+    margin-top: calc(-12.5vw - 15px);
+  }
+  @media (min-width: 768px) {
+    .sw-projects-overlap {
+      margin-top: max(calc(-6.25vw - 16px), -104.5px);
+    }
+  }
+
+  /* The hero grows with the viewport so the top row of Projects never reveals
+     more than 60% of its photo above the fold. svh overrides vh where
+     supported. */
+  .sw-hero-fill {
+    min-height: calc(100vh - 25vw - 14px);
+    min-height: calc(100svh - 25vw - 14px);
+  }
+  @media (min-width: 768px) {
+    .sw-hero-fill {
+      min-height: max(calc(100vh - 12.5vw - 16px), calc(100vh - 201px));
+      min-height: max(calc(100svh - 12.5vw - 16px), calc(100svh - 201px));
+    }
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+}
+
+/* ── Dutch Swiss Grid system — homepage visual language ──────────
+   Reference: Wim Crouwel / Total Design / Studio Dumbar.
+   Strict grid as voice, oversized type, monochrome + one committed green.
+*/
+:root {
+  --sw-paper: 150 14% 97.5%;          /* warm off-white, tinted toward brand hue */
+  --sw-ink: 160 14% 7%;               /* near-black, tinted green (never #000) */
+  --sw-green: 160 84% 16%;
+  --sw-green-bright: 160 84% 30%;
+  --sw-rule: 160 12% 8%;              /* used with low alpha for hairlines */
+
+  /* Zijbalk en bovenbalk van het portaal. Gebouwd op --sw-ink en --sw-paper,
+     zodat de beheeromgeving hetzelfde groen-getinte zwart en dezelfde warme
+     off-white gebruikt als de publieke site. Lichte modus; donker in .dark. */
+  --rail: 150 14% 97.5%;
+  --rail-panel: 150 10% 93%;          /* verdiept vlak binnen de balk */
+  --rail-fg: 160 14% 7%;
+  --rail-muted: 160 6% 36%;
+  --rail-hover: 150 10% 94%;
+  --rail-active: 150 12% 90%;
+  --rail-border: 150 8% 87%;
+  --rail-accent: 160 84% 22%;         /* donker genoeg om op wit te leven */
+}
+
+.dark {
+  --rail: 160 14% 7%;
+  --rail-panel: 160 12% 11%;
+  --rail-fg: 150 12% 94%;
+  --rail-muted: 150 6% 58%;
+  --rail-hover: 160 11% 14%;
+  --rail-active: 160 12% 18%;
+  --rail-border: 160 10% 17%;
+  --rail-accent: 160 60% 55%;         /* helder genoeg om op zwart te leven */
+}
+
+
+.sw-paper { background-color: hsl(var(--sw-paper)); }
+.sw-ink   { color: hsl(var(--sw-ink)); }
+
+/* Spec-sheet labels — clean brand sans (Cabin), uppercase + tracking */
+.sw-mono {
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Hairline rules */
+.sw-rule-x { height: 1px; width: 100%; background: hsl(var(--sw-rule) / 0.14); transform-origin: left center; }
+.sw-vrule  { width: 1px;  background: hsl(var(--sw-rule) / 0.10); transform-origin: top center; }
+
+/* Display line mask — inner element slides up under overflow:hidden */
+.sw-mask { display: block; overflow: hidden; }
+/* Pulls consecutive masked lines back together — compensates for the extra
+   line-height added below so descenders aren't clipped. */
+.sw-mask:not(:last-child) { margin-bottom: -0.12em; }
+/* nowrap keeps each masked line on a single visual line. */
+.sw-mask > span { display: block; white-space: nowrap; will-change: transform; }
+
+/* Establishes a query container so .sw-display can size itself against the
+   ACTUAL width of the h1's own box, not the viewport. */
+.sw-hero-textcol { container-type: inline-size; }
+
+/* Oversized display type — cqw-based clamp keeps "Webdesign bureau" (longest
+   line) inside its box, proportionally, at any container size. line-height
+   1.3 gives the masked line box room so overflow:hidden never clips glyph
+   descenders. */
+.sw-display {
+  font-weight: 700 !important;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+  font-size: clamp(1.7rem, 9.2cqw, 5.4rem);
+  text-transform: none;
+}
+
+/* lg+: the text block un-caps to the full (much wider) container. */
+@media (min-width: 1024px) {
+  .sw-display {
+    font-size: clamp(1.7rem, 8cqw, 7.5rem);
+  }
+}
+
+/* Fallback for browsers without container query support (rare, pre-2023). */
+@supports not (container-type: inline-size) {
+  .sw-display { font-size: clamp(1.7rem, 6.5vw, 2.75rem); }
+  @media (min-width: 1024px) { .sw-display { font-size: 2.5rem; } }
+  @media (min-width: 1280px) { .sw-display { font-size: 3rem; } }
+}
+
+/* Section index marker (huge faint number behind section headers) */
+.sw-index {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.8;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+}
+
+/* Headings render in Epilogue at weight 700. !important overrides the
+   per-heading font-bold / font-black / font-extrabold utility classes
+   across components. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-weight: 700 !important;
+}
+/* Wie in het systeem heeft aangegeven bewegingsgevoelig te zijn, krijgt de
+   overgangen niet. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Schuifbalken in het portaal — smalle balk die de themakleuren volgt.
+   Alleen binnen .portaal: de publieke site houdt de systeembalk.
+   --------------------------------------------------------------------------- */
+.portaal,
+.portaal * {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.portaal ::-webkit-scrollbar,
+.portaal::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.portaal ::-webkit-scrollbar-track,
+.portaal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.portaal ::-webkit-scrollbar-thumb,
+.portaal::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--border));
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+.portaal ::-webkit-scrollbar-thumb:hover,
+.portaal::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.6);
+  background-clip: content-box;
+}
+
+.portaal ::-webkit-scrollbar-corner,
+.portaal::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ── Gloed in de footer ──────────────────────────────────────────
+   Drie zachte vlekken die traag bewegen, als CSS-keyframes zodat de
+   compositor het werk doet. Bij prefers-reduced-motion staan ze stil. */
+@keyframes nb-gloed-a {
+  0%, 100% { opacity: 0.3; transform: translate3d(0, 0, 0); }
+  50%      { opacity: 0.65; transform: translate3d(24px, 18px, 0); }
+}
+@keyframes nb-gloed-b {
+  0%, 100% { opacity: 0.5; transform: translate3d(0, 0, 0) scale(1); }
+  50%      { opacity: 1; transform: translate3d(-32px, -24px, 0) scale(1.1); }
+}
+@keyframes nb-gloed-c {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  33%      { opacity: 0.5; transform: scale(1.25); }
+  66%      { opacity: 0.35; transform: scale(0.95); }
+}
+
+.nb-gloed-a { animation: nb-gloed-a 13s ease-in-out infinite; }
+.nb-gloed-b { animation: nb-gloed-b 9s ease-in-out 1.5s infinite; }
+.nb-gloed-c { animation: nb-gloed-c 17s ease-in-out 4s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nb-gloed-a, .nb-gloed-b, .nb-gloed-c { animation: none; }
+}
