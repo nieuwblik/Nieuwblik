@@ -5,8 +5,10 @@ import { OptimizedImage } from '@/components/OptimizedImage'
 import logo from '@/assets/logo.webp'
 import { companyInfo } from '@/config/company'
 import { useDarkNavSection } from '@/components/UnderlayNav'
-import { cities } from '@/data/cities'
-import { industries } from '@/data/industries'
+// Alleen de links, niet de volledige paginateksten: de footer staat op elke
+// pagina en die records wegen samen bijna 300 KB.
+import { cityLinks as cities } from '@/data/cityLinks'
+import { industryLinks as industries } from '@/data/industryLinks'
 
 // ── Design tokens ──────────────────────────────────────────────
 

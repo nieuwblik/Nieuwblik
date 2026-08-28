@@ -22,34 +22,34 @@ export const industries: IndustryRecord[] = [
   {
     "slug": "kapper",
     "name": "Kapper",
-    "title": "Kapper website laten maken vanaf 990 euro | Nieuwblik",
-    "metaDescription": "Kapperswebsite laten maken die 24/7 afspraken boekt. Online agenda, mobiel snel en lokaal vindbaar. Vanaf 990 euro, live in 2 tot 6 weken.",
-    "h1": "Kapper website laten maken die agenda's vult",
-    "heroSubtitle": "Veel concurrentie in de buurt? Met een sterke kapperswebsite van Nieuwblik laat je vakmanschap zien, val je op in Google en zet je bezoekers om in vaste klanten die 24/7 zelf online een afspraak boeken.",
-    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken en boekingen soepel te laten verlopen. Nieuwblik bouwt kapperswebsites met een gekoppeld online afsprakensysteem, een galerij met jouw beste werk en lokale SEO die jouw salon bovenaan zet in Google Enkhuizen, Amsterdam, Hoorn of waar jij ook zit. Snel, mobielvriendelijk en vanaf 990 euro. Of je nu net start als zelfstandig kapper of doorgroeit met een team, wij denken mee.",
+    "title": "Website voor Kapper | AI Webdesign - Nieuwblik",
+    "metaDescription": "Website laten maken voor een kapper? Nieuwblik bouwt sites die nieuwe klanten aantrekken en jouw vakmanschap laten zien. Vraag offerte aan.",
+    "h1": "Een professionele website laten maken als kapper",
+    "heroSubtitle": "Een kapper heeft te maken met veel concurrentie in de buurt. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
+    "intro": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "Wat maakt een goede website voor een kapper?",
-      "body": "Klanten oriënteren zich vooral op hun telefoon en willen binnen 5 seconden zien wat je aanbiedt, wat het kost en wanneer ze terecht kunnen. Een kapperswebsite die converteert combineert een strak visueel ontwerp met een frictieloos boekingsproces, transparante prijzen en overtuigend social proof. Zo verandert bezoek in een volle agenda.",
+      "body": "Voor een kapper is de website vaak het eerste contactmoment met een nieuwe klant. Veel concurrentie in de buurt maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar online afspraken en zichtbaarheid. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
-          "h3": "Online afsprakensysteem 24/7",
-          "text": "Klanten plannen het liefst 's avonds vanaf de bank hun knipbeurt. Wij koppelen Salonized, Treatwell of een systeem naar keuze zodat jouw telefoon minder vaak gaat."
+          "h3": "Online afsprakensysteem",
+          "text": "Klanten plannen het liefst 24/7 zelf hun knipbeurt. Wij koppelen een online agenda zodat je telefoon minder vaak gaat."
         },
         {
           "h3": "Galerij met kapsels",
-          "text": "Foto's van jouw werk overtuigen sneller dan tekst. We tonen jouw stijl in een sfeervolle galerij die automatisch meegroeit vanuit jouw Instagram."
+          "text": "Foto's van jouw werk overtuigen sneller dan tekst. We tonen jouw stijl in een sfeervolle galerij die meegroeit met jouw portfolio."
         },
         {
           "h3": "Duidelijk prijsoverzicht",
-          "text": "Vooraf weten wat een behandeling kost verlaagt de drempel. Een transparante prijslijst voorkomt aarzeling en no-shows."
+          "text": "Klanten waarderen vooraf weten wat een behandeling kost. Een transparante prijslijst voorkomt drempels en aarzeling."
         },
         {
-          "h3": "Lokale SEO voor jouw stad",
-          "text": "Wij optimaliseren voor 'kapper Enkhuizen', 'kapsalon Hoorn' of jouw eigen plaats. Inclusief Google Business koppeling en kaartweergave."
+          "h3": "Openingstijden en locatie",
+          "text": "Snel zichtbaar wanneer je open bent en waar je zit. Inclusief kaart, parkeerinfo en bereikbaarheid per OV."
         },
         {
-          "h3": "Google reviews live op de site",
-          "text": "Vijf sterren van vaste klanten overtuigen nieuwe gasten direct. We tonen jouw meest recente Google reviews automatisch op de homepagina."
+          "h3": "Reviews van vaste klanten",
+          "text": "Goede beoordelingen overtuigen nieuwe gasten direct. We integreren Google reviews automatisch op de site."
         }
       ]
     },
@@ -57,74 +57,70 @@ export const industries: IndustryRecord[] = [
     "section3H2": "Wat onze klanten zeggen over hun nieuwe website",
     "section4": {
       "h2": "Websites die wij bouwden voor ondernemers in jouw sector",
-      "intro": "Een selectie van projecten die onze aanpak laten zien, ook relevant voor een kapsalon."
+      "intro": "Een selectie van projecten die onze aanpak laten zien, ook relevant voor een kapper."
     },
     "faq": {
       "h2": "Veelgestelde vragen over een website voor een kapper",
       "items": [
         {
-          "q": "Wat kost een kapperswebsite bij Nieuwblik?",
-          "a": "Een professionele kapperswebsite begint bij ons vanaf 990 euro voor het Starter pakket met alle essentiële functies. Wil je een uitgebreide site met CMS, online agenda-integratie en meerdere medewerkers, dan zit je op het Professional pakket vanaf 1990 euro. We stellen vooraf altijd een transparante offerte op zodat je precies weet wat je krijgt."
+          "q": "Welke functies zijn essentieel op een website voor een kapper?",
+          "a": "Voor een kapper bouwen wij standaard functies in zoals een duidelijk dienstenoverzicht, een sterk contactblok en eventueel een afspraak of reserveringsmodule. Welke onderdelen het meeste opleveren bespreken we tijdens de kennismaking op basis van jouw doelen."
         },
         {
-          "q": "Kan ik een online afsprakensysteem koppelen aan mijn kapperswebsite?",
-          "a": "Ja, wij integreren jouw voorkeurssysteem naadloos in de site. Populaire keuzes zijn Salonized, Treatwell en Booksy. Klanten boeken direct vanaf jouw site zonder omweg via een externe pagina, wat de conversie flink verhoogt."
+          "q": "Wat kost een website voor een kapper bij Nieuwblik?",
+          "a": "Een professionele website voor een kapper begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
-          "q": "Werkt de website ook goed op mobiel?",
-          "a": "Absoluut. Meer dan 70 procent van de bezoekers van een kapperswebsite komt via mobiel binnen. Al onze sites worden mobile first ontworpen: bliksemsnel, met vingervriendelijke knoppen en een boekingsflow die op elk schermformaat perfect werkt."
+          "q": "Hoe lang duurt een websiteproject voor een kapper?",
+          "a": "De meeste projecten voor een kapper ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
-          "q": "Hoe zorgen jullie dat mijn salon gevonden wordt in Google?",
-          "a": "Vindbaarheid bouwen we in vanaf het eerste ontwerp. Snelle laadtijd, schone technische SEO, sterke lokale content op stad en wijk, en een geoptimaliseerd Google Business profiel zorgen dat jouw salon boven concurrenten uitkomt op zoektermen als 'kapper' plus jouw plaatsnaam."
-        },
-        {
-          "q": "Hoe lang duurt een kapperswebsiteproject?",
-          "a": "De meeste kapperssites ronden wij binnen 2 tot 4 weken af. We werken in korte fases met duidelijke deadlines en wekelijkse updates. Hoe sneller jij foto's en teksten aanlevert, hoe sneller jouw nieuwe salonwebsite live staat."
+          "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn kapper?",
+          "a": "Vindbaarheid voor een kapper bouwen wij in vanaf het eerste ontwerp. Snelle laadtijd, technische SEO, sterke teksten en lokale optimalisatie zorgen dat jouw site goed scoort in Google en de juiste klanten vanzelf bij je terechtkomen."
         }
       ]
     },
     "contactBlock": {
-      "h2": "Benieuwd wat Nieuwblik kan betekenen voor jouw kapsalon?",
-      "body": "Wij bouwen graag mee aan jouw online verhaal als kapper. Neem vrijblijvend contact op om te bespreken wat een sterke website met online agenda kan betekenen voor jouw salon."
+      "h2": "Benieuwd wat Nieuwblik kan betekenen voor jouw kapper?",
+      "body": "Wij bouwen graag mee aan jouw online verhaal als kapper. Neem vrijblijvend contact op om te bespreken wat een sterke website voor jouw bedrijf kan betekenen."
     },
-    "internalLinks": "Nieuwblik bouwt websites voor kappers en kapsalons door heel Nederland. Bekijk onze diensten, ontdek meer cases in ons portfolio of leer ons kennen via de over ons pagina. Ben je gevestigd in West-Friesland? Lees dan ook onze pagina over lokale SEO Enkhuizen."
+    "internalLinks": "Nieuwblik bouwt websites voor ondernemers door heel Nederland, ook voor een kapper. Bekijk onze diensten, ontdek meer cases in ons portfolio of leer ons kennen via de over ons pagina."
   },
   {
     "slug": "restaurant",
     "name": "Restaurant",
-    "title": "Restaurant website laten maken vanaf 990 euro | Nieuwblik",
-    "metaDescription": "Restaurant website laten maken met online reserveren, menukaart en sfeerbeelden. Snel live, sterk in Google en gericht op meer gasten. Vanaf 990 euro.",
-    "h1": "Restaurant website laten maken die gasten reserveert",
-    "heroSubtitle": "Gasten verwachten een sfeervolle online beleving. Met een snelle restaurantwebsite van Nieuwblik val je op in Google, laat je jouw keuken spreken en boeken bezoekers direct een tafel via een naadloos reserveringssysteem.",
-    "intro": "In de horeca is online zichtbaarheid bepalend voor succes. Restaurants die opvallen in Google krijgen meer reserveringen, afhaalbestellingen en walk-ins. Nieuwblik bouwt restaurantwebsites die er strak uitzien, razendsnel laden en volledig gericht zijn op reserveringen, menukaart en sfeer. We koppelen jouw voorkeur uit Formitable, Zenchef of TheFork en optimaliseren voor lokale zoektermen als 'restaurant Enkhuizen' of 'lunchen Hoorn'. Vanaf 990 euro, live in enkele weken.",
+    "title": "Website voor Restaurant | Snel Live - Nieuwblik",
+    "metaDescription": "Een restaurant verdient een sterke website. Nieuwblik combineert design en strategie voor meer aanvragen en omzet. Plan een kennismaking.",
+    "h1": "Website laten maken voor jouw restaurant of bedrijf",
+    "heroSubtitle": "Een restaurant heeft te maken met gasten verwachten een sfeervolle online beleving. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
+    "intro": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
     "section1": {
-      "h2": "Dit verwachten gasten van een restaurantwebsite",
-      "body": "Gasten oriënteren zich vooral mobiel: ze willen binnen tien seconden de menukaart zien, weten of ze welkom zijn en direct een tafel kunnen boeken. Een restaurantwebsite die gasten binnenhaalt combineert sfeervolle fotografie, een frictieloos reserveringssysteem en lokale SEO die jouw zaak boven bezorgplatforms zet in de Google zoekresultaten.",
+      "h2": "Dit verwachten klanten van een restaurant website",
+      "body": "In de wereld van een restaurant is online zichtbaarheid bepalend voor succes. Restaurants die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op reserveringen en sfeer overbrengen. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
       "needs": [
         {
           "h3": "Menukaart met sfeerfoto's",
-          "text": "Een goede menukaart maakt direct hongerig. Wij combineren leesbare menu items met smaakvolle foto's voor maximaal effect en tonen prijzen transparant."
+          "text": "Een goede menukaart maakt direct hongerig. Wij combineren leesbare menu items met smaakvolle foto's voor maximaal effect."
         },
         {
           "h3": "Online reserveringssysteem",
-          "text": "Gasten boeken liever zelf een tafel dan dat ze bellen. Wij integreren Formitable, Zenchef of TheFork zodat reserveringen direct in jouw agenda staan."
+          "text": "Gasten boeken liever zelf een tafel dan dat ze bellen. Wij integreren een betrouwbaar reserveringssysteem zonder gedoe."
         },
         {
-          "h3": "Lokale SEO voor jouw stad",
-          "text": "We optimaliseren voor 'restaurant Enkhuizen', 'lunch Hoorn' of jouw eigen plaats. Inclusief Google Business koppeling met menukaart en foto's."
+          "h3": "Openingstijden en routebeschrijving",
+          "text": "Snel duidelijk wanneer je open bent en hoe gasten je vinden. Inclusief kaart en parkeertips voor wie van buiten komt."
         },
         {
           "h3": "Sfeerbeelden van het interieur",
-          "text": "Foto's van de zaak laten zien wat gasten kunnen verwachten. We zorgen voor een fotomix die de juiste verwachting wekt en aansluit bij jouw keuken."
+          "text": "Foto's van de zaak laten zien wat gasten kunnen verwachten. We zorgen voor een mix die de juiste verwachting wekt."
         },
         {
           "h3": "Reviews en recensies",
-          "text": "Goede beoordelingen helpen twijfelaars over de streep. Wij koppelen Google en TripAdvisor reviews rechtstreeks op de homepagina."
+          "text": "Goede beoordelingen helpen twijfelaars over de streep. Wij koppelen externe reviewbronnen direct aan jouw site."
         },
         {
-          "h3": "Bestelmodule voor afhalen en bezorgen",
-          "text": "Bied je takeaway? Een eigen bestelflow op jouw site voorkomt hoge commissies bij Thuisbezorgd en houdt de marge waar hij hoort: bij jou."
+          "h3": "Bestelmodule of afhalen",
+          "text": "Bied je takeaway? Een eenvoudige bestelflow zorgt voor extra omzet zonder hoge commissies aan platforms."
         }
       ]
     },
@@ -132,32 +128,27 @@ export const industries: IndustryRecord[] = [
     "section3H2": "Restaurants en andere ondernemers gingen je voor",
     "section4": {
       "h2": "Onze recente projecten spreken voor zich",
-      "intro": "Bekijk hoe we andere ondernemers verder hielpen en wat dat betekent voor jouw restaurant, café of lunchroom."
+      "intro": "Bekijk hoe we andere ondernemers verder hielpen en wat dat betekent voor jouw restaurant."
     },
     "faq": {
       "h2": "Wat restaurants ons het vaakst vragen",
       "items": [
         {
-          "q": "Wat kost een restaurantwebsite bij Nieuwblik?",
-          "a": "Een complete restaurantwebsite begint bij ons vanaf 990 euro voor het Starter pakket. Wil je een reserveringssysteem, meertaligheid en een uitgebreide menukaart met CMS, dan zit je op het Professional pakket vanaf 1990 euro. Voor een volledige bestelmodule met afhalen en bezorgen maken we een offerte op maat."
+          "q": "Welke functies zijn essentieel op een website voor een restaurant?",
+          "a": "De essentiële functies voor een restaurant website zijn snelheid, mobielvriendelijkheid en heldere call to actions. Daarnaast voegen we vaak een online afsprakenmodule, portfolio of klantbeoordelingen toe om vertrouwen te wekken bij nieuwe bezoekers."
         },
         {
-          "q": "Welk reserveringssysteem koppelen jullie?",
-          "a": "Wij werken vaak met Formitable, Zenchef en TheFork, maar sluiten aan bij het systeem waar jij mee wil werken. Gasten reserveren direct vanaf jouw site zonder omweg via een extern platform. Dat verhoogt de conversie en houdt de data bij jou."
+          "q": "Wat kost een website voor een restaurant bij Nieuwblik?",
+          "a": "Voor een restaurant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
-          "q": "Hoe zorgen jullie dat mijn restaurant hoog scoort in Google?",
-          "a": "Vindbaarheid bouwen we in vanaf het eerste ontwerp. Snelle laadtijden, schone technische SEO, sterke lokale content per plaats en een geoptimaliseerd Google Business profiel zorgen dat jouw restaurant boven bezorgplatforms als Thuisbezorgd of Uber Eats uitkomt op zoektermen als 'restaurant' plus jouw plaatsnaam."
+          "q": "Hoe lang duurt een websiteproject voor een restaurant?",
+          "a": "Een nieuwe website voor een restaurant kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
-          "q": "Kan ik zelf de menukaart aanpassen?",
-          "a": "Ja, in het Professional pakket krijg je een eenvoudig CMS waarin je zelf menu items, prijzen en foto's kunt aanpassen. Ideaal voor seizoensmenu's, dagsuggesties en tijdelijke acties zonder dat je hoeft te wachten op een developer."
-        },
-        {
-          "q": "Hoe lang duurt een restaurantwebsiteproject?",
-          "a": "Een nieuwe restaurantwebsite zetten wij gemiddeld binnen 3 weken live. Bij grotere projecten met bestelmodule en meertaligheid loopt dit op tot 6 weken. We plannen vooraf realistisch en houden ons aan de deadlines."
+          "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn restaurant?",
+          "a": "Wij maken jouw restaurant website klaar voor SEO door zoekwoordenonderzoek, sterke metateksten en snelle techniek. Daarnaast adviseren we over Google reviews en lokale vermeldingen, want die maken in de restaurant branche vaak het verschil."
         }
-
       ]
     },
     "contactBlock": {
@@ -317,7 +308,7 @@ export const industries: IndustryRecord[] = [
     "heroSubtitle": "Een fysiotherapeut heeft te maken met vertrouwen en deskundigheid uitstralen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
     "intro": "In de wereld van een fysiotherapeut is online zichtbaarheid bepalend voor succes. Fysiotherapiepraktijken die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op nieuwe patiënten via online vindbaarheid. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
     "section1": {
-      "h2": "Wat een professionele website je als fysiotherapeut brengt",
+      "h2": "Wat een professionele website jouw fysiotherapeut brengt",
       "body": "In de wereld van een fysiotherapeut is online zichtbaarheid bepalend voor succes. Fysiotherapiepraktijken die opvallen, krijgen meer aanvragen. Nieuwblik bouwt sites die er strak uitzien, snel laden en gericht zijn op nieuwe patiënten via online vindbaarheid. Wij combineren creatieve briefings met een AI gedreven workflow om sneller en scherper geprijsd op te leveren. Persoonlijk contact en duidelijke afspraken zijn altijd onderdeel van de samenwerking.",
       "needs": [
         {
@@ -457,10 +448,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Makelaar en je website is verouderd? Nieuwblik bouwt moderne sites die werken op alle apparaten en klanten overtuigen. Vraag een offerte aan.",
     "h1": "Een website die past bij jouw werk als makelaar",
     "heroSubtitle": "Een makelaar heeft te maken met snel en visueel woningaanbod tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers, en hen aan jouw merk binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers binden aan jouw merk. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "De juiste basis voor een makelaar website",
-      "body": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers, en hen aan jouw merk binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Voor een makelaar is de website vaak het eerste contactmoment met een nieuwe klant. Snel en visueel woningaanbod tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar verkopers en kopers binden aan jouw merk. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
@@ -883,10 +874,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Op zoek naar webdesign voor jouw schilder? Wij maken websites die opvallen in Google en bezoekers omzetten in klanten. Start vandaag.",
     "h1": "Meer klanten via een sterke website voor jouw schilder",
     "heroSubtitle": "Een schilder heeft te maken met lokaal goed vindbaar zijn voor klussen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar een regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "Hoe een sterke website meer oplevert voor jouw schilder",
-      "body": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar een regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Voor een schilder is de website vaak het eerste contactmoment met een nieuwe klant. Lokaal goed vindbaar zijn voor klussen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar regelmatige stroom offerteaanvragen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
@@ -1027,7 +1018,7 @@ export const industries: IndustryRecord[] = [
     "heroSubtitle": "Een elektricien heeft te maken met vertrouwen wekken bij particulier en zakelijk. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
     "intro": "Een elektricien verdient een website die past bij het werk en het gevoel dat je wilt overbrengen. Veel elektriciens hebben moeite met vertrouwen wekken bij particulier en zakelijk, en dat is precies waar wij invliegen. Nieuwblik koppelt sterke teksten aan strak design en zorgt voor beide doelgroepen converteren. We werken vanuit Enkhuizen voor MKB door heel Nederland, met persoonlijk contact en betaalbare tarieven die transparant zijn vanaf het eerste gesprek.",
     "section1": {
-      "h2": "Wat een professionele website je als elektricien brengt",
+      "h2": "Wat een professionele website jouw elektricien brengt",
       "body": "Een elektricien verdient een website die past bij het werk en het gevoel dat je wilt overbrengen. Veel elektriciens hebben moeite met vertrouwen wekken bij particulier en zakelijk, en dat is precies waar wij invliegen. Nieuwblik koppelt sterke teksten aan strak design en zorgt voor beide doelgroepen converteren. We werken vanuit Enkhuizen voor MKB door heel Nederland, met persoonlijk contact en betaalbare tarieven die transparant zijn vanaf het eerste gesprek.",
       "needs": [
         {
@@ -1096,10 +1087,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Een nieuwe website voor jouw coach? Strategisch ontwerp, sterke teksten en goede vindbaarheid. Plan een vrijblijvend gesprek met ons.",
     "h1": "Laat jouw coach groeien met een nieuwe website",
     "heroSubtitle": "Een coach heeft te maken met persoonlijkheid en aanpak laten doorklinken. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken vullen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
       "h2": "Hoe een coach online het verschil maakt",
-      "body": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "body": "Voor een coach is de website vaak het eerste contactmoment met een nieuwe klant. Persoonlijkheid en aanpak laten doorklinken maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar kennismakingsgesprekken vullen. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
@@ -1735,10 +1726,10 @@ export const industries: IndustryRecord[] = [
     "metaDescription": "Meer klanten voor jouw architect via een sterke website. Nieuwblik bouwt snel, slim en betaalbaar. Bekijk wat wij voor jou kunnen doen.",
     "h1": "Modern webdesign voor de architect branche",
     "heroSubtitle": "Een architect heeft te maken met ontwerpvisie en projecten visueel tonen. Met een sterke website van Nieuwblik laat je vakmanschap zien en zet je bezoekers om in klanten.",
-    "intro": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden en aan ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+    "intro": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
     "section1": {
-      "h2": "Wat een professionele website je als architect brengt",
-      "body": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden en aan ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
+      "h2": "Wat een professionele website jouw architect brengt",
+      "body": "Voor een architect is de website vaak het eerste contactmoment met een nieuwe klant. Ontwerpvisie en projecten visueel tonen maakt het extra belangrijk om direct vertrouwen te wekken. Nieuwblik bouwt websites die jouw vakmanschap zichtbaar maken en bezoekers actief begeleiden naar ambitieuze opdrachtgevers binden. Met een persoonlijke aanpak, scherpe prijzen en AI gedreven ontwikkeling leveren wij snel een site die er staat als een huis. Of je nu net start of doorgroeit, wij denken mee.",
       "needs": [
         {
           "h3": "Helder dienstenoverzicht",
