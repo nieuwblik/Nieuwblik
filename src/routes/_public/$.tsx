@@ -8,8 +8,10 @@ import { buildHead } from "@/lib/seo";
 export const Route = createFileRoute("/_public/$")({
   head: () =>
     buildHead({
-      title: "404 - Pagina niet gevonden | Nieuwblik",
-      description: "Deze pagina bestaat niet (meer). Bekijk onze diensten of ga naar de homepage.",
+      title: "Pagina Niet Gevonden | Nieuwblik Webdesign Enkhuizen",
+      description:
+        "Deze pagina bestaat niet of is verplaatst. Ga terug naar de homepage van Nieuwblik webdesign bureau in Enkhuizen.",
+      keywords: "404, pagina niet gevonden, Nieuwblik Enkhuizen",
       noIndex: true,
     }),
   component: NotFound,
