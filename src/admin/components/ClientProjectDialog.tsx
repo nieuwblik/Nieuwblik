@@ -150,12 +150,12 @@ const ClientProjectDialog = ({
 
     try {
       const savedClient = await saveClient.mutateAsync({
-        id: client?.id,
+        ...(client ? { id: client.id } : {}),
         values: { ...clientValues, ...(client ? {} : { created_by: userId }) },
       });
 
       const savedProject = await saveProject.mutateAsync({
-        id: project?.id,
+        ...(project ? { id: project.id } : {}),
         values: {
           ...projectValues,
           client_id: savedClient.id,

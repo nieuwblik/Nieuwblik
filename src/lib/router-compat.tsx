@@ -18,7 +18,11 @@ import { useMemo, useCallback, forwardRef, type ComponentProps, type ReactNode }
 
 // ---------- shared URL parsing ----------
 
-function parseTo(to: string): { pathname: string; search?: Record<string, string>; hash?: string } {
+function parseTo(to: string): {
+  pathname: string;
+  search: Record<string, string> | undefined;
+  hash: string | undefined;
+} {
   const [beforeHash, hashStr] = (to ?? "").split("#");
   const [pathname, searchStr] = (beforeHash ?? "").split("?");
   return {
@@ -54,7 +58,7 @@ export function useNavigate(): NavigateFn {
       hash,
       state: options?.state as never,
       replace: options?.replace,
-    });
+    } as never);
   }, [tsNav, router]) as NavigateFn;
 }
 
@@ -106,7 +110,7 @@ export function useSearchParams(): [URLSearchParams, (init: URLSearchParams | Re
             : new URLSearchParams(init);
       const searchObj: Record<string, string> = {};
       next.forEach((v, k) => { searchObj[k] = v; });
-      nav({ to: live.pathname, search: searchObj as never, replace: opts?.replace });
+      nav({ to: live.pathname, search: searchObj as never, replace: opts?.replace } as never);
     },
     [nav, router],
   );
@@ -127,19 +131,16 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   ref,
 ) {
   const { pathname, search, hash } = parseTo(to);
-  return (
-    <TSLink
-      ref={ref as never}
-      to={pathname as never}
-      search={search as never}
-      hash={hash}
-      replace={replace}
-      state={state as never}
-      {...((rest ?? {}) as Record<string, unknown>)}
-    >
-      {children}
-    </TSLink>
-  );
+  const linkProps = {
+    ref: ref as never,
+    to: pathname as never,
+    search: search as never,
+    ...(hash !== undefined ? { hash } : {}),
+    ...(replace !== undefined ? { replace } : {}),
+    state: state as never,
+    ...((rest ?? {}) as Record<string, unknown>),
+  } as unknown as ComponentProps<typeof TSLink>;
+  return <TSLink {...linkProps}>{children}</TSLink>;
 });
 
 
@@ -147,7 +148,14 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
 
 export function Navigate({ to, replace, state }: { to: string; replace?: boolean; state?: unknown }) {
   const { pathname, search, hash } = parseTo(to);
-  return <TSNavigate to={pathname as never} search={search as never} hash={hash} state={state as never} replace={replace} />;
+  const navProps = {
+    to: pathname as never,
+    search: search as never,
+    ...(hash !== undefined ? { hash } : {}),
+    ...(replace !== undefined ? { replace } : {}),
+    state: state as never,
+  } as unknown as ComponentProps<typeof TSNavigate>;
+  return <TSNavigate {...navProps} />;
 }
 
 // ---------- Outlet ----------

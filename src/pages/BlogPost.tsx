@@ -1,5 +1,6 @@
+import type { JSX } from "react";
 import DOMPurify from "dompurify";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate } from "@/lib/router-compat";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Footer from "@/components/Footer";
@@ -153,7 +154,7 @@ const BlogPost = () => {
         parts.push(<em key={match.index}>{match[4]}</em>);
       } else if (match[5]) {
         // [link](url)
-        const href = match[7];
+        const href = match[7] ?? "";
         const isAnchor = href.startsWith('#');
         parts.push(
           <a
@@ -236,7 +237,7 @@ const BlogPost = () => {
       if (section.includes('|') && section.includes('---')) {
         const lines = section.split('\n').filter(line => line.trim());
         if (lines.length >= 2) {
-          const headerLine = lines[0];
+          const headerLine = lines[0] ?? "";
           const dataLines = lines.slice(2);
           const headers = headerLine.split('|').map(h => h.trim()).filter(h => h);
 
@@ -504,7 +505,7 @@ const BlogPost = () => {
           articlePublishedTime={post.date}
           articleModifiedTime={post.date}
           articleAuthor="Justin Slok"
-          structuredData={structuredData || undefined}
+          {...(structuredData ? { structuredData } : {})}
           breadcrumbs={[
             { name: "Home", url: "https://www.nieuwblik.com" },
             { name: "Blog", url: "https://www.nieuwblik.com/blog" },

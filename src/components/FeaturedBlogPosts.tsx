@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { blogPosts } from "@/data/blogPosts";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
@@ -17,6 +17,8 @@ const FeaturedBlogPosts = () => {
 
   const featuredPost = blogPosts[0];
   const secondaryPosts = blogPosts.slice(1, 4);
+
+  if (!featuredPost) return null;
 
   const INK = "hsl(var(--sw-ink))";
   const INK45 = "hsl(var(--sw-ink) / 0.45)";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/lib/router-compat'
 import { OptimizedImage } from '@/components/OptimizedImage'
 import Reveal from "@/components/Reveal"
 import logo from '@/assets/logo.webp'

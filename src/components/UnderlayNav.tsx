@@ -8,7 +8,7 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@/lib/router-compat";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { useGSAP } from "@gsap/react";
@@ -62,9 +62,9 @@ const DarkSectionContext = createContext<RegisterDarkSection | null>(null);
  *   const ref = useDarkNavSection<HTMLElement>();
  *   <section ref={ref}> …dark content… </section>
  */
-export function useDarkNavSection<T extends Element = HTMLElement>(): RefObject<T> {
+export function useDarkNavSection<T extends Element = HTMLElement>(): RefObject<T | null> {
   const register = useContext(DarkSectionContext);
-  const ref = useRef<T>(null);
+  const ref = useRef<T | null>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el || !register) return;
@@ -219,7 +219,7 @@ export default function UnderlayNav({
         .to(toggleLabels, { yPercent: -100, duration: 0.4 }, 0)
         .to(toggleBtn, { color: openColor, duration: 0.4 }, 0)
         .to(
-          toggleBars[0],
+          toggleBars[0] ?? null,
           {
             y: "0.25em",
             rotation: 45,
@@ -230,7 +230,7 @@ export default function UnderlayNav({
           0.05
         )
         .to(
-          toggleBars[1],
+          toggleBars[1] ?? null,
           {
             y: "-0.25em",
             rotation: -45,

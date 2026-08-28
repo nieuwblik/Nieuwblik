@@ -62,7 +62,7 @@ const Reveal = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
+        if (!entry?.isIntersecting) return;
         setZichtbaar(true);
         observer.disconnect();
       },

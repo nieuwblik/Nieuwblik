@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useDarkNavSection } from "@/components/UnderlayNav";

@@ -91,7 +91,7 @@ const QuickCapture = ({ open, onOpenChange, defaultDueDate = null }: QuickCaptur
     try {
       const taak = await save.mutateAsync({
         values: {
-          title: eersteRegel.slice(0, 300),
+          title: (eersteRegel ?? "").slice(0, 300),
           description: omschrijving || null,
           project_id: projectId === NO_CLIENT ? null : projectId,
           priority,

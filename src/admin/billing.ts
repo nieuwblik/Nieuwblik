@@ -40,7 +40,7 @@ export function dagSleutel(datum: Date): string {
 /** Leest yyyy-MM-dd als lokale datum; new Date("2026-08-18") is UTC-middernacht. */
 export function leesDatum(waarde: string): Date {
   const [jaar, maand, dag] = waarde.split("-").map(Number);
-  return new Date(jaar, maand - 1, dag);
+  return new Date(jaar ?? 0, (maand ?? 1) - 1, dag ?? 1);
 }
 
 /**

@@ -75,8 +75,7 @@ const DatePicker = ({ value, onChange, placeholder = "Geen datum", className, ..
           mode="single"
           locale={nl}
           weekStartsOn={1}
-          defaultMonth={selected}
-          selected={selected}
+          {...(selected ? { defaultMonth: selected, selected } : {})}
           onSelect={(date) => {
             onChange(date ? format(date, "yyyy-MM-dd") : null);
             setOpen(false);

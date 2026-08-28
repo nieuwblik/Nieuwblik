@@ -208,7 +208,7 @@ const MonthGrid = ({
                 <DayPlanCard
                   dag={dag}
                   taken={taken}
-                  onAdd={onAddOnDay ? () => { setOpenDag(null); onAddOnDay(dag); } : undefined}
+                  {...(onAddOnDay ? { onAdd: () => { setOpenDag(null); onAddOnDay(dag); } } : {})}
                   onNavigate={() => setOpenDag(null)}
                 />
               </PopoverContent>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { useReducedMotion } from "@/lib/reduced-motion";

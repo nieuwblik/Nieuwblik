@@ -82,9 +82,10 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
       timers.current.push(
         window.setTimeout(
           () =>
-            setNetAf((huidig) =>
-              huidig[task.id] ? { ...huidig, [task.id]: { ...huidig[task.id], vertrekt: true } } : huidig,
-            ),
+            setNetAf((huidig) => {
+              const item = huidig[task.id];
+              return item ? { ...huidig, [task.id]: { ...item, vertrekt: true } } : huidig;
+            }),
           420,
         ),
         window.setTimeout(() => laatLos(task.id), 640),
