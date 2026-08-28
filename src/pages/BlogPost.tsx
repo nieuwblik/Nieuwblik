@@ -590,31 +590,34 @@ const BlogPost = () => {
             {/* Table of Contents - Mobile — portalled to <body> for the same
                 reason as the progress bar above: the <main> wrapper gets
                 transformed, which would otherwise re-anchor this fixed button
-                to main instead of the viewport. */}
-            {createPortal(
-              <div className="lg:hidden fixed bottom-6 right-6 z-40">
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <motion.div
-                      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                      whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                    >
-                      <Button size="lg" className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90">
-                        <Menu className="h-6 w-6" />
-                      </Button>
-                    </motion.div>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-80">
-                    <TableOfContents
-                      items={tocItems}
-                      activeSection={activeSection}
-                      onItemClick={scrollToSection}
-                    />
-                  </SheetContent>
-                </Sheet>
-              </div>,
-              document.body
-            )}
+                to main instead of the viewport. Alleen in de browser: op de
+                server bestaat document niet, en portals doen niet mee aan
+                hydration, dus dit is veilig. */}
+            {typeof document !== "undefined" &&
+              createPortal(
+                <div className="lg:hidden fixed bottom-6 right-6 z-40">
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <motion.div
+                        whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                        whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                      >
+                        <Button size="lg" className="rounded-full w-14 h-14 shadow-lg bg-accent text-accent-foreground hover:bg-accent/90">
+                          <Menu className="h-6 w-6" />
+                        </Button>
+                      </motion.div>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-80">
+                      <TableOfContents
+                        items={tocItems}
+                        activeSection={activeSection}
+                        onItemClick={scrollToSection}
+                      />
+                    </SheetContent>
+                  </Sheet>
+                </div>,
+                document.body
+              )}
 
             {/* Main Content */}
             <div className="lg:col-span-2">
