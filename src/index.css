@@ -528,3 +528,31 @@ h1, h2, h3, h4, h5, h6 {
 .portaal::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* ── Gloed in de footer ──────────────────────────────────────────
+   Drie zachte vlekken die traag bewegen. Stonden als eindeloze
+   framer-motion-animaties in javascript; dat hield de hoofddraad bezig
+   en zorgde ervoor dat de pagina voor meetgereedschap nooit "klaar"
+   was. Als keyframes doet de compositor het werk.
+   Bij prefers-reduced-motion staan ze stil. */
+@keyframes nb-gloed-a {
+  0%, 100% { opacity: 0.3; transform: translate3d(0, 0, 0); }
+  50%      { opacity: 0.65; transform: translate3d(24px, 18px, 0); }
+}
+@keyframes nb-gloed-b {
+  0%, 100% { opacity: 0.5; transform: translate3d(0, 0, 0) scale(1); }
+  50%      { opacity: 1; transform: translate3d(-32px, -24px, 0) scale(1.1); }
+}
+@keyframes nb-gloed-c {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  33%      { opacity: 0.5; transform: scale(1.25); }
+  66%      { opacity: 0.35; transform: scale(0.95); }
+}
+
+.nb-gloed-a { animation: nb-gloed-a 13s ease-in-out infinite; }
+.nb-gloed-b { animation: nb-gloed-b 9s ease-in-out 1.5s infinite; }
+.nb-gloed-c { animation: nb-gloed-c 17s ease-in-out 4s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nb-gloed-a, .nb-gloed-b, .nb-gloed-c { animation: none; }
+}

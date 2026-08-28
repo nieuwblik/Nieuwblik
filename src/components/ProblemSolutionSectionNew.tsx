@@ -1,8 +1,7 @@
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
 import { Check } from "lucide-react";
-import { easings } from "@/lib/motion";
+import Reveal from "@/components/Reveal";
 
+/** Dun laagje om Reveal, zodat de aanroepen hieronder onveranderd blijven. */
 const AnimatedSection = ({
     children,
     className = "",
@@ -11,27 +10,11 @@ const AnimatedSection = ({
     children: React.ReactNode;
     className?: string;
     delay?: number;
-}) => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
-    const shouldReduceMotion = useReducedMotion();
-
-    return (
-        <motion.div
-            ref={ref}
-            className={className}
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 60 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: shouldReduceMotion ? 0 : 60 }}
-            transition={{
-                duration: shouldReduceMotion ? 0.2 : 0.7,
-                delay: shouldReduceMotion ? 0 : delay,
-                ease: easings.easeOutExpo
-            }}
-        >
-            {children}
-        </motion.div>
-    );
-};
+}) => (
+    <Reveal className={className} delay={delay} afstand={60}>
+        {children}
+    </Reveal>
+);
 
 const problems = [
     "Mijn website ziet er verouderd of amateuristisch uit.",
@@ -52,8 +35,6 @@ const solutions = [
 ];
 
 export const ProblemSolutionSection = () => {
-    const shouldReduceMotion = useReducedMotion();
-
     return (
         <section className="py-20 md:py-32 bg-secondary overflow-hidden">
             <div className="container mx-auto px-6">
@@ -91,18 +72,7 @@ export const ProblemSolutionSection = () => {
                             {/* Problem List */}
                             <ul className="space-y-4 md:space-y-5">
                                 {problems.map((problem, index) => (
-                                    <motion.li
-                                        key={index}
-                                        className="flex items-start gap-3 md:gap-4"
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{
-                                            duration: shouldReduceMotion ? 0.1 : 0.5,
-                                            delay: shouldReduceMotion ? 0 : 0.3 + index * 0.08,
-                                            ease: easings.easeOutExpo
-                                        }}
-                                    >
+                                    <Reveal as="li" key={index} className="flex items-start gap-3 md:gap-4" from="links" afstand={20}>
                                         <span
                                             className="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center mt-0.5 text-base md:text-lg font-bold"
                                             style={{ color: '#E63946' }}
@@ -112,7 +82,7 @@ export const ProblemSolutionSection = () => {
                                         <span className="text-base md:text-lg text-foreground/90 font-normal leading-relaxed">
                                             {problem}
                                         </span>
-                                    </motion.li>
+                                    </Reveal>
                                 ))}
                             </ul>
                         </div>
@@ -150,18 +120,7 @@ export const ProblemSolutionSection = () => {
                                 {/* Solution List */}
                                 <ul className="space-y-4 md:space-y-5">
                                     {solutions.map((solution, index) => (
-                                        <motion.li
-                                            key={index}
-                                            className="flex items-start gap-3 md:gap-4"
-                                            initial={{ opacity: 0, x: 20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{
-                                                duration: shouldReduceMotion ? 0.1 : 0.5,
-                                                delay: shouldReduceMotion ? 0 : 0.35 + index * 0.08,
-                                                ease: easings.easeOutExpo
-                                            }}
-                                        >
+                                        <Reveal as="li" key={index} className="flex items-start gap-3 md:gap-4" from="rechts" afstand={20}>
                                             <span
                                                 className="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded-full mt-0.5"
                                                 style={{
@@ -174,7 +133,7 @@ export const ProblemSolutionSection = () => {
                                             <span className="text-base md:text-lg text-white/90 font-normal leading-relaxed">
                                                 {solution}
                                             </span>
-                                        </motion.li>
+                                        </Reveal>
                                     ))}
                                 </ul>
                             </div>

@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
@@ -14,7 +15,6 @@ const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
 
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Star } from "lucide-react";
-import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
@@ -26,42 +26,17 @@ import { companyInfo } from "@/config/company";
 import { useReveal } from "@/lib/reveal";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 
-// Optimized animation component for scroll-triggered reveals
+// Scroll-reveal voor secties. Zelfde beweging als eerst, nu met CSS in plaats
+// van framer-motion; die stond hiervoor alleen hierom in de hoofdbundel.
 const AnimatedSection = ({
   children,
   className = "",
   delay = 0
-}: { children: React.ReactNode; className?: string; delay?: number; }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    margin: "-20px"
-  });
-  const shouldReduceMotion = useReducedMotion();
-  return <motion.div
-    ref={ref}
-    layout="position"
-    className={className}
-    style={gpuAcceleration}
-    initial={{
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 30
-    }}
-    animate={isInView ? {
-      opacity: 1,
-      y: 0
-    } : {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 30
-    }}
-    transition={{
-      duration: shouldReduceMotion ? 0.2 : 0.6,
-      delay: shouldReduceMotion ? 0 : delay,
-      ease: [0.25, 0.1, 0.25, 1]  // Smooth cubic bezier
-    }}>
+}: { children: React.ReactNode; className?: string; delay?: number; }) => (
+  <Reveal className={className} delay={delay} afstand={30} style={gpuAcceleration}>
     {children}
-  </motion.div>;
-};
+  </Reveal>
+);
 
 // Swiss section header: hairline rule + mono spec label + oversized heading.
 // Used to thread the grid language through the page's sections.

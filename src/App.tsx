@@ -9,9 +9,13 @@ import SmoothScroll from "./components/SmoothScroll";
 import UnderlayNav, { type UnderlayNavItem } from "./components/UnderlayNav";
 import { companyInfo } from "./config/company";
 
-import CookieConsent from "./components/CookieConsent";
 import WhatsAppButton from "./components/WhatsAppButton";
-import FreeAnalysisPopup from "./components/FreeAnalysisPopup";
+
+// Twee overlays die pas na de eerste tekening iets doen. Ze animeren hun
+// verschijnen en verdwijnen met framer-motion; apart geladen blijft die
+// bibliotheek uit de hoofdbundel.
+const CookieConsent = lazy(() => import("./components/CookieConsent"));
+const FreeAnalysisPopup = lazy(() => import("./components/FreeAnalysisPopup"));
 
 
 // De homepage blijft in de hoofdbundel: dat is de pagina waar bezoekers
@@ -148,9 +152,11 @@ const PublicSite = () => {
   return (
   <>
     <SmoothScroll />
-    <CookieConsent />
     <WhatsAppButton />
-    <FreeAnalysisPopup />
+    <Suspense fallback={null}>
+      <CookieConsent />
+      <FreeAnalysisPopup />
+    </Suspense>
 
     <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
         {/* De terugval is een dekkend vlak van schermhoogte, geen null. Het

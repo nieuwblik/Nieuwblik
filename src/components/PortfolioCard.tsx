@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/reduced-motion";
 
 export interface PortfolioCardProps {
   title: string;

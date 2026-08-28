@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/reduced-motion";
 import { cn } from "@/lib/utils";
 
 interface AnimatedButtonProps {

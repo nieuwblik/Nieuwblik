@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { OptimizedImage } from '@/components/OptimizedImage'
+import Reveal from "@/components/Reveal"
 import logo from '@/assets/logo.webp'
 import { companyInfo } from '@/config/company'
 import { useDarkNavSection } from '@/components/UnderlayNav'
@@ -71,7 +71,7 @@ const FOOTER_COLS = [
 function NumLink({ label, to }: { label: string; to: string; index?: number }) {
   const [hov, setHov] = useState(false)
   return (
-    <motion.div onHoverStart={() => setHov(true)} onHoverEnd={() => setHov(false)}>
+    <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <Link
         to={to}
         style={{
@@ -79,15 +79,18 @@ function NumLink({ label, to }: { label: string; to: string; index?: number }) {
           padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)',
         }}
       >
-        <motion.span
-          animate={{ color: hov ? WHITE : STEEL, x: hov ? 2 : 0 }}
-          transition={{ duration: 0.18 }}
-          style={{ fontFamily: FONT_BODY, fontSize: 13, fontWeight: 300, display: 'inline-block' }}
+        <span
+          style={{
+            fontFamily: FONT_BODY, fontSize: 13, fontWeight: 300, display: 'inline-block',
+            color: hov ? WHITE : STEEL,
+            transform: hov ? 'translateX(2px)' : 'none',
+            transition: 'color 0.18s ease, transform 0.18s ease',
+          }}
         >
           {label}
-        </motion.span>
+        </span>
       </Link>
-    </motion.div>
+    </div>
   )
 }
 
@@ -121,36 +124,31 @@ function FooterComponent() {
   const darkRef = useDarkNavSection<HTMLElement>()
 
   return (
-    <motion.footer
-      ref={darkRef}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 1.0, ease: EASE_OUT }}
+    <Reveal
+      as="footer"
+      afstand={0}
+      innerRef={(node) => { darkRef.current = node; }}
       style={{ background: BG, position: 'relative', overflow: 'hidden' }}
     >
       {/* Animated green glow blobs */}
-      <motion.div
-        animate={{ opacity: [0.3, 0.65, 0.3], x: [0, 24, 0], y: [0, 18, 0] }}
-        transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="nb-gloed-a"
         style={{
           position: 'absolute', top: '-35%', left: '-12%', width: '75%', height: '90%',
           background: 'radial-gradient(ellipse at center, hsl(160 84% 40% / 0.14) 0%, transparent 60%)',
           pointerEvents: 'none', zIndex: 0,
         }}
       />
-      <motion.div
-        animate={{ opacity: [0.5, 1, 0.5], x: [0, -32, 0], y: [0, -24, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+      <div
+        className="nb-gloed-b"
         style={{
           position: 'absolute', bottom: '-25%', right: '-18%', width: '70%', height: '70%',
           background: 'radial-gradient(ellipse at center, hsl(160 84% 55% / 0.10) 0%, hsl(160 84% 30% / 0.06) 40%, transparent 68%)',
           pointerEvents: 'none', zIndex: 0,
         }}
       />
-      <motion.div
-        animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.25, 0.95, 1] }}
-        transition={{ duration: 17, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+      <div
+        className="nb-gloed-c"
         style={{
           position: 'absolute', top: '25%', right: '10%', width: '40%', height: '50%',
           background: 'radial-gradient(ellipse at center, hsl(160 84% 60% / 0.07) 0%, transparent 58%)',
@@ -390,7 +388,7 @@ function FooterComponent() {
         </div>
 
       </div>
-    </motion.footer>
+    </Reveal>
   )
 }
 
