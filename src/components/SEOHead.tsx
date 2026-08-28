@@ -137,90 +137,6 @@ const SEOHead = ({
       document.head.appendChild(hreflangDefault);
     }
     hreflangDefault.setAttribute('href', resolvedCanonicalUrl);
-    
-    // Organization JSON-LD (always include on main pages)
-    if (includeOrganizationSchema) {
-      let orgScript = document.getElementById('organization-data');
-      if (!orgScript) {
-        orgScript = document.createElement('script');
-        orgScript.setAttribute('type', 'application/ld+json');
-        orgScript.setAttribute('id', 'organization-data');
-        document.head.appendChild(orgScript);
-      }
-      // Combine Organization and WebSite schemas
-      const combinedSchema = {
-        "@context": "https://schema.org",
-        "@graph": [
-          organizationJsonLd,
-          websiteJsonLd,
-        ]
-      };
-      orgScript.textContent = JSON.stringify(combinedSchema);
-    }
-    
-    // LocalBusiness JSON-LD (for local SEO pages)
-    if (includeLocalBusinessSchema) {
-      let localScript = document.getElementById('localbusiness-data');
-      if (!localScript) {
-        localScript = document.createElement('script');
-        localScript.setAttribute('type', 'application/ld+json');
-        localScript.setAttribute('id', 'localbusiness-data');
-        document.head.appendChild(localScript);
-      }
-      localScript.textContent = JSON.stringify(localBusinessJsonLd);
-    }
-    
-    // Page-specific Structured Data
-    if (structuredData) {
-      let script = document.getElementById('structured-data');
-      if (!script) {
-        script = document.createElement('script');
-        script.setAttribute('type', 'application/ld+json');
-        script.setAttribute('id', 'structured-data');
-        document.head.appendChild(script);
-      }
-      script.textContent = JSON.stringify(structuredData);
-    }
-    
-    // Breadcrumb JSON-LD
-    if (breadcrumbs && breadcrumbs.length > 0) {
-      let breadcrumbScript = document.getElementById('breadcrumb-data');
-      if (!breadcrumbScript) {
-        breadcrumbScript = document.createElement('script');
-        breadcrumbScript.setAttribute('type', 'application/ld+json');
-        breadcrumbScript.setAttribute('id', 'breadcrumb-data');
-        document.head.appendChild(breadcrumbScript);
-      }
-      
-      const breadcrumbData = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": breadcrumbs.map((item, index) => ({
-          "@type": "ListItem",
-          "position": index + 1,
-          "name": item.name,
-          "item": item.url
-        }))
-      };
-      
-      breadcrumbScript.textContent = JSON.stringify(breadcrumbData);
-    }
-    
-    // Cleanup function
-    return () => {
-      const breadcrumbScript = document.getElementById('breadcrumb-data');
-      if (breadcrumbScript) {
-        breadcrumbScript.remove();
-      }
-      const structuredScript = document.getElementById('structured-data');
-      if (structuredScript) {
-        structuredScript.remove();
-      }
-      const localScript = document.getElementById('localbusiness-data');
-      if (localScript) {
-        localScript.remove();
-      }
-    };
   }, [
     title, 
     description, 
@@ -228,17 +144,66 @@ const SEOHead = ({
     resolvedCanonicalUrl, 
     ogImage, 
     ogType, 
-    structuredData, 
-    breadcrumbs, 
     articlePublishedTime, 
     articleModifiedTime, 
     articleAuthor,
     noIndex,
-    includeOrganizationSchema,
-    includeLocalBusinessSchema,
   ]);
-  
-  return null;
+
+  // JSON-LD wordt als JSX gerenderd (dus ook server-side in de HTML), niet
+  // meer via useEffect in de <head> geïnjecteerd. Zo zien crawlers de
+  // structured data direct in de server-response.
+  const organizationGraph = {
+    "@context": "https://schema.org",
+    "@graph": [organizationJsonLd, websiteJsonLd],
+  };
+
+  const breadcrumbData = breadcrumbs && breadcrumbs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs.map((item, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": item.name,
+          "item": item.url,
+        })),
+      }
+    : null;
+
+  return (
+    <>
+      {includeOrganizationSchema && (
+        <script
+          type="application/ld+json"
+          id="organization-data"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationGraph) }}
+        />
+      )}
+      {includeLocalBusinessSchema && (
+        <script
+          type="application/ld+json"
+          id="localbusiness-data"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+      )}
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          id="structured-data"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      )}
+      {breadcrumbData && (
+        <script
+          type="application/ld+json"
+          id="breadcrumb-data"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+        />
+      )}
+    </>
+  );
 };
 
 export default SEOHead;
+
