@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Search, Gauge, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, slideInLeft, slideInRight, easings } from "@/lib/motion";
 
@@ -58,6 +57,9 @@ const GratisWebsiteAnalyse = () => {
     setIsSubmitting(true);
 
     try {
+      // Supabase pas in de browser laden: de client is een CommonJS-bundel en
+      // mag niet in de servergraaf terechtkomen (SSR-fout "exports is not defined").
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase.functions.invoke("send-contact-email", {
         body: {
           fullName: formData.fullName,

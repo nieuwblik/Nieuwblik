@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, ArrowLeft, Globe, ShoppingCart, RefreshCw, HelpCircle, Check } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { easings, staggerContainer, staggerItem } from "@/lib/motion";
@@ -125,6 +124,9 @@ ${formData.notes ? `Aanvullende opmerkingen: ${formData.notes}` : ""}
     };
 
     try {
+      // Supabase pas in de browser laden: de client is een CommonJS-bundel en
+      // mag niet in de servergraaf terechtkomen (SSR-fout "exports is not defined").
+      const { supabase } = await import("@/integrations/supabase/client");
       const { error } = await supabase.functions.invoke("send-contact-email", {
         body: data,
       });

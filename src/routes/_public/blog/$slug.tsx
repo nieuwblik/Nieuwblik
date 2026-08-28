@@ -1,11 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import BlogPost from "@/pages/BlogPost";
+import NotFound from "@/pages/NotFound";
 import { blogPosts } from "@/data/blogPosts";
 import { buildHead } from "@/lib/seo";
 import { companyInfo } from "@/config/company";
 
 export const Route = createFileRoute("/_public/blog/$slug")({
+  // Onbekende slug moet een echte HTTP 404 geven in plaats van 200.
+  loader: ({ params }) => {
+    if (!blogPosts.find((p) => p.slug === params.slug)) {
+      throw notFound();
+    }
+    return null;
+  },
   head: ({ params }) => {
     const post = blogPosts.find((p) => p.slug === params.slug);
     if (!post) {
@@ -26,5 +34,6 @@ export const Route = createFileRoute("/_public/blog/$slug")({
       ogType: "article",
     });
   },
+  notFoundComponent: NotFound,
   component: BlogPost,
 });
