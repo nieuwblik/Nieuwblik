@@ -29,49 +29,82 @@ import Index from "./pages/Index";
  * pagina klaar is met laden — zie voorlaadPaginas hieronder. Daarmee blijft
  * doorklikken direct, zonder dat de eerste indruk ervoor betaalt.
  */
-const CHUNKS: Array<() => Promise<unknown>> = [];
+/**
+ * Paden die we alvast kunnen ophalen zodra iemand aanstalten maakt om erheen
+ * te gaan.
+ */
+const VOORLAAD = new Map<string, () => Promise<unknown>>();
 
-const pagina = <T extends { default: ComponentType<never> }>(laad: () => Promise<T>, warm = false) => {
-  if (warm) CHUNKS.push(laad);
+const pagina = <T extends { default: ComponentType<never> }>(
+  laad: () => Promise<T>,
+  pad?: string,
+) => {
+  if (pad) VOORLAAD.set(pad, laad);
   return lazy(laad);
 };
 
 /**
- * Na het laden, in een rustig moment, de pagina's uit het menu ophalen.
- * Alleen die: privacyvoorwaarden en landingspagina's achteraf downloaden zou
- * mobiele data kosten voor iets waar bijna niemand op klikt.
+ * Een chunk ophalen zodra de muis boven een link hangt of een vinger hem
+ * raakt, niet eerder.
+ *
+ * Eerst haalden we ze allemaal op zodra de pagina klaar was met laden. Dat
+ * kostte een seconde blokkeertijd: import() haalt een module niet alleen op,
+ * hij voert hem ook uit, en zeven pagina's met hun hele afhankelijkheidsboom
+ * uitvoeren legt de hoofddraad plat. Op intent wachten kost niets tot iemand
+ * daadwerkelijk die kant op wil, en tussen aanwijzen en klikken zit ruim
+ * genoeg tijd.
  */
-function voorlaadPaginas() {
-  const haal = () => CHUNKS.forEach((laad) => void laad());
-  const straks = () =>
-    "requestIdleCallback" in window ? requestIdleCallback(haal, { timeout: 4000 }) : setTimeout(haal, 1500);
+function useVoorladenOpIntentie() {
+  useEffect(() => {
+    const gehaald = new Set<string>();
 
-  if (document.readyState === "complete") straks();
-  else window.addEventListener("load", straks, { once: true });
+    const pak = (event: Event) => {
+      const link = (event.target as Element | null)?.closest?.("a[href^='/']");
+      if (!(link instanceof HTMLAnchorElement)) return;
+
+      const pad = new URL(link.href, location.origin).pathname;
+      const laad = VOORLAAD.get(pad);
+      if (!laad || gehaald.has(pad)) return;
+
+      gehaald.add(pad);
+      void laad();
+    };
+
+    document.addEventListener("pointerover", pak, { passive: true });
+    document.addEventListener("touchstart", pak, { passive: true });
+    document.addEventListener("focusin", pak, { passive: true });
+
+    return () => {
+      document.removeEventListener("pointerover", pak);
+      document.removeEventListener("touchstart", pak);
+      document.removeEventListener("focusin", pak);
+    };
+  }, []);
 }
 
-const Services = pagina(() => import("./pages/Services"), true);
-const Portfolio = pagina(() => import("./pages/Portfolio"), true);
-const PortfolioDetail = pagina(() => import("./pages/PortfolioDetail"), true);
-const About = pagina(() => import("./pages/About"), true);
-const Blog = pagina(() => import("./pages/Blog"), true);
+
+const Services = pagina(() => import("./pages/Services"), "/diensten");
+const Portfolio = pagina(() => import("./pages/Portfolio"), "/portfolio");
+const PortfolioDetail = pagina(() => import("./pages/PortfolioDetail"));
+const About = pagina(() => import("./pages/About"), "/over-ons");
+const Blog = pagina(() => import("./pages/Blog"), "/blog");
 const BlogPost = pagina(() => import("./pages/BlogPost"));
-const Contact = pagina(() => import("./pages/Contact"), true);
+const Contact = pagina(() => import("./pages/Contact"), "/contact");
 const ThankYou = pagina(() => import("./pages/ThankYou"));
-const Privacy = pagina(() => import("./pages/Privacy"));
-const Cookies = pagina(() => import("./pages/Cookies"));
-const Terms = pagina(() => import("./pages/Terms"));
-const Reviews = pagina(() => import("./pages/Reviews"));
+const Privacy = pagina(() => import("./pages/Privacy"), "/privacy");
+const Cookies = pagina(() => import("./pages/Cookies"), "/cookies");
+const Terms = pagina(() => import("./pages/Terms"), "/algemene-voorwaarden");
+const Reviews = pagina(() => import("./pages/Reviews"), "/reviews");
 const NotFound = pagina(() => import("./pages/NotFound"));
-const WebsiteOpMaat = pagina(() => import("./pages/services/WebsiteOpMaat"));
-const Webshops = pagina(() => import("./pages/services/Webshops"));
-const Ecommerce = pagina(() => import("./pages/services/Ecommerce"));
-const Werkgebied = pagina(() => import("./pages/Werkgebied"));
+const WebsiteOpMaat = pagina(() => import("./pages/services/WebsiteOpMaat"), "/diensten/website-op-maat");
+const Webshops = pagina(() => import("./pages/services/Webshops"), "/diensten/webshops");
+const Ecommerce = pagina(() => import("./pages/services/Ecommerce"), "/diensten/e-commerce");
+const Werkgebied = pagina(() => import("./pages/Werkgebied"), "/werkgebied");
 const WerkgebiedDetail = pagina(() => import("./pages/WerkgebiedDetail"));
 const LandingRouter = pagina(() => import("./pages/LandingRouter"));
 const SeoEnkhuizen = pagina(() => import("./pages/SeoEnkhuizen"));
 const TaxiWebsite = pagina(() => import("./pages/TaxiWebsite"));
-const GratisWebsiteAnalyse = pagina(() => import("./pages/GratisWebsiteAnalyse"));
+const GratisWebsiteAnalyse = pagina(() => import("./pages/GratisWebsiteAnalyse"), "/gratis-website-analyse");
 const WebsiteLatenMaken = pagina(() => import("./pages/WebsiteLatenMaken"));
 const WebdesignBureau = pagina(() => import("./pages/WebdesignBureau"));
 const RegionalHub = pagina(() => import("./pages/RegionalHub"));
@@ -110,7 +143,7 @@ const NAV_QUICK_LINKS: UnderlayNavItem[] = [
  * meebewegende marketingheader of Lenis-scroll.
  */
 const PublicSite = () => {
-  useEffect(voorlaadPaginas, []);
+  useVoorladenOpIntentie();
 
   return (
   <>
