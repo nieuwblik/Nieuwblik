@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, type ComponentType } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,33 +14,67 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import FreeAnalysisPopup from "./components/FreeAnalysisPopup";
 
 
-// Eager load all public-facing pages for instant navigation (no white flash)
+// De homepage blijft in de hoofdbundel: dat is de pagina waar bezoekers
+// binnenkomen, en een aparte chunk zou daar een tweede netwerkronde vóór de
+// eerste tekst leggen.
 import Index from "./pages/Index";
-import Services from "./pages/Services";
-import Portfolio from "./pages/Portfolio";
-import PortfolioDetail from "./pages/PortfolioDetail";
-import About from "./pages/About";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import Contact from "./pages/Contact";
-import ThankYou from "./pages/ThankYou";
-import Privacy from "./pages/Privacy";
-import Cookies from "./pages/Cookies";
-import Terms from "./pages/Terms";
-import Reviews from "./pages/Reviews";
-import NotFound from "./pages/NotFound";
-import WebsiteOpMaat from "./pages/services/WebsiteOpMaat";
-import Webshops from "./pages/services/Webshops";
-import Ecommerce from "./pages/services/Ecommerce";
-import Werkgebied from "./pages/Werkgebied";
-import WerkgebiedDetail from "./pages/WerkgebiedDetail";
-import LandingRouter from "./pages/LandingRouter";
-import SeoEnkhuizen from "./pages/SeoEnkhuizen";
-import TaxiWebsite from "./pages/TaxiWebsite";
-import GratisWebsiteAnalyse from "./pages/GratisWebsiteAnalyse";
-import WebsiteLatenMaken from "./pages/WebsiteLatenMaken";
-import WebdesignBureau from "./pages/WebdesignBureau";
-import RegionalHub from "./pages/RegionalHub";
+
+/*
+ * Alle andere pagina's zijn losse chunks.
+ *
+ * Ze stonden hier eerst als gewone import, voor navigeren zonder witte flits.
+ * Dat werkte, maar iedere eerste bezoeker downloadde daardoor drieëntwintig
+ * pagina's voordat de homepage iets liet zien: 1,4 MB javascript op het
+ * kritieke pad. Nu laden ze apart, en halen we ze alsnog binnen zodra de
+ * pagina klaar is met laden — zie voorlaadPaginas hieronder. Daarmee blijft
+ * doorklikken direct, zonder dat de eerste indruk ervoor betaalt.
+ */
+const CHUNKS: Array<() => Promise<unknown>> = [];
+
+const pagina = <T extends { default: ComponentType<never> }>(laad: () => Promise<T>, warm = false) => {
+  if (warm) CHUNKS.push(laad);
+  return lazy(laad);
+};
+
+/**
+ * Na het laden, in een rustig moment, de pagina's uit het menu ophalen.
+ * Alleen die: privacyvoorwaarden en landingspagina's achteraf downloaden zou
+ * mobiele data kosten voor iets waar bijna niemand op klikt.
+ */
+function voorlaadPaginas() {
+  const haal = () => CHUNKS.forEach((laad) => void laad());
+  const straks = () =>
+    "requestIdleCallback" in window ? requestIdleCallback(haal, { timeout: 4000 }) : setTimeout(haal, 1500);
+
+  if (document.readyState === "complete") straks();
+  else window.addEventListener("load", straks, { once: true });
+}
+
+const Services = pagina(() => import("./pages/Services"), true);
+const Portfolio = pagina(() => import("./pages/Portfolio"), true);
+const PortfolioDetail = pagina(() => import("./pages/PortfolioDetail"), true);
+const About = pagina(() => import("./pages/About"), true);
+const Blog = pagina(() => import("./pages/Blog"), true);
+const BlogPost = pagina(() => import("./pages/BlogPost"));
+const Contact = pagina(() => import("./pages/Contact"), true);
+const ThankYou = pagina(() => import("./pages/ThankYou"));
+const Privacy = pagina(() => import("./pages/Privacy"));
+const Cookies = pagina(() => import("./pages/Cookies"));
+const Terms = pagina(() => import("./pages/Terms"));
+const Reviews = pagina(() => import("./pages/Reviews"));
+const NotFound = pagina(() => import("./pages/NotFound"));
+const WebsiteOpMaat = pagina(() => import("./pages/services/WebsiteOpMaat"));
+const Webshops = pagina(() => import("./pages/services/Webshops"));
+const Ecommerce = pagina(() => import("./pages/services/Ecommerce"));
+const Werkgebied = pagina(() => import("./pages/Werkgebied"));
+const WerkgebiedDetail = pagina(() => import("./pages/WerkgebiedDetail"));
+const LandingRouter = pagina(() => import("./pages/LandingRouter"));
+const SeoEnkhuizen = pagina(() => import("./pages/SeoEnkhuizen"));
+const TaxiWebsite = pagina(() => import("./pages/TaxiWebsite"));
+const GratisWebsiteAnalyse = pagina(() => import("./pages/GratisWebsiteAnalyse"));
+const WebsiteLatenMaken = pagina(() => import("./pages/WebsiteLatenMaken"));
+const WebdesignBureau = pagina(() => import("./pages/WebdesignBureau"));
+const RegionalHub = pagina(() => import("./pages/RegionalHub"));
 
 
 // Het portaal is één lazy chunk: publieke bezoekers laden er niets van.
@@ -75,7 +109,10 @@ const NAV_QUICK_LINKS: UnderlayNavItem[] = [
  * Het portaal valt hier bewust buiten — een dashboard met tabellen wil geen
  * meebewegende marketingheader of Lenis-scroll.
  */
-const PublicSite = () => (
+const PublicSite = () => {
+  useEffect(voorlaadPaginas, []);
+
+  return (
   <>
     <SmoothScroll />
     <CookieConsent />
@@ -83,6 +120,9 @@ const PublicSite = () => (
     <FreeAnalysisPopup />
 
     <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
+        {/* Leeg tijdens het laden van een chunk. In de praktijk zie je dit
+            zelden: de chunks zijn na het laden van de pagina al binnen. */}
+        <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/diensten" element={<Services />} />
@@ -113,9 +153,11 @@ const PublicSite = () => (
           <Route path="/:landingPath" element={<LandingRouter />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
     </UnderlayNav>
   </>
-);
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
