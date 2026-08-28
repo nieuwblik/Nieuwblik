@@ -20,7 +20,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/80 backdrop-blur-xs data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className,
     )}
     {...props}
@@ -50,7 +50,7 @@ const DialogContent = React.forwardRef<
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="rounded-full bg-black/5 dark:bg-white/10 p-2 text-muted-foreground/50 transition-colors hover:text-foreground hover:bg-black/10 dark:hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="rounded-full bg-black/5 dark:bg-white/10 p-2 text-muted-foreground/50 transition-colors hover:text-foreground hover:bg-black/10 dark:hover:bg-white/20 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
             <X className="h-5 w-5" />
             <span className="sr-only">Close</span>
