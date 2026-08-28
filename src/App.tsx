@@ -197,7 +197,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      {/* startTransition laat React de huidige pagina in beeld houden terwijl
+          de chunk van de volgende binnenkomt. Zonder dit valt de inhoud even
+          weg naar de lege Suspense, en knippert de navigatiebalk mee omdat
+          die zich richt naar de sectie eronder. */}
+      <BrowserRouter future={{ v7_startTransition: true }}>
         <ScrollToTop />
 
         <Routes>
