@@ -1,10 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import PortfolioDetail from "@/pages/PortfolioDetail";
+import NotFound from "@/pages/NotFound";
 import { projects } from "@/data/projects";
 import { buildHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/_public/portfolio/$slug")({
+  // Onbekende slug moet een echte HTTP 404 geven in plaats van 200.
+  loader: ({ params }) => {
+    if (!projects.find((p) => p.slug === params.slug)) {
+      throw notFound();
+    }
+    return null;
+  },
   head: ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) {
@@ -23,5 +31,6 @@ export const Route = createFileRoute("/_public/portfolio/$slug")({
       canonical: `https://www.nieuwblik.com/portfolio/${project.slug}`,
     });
   },
+  notFoundComponent: NotFound,
   component: PortfolioDetail,
 });
