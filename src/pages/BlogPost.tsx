@@ -388,12 +388,17 @@ const BlogPost = () => {
         );
       }
 
-      // HTML content (sanitized)
+      // HTML content (sanitized in de browser). Op de server heeft DOMPurify
+      // geen window en bestaat sanitize niet; de bloginhoud komt uit onze
+      // eigen repo (src/data/blogPosts.ts), dus server-side is de bron al
+      // vertrouwd. De browser sanitised alsnog bij hydration.
       if (section.includes('<div') || section.includes('<a')) {
-        const sanitized = DOMPurify.sanitize(section, {
-          ALLOWED_TAGS: ['div', 'a', 'svg', 'path', 'g', 'defs', 'clipPath', 'rect'],
-          ALLOWED_ATTR: ['href', 'target', 'rel', 'style', 'class', 'width', 'height', 'viewBox', 'fill', 'xmlns', 'd', 'clip-path', 'id'],
-        });
+        const sanitized = typeof window === "undefined"
+          ? section
+          : DOMPurify.sanitize(section, {
+              ALLOWED_TAGS: ['div', 'a', 'svg', 'path', 'g', 'defs', 'clipPath', 'rect'],
+              ALLOWED_ATTR: ['href', 'target', 'rel', 'style', 'class', 'width', 'height', 'viewBox', 'fill', 'xmlns', 'd', 'clip-path', 'id'],
+            });
         return (
           <div
             key={index}
