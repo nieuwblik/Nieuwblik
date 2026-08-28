@@ -115,7 +115,7 @@ const LandingHero = ({ h1, subtitle }: LandingHeroProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "w-9 h-9 rounded-full flex items-center justify-center transition-all bg-background border border-border shadow hover:bg-accent hover:text-accent-foreground"
+                  "w-9 h-9 rounded-full flex items-center justify-center transition-all bg-background border border-border shadow-sm hover:bg-accent hover:text-accent-foreground"
                 )}
                 aria-label="LinkedIn"
                 style={gpuAcceleration}
