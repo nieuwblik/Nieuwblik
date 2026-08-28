@@ -62,7 +62,7 @@ export function MagicCard({
             onMouseLeave={handleMouseLeave}
             className={cn(
                 "group relative flex size-full overflow-hidden rounded-lg bg-transparent transition-all duration-300",
-                "shadow-sm hover:shadow-lg dark:shadow-none", // Subtiele lift effect
+                "shadow-xs hover:shadow-lg dark:shadow-none", // Subtiele lift effect
                 className,
             )}
             {...props}

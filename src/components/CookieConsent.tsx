@@ -57,7 +57,7 @@ const CookieConsent = () => {
     <AnimatePresence>
       {showBanner && (
         <motion.div 
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background/95 backdrop-blur-sm border-t border-border shadow-lg"
+          className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background/95 backdrop-blur-xs border-t border-border shadow-lg"
           variants={bannerVariants}
           initial="hidden"
           animate="visible"

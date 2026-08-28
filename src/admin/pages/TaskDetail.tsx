@@ -325,7 +325,7 @@ const TaskDetail = () => {
           maxLength={300}
           aria-label="Titel"
           className={cn(
-            "min-w-0 flex-1 border-0 bg-transparent p-0 text-2xl font-semibold tracking-tight outline-none focus:ring-0",
+            "min-w-0 flex-1 border-0 bg-transparent p-0 text-2xl font-semibold tracking-tight outline-hidden focus:ring-0",
             task.status === "klaar" && "text-muted-foreground line-through",
           )}
         />

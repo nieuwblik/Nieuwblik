@@ -248,7 +248,7 @@ const SearchVisibility = () => {
             {/* Tooltip above the peak */}
             <div className="absolute" style={{ left: `${PEAK_LEFT}%`, top: `${PEAK_TOP}%` }}>
               <motion.div
-                className="absolute bottom-full left-1/2 mb-5 -translate-x-1/2 whitespace-nowrap rounded-lg border px-2.5 py-1.5 backdrop-blur-sm sm:px-3.5 sm:py-2"
+                className="absolute bottom-full left-1/2 mb-5 -translate-x-1/2 whitespace-nowrap rounded-lg border px-2.5 py-1.5 backdrop-blur-xs sm:px-3.5 sm:py-2"
                 style={{ borderColor: "hsl(160 70% 58% / 0.25)", background: "hsl(160 84% 7% / 0.75)" }}
                 initial={{ opacity: 0, y: 6 }} animate={chartInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
                 transition={{ duration: 0.4, delay: 1.25 }}
@@ -287,7 +287,7 @@ const SearchVisibility = () => {
                   className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.03] px-3 py-2.5"
                 >
                   {/* Logo tile */}
-                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white shadow-sm">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white shadow-xs">
                     {c.node ?? <img src={c.img} alt={c.name} className="h-4 w-4 object-contain" loading="lazy" width={16} height={16} />}
                   </span>
 
