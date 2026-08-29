@@ -29,3 +29,4 @@ dist-ssr
 # Build- en previewuitvoer van TanStack Start / Nitro
 .output/
 .wrangler/
+.tanstack/

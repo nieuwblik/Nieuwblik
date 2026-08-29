@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@/lib/router-compat";
 import gsap from "gsap";
 import { useReducedMotion } from "@/lib/reduced-motion";
@@ -28,6 +28,14 @@ export interface PortfolioCardProps {
 export default function PortfolioCard({ title, category, image, imageSet, slug, meta, description, priority }: PortfolioCardProps) {
   const shouldReduceMotion = useReducedMotion();
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Bij server-rendering staat de afbeelding al in de HTML en kan hij klaar
+  // zijn voordat React zijn onLoad eraan hangt. Die gebeurtenis is dan al
+  // geweest en de kaart bleef onzichtbaar. Vandaar deze inhaalslag.
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   const roll = (container: HTMLElement, y: number) => {
     if (shouldReduceMotion) return;
@@ -48,6 +56,7 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
           style={{ background: "hsl(var(--sw-ink) / 0.03)" }}
         >
           <img
+            ref={imgRef}
             src={image}
             srcSet={imageSet}
             // Alle portfoliobeelden zijn 16:10, net als de houder eromheen.
