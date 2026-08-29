@@ -11,15 +11,21 @@ const GREEN_LIGHT  = "hsl(160, 70%, 58%)";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 // ── Breakpoint hook ────────────────────────────────────────────
+// Begint altijd op "desktop", ook in de browser. De server kent geen
+// window en rendert dus altijd die stand; zou de client bij de eerste
+// tekening meteen de echte breedte pakken, dan wijkt hij af van wat de
+// server stuurde en meldt React een hydratiefout. Meten gebeurt daarom
+// pas na het monteren.
 function useBreakpoint() {
   const get = (): "mobile" | "tablet" | "desktop" =>
     typeof window === "undefined" ? "desktop"
       : window.innerWidth < 768 ? "mobile"
       : window.innerWidth < 1024 ? "tablet"
       : "desktop";
-  const [bp, setBp] = useState(get);
+  const [bp, setBp] = useState<"mobile" | "tablet" | "desktop">("desktop");
   useEffect(() => {
     const handler = () => setBp(get());
+    handler();
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);
