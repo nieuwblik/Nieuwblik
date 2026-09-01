@@ -464,7 +464,7 @@ export default function UnderlayNav({
           <Link
             ref={logoRef}
             to="/"
-            aria-label="Nieuwblik — home"
+            aria-label="Nieuwblik - home"
             className="flex items-center justify-center w-[5em] md:w-[6.875em]"
             onClick={closeIfOpen}
           >

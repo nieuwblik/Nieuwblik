@@ -174,7 +174,7 @@ const Ecommerce = () => {
             variants={fadeUp}
           >
             Wij maken professionele product listings, verpakkingsdesigns en extra waarde producten zoals e-books.
-            De verkoop, logistiek en klantenservice? Dat is voor jou – wij focussen op wat je verkoopt.
+            De verkoop, logistiek en klantenservice? Dat is voor jou, wij focussen op wat je verkoopt.
           </motion.p>
           <motion.div
             className="bg-secondary/80 border border-border rounded-lg p-4 mb-10 max-w-2xl"

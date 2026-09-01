@@ -78,7 +78,7 @@ const steps = [
   {
     number: "01",
     title: "Kennismaken",
-    description: "We starten met een vrijblijvend gesprek. We leren jouw bedrijf, doelen en publiek kennen. Geen standaard formuliertje — gewoon een echt gesprek.",
+    description: "We starten met een vrijblijvend gesprek. We leren jouw bedrijf, doelen en publiek kennen. Geen standaard formuliertje, gewoon een echt gesprek.",
   },
   {
     number: "02",
@@ -100,7 +100,7 @@ const steps = [
 const values = [
   {
     title: "Eerlijk & transparant",
-    description: "Geen verrassingen op de rekening, geen vage beloftes. Je weet altijd waar je aan toe bent — van offerte tot oplevering.",
+    description: "Geen verrassingen op de rekening, geen vage beloftes. Je weet altijd waar je aan toe bent, van offerte tot oplevering.",
   },
   {
     title: "Resultaatgericht",
@@ -108,7 +108,7 @@ const values = [
   },
   {
     title: "Lokaal & persoonlijk",
-    description: "We zijn een klein bureau uit Enkhuizen. Geen accountmanager die je doorverbindt — je praat altijd direct met de mensen die je website bouwen.",
+    description: "We zijn een klein bureau uit Enkhuizen. Geen accountmanager die je doorverbindt, je praat altijd direct met de mensen die je website bouwen.",
   },
 ];
 
@@ -190,7 +190,7 @@ const About = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3, ease: easings.easeOutExpo }}
               >
-                Wij zijn Justin en Job — twee gedreven ontwerpers en developers uit Enkhuizen die geloven dat een goede website het verschil maakt tussen opgemerkt worden of onzichtbaar blijven.
+                Wij zijn Justin en Job, twee gedreven ontwerpers en developers uit Enkhuizen die geloven dat een goede website het verschil maakt tussen opgemerkt worden of onzichtbaar blijven.
               </motion.p>
 
               <motion.div
@@ -218,7 +218,7 @@ const About = () => {
               >
                 <img
                   src={heroTeamImage}
-                  alt="Justin & Job — Nieuwblik team"
+                  alt="Justin & Job - Nieuwblik team"
                   className="w-full h-auto object-contain"
                   style={{ filter: "drop-shadow(0 20px 50px rgba(0,0,0,0.08))" }}
                 />
@@ -252,7 +252,7 @@ const About = () => {
               <div className="relative rounded-2xl overflow-hidden bg-secondary aspect-[4/5] max-w-sm mx-auto lg:mx-0">
                 <img
                   src={justinImage}
-                  alt="Justin Slok — oprichter Nieuwblik"
+                  alt="Justin Slok - oprichter Nieuwblik"
                   className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 to-transparent">
@@ -284,7 +284,7 @@ const About = () => {
                 Wat begon als een passie voor design, groeide uit tot een missie om bedrijven te helpen succesvol te zijn online. We zagen te vaak dat mooie websites en sterke merken het verschil maken tussen groeien en stilstaan.
               </AnimatedText>
               <AnimatedText as="p" className="text-base text-muted-foreground font-light leading-relaxed mb-8" delay={0.2}>
-                Vandaag de dag zijn we trots op de relaties die we hebben opgebouwd en de successen die we hebben gerealiseerd. Elke tevreden klant, elk goed lopend project — dat is waar we het voor doen.
+                Vandaag de dag zijn we trots op de relaties die we hebben opgebouwd en de successen die we hebben gerealiseerd. Elke tevreden klant, elk goed lopend project, dat is waar we het voor doen.
               </AnimatedText>
               <AnimatedSection delay={0.25}>
                 <div className="flex flex-row gap-4 items-center justify-center lg:justify-start">

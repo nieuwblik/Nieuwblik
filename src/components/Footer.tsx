@@ -202,7 +202,7 @@ function FooterComponent() {
               fontFamily: FONT_BODY, fontSize: 14, fontWeight: 300, color: STEEL,
               lineHeight: 1.75, margin: '0 0 36px', maxWidth: 300,
             }}>
-              Webdesign bureau dat strategie en design combineert tot meetbaar resultaat. Geen templates — elk project op maat gebouwd.
+              Webdesign bureau dat strategie en design combineert tot meetbaar resultaat. Geen templates, elk project op maat gebouwd.
             </p>
 
             {/* Brand facts */}
