@@ -139,7 +139,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
               <ul className="space-y-4">
                 {extra.painpoints.map((p, idx) => (
                   <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
-                    <span className="text-accent font-bold">–</span>
+                    <span className="text-accent font-bold">-</span>
                     <span>{p}</span>
                   </li>
                 ))}

@@ -58,7 +58,7 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
             // Twee kaarten naast elkaar vanaf 768, daaronder de volle breedte
             // min de marges. Zonder dit pakt de browser de grootste variant.
             sizes="(min-width: 1280px) 600px, (min-width: 768px) 45vw, 92vw"
-            alt={`${title} — website ontworpen door Nieuwblik`}
+            alt={`${title} - website ontworpen door Nieuwblik`}
             loading={priority ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "auto"}
             decoding="async"
