@@ -16,6 +16,7 @@ Nieuwblik combineert strak design, sterke teksten en moderne technologie. We wer
 - [Reviews](/reviews): Wat klanten zeggen over onze samenwerking.
 - [Blog](/blog): Artikelen over webdesign, SEO en online groei.
 - [Vindbaar worden in ChatGPT](/blog/vindbaar-in-chatgpt-geo-west-friesland): Wat GEO is en hoe lokale ondernemers genoemd worden in ChatGPT en Gemini.
+- [Toegankelijke website en de European Accessibility Act](/blog/toegankelijke-website-european-accessibility-act): Voor wie de EAA geldt, de zes meest voorkomende fouten en hoe je je site zelf checkt.
 - [Werkgebied](/werkgebied): Steden en regio's waar wij actief zijn.
 - [Contact](/contact): Plan een gratis kennismaking.
 - [Start je project](/start-je-project): Direct een project aanvragen.

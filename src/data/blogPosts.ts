@@ -1,4 +1,5 @@
 import vindbaarInChatgptImg from "@/assets/blog/SEO-Blog-nieuwblik.webp";
+import toegankelijkeWebsiteImg from "@/assets/blog/SEO-Blog-toegankelijkheid.webp";
 import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
 import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
 import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
@@ -55,7 +56,7 @@ export const blogPosts: BlogPost[] = [
       nl: "Steeds meer ondernemers worden gevonden via ChatGPT en Gemini in plaats van Google. Wat GEO is, waarom het nu al telt en wat je er deze week aan kunt doen.",
       en: "More and more businesses are found through ChatGPT and Gemini instead of Google. What GEO is, why it matters now and what you can do about it this week."
     },
-    date: "2026-08-18",
+    date: "2026-09-08",
     readingTime: 7,
     content: {
       nl: `Even een testje. Open ChatGPT en typ: "Ik zoek een loodgieter in West-Friesland."
@@ -124,6 +125,103 @@ Wij bouwen [websites](/diensten/website-op-maat) zo. Niet omdat het een trend is
 
 Benieuwd of jouw bedrijf nu genoemd wordt? [Stuur ons een appje](https://wa.me/31646253607), dan draaien we een paar testvragen voor je en sturen we terug wat eruit komt. Kost je niks en je weet meteen waar je staat.`,
       en: "More and more customers ask ChatGPT, Perplexity or Gemini instead of Google, and get one answer with two or three businesses in it. What GEO is, why it builds on solid SEO, what AI models pick up, and what local businesses can do this week."
+    }
+  },
+  {
+    slug: "toegankelijke-website-european-accessibility-act",
+    image: toegankelijkeWebsiteImg,
+    imageAlt: "Vinger op de Tab-toets van een toetsenbord, met op het scherm een formulier waarvan het actieve veld blauw is omlijnd",
+    seoTitle: "European Accessibility Act: geldt die wet ook voor jouw website?",
+    seoKeywords: "European Accessibility Act, EAA, toegankelijke website, digitale toegankelijkheid, WCAG 2.1 AA, toegankelijkheid webshop, ACM toegankelijkheid, website toegankelijk maken, micro-onderneming uitzondering",
+    title: {
+      nl: "Je website moet toegankelijk zijn. En nee, dat is geen goedbedoeld advies meer.",
+      en: "Your website has to be accessible. And no, that is no longer just friendly advice."
+    },
+    excerpt: {
+      nl: "Sinds juni 2025 is digitale toegankelijkheid wettelijk verplicht. Voor wie geldt het, wat moet je regelen en hoe check je in tien minuten hoe je ervoor staat.",
+      en: "Since June 2025 digital accessibility is a legal requirement. Who it applies to, what you need to arrange and how to check where you stand in ten minutes."
+    },
+    date: "2026-08-18",
+    readingTime: 8,
+    content: {
+      nl: `Doe eens iets geks. Pak je eigen website, leg je muis weg, en probeer met alleen je Tab-toets een contactformulier in te vullen en te versturen.
+
+Lukt dat?
+
+Bij de meeste sites die wij overnemen van een ander bureau: nee. Je tabt naar iets onzichtbaars, je weet niet meer waar je bent, en na twintig keer drukken geef je het op.
+
+Nou, dat is precies hoe een deel van je bezoekers elke dag het internet gebruikt. En sinds 28 juni 2025 is dat niet alleen vervelend, maar mogelijk ook illegaal.
+
+## Waar we het over hebben
+
+De European Accessibility Act, oftewel de EAA. Europese wetgeving, inmiddels omgezet naar Nederlands recht, die digitale toegankelijkheid verplicht stelt. Zie het een beetje als de AVG, maar dan voor bruikbaarheid in plaats van privacy.
+
+Het idee erachter is niet ingewikkeld. In Nederland leven miljoenen mensen met een beperking. Slechtziend, motorisch beperkt, dyslectisch, kleurenblind, of gewoon iemand van 78 met trillende handen. Die mensen willen ook een afspraak maken bij jouw salon of een product bestellen in jouw webshop. Als dat niet kan, ligt dat aan de website.
+
+## Geldt het voor jou?
+
+Hier gaat het vaak mis in gesprekken, dus even scherp.
+
+De wet richt zich op bedrijven die digitale diensten aanbieden waar je iets kunt kopen of afsluiten. Webshops, boekingssystemen, klantportalen, betaalomgevingen. Een website met alleen informatie en een telefoonnummer valt er in de regel buiten.
+
+En er is een drempel. Heb je minder dan tien medewerkers én minder dan twee miljoen omzet, dan val je er als micro-onderneming buiten.
+
+Dus ja, een flink deel van het Nederlandse MKB hoeft strikt genomen niks.
+
+Maar voor je opgelucht verder scrollt: de drempel is niet zo hoog als hij klinkt. Groei je door naar elf man? Dan val je er ineens wel onder. En de gemiddelde webshop die twee miljoen draait denkt van zichzelf vaak nog dat hij "klein" is.
+
+## Wat de ACM vond, en dat is niet mals
+
+De Autoriteit Consument & Markt heeft in maart 2026 zo'n [honderd van de grootste Nederlandse webshops getest](https://www.acm.nl/nl/publicaties/acm-klant-met-beperking-kan-bij-merendeel-grote-webwinkels-niet-terecht).
+
+61 procent was niet toegankelijk.
+
+Bij een groot deel daarvan bleek het simpelweg onmogelijk om een bestelling af te ronden met hulptechnologie. Niet lastig. Onmogelijk. Dat zijn de grote jongens, met marketingbudgetten waar wij van dromen.
+
+Wereldwijd is het beeld niet beter. Het [WebAIM Million-onderzoek van 2026](https://webaim.org/projects/million/) testte een miljoen homepages en vond op bijna 96 procent daarvan meetbare toegankelijkheidsfouten.
+
+Met andere woorden: als jouw site er ook niet aan voldoet, ben je in ieder geval niet de enige. Dat is een schrale troost, maar het is wel goed nieuws voor wie het wél oppakt.
+
+## De norm, zonder het gedoe
+
+Officieel moet je voldoen aan de WCAG-richtlijnen op niveau AA. Versie 2.1 is de basis, en je ziet 2.2 steeds vaker genoemd worden als de norm waar we naartoe gaan.
+
+Dat klinkt als een document van tweehonderd pagina's. Dat is het ook. Maar het mooie is: een handvol fouttypes is verantwoordelijk voor het overgrote deel van alle problemen die scanners vinden.
+
+Te weinig contrast tussen tekst en achtergrond. Afbeeldingen zonder alt-tekst. Formuliervelden zonder label. Links zonder tekst erin. Knoppen zonder tekst erin. Een pagina waarop niet staat in welke taal hij geschreven is.
+
+Dat is het. Dat zijn de zes. Geen enkele daarvan is duur om op te lossen.
+
+## Zelf checken, tien minuten
+
+Je hebt hier geen consultant voor nodig om te beginnen.
+
+Draai je homepage en je belangrijkste dienstpagina door [WAVE](https://wave.webaim.org/) of door [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) in Chrome. Allebei gratis. Je krijgt een lijst met fouten terug die je vrijwel altijd meteen begrijpt.
+
+Doe daarna die toetsenbordtest van hierboven. Tab door je hele bestelproces of contactformulier heen. Kun je zien waar je bent? Kun je het afmaken?
+
+En zet je website eens op grijstinten in de developer tools. Als je knoppen dan verdwijnen in de achtergrond, is je contrast niet in orde.
+
+## Eén ding niet doen
+
+Er wordt je op een gegeven moment een overlay-widget verkocht. Een scriptje dat je in je site plakt, met zo'n mannetje in een rolstoel in de hoek, en dat belooft je site "in één klik toegankelijk" te maken.
+
+Doe het niet.
+
+Ze lossen de onderliggende code niet op, ze werken vaak juist averechts voor mensen die een schermlezer gebruiken, en de toegankelijkheidsgemeenschap heeft er een uitgesproken hekel aan. Je betaalt maandelijks voor een pleister op een bot.
+
+Het echte werk zit in de opbouw van je site. Saai, maar het werkt wel.
+
+## Waarom wij hier niet moeilijk over doen
+
+Een toegankelijke website is grotendeels gewoon een goed gebouwde website.
+
+Duidelijke koppenstructuur, genoeg contrast, nette formulieren, logische navigatie, alt-teksten op je afbeeldingen. Dat helpt mensen met een beperking. Het helpt ook Google. En sinds dit jaar helpt het ook [AI-modellen die je site moeten begrijpen](/blog/vindbaar-in-chatgpt-geo-west-friesland) om je te kunnen aanbevelen.
+
+Drie vliegen, één klap. Daarom bouwen wij [websites](/diensten/website-op-maat) standaard zo, zonder dat het een dure meerprijs op de offerte wordt.
+
+Twijfel je hoe jouw site ervoor staat? [Stuur je URL door](/gratis-website-analyse), dan draaien we een scan en sturen we je terug wat we vinden. Inclusief wat je zelf kunt fixen en wat echt onder de motorkap moet. Geen verkooppraatje aan vast.`,
+      en: "Since 28 June 2025 the European Accessibility Act makes digital accessibility mandatory for webshops and online services. Who it applies to, what the ACM found, the six most common errors, how to check your own site in ten minutes and why overlay widgets are not the answer."
     }
   },
   {
