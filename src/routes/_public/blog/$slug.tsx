@@ -38,7 +38,11 @@ export const Route = createFileRoute("/_public/blog/$slug")({
           ? post.image
           : `${companyInfo.url}${post.image}`
         : undefined,
+      ogImageWidth: post.imageWidth,
+      ogImageHeight: post.imageHeight,
       ogType: "article",
+      articlePublishedTime: post.date,
+      articleAuthor: "Justin Slok",
     });
   },
   notFoundComponent: NotFound,

@@ -21,6 +21,19 @@ interface TocItem {
   level: number;
 }
 
+/**
+ * Anker-id voor een kop. Accenten eerst terug naar de gewone letter, anders
+ * werd "Eén ding niet doen" tot "e-n-ding-niet-doen", en geen losse streepjes
+ * aan begin of eind ("geldt-het-voor-jou-").
+ */
+const koppelId = (text: string) =>
+  text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
 interface TableOfContentsProps {
   items: TocItem[];
   activeSection: string;
@@ -133,11 +146,11 @@ const BlogPost = () => {
       lines.forEach(line => {
         if (line.startsWith('## ')) {
           const text = line.replace('## ', '');
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          const id = koppelId(text);
           headings.push({ id, text, level: 2 });
         } else if (line.startsWith('### ')) {
           const text = line.replace('### ', '');
-          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          const id = koppelId(text);
           headings.push({ id, text, level: 3 });
         }
       });
@@ -165,7 +178,9 @@ const BlogPost = () => {
       } else if (match[5]) {
         // [link](url)
         const href = match[7] ?? "";
-        const isAnchor = href.startsWith('#');
+        // Interne links en ankers in hetzelfde tabblad; alleen externe bronnen
+        // openen apart.
+        const isAnchor = href.startsWith('#') || href.startsWith('/');
         parts.push(
           <a
             key={match.index}
@@ -203,7 +218,7 @@ const BlogPost = () => {
       // H2 with anchor
       if (section.startsWith('## ')) {
         const text = section.replace('## ', '');
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const id = koppelId(text);
         return (
           <h2
             key={index}
@@ -218,7 +233,7 @@ const BlogPost = () => {
       // H3 with anchor
       if (section.startsWith('### ')) {
         const text = section.replace('### ', '');
-        const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const id = koppelId(text);
         return (
           <h3
             key={index}
@@ -459,7 +474,12 @@ const BlogPost = () => {
             parts.push(text.slice(lastIndex, match.index));
           }
           parts.push(
-            <a key={match.index} href={match[2]} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+            <a
+              key={match.index}
+              href={match[2]}
+              {...(/^[/#]/.test(match[2] ?? "") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+              className="text-accent hover:underline"
+            >
               {match[1]}
             </a>
           );
@@ -648,6 +668,8 @@ const BlogPost = () => {
                     <img
                       src={post.image}
                       alt={post.imageAlt ?? post.title.nl}
+                      width={post.imageWidth}
+                      height={post.imageHeight}
                       className="w-full h-auto max-h-[500px] object-contain rounded-none md:rounded-2xl"
                       loading="eager"
                     />

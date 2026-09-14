@@ -37,6 +37,9 @@ export interface BlogPost {
   image?: string;
   /** Beschrijving van de omslagfoto. Zonder deze valt de alt terug op de titel. */
   imageAlt?: string;
+  /** Afmetingen van de omslagfoto: reserveert de ruimte (geen verspringing) en vult og:image. */
+  imageWidth?: number;
+  imageHeight?: number;
   seoTitle?: string;
   seoKeywords?: string;
 }
@@ -45,6 +48,8 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "vindbaar-in-chatgpt-geo-west-friesland",
     image: vindbaarInChatgptImg,
+    imageWidth: 1920,
+    imageHeight: 1086,
     imageAlt: "Hand met een smartphone waarop iemand in ChatGPT vraagt naar een goede loodgieter in West-Friesland",
     seoTitle: "Vindbaar worden in ChatGPT: GEO voor MKB'ers",
     seoKeywords: "vindbaar in ChatGPT, GEO, generative engine optimization, AEO, answer engine optimization, vindbaar in AI, AI zoekmachines, lokale SEO West-Friesland, gevonden worden in Gemini, Nieuwblik",
@@ -130,6 +135,8 @@ Benieuwd of jouw bedrijf nu genoemd wordt? [Stuur ons een appje](https://wa.me/3
   {
     slug: "toegankelijke-website-european-accessibility-act",
     image: toegankelijkeWebsiteImg,
+    imageWidth: 1920,
+    imageHeight: 1086,
     imageAlt: "Vinger op de Tab-toets van een toetsenbord, met op het scherm een formulier waarvan het actieve veld blauw is omlijnd",
     seoTitle: "European Accessibility Act: geldt die wet ook voor jouw website?",
     seoKeywords: "European Accessibility Act, EAA, toegankelijke website, digitale toegankelijkheid, WCAG 2.1 AA, toegankelijkheid webshop, ACM toegankelijkheid, website toegankelijk maken, micro-onderneming uitzondering",

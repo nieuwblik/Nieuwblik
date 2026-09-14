@@ -15,7 +15,14 @@ export interface HeadSeo {
   /** Volledige canonical-URL. Verplicht voor indexeerbare pagina's. */
   canonical?: string | undefined;
   ogImage?: string | undefined;
+  /** Echte afmetingen van ogImage. Zonder deze worden ze bij een eigen beeld weggelaten. */
+  ogImageWidth?: number | undefined;
+  ogImageHeight?: number | undefined;
   ogType?: string | undefined;
+  /** Voor artikelen: ISO-datum, ook in de server-HTML in plaats van alleen client-side. */
+  articlePublishedTime?: string | undefined;
+  articleModifiedTime?: string | undefined;
+  articleAuthor?: string | undefined;
   noIndex?: boolean | undefined;
 }
 
@@ -42,8 +49,6 @@ export function buildHead(seo: HeadSeo): { meta: MetaEntry[]; links: LinkEntry[]
     { property: "og:title", content: seo.title },
     { property: "og:description", content: seo.description },
     { property: "og:image", content: ogImage },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: seo.title },
     { property: "og:type", content: seo.ogType ?? "website" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -52,6 +57,24 @@ export function buildHead(seo: HeadSeo): { meta: MetaEntry[]; links: LinkEntry[]
     { name: "twitter:image", content: ogImage },
     { name: "twitter:image:alt", content: seo.title },
   ];
+
+  // Gemeten afmetingen van public/og-image.webp (1200×739; hier stond eerder
+  // 1200×630, wat niet klopte). Een eigen beeld met verkeerde afmetingen wordt
+  // door sommige platforms scheef bijgesneden, dus dan liever geen afmetingen
+  // dan foute.
+  const imgWidth = seo.ogImage ? seo.ogImageWidth : 1200;
+  const imgHeight = seo.ogImage ? seo.ogImageHeight : 739;
+  if (imgWidth && imgHeight) {
+    meta.push({ property: "og:image:width", content: String(imgWidth) });
+    meta.push({ property: "og:image:height", content: String(imgHeight) });
+  }
+
+  if (seo.articlePublishedTime) {
+    meta.push({ property: "article:published_time", content: seo.articlePublishedTime });
+    meta.push({ property: "article:modified_time", content: seo.articleModifiedTime ?? seo.articlePublishedTime });
+    meta.push({ property: "article:publisher", content: companyInfo.url });
+    if (seo.articleAuthor) meta.push({ property: "article:author", content: seo.articleAuthor });
+  }
 
   if (seo.keywords) {
     meta.push({ name: "keywords", content: seo.keywords });
