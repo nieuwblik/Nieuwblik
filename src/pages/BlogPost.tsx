@@ -208,7 +208,7 @@ const BlogPost = () => {
           <h2
             key={index}
             id={id}
-            className="text-2xl md:text-3xl font-bold mb-4 mt-8 scroll-mt-24"
+            className="text-xl md:text-2xl font-bold mb-4 mt-10 scroll-mt-24"
           >
             {text}
           </h2>
@@ -223,7 +223,7 @@ const BlogPost = () => {
           <h3
             key={index}
             id={id}
-            className="text-xl md:text-2xl font-semibold mb-3 mt-6 scroll-mt-24"
+            className="text-lg md:text-xl font-semibold mb-3 mt-6 scroll-mt-24"
           >
             {text}
           </h3>
@@ -656,7 +656,7 @@ const BlogPost = () => {
 
                 {/* Title */}
                 <motion.h1
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+                  className="text-3xl md:text-4xl lg:text-[2.625rem] font-bold mb-6 leading-[1.15] text-balance"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1, ease: easings.easeOutExpo }}
