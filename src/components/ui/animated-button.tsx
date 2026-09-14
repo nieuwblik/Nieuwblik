@@ -12,8 +12,9 @@ interface AnimatedButtonProps {
   className?: string;
   size?: "sm" | "default" | "lg";
   /** solid = the site's main button (filled green). outline = border + text only,
-   *  fills to the solid look on hover. white = solid button for dark surfaces. */
-  variant?: "solid" | "outline" | "white";
+   *  fills to the solid look on hover. white = solid button for dark surfaces.
+   *  outlineWhite = the outline button for dark surfaces, fills white on hover. */
+  variant?: "solid" | "outline" | "white" | "outlineWhite";
   showArrow?: boolean;
 }
 
@@ -30,6 +31,8 @@ const VARIANT_CLASSES = {
   outline:
     "border-2 bg-transparent text-[hsl(160,84%,16%)] border-[hsl(160,84%,16%)] hover:bg-[hsl(160,84%,16%)] hover:text-white",
   white: "border-2 border-transparent bg-white text-[hsl(160,84%,16%)]",
+  outlineWhite:
+    "border-2 bg-transparent text-white border-white/40 hover:bg-white hover:border-white hover:text-[hsl(160,84%,16%)]",
 };
 
 /**
