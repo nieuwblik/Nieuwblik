@@ -48,7 +48,7 @@ const PortfolioDetail = () => {
         <div className="min-h-screen bg-background">
             <SEOHead
                 title={`${project.title} | Portfolio - Nieuwblik`}
-                description={project.detail?.details ? project.detail.details.substring(0, 155) : project.description}
+                description={project.detail?.details ? (project.detail.details.split("\n\n")[0] ?? "").substring(0, 155).trim() : project.description}
                 keywords={project.tags?.join(", ")}
                 canonicalUrl={`https://www.nieuwblik.com/portfolio/${project.slug}`}
                 ogImage={project.image}

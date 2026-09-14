@@ -21,6 +21,8 @@ import aardingsbedrijfImg from "@/assets/aardingsbededrijfwestfriesland-portfoli
 import eenbundelgelukImg from "@/assets/bundelgeluk-portfolio-nieuw.webp";
 import taxidrechterlandImg from "@/assets/taxidrechterland.webp";
 import feigroImg from "@/assets/feigro-project-nieuwblik.webp";
+import vvmadjoeImg from "@/assets/vvmadjoe-portfolio.webp";
+import jorddeboerImg from "@/assets/jorddeboerosteopathie-portfolio.webp";
 
 // Zelfde bestanden, maar als set varianten per schermbreedte. De browser
 // kiest er zelf de kleinste uit die groot genoeg is.
@@ -47,6 +49,8 @@ import aardingsbedrijfImgSet from "@/assets/aardingsbededrijfwestfriesland-portf
 import eenbundelgelukImgSet from "@/assets/bundelgeluk-portfolio-nieuw.webp?w=480;800;1200&format=webp&as=srcset";
 import taxidrechterlandImgSet from "@/assets/taxidrechterland.webp?w=480;800;1200&format=webp&as=srcset";
 import feigroImgSet from "@/assets/feigro-project-nieuwblik.webp?w=480;800;1200&format=webp&as=srcset";
+import vvmadjoeImgSet from "@/assets/vvmadjoe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
+import jorddeboerImgSet from "@/assets/jorddeboerosteopathie-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
 
 export interface ProjectDetail {
   year: string;
@@ -148,6 +152,23 @@ export const projects: Project[] = [
     }
   },
   {
+    slug: "vv-madjoe",
+    title: "VV Madjoe",
+    category: "Sportvereniging",
+    filterCategory: "websites",
+    description: "Een clubwebsite voor volleybalvereniging Madjoe uit Enkhuizen, met een eigen pagina per team, online lid worden en inschrijven voor evenementen, en een beheeromgeving voor de club.",
+    tags: ["Maatwerk", "Lokale SEO", "Teampagina's", "Sportvereniging"],
+    image: vvmadjoeImg,
+    imageSet: vvmadjoeImgSet,
+    url: "https://vvmadjoe.nl",
+    detail: {
+      year: "2025",
+      goal: "Volleybalvereniging Madjoe bestaat sinds 1950 en is een van de grootste volleybalclubs van West-Friesland: van de Volley Stars van zes jaar via jeugdteams en acht heren- en acht damesteams tot Heren 1 in de Topdivisie en recreanten van boven de 65. Zo'n club heeft niet één bezoeker maar vijf. Een ouder zoekt wanneer de jeugd traint, een speler wil zijn teamindeling zien, een nieuwkomer wil weten of volleybal iets voor hem is, een ondernemer overweegt sponsoring en een lid zoekt de contributie. De opdracht was één website waar ieder van hen binnen een paar tikken zijn antwoord vindt, die het jubileumjaar waardig neerzet, en die in Google gevonden wordt door iedereen in de regio die op zoek is naar een volleybalclub.",
+      idea: "De site draait om twee dingen: de teams en de drempel om lid te worden. Elk team kreeg een eigen pagina met competitieklasse, trainer, trainingstijden en zaal, de selectie en de eigen sponsors. Op de overzichtspagina filter je in één tik op jeugd, heren of dames. Daarnaast staan 'Proefles aanvragen' en 'Lid worden' overal binnen bereik, want dat is de stap waar een vereniging van groeit.\n\nHet ontwerp is fris en sportief in het groen van de club, met grote foto's van de eigen leden in plaats van stockbeelden. Een oranje knop naar het 75-jarig jubileum geeft het feestjaar een vaste plek in de navigatie. Het resultaat voelt als de club zelf: sportief, gezellig en voor iedereen.",
+      details: "Voor volleybalvereniging Madjoe in Enkhuizen bouwde Nieuwblik een clubwebsite voor leden, ouders, sponsors en nieuwe spelers uit heel West-Friesland.\n\nDe homepage laat in één scherm zien waar de club voor staat en wat er speelt: de eerstvolgende evenementen uit de agenda, het laatste clubnieuws, de sponsors en een directe link naar de wedstrijdprogramma's, uitslagen en standen van Sporthal De Drecht op volleybal.nl. Zo hoeft de club die gegevens niet dubbel bij te houden.\n\nHet hart van de site zijn de teampagina's. Ieder team, van de Volley Stars en de jeugd tot acht heren- en acht damesteams, heeft een eigen pagina met klasse, trainer, trainingstijden, selectie en eigen sponsors. Spelers delen die pagina, ouders vinden er in een oogopslag wanneer ze moeten rijden, en sponsors zien hun logo terug bij het team dat ze steunen.\n\nOm nieuwe leden binnen te halen is de proefles het startpunt. Het aanvraagformulier vraagt eerst voor welke groep de proefles is, Volley Stars, jeugd, heren, dames of recreanten, zodat de club meteen weet wie er komt. Wie daarna lid wil worden, doorloopt online een aanmelding in vijf stappen: gegevens, volleybal, vrijwilligerswerk, betaling via automatische incasso en toestemmingen, inclusief het uploaden van een pasfoto voor de spelerspas. De lidmaatschapspagina zet contributie, betaalwijze en opzeggen helder op een rij.\n\nOok het clubleven buiten de competitie loopt via de site. Voor evenementen zoals het Hemelvaarttoernooi, beachvolleybal, de Volleybalspeeltuin en de seizoensopening schrijf je je online in en betaal je direct met iDEAL of creditcard, en bedrijven kunnen er een bal sponsoren met hun eigen logo. Elke inzending komt automatisch per e-mail binnen bij de juiste commissie. In een afgeschermde beheeromgeving ziet het bestuur alle aanmeldingen, proeflessen, afmeldingen en inschrijvingen overzichtelijk bij elkaar, met zoeken, betaalstatus en een export naar Excel. Voor sponsors is er een eigen route met de mogelijkheden als bord-, kleding- of evenementsponsor en manieren om de club gratis te steunen, zoals de VriendenLoterij, SponsorKliks en Vomar Klant is Koning.\n\nVoor de vindbaarheid is de site ingericht op zoekopdrachten als 'volleybal Enkhuizen' en 'volleybalclub West-Friesland', met teksten die ook Bovenkarspel, Hoogkarspel en Andijk noemen. Elke pagina heeft een eigen titel en beschrijving, en gestructureerde data vertelt Google dat het om een sportorganisatie gaat, met de sporthal als locatie en elk team als SportsTeam. Doordat de pagina's vooraf worden gerenderd, ziet een zoekmachine elke teampagina volledig, niet alleen een lege schil.\n\nHet resultaat is een website die het hele clubleven draagt, van de eerste proefles tot het jubileumboek over 75 jaar Madjoe. En omdat Nieuwblik ook uit de regio komt, staan we zelf trots tussen de sponsors van de club."
+    }
+  },
+  {
     slug: "quantum-rehab-europe",
     title: "Quantum Rehab Europe",
     category: "Revalidatietechnologie",
@@ -226,6 +247,23 @@ export const projects: Project[] = [
       goal: "De architectuur van de website is ontworpen om drie strategische doelen te ondersteunen: High-Intent Leadgeneratie voor verkeer uit campagnes met meer dan 100 miljoen weergaven en 12.000 leads. Internationalisering & Recruitment voor de expansie naar Bangalore (India) door middel van geautomatiseerde recruitment-funnels. Autoriteit door 'Social Proof' via een razendsnelle gebruikerservaring die de technische competentie van het bureau onderstreept.",
       idea: "De visuele identiteit volgt een 'Trust meets Modernity' filosofie, essentieel voor de financiële doelgroep. Een strategische combinatie van Inter (voor leesbaarheid en data) en Plus Jakarta Sans (voor een moderne, geometrische uitstraling). Een 'Clean Corporate' esthetiek met veel witruimte die rust en controle uitstraalt, terwijl de mobile-first opzet inspeelt op het snelle consumptiegedrag van social media gebruikers.",
       details: "Dit project is een schoolvoorbeeld van AI-Native Development, gebouwd voor snelheid en schaalbaarheid. Met Lovable's AI-gestuurde development is een Single Page Application (SPA) gerealiseerd die een app-achtige ervaring biedt zonder laadtijden bij navigatie.\n\nVoor maximale veiligheid is gekozen voor Supabase met Row Level Security (RLS) om klantdata hermetisch te beveiligen. Edge Functions zorgen voor server-side tracking, essentieel om conversies nauwkeurig te meten in een privacy-first wereld (AVG).\n\nDe financiële sector kampt met een dilemma: de noodzaak voor betrouwbaarheid botst vaak met de snelheid van moderne media. BeNoted dicht dit gat als specialistisch bureau. De uitdaging voor dit project was het creëren van een digitaal platform dat institutionele veiligheid (zoals vereist door banken) naadloos combineert met creatieve innovatie.\n\nMet benoted.nl heeft BeNoted een platform dat klaar is voor de toekomst. De combinatie van AI-ontwikkelkracht en enterprise-grade beveiliging maakt het mogelijk om wereldwijd op te schalen zonder in te leveren op de strenge eisen van de financiële markt."
+    }
+  },
+  {
+    slug: "jord-de-boer-osteopathie",
+    title: "Jord de Boer Osteopathie",
+    category: "Osteopathie",
+    filterCategory: "websites",
+    description: "Een rustige, persoonlijke website voor osteopaat Jord de Boer in Almere Poort, met online afspraken plannen, transparante tarieven en heldere uitleg over vergoeding.",
+    tags: ["Web Design", "Online Afspraken", "Lokale SEO", "Zorg"],
+    image: jorddeboerImg,
+    imageSet: jorddeboerImgSet,
+    url: "https://jorddeboerosteopathie.nl",
+    detail: {
+      year: "2024",
+      goal: "Jord de Boer is geregistreerd osteopaat in Almere Poort, afgestudeerd aan het Sutherland College en aangesloten bij het Nederlands Register voor Osteopathie. Wie een osteopaat zoekt, heeft meestal al een tijd last van rug, nek of een blessure en twijfelt over drie dingen: helpt dit bij mijn klacht, heb ik een verwijzing nodig, en wordt het vergoed? De website moest die twijfels wegnemen voordat iemand belt, en de stap naar een eerste afspraak zo klein mogelijk maken. Tegelijk moest de praktijk goed gevonden worden door mensen in Almere die zoeken op hun klacht of op 'osteopaat Almere'.",
+      idea: "Het ontwerp is rustig en persoonlijk: een zwart-witte basis met veel witruimte, een elegante serif met een cursief accentwoord in de koppen en echte foto's van Jord in zijn praktijk. Geen klinische sfeer, maar het gevoel dat je hier gehoord wordt. De belangrijkste beslissing zat in de route naar een afspraak: 'Plan Afspraak' staat vast in de navigatie en leidt rechtstreeks naar de online agenda, zodat een bezoeker zonder telefoontje of wachttijd een moment kiest. Wie eerst iets wil vragen, kan via de WhatsApp-knop direct een bericht sturen.",
+      details: "Voor osteopaat Jord de Boer in Almere Poort bouwde Nieuwblik een website die twijfel wegneemt en van een bezoeker met klachten een geplande afspraak maakt.\n\nDe homepage beantwoordt meteen de vragen die mensen tegenhouden. Bovenaan staat dat je geen verwijzing van de huisarts nodig hebt, met de Google-reviews ernaast als sociaal bewijs. Daaronder maakt de bezoeker kennis met Jord zelf, zijn opleiding en registratie, en ziet hij bij welke klachten osteopathie kan helpen: rug- en nekpijn, hoofdpijn en migraine, sportblessures, maag- en darmklachten, gewrichtsklachten en klachten na een ongeluk of operatie.\n\nTarieven staan niet verstopt maar gewoon op de pagina, per consult met wat je ervoor krijgt. Een aparte tarievenpagina legt uit hoe vergoeding vanuit de aanvullende verzekering werkt, dat het niet ten koste gaat van je eigen risico, en beantwoordt de meest gestelde vragen. Afspraken plannen gaat online via het boekingssysteem van de praktijk, bereikbaar vanaf elke pagina.\n\nVoor de lokale vindbaarheid is elke pagina ingericht op wat mensen in Almere echt zoeken, zoals 'osteopaat Almere Poort', 'rugpijn behandelen Almere' en 'tarieven osteopathie Almere'. Gestructureerde data geeft Google het adres, de openingstijden, de prijsklasse en de contactgegevens van de praktijk, en de veelgestelde vragen zijn als FAQ gemarkeerd. Met een blog vol achtergrond over osteopathie en specifieke klachten groeit de site bovendien mee in zoekopdrachten.\n\nHet resultaat is een website die net zo werkt als Jord in zijn praktijk: eerst luisteren, dan helder uitleggen, en daarna direct aan de slag."
     }
   },
   {

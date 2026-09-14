@@ -24,8 +24,10 @@ export const Route = createFileRoute("/_public/portfolio/$slug")({
     }
     return buildHead({
       title: `${project.title} | Portfolio - Nieuwblik`,
+      // Alleen de eerste alinea: is die korter dan 155 tekens, dan kwam er
+      // anders een witregel plus het begin van de volgende alinea mee.
       description: project.detail?.details
-        ? project.detail.details.substring(0, 155)
+        ? (project.detail.details.split("\n\n")[0] ?? "").substring(0, 155).trim()
         : project.description,
       keywords: project.tags.join(", "),
       canonical: `https://www.nieuwblik.com/portfolio/${project.slug}`,

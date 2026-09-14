@@ -4,7 +4,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import taxiDrechterlandImg from "@/assets/taxidrechterland.webp";
 import prideMobilityImg from "@/assets/pride-mobility.webp";
 import puurInHarmonieImg from "@/assets/puurinharmonie.webp";
-import benotedImg from "@/assets/benoted.webp";
+import vvMadjoeImg from "@/assets/vvmadjoe-portfolio.webp";
 import daniqueKwakmanImg from "@/assets/daniquekwakman.webp";
 import esveldInstallatieImg from "@/assets/esveldinstallatie.webp";
 import feigroImg from "@/assets/feigro-project-nieuwblik.webp";
@@ -14,7 +14,7 @@ import kyodaiOriginalsImg from "@/assets/kyodai-originals.webp";
 import taxiDrechterlandImgSet from "@/assets/taxidrechterland.webp?w=480;800;1200&format=webp&as=srcset";
 import prideMobilityImgSet from "@/assets/pride-mobility.webp?w=480;800;1200&format=webp&as=srcset";
 import puurInHarmonieImgSet from "@/assets/puurinharmonie.webp?w=480;800;1200&format=webp&as=srcset";
-import benotedImgSet from "@/assets/benoted.webp?w=480;800;1200&format=webp&as=srcset";
+import vvMadjoeImgSet from "@/assets/vvmadjoe-portfolio.webp?w=480;800;1200&format=webp&as=srcset";
 import daniqueKwakmanImgSet from "@/assets/daniquekwakman.webp?w=480;800;1200&format=webp&as=srcset";
 import esveldInstallatieImgSet from "@/assets/esveldinstallatie.webp?w=480;800;1200&format=webp&as=srcset";
 import feigroImgSet from "@/assets/feigro-project-nieuwblik.webp?w=480;800;1200&format=webp&as=srcset";
@@ -32,7 +32,7 @@ const ITEMS = [
   { title: "Taxi Drechterland",    category: "Taxi & Personenvervoer",  meta: "Maatwerk · Lokale SEO", image: taxiDrechterlandImg, imageSet: taxiDrechterlandImgSet, slug: "taxi-drechterland",     url: "https://taxidrechterland.nl" },
   { title: "Feigro Dakwerken",      category: "Dakdekkersdiensten",      meta: "Vakmanschap · Lokale SEO", image: feigroImg, imageSet: feigroImgSet,            slug: "feigro-dakwerken",      url: "https://feigro.nl" },
   { title: "Puur in Harmonie",      category: "Holistische Salon",       meta: "Web Design · Wellness", image: puurInHarmonieImg, imageSet: puurInHarmonieImgSet,   slug: "puur-in-harmonie",      url: "https://www.puurinharmonie.nl" },
-  { title: "BeNoted",               category: "Financiële Marketing",    meta: "Web Development · Fintech", image: benotedImg, imageSet: benotedImgSet,          slug: "benoted",               url: "https://benoted.nl" },
+  { title: "VV Madjoe",             category: "Sportvereniging",         meta: "Maatwerk · Lokale SEO", image: vvMadjoeImg, imageSet: vvMadjoeImgSet,          slug: "vv-madjoe",             url: "https://vvmadjoe.nl" },
   { title: "Danique Kwakman",       category: "Orthomoleculaire Therapie", meta: "Web Design · Gezondheid", image: daniqueKwakmanImg, imageSet: daniqueKwakmanImgSet, slug: "danique-kwakman",       url: "https://daniquekwakman.nl" },
   { title: "Esveld Installatie",    category: "Installatiediensten",     meta: "Web Design · Dienstverlening", image: esveldInstallatieImg, imageSet: esveldInstallatieImgSet, slug: "esveld-installatie",   url: "https://esveldinstallatie.nl" },
   { title: "Pride Mobility Europe", category: "Mobiliteit & Healthcare", meta: "WordPress · Maatwerk", image: prideMobilityImg, imageSet: prideMobilityImgSet,    slug: "pride-mobility-europe", url: "https://www.pridemobility.eu" },

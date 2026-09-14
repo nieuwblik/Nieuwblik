@@ -88,7 +88,7 @@ export const industryExtras: IndustryExtra[] = [
       "Duidelijke informatie over vergoeding en verzekering",
       "Patiëntervaringen en praktijkinformatie",
     ],
-    relevantCaseSlugs: ["quantum-rehab-europe", "danique-kwakman"],
+    relevantCaseSlugs: ["jord-de-boer-osteopathie", "quantum-rehab-europe", "danique-kwakman"],
   },
   {
     slug: "accountant",
@@ -268,7 +268,7 @@ export const industryExtras: IndustryExtra[] = [
       "Laagdrempelig contact- of intakeformulier",
       "Persoonlijke kennismaking met de therapeut",
     ],
-    relevantCaseSlugs: ["danique-kwakman", "puur-in-harmonie"],
+    relevantCaseSlugs: ["jord-de-boer-osteopathie", "danique-kwakman", "puur-in-harmonie"],
   },
   {
     slug: "horecabedrijf",
@@ -358,7 +358,7 @@ export const industryExtras: IndustryExtra[] = [
       "Overzicht van lidmaatschappen en tarieven",
       "Sfeerbeelden en video's van de sportschool",
     ],
-    relevantCaseSlugs: ["casper-nieskens-pt", "karate-school-cor-slok"],
+    relevantCaseSlugs: ["vv-madjoe", "casper-nieskens-pt", "karate-school-cor-slok"],
   },
   {
     slug: "boekhouder",
