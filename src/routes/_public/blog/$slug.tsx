@@ -31,6 +31,13 @@ export const Route = createFileRoute("/_public/blog/$slug")({
       description: post.excerpt.nl,
       keywords: post.seoKeywords,
       canonical: `${companyInfo.url}/blog/${post.slug}`,
+      // Zonder dit kreeg elk artikel bij delen het algemene og-image in plaats
+      // van de eigen omslagfoto.
+      ogImage: post.image
+        ? post.image.startsWith("http")
+          ? post.image
+          : `${companyInfo.url}${post.image}`
+        : undefined,
       ogType: "article",
     });
   },

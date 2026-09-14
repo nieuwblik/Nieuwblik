@@ -72,7 +72,13 @@ const BlogPost = () => {
     "@type": "BlogPosting",
     "headline": post.seoTitle || post.title.nl,
     "description": post.excerpt.nl,
-    "image": typeof post.image === 'string' ? post.image : `https://www.nieuwblik.com/og-image.webp`,
+    // Absoluut: een relatief pad als /assets/x.webp wordt door Google niet
+    // als afbeelding van het artikel herkend.
+    "image": post.image
+      ? (post.image.startsWith('http') ? post.image : `https://www.nieuwblik.com${post.image}`)
+      : `https://www.nieuwblik.com/og-image.webp`,
+    "inLanguage": "nl-NL",
+    ...(post.seoKeywords ? { "keywords": post.seoKeywords } : {}),
     "datePublished": post.date,
     "dateModified": post.date,
     "author": {
@@ -641,7 +647,7 @@ const BlogPost = () => {
                   >
                     <img
                       src={post.image}
-                      alt={post.title.nl}
+                      alt={post.imageAlt ?? post.title.nl}
                       className="w-full h-auto max-h-[500px] object-contain rounded-none md:rounded-2xl"
                       loading="eager"
                     />

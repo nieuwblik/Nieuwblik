@@ -1,3 +1,4 @@
+import vindbaarInChatgptImg from "@/assets/blog/SEO-Blog-nieuwblik.webp";
 import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
 import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
 import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
@@ -33,11 +34,98 @@ export interface BlogPost {
   date: string;
   readingTime: number;
   image?: string;
+  /** Beschrijving van de omslagfoto. Zonder deze valt de alt terug op de titel. */
+  imageAlt?: string;
   seoTitle?: string;
   seoKeywords?: string;
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "vindbaar-in-chatgpt-geo-west-friesland",
+    image: vindbaarInChatgptImg,
+    imageAlt: "Hand met een smartphone waarop iemand in ChatGPT vraagt naar een goede loodgieter in West-Friesland",
+    seoTitle: "Vindbaar worden in ChatGPT: GEO voor MKB'ers",
+    seoKeywords: "vindbaar in ChatGPT, GEO, generative engine optimization, AEO, answer engine optimization, vindbaar in AI, AI zoekmachines, lokale SEO West-Friesland, gevonden worden in Gemini, Nieuwblik",
+    title: {
+      nl: "Je klant vraagt het niet meer aan Google. Die vraagt het aan ChatGPT.",
+      en: "Your customer no longer asks Google. They ask ChatGPT."
+    },
+    excerpt: {
+      nl: "Steeds meer ondernemers worden gevonden via ChatGPT en Gemini in plaats van Google. Wat GEO is, waarom het nu al telt en wat je er deze week aan kunt doen.",
+      en: "More and more businesses are found through ChatGPT and Gemini instead of Google. What GEO is, why it matters now and what you can do about it this week."
+    },
+    date: "2026-08-18",
+    readingTime: 7,
+    content: {
+      nl: `Even een testje. Open ChatGPT en typ: "Ik zoek een loodgieter in West-Friesland."
+
+Kom jij eruit? Of je concurrent uit Hoorn die half zoveel klanten heeft maar wel een goed gestructureerde website?
+
+Wij doen dit soort testjes vaker dan we willen toegeven. Het is een beetje verslavend. En het is ook meteen het hele punt van dit artikel: er is een nieuwe plek waar mensen naar bedrijven zoeken, en de meeste ondernemers hebben nog niet door dat ze daar niet bestaan.
+
+## Wat er aan de hand is
+
+Vroeger was de route simpel. Klant heeft een probleem, klant googelt, klant klikt op een van de tien blauwe linkjes, klant belt jou.
+
+Die route bestaat nog steeds. Google gaat niet dood, wat sommige mensen ook roepen. Maar er is een tweede route bijgekomen, en die groeit hard. Iemand opent ChatGPT, Perplexity of Gemini, stelt een vraag in gewone mensentaal, en krijgt één antwoord terug. Geen lijstje. Eén antwoord, met twee of drie bedrijven erin genoemd.
+
+Zit je er niet bij, dan besta je niet. Er is geen pagina twee waar je nog een kansje maakt.
+
+[Gartner voorspelde](https://www.gartner.com/en/newsroom/press-releases/2024-02-19-gartner-predicts-search-engine-volume-will-drop-25-percent-by-2026-due-to-ai-chatbots-and-other-virtual-agents) dat het zoekvolume via klassieke zoekmachines in 2026 met een kwart zou dalen omdat mensen overstappen op AI-assistenten. Of dat getal exact klopt weten we niet, dat weet niemand. Maar de richting is duidelijk genoeg om er wat mee te doen.
+
+## GEO, AEO, en waarom het eigenlijk niet uitmaakt hoe je het noemt
+
+De vakwereld is er nog niet uit. De ene helft zegt GEO (Generative Engine Optimization), de andere helft AEO (Answer Engine Optimization). Weer iemand anders roept LLMO. Over twee jaar hebben we vast een vierde afkorting.
+
+Waar het op neerkomt: je zorgt dat AI-systemen jouw bedrijf herkennen, begrijpen en durven noemen.
+
+En hier komt het goede nieuws. GEO is geen compleet nieuw vak dat je van nul moet leren. Het bouwt bijna volledig op de [SEO-basis](/seo-enkhuizen) die je al zou moeten hebben. [Google zegt zelf ook](https://developers.google.com/search/docs/appearance/ai-features) dat er geen magische aparte optimalisatie voor AI Overviews bestaat. Goede content, heldere structuur, echte autoriteit. Alleen de weging is anders.
+
+## Wat AI-modellen wél oppikken
+
+Na een paar maanden klooien, testen en klanten meten zien wij steeds dezelfde dingen terugkomen.
+
+**Antwoorden die je kunt uitknippen.** AI citeert het liefst een stukje tekst dat op zichzelf al klopt. Een alinea van drie zinnen die de vraag beantwoordt zonder dat je de rest van de pagina nodig hebt. Dus niet eerst vierhonderd woorden aanloop nemen voordat je zegt [wat een website kost](/blog/wat-kost-website-laten-maken-2026).
+
+**Structuur waar geen speld tussen te krijgen is.** Koppen die zeggen wat eronder staat. Eén onderwerp per pagina. Schema markup zodat een machine weet: dit is een bedrijf, dit is een dienst, dit is een review. Saai werk, veel effect.
+
+**Consistentie buiten je eigen site.** Dit is het stuk dat de meeste ondernemers overslaan. Een AI-model checkt of het verhaal klopt. Staat je bedrijfsnaam overal hetzelfde? Je adres, je telefoonnummer, je diensten? Als jouw Google Bedrijfsprofiel iets anders zegt dan je website en je KvK-inschrijving weer iets anders, dan word je minder vertrouwd. Zo simpel is het.
+
+**Genoemd worden op plekken die niet van jou zijn.** Een vermelding in een regionale krant, een branchegids, een interview op een podcast, een klant die over je schrijft. AI leunt zwaar op wat anderen over je zeggen. Je eigen website die roept dat je de beste bent telt voor bijna niks.
+
+## En nu het echte argument
+
+Lokaal is de concurrentie in AI-antwoorden op dit moment bijna nul.
+
+In Amsterdam vechten vijfhonderd bureaus om dezelfde vraag. Vraag een AI naar een loodgieter in Enkhuizen, Medemblik of Stede Broec en het model moet écht even zoeken naar bronnen. Wie daar nu de duidelijkste, best gestructureerde informatie neerzet, wordt straks standaard genoemd.
+
+Dat venster gaat dicht. Niet morgen, maar ook niet over vijf jaar.
+
+## Wat je deze week kunt doen
+
+Geen enorm project nodig. Begin klein.
+
+Test jezelf eerst. Stel tien vragen die jouw ideale klant zou stellen, in ChatGPT en in Gemini. Schrijf op wie er genoemd wordt en waaróm. Vaak zie je meteen welke bron het model gebruikt, en dan weet je precies waar je moet aanhaken.
+
+Zet daarna op je belangrijkste dienstpagina's bovenaan één alinea die de hoofdvraag direct beantwoordt. Niet ergens halverwege verstopt. Gewoon bovenaan.
+
+Trek je bedrijfsgegevens overal gelijk. Google Bedrijfsprofiel, LinkedIn, KvK, je eigen footer. Een half uurtje werk, en het is een van de sterkste signalen die er is.
+
+En schrijf iets waar iemand anders naar kan verwijzen. Een case met echte cijfers, een uitleg die nergens anders zo helder staat. Dat is het soort content dat wordt opgepikt.
+
+## Eerlijk verhaal
+
+Niemand heeft GEO helemaal door. Iedereen die zegt dat hij een gegarandeerde methode heeft, verkoopt je iets. De modellen veranderen elke paar maanden en wat vandaag werkt kan in maart anders liggen.
+
+Maar de basis blijft staan: een snelle, goed opgebouwde site met eerlijke content en een schone technische structuur. Dat werkte in 2015 voor Google, dat werkt nu voor ChatGPT, en dat werkt straks voor wat er ook komt.
+
+Wij bouwen [websites](/diensten/website-op-maat) zo. Niet omdat het een trend is, maar omdat het gewoon logisch is.
+
+Benieuwd of jouw bedrijf nu genoemd wordt? [Stuur ons een appje](https://wa.me/31646253607), dan draaien we een paar testvragen voor je en sturen we terug wat eruit komt. Kost je niks en je weet meteen waar je staat.`,
+      en: "More and more customers ask ChatGPT, Perplexity or Gemini instead of Google, and get one answer with two or three businesses in it. What GEO is, why it builds on solid SEO, what AI models pick up, and what local businesses can do this week."
+    }
+  },
   {
     slug: "kevin-mos-nieuwblik-hengelo-roadrace-2026",
     image: kevinMosBikeFront,
