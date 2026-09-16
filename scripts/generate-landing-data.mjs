@@ -162,37 +162,6 @@ const benefitOptions = [
   { h3: "Resultaatgericht", text: "We meten en optimaliseren na de lancering, want een website is nooit klaar. Samen maken we hem steeds sterker." },
 ];
 
-// FAQ-antwoorden op de stadspagina's noemen de plaatsnaam niet: die staat al in
-// de H1, de intro, de H2, de FAQ-kop, de eerste vraag en het contactblok. Meer
-// herhaling leest onnatuurlijk en voegt voor zoekmachines niets toe.
-const cityFaqA1Templates = [
-  () => `Wij werken vanuit Enkhuizen voor MKB ondernemers in heel Nederland, dus ook bij jou in de buurt. De meeste klanten spreken we via videocall of telefoon, wat zorgt voor snelle communicatie en duidelijke afspraken. Indien gewenst plannen we een fysieke afspraak in.`,
-  () => `Klanten buiten West-Friesland ervaren onze samenwerking als heel persoonlijk, ook al zit ons kantoor in Enkhuizen. We zijn snel bereikbaar via telefoon, mail en WhatsApp en plannen geregeld videocalls om de voortgang door te nemen.`,
-  () => `We bedienen ondernemers verderop met dezelfde aandacht als die om de hoek zitten. Door slim gebruik te maken van online communicatietools verloopt het proces vlot, zonder dat je iets aan persoonlijk contact inlevert.`,
-  () => `Onze locatie in Enkhuizen is geen drempel. Vrijwel alle contactmomenten regelen we digitaal, met duidelijke updates en directe lijnen. Zo werken we al jaren succesvol samen met ondernemers in heel Nederland.`,
-];
-
-const cityFaqA2Templates = [
-  () => `Een eenvoudige bedrijfswebsite begint vanaf ${PRIJZEN.starter} euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat.`,
-  () => `De kosten van een website starten bij ${PRIJZEN.starter} euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf.`,
-  () => `Wij hanteren een startprijs van ${PRIJZEN.starter} euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken.`,
-  () => `Een website laten bouwen kost vanaf ${PRIJZEN.starter} euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen.`,
-];
-
-const cityFaqA3Templates = [
-  () => `De doorlooptijd van een project ligt meestal op ${LEVERTIJD.standaard}, bij complexere projecten ${LEVERTIJD.complex}. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders.`,
-  () => `Vanaf akkoord op de offerte zetten wij een nieuwe website in ${LEVERTIJD.standaard} live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast.`,
-  () => `Wij streven naar een live website in ${LEVERTIJD.standaard}. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies.`,
-  () => `Voor de meeste projecten houden wij ${LEVERTIJD.standaard} aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk.`,
-];
-
-const cityFaqA4Templates = [
-  () => `Ons proces bestaat uit kennismaken, strategie en design, ontwikkeling, en live gaan met nazorg. We werken in korte fases met duidelijke goedkeurmomenten zodat je nooit voor verrassingen komt te staan.`,
-  () => `Een project start altijd met een vrijblijvende kennismaking, gevolgd door een offerte en strategiegesprek. Daarna ontwerpen, bouwen en lanceren we de site samen met jou. Ook op afstand werkt deze aanpak heel prettig.`,
-  () => `Wij hanteren vier fases: oriëntatie, ontwerp, ontwikkeling en lancering. Tijdens elke fase blijft de communicatie persoonlijk en helder. Zo weet je precies waar we staan en wat de volgende stap is.`,
-  () => `Het proces begint met een gesprek over jouw doelen, gevolgd door een ontwerp, bouw en lancering. Na livegang blijven we beschikbaar voor onderhoud en optimalisatie. Zo bouwen we aan duurzame samenwerkingen, waar je ook zit.`,
-];
-
 const industryFaqA1Templates = [
   (b) => `Voor een ${b.toLowerCase()} bouwen wij standaard functies in zoals een duidelijk dienstenoverzicht, een sterk contactblok en eventueel een afspraak of reserveringsmodule. Welke onderdelen het meeste opleveren bespreken we tijdens de kennismaking op basis van jouw doelen.`,
   (b) => `De essentiële functies voor een ${b.toLowerCase()} website zijn snelheid, mobielvriendelijkheid en heldere call to actions. Daarnaast voegen we vaak een online afsprakenmodule, portfolio of klantbeoordelingen toe om vertrouwen te wekken bij nieuwe bezoekers.`,
@@ -351,13 +320,6 @@ const cityRecord = (c, i) => {
     `Bekijk hoe we voor andere MKB klanten resultaat boekten en wat dat voor jouw bedrijf kan betekenen.`,
     `Deze cases tonen onze aanpak in beeld, met dezelfde kwaliteit die wij elke ondernemer bieden.`,
   ];
-  const faqH2Variants = [
-    `Veelgestelde vragen over website laten maken in ${c.name}`,
-    `Wat ondernemers in ${c.name} ons het vaakst vragen`,
-    `Jouw vragen over webdesign in ${c.name} beantwoord`,
-    `Antwoorden op de meest gestelde vragen uit ${c.name}`,
-    `FAQ voor ondernemers die starten in ${c.name}`,
-  ];
   const contactH2Variants = [
     `Klaar voor een website die werkt voor jouw bedrijf in ${c.name}?`,
     `Benieuwd wat Nieuwblik kan betekenen voor jouw zaak in ${c.name}?`,
@@ -384,15 +346,6 @@ const cityRecord = (c, i) => {
     section4: {
       h2: s4H2Variants[i % s4H2Variants.length],
       intro: s4Intros[i % s4Intros.length],
-    },
-    faq: {
-      h2: faqH2Variants[i % faqH2Variants.length],
-      items: [
-        { q: `Komen jullie ook naar ${c.name} toe of werken jullie volledig op afstand?`, a: cityFaqA1Templates[i % cityFaqA1Templates.length](c.name) },
-        { q: `Wat kost een website laten maken voor mijn bedrijf?`, a: cityFaqA2Templates[i % cityFaqA2Templates.length]() },
-        { q: `Hoe snel staat mijn nieuwe website live?`, a: cityFaqA3Templates[i % cityFaqA3Templates.length]() },
-        { q: `Hoe ziet het proces eruit van eerste gesprek tot livegang?`, a: cityFaqA4Templates[i % cityFaqA4Templates.length]() },
-      ],
     },
     contactBlock: {
       h2: contactH2Variants[i % contactH2Variants.length],
@@ -539,7 +492,6 @@ checkUnique("intro", (r) => r.intro, all);
 // Output as TS files
 const cityTs = `// Auto-generated by scripts/generate-landing-data.mjs. Do not edit by hand.
 export interface CityBenefit { h3: string; text: string; }
-export interface CityFaqItem { q: string; a: string; }
 export interface CityRecord {
   slug: string;
   name: string;
@@ -552,7 +504,6 @@ export interface CityRecord {
   section2H2: string;
   section3H2: string;
   section4: { h2: string; intro: string; };
-  faq: { h2: string; items: CityFaqItem[]; };
   contactBlock: { h2: string; body: string; };
   internalLinks: string;
 }

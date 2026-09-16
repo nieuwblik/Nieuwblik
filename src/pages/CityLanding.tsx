@@ -1,11 +1,9 @@
-import { faqPage } from "@/lib/structured-data";
 import { Link } from "@/lib/router-compat";
 import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
-import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
 import ProjectCard from "@/components/ProjectCard";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
@@ -52,7 +50,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
         title={seoTitle}
         description={seoDescription}
         canonicalUrl={url}
-        structuredData={[webPageJsonLd, faqPage(city.faq.items)]}
+        structuredData={webPageJsonLd}
         includeLocalBusinessSchema={true}
       />
 
@@ -129,9 +127,6 @@ const CityLanding = ({ slug }: { slug: string }) => {
           </div>
         </div>
       </section>
-
-      {/* Sectie 5: FAQ */}
-      <LandingFaq h2={city.faq.h2} items={city.faq.items} />
 
       {/* Sectie 6: Contactblok */}
       <ContactBlock h2={city.contactBlock.h2} body={city.contactBlock.body} />
