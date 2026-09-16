@@ -1,4 +1,5 @@
-import { Link, Navigate } from "@/lib/router-compat";
+import { Link } from "@/lib/router-compat";
+import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -24,7 +25,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.
   const darkNavRef = useDarkNavSection<HTMLElement>();
   const industry = getIndustryBySlug(slug);
-  if (!industry) return <Navigate to="/404" replace />;
+  if (!industry) return <NotFound />;
 
   const url = `${companyInfo.url}/website-laten-maken-${industry.slug}`;
   // Hand-authored per branche in industries.ts — unique per record, unlike the

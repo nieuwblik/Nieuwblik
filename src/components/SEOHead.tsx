@@ -86,7 +86,7 @@ const SEOHead = ({
     updateMetaTag('og:type', ogType, true);
     updateMetaTag('og:site_name', companyInfo.name, true);
     updateMetaTag('og:locale', 'nl_NL', true);
-    updateMetaTag('og:url', resolvedCanonicalUrl, true);
+    if (!noIndex) updateMetaTag('og:url', resolvedCanonicalUrl, true);
     
     // Article-specific OG tags
     if (ogType === 'article') {
@@ -104,12 +104,22 @@ const SEOHead = ({
     
     // Twitter Card tags
     updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:url', resolvedCanonicalUrl);
+    if (!noIndex) updateMetaTag('twitter:url', resolvedCanonicalUrl);
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', ogImage);
     updateMetaTag('twitter:image:alt', title);
     
+    // Een noindex-pagina (zoals de 404) krijgt geen canonical, og:url of
+    // hreflang. Weghalen in plaats van overslaan: na client-side navigatie
+    // staan die van de vorige pagina nog in de <head>.
+    if (noIndex) {
+      document
+        .querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang], meta[property="og:url"], meta[name="twitter:url"]')
+        .forEach((el) => el.remove());
+      return;
+    }
+
     // Canonical URL
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {

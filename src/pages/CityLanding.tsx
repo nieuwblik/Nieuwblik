@@ -1,4 +1,5 @@
-import { Link, Navigate } from "@/lib/router-compat";
+import { Link } from "@/lib/router-compat";
+import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -24,7 +25,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.
   const darkNavRef = useDarkNavSection<HTMLElement>();
   const city = getCityBySlug(slug);
-  if (!city) return <Navigate to="/404" replace />;
+  if (!city) return <NotFound />;
 
   const url = `${companyInfo.url}/website-laten-maken-${city.slug}`;
   // Hand-authored per city in cities.ts — unique per record, unlike the old

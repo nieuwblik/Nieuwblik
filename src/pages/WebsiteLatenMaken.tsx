@@ -184,7 +184,7 @@ const WebsiteLatenMaken = () => {
                 { name: "Kappers", slug: "kapper" },
                 { name: "Restaurants & horeca", slug: "restaurant" },
                 { name: "Bouw & installatie", slug: "bouwbedrijf" },
-                { name: "Fysiotherapie & zorg", slug: "fysiotherapie" },
+                { name: "Fysiotherapie & zorg", slug: "fysiotherapeut" },
                 { name: "Advocaten", slug: "advocaat" },
                 { name: "Fotografen", slug: "fotograaf" },
               ].map((b) => (
