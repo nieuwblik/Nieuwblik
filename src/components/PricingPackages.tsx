@@ -1,3 +1,4 @@
+import { PAKKETTEN, LEVERTIJD } from "@/config/business";
 import { useState, useEffect } from "react";
 import { Link } from "@/lib/router-compat";
 import { Check } from "lucide-react";
@@ -35,9 +36,9 @@ function useBreakpoint() {
 // ── Pricing data (Nieuwblik packages) ──────────────────────────
 const PRICING = [
   {
-    name: "Starter",
+    name: PAKKETTEN.starter.naam,
     description: "Voor zzp en kleine ondernemers",
-    price: "990",
+    price: String(PAKKETTEN.starter.prijs),
     period: "per website",
     cta: "Vraag offerte aan",
     highlighted: false,
@@ -46,13 +47,13 @@ const PRICING = [
       "Volledig responsive design",
       "Basis SEO en snelheidsoptimalisatie",
       "Contactformulier en Google Maps",
-      "Live binnen 2 weken",
+      `Live binnen ${LEVERTIJD.starter}`,
     ],
   },
   {
-    name: "Professional",
+    name: PAKKETTEN.professional.naam,
     description: "Onze meest gekozen oplossing",
-    price: "1990",
+    price: String(PAKKETTEN.professional.prijs),
     period: "per website",
     cta: "Vraag offerte aan",
     highlighted: true,
@@ -64,7 +65,7 @@ const PRICING = [
     ],
   },
   {
-    name: "Op maat",
+    name: PAKKETTEN.opMaat.naam,
     description: "Webshops en complexe projecten",
     price: null,
     period: "op aanvraag",

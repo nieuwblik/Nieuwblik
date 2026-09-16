@@ -1,5 +1,6 @@
 // Generates src/data/cities.ts and src/data/industries.ts with fully unique content per page.
 // Run with: node scripts/generate-landing-data.mjs
+import { PRIJZEN, LEVERTIJD } from "../src/config/business.ts";
 import fs from "fs";
 import path from "path";
 
@@ -151,7 +152,7 @@ const industryH1Patterns = [
 const benefitOptions = [
   { h3: "Snel live", text: "Wij leveren binnen enkele weken op zonder in te leveren op kwaliteit. Strakke planning en korte lijnen houden het tempo hoog." },
   { h3: "Persoonlijk contact", text: "Je krijgt een vast aanspreekpunt dat jouw bedrijf echt leert kennen. Geen accountmanagers of callcenters, gewoon directe lijnen." },
-  { h3: "Betaalbaar maatwerk", text: "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten." },
+  { h3: "Betaalbaar maatwerk", text: `Vanaf ${PRIJZEN.starter} euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten.` },
   { h3: "AI gedreven aanpak", text: "We zetten slimme tools in om sneller te bouwen en beter te schrijven. Jij profiteert van de tijdwinst en de kwaliteit." },
   { h3: "Conversiegericht ontwerp", text: "Elke knop, kop en sectie heeft een doel en is gericht op actie. Je website wordt een verkoper die altijd aan staat." },
   { h3: "Mobile first design", text: "Het overgrote deel van bezoekers komt via de smartphone binnen. Wij ontwerpen daarom altijd eerst voor mobiel." },
@@ -169,17 +170,17 @@ const cityFaqA1Templates = [
 ];
 
 const cityFaqA2Templates = [
-  (n) => `Een eenvoudige bedrijfswebsite voor een ondernemer in ${n} begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat.`,
-  (n) => `De kosten van een website in ${n} starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf.`,
-  (n) => `Voor ondernemers in ${n} hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken.`,
-  (n) => `Een website laten bouwen in ${n} kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen.`,
+  (n) => `Een eenvoudige bedrijfswebsite voor een ondernemer in ${n} begint vanaf ${PRIJZEN.starter} euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat.`,
+  (n) => `De kosten van een website in ${n} starten bij ${PRIJZEN.starter} euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf.`,
+  (n) => `Voor ondernemers in ${n} hanteren wij een startprijs van ${PRIJZEN.starter} euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken.`,
+  (n) => `Een website laten bouwen in ${n} kost vanaf ${PRIJZEN.starter} euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen.`,
 ];
 
 const cityFaqA3Templates = [
-  (n) => `De doorlooptijd van een project in ${n} ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders.`,
-  (n) => `Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in ${n} in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast.`,
-  (n) => `Wij streven naar een live website in 2 tot 6 weken voor klanten in ${n}. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies.`,
-  (n) => `Voor de meeste projecten in ${n} houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk.`,
+  (n) => `De doorlooptijd van een project in ${n} ligt meestal op ${LEVERTIJD.standaard}, bij complexere projecten ${LEVERTIJD.complex}. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders.`,
+  (n) => `Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in ${n} in ${LEVERTIJD.standaard} live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast.`,
+  (n) => `Wij streven naar een live website in ${LEVERTIJD.standaard} voor klanten in ${n}. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies.`,
+  (n) => `Voor de meeste projecten in ${n} houden wij ${LEVERTIJD.standaard} aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk.`,
 ];
 
 const cityFaqA4Templates = [
@@ -197,17 +198,17 @@ const industryFaqA1Templates = [
 ];
 
 const industryFaqA2Templates = [
-  (b) => `Een professionele website voor een ${b.toLowerCase()} begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op.`,
-  (b) => `Voor een ${b.toLowerCase()} hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door.`,
-  (b) => `De prijs van een website voor een ${b.toLowerCase()} hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie.`,
-  (b) => `Een gemiddelde ${b.toLowerCase()} betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn.`,
+  (b) => `Een professionele website voor een ${b.toLowerCase()} begint bij ons vanaf ${PRIJZEN.starter} euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op.`,
+  (b) => `Voor een ${b.toLowerCase()} hanteren wij een startbudget van ${PRIJZEN.starter} euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door.`,
+  (b) => `De prijs van een website voor een ${b.toLowerCase()} hangt af van de gewenste functies. Vanaf ${PRIJZEN.starter} euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie.`,
+  (b) => `Een gemiddelde ${b.toLowerCase()} betaalt bij ons tussen de ${PRIJZEN.starter} en ${PRIJZEN.uitgebreidTot} euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn.`,
 ];
 
 const industryFaqA3Templates = [
-  (b) => `De meeste projecten voor een ${b.toLowerCase()} ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat.`,
-  (b) => `Een nieuwe website voor een ${b.toLowerCase()} kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken.`,
-  (b) => `Voor de ${b.toLowerCase()} branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail.`,
-  (b) => `Een typische ${b.toLowerCase()} website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan.`,
+  (b) => `De meeste projecten voor een ${b.toLowerCase()} ronden wij af binnen ${LEVERTIJD.standaard}. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat.`,
+  (b) => `Een nieuwe website voor een ${b.toLowerCase()} kunnen wij in ${LEVERTIJD.standaard} live zetten. Bij grotere projecten met veel functionaliteiten wordt dit ${LEVERTIJD.complex}. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken.`,
+  (b) => `Voor de ${b.toLowerCase()} branche rekenen wij standaard op een doorlooptijd van ${LEVERTIJD.standaard}. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail.`,
+  (b) => `Een typische ${b.toLowerCase()} website is binnen ${LEVERTIJD.standaard} live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan.`,
 ];
 
 const industryFaqA4Templates = [

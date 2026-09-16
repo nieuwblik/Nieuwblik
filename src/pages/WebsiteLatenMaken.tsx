@@ -1,3 +1,4 @@
+import { PRIJZEN, PAKKETTEN, LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { CheckCircle2, Zap, Search, Users, Rocket, Shield, ArrowRight } from "lucide-react";
@@ -11,8 +12,8 @@ import { companyInfo } from "@/config/company";
 const url = `${SITE_URL}/website-laten-maken`;
 
 const faqItems = [
-  { q: "Wat kost een website laten maken in 2026?", a: "Een professionele website op maat bij Nieuwblik begint bij 990 euro. Voor sites met meer pagina's, integraties of een webshop ligt de prijs tussen 1990 en 4000 euro. Alles vooraf transparant, geen verrassingen achteraf." },
-  { q: "Hoe lang duurt het om een website te bouwen?", a: "Een standaard MKB-website leveren we binnen twee tot vier weken op. Grotere projecten met veel content of een webshop duren vier tot acht weken. We werken met korte lijnen zodat er geen tijd verloren gaat aan wachten op feedback." },
+  { q: "Wat kost een website laten maken in 2026?", a: `Een professionele website op maat bij Nieuwblik begint bij ${PRIJZEN.starter} euro. Voor sites met meer pagina's, integraties of een webshop ligt de prijs tussen ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro. Alles vooraf transparant, geen verrassingen achteraf.` },
+  { q: "Hoe lang duurt het om een website te bouwen?", a: `Een standaard MKB-website leveren we binnen ${LEVERTIJD.standaard} op. Grotere projecten met veel content of een webshop duren ${LEVERTIJD.complex}. We werken met korte lijnen zodat er geen tijd verloren gaat aan wachten op feedback.` },
   { q: "WordPress, Webflow of maatwerk, wat kies ik?", a: "Voor de meeste MKB-sites bouwen we maatwerk in React. Dat geeft betere PageSpeed-scores, veiligere sites zonder plugin-updates en een schonere basis voor SEO. WordPress kan nog, maar we adviseren het steeds minder vaak." },
   { q: "Krijg ik de eigendom van mijn website?", a: "Ja. Alle code, teksten en afbeeldingen zijn na oplevering van jou. Geen vendor lock-in. Je kunt de site altijd meenemen naar een andere partij als dat ooit nodig is." },
   { q: "Doen jullie ook onderhoud en hosting?", a: "Ja. We bieden hosting op snelle servers vanaf 25 euro per maand en onderhoudscontracten voor updates, back-ups en kleine aanpassingen. Optioneel, je bent nergens aan verplicht." },
@@ -35,7 +36,7 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": `${url}#webpage`,
       name: "Website laten maken | Kosten, proces en voorbeelden - Nieuwblik",
-      description: "Website laten maken vanaf 990 euro. Wij bouwen conversiegerichte sites op maat voor MKB. Snel, transparant, met sterke SEO en persoonlijk contact.",
+      description: `Website laten maken vanaf ${PRIJZEN.starter} euro. Wij bouwen conversiegerichte sites op maat voor MKB. Snel, transparant, met sterke SEO en persoonlijk contact.`,
       url,
       inLanguage: "nl-NL",
     },
@@ -46,7 +47,7 @@ const jsonLd = {
       serviceType: "Webdesign en webontwikkeling",
       provider: { "@type": "Organization", name: companyInfo.name, url: companyInfo.url },
       areaServed: { "@type": "Country", name: "Nederland" },
-      offers: { "@type": "Offer", price: "990", priceCurrency: "EUR", availability: "https://schema.org/InStock", url },
+      offers: { "@type": "Offer", price: String(PRIJZEN.starter), priceCurrency: "EUR", availability: "https://schema.org/InStock", url },
     },
     {
       "@type": "FAQPage",
@@ -64,8 +65,8 @@ const WebsiteLatenMaken = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Website laten maken vanaf 990 euro | Nieuwblik"
-        description="Website laten maken door een lokaal Nederlands bureau. Snel, betaalbaar, sterk in SEO. Vanaf 990 euro. Bekijk kosten, proces en voorbeelden."
+        title={`Website laten maken vanaf ${PRIJZEN.starter} euro | Nieuwblik`}
+        description={`Website laten maken door een lokaal Nederlands bureau. Snel, betaalbaar, sterk in SEO. Vanaf ${PRIJZEN.starter} euro. Bekijk kosten, proces en voorbeelden.`}
         keywords="website laten maken, website bouwen, webdesign, website op maat, professionele website"
         canonicalUrl={url}
         structuredData={jsonLd}
@@ -87,7 +88,7 @@ const WebsiteLatenMaken = () => {
               Website laten maken die klanten oplevert
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Snel, betaalbaar en sterk in SEO. Wij bouwen conversiegerichte websites voor MKB door heel Nederland. Vanaf 990 euro, transparant en zonder verrassingen.
+              Snel, betaalbaar en sterk in SEO. Wij bouwen conversiegerichte websites voor MKB door heel Nederland. Vanaf {PRIJZEN.starter} euro, transparant en zonder verrassingen.
             </p>
             <div className="flex gap-3 justify-center flex-wrap">
               <AnimatedButton to="/contact">Vraag offerte aan</AnimatedButton>
@@ -137,13 +138,13 @@ const WebsiteLatenMaken = () => {
             <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Drie duidelijke pakketten. Geen verborgen kosten, geen vage uurtarieven. Je weet vooraf wat je krijgt en wat je betaalt.</p>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { name: "Starter", price: "990", desc: "One-pager of kleine site tot 5 pagina's. Ideaal voor ZZP en starters." },
-                { name: "Professional", price: "1990", desc: "Complete site tot 10 pagina's, met CMS en sterke SEO-basis.", highlight: true },
-                { name: "Premium", price: "2990+", desc: "Uitgebreide site of webshop, met integraties en meerdere talen." },
+                { name: PAKKETTEN.starter.naam, price: String(PAKKETTEN.starter.prijs), desc: "One-pager of kleine site tot 5 pagina's. Ideaal voor ZZP en starters." },
+                { name: PAKKETTEN.professional.naam, price: String(PAKKETTEN.professional.prijs), desc: "Complete site tot 10 pagina's, met CMS en sterke SEO-basis.", highlight: true },
+                { name: PAKKETTEN.opMaat.naam, price: null, desc: "Uitgebreide site of webshop, met integraties en meerdere talen." },
               ].map((p) => (
                 <div key={p.name} className={`rounded-2xl p-6 border ${p.highlight ? "border-accent bg-background shadow-lg" : "border-border bg-background"}`}>
                   <h3 className="font-semibold text-lg mb-1">{p.name}</h3>
-                  <div className="text-3xl font-bold mb-3">€{p.price}</div>
+                  <div className="text-3xl font-bold mb-3">{p.price ? `€${p.price}` : "Op aanvraag"}</div>
                   <p className="text-sm text-muted-foreground">{p.desc}</p>
                 </div>
               ))}

@@ -1,3 +1,4 @@
+import { PRIJZEN, LEVERTIJD, euroTeken } from "@/config/business";
 import { faqPage } from "@/lib/structured-data";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
@@ -92,7 +93,7 @@ const Webshops = () => {
   const faqs = [
   {
     question: "Hoe lang duurt het om een webshop te bouwen?",
-    answer: "Een standaard webshop is binnen 2-3 weken live. Complexere shops met veel producten of custom functionaliteit kunnen 4-6 weken duren."
+    answer: `Een standaard webshop is binnen ${LEVERTIJD.standaard} live. Complexere shops met veel producten of custom functionaliteit kunnen ${LEVERTIJD.complex} duren.`
   },
   {
     question: "Welke betaalmethoden worden ondersteund?",
@@ -104,7 +105,7 @@ const Webshops = () => {
   },
   {
     question: "Wat kost een professionele webshop?",
-    answer: "Webshops starten vanaf €2.990. De exacte prijs hangt af van het aantal producten, functionaliteiten en integraties die je nodig hebt."
+    answer: `Webshops starten vanaf ${euroTeken(PRIJZEN.webshopVanaf)}. De exacte prijs hangt af van het aantal producten, functionaliteiten en integraties die je nodig hebt.`
   }];
 
 
@@ -124,7 +125,7 @@ const Webshops = () => {
       "@type": "Offer",
       "availability": "https://schema.org/InStock",
       "priceCurrency": "EUR",
-      "price": "2990"
+      "price": String(PRIJZEN.webshopVanaf)
     }
   };
 
@@ -132,7 +133,7 @@ const Webshops = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Webshop Laten Maken Enkhuizen | E-commerce West-Friesland"
-        description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €2.990."
+        description={`Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf ${euroTeken(PRIJZEN.webshopVanaf)}.`}
         keywords="webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen"
         canonicalUrl={`${SITE_URL}/diensten/webshops`}
         structuredData={[structuredData, faqPage(faqs.map((f) => ({ q: f.question, a: f.answer })))]}
@@ -431,7 +432,7 @@ const Webshops = () => {
             className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}>
             
-            Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf €2.990.
+            Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf {euroTeken(PRIJZEN.webshopVanaf)}.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"

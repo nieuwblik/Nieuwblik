@@ -1,3 +1,4 @@
+import { PRIJZEN } from "@/config/business";
 import { createFileRoute } from "@tanstack/react-router";
 
 import WebdesignBureau from "@/pages/WebdesignBureau";
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/_public/webdesign-bureau")({
     buildHead({
       title: "Webdesign bureau in Nederland | Nieuwblik",
       description:
-        "Webdesign bureau uit Enkhuizen. Snel, persoonlijk en sterk in SEO. Wij bouwen websites voor MKB in heel Nederland. Vanaf 990 euro.",
+        `Webdesign bureau uit Enkhuizen. Snel, persoonlijk en sterk in SEO. Wij bouwen websites voor MKB in heel Nederland. Vanaf ${PRIJZEN.starter} euro.`,
       keywords: "webdesign bureau, webdesign, website bureau, webdesign nederland, mkb website",
       canonical: `${companyInfo.url}/webdesign-bureau`,
     }),

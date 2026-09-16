@@ -1,3 +1,4 @@
+import { LEVERTIJD } from "@/config/business";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link, useParams } from "@/lib/router-compat";
 import {
@@ -314,7 +315,7 @@ const WerkgebiedDetail = () => {
               {/* Benefits */}
               <div className="mt-12 grid sm:grid-cols-2 gap-3 text-left max-w-2xl mx-auto">
                 {[
-                  `Binnen 1 week live met je nieuwe website`,
+                  `Binnen ${LEVERTIJD.standaard} live met je nieuwe website`,
                   isLocal ? `Persoonlijk contact - we zitten vlakbij` : `Persoonlijke service, ook op afstand`,
                   `Transparante prijzen zonder verborgen kosten`,
                   `Mobiel-geoptimaliseerd voor al je klanten`,

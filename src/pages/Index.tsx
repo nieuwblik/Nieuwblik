@@ -1,3 +1,4 @@
+import { REVIEWS } from "@/config/business";
 import { faqPage } from "@/lib/structured-data";
 import { algemeneFaqParen } from "@/data/algemeneFaq";
 import { lazy, Suspense } from "react";
@@ -157,8 +158,8 @@ const Index = () => {
               ))}
             </div>
             <span className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.8)" }}>
-              5,0 op Google,{" "}
-              <span style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>op basis van 19+ reviews</span>
+              {REVIEWS.scoreLabel} op Google,{" "}
+              <span style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>op basis van {REVIEWS.aantalLabel} reviews</span>
             </span>
           </div>
         </div>

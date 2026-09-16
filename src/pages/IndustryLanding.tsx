@@ -1,3 +1,4 @@
+import { PRIJZEN } from "@/config/business";
 import { Link } from "@/lib/router-compat";
 import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
@@ -61,11 +62,11 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
         provider: { "@type": "Organization", name: "Nieuwblik", url: companyInfo.url },
         offers: {
           "@type": "Offer",
-          price: "1500",
+          price: String(PRIJZEN.starter),
           priceCurrency: "EUR",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: "1500",
+            price: String(PRIJZEN.starter),
             priceCurrency: "EUR",
             valueAddedTaxIncluded: false,
           },

@@ -1,3 +1,4 @@
+import { PRIJZEN, LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { CheckCircle2, Award, Users, Zap, ArrowRight } from "lucide-react";
@@ -14,7 +15,7 @@ const faqItems = [
   { q: "Wat is het verschil tussen een webdesign bureau en een freelancer?", a: "Een bureau heeft een team met verschillende disciplines: designer, developer, SEO-specialist en projectleider. Een freelancer doet alles zelf, wat sneller kan zijn voor kleine klussen maar minder diepgang biedt. Nieuwblik werkt als klein bureau met de wendbaarheid van een freelancer en de kwaliteit van een team." },
   { q: "Waar zit Nieuwblik als webdesign bureau?", a: "Wij zitten in Enkhuizen, West-Friesland. We werken voor klanten door heel Nederland, meestal volledig op afstand met korte videocalls. Voor grotere trajecten komen we op locatie." },
   { q: "Voor welke bedrijven werken jullie?", a: "We werken vooral voor MKB en ZZP tussen 1 en 50 medewerkers. Van kappers en restaurants tot advocaten, bouwbedrijven en e-commerce merken. Elke sector waar een sterke online aanwezigheid het verschil maakt." },
-  { q: "Wat maakt Nieuwblik anders dan andere webdesign bureaus?", a: "We combineren snelheid met zorgvuldigheid. Waar veel bureaus 8 tot 12 weken doen over een MKB-site, leveren wij die in 2 tot 4 weken op zonder in te leveren op kwaliteit. Dat komt door onze AI-ondersteunde workflow en directe communicatie zonder tussenlagen." },
+  { q: "Wat maakt Nieuwblik anders dan andere webdesign bureaus?", a: `We combineren snelheid met zorgvuldigheid. Waar veel bureaus 8 tot 12 weken doen over een MKB-site, leveren wij die in ${LEVERTIJD.standaard} op zonder in te leveren op kwaliteit. Dat komt door onze AI-ondersteunde workflow en directe communicatie zonder tussenlagen.` },
   { q: "Kunnen jullie ook met een bestaand merk werken?", a: "Absoluut. Als je al een huisstijl, logo en tone-of-voice hebt, verwerken we die 1-op-1. Als je nog niets hebt, ontwikkelen we die samen met jou tijdens het project." },
   { q: "Hoe zit het met eigendom en bronbestanden?", a: "Alles is van jou na oplevering. Code, Figma-bestanden, teksten en afbeeldingen. Geen vendor lock-in, geen verrassingen. Je kunt de site altijd meenemen naar een ander bureau." },
 ];
@@ -26,7 +27,7 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": `${url}#webpage`,
       name: "Webdesign bureau in Nederland - Nieuwblik",
-      description: "Webdesign bureau uit Enkhuizen. Persoonlijk, snel en sterk in SEO. Wij bouwen websites voor MKB in heel Nederland vanaf 990 euro.",
+      description: `Webdesign bureau uit Enkhuizen. Persoonlijk, snel en sterk in SEO. Wij bouwen websites voor MKB in heel Nederland vanaf ${PRIJZEN.starter} euro.`,
       url,
       inLanguage: "nl-NL",
     },
@@ -55,7 +56,7 @@ const WebdesignBureau = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Webdesign bureau in Nederland | Nieuwblik"
-        description="Webdesign bureau uit Enkhuizen. Snel, persoonlijk en sterk in SEO. Wij bouwen websites voor MKB in heel Nederland. Vanaf 990 euro."
+        description={`Webdesign bureau uit Enkhuizen. Snel, persoonlijk en sterk in SEO. Wij bouwen websites voor MKB in heel Nederland. Vanaf ${PRIJZEN.starter} euro.`}
         keywords="webdesign bureau, webdesign, website bureau, webdesign nederland, mkb website"
         canonicalUrl={url}
         structuredData={jsonLd}
@@ -102,7 +103,7 @@ const WebdesignBureau = () => {
             <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Wat je van ons mag verwachten</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { icon: Zap, title: "Snel", text: "Twee tot vier weken van briefing naar livegang. Geen eindeloze feedbackrondes, wel duidelijke deadlines." },
+                { icon: Zap, title: "Snel", text: `${LEVERTIJD.standaard} van briefing naar livegang. Geen eindeloze feedbackrondes, wel duidelijke deadlines.` },
                 { icon: Users, title: "Persoonlijk", text: "Je hebt direct contact met de mensen die aan jouw project werken. Geen account manager tussen jou en het werk." },
                 { icon: Award, title: "Vakwerk", text: "Elke site is uniek gebouwd in React. Geen templates, geen page builders, wel schone code die snel laadt." },
               ].map((s) => (

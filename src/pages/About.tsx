@@ -1,3 +1,4 @@
+import { REVIEWS } from "@/config/business";
 import { faqPage } from "@/lib/structured-data";
 import { algemeneFaqParen } from "@/data/algemeneFaq";
 import { SITE_URL } from "@/config/site";
@@ -72,7 +73,7 @@ const AnimatedText = ({
 
 const stats = [
   { value: "80+", label: "Projecten opgeleverd" },
-  { value: "4.9", label: "Gemiddelde beoordeling" },
+  { value: REVIEWS.scoreLabel, label: "Gemiddelde beoordeling" },
   { value: "2023", label: "Opgericht" },
   { value: "100%", label: "Maatwerk" },
 ];

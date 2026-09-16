@@ -1,3 +1,4 @@
+import { REVIEWS } from "@/config/business";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -10,7 +11,7 @@ interface GoogleReview {
   text: string;
 }
 
-const GOOGLE_REVIEWS_URL = "https://www.google.com/search?q=Nieuwblik+Reviews";
+const GOOGLE_REVIEWS_URL = REVIEWS.profielUrl;
 
 const TestimonialsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

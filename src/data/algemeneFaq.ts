@@ -11,11 +11,11 @@ export interface FaqItem {
 export const ALGEMENE_FAQ: FaqItem[] = [
   {
     question: "Wat kost het om een website te laten maken?",
-    answer: "Onze pakketten starten vanaf 990 euro voor een complete starterswebsite. Het Professional pakket start vanaf 1990 euro, met meer pagina's, CMS en SEO basis. Voor maatwerk of webshops maken we een offerte op basis van jouw wensen. Tijdens een vrijblijvend gesprek bespreken we wat het beste past."
+    answer: `Onze pakketten starten vanaf ${PRIJZEN.starter} euro voor een complete starterswebsite. Het Professional pakket start vanaf ${PRIJZEN.professional} euro, met meer pagina's, CMS en SEO basis. Voor maatwerk of webshops maken we een offerte op basis van jouw wensen. Tijdens een vrijblijvend gesprek bespreken we wat het beste past.`
   },
   {
     question: "Hoe lang duurt het voordat mijn website live staat?",
-    answer: "Voor de meeste projecten geldt een doorlooptijd van 2-6 weken, afhankelijk van de omvang en complexiteit. Eenvoudige websites kunnen binnen 1-2 weken gerealiseerd worden. We werken graag met vaste deadlines en houden je tijdens het proces op de hoogte van de voortgang."
+    answer: `Een standaard website staat binnen ${LEVERTIJD.standaard} live, een Starter-website binnen ${LEVERTIJD.starter}. Grotere of complexere projecten duren ${LEVERTIJD.complex}. We werken graag met vaste deadlines en houden je tijdens het proces op de hoogte van de voortgang.`
   },
   {
     question: "Kan ik zelf aanpassingen doen aan mijn website?",
@@ -44,4 +44,5 @@ export const ALGEMENE_FAQ: FaqItem[] = [
 ];;
 
 /** Als vraag/antwoord-paren voor faqPage(). */
-export const algemeneFaqParen = () => ALGEMENE_FAQ.map(({ question, answer }) => ({ q: question, a: answer }));
+export const algemeneFaqParen = () => ALGEMENE_FAQ.map(({ question, answer }) => ({ q: question, a: answer }));import { PRIJZEN, LEVERTIJD } from "@/config/business";
+

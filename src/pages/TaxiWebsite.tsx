@@ -1,3 +1,4 @@
+import { PRIJZEN } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { Zap, Smartphone, MessageCircle, MapPin, Plane, Gauge, Search, CheckCircle2 } from "lucide-react";
@@ -16,7 +17,7 @@ const url = `${SITE_URL}/taxi-website-laten-maken`;
 const faqItems = [
   {
     q: "Wat kost een taxi website laten maken bij Nieuwblik?",
-    a: "Een complete taxi website op maat, inclusief WhatsApp-boekingsformulier, luchthavenpagina's en lokale SEO, begint bij ons vanaf 1500 euro. Voor uitgebreidere sites met meerdere diensten of extra integraties maken we een offerte op maat. Altijd transparant en zonder verrassingen achteraf.",
+    a: `Een complete taxi website op maat, inclusief WhatsApp-boekingsformulier, luchthavenpagina's en lokale SEO, begint bij ons vanaf ${PRIJZEN.taxiWebsiteVanaf} euro. Voor uitgebreidere sites met meerdere diensten of extra integraties maken we een offerte op maat. Altijd transparant en zonder verrassingen achteraf.`,
   },
   {
     q: "Hoe snel is de site van Taxi Drechterland precies?",
@@ -61,7 +62,7 @@ const graphJsonLd = {
         { "@type": "Country", name: "Nederland" },
       ],
       provider: { "@type": "Organization", name: companyInfo.name, url: companyInfo.url },
-      offers: { "@type": "Offer", price: "1500", priceCurrency: "EUR", availability: "https://schema.org/InStock", url },
+      offers: { "@type": "Offer", price: String(PRIJZEN.taxiWebsiteVanaf), priceCurrency: "EUR", availability: "https://schema.org/InStock", url },
     },
     {
       "@type": "FAQPage",

@@ -1,3 +1,4 @@
+import { PRIJZEN, LEVERTIJD, euroTeken } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -138,7 +139,7 @@ const WebsiteOpMaat = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Website op Maat Enkhuizen | Webdesign West-Friesland - Nieuwblik"
-        description="Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Binnen 1 week live!"
+        description={`Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Live in ${LEVERTIJD.standaard}!`}
         keywords="website op maat Enkhuizen, webdesign West-Friesland, website laten maken, SEO website, snelle website, webdesign bureau Enkhuizen"
         canonicalUrl={`${SITE_URL}/diensten/website-op-maat`}
         structuredData={structuredData}
@@ -187,7 +188,7 @@ const WebsiteOpMaat = () => {
             variants={fadeUp}>
             
             Wij bouwen ultra-snelle websites met AI-automatisering en meetbare groei.
-            Jouw website binnen een week live, perfect vindbaar in alle zoekmachines.
+            Jouw website binnen {LEVERTIJD.standaard} live, perfect vindbaar in alle zoekmachines.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4"
@@ -440,7 +441,7 @@ const WebsiteOpMaat = () => {
             className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
             variants={fadeUp}>
             
-            Laten we samen de scope bepalen en een offerte op maat maken. Websites vanaf €990 - binnen een week live.
+            Laten we samen de scope bepalen en een offerte op maat maken. Websites vanaf {euroTeken(PRIJZEN.starter)}, binnen {LEVERTIJD.standaard} live.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"

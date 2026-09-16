@@ -1,3 +1,4 @@
+import { LEVERTIJD } from "@/config/business";
 import type { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -66,7 +67,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Webdesign bureau in Enkhuizen, West-Friesland. Snelle websites en webshops op maat met SEO. Verbeter je online zichtbaarheid. Binnen 1 week live!",
+          `Webdesign bureau in Enkhuizen, West-Friesland. Snelle websites en webshops op maat met SEO. Verbeter je online zichtbaarheid. Live in ${LEVERTIJD.standaard}!`,
       },
       { name: "author", content: "Nieuwblik" },
       {

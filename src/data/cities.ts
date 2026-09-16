@@ -60,11 +60,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Amsterdam?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Amsterdam zit?",
-          "a": "De doorlooptijd van een project in Amsterdam ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Amsterdam ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Amsterdam?",
@@ -96,7 +96,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -119,11 +119,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Rotterdam?",
-          "a": "De kosten van een website in Rotterdam starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Rotterdam starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Rotterdam zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Rotterdam in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Rotterdam in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Rotterdam?",
@@ -178,11 +178,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Den Haag?",
-          "a": "Voor ondernemers in Den Haag hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Den Haag hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Den Haag zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Den Haag. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Den Haag. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Den Haag?",
@@ -237,11 +237,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Utrecht?",
-          "a": "Een website laten bouwen in Utrecht kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Utrecht kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Utrecht zit?",
-          "a": "Voor de meeste projecten in Utrecht houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Utrecht houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Utrecht?",
@@ -273,7 +273,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -296,11 +296,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Eindhoven?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Eindhoven zit?",
-          "a": "De doorlooptijd van een project in Eindhoven ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Eindhoven ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Eindhoven?",
@@ -355,11 +355,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Groningen?",
-          "a": "De kosten van een website in Groningen starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Groningen starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Groningen zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Groningen in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Groningen in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Groningen?",
@@ -387,7 +387,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -414,11 +414,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Tilburg?",
-          "a": "Voor ondernemers in Tilburg hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Tilburg hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Tilburg zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Tilburg. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Tilburg. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Tilburg?",
@@ -450,7 +450,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -473,11 +473,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Almere?",
-          "a": "Een website laten bouwen in Almere kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Almere kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Almere zit?",
-          "a": "Voor de meeste projecten in Almere houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Almere houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Almere?",
@@ -532,11 +532,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Breda?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Breda zit?",
-          "a": "De doorlooptijd van een project in Breda ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Breda ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Breda?",
@@ -572,7 +572,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -591,11 +591,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Nijmegen?",
-          "a": "De kosten van een website in Nijmegen starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Nijmegen starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Nijmegen zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Nijmegen in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Nijmegen in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Nijmegen?",
@@ -623,7 +623,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -650,11 +650,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Arnhem?",
-          "a": "Voor ondernemers in Arnhem hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Arnhem hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Arnhem zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Arnhem. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Arnhem. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Arnhem?",
@@ -686,7 +686,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -709,11 +709,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Apeldoorn?",
-          "a": "Een website laten bouwen in Apeldoorn kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Apeldoorn kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Apeldoorn zit?",
-          "a": "Voor de meeste projecten in Apeldoorn houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Apeldoorn houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Apeldoorn?",
@@ -768,11 +768,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Haarlem?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Haarlem zit?",
-          "a": "De doorlooptijd van een project in Haarlem ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Haarlem ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Haarlem?",
@@ -827,11 +827,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Amersfoort?",
-          "a": "De kosten van een website in Amersfoort starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Amersfoort starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Amersfoort zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Amersfoort in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Amersfoort in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Amersfoort?",
@@ -886,11 +886,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zaanstad?",
-          "a": "Voor ondernemers in Zaanstad hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Zaanstad hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zaanstad zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Zaanstad. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Zaanstad. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Zaanstad?",
@@ -945,11 +945,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Enschede?",
-          "a": "Een website laten bouwen in Enschede kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Enschede kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Enschede zit?",
-          "a": "Voor de meeste projecten in Enschede houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Enschede houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Enschede?",
@@ -1004,11 +1004,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Den Bosch?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Den Bosch zit?",
-          "a": "De doorlooptijd van een project in Den Bosch ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Den Bosch ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Den Bosch?",
@@ -1036,7 +1036,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1063,11 +1063,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zwolle?",
-          "a": "De kosten van een website in Zwolle starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Zwolle starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zwolle zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Zwolle in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Zwolle in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Zwolle?",
@@ -1099,7 +1099,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1122,11 +1122,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Zoetermeer?",
-          "a": "Voor ondernemers in Zoetermeer hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Zoetermeer hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Zoetermeer zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Zoetermeer. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Zoetermeer. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Zoetermeer?",
@@ -1154,7 +1154,7 @@ export const cities: CityRecord[] = [
       "benefits": [
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1181,11 +1181,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Leiden?",
-          "a": "Een website laten bouwen in Leiden kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Leiden kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Leiden zit?",
-          "a": "Voor de meeste projecten in Leiden houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Leiden houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Leiden?",
@@ -1240,11 +1240,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Maastricht?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Maastricht zit?",
-          "a": "De doorlooptijd van een project in Maastricht ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Maastricht ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Maastricht?",
@@ -1280,7 +1280,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -1299,11 +1299,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Dordrecht?",
-          "a": "De kosten van een website in Dordrecht starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Dordrecht starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Dordrecht zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Dordrecht in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Dordrecht in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Dordrecht?",
@@ -1335,7 +1335,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1358,11 +1358,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Ede?",
-          "a": "Voor ondernemers in Ede hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Ede hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Ede zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Ede. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Ede. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Ede?",
@@ -1417,11 +1417,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Delft?",
-          "a": "Een website laten bouwen in Delft kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Delft kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Delft zit?",
-          "a": "Voor de meeste projecten in Delft houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Delft houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Delft?",
@@ -1476,11 +1476,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Venlo?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Venlo zit?",
-          "a": "De doorlooptijd van een project in Venlo ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Venlo ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Venlo?",
@@ -1535,11 +1535,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Deventer?",
-          "a": "De kosten van een website in Deventer starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Deventer starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Deventer zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Deventer in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Deventer in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Deventer?",
@@ -1594,11 +1594,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Westland?",
-          "a": "Voor ondernemers in Westland hanteren wij een startprijs van 1500 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
+          "a": "Voor ondernemers in Westland hanteren wij een startprijs van 990 euro voor een professionele website. Op basis van jouw wensen schalen we mee en bespreken we precies wat je krijgt. Geen verborgen kosten, alleen heldere afspraken."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Westland zit?",
-          "a": "Wij streven naar een live website in 2 tot 6 weken voor klanten in Westland. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
+          "a": "Wij streven naar een live website in 2 tot 4 weken voor klanten in Westland. Hoe sneller de teksten en beelden binnen zijn, hoe vlotter het loopt. Onze AI gedreven workflow zorgt voor extra tempo zonder kwaliteitsverlies."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Westland?",
@@ -1634,7 +1634,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         }
       ]
     },
@@ -1653,11 +1653,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Alkmaar?",
-          "a": "Een website laten bouwen in Alkmaar kost vanaf 1500 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
+          "a": "Een website laten bouwen in Alkmaar kost vanaf 990 euro voor een degelijke MKB site. Tijdens onze kennismaking inventariseren we wat je echt nodig hebt en stellen we een offerte op die past bij jouw budget en doelen."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Alkmaar zit?",
-          "a": "Voor de meeste projecten in Alkmaar houden wij 2 tot 6 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
+          "a": "Voor de meeste projecten in Alkmaar houden wij 2 tot 4 weken aan van start tot live. We plannen vooraf alles netjes door en houden je wekelijks op de hoogte. Spoedklussen zijn in overleg vrijwel altijd mogelijk."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Alkmaar?",
@@ -1712,11 +1712,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Emmen?",
-          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 1500 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
+          "a": "Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 990 euro. De uiteindelijke prijs hangt af van het aantal pagina's, functionaliteiten en de gewenste doorlooptijd. Tijdens een gratis kennismaking maken we een passende offerte op maat."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Emmen zit?",
-          "a": "De doorlooptijd van een project in Emmen ligt meestal tussen de 2 en 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
+          "a": "De doorlooptijd van een project in Emmen ligt meestal op 2 tot 4 weken, bij complexere projecten 4 tot 6 weken. Dit hangt af van de complexiteit en hoe snel jij content aanlevert. Door slimme tools in te zetten gaat het traject bij ons vaak sneller dan elders."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Emmen?",
@@ -1748,7 +1748,7 @@ export const cities: CityRecord[] = [
         },
         {
           "h3": "Betaalbaar maatwerk",
-          "text": "Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
         },
         {
           "h3": "Resultaatgericht",
@@ -1771,11 +1771,11 @@ export const cities: CityRecord[] = [
         },
         {
           "q": "Wat kost een website laten maken voor een ondernemer in Leeuwarden?",
-          "a": "De kosten van een website in Leeuwarden starten bij 1500 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
+          "a": "De kosten van een website in Leeuwarden starten bij 990 euro voor een complete bedrijfssite. Werk je met een webshop of speciale functies, dan loopt dit op. Wij geven altijd vooraf een transparante prijs zonder verrassingen achteraf."
         },
         {
           "q": "Hoe snel staat mijn website live als ik in Leeuwarden zit?",
-          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Leeuwarden in 2 tot 6 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
+          "a": "Vanaf akkoord op de offerte zetten wij een nieuwe website voor ondernemers in Leeuwarden in 2 tot 4 weken live. We werken in korte sprints met regelmatige opleveringen, zodat je goed betrokken blijft en niets je verrast."
         },
         {
           "q": "Hoe ziet het proces eruit van eerste gesprek tot live in Leeuwarden?",

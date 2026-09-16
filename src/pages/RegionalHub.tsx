@@ -1,3 +1,4 @@
+import { PRIJZEN, LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { useParams, Link } from "@/lib/router-compat";
 import { MapPin, CheckCircle2, ArrowRight } from "lucide-react";
@@ -31,7 +32,7 @@ export const HUBS: RegionHubData[] = [
     name: "Noord-Holland",
     title: "Website laten maken Noord-Holland | Nieuwblik",
     description:
-      "Website laten maken in Noord-Holland door een lokaal bureau uit Enkhuizen. Snelle sites, conversie eerst, vanaf 990 euro. Actief in Amsterdam, Haarlem, Alkmaar en heel West-Friesland.",
+      `Website laten maken in Noord-Holland door een lokaal bureau uit Enkhuizen. Snelle sites, conversie eerst, vanaf ${PRIJZEN.starter} euro. Actief in Amsterdam, Haarlem, Alkmaar en heel West-Friesland.`,
     h1: "Website laten maken in Noord-Holland",
     intro:
       "Van de Amsterdamse grachten tot de haven van Enkhuizen bouwen we websites voor ondernemers die willen groeien. Wij zitten zelf in West-Friesland en kennen zowel de kleine dorpskern als de grote stad. Dat merk je in elke keuze die we maken voor jouw site.",
@@ -50,7 +51,7 @@ export const HUBS: RegionHubData[] = [
     faq: [
       { q: "Werken jullie voor bedrijven in heel Noord-Holland?", a: "Ja. Van Den Helder tot Amsterdam, en van Haarlem tot Enkhuizen. Onze klanten zitten door de hele provincie." },
       { q: "Komen jullie langs voor een kennismaking?", a: "Als je in Noord-Holland zit, komen we graag langs. Voor korte afstemmingen werken we via videocall." },
-      { q: "Wat kost een website in Noord-Holland?", a: "Onze projecten starten vanaf 990 euro. Voor uitgebreide sites en webshops rekenen we tussen de 1990 en 4000 euro." },
+      { q: "Wat kost een website in Noord-Holland?", a: `Onze projecten starten vanaf ${PRIJZEN.starter} euro. Voor uitgebreide sites en webshops rekenen we tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
   },
   {
@@ -58,7 +59,7 @@ export const HUBS: RegionHubData[] = [
     name: "Randstad",
     title: "Website laten maken Randstad | Nieuwblik",
     description:
-      "Website laten maken in de Randstad. Wij bouwen conversiegerichte sites voor MKB in Amsterdam, Rotterdam, Den Haag, Utrecht en omgeving. Vanaf 990 euro, altijd persoonlijk contact.",
+      `Website laten maken in de Randstad. Wij bouwen conversiegerichte sites voor MKB in Amsterdam, Rotterdam, Den Haag, Utrecht en omgeving. Vanaf ${PRIJZEN.starter} euro, altijd persoonlijk contact.`,
     h1: "Website laten maken in de Randstad",
     intro:
       "De Randstad is dichtbevolkt, concurrerend en snel. Ondernemers hier hebben geen tijd voor trage bureaus of eindeloze revisies. Wij leveren sites die binnen weken live staan en direct meetellen op Google.",
@@ -73,7 +74,7 @@ export const HUBS: RegionHubData[] = [
       { name: "Zoetermeer", slug: "zoetermeer", note: "Zakelijke dienstverlening" },
     ],
     strengths: [
-      { title: "Snelheid", text: "Twee tot vier weken van briefing naar live. Dat is het tempo van de Randstad, en dat halen wij." },
+      { title: "Snelheid", text: `${LEVERTIJD.standaard} van briefing naar live. Dat is het tempo van de Randstad, en dat halen wij.` },
       { title: "Sterk in conversie", text: "Meer bezoekers is niet genoeg. We bouwen sites die die bezoekers omzetten in klanten." },
       { title: "Landelijke uitstraling", text: "Voor bedrijven die vanuit de Randstad heel Nederland bedienen." },
     ],
@@ -88,7 +89,7 @@ export const HUBS: RegionHubData[] = [
     name: "Oost-Nederland",
     title: "Website laten maken Oost-Nederland | Nieuwblik",
     description:
-      "Website laten maken in Oost-Nederland. Nieuwblik bouwt voor MKB in Gelderland en Overijssel. Persoonlijk, snel en betaalbaar. Vanaf 990 euro, met lokale SEO.",
+      `Website laten maken in Oost-Nederland. Nieuwblik bouwt voor MKB in Gelderland en Overijssel. Persoonlijk, snel en betaalbaar. Vanaf ${PRIJZEN.starter} euro, met lokale SEO.`,
     h1: "Website laten maken in Oost-Nederland",
     intro:
       "Ondernemers in Oost-Nederland waarderen duidelijke afspraken en no-nonsense samenwerking. Precies onze manier van werken. We bouwen sites voor MKB van Zwolle tot Nijmegen, met aandacht voor de lokale markt.",
@@ -102,14 +103,14 @@ export const HUBS: RegionHubData[] = [
       { name: "Ede", slug: "ede", note: "Regionale ondernemers" },
     ],
     strengths: [
-      { title: "Duidelijk in prijs", text: "Vaste bedragen, geen verrassingen. Vanaf 990 euro voor een complete site." },
+      { title: "Duidelijk in prijs", text: `Vaste bedragen, geen verrassingen. Vanaf ${PRIJZEN.starter} euro voor een complete site.` },
       { title: "Regionale SEO", text: "We optimaliseren voor de zoektermen die klanten in jouw plaats echt gebruiken." },
       { title: "Blijvend contact", text: "Na oplevering blijven we bereikbaar. Geen ticket-systeem, gewoon direct contact." },
     ],
     faq: [
       { q: "Werken jullie ook voor bedrijven in Twente?", a: "Zeker. Enschede, Hengelo, Almelo, we hebben in de hele regio klanten." },
       { q: "Werken jullie op afstand of komen jullie langs?", a: "Vooral op afstand via videocall. Voor grotere trajecten plannen we een fysieke afspraak op locatie." },
-      { q: "Wat kost een website voor Oost-Nederland?", a: "Onze projecten starten bij 990 euro. Voor webshops en uitgebreide sites tussen de 1990 en 4000 euro." },
+      { q: "Wat kost een website voor Oost-Nederland?", a: `Onze projecten starten bij ${PRIJZEN.starter} euro. Voor webshops en uitgebreide sites tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
   },
   {
@@ -117,7 +118,7 @@ export const HUBS: RegionHubData[] = [
     name: "Zuid-Nederland",
     title: "Website laten maken Zuid-Nederland | Nieuwblik",
     description:
-      "Website laten maken in Zuid-Nederland. Voor MKB in Noord-Brabant en Limburg. Snelle sites, sterke SEO en vaste prijzen vanaf 990 euro. Vraag een offerte aan.",
+      `Website laten maken in Zuid-Nederland. Voor MKB in Noord-Brabant en Limburg. Snelle sites, sterke SEO en vaste prijzen vanaf ${PRIJZEN.starter} euro. Vraag een offerte aan.`,
     h1: "Website laten maken in Zuid-Nederland",
     intro:
       "Van Eindhoven en Den Bosch tot Maastricht en Venlo, Zuid-Nederland kent een sterke MKB-cultuur en een eigen manier van zakendoen. Wij bouwen sites die daarbij passen, met de rust en zorgvuldigheid die klanten hier verwachten.",
@@ -131,13 +132,13 @@ export const HUBS: RegionHubData[] = [
     ],
     strengths: [
       { title: "Persoonlijke aanpak", text: "Zuid-Nederland waardeert een goede band met leveranciers. Wij ook. Vandaar de persoonlijke aanpak." },
-      { title: "Snelle levering", text: "Twee tot vier weken van start tot live, ook voor Zuid-Nederlandse klanten." },
+      { title: "Snelle levering", text: `${LEVERTIJD.standaard} van start tot live, ook voor Zuid-Nederlandse klanten.` },
       { title: "Sterke content", text: "We schrijven de teksten zelf, in de tone-of-voice die past bij jouw regio en klant." },
     ],
     faq: [
       { q: "Zijn jullie bekend met de Zuid-Nederlandse markt?", a: "Ja. We hebben klanten in Eindhoven, Breda, Tilburg en Maastricht. De regio kent zijn eigen dynamiek en die respecteren we." },
       { q: "Werken jullie ook in het Duits voor grens-regio's?", a: "Ja. Voor bedrijven in Venlo of Maastricht met Duitse klanten zetten we meertalige sites op met correcte SEO per taal." },
-      { q: "Wat kost een website in Zuid-Nederland?", a: "Vanaf 990 euro voor een complete site. Webshops en uitgebreide projecten liggen tussen 1990 en 4000 euro." },
+      { q: "Wat kost een website in Zuid-Nederland?", a: `Vanaf ${PRIJZEN.starter} euro voor een complete site. Webshops en uitgebreide projecten liggen tussen ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
   },
 ];
@@ -166,7 +167,7 @@ const RegionalHub = () => {
         serviceType: "Webdesign",
         areaServed: { "@type": "AdministrativeArea", name: hub.name },
         provider: { "@type": "Organization", name: companyInfo.name, url: companyInfo.url },
-        offers: { "@type": "Offer", price: "990", priceCurrency: "EUR", url },
+        offers: { "@type": "Offer", price: String(PRIJZEN.starter), priceCurrency: "EUR", url },
       },
       {
         "@type": "FAQPage",

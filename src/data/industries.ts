@@ -68,11 +68,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een kapper bij Nieuwblik?",
-          "a": "Een professionele website voor een kapper begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een kapper begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een kapper?",
-          "a": "De meeste projecten voor een kapper ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een kapper ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn kapper?",
@@ -139,11 +139,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een restaurant bij Nieuwblik?",
-          "a": "Voor een restaurant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een restaurant hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een restaurant?",
-          "a": "Een nieuwe website voor een restaurant kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een restaurant kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn restaurant?",
@@ -210,11 +210,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een bouwbedrijf bij Nieuwblik?",
-          "a": "De prijs van een website voor een bouwbedrijf hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een bouwbedrijf hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een bouwbedrijf?",
-          "a": "Voor de bouwbedrijf branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de bouwbedrijf branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn bouwbedrijf?",
@@ -281,11 +281,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een schoonheidssalon bij Nieuwblik?",
-          "a": "Een gemiddelde schoonheidssalon betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde schoonheidssalon betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een schoonheidssalon?",
-          "a": "Een typische schoonheidssalon website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische schoonheidssalon website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn schoonheidssalon?",
@@ -352,11 +352,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een fysiotherapeut bij Nieuwblik?",
-          "a": "Een professionele website voor een fysiotherapeut begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een fysiotherapeut begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een fysiotherapeut?",
-          "a": "De meeste projecten voor een fysiotherapeut ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een fysiotherapeut ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn fysiotherapeut?",
@@ -423,11 +423,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een accountant bij Nieuwblik?",
-          "a": "Voor een accountant hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een accountant hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een accountant?",
-          "a": "Een nieuwe website voor een accountant kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een accountant kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn accountant?",
@@ -494,11 +494,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een makelaar bij Nieuwblik?",
-          "a": "De prijs van een website voor een makelaar hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een makelaar hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een makelaar?",
-          "a": "Voor de makelaar branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de makelaar branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn makelaar?",
@@ -565,11 +565,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een tandarts bij Nieuwblik?",
-          "a": "Een gemiddelde tandarts betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde tandarts betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een tandarts?",
-          "a": "Een typische tandarts website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische tandarts website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn tandarts?",
@@ -636,11 +636,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een personal trainer bij Nieuwblik?",
-          "a": "Een professionele website voor een personal trainer begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een personal trainer begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een personal trainer?",
-          "a": "De meeste projecten voor een personal trainer ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een personal trainer ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn personal trainer?",
@@ -707,11 +707,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een advocaat bij Nieuwblik?",
-          "a": "Voor een advocaat hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een advocaat hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een advocaat?",
-          "a": "Een nieuwe website voor een advocaat kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een advocaat kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn advocaat?",
@@ -778,11 +778,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een interieurontwerper bij Nieuwblik?",
-          "a": "De prijs van een website voor een interieurontwerper hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een interieurontwerper hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een interieurontwerper?",
-          "a": "Voor de interieurontwerper branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de interieurontwerper branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn interieurontwerper?",
@@ -849,11 +849,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een fotograaf bij Nieuwblik?",
-          "a": "Een gemiddelde fotograaf betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde fotograaf betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een fotograaf?",
-          "a": "Een typische fotograaf website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische fotograaf website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn fotograaf?",
@@ -920,11 +920,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een schilder bij Nieuwblik?",
-          "a": "Een professionele website voor een schilder begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een schilder begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een schilder?",
-          "a": "De meeste projecten voor een schilder ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een schilder ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn schilder?",
@@ -991,11 +991,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een loodgieter bij Nieuwblik?",
-          "a": "Voor een loodgieter hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een loodgieter hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een loodgieter?",
-          "a": "Een nieuwe website voor een loodgieter kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een loodgieter kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn loodgieter?",
@@ -1062,11 +1062,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een elektricien bij Nieuwblik?",
-          "a": "De prijs van een website voor een elektricien hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een elektricien hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een elektricien?",
-          "a": "Voor de elektricien branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de elektricien branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn elektricien?",
@@ -1133,11 +1133,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een coach bij Nieuwblik?",
-          "a": "Een gemiddelde coach betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde coach betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een coach?",
-          "a": "Een typische coach website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische coach website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn coach?",
@@ -1204,11 +1204,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een therapeut bij Nieuwblik?",
-          "a": "Een professionele website voor een therapeut begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een therapeut begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een therapeut?",
-          "a": "De meeste projecten voor een therapeut ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een therapeut ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn therapeut?",
@@ -1275,11 +1275,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een horecabedrijf bij Nieuwblik?",
-          "a": "Voor een horecabedrijf hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een horecabedrijf hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een horecabedrijf?",
-          "a": "Een nieuwe website voor een horecabedrijf kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een horecabedrijf kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn horecabedrijf?",
@@ -1346,11 +1346,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een autogarage bij Nieuwblik?",
-          "a": "De prijs van een website voor een autogarage hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een autogarage hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een autogarage?",
-          "a": "Voor de autogarage branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de autogarage branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn autogarage?",
@@ -1417,11 +1417,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een bloemist bij Nieuwblik?",
-          "a": "Een gemiddelde bloemist betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde bloemist betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een bloemist?",
-          "a": "Een typische bloemist website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische bloemist website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn bloemist?",
@@ -1488,11 +1488,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een tuinman bij Nieuwblik?",
-          "a": "Een professionele website voor een tuinman begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een tuinman begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een tuinman?",
-          "a": "De meeste projecten voor een tuinman ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een tuinman ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn tuinman?",
@@ -1559,11 +1559,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een kinderopvang bij Nieuwblik?",
-          "a": "Voor een kinderopvang hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een kinderopvang hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een kinderopvang?",
-          "a": "Een nieuwe website voor een kinderopvang kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een kinderopvang kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn kinderopvang?",
@@ -1630,11 +1630,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een sportschool bij Nieuwblik?",
-          "a": "De prijs van een website voor een sportschool hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een sportschool hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een sportschool?",
-          "a": "Voor de sportschool branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de sportschool branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn sportschool?",
@@ -1701,11 +1701,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een boekhouder bij Nieuwblik?",
-          "a": "Een gemiddelde boekhouder betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde boekhouder betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een boekhouder?",
-          "a": "Een typische boekhouder website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische boekhouder website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn boekhouder?",
@@ -1772,11 +1772,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een architect bij Nieuwblik?",
-          "a": "Een professionele website voor een architect begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een architect begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een architect?",
-          "a": "De meeste projecten voor een architect ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een architect ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn architect?",
@@ -1843,11 +1843,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een verzekeringsadviseur bij Nieuwblik?",
-          "a": "Voor een verzekeringsadviseur hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een verzekeringsadviseur hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een verzekeringsadviseur?",
-          "a": "Een nieuwe website voor een verzekeringsadviseur kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een verzekeringsadviseur kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn verzekeringsadviseur?",
@@ -1914,11 +1914,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een dierenarts bij Nieuwblik?",
-          "a": "De prijs van een website voor een dierenarts hangt af van de gewenste functies. Vanaf 1500 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
+          "a": "De prijs van een website voor een dierenarts hangt af van de gewenste functies. Vanaf 990 euro lever je al een sterke MKB site op. Tijdens een vrijblijvend gesprek maken we samen helder wat passend is voor jouw situatie."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een dierenarts?",
-          "a": "Voor de dierenarts branche rekenen wij standaard op een doorlooptijd van 2 tot 6 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
+          "a": "Voor de dierenarts branche rekenen wij standaard op een doorlooptijd van 2 tot 4 weken. Onze AI gedreven workflow zorgt dat we sneller bouwen dan een gemiddeld bureau, zonder concessies te doen aan kwaliteit of detail."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn dierenarts?",
@@ -1985,11 +1985,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een evenementenbureau bij Nieuwblik?",
-          "a": "Een gemiddelde evenementenbureau betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
+          "a": "Een gemiddelde evenementenbureau betaalt bij ons tussen de 990 en 4000 euro voor een complete website. We werken altijd met een vaste prijs vooraf, zodat je precies weet wat je krijgt en er geen verrassingen achteraf zijn."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een evenementenbureau?",
-          "a": "Een typische evenementenbureau website is binnen 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
+          "a": "Een typische evenementenbureau website is binnen 2 tot 4 weken live als alle content en feedback op tijd komen. We werken met een duidelijke planning en wekelijkse check ins, zodat het project soepel loopt en jij niet voor verrassingen komt te staan."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn evenementenbureau?",
@@ -2056,11 +2056,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een reclamebureau bij Nieuwblik?",
-          "a": "Een professionele website voor een reclamebureau begint bij ons vanaf 1500 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
+          "a": "Een professionele website voor een reclamebureau begint bij ons vanaf 990 euro. Wat je daarvoor krijgt is een complete site met sterk design, goede teksten en SEO. Wil je extra functies, dan stellen we vooraf een transparante offerte op."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een reclamebureau?",
-          "a": "De meeste projecten voor een reclamebureau ronden wij af binnen 2 tot 6 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
+          "a": "De meeste projecten voor een reclamebureau ronden wij af binnen 2 tot 4 weken. We werken in korte fases met duidelijke deadlines en regelmatige updates. Hoe sneller jij content aanlevert, hoe sneller jouw nieuwe website live staat."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn reclamebureau?",
@@ -2127,11 +2127,11 @@ export const industries: IndustryRecord[] = [
         },
         {
           "q": "Wat kost een website voor een reinigingsbedrijf bij Nieuwblik?",
-          "a": "Voor een reinigingsbedrijf hanteren wij een startbudget van 1500 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
+          "a": "Voor een reinigingsbedrijf hanteren wij een startbudget van 990 euro. Hiermee krijg je een complete bedrijfswebsite die je echt verder helpt. Komt er een uitgebreid afsprakensysteem of webshop bij kijken, dan rekenen we dat duidelijk vooraf door."
         },
         {
           "q": "Hoe lang duurt een websiteproject voor een reinigingsbedrijf?",
-          "a": "Een nieuwe website voor een reinigingsbedrijf kunnen wij in gemiddeld 3 weken live zetten. Bij grotere projecten met veel functionaliteiten loopt dit op tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
+          "a": "Een nieuwe website voor een reinigingsbedrijf kunnen wij in 2 tot 4 weken live zetten. Bij grotere projecten met veel functionaliteiten wordt dit 4 tot 6 weken. Wij plannen vooraf alles realistisch in en houden ons aan de afspraken."
         },
         {
           "q": "Hoe helpt de site nieuwe klanten aantrekken voor mijn reinigingsbedrijf?",

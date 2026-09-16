@@ -1,3 +1,4 @@
+import { LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -9,7 +10,7 @@ export const Route = createFileRoute("/_public/diensten/website-op-maat")({
     buildHead({
       title: "Website op Maat Enkhuizen | Webdesign West-Friesland - Nieuwblik",
       description:
-        "Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Binnen 1 week live!",
+        `Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Live in ${LEVERTIJD.standaard}!`,
       keywords:
         "website op maat Enkhuizen, webdesign West-Friesland, website laten maken, SEO website, snelle website, webdesign bureau Enkhuizen",
       canonical: `${SITE_URL}/diensten/website-op-maat`,
