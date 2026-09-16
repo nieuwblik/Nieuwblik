@@ -151,6 +151,7 @@ await inBatches(onbekend, async (pad) => {
 for (const pad of sitemapPaden) ok(!redirectBronnen.has(pad), pad, "sitemap-URL staat niet in redirects.csv", "wel in redirects.csv");
 
 const gecrawld = new Map();
+const gelinktVanaf = new Map(); // doelpad -> Set(bronpagina's)
 const wachtrij = ["/"];
 const gezien = new Set(wachtrij);
 while (wachtrij.length) {
@@ -160,10 +161,15 @@ while (wachtrij.length) {
     gecrawld.set(pad, r);
     if (r.status !== 200) return;
     for (const m of r.html.matchAll(/<a\b[^>]*\shref="([^"]+)"/g)) {
-      const href = decode(m[1]);
+      let href = decode(m[1]);
+      // Absolute links naar de eigen host tellen ook als intern.
+      if (href.startsWith(SITE_URL)) href = href.slice(SITE_URL.length) || "/";
       if (!href.startsWith("/") || href.startsWith("//")) continue;
       const doel = href.split("#")[0].split("?")[0].replace(/(.)\/$/, "$1");
-      if (!doel || /^\/(admin|assets)(\/|$)|\.[a-z0-9]{2,5}$/i.test(doel) || gezien.has(doel)) continue;
+      if (!doel || /^\/(admin|assets)(\/|$)|\.[a-z0-9]{2,5}$/i.test(doel)) continue;
+      if (!gelinktVanaf.has(doel)) gelinktVanaf.set(doel, new Set());
+      gelinktVanaf.get(doel).add(pad);
+      if (gezien.has(doel)) continue;
       gezien.add(doel);
       wachtrij.push(doel);
     }
@@ -173,6 +179,37 @@ const indexeerbaar200 = [...gecrawld].filter(([, r]) => r.status === 200 && !/<m
 const inSitemap = new Set(sitemapPaden);
 for (const pad of indexeerbaar200) ok(inSitemap.has(pad), pad, "indexeerbare 200-route staat in sitemap", "ontbreekt in sitemap");
 for (const [pad, r] of gecrawld) ok(r.status === 200, pad, "interne link naar bestaande pagina", `gaf ${r.status}${r.location ? " -> " + r.location : ""}`);
+
+// Interne links horen naar de eindbestemming te wijzen, nooit naar een redirect.
+for (const [doel, bronnen] of gelinktVanaf) {
+  ok(!redirectBronnen.has(doel), doel, "geen interne link naar een pad in redirects.csv", `gelinkt vanaf ${[...bronnen].slice(0, 5).join(", ")}${bronnen.size > 5 ? " …" : ""}`);
+}
+
+// Geen weespagina's: elke sitemap-URL moet via een interne link bereikbaar zijn.
+for (const pad of sitemapPaden) {
+  ok(pad === "/" || gelinktVanaf.has(pad), pad, "sitemap-URL is intern gelinkt", "nergens gelinkt (wees)");
+}
+
+// Ook in de broncode: letterlijke interne paden naar een redirect (vangt links
+// die alleen client-side renderen, zoals popups, en die de crawl dus niet ziet).
+const bronBestanden = [];
+const loop = (dir) => {
+  for (const d of fs.readdirSync(dir, { withFileTypes: true })) {
+    const vol = path.join(dir, d.name);
+    if (d.isDirectory()) { if (!["assets"].includes(d.name)) loop(vol); }
+    else if (/\.(tsx?|mjs)$/.test(d.name) && !/routeTree\.gen\.ts$|config[\\/]redirects\.ts$/.test(vol)) bronBestanden.push(vol);
+  }
+};
+loop(path.join(ROOT, "src"));
+for (const bestand of bronBestanden) {
+  const code = fs.readFileSync(bestand, "utf8");
+  for (const bron of redirectBronnen) {
+    const re = new RegExp(`["'\`(]${bron.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["'\`)#?]`);
+    ok(!re.test(code), bron, "geen link naar een redirect in de broncode", path.relative(ROOT, bestand));
+  }
+}
+const robotsPublic = fs.readFileSync(path.join(ROOT, "public/llms.txt"), "utf8");
+for (const bron of redirectBronnen) ok(!robotsPublic.includes(`(${bron})`), bron, "geen link naar een redirect in llms.txt", "public/llms.txt");
 
 // ── rapport ──────────────────────────────────────────────────────────
 console.log(`Basis: ${BASE}   Host: ${SITE_URL}`);

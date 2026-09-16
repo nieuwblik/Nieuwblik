@@ -2,22 +2,27 @@
 
 Zeven defects uit de audit, plus wat de verificatie daarna nog vond. Per defect: wat er gevonden is, wat er veranderd is, in welke bestanden, en wat je zelf nog moet doen buiten de repo.
 
-Pass 1 (lokale productiebuild) is groen: 2857 checks, 0 fouten. Pass 2 (live) kan pas na deploy en HadoSEO-import. Onderaan staat hoe je die draait.
+Pass 1 (lokale productiebuild) is groen: 10191 checks, 0 fouten. Pass 2 (live) kan pas na deploy en HadoSEO-import. Onderaan staat hoe je die draait.
 
 ## Eerst doen, buiten de repo
 
-1. **Publiceren in Lovable**, zodat de origin de nieuwe code draait.
-2. **HadoSEO: `redirects.csv` importeren** (Routing Rules). 36 regels, kolommen `source_path,target_url,rule_type`.
-3. **HadoSEO: sitemap opnieuw synchroniseren en de cache legen.** HadoSEO kent pagina's alleen via de sitemap, en prerenderde pagina's blijven de oude versie tonen tot je de cache legt. Een query-parameter als cache-buster werkt niet; de cache is op pad gesleuteld.
-4. **Bug melden bij HadoSEO:** een 404 van de origin wordt gecachet en als 200 geserveerd. Voorbeeld: `/webdesign` geeft op `luxe-briefing-hub.lovable.app` een 404, maar via nieuwblik.com een 200. Dat is geen instelling, dat moet HadoSEO oplossen. Tot dan krijgt een onbekend pad zonder redirectregel live nog steeds een 200.
-5. **Redirectketen inkorten (HadoSEO of DNS):** `http://www.nieuwblik.com` gaat nu via 308 naar `https://www.nieuwblik.com` en dan via 301 naar `https://nieuwblik.com`. Laat http://www direct in één 301 naar `https://nieuwblik.com` gaan. Hier is in de code niets voor veranderd.
-6. **Pass 2 draaien** (zie onderaan). Pas als `/webdesign` daar een 301 geeft, voor browser én Googlebot, is defect 3 echt weg.
-7. **Google Search Console** (property voor `https://nieuwblik.com`, of een domeinproperty):
-   - Nieuwe sitemap indienen: `https://nieuwblik.com/sitemap.xml`. Verwijder een eventueel ingediende `https://www.nieuwblik.com/sitemap.xml`.
-   - URL-inspectie en "Indexering aanvragen" voor `/website-laten-maken`, `/webdesign-bureau`, `/seo-enkhuizen` en een paar stad- en branchepagina's.
-   - Onder Pagina's de meldingen "Soft 404" en "Alternatieve pagina met correcte canonieke tag" volgen; na de HadoSEO-import "Validatie starten".
-   - Verbeteringen, Broodkruimels: na herindexering controleren op fouten. FAQ-rich results toont Google sinds 2023 alleen nog voor overheids- en zorgsites; de FAQPage-markup is er vooral voor AI-crawlers en begrip van de pagina.
-8. **Reviewaantal aanleveren.** In `src/config/business.ts` staat `REVIEWS.aantalLabel` op "19+" met een TODO; dat was de tekst op de homepage en is niet gecontroleerd.
+Er staat één **blocker** open: HadoSEO geeft op `https://www.nieuwblik.com` een 200 in plaats van een 301 zodra een client een `sec-fetch-mode` anders dan `navigate` meestuurt (zie [www-host](#blocker-www-host-geeft-per-client-een-200)). Meld dat bij HadoSEO vóór je de sitemap indient.
+
+Doe de stappen in deze volgorde. Elke stap leunt op de vorige.
+
+1. **Deployen (publiceren in Lovable).** De origin moet eerst de nieuwe code draaien: de 301's in `src/server.ts`, de non-www canonicals, de nieuwe sitemap. Importeer je redirects in HadoSEO terwijl de origin nog de oude code serveert, dan cachet HadoSEO bij het ophalen nog oude pagina's met www-canonicals.
+2. **`redirects.csv` importeren in HadoSEO** (Routing Rules, 36 regels, kolommen `source_path,target_url,rule_type`). HadoSEO beantwoordt verzoeken zelf uit zijn cache; zonder deze regels komt een oud pad nooit bij de origin-301 aan.
+3. **HadoSEO-cache legen** (en de sitemap opnieuw synchroniseren, zodat HadoSEO de nieuwe pagina's kent). De cache is op pad gesleuteld en blijft anders de oude 200-antwoorden serveren, ook voor Googlebot, dat een eigen cache krijgt. Een query-parameter als cache-buster werkt niet.
+4. **Pass 2 draaien:** `npm run seo:verify-live`. Pas als die groen is, geven de oude URL's live een echte 301, voor browsers én Googlebot. Zolang hij rood is, klopt de live site nog niet met de repo.
+5. **Pas dan de sitemap indienen in Search Console:** `https://nieuwblik.com/sitemap.xml` (property voor `https://nieuwblik.com` of een domeinproperty). Dien je eerder in, dan crawlt Google de nieuwe sitemap tegen een site die nog oude antwoorden geeft: soft 404's en www-canonicals worden dan opnieuw vastgelegd, en je moet later opnieuw laten valideren. Verwijder een eventueel ingediende `https://www.nieuwblik.com/sitemap.xml`. Daarna: URL-inspectie en "Indexering aanvragen" voor `/website-laten-maken`, `/webdesign-bureau`, `/seo-enkhuizen` en een paar stad- en branchepagina's, en onder Pagina's "Soft 404" en "Alternatieve pagina met correcte canonieke tag" laten valideren. Broodkruimels na herindexering controleren. FAQ-rich results toont Google sinds 2023 alleen nog voor overheids- en zorgsites; de FAQPage-markup is vooral voor AI-crawlers en begrip van de pagina.
+
+Los van die volgorde:
+
+- **Bug melden bij HadoSEO (1):** een 404 van de origin wordt gecachet en als 200 geserveerd (`/webdesign` gaf op `luxe-briefing-hub.lovable.app` een 404, via nieuwblik.com een 200). Tot dat opgelost is, krijgt een onbekend pad zonder redirectregel live nog steeds een 200.
+- **Bug melden bij HadoSEO (2), blocker:** de www-redirect hangt af van `sec-fetch-mode` (zie onder).
+- **Redirectketen inkorten (HadoSEO of DNS):** `http://www.nieuwblik.com` gaat via 308 naar `https://www.nieuwblik.com` en dan via 301 naar `https://nieuwblik.com`. Maak daar één 301 van. In de code is hier niets voor veranderd.
+- **Prijswijzigingen beoordelen** vóór de deploy (zie [Prijswijzigingen ter beoordeling](#prijswijzigingen-ter-beoordeling)). Ze zitten al in de commits; wil je een regel niet, dan draai ik die terug.
+- **Reviewaantal aanleveren.** `REVIEWS.aantalLabel` in `src/config/business.ts` staat op "19+" met een TODO.
 
 ## Vooraf: wat er anders bleek dan in de audit
 
@@ -40,7 +45,7 @@ Pass 1 (lokale productiebuild) is groen: 2857 checks, 0 fouten. Pass 2 (live) ka
 
 **Bestanden.** `scripts/generate-sitemap.ts`, `vite.config.ts`, `public/sitemap.xml`, `public/robots.txt`.
 
-**Zelf doen.** Sitemap indienen in Search Console en HadoSEO opnieuw laten synchroniseren (actiepunten 3 en 7).
+**Zelf doen.** HadoSEO opnieuw laten synchroniseren (stap 3) en pas na een groene pass 2 de sitemap indienen in Search Console (stap 5).
 
 ## Defect 2: kannibalisatie tussen twee pagina's per stad
 
@@ -109,7 +114,7 @@ Geen enkele regel gaat naar `/blog` of `/portfolio` als overzichtspagina.
 
 **Bestanden.** `src/config/redirects.ts`, `scripts/generate-redirects-csv.ts` (nieuw), `redirects.csv` (nieuw), `src/routes/_public/blog/$slug.tsx`, `src/routes/_public/start-je-project.tsx` (verwijderd), `src/components/PricingPackages.tsx`, `src/pages/About.tsx`, `src/pages/BlogPost.tsx`, `src/pages/Index.tsx`, `src/pages/Services.tsx`, `src/data/blogPosts.ts`, `src/components/FreeAnalysisPopup.tsx`, `public/llms.txt` (linkte ook nog naar de redirect `/diensten/ecommerce`).
 
-**Zelf doen.** HadoSEO-import en cachepurge; bug melden (actiepunten 2 tot en met 4). De 200-status verdwijnt live pas daarna.
+**Zelf doen.** HadoSEO-import en cachepurge (stappen 2 en 3) en de 404-bug melden. De 200-status verdwijnt live pas na de import en de purge.
 
 ## Defect 4: canonicals op www, site draait op non-www
 
@@ -123,7 +128,7 @@ Geen enkele regel gaat naar `/blog` of `/portfolio` als overzichtspagina.
 
 **Bestanden.** `src/config/site.ts` (nieuw), `src/config/company.ts`, `src/routes/__root.tsx`, 29 route- en paginabestanden, `public/robots.txt`, `public/sitemap.xml`.
 
-**Zelf doen.** Redirectketen http://www inkorten (actiepunt 5). Search Console op de non-www property (actiepunt 7).
+**Zelf doen.** Redirectketen http://www inkorten, en de www-blocker melden bij HadoSEO. Search Console op de non-www property (stap 5).
 
 ## Defect 5: FAQ-antwoorden niet in de statische HTML
 
@@ -194,9 +199,162 @@ Geen enkele regel gaat naar `/blog` of `/portfolio` als overzichtspagina.
 
 **Bestanden.** `src/pages/WebsiteLatenMaken.tsx`, `src/components/SEOHead.tsx`, `src/pages/CityLanding.tsx`, `src/pages/IndustryLanding.tsx`.
 
-**Zelf doen.** Bug melden bij HadoSEO (actiepunt 4).
+**Zelf doen.** De 404-bug melden bij HadoSEO (zie Eerst doen).
 
-## Verificatie
+## Blocker: www-host geeft per client een 200
+
+**Gemeten 16-09-2026** met `scripts/www-host-check.mjs`: `https://www.nieuwblik.com` en drie subpagina's, met drie user agents (browser, Googlebot, geen UA), elk één keer met minimale headers en één keer met de headers die Node's `fetch()` meestuurt.
+
+| Pad | User agent | Headers | Status | Location | Canonical in body |
+|---|---|---|---|---|---|
+| `/` | browser | minimaal | 301 | https://nieuwblik.com/ | - |
+| `/` | browser | fetch-headers | 200 | - | https://www.nieuwblik.com |
+| `/` | googlebot | minimaal | 301 | https://nieuwblik.com/ | - |
+| `/` | googlebot | fetch-headers | 200 | - | https://www.nieuwblik.com |
+| `/` | geen | minimaal | 301 | https://nieuwblik.com/ | - |
+| `/` | geen | fetch-headers | 200 | - | https://www.nieuwblik.com |
+| `/website-laten-maken` | browser | minimaal | 301 | https://nieuwblik.com/website-laten-maken | - |
+| `/website-laten-maken` | browser | fetch-headers | 200 | - | https://www.nieuwblik.com/website-laten-maken |
+| `/website-laten-maken` | googlebot | minimaal | 301 | https://nieuwblik.com/website-laten-maken | - |
+| `/website-laten-maken` | googlebot | fetch-headers | 200 | - | https://www.nieuwblik.com/website-laten-maken |
+| `/website-laten-maken` | geen | minimaal | 301 | https://nieuwblik.com/website-laten-maken | - |
+| `/website-laten-maken` | geen | fetch-headers | 200 | - | https://www.nieuwblik.com/website-laten-maken |
+| `/portfolio` | browser | minimaal | 301 | https://nieuwblik.com/portfolio | - |
+| `/portfolio` | browser | fetch-headers | 200 | - | https://www.nieuwblik.com/portfolio |
+| `/portfolio` | googlebot | minimaal | 301 | https://nieuwblik.com/portfolio | - |
+| `/portfolio` | googlebot | fetch-headers | 200 | - | https://www.nieuwblik.com/portfolio |
+| `/portfolio` | geen | minimaal | 301 | https://nieuwblik.com/portfolio | - |
+| `/portfolio` | geen | fetch-headers | 200 | - | https://www.nieuwblik.com/portfolio |
+| `/blog/vindbaar-in-chatgpt-geo-west-friesland` | browser | minimaal | 301 | https://nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland | - |
+| `/blog/vindbaar-in-chatgpt-geo-west-friesland` | browser | fetch-headers | 200 | - | https://www.nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland |
+| `/blog/vindbaar-in-chatgpt-geo-west-friesland` | googlebot | minimaal | 301 | https://nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland | - |
+| `/blog/vindbaar-in-chatgpt-geo-west-friesland` | googlebot | fetch-headers | 200 | - | https://www.nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland |
+| `/blog/vindbaar-in-chatgpt-geo-west-friesland` | geen | minimaal | 301 | https://nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland | - |
+| `/blog/vindbaar-in-chatgpt-geo-west-friesland` | geen | fetch-headers | 200 | - | https://www.nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland |
+
+**Welke header het verschil maakt** (Googlebot- of browser-UA op `https://www.nieuwblik.com/`, één header per verzoek):
+
+| Extra header | Status |
+|---|---|
+| `accept: */*` | 301 |
+| `accept-language: *` | 301 |
+| `accept-encoding: gzip, deflate` | 301 |
+| `sec-fetch-mode: navigate` | 301 |
+| `sec-fetch-dest: document` (zonder mode) | 301 |
+| volledige Chrome-navigatie (alle `sec-fetch`-headers, mode `navigate`) | 301 |
+| `sec-fetch-mode: cors` | **200** |
+| `sec-fetch-mode: no-cors` | **200** |
+| `sec-fetch-mode: same-origin` | **200** |
+
+**Conclusie.** De user agent maakt niet uit; de header `sec-fetch-mode` wel. Zonder `sec-fetch`-headers (zoals Googlebot, Bingbot, curl) en bij een gewone paginanavigatie in een browser geeft www een correcte 301. Stuurt een client `sec-fetch-mode: cors`, `no-cors` of `same-origin`, dan serveert HadoSEO de volledige pagina op www met status 200, en (met de huidige, oude deploy) een www-canonical. Dat zijn de modi van scripts en headless browsers, zoals sommige AI-crawlers en preview-tools. Voor die clients staat de site dubbel op twee hosts.
+
+**Wat dit betekent.**
+- Dit is een HadoSEO-probleem, niet iets in de repo. De repo zet alle canonicals op non-www; na de deploy wijst ook zo'n www-200-pagina met zijn canonical naar `https://nieuwblik.com`. Dat beperkt de schade, maar lost het niet op: een 200 op een tweede host is geen redirect.
+- **Blocker:** melden bij HadoSEO vóór je de sitemap indient. Vraag dat de www-redirect onvoorwaardelijk geldt, voor elke request op de www-host, ongeacht `sec-fetch-*`-headers.
+- Bij herhaald meten gaf HadoSEO af en toe een 429 (rate limiting) op Googlebot-verzoeken. Dat is een aparte observatie; de tabel hierboven is een run zonder 429.
+
+**Opnieuw meten na de fix:** `node scripts/www-host-check.mjs`. Klaar als de laatste regel "www gaf in geen enkele combinatie een 200" is.
+
+## Interne links naar redirects en weespagina's
+
+**Interne links naar een redirect.** Bij het verwijderen van `/start-je-project` (commit `fc06de8`) zijn alle interne verwijzingen al rechtstreeks naar `/contact` gezet: de hero-knop op de homepage, de knop in de pakketten, drie knoppen op over-ons, twee op de dienstenpagina, de knop in de blog-zijbalk en twee links in een blogtekst, plus `llms.txt`. In de header, de footer en het stad- en branchesjabloon stond ook vóór die commit geen link naar `/start-je-project` (nagekeken in `fc06de8^`); de "Start je project"-knoppen in de hero en het contactblok van die sjablonen wezen al naar `/contact`. Er is intern geen enkele link meer naar `/start-je-project` of naar een van de elf `/werkgebied/{stad}`-paden. De 301's blijven alleen voor externe links en de index.
+
+Nieuw in de verificatie, zodat dit niet terug kan komen:
+- **Crawl:** elke interne link wordt vergeleken met `redirects.csv`; wijst er één naar een redirectbron, dan faalt de check, met de bronpagina erbij.
+- **Broncode:** alle bestanden in `src` worden doorzocht op letterlijke paden uit `redirects.csv`. Dat vangt ook links die alleen in de browser renderen (zoals de popup), die de crawl niet ziet. Ook `public/llms.txt` wordt gecontroleerd.
+- Negatieve test gedaan: een tijdelijk bestand met `href="/start-je-project"` liet de verificatie falen ("geen link naar een redirect in de broncode"); daarna verwijderd.
+
+**Weespagina's.** `/reviews` werd nergens gelinkt. `/gratis-website-analyse` alleen vanuit één blogartikel en vanuit de popup, die alleen in de browser rendert: voor een crawler vrijwel een wees. Beide zijn nu gelinkt in de footerkolom Navigatie (Reviews onder Over Ons, Gratis website-analyse onder Contact); geen van beide is te dun om te linken. De hoofdnavigatie is niet aangepast. Nieuwe check: elke sitemap-URL moet via een interne link bereikbaar zijn, anders faalt de verificatie. De crawl vindt nu alle 132 sitemap-URL's.
+
+**Sitemap tegen redirects.** Expliciet nagerekend op de sitemap uit de productiebuild: 132 sitemap-URL's, 36 redirectbronnen, overlap **0**. Elke redirectbestemming staat zelf in de sitemap. De verificatie controleert dit bij elke run, en de sitemapgenerator weigert te schrijven als er toch overlap is.
+
+## Prijswijzigingen ter beoordeling
+
+Bij defect 6 heb ik prijzen gelijkgetrokken. Op de stad- en branchepagina's was dat een commerciële wijziging (vanaf 1500 naar 990), waar je geen mandaat voor had gegeven. Niets is teruggedraaid. Bevestig of verwerp per regel.
+
+Gereconstrueerd uit git: de data vóór commit `bcbb7c9` tegenover nu. Op de 30 stadspagina's is de FAQ inmiddels op jouw verzoek helemaal verwijderd; die regels staan er voor de volledigheid bij met "(FAQ van stadspagina's verwijderd)".
+
+**Buiten de tabel, ook gewijzigd:**
+- Schema (Offer-prijs in JSON-LD) op alle 30 branchepagina's: 1500 naar 990. Niet zichtbaar, wel wat Google leest.
+- `/website-laten-maken`, derde pakket: "Premium, €2990+" naar "Op maat, op aanvraag", gelijk aan de homepage.
+- Niet gewijzigd: de taxiwebsite (vanaf 1500), webshops (vanaf €2.990), de regio-pagina's en de overige verkooppagina's (die zeiden al 990).
+
+| Pagina | Plek | Oud | Nieuw |
+|---|---|---|---|
+| `/website-laten-maken-accountant` | FAQ-antwoord | Voor een accountant hanteren wij een startbudget van 1500 euro. | Voor een accountant hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-advocaat` | FAQ-antwoord | Voor een advocaat hanteren wij een startbudget van 1500 euro. | Voor een advocaat hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-architect` | FAQ-antwoord | Een professionele website voor een architect begint bij ons vanaf 1500 euro. | Een professionele website voor een architect begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-autogarage` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-bloemist` | FAQ-antwoord | Een gemiddelde bloemist betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde bloemist betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-boekhouder` | FAQ-antwoord | Een gemiddelde boekhouder betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde boekhouder betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-bouwbedrijf` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-coach` | FAQ-antwoord | Een gemiddelde coach betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde coach betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-dierenarts` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-elektricien` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-evenementenbureau` | FAQ-antwoord | Een gemiddelde evenementenbureau betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde evenementenbureau betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-fotograaf` | FAQ-antwoord | Een gemiddelde fotograaf betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde fotograaf betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-fysiotherapeut` | FAQ-antwoord | Een professionele website voor een fysiotherapeut begint bij ons vanaf 1500 euro. | Een professionele website voor een fysiotherapeut begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-horecabedrijf` | FAQ-antwoord | Voor een horecabedrijf hanteren wij een startbudget van 1500 euro. | Voor een horecabedrijf hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-interieurontwerper` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-kapper` | FAQ-antwoord | Een professionele website voor een kapper begint bij ons vanaf 1500 euro. | Een professionele website voor een kapper begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-kinderopvang` | FAQ-antwoord | Voor een kinderopvang hanteren wij een startbudget van 1500 euro. | Voor een kinderopvang hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-loodgieter` | FAQ-antwoord | Voor een loodgieter hanteren wij een startbudget van 1500 euro. | Voor een loodgieter hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-makelaar` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-personal-trainer` | FAQ-antwoord | Een professionele website voor een personal trainer begint bij ons vanaf 1500 euro. | Een professionele website voor een personal trainer begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-reclamebureau` | FAQ-antwoord | Een professionele website voor een reclamebureau begint bij ons vanaf 1500 euro. | Een professionele website voor een reclamebureau begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-reinigingsbedrijf` | FAQ-antwoord | Voor een reinigingsbedrijf hanteren wij een startbudget van 1500 euro. | Voor een reinigingsbedrijf hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-restaurant` | FAQ-antwoord | Voor een restaurant hanteren wij een startbudget van 1500 euro. | Voor een restaurant hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-schilder` | FAQ-antwoord | Een professionele website voor een schilder begint bij ons vanaf 1500 euro. | Een professionele website voor een schilder begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-schoonheidssalon` | FAQ-antwoord | Een gemiddelde schoonheidssalon betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde schoonheidssalon betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-sportschool` | FAQ-antwoord | Vanaf 1500 euro lever je al een sterke MKB site op. | Vanaf 990 euro lever je al een sterke MKB site op. |
+| `/website-laten-maken-tandarts` | FAQ-antwoord | Een gemiddelde tandarts betaalt bij ons tussen de 1500 en 4000 euro voor een complete website. | Een gemiddelde tandarts betaalt bij ons tussen de 990 en 4000 euro voor een complete website. |
+| `/website-laten-maken-therapeut` | FAQ-antwoord | Een professionele website voor een therapeut begint bij ons vanaf 1500 euro. | Een professionele website voor een therapeut begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-tuinman` | FAQ-antwoord | Een professionele website voor een tuinman begint bij ons vanaf 1500 euro. | Een professionele website voor een tuinman begint bij ons vanaf 990 euro. |
+| `/website-laten-maken-verzekeringsadviseur` | FAQ-antwoord | Voor een verzekeringsadviseur hanteren wij een startbudget van 1500 euro. | Voor een verzekeringsadviseur hanteren wij een startbudget van 990 euro. |
+| `/website-laten-maken-alkmaar` | FAQ-antwoord | Een website laten bouwen in Alkmaar kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-alkmaar` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-almere` | FAQ-antwoord | Een website laten bouwen in Almere kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-almere` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-amersfoort` | FAQ-antwoord | De kosten van een website in Amersfoort starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-amsterdam` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Amsterdam begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-apeldoorn` | FAQ-antwoord | Een website laten bouwen in Apeldoorn kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-apeldoorn` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-arnhem` | FAQ-antwoord | Voor ondernemers in Arnhem hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-arnhem` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-breda` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Breda begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-delft` | FAQ-antwoord | Een website laten bouwen in Delft kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-den-bosch` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Den Bosch begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-den-haag` | FAQ-antwoord | Voor ondernemers in Den Haag hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-deventer` | FAQ-antwoord | De kosten van een website in Deventer starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-dordrecht` | FAQ-antwoord | De kosten van een website in Dordrecht starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-dordrecht` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-ede` | FAQ-antwoord | Voor ondernemers in Ede hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-ede` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-eindhoven` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Eindhoven begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-eindhoven` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-emmen` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Emmen begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-enschede` | FAQ-antwoord | Een website laten bouwen in Enschede kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-groningen` | FAQ-antwoord | De kosten van een website in Groningen starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-haarlem` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Haarlem begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-leeuwarden` | FAQ-antwoord | De kosten van een website in Leeuwarden starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-leeuwarden` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-leiden` | FAQ-antwoord | Een website laten bouwen in Leiden kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-leiden` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-maastricht` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Maastricht begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-nijmegen` | FAQ-antwoord | De kosten van een website in Nijmegen starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-nijmegen` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-rotterdam` | FAQ-antwoord | De kosten van een website in Rotterdam starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-rotterdam` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-tilburg` | FAQ-antwoord | Voor ondernemers in Tilburg hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-tilburg` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-utrecht` | FAQ-antwoord | Een website laten bouwen in Utrecht kost vanaf 1500 euro voor een degelijke MKB site. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-venlo` | FAQ-antwoord | Een eenvoudige bedrijfswebsite voor een ondernemer in Venlo begint vanaf 1500 euro. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-westland` | FAQ-antwoord | Voor ondernemers in Westland hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-zaanstad` | FAQ-antwoord | Voor ondernemers in Zaanstad hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-zoetermeer` | FAQ-antwoord | Voor ondernemers in Zoetermeer hanteren wij een startprijs van 1500 euro voor een professionele website. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-zoetermeer` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
+| `/website-laten-maken-zwolle` | FAQ-antwoord | De kosten van een website in Zwolle starten bij 1500 euro voor een complete bedrijfssite. | (FAQ van stadspagina's verwijderd) |
+| `/website-laten-maken-zwolle` | Voordeel 'Betaalbaar maatwerk' | Vanaf 1500 euro krijg je een complete site op maat, zonder verborgen kosten. | Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. |
 
 ### Pass 1: lokale productiebuild
 
@@ -221,19 +379,20 @@ npm run seo:verify
 - titel en description aanwezig en uniek;
 - één JSON-LD-blok met elk `@type` één keer;
 - FAQ: aantal `acceptedAnswer` gelijk aan het aantal zichtbare vragen, en elke antwoordtekst in de HTML;
-- sitemap tegen gecrawlde routes, en geen sitemap-URL in `redirects.csv`.
+- sitemap tegen gecrawlde routes, en geen sitemap-URL in `redirects.csv`;
+- geen interne link naar een pad in `redirects.csv` (crawl én broncode) en geen weespagina's in de sitemap.
 
-Uitkomst op 16-09-2026:
+Uitkomst op 16-09-2026, na de aanvullingen (interne links naar redirects, weespagina's, footerlinks):
 
 ```
 Basis: http://localhost:4310   Host: https://nieuwblik.com
-Sitemap: 132 URL's · Redirects: 36 · Onbekende paden: 8 · Gecrawld: 131 (131 indexeerbaar)
-Checks: 2857, fouten: 0
+Sitemap: 132 URL's · Redirects: 36 · Onbekende paden: 8 · Gecrawld: 132 (132 indexeerbaar)
+Checks: 10191, fouten: 0
 
 ✓ Alles groen.
 ```
 
-De crawl vindt 131 pagina's en de sitemap heeft er 132. Het verschil is `/reviews`: die staat terecht in de sitemap, maar geen enkele pagina linkt ernaartoe. Dat is geen fout voor de verificatie, maar een interne link (bijvoorbeeld vanuit de footer of bij de reviews op de homepage) helpt die pagina gevonden te worden.
+De crawl vindt alle 132 sitemap-URL's, en er zijn geen interne links naar redirects.
 
 ### Pass 2: live, na deploy en HadoSEO
 
@@ -263,3 +422,7 @@ Die run laat ook het cacheprobleem zien. `/blog/wordpress-vs-maatwerk-website` (
 | `bcbb7c9` | Defect 6: reviewscore, prijzen en doorlooptijd uit één constante |
 | `50b56e8` | Defect 1: sitemap uit de routedefinities, gegenereerd bij elke build |
 | `fc06de8` | Defect 1 en 3: /start-je-project was een kopie van /contact |
+| `b3434eb` | SEO-verificatie (pass 1 en 2) en SEO-FIXES.md |
+| `7f0d594` | Stadspagina's: plaatsnaam minder vaak herhaald |
+| `892eabf` | Stadspagina's: FAQ verwijderd |
+| `beac762` | Footer: links naar /reviews en /gratis-website-analyse |
