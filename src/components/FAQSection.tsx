@@ -1,8 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useId } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { easings } from "@/lib/motion";
 import { useReveal } from "@/lib/reveal";
+import { useCollapse } from "@/lib/collapse";
+
+const ANTWOORD_MS = 400;
+const ANTWOORD_EASE = `cubic-bezier(${easings.easeOutExpo.join(",")})`;
 
 const faqs = [
   {
@@ -41,6 +45,12 @@ const faqs = [
 
 const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpen: boolean, onClick: () => void, index: number }) => {
   const shouldReduceMotion = useReducedMotion();
+  const id = useId();
+  const triggerId = `${id}-vraag`;
+  const panelId = `${id}-antwoord`;
+  // Antwoord blijft altijd in de DOM (ook dicht, met `hidden`), zodat het in
+  // de server-HTML staat voor crawlers die geen JavaScript uitvoeren.
+  const { hidden, expanded } = useCollapse(isOpen, shouldReduceMotion ? 0 : ANTWOORD_MS);
 
   return (
     <motion.div
@@ -85,41 +95,61 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
         </AnimatePresence>
 
         <div className="relative z-10 p-6 md:p-8">
-          <div className="flex justify-between items-start gap-4">
-            <motion.h3
-              className={`text-lg md:text-xl font-bold leading-tight transition-colors duration-300 ${isOpen ? "text-white" : "text-foreground"
-                }`}
+          {/* De vraag is een echte knop in de kop: bedienbaar met toetsenbord en
+              met aria-expanded/aria-controls voor schermlezers. De hele kaart
+              blijft daarnaast klikbaar; stopPropagation voorkomt dubbel togglen. */}
+          <motion.h3
+            className={`text-lg md:text-xl font-bold leading-tight transition-colors duration-300 ${isOpen ? "text-white" : "text-foreground"
+              }`}
+          >
+            <button
+              type="button"
+              id={triggerId}
+              aria-expanded={isOpen}
+              aria-controls={panelId}
+              onClick={(event) => {
+                event.stopPropagation();
+                onClick();
+              }}
+              className="flex w-full justify-between items-start gap-4 text-left cursor-pointer"
             >
-              {item.question}
-            </motion.h3>
+              <span>{item.question}</span>
 
-            {/* Toggle Icon */}
-            <motion.div
-              className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors duration-300 ${isOpen
-                ? "bg-white/10 border-white/20 text-white"
-                : "bg-secondary border-transparent text-foreground group-hover:bg-accent group-hover:text-white"
-                }`}
-              animate={{ rotate: isOpen ? 180 : 0 }}
-            >
-              {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            </motion.div>
-          </div>
-
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                animate={{ height: "auto", opacity: 1, marginTop: 16 }}
-                exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                transition={{ duration: 0.4, ease: easings.easeOutExpo }}
-                className="overflow-hidden"
+              {/* Toggle Icon */}
+              <motion.span
+                aria-hidden="true"
+                className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors duration-300 ${isOpen
+                  ? "bg-white/10 border-white/20 text-white"
+                  : "bg-secondary border-transparent text-foreground group-hover:bg-accent group-hover:text-white"
+                  }`}
+                animate={{ rotate: isOpen ? 180 : 0 }}
               >
-                <p className="text-white/80 font-light leading-relaxed pr-8">
-                  {item.answer}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+              </motion.span>
+            </button>
+          </motion.h3>
+
+          <div
+            id={panelId}
+            role="region"
+            aria-labelledby={triggerId}
+            hidden={hidden}
+            className="grid"
+            style={{
+              gridTemplateRows: expanded ? "1fr" : "0fr",
+              opacity: expanded ? 1 : 0,
+              marginTop: expanded ? 16 : 0,
+              transition: shouldReduceMotion
+                ? "none"
+                : `grid-template-rows ${ANTWOORD_MS}ms ${ANTWOORD_EASE}, opacity ${ANTWOORD_MS}ms ${ANTWOORD_EASE}, margin-top ${ANTWOORD_MS}ms ${ANTWOORD_EASE}`,
+            }}
+          >
+            <div className="min-h-0 overflow-clip">
+              <p className="text-white/80 font-light leading-relaxed pr-8">
+                {item.answer}
+              </p>
+            </div>
+          </div>
         </div>
       </motion.div>
     </motion.div>
