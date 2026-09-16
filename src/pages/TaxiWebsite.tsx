@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { Zap, Smartphone, MessageCircle, MapPin, Plane, Gauge, Search, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
@@ -10,7 +11,7 @@ import { useDarkNavSection } from "@/components/UnderlayNav";
 import { companyInfo } from "@/config/company";
 import taxiImg from "@/assets/taxidrechterland.webp";
 
-const url = "https://www.nieuwblik.com/taxi-website-laten-maken";
+const url = `${SITE_URL}/taxi-website-laten-maken`;
 
 const faqItems = [
   {

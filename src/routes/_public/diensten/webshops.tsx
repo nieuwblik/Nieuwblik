@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Webshops from "@/pages/services/Webshops";
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/_public/diensten/webshops")({
         "Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €2.990.",
       keywords:
         "webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen",
-      canonical: "https://www.nieuwblik.com/diensten/webshops",
+      canonical: `${SITE_URL}/diensten/webshops`,
     }),
   component: Webshops,
 });

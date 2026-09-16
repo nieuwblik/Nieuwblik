@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import GratisWebsiteAnalyse from "@/pages/GratisWebsiteAnalyse";
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/_public/gratis-website-analyse")({
       description:
         "Vraag een gratis website-analyse aan en ontdek in 24 uur waar jouw website kansen laat liggen op snelheid, vindbaarheid en conversie.",
       keywords: "gratis website analyse, website check, SEO scan, website laten checken",
-      canonical: "https://www.nieuwblik.com/gratis-website-analyse",
+      canonical: `${SITE_URL}/gratis-website-analyse`,
     }),
   component: GratisWebsiteAnalyse,
 });

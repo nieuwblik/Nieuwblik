@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import PortfolioDetail from "@/pages/PortfolioDetail";
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/_public/portfolio/$slug")({
         ? (project.detail.details.split("\n\n")[0] ?? "").substring(0, 155).trim()
         : project.description,
       keywords: project.tags.join(", "),
-      canonical: `https://www.nieuwblik.com/portfolio/${project.slug}`,
+      canonical: `${SITE_URL}/portfolio/${project.slug}`,
     });
   },
   notFoundComponent: NotFound,

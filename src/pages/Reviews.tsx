@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import ReviewsDisplay from "@/components/ReviewsDisplay";
 import ReviewForm from "@/components/ReviewForm";
@@ -24,10 +25,10 @@ const Reviews = () => {
         title="Reviews | Klantervaringen Webdesign Bureau - Nieuwblik Enkhuizen"
         description="Lees ervaringen van onze klanten over websites en webshops. Webdesign bureau Enkhuizen met tevreden klanten in heel West-Friesland. Bekijk onze reviews."
         keywords="reviews webdesign, klantervaringen website, webdesign bureau Enkhuizen, tevreden klanten West-Friesland"
-        canonicalUrl="https://www.nieuwblik.com/reviews"
+        canonicalUrl={`${SITE_URL}/reviews`}
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Reviews", url: "https://www.nieuwblik.com/reviews" }
+          { name: "Home", url: SITE_URL },
+          { name: "Reviews", url: `${SITE_URL}/reviews` }
         ]}
       />
       

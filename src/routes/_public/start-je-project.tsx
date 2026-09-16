@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Contact from "@/pages/Contact";
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/_public/start-je-project")({
       keywords:
         "contact webdesign Enkhuizen, offerte website, website laten maken West-Friesland, webdesign bureau contact",
       // Zelfde canonical als /contact — precies zoals SEOHead dit al deed.
-      canonical: "https://www.nieuwblik.com/contact",
+      canonical: `${SITE_URL}/contact`,
     }),
   component: Contact,
 });

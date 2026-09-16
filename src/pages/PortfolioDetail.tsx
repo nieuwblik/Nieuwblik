@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { useParams, Link, useNavigate } from "@/lib/router-compat";
 import { useEffect } from "react";
 import puurMobiel2Img from "@/assets/recente-projecten/puurinharmonie-mobiel2.webp";
@@ -50,7 +51,7 @@ const PortfolioDetail = () => {
                 title={`${project.title} | Portfolio - Nieuwblik`}
                 description={project.detail?.details ? (project.detail.details.split("\n\n")[0] ?? "").substring(0, 155).trim() : project.description}
                 keywords={project.tags?.join(", ")}
-                canonicalUrl={`https://www.nieuwblik.com/portfolio/${project.slug}`}
+                canonicalUrl={`${SITE_URL}/portfolio/${project.slug}`}
                 ogImage={project.image}
                 structuredData={{
                     "@context": "https://schema.org",
@@ -58,14 +59,14 @@ const PortfolioDetail = () => {
                     name: project.title,
                     description: project.description,
                     image: project.image,
-                    url: `https://www.nieuwblik.com/portfolio/${project.slug}`,
-                    creator: { "@type": "Organization", name: "Nieuwblik", url: "https://www.nieuwblik.com" },
+                    url: `${SITE_URL}/portfolio/${project.slug}`,
+                    creator: { "@type": "Organization", name: "Nieuwblik", url: SITE_URL },
                     ...(project.detail?.year ? { dateCreated: project.detail.year } : {}),
                 }}
                 breadcrumbs={[
-                    { name: "Home", url: "https://www.nieuwblik.com" },
-                    { name: "Portfolio", url: "https://www.nieuwblik.com/portfolio" },
-                    { name: project.title, url: `https://www.nieuwblik.com/portfolio/${project.slug}` },
+                    { name: "Home", url: SITE_URL },
+                    { name: "Portfolio", url: `${SITE_URL}/portfolio` },
+                    { name: project.title, url: `${SITE_URL}/portfolio/${project.slug}` },
                 ]}
             />
 

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -83,7 +84,7 @@ const Contact = () => {
     "@type": "ContactPage",
     "name": "Contact - Nieuwblik",
     "description": "Neem contact op met Nieuwblik voor jouw digitale project. Wij staan klaar om je te helpen!",
-    "url": "https://www.nieuwblik.com/contact"
+    "url": `${SITE_URL}/contact`
   };
 
   return (
@@ -92,11 +93,11 @@ const Contact = () => {
         title="Contact | Webdesign Bureau Enkhuizen - Nieuwblik"
         description="Neem contact op met Nieuwblik in Enkhuizen. Website of webshop laten maken? Bel, WhatsApp of vul het formulier in. Reactie binnen 24 uur gegarandeerd."
         keywords="contact webdesign Enkhuizen, offerte website, website laten maken West-Friesland, webdesign bureau contact"
-        canonicalUrl="https://www.nieuwblik.com/contact"
+        canonicalUrl={`${SITE_URL}/contact`}
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Contact", url: "https://www.nieuwblik.com/contact" }
+          { name: "Home", url: SITE_URL },
+          { name: "Contact", url: `${SITE_URL}/contact` }
         ]}
       />
 

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { CheckCircle2, Award, Users, Zap, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
@@ -7,7 +8,7 @@ import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
-const url = "https://www.nieuwblik.com/webdesign-bureau";
+const url = `${SITE_URL}/webdesign-bureau`;
 
 const faqItems = [
   { q: "Wat is het verschil tussen een webdesign bureau en een freelancer?", a: "Een bureau heeft een team met verschillende disciplines: designer, developer, SEO-specialist en projectleider. Een freelancer doet alles zelf, wat sneller kan zijn voor kleine klussen maar minder diepgang biedt. Nieuwblik werkt als klein bureau met de wendbaarheid van een freelancer en de kwaliteit van een team." },

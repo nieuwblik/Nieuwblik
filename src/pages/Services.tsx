@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -148,7 +149,7 @@ const Services = () => {
     "provider": {
       "@type": "Organization",
       "name": "Nieuwblik",
-      "url": "https://www.nieuwblik.com"
+      "url": SITE_URL
     },
     "serviceType": "Webdesign & Digitale Marketing",
     "areaServed": "Nederland",
@@ -172,11 +173,11 @@ const Services = () => {
         title="Diensten | Webdesign, Webshops & SEO Enkhuizen - Nieuwblik" 
         description="Ontdek onze diensten: website op maat, webshops, branding en SEO. Webdesign bureau Enkhuizen voor MKB in West-Friesland. Vraag een offerte aan." 
         keywords="webdesign Enkhuizen, webshop laten maken, SEO West-Friesland, branding, e-commerce, website ontwikkeling, online zichtbaarheid" 
-        canonicalUrl="https://www.nieuwblik.com/diensten" 
+        canonicalUrl={`${SITE_URL}/diensten`} 
         structuredData={structuredData} 
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Diensten", url: "https://www.nieuwblik.com/diensten" }
+          { name: "Home", url: SITE_URL },
+          { name: "Diensten", url: `${SITE_URL}/diensten` }
         ]} 
       />
       

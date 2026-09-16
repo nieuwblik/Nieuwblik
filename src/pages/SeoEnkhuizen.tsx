@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
@@ -7,7 +8,7 @@ import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
-const url = "https://www.nieuwblik.com/seo-enkhuizen";
+const url = `${SITE_URL}/seo-enkhuizen`;
 
 const faqItems = [
   {

@@ -9,7 +9,8 @@ export const Route = createFileRoute("/_public/")({
     buildHead({
       title: "Webdesign Bureau Enkhuizen | Websites & Webshops - Nieuwblik",
       description: companyInfo.description,
-      canonical: companyInfo.url,
+      // Met slash: dat is de URL die de homepage echt serveert en die in de sitemap staat.
+      canonical: `${companyInfo.url}/`,
       // De social-afbeelding die deelplatforms al kenden uit de oude index.html.
       ogImage:
         "https://storage.googleapis.com/gpt-engineer-file-uploads/3EEbbwIN3rTrzVglyQtstmL7FqT2/social-images/social-1769766174004-meta%20image%20nieuwblik.jpg",

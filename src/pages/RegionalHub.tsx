@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { useParams, Link } from "@/lib/router-compat";
 import { MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
@@ -146,7 +147,7 @@ const RegionalHub = () => {
   const hub = HUBS.find((h) => h.slug === slug);
   if (!hub) return <NotFound />;
 
-  const url = `https://www.nieuwblik.com/regio/${hub.slug}`;
+  const url = `${SITE_URL}/regio/${hub.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

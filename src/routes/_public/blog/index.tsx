@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Blog from "@/pages/Blog";
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/_public/blog/")({
         "Lees onze blog over SEO, webdesign en online zichtbaarheid. Praktische tips van ons webdesign bureau in West-Friesland. Verbeter je website vandaag.",
       keywords:
         "webdesign blog, SEO tips Enkhuizen, conversie optimalisatie, online zichtbaarheid, webdesign West-Friesland, website tips",
-      canonical: "https://www.nieuwblik.com/blog",
+      canonical: `${SITE_URL}/blog`,
     }),
   component: Blog,
 });

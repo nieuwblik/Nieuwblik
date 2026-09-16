@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { CheckCircle2, Zap, Search, Users, Rocket, Shield, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
@@ -7,7 +8,7 @@ import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
-const url = "https://www.nieuwblik.com/website-laten-maken";
+const url = `${SITE_URL}/website-laten-maken`;
 
 const faqItems = [
   { q: "Wat kost een website laten maken in 2026?", a: "Een professionele website op maat bij Nieuwblik begint bij 990 euro. Voor sites met meer pagina's, integraties of een webshop ligt de prijs tussen 1990 en 4000 euro. Alles vooraf transparant, geen verrassingen achteraf." },

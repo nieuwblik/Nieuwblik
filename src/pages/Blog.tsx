@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import React from "react";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -17,7 +18,7 @@ const Blog = () => {
     "@type": "Blog",
     name: "Nieuwblik Blog",
     description: "Waardevolle artikelen over webdesign, SEO, conversie optimalisatie en digitale marketing.",
-    url: "https://www.nieuwblik.com/blog",
+    url: `${SITE_URL}/blog`,
   };
 
   return (
@@ -26,11 +27,11 @@ const Blog = () => {
         title="Blog | SEO & Webdesign Tips - Nieuwblik Enkhuizen"
         description="Lees onze blog over SEO, webdesign en online zichtbaarheid. Praktische tips van ons webdesign bureau in West-Friesland. Verbeter je website vandaag."
         keywords="webdesign blog, SEO tips Enkhuizen, conversie optimalisatie, online zichtbaarheid, webdesign West-Friesland, website tips"
-        canonicalUrl="https://www.nieuwblik.com/blog"
+        canonicalUrl={`${SITE_URL}/blog`}
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Blog", url: "https://www.nieuwblik.com/blog" }
+          { name: "Home", url: SITE_URL },
+          { name: "Blog", url: `${SITE_URL}/blog` }
         ]}
       />
 

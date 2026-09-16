@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import type { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -59,8 +60,8 @@ const ORGANIZATION_JSONLD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Nieuwblik",
-  url: "https://www.nieuwblik.com",
-  logo: "https://www.nieuwblik.com/logo.png",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
   description:
     "Professioneel webdesign bureau in Enkhuizen. Wij bouwen snelle, SEO-geoptimaliseerde websites die converteren.",
   address: {
@@ -86,10 +87,10 @@ const WEBSITE_JSONLD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Nieuwblik",
-  url: "https://www.nieuwblik.com",
+  url: SITE_URL,
   potentialAction: {
     "@type": "SearchAction",
-    target: "https://www.nieuwblik.com/blog?q={search_term_string}",
+    target: `${SITE_URL}/blog?q={search_term_string}`,
     "query-input": "required name=search_term_string",
   },
 });
@@ -98,8 +99,8 @@ const PROFESSIONAL_SERVICE_JSONLD = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: "Nieuwblik",
-  image: "https://www.nieuwblik.com/logo.png",
-  url: "https://www.nieuwblik.com",
+  image: `${SITE_URL}/logo.png`,
+  url: SITE_URL,
   telephone: "+31646253607",
   email: "justin@nieuwblik.com",
   priceRange: "€€",

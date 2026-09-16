@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -114,7 +115,7 @@ const Ecommerce = () => {
     "provider": {
       "@type": "Organization",
       "name": "Nieuwblik",
-      "url": "https://www.nieuwblik.com"
+      "url": SITE_URL
     },
     "serviceType": "E-commerce Strategy & Development",
     "description": "Complete e-commerce oplossingen: multichannel verkoop, marketplace integraties, marketing automation en conversie-optimalisatie.",
@@ -127,12 +128,12 @@ const Ecommerce = () => {
         title="E-commerce & Product Listings | Verkoop meer online - Nieuwblik"
         description="Professionele Amazon & Bol.com listings, verpakkingsdesign en e-books. Verhoog je online zichtbaarheid en conversie. E-commerce specialist West-Friesland."
         keywords="e-commerce Enkhuizen, Amazon listings, Bol.com verkopen, product fotografie, verpakkingsdesign, conversie optimalisatie West-Friesland"
-        canonicalUrl="https://www.nieuwblik.com/diensten/e-commerce"
+        canonicalUrl={`${SITE_URL}/diensten/e-commerce`}
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Diensten", url: "https://www.nieuwblik.com/diensten" },
-          { name: "E-commerce", url: "https://www.nieuwblik.com/diensten/e-commerce" }
+          { name: "Home", url: SITE_URL },
+          { name: "Diensten", url: `${SITE_URL}/diensten` },
+          { name: "E-commerce", url: `${SITE_URL}/diensten/e-commerce` }
         ]}
       />
 

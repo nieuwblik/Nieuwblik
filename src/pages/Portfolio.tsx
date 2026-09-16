@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -99,7 +100,7 @@ const Portfolio = () => {
     "@type": "CollectionPage",
     "name": "Portfolio - Nieuwblik",
     "description": "Bekijk onze portfolio met succesvolle webdesign projecten, e-commerce oplossingen en branding cases.",
-    "url": "https://www.nieuwblik.com/portfolio",
+    "url": `${SITE_URL}/portfolio`,
     "mainEntity": {
       "@type": "ItemList",
       "itemListElement": projects.slice(0, 6).map((project, index) => ({
@@ -118,11 +119,11 @@ const Portfolio = () => {
         title="Portfolio | Website & Webshop Projecten Enkhuizen - Nieuwblik"
         description="Bekijk onze portfolio: websites en webshops uit West-Friesland. Van MKB tot e-commerce, ontdek wat ons webdesign bureau in Enkhuizen voor jou kan betekenen."
         keywords="webdesign portfolio Enkhuizen, website voorbeelden West-Friesland, webshop projecten, e-commerce cases, website laten maken"
-        canonicalUrl="https://www.nieuwblik.com/portfolio"
+        canonicalUrl={`${SITE_URL}/portfolio`}
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Portfolio", url: "https://www.nieuwblik.com/portfolio" }
+          { name: "Home", url: SITE_URL },
+          { name: "Portfolio", url: `${SITE_URL}/portfolio` }
         ]}
       />
 

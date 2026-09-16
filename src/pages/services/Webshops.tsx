@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
@@ -113,7 +114,7 @@ const Webshops = () => {
     "provider": {
       "@type": "Organization",
       "name": "Nieuwblik",
-      "url": "https://www.nieuwblik.com"
+      "url": SITE_URL
     },
     "serviceType": "Webshop Development",
     "description": "Professionele webshops die verkopen. Veilige betalingen, voorraadbeheer en conversiegerichte designs.",
@@ -132,12 +133,12 @@ const Webshops = () => {
         title="Webshop Laten Maken Enkhuizen | E-commerce West-Friesland"
         description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €2.990."
         keywords="webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen"
-        canonicalUrl="https://www.nieuwblik.com/diensten/webshops"
+        canonicalUrl={`${SITE_URL}/diensten/webshops`}
         structuredData={structuredData}
         breadcrumbs={[
-        { name: "Home", url: "https://www.nieuwblik.com" },
-        { name: "Diensten", url: "https://www.nieuwblik.com/diensten" },
-        { name: "Webshops", url: "https://www.nieuwblik.com/diensten/webshops" }]
+        { name: "Home", url: SITE_URL },
+        { name: "Diensten", url: `${SITE_URL}/diensten` },
+        { name: "Webshops", url: `${SITE_URL}/diensten/webshops` }]
         } />
       
 

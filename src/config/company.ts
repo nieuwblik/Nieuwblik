@@ -1,10 +1,12 @@
+import { SITE_URL } from "./site";
+
 // Centralized company information for Nieuwblik
 // Used across Footer, legal pages, and structured data
 
 export const companyInfo = {
   name: "Nieuwblik",
   legalName: "Nieuwblik",
-  url: "https://www.nieuwblik.com",
+  url: SITE_URL,
   
   // Address
   address: {

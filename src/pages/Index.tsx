@@ -108,7 +108,7 @@ const Index = () => {
     <SEOHead
       title="Webdesign Bureau Enkhuizen | Websites & Webshops - Nieuwblik"
       description={companyInfo.description}
-      canonicalUrl={companyInfo.url}
+      canonicalUrl={`${companyInfo.url}/`}
       includeOrganizationSchema={true}
       includeLocalBusinessSchema={true}
       structuredData={faqJsonLd} />

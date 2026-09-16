@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import type { JSX } from "react";
 import DOMPurify from "dompurify";
 import { useParams, Link, Navigate } from "@/lib/router-compat";
@@ -88,8 +89,8 @@ const BlogPost = () => {
     // Absoluut: een relatief pad als /assets/x.webp wordt door Google niet
     // als afbeelding van het artikel herkend.
     "image": post.image
-      ? (post.image.startsWith('http') ? post.image : `https://www.nieuwblik.com${post.image}`)
-      : `https://www.nieuwblik.com/og-image.webp`,
+      ? (post.image.startsWith('http') ? post.image : `${SITE_URL}${post.image}`)
+      : `${SITE_URL}/og-image.webp`,
     "inLanguage": "nl-NL",
     ...(post.seoKeywords ? { "keywords": post.seoKeywords } : {}),
     "datePublished": post.date,
@@ -97,19 +98,19 @@ const BlogPost = () => {
     "author": {
       "@type": "Person",
       "name": "Justin Slok",
-      "url": "https://www.nieuwblik.com/over-ons"
+      "url": `${SITE_URL}/over-ons`
     },
     "publisher": {
       "@type": "Organization",
       "name": "Nieuwblik",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.nieuwblik.com/logo.png"
+        "url": `${SITE_URL}/logo.png`
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://www.nieuwblik.com/blog/${slug}`
+      "@id": `${SITE_URL}/blog/${slug}`
     }
   } : null;
 
@@ -534,17 +535,17 @@ const BlogPost = () => {
           title={post.seoTitle ? `${post.seoTitle} | Nieuwblik` : `${post.title.nl.length > 45 ? post.title.nl.substring(0, 45).trim() + '…' : post.title.nl} | Nieuwblik`}
           description={post.excerpt.nl}
           keywords={post.seoKeywords || "webdesign, SEO, conversie, digitale marketing, website optimalisatie"}
-          canonicalUrl={`https://www.nieuwblik.com/blog/${slug}`}
-          ogImage={post.image ? (typeof post.image === 'string' && post.image.startsWith('http') ? post.image : `https://www.nieuwblik.com${post.image}`) : `https://www.nieuwblik.com/og-image.webp`}
+          canonicalUrl={`${SITE_URL}/blog/${slug}`}
+          ogImage={post.image ? (typeof post.image === 'string' && post.image.startsWith('http') ? post.image : `${SITE_URL}${post.image}`) : `${SITE_URL}/og-image.webp`}
           ogType="article"
           articlePublishedTime={post.date}
           articleModifiedTime={post.date}
           articleAuthor="Justin Slok"
           {...(structuredData ? { structuredData } : {})}
           breadcrumbs={[
-            { name: "Home", url: "https://www.nieuwblik.com" },
-            { name: "Blog", url: "https://www.nieuwblik.com/blog" },
-            { name: post.title.nl, url: `https://www.nieuwblik.com/blog/${slug}` }
+            { name: "Home", url: SITE_URL },
+            { name: "Blog", url: `${SITE_URL}/blog` },
+            { name: post.title.nl, url: `${SITE_URL}/blog/${slug}` }
           ]}
         />
       )}

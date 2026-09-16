@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 
@@ -122,7 +123,7 @@ const WebsiteOpMaat = () => {
     "provider": {
       "@type": "Organization",
       "name": "Nieuwblik",
-      "url": "https://www.nieuwblik.com"
+      "url": SITE_URL
     },
     "serviceType": "Custom Website Development",
     "description": "Luxe websites en digitale architectuur op maat. Ultra-snelle, SEO-geoptimaliseerde websites met HadoSEO koppeling.",
@@ -139,12 +140,12 @@ const WebsiteOpMaat = () => {
         title="Website op Maat Enkhuizen | Webdesign West-Friesland - Nieuwblik"
         description="Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Binnen 1 week live!"
         keywords="website op maat Enkhuizen, webdesign West-Friesland, website laten maken, SEO website, snelle website, webdesign bureau Enkhuizen"
-        canonicalUrl="https://www.nieuwblik.com/diensten/website-op-maat"
+        canonicalUrl={`${SITE_URL}/diensten/website-op-maat`}
         structuredData={structuredData}
         breadcrumbs={[
-        { name: "Home", url: "https://www.nieuwblik.com" },
-        { name: "Diensten", url: "https://www.nieuwblik.com/diensten" },
-        { name: "Website op maat", url: "https://www.nieuwblik.com/diensten/website-op-maat" }]
+        { name: "Home", url: SITE_URL },
+        { name: "Diensten", url: `${SITE_URL}/diensten` },
+        { name: "Website op maat", url: `${SITE_URL}/diensten/website-op-maat` }]
         } />
       
 

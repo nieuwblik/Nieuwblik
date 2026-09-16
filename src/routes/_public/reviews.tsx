@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
 import Reviews from "@/pages/Reviews";
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/_public/reviews")({
         "Lees ervaringen van onze klanten over websites en webshops. Webdesign bureau Enkhuizen met tevreden klanten in heel West-Friesland. Bekijk onze reviews.",
       keywords:
         "reviews webdesign, klantervaringen website, webdesign bureau Enkhuizen, tevreden klanten West-Friesland",
-      canonical: "https://www.nieuwblik.com/reviews",
+      canonical: `${SITE_URL}/reviews`,
     }),
   component: Reviews,
 });

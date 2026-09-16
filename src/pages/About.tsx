@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/config/site";
 import { lazy, Suspense, useRef } from "react";
 import Footer from "@/components/Footer";
 import FAQSection from "@/components/FAQSection";
@@ -117,7 +118,7 @@ const structuredData = {
   "@type": "AboutPage",
   name: "Over Ons - Nieuwblik",
   description: "Leer meer over Nieuwblik, jouw webdesign bureau in Enkhuizen. Ontmoet Justin en Job, het duo achter de websites die opvallen én converteren.",
-  url: "https://www.nieuwblik.com/over-ons",
+  url: `${SITE_URL}/over-ons`,
   mainEntity: {
     "@type": "Organization",
     name: "Nieuwblik",
@@ -137,11 +138,11 @@ const About = () => {
         title="Over Ons | Webdesign Bureau Enkhuizen - Nieuwblik"
         description="Maak kennis met Nieuwblik, jouw webdesign bureau uit Enkhuizen. Passie voor websites, webshops en SEO in West-Friesland. Persoonlijke aanpak, meetbaar resultaat."
         keywords="over ons, webdesign bureau Enkhuizen, digitale agency West-Friesland, nieuwblik team, website laten maken Enkhuizen"
-        canonicalUrl="https://www.nieuwblik.com/over-ons"
+        canonicalUrl={`${SITE_URL}/over-ons`}
         structuredData={structuredData}
         breadcrumbs={[
-          { name: "Home", url: "https://www.nieuwblik.com" },
-          { name: "Over ons", url: "https://www.nieuwblik.com/over-ons" },
+          { name: "Home", url: SITE_URL },
+          { name: "Over ons", url: `${SITE_URL}/over-ons` },
         ]}
       />
 
