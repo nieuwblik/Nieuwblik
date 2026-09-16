@@ -1,10 +1,11 @@
 # Robots.txt for Nieuwblik
 # https://nieuwblik.com
+# Gegenereerd door scripts/generate-sitemap.ts; niet met de hand aanpassen.
 
 User-agent: *
 Allow: /
 
-# Intern portaal — dekt /admin en alles eronder
+# Intern portaal, dekt /admin en alles eronder
 Disallow: /admin
 
 # Sitemap location

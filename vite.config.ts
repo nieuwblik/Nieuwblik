@@ -3,9 +3,24 @@
 //   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
 //     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
 //     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
+import { execFileSync } from "node:child_process";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { imagetools } from "vite-imagetools";
+
+// Sitemap en robots.txt opnieuw genereren bij elke build, uit de routeboom en
+// de data (scripts/generate-sitemap.ts). Eén keer per build-proces: de
+// client- en serverbuild roepen buildStart allebei aan.
+let sitemapGegenereerd = false;
+const sitemapPlugin = {
+  name: "nieuwblik-sitemap",
+  apply: "build" as const,
+  buildStart() {
+    if (sitemapGegenereerd) return;
+    sitemapGegenereerd = true;
+    execFileSync(process.execPath, ["--import", "tsx", "scripts/generate-sitemap.ts"], { stdio: "inherit" });
+  },
+};
 
 export default defineConfig({
   tanstackStart: {
@@ -21,6 +36,7 @@ export default defineConfig({
       noExternal: [/^@supabase\//],
     },
     plugins: [
+      sitemapPlugin,
       // Levert varianten per schermbreedte voor imports met ?w=...&as=srcset
       // (src/data/projects.ts, src/components/ScrollPortfolio.tsx).
       imagetools(),
