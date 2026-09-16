@@ -428,7 +428,7 @@ Bij Nieuwblik helpen we ondernemers om **online zichtbaar** te worden met websit
 
 Wil je als ondernemer ook meer zichtbaarheid? Of ben je benieuwd wat een **professionele website** voor jouw bedrijf kan betekenen?
 
-**[Neem contact op](/contact)** of **[start je project](/start-je-project)**: we denken graag met je mee.
+**[Neem contact op](/contact)** of **[start je project](/contact)**: we denken graag met je mee.
 
 Aan het hele team van VV Madjoe Heren 1: **veel succes dit seizoen!** Wij juichen mee vanuit de zijlijn, en vanaf het shirt. 🏐💪`,
       en: `At Nieuwblik, we believe in the power of **local connection**. That's why we're incredibly proud to be a **shirt sponsor** of **VV Madjoe Men's 1st team** from Enkhuizen. Together with **Enza Zaden**, **Kreeft Autoservice**, and **Toolstra Construction**, we form the sponsor team behind this ambitious volleyball team.
@@ -462,7 +462,7 @@ As entrepreneurs in Enkhuizen, we feel connected to the community. **Local spons
 
 At Nieuwblik, we help entrepreneurs become **visible online** with websites that deliver real results.
 
-**[Get in touch](/contact)** or **[start your project](/start-je-project)**: we'd love to help.
+**[Get in touch](/contact)** or **[start your project](/contact)**: we'd love to help.
 
 To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
     },

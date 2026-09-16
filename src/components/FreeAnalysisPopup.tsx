@@ -8,7 +8,7 @@ import { easings } from "@/lib/motion";
 const DISMISS_KEY = "freeAnalysisPopupDismissed";
 // Pages where offering the popup doesn't make sense: already converting,
 // admin tooling, or the destination the popup itself links to.
-const HIDDEN_ON = ["/gratis-website-analyse", "/contact", "/start-je-project", "/bedankt"];
+const HIDDEN_ON = ["/gratis-website-analyse", "/contact", "/bedankt"];
 
 const FreeAnalysisPopup = () => {
   const location = useLocation();

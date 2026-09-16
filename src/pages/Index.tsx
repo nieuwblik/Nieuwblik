@@ -143,7 +143,7 @@ const Index = () => {
           </p>
 
           <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-            <AnimatedButton to="/start-je-project" size="lg" className="h-14 w-full sm:w-auto">
+            <AnimatedButton to="/contact" size="lg" className="h-14 w-full sm:w-auto">
               Start je project
             </AnimatedButton>
             <AnimatedButton to="/portfolio" size="lg" variant="outline" className="h-14 w-full sm:w-auto">

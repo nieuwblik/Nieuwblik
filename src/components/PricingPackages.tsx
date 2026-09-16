@@ -291,7 +291,7 @@ const PricingPackages = () => {
 
               <motion.div variants={itemVar} style={{ marginTop: 40 }}>
                 <Link
-                  to="/start-je-project"
+                  to="/contact"
                   className={tier.highlighted ? "np-btn-primary" : "np-btn-ghost"}
                   style={{
                     display: "block", textAlign: "center",

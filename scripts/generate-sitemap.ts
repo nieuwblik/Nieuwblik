@@ -1,7 +1,7 @@
 /**
  * Sitemapgenerator met de routedefinities als bron.
  *
- * - Statische routes komen uit src/routeTree.gen.ts (FileRoutesByFullPath). Een
+ * - Statische routes komen uit de routebestanden in src/routes/_public. Een
  *   nieuwe pagina komt dus vanzelf in de sitemap.
  * - Elke dynamische route ($param) heeft hieronder een bron die de echte slugs
  *   levert. Staat er een nieuwe dynamische route in de routeboom zonder bron,
@@ -104,12 +104,30 @@ if (fs.existsSync(sitemapPad)) {
   }
 }
 
-// ── routes uit de routeboom ─────────────────────────────────────────
+// ── routes uit de routebestanden ────────────────────────────────────
+/**
+ * Alle publieke routes, rechtstreeks uit de bestanden in src/routes/_public
+ * (TanStack file-based routing). Bewust niet uit src/routeTree.gen.ts: die wordt
+ * pas tijdens de build ververst en kan dan nog een verwijderde route bevatten.
+ * Vorm gelijk aan de fullPaths van de router: index-routes met slash (/blog/).
+ */
 function routePaden(): string[] {
-  const tree = fs.readFileSync(rel("src/routeTree.gen.ts"), "utf8");
-  const blok = tree.match(/export interface FileRoutesByFullPath \{([\s\S]*?)\n\}/);
-  if (!blok) throw new Error("FileRoutesByFullPath niet gevonden in src/routeTree.gen.ts");
-  return [...blok[1]!.matchAll(/^\s*'([^']+)':/gm)].map((m) => m[1]!);
+  const basis = rel("src/routes/_public");
+  const paden: string[] = [];
+  const loop = (dir: string) => {
+    for (const d of fs.readdirSync(dir, { withFileTypes: true })) {
+      const vol = path.join(dir, d.name);
+      if (d.isDirectory()) loop(vol);
+      else if (/\.tsx$/.test(d.name)) {
+        const segmenten = path.relative(basis, vol).replace(/\.tsx$/, "").split(path.sep).filter((s) => !s.startsWith("_"));
+        const laatste = segmenten.pop()!;
+        const pre = segmenten.length ? `/${segmenten.join("/")}` : "";
+        paden.push(laatste === "index" ? `${pre}/` : `${pre}/${laatste}`);
+      }
+    }
+  };
+  loop(basis);
+  return paden.sort();
 }
 
 /** Routebestand onder src/routes/_public bij een fullPath. */

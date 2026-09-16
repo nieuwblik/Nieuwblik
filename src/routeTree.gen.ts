@@ -22,7 +22,6 @@ import { Route as PublicOverOnsRouteImport } from './routes/_public/over-ons'
 import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
-import { Route as PublicStartJeProjectRouteImport } from './routes/_public/start-je-project'
 import { Route as PublicTaxiWebsiteLatenMakenRouteImport } from './routes/_public/taxi-website-laten-maken'
 import { Route as PublicWebdesignBureauRouteImport } from './routes/_public/webdesign-bureau'
 import { Route as PublicWebsiteLatenMakenRouteImport } from './routes/_public/website-laten-maken'
@@ -104,11 +103,6 @@ const PublicReviewsRoute = PublicReviewsRouteImport.update({
 const PublicSeoEnkhuizenRoute = PublicSeoEnkhuizenRouteImport.update({
   id: '/seo-enkhuizen',
   path: '/seo-enkhuizen',
-  getParentRoute: () => PublicRoute,
-} as any)
-const PublicStartJeProjectRoute = PublicStartJeProjectRouteImport.update({
-  id: '/start-je-project',
-  path: '/start-je-project',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicTaxiWebsiteLatenMakenRoute =
@@ -207,7 +201,6 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
-  '/start-je-project': typeof PublicStartJeProjectRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
@@ -237,7 +230,6 @@ export interface FileRoutesByTo {
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
-  '/start-je-project': typeof PublicStartJeProjectRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
@@ -270,7 +262,6 @@ export interface FileRoutesById {
   '/_public/privacy': typeof PublicPrivacyRoute
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
-  '/_public/start-je-project': typeof PublicStartJeProjectRoute
   '/_public/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/_public/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/_public/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
@@ -304,7 +295,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reviews'
     | '/seo-enkhuizen'
-    | '/start-je-project'
     | '/taxi-website-laten-maken'
     | '/webdesign-bureau'
     | '/website-laten-maken'
@@ -334,7 +324,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reviews'
     | '/seo-enkhuizen'
-    | '/start-je-project'
     | '/taxi-website-laten-maken'
     | '/webdesign-bureau'
     | '/website-laten-maken'
@@ -366,7 +355,6 @@ export interface FileRouteTypes {
     | '/_public/privacy'
     | '/_public/reviews'
     | '/_public/seo-enkhuizen'
-    | '/_public/start-je-project'
     | '/_public/taxi-website-laten-maken'
     | '/_public/webdesign-bureau'
     | '/_public/website-laten-maken'
@@ -483,13 +471,6 @@ declare module '@tanstack/react-router' {
       path: '/seo-enkhuizen'
       fullPath: '/seo-enkhuizen'
       preLoaderRoute: typeof PublicSeoEnkhuizenRouteImport
-      parentRoute: typeof PublicRoute
-    }
-    '/_public/start-je-project': {
-      id: '/_public/start-je-project'
-      path: '/start-je-project'
-      fullPath: '/start-je-project'
-      preLoaderRoute: typeof PublicStartJeProjectRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/taxi-website-laten-maken': {
@@ -619,7 +600,6 @@ interface PublicRouteChildren {
   PublicPrivacyRoute: typeof PublicPrivacyRoute
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
-  PublicStartJeProjectRoute: typeof PublicStartJeProjectRoute
   PublicTaxiWebsiteLatenMakenRoute: typeof PublicTaxiWebsiteLatenMakenRoute
   PublicWebdesignBureauRoute: typeof PublicWebdesignBureauRoute
   PublicWebsiteLatenMakenRoute: typeof PublicWebsiteLatenMakenRoute
@@ -649,7 +629,6 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicPrivacyRoute: PublicPrivacyRoute,
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
-  PublicStartJeProjectRoute: PublicStartJeProjectRoute,
   PublicTaxiWebsiteLatenMakenRoute: PublicTaxiWebsiteLatenMakenRoute,
   PublicWebdesignBureauRoute: PublicWebdesignBureauRoute,
   PublicWebsiteLatenMakenRoute: PublicWebsiteLatenMakenRoute,

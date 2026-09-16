@@ -98,7 +98,7 @@ const ServiceCard = ({
           </CardContent>
 
           <CardFooter>
-            <AnimatedButton to={service.link || "/start-je-project"} className="w-full">
+            <AnimatedButton to={service.link || "/contact"} className="w-full">
               {service.linkText || "Start je project"}
             </AnimatedButton>
           </CardFooter>
@@ -255,7 +255,7 @@ const Services = () => {
             Laten we bespreken hoe onze diensten jou kunnen helpen je bedrijfsdoelen te bereiken.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <AnimatedButton to="/start-je-project" size="lg" variant="white">
+            <AnimatedButton to="/contact" size="lg" variant="white">
               Start vandaag
             </AnimatedButton>
           </motion.div>

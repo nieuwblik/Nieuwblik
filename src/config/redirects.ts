@@ -57,6 +57,10 @@ export const REDIRECTS: Redirect[] = [
   { from: "/cookiebeleid", to: "/cookies", reden: "Zelfde pagina, nieuw pad" },
   { from: "/privacybeleid", to: "/privacy", reden: "Zelfde pagina, nieuw pad" },
 
+  // Dubbele pagina: /start-je-project renderde exact de contactpagina, met de
+  // canonical naar /contact. Gevonden door de verificatie (zelfde titel en description).
+  { from: "/start-je-project", to: "/contact", reden: "Zelfde pagina als /contact; de canonical wees er al naartoe" },
+
   // Oude cases
   { from: "/project-esveld", to: "/portfolio/esveld-installatie", reden: "Zelfde case" },
   { from: "/project-kyodai", to: "/portfolio/kyodai-originals", reden: "Zelfde case" },

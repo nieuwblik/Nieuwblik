@@ -856,7 +856,7 @@ const BlogPost = () => {
                       WhatsApp
                   </AnimatedButton>
 
-                  <AnimatedButton to="/start-je-project" variant="white" className="w-full min-h-[44px] whitespace-nowrap">
+                  <AnimatedButton to="/contact" variant="white" className="w-full min-h-[44px] whitespace-nowrap">
                     Start je project
                   </AnimatedButton>
                 </div>

@@ -20,6 +20,7 @@ source_path,target_url,rule_type
 /grafische-vormgeving,https://nieuwblik.com/diensten,redirect
 /cookiebeleid,https://nieuwblik.com/cookies,redirect
 /privacybeleid,https://nieuwblik.com/privacy,redirect
+/start-je-project,https://nieuwblik.com/contact,redirect
 /project-esveld,https://nieuwblik.com/portfolio/esveld-installatie,redirect
 /project-kyodai,https://nieuwblik.com/portfolio/kyodai-originals,redirect
 /project-rrs,https://nieuwblik.com/portfolio/rrs-royal,redirect

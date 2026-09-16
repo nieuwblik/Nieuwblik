@@ -10,7 +10,7 @@ Nieuwblik combineert strak design, sterke teksten en moderne technologie. We wer
 - [Diensten](/diensten): Overzicht van alle diensten, van website tot SEO.
 - [Website op maat](/diensten/website-op-maat): Maatwerk websites voor MKB.
 - [Webshops](/diensten/webshops): Webshops met Shopify en Stripe.
-- [E-commerce](/diensten/ecommerce): E-commerce oplossingen en strategie.
+- [E-commerce](/diensten/e-commerce): E-commerce oplossingen en strategie.
 - [Portfolio](/portfolio): Recente projecten en cases.
 - [Over ons](/over-ons): Verhaal en team achter Nieuwblik.
 - [Reviews](/reviews): Wat klanten zeggen over onze samenwerking.
@@ -19,7 +19,6 @@ Nieuwblik combineert strak design, sterke teksten en moderne technologie. We wer
 - [Toegankelijke website en de European Accessibility Act](/blog/toegankelijke-website-european-accessibility-act): Voor wie de EAA geldt, de zes meest voorkomende fouten en hoe je je site zelf checkt.
 - [Werkgebied](/werkgebied): Steden en regio's waar wij actief zijn.
 - [Contact](/contact): Plan een gratis kennismaking.
-- [Start je project](/start-je-project): Direct een project aanvragen.
 
 ## Optional
 

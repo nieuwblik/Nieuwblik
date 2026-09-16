@@ -203,7 +203,7 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5, ease: easings.easeOutExpo }}
               >
-                <AnimatedButton to="/start-je-project" size="lg">
+                <AnimatedButton to="/contact" size="lg">
                   Samenwerken
                 </AnimatedButton>
                 <AnimatedButton to="/portfolio" size="lg" variant="outline">
@@ -292,7 +292,7 @@ const About = () => {
               </AnimatedText>
               <AnimatedSection delay={0.25}>
                 <div className="flex flex-row gap-4 items-center justify-center lg:justify-start">
-                  <AnimatedButton to="/start-je-project" size="lg">
+                  <AnimatedButton to="/contact" size="lg">
                     Kennismaken
                   </AnimatedButton>
                   <AnimatedButton to="/contact" size="lg" variant="outline">
@@ -404,7 +404,7 @@ const About = () => {
             We horen graag jouw verhaal. Een eerste gesprek is altijd gratis en vrijblijvend.
           </AnimatedText>
           <AnimatedSection delay={0.2}>
-            <AnimatedButton to="/start-je-project" size="lg" variant="white">
+            <AnimatedButton to="/contact" size="lg" variant="white">
               Start je project
             </AnimatedButton>
           </AnimatedSection>
