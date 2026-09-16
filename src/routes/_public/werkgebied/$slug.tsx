@@ -2,20 +2,20 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import WerkgebiedDetail from "@/pages/WerkgebiedDetail";
 import NotFound from "@/pages/NotFound";
-import { getRegionBySlug } from "@/data/regions";
+import { getWerkgebiedRegionBySlug } from "@/data/regions";
 import { buildHead } from "@/lib/seo";
 import { companyInfo } from "@/config/company";
 
 export const Route = createFileRoute("/_public/werkgebied/$slug")({
   // Onbekende slug moet een echte HTTP 404 geven in plaats van 200.
   loader: ({ params }) => {
-    if (!getRegionBySlug(params.slug)) {
+    if (!getWerkgebiedRegionBySlug(params.slug)) {
       throw notFound();
     }
     return null;
   },
   head: ({ params }) => {
-    const region = getRegionBySlug(params.slug);
+    const region = getWerkgebiedRegionBySlug(params.slug);
     if (!region) {
       return buildHead({
         title: "Regio niet gevonden | Nieuwblik",

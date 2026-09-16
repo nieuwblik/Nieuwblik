@@ -184,7 +184,7 @@ const Werkgebied = () => {
                 >
                   {majorRegions.map((region) => (
                     <motion.div key={region.id} variants={itemVariants}>
-                      <Link to={`/werkgebied/${region.slug}`}>
+                      <Link to={`/website-laten-maken-${region.slug}`}>
                         <Card className="group hover:shadow-lg transition-all duration-300 hover:border-accent/50 h-full bg-background">
                           <CardContent className="p-4 sm:p-5">
                             <div className="flex flex-col items-start gap-2">

@@ -491,6 +491,15 @@ export const regions: Region[] = [
 ];
 
 // Helper functions
+
+/**
+ * Regio's met een eigen /werkgebied-pagina: alleen de lokale plaatsen. De grote
+ * steden staan hier nog wel in (het werkgebied-overzicht toont ze), maar hun
+ * pagina is /website-laten-maken-{stad}; /werkgebied/{stad} 301't daarheen.
+ */
+export const getWerkgebiedRegionBySlug = (slug: string): Region | undefined =>
+  regions.find((region) => region.slug === slug && region.type === 'local');
+
 export const getRegionBySlug = (slug: string): Region | undefined => {
   console.log('getRegionBySlug called with slug:', slug);
   console.log('Total regions:', regions.length);

@@ -2,6 +2,8 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { findRedirect } from "./config/redirects";
+import { SITE_URL } from "./config/site";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -46,6 +48,19 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Permanente redirects vóór de router: zo krijgt een oud of opgeheven pad
+    // een echte 301 in plaats van een gerenderde pagina.
+    if (request.method === "GET" || request.method === "HEAD") {
+      const url = new URL(request.url);
+      const doel = findRedirect(url.pathname);
+      if (doel) {
+        return new Response(null, {
+          status: 301,
+          headers: { location: `${SITE_URL}${doel}${url.search}` },
+        });
+      }
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

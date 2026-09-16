@@ -14,7 +14,7 @@ import {
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { getRegionBySlug, regions } from "@/data/regions";
+import { getWerkgebiedRegionBySlug, regions } from "@/data/regions";
 import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
@@ -36,7 +36,7 @@ const WEST_FRIESLAND_KERNEN = [
 const WerkgebiedDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const shouldReduceMotion = useReducedMotion();
-  const region = slug ? getRegionBySlug(slug) : undefined;
+  const region = slug ? getWerkgebiedRegionBySlug(slug) : undefined;
 
   if (!region) {
     return (
