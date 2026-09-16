@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "generate-redirects": "npx tsx scripts/generate-redirects-csv.ts",
-    "generate-landing-data": "npx tsx scripts/generate-landing-data.mjs"
+    "generate-landing-data": "npx tsx scripts/generate-landing-data.mjs",
+    "seo:verify": "node scripts/seo-verify.mjs http://localhost:4310",
+    "seo:verify-live": "node scripts/seo-verify-live.mjs https://nieuwblik.com"
   },
   "overrides": {
     "rolldown": "1.2.1"
