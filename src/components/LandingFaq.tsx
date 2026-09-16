@@ -10,17 +10,11 @@ interface LandingFaqProps {
   items: FaqItem[];
 }
 
+/**
+ * FAQ-sectie. De FAQPage-structured data zit in de @graph van de pagina (via
+ * SEOHead), niet hier: anders stond hij dubbel.
+ */
 const LandingFaq = ({ h2, items }: LandingFaqProps) => {
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((it) => ({
-      "@type": "Question",
-      name: it.q,
-      acceptedAnswer: { "@type": "Answer", text: it.a },
-    })),
-  };
-
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6">
@@ -29,7 +23,7 @@ const LandingFaq = ({ h2, items }: LandingFaqProps) => {
           <Accordion type="single" collapsible className="w-full">
             {items.map((it, idx) => (
               <AccordionItem key={idx} value={`item-${idx}`}>
-                <AccordionTrigger className="text-left text-base md:text-lg font-semibold">
+                <AccordionTrigger data-faq-vraag="" className="text-left text-base md:text-lg font-semibold">
                   {it.q}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed">
@@ -40,7 +34,6 @@ const LandingFaq = ({ h2, items }: LandingFaqProps) => {
           </Accordion>
         </div>
       </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     </section>
   );
 };

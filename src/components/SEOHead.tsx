@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "@/lib/router-compat";
-import { companyInfo, organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/config/company";
-
-interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
+import { companyInfo } from "@/config/company";
+import { buildGraph, type BreadcrumbItem } from "@/lib/structured-data";
 
 interface SEOHeadProps {
   title: string;
@@ -20,7 +16,9 @@ interface SEOHeadProps {
   articleModifiedTime?: string;
   articleAuthor?: string;
   noIndex?: boolean;
+  /** @deprecated Geen effect meer: elke indexeerbare pagina krijgt de site-entiteiten één keer in de @graph. */
   includeOrganizationSchema?: boolean;
+  /** @deprecated Geen effect meer: ProfessionalService zit altijd in de @graph. */
   includeLocalBusinessSchema?: boolean;
 }
 
@@ -37,8 +35,6 @@ const SEOHead = ({
   articleModifiedTime,
   articleAuthor,
   noIndex = false,
-  includeOrganizationSchema = true,
-  includeLocalBusinessSchema = false,
 }: SEOHeadProps) => {
   const location = useLocation();
   
@@ -80,8 +76,6 @@ const SEOHead = ({
     updateMetaTag('og:title', title, true);
     updateMetaTag('og:description', description, true);
     updateMetaTag('og:image', ogImage, true);
-    updateMetaTag('og:image:width', '1200', true);
-    updateMetaTag('og:image:height', '630', true);
     updateMetaTag('og:image:alt', title, true);
     updateMetaTag('og:type', ogType, true);
     updateMetaTag('og:site_name', companyInfo.name, true);
@@ -160,58 +154,32 @@ const SEOHead = ({
     noIndex,
   ]);
 
-  // JSON-LD wordt als JSX gerenderd (dus ook server-side in de HTML), niet
-  // meer via useEffect in de <head> geïnjecteerd. Zo zien crawlers de
-  // structured data direct in de server-response.
-  const organizationGraph = {
-    "@context": "https://schema.org",
-    "@graph": [organizationJsonLd, websiteJsonLd],
-  };
+  // Eén JSON-LD-blok per pagina, als JSX gerenderd en dus server-side in de
+  // HTML. De site-entiteiten, de broodkruimels en de pagina-data zitten samen
+  // in één @graph (zie src/lib/structured-data.ts). Een noindex-pagina krijgt
+  // geen structured data.
+  if (noIndex) return null;
 
-  const breadcrumbData = breadcrumbs && breadcrumbs.length > 0
-    ? {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": breadcrumbs.map((item, index) => ({
-          "@type": "ListItem",
-          "position": index + 1,
-          "name": item.name,
-          "item": item.url,
-        })),
-      }
-    : null;
+  const isHome = location.pathname === "/";
+  const paginaNaam = title.split(/ \| | - /)[0]?.trim() || title;
+  const kruimels: BreadcrumbItem[] =
+    breadcrumbs && breadcrumbs.length > 0
+      ? breadcrumbs
+      : isHome
+        ? [{ name: "Home", url: `${companyInfo.url}/` }]
+        : [
+            { name: "Home", url: `${companyInfo.url}/` },
+            { name: paginaNaam, url: resolvedCanonicalUrl },
+          ];
+
+  const graph = buildGraph({ breadcrumbs: kruimels, pageData: structuredData });
 
   return (
-    <>
-      {includeOrganizationSchema && (
-        <script
-          type="application/ld+json"
-          id="organization-data"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationGraph) }}
-        />
-      )}
-      {includeLocalBusinessSchema && (
-        <script
-          type="application/ld+json"
-          id="localbusiness-data"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-        />
-      )}
-      {structuredData && (
-        <script
-          type="application/ld+json"
-          id="structured-data"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      )}
-      {breadcrumbData && (
-        <script
-          type="application/ld+json"
-          id="breadcrumb-data"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
-        />
-      )}
-    </>
+    <script
+      type="application/ld+json"
+      id="structured-data"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
   );
 };
 

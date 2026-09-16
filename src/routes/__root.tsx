@@ -1,4 +1,3 @@
-import { SITE_URL } from "@/config/site";
 import type { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -56,71 +55,6 @@ const FONT_SWAP_SCRIPT = `
 })();
 `;
 
-const ORGANIZATION_JSONLD = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Nieuwblik",
-  url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
-  description:
-    "Professioneel webdesign bureau in Enkhuizen. Wij bouwen snelle, SEO-geoptimaliseerde websites die converteren.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "De Trompet 18H",
-    addressLocality: "Enkhuizen",
-    postalCode: "1601 MK",
-    addressCountry: "NL",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+31646253607",
-    contactType: "customer service",
-    availableLanguage: ["Dutch", "English"],
-  },
-  sameAs: [
-    "https://www.linkedin.com/in/justin-slok-b8a3011b2/",
-    "https://x.com/justin_slok",
-  ],
-});
-
-const WEBSITE_JSONLD = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Nieuwblik",
-  url: SITE_URL,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE_URL}/blog?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
-});
-
-const PROFESSIONAL_SERVICE_JSONLD = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Nieuwblik",
-  image: `${SITE_URL}/logo.png`,
-  url: SITE_URL,
-  telephone: "+31646253607",
-  email: "justin@nieuwblik.com",
-  priceRange: "€€",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "De Trompet 18H",
-    addressLocality: "Enkhuizen",
-    postalCode: "1601 MK",
-    addressCountry: "NL",
-  },
-  geo: { "@type": "GeoCoordinates", latitude: 52.7034, longitude: 5.2839 },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "09:00",
-    closes: "17:00",
-  },
-  areaServed: { "@type": "Country", name: "Netherlands" },
-  serviceType: ["Webdesign", "SEO", "E-commerce", "Digitale Marketing"],
-});
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -164,9 +98,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       { children: GA_SCRIPT },
       { children: FONT_SWAP_SCRIPT },
-      { type: "application/ld+json", children: ORGANIZATION_JSONLD },
-      { type: "application/ld+json", children: WEBSITE_JSONLD },
-      { type: "application/ld+json", children: PROFESSIONAL_SERVICE_JSONLD },
     ],
   }),
   shellComponent: RootShell,

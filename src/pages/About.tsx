@@ -1,3 +1,5 @@
+import { faqPage } from "@/lib/structured-data";
+import { algemeneFaqParen } from "@/data/algemeneFaq";
 import { SITE_URL } from "@/config/site";
 import { lazy, Suspense, useRef } from "react";
 import Footer from "@/components/Footer";
@@ -139,7 +141,7 @@ const About = () => {
         description="Maak kennis met Nieuwblik, jouw webdesign bureau uit Enkhuizen. Passie voor websites, webshops en SEO in West-Friesland. Persoonlijke aanpak, meetbaar resultaat."
         keywords="over ons, webdesign bureau Enkhuizen, digitale agency West-Friesland, nieuwblik team, website laten maken Enkhuizen"
         canonicalUrl={`${SITE_URL}/over-ons`}
-        structuredData={structuredData}
+        structuredData={[structuredData, faqPage(algemeneFaqParen())]}
         breadcrumbs={[
           { name: "Home", url: SITE_URL },
           { name: "Over ons", url: `${SITE_URL}/over-ons` },

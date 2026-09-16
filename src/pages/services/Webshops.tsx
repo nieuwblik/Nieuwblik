@@ -1,3 +1,4 @@
+import { faqPage } from "@/lib/structured-data";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -134,7 +135,7 @@ const Webshops = () => {
         description="Webshop laten maken in Enkhuizen? Professionele webshops met iDEAL, Klarna en voorraadbeheer. Webshop bureau West-Friesland. Vanaf €2.990."
         keywords="webshop laten maken Enkhuizen, e-commerce West-Friesland, online winkel, webshop bouwen, WooCommerce, Shopify, webshop Enkhuizen"
         canonicalUrl={`${SITE_URL}/diensten/webshops`}
-        structuredData={structuredData}
+        structuredData={[structuredData, faqPage(faqs.map((f) => ({ q: f.question, a: f.answer })))]}
         breadcrumbs={[
         { name: "Home", url: SITE_URL },
         { name: "Diensten", url: `${SITE_URL}/diensten` },
@@ -556,7 +557,7 @@ const Webshops = () => {
               }}
               transition={{ duration: 0.3, ease: easings.easeOutExpo }}>
               
-                <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
+                <h3 data-faq-vraag="" className="text-lg font-bold mb-2">{faq.question}</h3>
                 <p className="text-muted-foreground">{faq.answer}</p>
               </motion.div>
             )}

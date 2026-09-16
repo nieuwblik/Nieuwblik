@@ -1,3 +1,4 @@
+import { faqPage } from "@/lib/structured-data";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -129,7 +130,7 @@ const Ecommerce = () => {
         description="Professionele Amazon & Bol.com listings, verpakkingsdesign en e-books. Verhoog je online zichtbaarheid en conversie. E-commerce specialist West-Friesland."
         keywords="e-commerce Enkhuizen, Amazon listings, Bol.com verkopen, product fotografie, verpakkingsdesign, conversie optimalisatie West-Friesland"
         canonicalUrl={`${SITE_URL}/diensten/e-commerce`}
-        structuredData={structuredData}
+        structuredData={[structuredData, faqPage(faqs.map((f) => ({ q: f.question, a: f.answer })))]}
         breadcrumbs={[
           { name: "Home", url: SITE_URL },
           { name: "Diensten", url: `${SITE_URL}/diensten` },
@@ -579,7 +580,7 @@ const Ecommerce = () => {
                 }}
                 transition={{ duration: 0.3, ease: easings.easeOutExpo }}
               >
-                <h3 className="text-lg font-bold mb-2">{faq.question}</h3>
+                <h3 data-faq-vraag="" className="text-lg font-bold mb-2">{faq.question}</h3>
                 <p className="text-muted-foreground">{faq.answer}</p>
               </motion.div>
             ))}

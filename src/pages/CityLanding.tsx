@@ -1,3 +1,4 @@
+import { faqPage } from "@/lib/structured-data";
 import { Link } from "@/lib/router-compat";
 import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
@@ -51,7 +52,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
         title={seoTitle}
         description={seoDescription}
         canonicalUrl={url}
-        structuredData={webPageJsonLd}
+        structuredData={[webPageJsonLd, faqPage(city.faq.items)]}
         includeLocalBusinessSchema={true}
       />
 
