@@ -139,6 +139,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
       },
       { name: "googlebot", content: "index, follow" },
+      { name: "google-site-verification", content: "rEXgT_nkNkrPYHa_iXNnG8zHse4wBfAq2BgJJ81JKMM" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Nieuwblik" },
       { property: "og:locale", content: "nl_NL" },
