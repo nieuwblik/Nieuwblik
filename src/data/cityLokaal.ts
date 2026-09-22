@@ -228,6 +228,171 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
     ],
   },
+
+  groningen: {
+    title: `Website laten maken Groningen | Vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website op maat voor ondernemers in Groningen. Vanaf €${PRIJZEN.starter}, zonder verborgen kosten en binnen enkele weken live. Vraag een offerte aan.`,
+    h1: "Website laten maken in Groningen",
+    lokaal: {
+      h2: "Ondernemen in Groningen: een jonge stad met een groot achterland",
+      alineas: [
+        "Groningen is de grote stad van het noorden. De Rijksuniversiteit en de Hanzehogeschool brengen er tienduizenden studenten naartoe, en dat maakt de stad merkbaar jong. Verkoop je aan consumenten, dan heb je te maken met een publiek dat vrijwel alles op de telefoon regelt, aanbieders in een paar tellen vergelijkt en zwaar leunt op wat anderen over je schrijven. Een trage site of een verouderde openingstijd kost je die klant meteen.",
+        "Tegelijk is Groningen het punt waar mensen uit een groot gebied naartoe komen: voor specialistische zorg in het UMCG, voor onderwijs, voor winkels die je in de dorpen niet vindt. Bedrijven in de stad bedienen daardoor vaak een veel grotere markt dan de stad zelf, en dat mag je website laten zien.",
+        "Een derde laag is techniek en energie. De provincie is lang door de energiesector gekleurd en de overgang naar duurzame energie is er nu een groot thema. Bedrijven in installatie, isolatie en bouw merken dat aan het aantal aanvragen — en aan het aantal aanvragen dat niet past. Een site kan dat filteren, door vooraf duidelijk te maken wat je wel en niet doet.",
+        "Werk je vanuit Groningen ook elders in het noorden, dan sluiten onze pagina's voor [Leeuwarden](/website-laten-maken-leeuwarden) en [Emmen](/website-laten-maken-emmen) daarop aan. Wij zitten zelf in Enkhuizen en werken voor ondernemers door heel Nederland grotendeels op afstand.",
+      ],
+    },
+    faq: [
+      {
+        q: "Ons publiek is jong en kiest op basis van reviews. Hoe verwerk je dat in een website?",
+        a: "Door echte reviews op de site te zetten, met naam en context, en door te verwijzen naar je Google Bedrijfsprofiel waar mensen zelf verder kijken. Sterren in de zoekresultaten afdwingen met je eigen reviews werkt niet meer; wat wel werkt is snel laden, eerlijke prijzen tonen en het aantal stappen tot contact zo klein mogelijk houden.",
+      },
+      {
+        q: "We beginnen klein. Kunnen we later uitbreiden zonder opnieuw te beginnen?",
+        a: "Ja, daar richten we het vanaf het begin op in. Je start met de pagina's die je nu nodig hebt en breidt later uit met extra diensten, een blog of een webshop. De opbouw en de techniek blijven hetzelfde, dus je betaalt niet twee keer voor het fundament.",
+      },
+      {
+        q: "Wij werken in installatie en verduurzaming en krijgen veel aanvragen die niet passen. Kan de site daarop filteren?",
+        a: "Ja, en dat scheelt vaak meer tijd dan een extra offerte oplevert. Benoem expliciet wat je wel en niet doet, in welk gebied je werkt en vanaf welke omvang een project interessant is. Een aanvraagformulier met drie sturende vragen houdt de rest er grotendeels uit.",
+      },
+      {
+        q: "Een deel van onze klanten zit in de Randstad. Werkt het tegen ons dat we in het noorden zitten?",
+        a: "Alleen als je site het onduidelijk laat. Zet er dan expliciet bij dat je landelijk levert of werkt, hoe dat praktisch gaat en met welke levertijd. Wij ondervinden hetzelfde vanuit Enkhuizen: klanten vinden afstand vooral vervelend als ze niet weten hoe het contact verloopt.",
+      },
+    ],
+  },
+
+  venlo: {
+    title: `Website laten maken Venlo | Op maat vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website op maat voor ondernemers in Venlo en de grensregio. Vanaf €${PRIJZEN.starter}, geen verborgen kosten en binnen enkele weken live.`,
+    h1: "Website laten maken in Venlo",
+    lokaal: {
+      h2: "Ondernemen in Venlo: een stad aan de Maas, met Duitsland naast de deur",
+      alineas: [
+        "Venlo ligt aan de Maas, direct tegen de Duitse grens. Voor veel bedrijven hier houdt de markt niet op bij die grens: Duitse klanten en leveranciers zijn vaak dichterbij dan de Randstad. Dat maakt een aantal keuzes op je website anders dan in de rest van het land — van de taal tot de manier waarop je je telefoonnummer en adres noteert.",
+        "De regio is daarnaast een knooppunt voor logistiek, tuinbouw en versproducten; Greenport Venlo is daar de bekendste naam van, en in 2012 was de Floriade er te gast. In die ketens gaat het snel en telefonisch: prijzen wisselen, volumes wisselen en beslissingen vallen in een kort gesprek. Een website hoeft daar niet tegenin te gaan, maar moet wel bewijzen dat je een serieuze partij bent voordat iemand belt.",
+        "Voor ondernemers die aan consumenten verkopen speelt hetzelfde grensvoordeel: bezoekers uit Noordrijn-Westfalen komen met andere verwachtingen over openingstijden, betalen en bezorgen. Een Duitse versie van je site kan dan veel opleveren. Bij ons is dat een optionele uitbreiding op je pakket, met correcte taalmarkering zodat Google per land de juiste versie laat zien.",
+        "Werk je vanuit Venlo ook verder in Limburg of Brabant, dan sluiten onze pagina's voor [Maastricht](/website-laten-maken-maastricht) en [Eindhoven](/website-laten-maken-eindhoven) daarop aan. Wij zitten zelf in Enkhuizen en werken voor ondernemers door heel Nederland grotendeels op afstand.",
+      ],
+    },
+    faq: [
+      {
+        q: "Een deel van onze klanten is Duits. Moet onze site Duitstalig zijn, en worden we dan ook in Duitsland gevonden?",
+        a: "Een Duitse versie helpt, maar vertaal niet zomaar je Nederlandse teksten: Duitse klanten zoeken op andere woorden. We zetten de talen naast elkaar met hreflang-markering, zodat Google per land de juiste pagina toont. Reken wel op een langere aanloop voordat je in Duitsland meedoet, en vul ook je Google Bedrijfsprofiel in het Duits in.",
+      },
+      {
+        q: "We hebben een webshop en willen ook aan Duitse klanten leveren. Waar moeten we op letten?",
+        a: "Vooral op betalen en bezorgen. Duitse klanten verwachten andere betaalmethodes dan iDEAL, en willen verzendkosten, levertijd en retourvoorwaarden vooraf zien. Laat je juridische teksten voor de Duitse markt door een specialist controleren; dat is geen onderdeel van het bouwen van de site.",
+      },
+      {
+        q: "Onze prijzen wisselen per dag. Zetten we die dan wel op de site?",
+        a: "Geen dagprijzen, wel richting. Een bandbreedte, een rekenvoorbeeld of een minimumafname geeft bezoekers genoeg houvast om te bellen, en houdt de aanvragen weg die toch niet passen. De actuele prijs houd je waar hij hoort: in het gesprek of in je offerte.",
+      },
+      {
+        q: "Onze klanten bestellen telefonisch bij een vaste contactpersoon. Wat voegt een website dan nog toe?",
+        a: "Die website wordt gelezen vóór het eerste telefoontje, door de klant die je nog niet hebt. Laat zien wat je levert, in welk gebied, met welke capaciteit, en zet de namen en nummers van je contactpersonen erbij. Voor bestaande klanten is het handig om documenten, specificaties of openingstijden op één vaste plek te hebben.",
+      },
+    ],
+  },
+
+  amsterdam: {
+    title: `Website laten maken Amsterdam | Vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website op maat voor ondernemers in Amsterdam. Vanaf €${PRIJZEN.starter}, zonder bureautarieven en binnen enkele weken live. Vraag een offerte aan.`,
+    h1: "Website laten maken in Amsterdam",
+    lokaal: {
+      h2: "Ondernemen in Amsterdam: het drukste speelveld van Nederland",
+      alineas: [
+        "Amsterdam is de drukste markt van het land. In vrijwel elke branche zitten hier tientallen aanbieders, en de bezoeker die jouw site opent heeft er meestal al een paar bekeken. Opvallen doe je daarom niet met een mooiere homepage, maar door sneller duidelijk te zijn: wat je doet, voor wie, wat het ongeveer kost en wat de eerste stap is. Wie dat op de eerste helft van het scherm zet, wint van wie dat achter een contactformulier verstopt.",
+        "Een groot deel van de stad leeft van bezoekers. Horeca, winkels, rondleidingen en dienstverleners in het centrum krijgen publiek dat van buiten de stad of uit het buitenland komt en dat onderweg op zijn telefoon zoekt. Route, openingstijden, reserveren en prijs moeten dan binnen twee tikken te vinden zijn, en een Engelstalige versie van je belangrijkste pagina's kan het verschil maken. Dat laatste is bij ons een optionele uitbreiding.",
+        "Daarnaast lopen de tarieven voor een website hier flink uiteen. Wij bouwen vanuit Enkhuizen, met lage overhead en één vast aanspreekpunt, en dat scheelt in de prijs zonder dat je inlevert op wat er wordt opgeleverd. Wat je krijgt staat op onze pagina over [website laten maken](/website-laten-maken) en in de pakketten die daarbij horen.",
+        "Werk je vanuit Amsterdam ook in de regio daaromheen, dan sluiten onze pagina's voor [Haarlem](/website-laten-maken-haarlem), [Zaanstad](/website-laten-maken-zaanstad) en [Almere](/website-laten-maken-almere) daarop aan. Wij werken voor ondernemers door heel Nederland grotendeels op afstand.",
+      ],
+    },
+    faq: [
+      {
+        q: "Waarom zouden we een bureau buiten Amsterdam kiezen?",
+        a: "Om wat je ervoor betaalt en met wie je te maken hebt. Wij werken vanuit Enkhuizen met lage overhead, en je hebt van begin tot eind hetzelfde aanspreekpunt in plaats van een accountmanager en een wisselende uitvoerder. Kennismaken gaat via videobellen, en een afspraak in de stad kan in overleg.",
+      },
+      {
+        q: "Onze gasten komen voor een groot deel van buiten de stad of uit het buitenland. Wat betekent dat voor de site?",
+        a: "Dat alles wat onderweg nodig is bovenaan hoort: adres, route vanaf het openbaar vervoer, openingstijden, reserveren of bestellen. Zet daar echte foto's bij in plaats van stockbeelden. Een Engelse versie van je belangrijkste pagina's is een optionele uitbreiding die voor bezoekende klanten vaak snel loont.",
+      },
+      {
+        q: "Wij hebben meerdere vestigingen in de stad. Krijgt elke vestiging een eigen pagina?",
+        a: "Ja, maar alleen als elke pagina echt eigen informatie heeft: adres, openingstijden, team, parkeren en route. Drie pagina's met dezelfde tekst en een ander adres helpen je niet. Maak daarnaast per vestiging een eigen Google Bedrijfsprofiel, want dat is wat mensen in de buurt te zien krijgen.",
+      },
+      {
+        q: "Onze site is ons portfolio: we leven van beeld. Waar moeten we dan op letten?",
+        a: "Op de balans tussen kwaliteit en snelheid. We leveren beelden in moderne formaten en op de juiste afmetingen aan, zodat werk scherp blijft zonder dat de pagina traag wordt. Verder: een duidelijke volgorde, korte bijschriften met context, alt-teksten voor toegankelijkheid en een contactmogelijkheid die overal binnen bereik is.",
+      },
+    ],
+  },
+
+  rotterdam: {
+    title: `Website laten maken Rotterdam | Vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website op maat voor ondernemers in Rotterdam. Vanaf €${PRIJZEN.starter}, geen verborgen kosten en binnen enkele weken live. Vraag vrijblijvend een offerte aan.`,
+    h1: "Website laten maken in Rotterdam",
+    lokaal: {
+      h2: "Ondernemen in Rotterdam: haven, techniek en een stad die zichzelf opnieuw bouwde",
+      alineas: [
+        "Rotterdam heeft de grootste haven van Europa, en dat werkt door in vrijwel de hele stad. Logistiek, maakindustrie, offshore, installatietechniek en de zakelijke dienstverlening daaromheen vormen samen een markt waarin bedrijven vooral aan andere bedrijven verkopen. Je website wordt daar gelezen door iemand die een leverancier zoekt en snel wil vaststellen of je aan de eisen voldoet.",
+        "Die eisen zijn in deze hoek concreter dan elders. Certificeringen, verzekeringen, capaciteit, veiligheid en bereikbaarheid buiten kantooruren zijn vaak doorslaggevender dan de vormgeving. Dat betekent niet dat je site er slordig uit mag zien, maar wel dat het bewijs vindbaar moet zijn in plaats van weggestopt in een pdf op de contactpagina.",
+        "De binnenstad is na het bombardement van 1940 opnieuw opgebouwd, en dat zie je nog steeds: veel moderne architectuur en een stad die snel verandert. Voor ondernemers die aan bewoners verkopen betekent het vooral een gevarieerd publiek met uiteenlopende verwachtingen. Schrijf dan in gewone taal, zonder vakjargon, en laat zien voor wie je werkt.",
+        "Werk je vanuit Rotterdam ook in de rest van Zuid-Holland, dan sluiten onze pagina's voor [Den Haag](/website-laten-maken-den-haag), [Dordrecht](/website-laten-maken-dordrecht) en [Delft](/website-laten-maken-delft) daarop aan. Wij zitten zelf in Enkhuizen en werken voor ondernemers door heel Nederland grotendeels op afstand.",
+      ],
+    },
+    faq: [
+      {
+        q: "Voor opdrachten in de haven moeten we certificeringen kunnen aantonen. Waar zetten we die op de site?",
+        a: "Op een eigen pagina die vanuit het menu te bereiken is, met per certificaat het nummer, de geldigheid en een downloadbaar bewijs. Noem ze daarnaast kort op de pagina van de dienst waar ze bij horen. Een inkoper die ze niet binnen twee klikken vindt, gaat verder naar de volgende leverancier.",
+      },
+      {
+        q: "Wij hebben een storingsdienst buiten kantooruren. Hoe maken we dat duidelijk?",
+        a: "Zet het storingsnummer vast in beeld, niet alleen op de contactpagina, en wees expliciet over de tijden en over wat er onder spoed valt. Een apart blok met 'storing buiten kantooruren' met een directe belknop voorkomt dat mensen je algemene nummer proberen en niets horen.",
+      },
+      {
+        q: "Wij werken voor havenbedrijven én voor particulieren. Moeten dat twee websites worden?",
+        a: "Meestal niet. Eén site met twee duidelijke ingangen werkt beter en is goedkoper te onderhouden: je splitst de navigatie meteen in zakelijk en particulier en houdt de teksten, voorbeelden en prijsinformatie per ingang gescheiden. Twee losse sites betekent twee keer onderhoud en twee keer opbouwen in Google.",
+      },
+      {
+        q: "Onze klanten vergelijken ons met grote internationale leveranciers. Hoe blijven we geloofwaardig?",
+        a: "Door concreet te zijn over wat je zelf doet en wat je uitbesteedt, hoe snel je kunt schakelen en wie de klant spreekt. Uitgewerkte opdrachten met cijfers erbij overtuigen sterker dan een pagina over jarenlange ervaring. Wees ook duidelijk over wat je niet doet; dat wekt meer vertrouwen dan alles beloven.",
+      },
+    ],
+  },
+
+  dordrecht: {
+    title: `Website laten maken Dordrecht | Vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website op maat voor ondernemers in Dordrecht. Vanaf €${PRIJZEN.starter}, geen verborgen kosten en binnen enkele weken live. Vraag een vrijblijvende offerte aan.`,
+    h1: "Website laten maken in Dordrecht",
+    lokaal: {
+      h2: "Ondernemen in Dordrecht: oudste stad van Holland, omringd door water",
+      alineas: [
+        "Dordrecht is de oudste stad van Holland en ligt op een eiland, op het punt waar drie rivieren samenkomen. Dat water heeft de stad gemaakt: handel, scheepvaart en een maritieme maakindustrie die in de hele Drechtsteden doorloopt. Wie daarin werkt, levert vaak onderdelen of diensten die uiteindelijk ergens anders ter wereld terechtkomen, en dat stelt andere eisen aan een website dan een zaak die het van de buurt moet hebben.",
+        "Tegelijk heeft Dordrecht een van de best bewaarde historische binnensteden van het land, met honderden monumenten, winkels en horeca in oude panden. Voor die ondernemers draait het om bezoekers die vooraf op hun telefoon kijken: waar zit je, ben je open, kun je er terecht met een kinderwagen of een rollator. Juist in oude panden zijn dat geen bijzaken.",
+        "En dan is er de schaal van de stad zelf. Dordrecht is groot genoeg voor een eigen markt en klein genoeg dat veel ondernemers elkaar kennen. Veel bedrijven hier leven van mond-tot-mondreclame. Een website vervangt dat niet, maar vangt wel de mensen op die je naam hebben gehoord en daarna gaan zoeken — en dat zijn er meer dan je denkt.",
+        "Werk je vanuit Dordrecht ook in de omliggende regio, dan sluiten onze pagina's voor [Rotterdam](/website-laten-maken-rotterdam) en [Breda](/website-laten-maken-breda) daarop aan. Wij zitten zelf in Enkhuizen en werken voor ondernemers door heel Nederland grotendeels op afstand.",
+      ],
+    },
+    faq: [
+      {
+        q: "Onze onderdelen zitten in schepen die overal ter wereld varen. Hoe regelen we service en onderdelen via de site?",
+        a: "Met een duidelijke serviceroute: een pagina per type product met typenummers, documentatie om te downloaden en een formulier waarin de klant het serienummer kwijt kan. Zet daarbij wie hij belt en binnen welke tijd je reageert. Dat scheelt veel heen-en-weer mailen over welk onderdeel het precies is.",
+      },
+      {
+        q: "Wij verkopen via werven en dealers, niet rechtstreeks. Wat moet er dan op onze site?",
+        a: "Twee dingen tegelijk: de eindklant overtuigen dat hij naar jouw merk moet vragen, en je afnemers bedienen. Dat betekent duidelijke productinformatie voor iedereen, een overzicht van waar je product te krijgen is, en een afgeschermd of apart deel met documentatie en prijzen voor dealers.",
+      },
+      {
+        q: "Wij zitten in een monumentaal pand in de binnenstad. Waar letten we op voor onze bezoekers?",
+        a: "Op de praktische vragen die mensen vooraf stellen: waar parkeer je, hoe kom je binnen, is er een drempel of trap, is er een toilet dat bereikbaar is. Zet dat gewoon op je contactpagina met een foto van de ingang. Bezoekers met een kinderwagen of een beperking zoeken daar actief naar en kiezen de zaak die het vermeldt.",
+      },
+      {
+        q: "We leven vooral van mond-tot-mondreclame. Wat voegt een website daar nog aan toe?",
+        a: "Die website is precies wat er ná de aanbeveling gebeurt. Iemand hoort je naam, zoekt ernaar en beslist in een paar seconden of het klopt wat hij hoorde. Een actuele site met echt werk, echte foto's en een telefoonnummer maakt van die aanbeveling een klant; geen site of een verouderde site laat twijfel achter.",
+      },
+    ],
+  },
 };
 
 export const getCityLokaal = (slug: string): CityLokaal | undefined => cityLokaal[slug];

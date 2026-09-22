@@ -14,7 +14,6 @@
  *  - de lokale tekst is tussen MIN_WOORDEN en MAX_WOORDEN woorden lang
  */
 import { cityLokaal } from "../src/data/cityLokaal.ts";
-import { cities } from "../src/data/cities.ts";
 import { findRedirect } from "../src/config/redirects.ts";
 import { SITE_URL } from "../src/config/site.ts";
 
@@ -63,7 +62,6 @@ function zichtbareTekst(html) {
 }
 
 const zonderLinks = (t) => t.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
-const paden = new Set(cities.map((c) => `/website-laten-maken-${c.slug}`));
 
 for (const [slug, data] of Object.entries(cityLokaal)) {
   const pad = `/website-laten-maken-${slug}`;
@@ -110,9 +108,10 @@ for (const [slug, data] of Object.entries(cityLokaal)) {
   // Interne links uit de alinea's: bestaan ze, en is het geen redirect?
   for (const m of data.lokaal.alineas.join(" ").matchAll(/\[([^\]]+)\]\((\/[^)]+)\)/g)) {
     const doel = m[2];
-    ok(paden.has(doel), pad, `interne link bestaat`, doel);
     ok(!findRedirect(doel), pad, `interne link is geen redirect`, doel);
     ok(html.includes(`href="${doel}"`), pad, `interne link staat in de HTML`, doel);
+    const linkRes = await fetch(`${BASIS}${doel}`, { redirect: "manual" });
+    ok(linkRes.status === 200, pad, `interne link geeft 200`, `${doel} → ${linkRes.status}`);
   }
 
   ok(data.faq.length >= 4 && data.faq.length <= 6, pad, "4 tot 6 FAQ-vragen", `${data.faq.length}`);
