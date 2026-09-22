@@ -14,7 +14,8 @@
     "generate-landing-data": "npx tsx scripts/generate-landing-data.mjs",
     "seo:verify": "node scripts/seo-verify.mjs http://localhost:4310",
     "seo:verify-live": "node scripts/seo-verify-live.mjs https://nieuwblik.com",
-    "faq:uniek": "node --import tsx scripts/faq-uniek.mjs"
+    "faq:uniek": "node --import tsx scripts/faq-uniek.mjs",
+    "stad:check": "node --import tsx scripts/stad-lokaal-check.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1"

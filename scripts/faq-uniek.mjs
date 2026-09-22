@@ -23,8 +23,11 @@ const ALGEMEEN = [
   { naam: "op afstand / Enkhuizen", re: /enkhuizen|op afstand|afstand werken/ },
   { naam: "langskomen", re: /langskomen|langs komen|op locatie|fysieke afspraak/ },
   { naam: "lokale vindbaarheid", re: /vindbaar|gevonden worden|seo|google bedrijfsprofiel/ },
-  { naam: "buurplaatsen", re: /omliggende|buurt|buurplaats|omgeving|ook voor bedrijven in/ },
+  { naam: "werkgebied / buurplaatsen", re: /omliggende|buurt|buurplaats|omgeving|werkgebied|hele provincie|groot gebied/ },
 ];
+
+/** Hoe vaak eenzelfde algemeen thema over alle steden heen mag terugkomen. */
+const MAX_THEMA_TOTAAL = 3;
 
 const plaatsnamen = Object.keys(cityLokaal).map((s) => s.replace(/-/g, " "));
 
@@ -89,8 +92,25 @@ for (const [slug, data] of Object.entries(cityLokaal)) {
   }
 }
 
+// 3. Hoe vaak komt eenzelfde algemeen thema over alle steden heen terug?
+const themaTeller = new Map(ALGEMEEN.map((p) => [p.naam, []]));
+for (const [slug, data] of Object.entries(cityLokaal)) {
+  for (const patroon of ALGEMEEN) {
+    if (data.faq.some((item) => patroon.re.test(normaliseer(item.q)))) themaTeller.get(patroon.naam).push(slug);
+  }
+}
+for (const [naam, slugs] of themaTeller) {
+  if (slugs.length > MAX_THEMA_TOTAAL) {
+    fouten.push(`thema "${naam}" komt op ${slugs.length} steden terug (max ${MAX_THEMA_TOTAAL}): ${slugs.join(", ")}`);
+  }
+}
+
 const steden = Object.keys(cityLokaal).length;
 console.log(`FAQ-controle: ${steden} steden, ${vragen.length} vragen.`);
+console.log("Algemene thema's:");
+for (const [naam, slugs] of themaTeller) {
+  console.log(`  ${naam}: ${slugs.length ? slugs.join(", ") : "nergens"}`);
+}
 
 if (meldingen.length) {
   console.log(`\nKijk nog even na (${WAARSCHUWING * 100}% tot ${GRENS * 100}% overlap):`);
