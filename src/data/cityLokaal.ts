@@ -121,7 +121,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Ons bedrijf draait op het seizoen, zoals verhuur en recreatie aan het water. Kan de site daarin meebewegen?",
-        a: "Ja. We zorgen dat je zelf prijzen, openingstijden en beschikbaarheid kunt aanpassen zonder ons, en dat de aanvraagknop het opvallendste element op een telefoonscherm is. In het laagseizoen vervang je die door een wachtlijst of een formulier voor volgend jaar.",
+        a: "Ja. Prijzen, openingstijden en beschikbaarheid zijn precies de dingen die in het seizoen snel moeten kunnen wijzigen. Standaard verzorgen wij dat beheer voor je; wil je het liever zelf doen, dan bouwen we op aanvraag een eenvoudig beheerscherm in. Zorg daarnaast dat de aanvraagknop het opvallendste element op een telefoonscherm is, en vervang die in het laagseizoen door een wachtlijst.",
       },
       {
         q: "Wij leveren aan agrarische bedrijven. Wat verwacht zo'n klant van een website?",
@@ -381,7 +381,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Wij verkopen via werven en dealers, niet rechtstreeks. Wat moet er dan op onze site?",
-        a: "Twee dingen tegelijk: de eindklant overtuigen dat hij naar jouw merk moet vragen, en je afnemers bedienen. Dat betekent duidelijke productinformatie voor iedereen, een overzicht van waar je product te krijgen is, en een afgeschermd of apart deel met documentatie en prijzen voor dealers.",
+        a: "Twee dingen tegelijk: de eindklant overtuigen dat hij naar jouw merk moet vragen, en je afnemers bedienen. Dat betekent duidelijke productinformatie voor iedereen, een overzicht van waar je product te krijgen is, en een apart deel met documentatie voor dealers. Moet dat achter een inlog, dan is het maatwerk; we kijken bij de offerte wat het in jouw geval nodig heeft.",
       },
       {
         q: "Wij zitten in een monumentaal pand in de binnenstad. Waar letten we op voor onze bezoekers?",
