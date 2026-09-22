@@ -1,3 +1,4 @@
+import { kiesCases } from "@/lib/cases";
 import { PRIJZEN } from "@/config/business";
 import { Link } from "@/lib/router-compat";
 import NotFound from "./NotFound";
@@ -7,20 +8,15 @@ import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
 import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
-import ProjectCard from "@/components/ProjectCard";
+import CaseGrid from "@/components/CaseGrid";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { projects } from "@/data/projects";
 import { getIndustryBySlug } from "@/data/industries";
 import { getIndustryExtra, getRelatedIndustrySlugs } from "@/data/industryExtras";
 import { companyInfo } from "@/config/company";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 
-const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
-const fallbackProjects = featuredTitles
-  .map((t) => projects.find((p) => p.title === t))
-  .filter((p): p is typeof projects[number] => Boolean(p));
 
 const IndustryLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.
@@ -35,10 +31,8 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   const seoTitle = industry.title;
   const seoDescription = industry.metaDescription;
   const extra = getIndustryExtra(industry.slug);
-  const relevantProjects = (extra?.relevantCaseSlugs ?? [])
-    .map((s) => projects.find((p) => p.slug === s))
-    .filter((p): p is typeof projects[number] => Boolean(p));
-  const branchProjects = relevantProjects.length > 0 ? relevantProjects : fallbackProjects;
+  // De cases die bij deze branche horen eerst, aangevuld tot zes.
+  const branchProjects = kiesCases(extra?.relevantCaseSlugs ?? []);
   const relatedIndustries = getRelatedIndustrySlugs(industry.slug, 3)
     .map((s) => getIndustryBySlug(s))
     .filter((i): i is NonNullable<typeof i> => Boolean(i));
@@ -187,11 +181,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{industry.section4.h2}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">{industry.section4.intro}</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-10 md:gap-12">
-            {branchProjects.map((p) => (
-              <ProjectCard key={p.slug} {...p} />
-            ))}
-          </div>
+          <CaseGrid projects={branchProjects} />
           <div className="text-center mt-12">
             <AnimatedButton to="/portfolio" size="lg" variant="outline">
               Alle projecten bekijken

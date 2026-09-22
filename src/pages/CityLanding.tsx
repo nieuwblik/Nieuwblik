@@ -1,3 +1,4 @@
+import { kiesCases } from "@/lib/cases";
 import { Link } from "@/lib/router-compat";
 import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
@@ -5,20 +6,17 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
 import ContactBlock from "@/components/ContactBlock";
-import ProjectCard from "@/components/ProjectCard";
+import CaseGrid from "@/components/CaseGrid";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { projects } from "@/data/projects";
 import { getCityBySlug } from "@/data/cities";
 import { getCityExtra } from "@/data/cityExtras";
 import { companyInfo } from "@/config/company";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 
-const featuredTitles = ["Quantum Rehab Europe", "Pride Mobility Europe", "Puur in Harmonie", "BeNoted", "Erica van Dijk", "Danique Kwakman"];
-const featuredProjects = featuredTitles
-  .map((t) => projects.find((p) => p.title === t))
-  .filter((p): p is typeof projects[number] => Boolean(p));
+// Zes cases, nieuwste eerst, in het raster van de portfoliopagina.
+const featuredProjects = kiesCases();
 
 const CityLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.
@@ -115,11 +113,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{city.section4.h2}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">{city.section4.intro}</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-10 md:gap-12">
-            {featuredProjects.map((p) => (
-              <ProjectCard key={p.slug} {...p} />
-            ))}
-          </div>
+          <CaseGrid projects={featuredProjects} />
           <div className="text-center mt-12">
             <AnimatedButton to="/portfolio" size="lg" variant="outline">
               Alle projecten bekijken

@@ -1,3 +1,4 @@
+import { kiesCases } from "@/lib/cases";
 import { PRIJZEN, LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { useParams, Link } from "@/lib/router-compat";
@@ -6,13 +7,14 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
+import CaseGrid from "@/components/CaseGrid";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
-import { projects } from "@/data/projects";
 import justinJobImg from "@/assets/justin-job-compressed.webp";
 import NotFound from "./NotFound";
 
-const FEATURED_SLUGS = ["taxi-drechterland", "een-bundel-geluk", "aardingsbedrijf-west-friesland"];
+// Deze drie eerst, aangevuld tot zes met de nieuwste cases.
+const hubCases = kiesCases(["taxi-drechterland", "een-bundel-geluk", "aardingsbedrijf-west-friesland"]);
 
 interface RegionHubData {
   slug: string;
@@ -250,39 +252,7 @@ const RegionalHub = () => {
               <h2 className="text-2xl md:text-3xl font-bold mb-3">Recent werk voor ondernemers in {hub.name}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">Een greep uit websites die we recent opleverden. Van webshop tot leadgeneratie, elke case gebouwd voor snelheid, conversie en lokale vindbaarheid.</p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {FEATURED_SLUGS.map((slug) => {
-                const p = projects.find((x) => x.slug === slug);
-                if (!p) return null;
-                return (
-                  <Link
-                    key={p.slug}
-                    to={`/portfolio/${p.slug}`}
-                    className="group bg-background border border-border rounded-2xl overflow-hidden hover:border-accent transition-colors flex flex-col"
-                  >
-                    <div className="aspect-[4/3] overflow-hidden bg-muted">
-                      <img
-                        src={p.image}
-                        alt={`${p.title} website case`}
-                        loading="lazy"
-                        decoding="async"
-                        width={800}
-                        height={600}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                    <div className="p-5 flex-1 flex flex-col">
-                      <span className="text-xs text-accent font-medium mb-1">{p.category}</span>
-                      <h3 className="font-semibold text-lg mb-2 text-foreground">{p.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">{p.description}</p>
-                      <span className="inline-flex items-center gap-1 text-sm font-medium text-accent group-hover:gap-2 transition-all">
-                        Bekijk case <ArrowRight className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+            <CaseGrid projects={hubCases} />
             <div className="text-center mt-10">
               <Link to="/portfolio" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
                 Bekijk het volledige portfolio <ArrowRight className="w-4 h-4" />

@@ -1,3 +1,4 @@
+import { kiesCases } from "@/lib/cases";
 import { LEVERTIJD } from "@/config/business";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link, useParams } from "@/lib/router-compat";
@@ -19,14 +20,11 @@ import { getWerkgebiedRegionBySlug, regions } from "@/data/regions";
 import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
-import ProjectCard from "@/components/ProjectCard";
-import { projects } from "@/data/projects";
+import CaseGrid from "@/components/CaseGrid";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 
-const featuredSlugs = ["puur-in-harmonie", "benoted", "danique-kwakman", "erica-van-dijk"];
-const featuredProjects = featuredSlugs
-  .map((s) => projects.find((p) => p.slug === s))
-  .filter(Boolean) as typeof projects;
+// Deze vier eerst, aangevuld tot zes met de nieuwste cases.
+const featuredProjects = kiesCases(["puur-in-harmonie", "benoted", "danique-kwakman", "erica-van-dijk"]);
 
 const WEST_FRIESLAND_KERNEN = [
   'enkhuizen', 'hoorn', 'medemblik', 'bovenkarspel', 'hoogkarspel',
@@ -357,20 +355,7 @@ const WerkgebiedDetail = () => {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-8 sm:gap-10">
-              {featuredProjects.map((project) => (
-                <ProjectCard
-                  key={project.slug}
-                  title={project.title}
-                  category={project.category}
-                  description={project.description}
-                  image={project.image}
-                  url={project.url}
-                  tags={project.tags}
-                  slug={project.slug}
-                />
-              ))}
-            </div>
+            <CaseGrid projects={featuredProjects} />
 
             <div className="text-center mt-10">
               <AnimatedButton to="/portfolio" size="lg" variant="outline">
