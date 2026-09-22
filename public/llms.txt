@@ -1,27 +1,104 @@
 # Nieuwblik
 
-> Webdesign bureau uit Enkhuizen, West-Friesland. Wij bouwen snelle, conversiegerichte websites en webshops voor het MKB, met persoonlijk contact en een AI gedreven aanpak.
+> Digitaal bureau uit Enkhuizen voor moderne webapplicaties, maatwerk software, webshops, SEO, design en AI-oplossingen. Nieuwblik bouwt snelle, conversiegerichte websites voor het MKB, met persoonlijk contact en een AI gedreven werkwijze.
 
 Nieuwblik combineert strak design, sterke teksten en moderne technologie. We werken voor ondernemers door heel Nederland, met focus op West-Friesland en Noord-Holland. Pakketten starten vanaf 990 euro en de meeste sites staan binnen 1 tot 6 weken live.
 
-## Pages
+## Diensten
 
-- [Home](/): Webdesign bureau Enkhuizen, websites en webshops op maat.
-- [Diensten](/diensten): Overzicht van alle diensten, van website tot SEO.
-- [Website op maat](/diensten/website-op-maat): Maatwerk websites voor MKB.
-- [Webshops](/diensten/webshops): Webshops met Shopify en Stripe.
-- [E-commerce](/diensten/e-commerce): E-commerce oplossingen en strategie.
-- [Portfolio](/portfolio): Recente projecten en cases.
-- [Over ons](/over-ons): Verhaal en team achter Nieuwblik.
-- [Reviews](/reviews): Wat klanten zeggen over onze samenwerking.
-- [Blog](/blog): Artikelen over webdesign, SEO en online groei.
-- [Vindbaar worden in ChatGPT](/blog/vindbaar-in-chatgpt-geo-west-friesland): Wat GEO is en hoe lokale ondernemers genoemd worden in ChatGPT en Gemini.
-- [Toegankelijke website en de European Accessibility Act](/blog/toegankelijke-website-european-accessibility-act): Voor wie de EAA geldt, de zes meest voorkomende fouten en hoe je je site zelf checkt.
-- [Werkgebied](/werkgebied): Steden en regio's waar wij actief zijn.
-- [Contact](/contact): Plan een gratis kennismaking.
+- [Diensten](https://nieuwblik.com/diensten): Overzicht van alle diensten, van website tot SEO en AI-oplossingen.
+- [Website op maat](https://nieuwblik.com/diensten/website-op-maat): Maatwerk websites voor het MKB, gebouwd voor snelheid en conversie.
+- [Webshops](https://nieuwblik.com/diensten/webshops): Webshops met Shopify en Stripe, klaar om te verkopen.
+- [E-commerce](https://nieuwblik.com/diensten/e-commerce): E-commerce strategie, van assortiment tot betaalflow.
+- [SEO Enkhuizen](https://nieuwblik.com/seo-enkhuizen): Lokale SEO voor West-Friesland, met hub-navigatie voor omliggende kernen.
+- [Webdesign bureau](https://nieuwblik.com/webdesign-bureau): Pillarpagina over de werkwijze en expertise van het bureau.
+- [Website laten maken](https://nieuwblik.com/website-laten-maken): Pillarpagina met prijzen, pakketten en veelgestelde vragen.
+
+## Branches
+
+Nieuwblik bouwt branchespecifieke websites. Elk pad volgt het patroon /website-laten-maken-[branche].
+
+- [Horecabedrijf](https://nieuwblik.com/website-laten-maken-horecabedrijf) en [restaurant](https://nieuwblik.com/website-laten-maken-restaurant)
+- [Kapper](https://nieuwblik.com/website-laten-maken-kapper), [schoonheidssalon](https://nieuwblik.com/website-laten-maken-schoonheidssalon) en [fysiotherapeut](https://nieuwblik.com/website-laten-maken-fysiotherapeut)
+- [Elektricien](https://nieuwblik.com/website-laten-maken-elektricien), [loodgieter](https://nieuwblik.com/website-laten-maken-loodgieter), [bouwbedrijf](https://nieuwblik.com/website-laten-maken-bouwbedrijf) en [schilder](https://nieuwblik.com/website-laten-maken-schilder)
+- [Makelaar](https://nieuwblik.com/website-laten-maken-makelaar), [architect](https://nieuwblik.com/website-laten-maken-architect) en [interieurontwerper](https://nieuwblik.com/website-laten-maken-interieurontwerper)
+- [Boekhouder](https://nieuwblik.com/website-laten-maken-boekhouder), [accountant](https://nieuwblik.com/website-laten-maken-accountant) en [advocaat](https://nieuwblik.com/website-laten-maken-advocaat)
+- [Coach](https://nieuwblik.com/website-laten-maken-coach), [personal trainer](https://nieuwblik.com/website-laten-maken-personal-trainer) en [sportschool](https://nieuwblik.com/website-laten-maken-sportschool)
+- [Fotograaf](https://nieuwblik.com/website-laten-maken-fotograaf), [evenementenbureau](https://nieuwblik.com/website-laten-maken-evenementenbureau) en [reclamebureau](https://nieuwblik.com/website-laten-maken-reclamebureau)
+- [Tandarts](https://nieuwblik.com/website-laten-maken-tandarts), [dierenarts](https://nieuwblik.com/website-laten-maken-dierenarts) en [kinderopvang](https://nieuwblik.com/website-laten-maken-kinderopvang)
+
+## Regionale pagina's
+
+- [Noord-Holland](https://nieuwblik.com/regio/noord-holland): Projecten en diensten in Noord-Holland, inclusief Alkmaar, Haarlem en Hoorn.
+- [Randstad](https://nieuwblik.com/regio/randstad): Amsterdam, Den Haag, Rotterdam en Utrecht.
+- [Oost-Nederland](https://nieuwblik.com/regio/oost-nederland): Gelderland, Overijssel en omstreken.
+- [Zuid-Nederland](https://nieuwblik.com/regio/zuid-nederland): Brabant en Limburg.
+- [Werkgebied](https://nieuwblik.com/werkgebied): Steden en kernen waar Nieuwblik actief is, met een eigen pagina per plaats zoals [Enkhuizen](https://nieuwblik.com/werkgebied/enkhuizen), [Hoorn](https://nieuwblik.com/werkgebied/hoorn) en [West-Friesland](https://nieuwblik.com/werkgebied/west-friesland).
+- [Taxi website laten maken](https://nieuwblik.com/taxi-website-laten-maken): Gespecialiseerde pagina met de Taxi Drechterland-case.
+
+## Cases en projecten
+
+- [Taxi Drechterland](https://nieuwblik.com/portfolio/taxi-drechterland): Snelle boekingflow voor een taxibedrijf in West-Friesland.
+- [BeNoted](https://nieuwblik.com/portfolio/benoted): Notitie-app met scherpe laadtijden en hoge zichtbaarheid.
+- [Een Bundel Geluk](https://nieuwblik.com/portfolio/een-bundel-geluk): Donatieplatform met een warme uitstraling.
+- [Aardingsbedrijf West-Friesland](https://nieuwblik.com/portfolio/aardingsbedrijf-west-friesland): Technische dienstverlener met sterke lokale vindbaarheid.
+- [Bushido Shop](https://nieuwblik.com/portfolio/bushido-shop): Webshop met Stripe-betalingen.
+- [Puur in Harmonie](https://nieuwblik.com/portfolio/puur-in-harmonie): Praktijkwebsite met rustige vormgeving.
+- [VV Madjoe](https://nieuwblik.com/portfolio/vv-madjoe): Sportverenigingssite met actueel clubnieuws.
+- [Feigro Dakwerken](https://nieuwblik.com/portfolio/feigro-dakwerken): Dakbedrijf met scherpe offerte-flow.
+- [Quantum Rehab Europe](https://nieuwblik.com/portfolio/quantum-rehab-europe): Internationale B2B-site.
+- [Pride Mobility Europe](https://nieuwblik.com/portfolio/pride-mobility-europe): Productcatalogus voor mobiliteitsoplossingen.
+- [Jord de Boer Osteopathie](https://nieuwblik.com/portfolio/jord-de-boer-osteopathie): Praktijkpagina met online agenda.
+- [Edventure Boats](https://nieuwblik.com/portfolio/edventure-boats): Vaarbedrijf met boekingsaanvraag.
+- [Danique Kwakman](https://nieuwblik.com/portfolio/danique-kwakman): Personal brand site.
+- [Erica van Dijk](https://nieuwblik.com/portfolio/erica-van-dijk): Vakplanning en dienstverlening.
+- [Kyodai Originals](https://nieuwblik.com/portfolio/kyodai-originals): Webshop met unieke producten.
+- [Carbon6](https://nieuwblik.com/portfolio/carbon6): Fitness en coaching met led-conversie.
+- [Casper Nieskens PT](https://nieuwblik.com/portfolio/casper-nieskens-pt): Personal training met intake-formulier.
+- [Esveld Installatie](https://nieuwblik.com/portfolio/esveld-installatie): Installatiebedrijf met duidelijke dienstenpagina's.
+- [Interieur Studio Laan](https://nieuwblik.com/portfolio/interieur-studio-laan): Interieurstudio met portfolio-focus.
+- [Karate School Cor Slok](https://nieuwblik.com/portfolio/karate-school-cor-slok): Vechtsportschool met proefles-aanvraag.
+- [MHB Techniek](https://nieuwblik.com/portfolio/mhb-techniek): Technisch bedrijf met projectgalerij.
+- [Feitsma Dakwerken](https://nieuwblik.com/portfolio/feitsma-dakwerken): Dakwerk-specialist.
+- [Green Profit](https://nieuwblik.com/portfolio/green-profit): Duurzaamheidsadvies met aanvraagflow.
+- [RRS Royal](https://nieuwblik.com/portfolio/rrs-royal): Bedrijfswebsite met sterke eerste indruk.
+- [Portfolio](https://nieuwblik.com/portfolio): Alle projecten op een rij.
+
+## Blog
+
+- [Blog](https://nieuwblik.com/blog): Artikelen over webdesign, SEO en online groei.
+- [Vindbaar worden in ChatGPT](https://nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland): Wat GEO is en hoe lokale ondernemers genoemd worden in ChatGPT en Gemini.
+- [Toegankelijke website en de European Accessibility Act](https://nieuwblik.com/blog/toegankelijke-website-european-accessibility-act): Voor wie de EAA geldt, de zes meest voorkomende fouten en hoe je je site zelf checkt.
+- [Case study BeNoted](https://nieuwblik.com/blog/case-study-benoted-snelheid-zichtbaarheid): Hoe snelheid en structuur de zichtbaarheid van BeNoted verbeterden.
+- [Brand storytelling](https://nieuwblik.com/blog/brand-storytelling-van-pixel-tot-voordeur): Van pixel tot voordeur, verhalen die conversie opleveren.
+- [Claude AI complete gids](https://nieuwblik.com/blog/claude-ai-anthropic-complete-gids): Wat Claude van Anthropic kan en wanneer je het inzet.
+- [Cursor AI code editor](https://nieuwblik.com/blog/cursor-ai-code-editor): AI-gedreven programmeren in de praktijk.
+- [Replit online code editor](https://nieuwblik.com/blog/replit-online-code-editor-ai): Snel bouwen met AI-ondersteuning in de browser.
+- [Figma, HadoSEO en Lovable](https://nieuwblik.com/blog/figma-hadoseo-lovable-perfecte-website): De toolkit achter een goede website.
+- [Vibecode en HadoSEO](https://nieuwblik.com/blog/vibecode-hadoseo-toekomst-websites): De toekomst van websites bouwen.
+- [Stripe betaalhandleiding](https://nieuwblik.com/blog/stripe-betalingen-webshop-handleiding): Betalingen instellen in je webshop.
+- [Supabase](https://nieuwblik.com/blog/supabase): Moderne backend voor webapplicaties.
+- [Nieuwblik sponsort VV Madjoe](https://nieuwblik.com/blog/nieuwblik-sponsort-vv-madjoe-heren-1): Samenwerking met de Heren 1.
+- [Nieuwblik sponsort Kevin Mos](https://nieuwblik.com/blog/kevin-mos-nieuwblik-hengelo-roadrace-2026): Ondersteuning bij de Hengelo Straatrace 2026.
+
+## Over Nieuwblik
+
+- [Over ons](https://nieuwblik.com/over-ons): Het verhaal en team achter Nieuwblik, opgericht in 2023 in Enkhuizen.
+- [Reviews](https://nieuwblik.com/reviews): Wat klanten zeggen over de samenwerking, op basis van 19+ vijfsterrenreviews.
+- [Gratis website analyse](https://nieuwblik.com/gratis-website-analyse): Vraag een gratis analyse van je huidige website aan.
+- [Contact](https://nieuwblik.com/contact): Plan een gratis kennismaking via het formulier, mail (info@nieuwblik.com), telefoon (+31 6 46253607) of WhatsApp.
+
+## Werkwijze
+
+1. Gratis kennismaking: doelen, wensen en budget helder op tafel.
+2. Voorstel en prijzen: een pakket vanaf 990 euro, met een heldere planning.
+3. Design en bouw: strak design, sterke teksten en snelle laadtijden, meestal live binnen 1 tot 6 weken.
+4. Groei: SEO, content en doorontwikkeling, inclusief AI-oplossingen waar die aanslaat.
 
 ## Optional
 
-- [Privacy](/privacy): Privacyverklaring.
-- [Cookies](/cookies): Cookiebeleid.
-- [Algemene voorwaarden](/algemene-voorwaarden): Voorwaarden.
+- [Privacy](https://nieuwblik.com/privacy): Privacyverklaring.
+- [Cookies](https://nieuwblik.com/cookies): Cookiebeleid.
+- [Algemene voorwaarden](https://nieuwblik.com/algemene-voorwaarden): Voorwaarden.
+- [Sitemap](https://nieuwblik.com/sitemap.xml): Alle pagina's in XML-formaat.
+- [llms.txt](https://nieuwblik.com/llms.txt): Dit bestand, bedoeld voor taalmodellen.
