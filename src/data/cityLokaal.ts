@@ -36,30 +36,30 @@ export const cityLokaal: Record<string, CityLokaal> = {
       alineas: [
         "Leiden is een universiteitsstad. De Universiteit Leiden is de oudste van Nederland, en samen met het LUMC en het Leiden Bio Science Park zorgt dat voor een stad vol kennisintensieve bedrijven: onderzoek, life sciences, zorg en alle dienstverleners die daaromheen werken. Wie in die hoek onderneemt, heeft een website nodig die inhoud begrijpelijk maakt zonder oppervlakkig te worden. Een bezoeker die jouw dienst nog niet kent, moet binnen een paar zinnen snappen wat je doet en voor wie.",
         "Daarnaast heeft Leiden een historische binnenstad met grachten, hofjes en musea als Naturalis en het Rijksmuseum van Oudheden. Dat trekt bezoekers, en dat merken winkels, horeca en praktijken aan huis. Voor die ondernemers telt iets anders: snel vindbaar zijn op je telefoon, meteen zien waar je zit en wanneer je open bent, en in één tik kunnen bellen of een afspraak maken. Wij bouwen zulke sites mobiel eerst, omdat het merendeel van dat verkeer van een telefoon komt.",
-        "Veel Leidse bedrijven werken bovendien met internationale collega's, studenten of klanten. Een tweetalige site is dan geen luxe. We zetten Nederlands en Engels netjes naast elkaar, met de juiste taalmarkering voor Google, zodat beide versies gevonden worden in plaats van met elkaar te concurreren.",
-        "Werk je vanuit Leiden ook in de omliggende steden, dan sluiten onze pagina's voor [Den Haag](/website-laten-maken-den-haag), [Delft](/website-laten-maken-delft) en [Zoetermeer](/website-laten-maken-zoetermeer) daarop aan. Wij zitten zelf in Enkhuizen, en dat is voor een project in Leiden geen bezwaar: we kennen elkaar via videobellen, we zijn bereikbaar via telefoon en WhatsApp, en langskomen kan in overleg. Je hebt bij ons één vast aanspreekpunt, van de eerste schets tot de dag dat de site live gaat.",
+        "Veel Leidse bedrijven werken bovendien met internationale collega's, studenten of klanten. Een site in twee talen is dan waardevol. Bij ons is meertaligheid een optionele uitbreiding en geen onderdeel van het startpakket: kies je ervoor, dan zetten we Nederlands en Engels netjes naast elkaar, met de juiste taalmarkering voor Google.",
+        "Werk je vanuit Leiden ook in de omliggende steden, dan sluiten onze pagina's voor [Den Haag](/website-laten-maken-den-haag), [Delft](/website-laten-maken-delft) en [Zoetermeer](/website-laten-maken-zoetermeer) daarop aan. Wij zitten zelf in Enkhuizen en werken voor ondernemers door heel Nederland grotendeels op afstand.",
       ],
     },
     faq: [
       {
         q: "Werken jullie voor bedrijven in Leiden terwijl jullie in Enkhuizen zitten?",
-        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand. De kennismaking gaat via videobellen, daarna houden we contact via telefoon, mail en WhatsApp. Je hebt steeds hetzelfde aanspreekpunt.",
+        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt. Wil je elkaar liever een keer fysiek spreken, dan kan dat in overleg.",
       },
       {
-        q: "Kunnen jullie langskomen in Leiden?",
-        a: "In overleg kan dat. De meeste projecten lopen prima via videobellen en schermdelen, omdat je dan sneller schakelt. Is een fysieke afspraak belangrijk voor je, geef het aan bij de kennismaking.",
+        q: "Kunnen jullie een website in het Nederlands én Engels maken voor internationale klanten of studenten?",
+        a: "Ja. Voor bedrijven rond de universiteit, het LUMC en het Bio Science Park zetten we beide talen naast elkaar, met correcte hreflang-markering zodat Google per taal de juiste pagina toont en de versies niet met elkaar concurreren. Meertaligheid is een optionele uitbreiding en zit niet in het startpakket; we nemen het apart mee in je offerte.",
       },
       {
-        q: "Maken jullie ook een Engelstalige of tweetalige website?",
-        a: "Ja. Voor bedrijven die met internationale klanten, studenten of collega's werken zetten we Nederlands en Engels naast elkaar, met correcte hreflang-markering. Zo pakt Google per taal de juiste pagina en concurreren de versies niet met elkaar.",
+        q: "Wij zijn een zorgpraktijk in Leiden. Maken jullie daar ook websites voor?",
+        a: "Ja. Denk aan fysiotherapie-, tandarts- en therapiepraktijken: een rustige opzet, duidelijke informatie over behandelingen en tarieven, en een eenvoudige manier om contact op te nemen of een afspraak aan te vragen. Per branche hebben we een aparte pagina met voorbeelden.",
       },
       {
-        q: "Helpen jullie ook met vindbaarheid in Leiden en omgeving?",
-        a: "Ja. We richten de site technisch goed in en schrijven de teksten op de zoekwoorden die jouw klanten echt gebruiken, inclusief de plaatsnaam. Daarnaast adviseren we over je Google Bedrijfsprofiel, want dat bepaalt voor een groot deel of je lokaal opvalt.",
+        q: "Onze dienst is technisch ingewikkeld. Kunnen jullie die begrijpelijk uitleggen op de site?",
+        a: "Daar begint het werk bij ons mee. We bepalen eerst voor wie de site bedoeld is en wat die bezoeker moet begrijpen, en bouwen de teksten van daaruit op: eerst de kern in gewone taal, daarna de diepte voor wie verder leest. Zo houd je een site die werkt voor een inkoper én voor een vakgenoot.",
       },
       {
-        q: "Werken jullie ook voor bedrijven in Den Haag, Delft of Zoetermeer?",
-        a: "Zeker, die steden liggen om de hoek en we hebben er aparte pagina's voor. Werk je in meerdere plaatsen, dan richten we de site zo in dat je in elke plaats gevonden wordt zonder dat je dezelfde tekst dubbel gebruikt.",
+        q: "Wij hebben een winkel of horecazaak in de Leidse binnenstad. Waar moeten we op letten?",
+        a: "Vooral op mobiel. Bezoekers in de binnenstad zoeken op hun telefoon en willen meteen zien waar je zit, wanneer je open bent en hoe ze je bereiken. Dat zetten we bovenaan, met bellen en routebeschrijving op één tik. Daarnaast adviseren we over je Google Bedrijfsprofiel, want daar komen je openingstijden en route vandaan.",
       },
     ],
   },
