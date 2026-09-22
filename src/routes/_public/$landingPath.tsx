@@ -3,6 +3,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import LandingRouter from "@/pages/LandingRouter";
 import NotFound from "@/pages/NotFound";
 import { getCityBySlug } from "@/data/cities";
+import { getCityLokaal } from "@/data/cityLokaal";
 import { getIndustryBySlug } from "@/data/industries";
 import { buildHead } from "@/lib/seo";
 import { companyInfo } from "@/config/company";
@@ -28,9 +29,11 @@ export const Route = createFileRoute("/_public/$landingPath")({
       const slug = params.landingPath.slice(PREFIX.length);
       const city = getCityBySlug(slug);
       if (city) {
+        // Handgeschreven tekst per stad gaat voor op de gegenereerde data.
+        const lokaal = getCityLokaal(slug);
         return buildHead({
-          title: city.title,
-          description: city.metaDescription,
+          title: lokaal?.title ?? city.title,
+          description: lokaal?.metaDescription ?? city.metaDescription,
           canonical: `${companyInfo.url}/${PREFIX}${slug}`,
         });
       }

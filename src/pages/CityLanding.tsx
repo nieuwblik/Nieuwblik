@@ -7,6 +7,9 @@ import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
 import ContactBlock from "@/components/ContactBlock";
 import CaseGrid from "@/components/CaseGrid";
+import LandingFaq from "@/components/LandingFaq";
+import { faqPage } from "@/lib/structured-data";
+import { getCityLokaal } from "@/data/cityLokaal";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { AnimatedButton } from "@/components/ui/animated-button";
@@ -18,6 +21,23 @@ import { useDarkNavSection } from "@/components/UnderlayNav";
 // Zes cases, nieuwste eerst, in het raster van de portfoliopagina.
 const featuredProjects = kiesCases();
 
+/** Alinea met [tekst](/pad) als interne link. */
+const Alinea = ({ tekst }: { tekst: string }) => (
+  <p className="text-muted-foreground leading-relaxed">
+    {tekst.split(/\[([^\]]+)\]\((\/[^)]+)\)/).map((deel, i, delen) => {
+      // De split levert om en om: tekst, linktekst, pad, tekst, ...
+      if (i % 3 === 1) {
+        return (
+          <Link key={i} to={delen[i + 1]!} className="text-accent hover:underline font-semibold">
+            {deel}
+          </Link>
+        );
+      }
+      return i % 3 === 2 ? null : <span key={i}>{deel}</span>;
+    })}
+  </p>
+);
+
 const CityLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.
   const darkNavRef = useDarkNavSection<HTMLElement>();
@@ -25,21 +45,30 @@ const CityLanding = ({ slug }: { slug: string }) => {
   if (!city) return <NotFound />;
 
   const url = `${companyInfo.url}/website-laten-maken-${city.slug}`;
-  // Hand-authored per city in cities.ts — unique per record, unlike the old
-  // rotating 3-template generator (which caused ~11/30 city pages to share a
-  // near-identical meta description).
-  const seoTitle = city.title;
-  const seoDescription = city.metaDescription;
+  // Handgeschreven tekst per stad (src/data/cityLokaal.ts) gaat voor op de
+  // gegenereerde data in cities.ts. Staat een stad daar nog niet in, dan blijft
+  // alles precies zoals het was.
+  const lokaal = getCityLokaal(city.slug);
+  const seoTitle = lokaal?.title ?? city.title;
+  const seoDescription = lokaal?.metaDescription ?? city.metaDescription;
   const extra = getCityExtra(city.slug);
   const nearbyCities = (extra?.nearby ?? [])
     .map((s) => getCityBySlug(s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
   const webPageJsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: seoTitle,
-    description: seoDescription,
-    url,
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        name: seoTitle,
+        description: seoDescription,
+        url,
+        inLanguage: "nl-NL",
+      },
+      // Alleen een FAQPage als de vragen echt over deze plaats gaan.
+      ...(lokaal ? [{ ...faqPage(lokaal.faq), "@id": `${url}#faq` }] : []),
+    ],
   };
 
   return (
@@ -52,19 +81,34 @@ const CityLanding = ({ slug }: { slug: string }) => {
         includeLocalBusinessSchema={true}
       />
 
-      <LandingHero h1={city.h1} subtitle={city.heroSubtitle} />
+      <LandingHero h1={lokaal?.h1 ?? city.h1} subtitle={city.heroSubtitle} />
 
-      {/* Intro paragraaf voor extra keyword context — zelfde patroon als IndustryLanding */}
+      {/* Lokaal blok: handgeschreven per stad, anders de gegenereerde intro */}
       <section className="py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+        <div
+          className={`container mx-auto px-4 sm:px-6 max-w-3xl ${lokaal ? "" : "text-center"}`}
+        >
           {extra && (
             <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-3">
               Regio {extra.region}
             </p>
           )}
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            {city.intro}
-          </p>
+          {lokaal ? (
+            <>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
+                {lokaal.lokaal.h2}
+              </h2>
+              <div className="space-y-4">
+                {lokaal.lokaal.alineas.map((alinea, idx) => (
+                  <Alinea key={idx} tekst={alinea} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              {city.intro}
+            </p>
+          )}
         </div>
       </section>
 
@@ -121,6 +165,9 @@ const CityLanding = ({ slug }: { slug: string }) => {
           </div>
         </div>
       </section>
+
+      {/* Sectie 5: FAQ — alleen bij steden met eigen, plaatsgebonden vragen */}
+      {lokaal && <LandingFaq h2={`Veelgestelde vragen over een website in ${city.name}`} items={lokaal.faq} />}
 
       {/* Sectie 6: Contactblok */}
       <ContactBlock h2={city.contactBlock.h2} body={city.contactBlock.body} />
