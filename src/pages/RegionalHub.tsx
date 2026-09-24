@@ -1,8 +1,9 @@
 import { kiesCases } from "@/lib/cases";
+import BenefitList from "@/components/BenefitList";
 import { PRIJZEN, LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { useParams, Link } from "@/lib/router-compat";
-import { MapPin, CheckCircle2, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
@@ -210,20 +211,11 @@ const RegionalHub = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Waarom Nieuwblik in {hub.name}</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {hub.strengths.map((s) => (
-                <div key={s.title} className="bg-background rounded-2xl p-6 border border-border">
-                  <CheckCircle2 className="w-6 h-6 text-accent mb-3" />
-                  <h3 className="font-semibold mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground">{s.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <BenefitList
+          h2={`Waarom Nieuwblik in ${hub.name}`}
+          items={hub.strengths.map((s) => ({ h3: s.title, text: s.text }))}
+          className="bg-muted/30"
+        />
 
         <section className="py-16">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">

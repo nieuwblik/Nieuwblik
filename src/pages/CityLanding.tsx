@@ -7,6 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
 import ContactBlock from "@/components/ContactBlock";
 import CaseGrid from "@/components/CaseGrid";
+import BenefitList from "@/components/BenefitList";
 import LandingFaq from "@/components/LandingFaq";
 import { faqPage } from "@/lib/structured-data";
 import { getCityLokaal } from "@/data/cityLokaal";
@@ -112,27 +113,10 @@ const CityLanding = ({ slug }: { slug: string }) => {
         </div>
       </section>
 
-      {/* Sectie 1: Waarom een professionele website */}
-      <section className="py-16 md:py-24 bg-secondary">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-foreground">
-            {city.section1.h2}
-          </h2>
-          {/* section1.body is dropped here — it's word-for-word identical to
-              city.intro (rendered once, above, right after the hero) in the
-              auto-generated data. Repeating it verbatim under this heading
-              was the duplicated-paragraph bug; the heading + benefit cards
-              stand fine without it. */}
-          <div className="grid sm:grid-cols-3 gap-6">
-            {city.section1.benefits.map((b, idx) => (
-              <div key={idx} className="bg-background rounded-2xl p-6 border border-border">
-                <h3 className="font-bold text-lg mb-2 text-foreground">{b.h3}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{b.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Sectie 1: Waarom een professionele website.
+          section1.body wordt hier bewust niet gerenderd — die is woord voor
+          woord gelijk aan city.intro, die hierboven al één keer staat. */}
+      <BenefitList h2={city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
 
       {/* Sectie 2: Vergelijking */}
       <ProblemSolutionSection />

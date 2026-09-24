@@ -1,4 +1,5 @@
 import { kiesCases } from "@/lib/cases";
+import BenefitList from "@/components/BenefitList";
 import { LEVERTIJD } from "@/config/business";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link, useParams } from "@/lib/router-compat";
@@ -105,7 +106,11 @@ const WerkgebiedDetail = () => {
       icon: <Target className="w-5 h-5" />,
       title: isLocal ? "Lokale kennis" : "Scherpe prijzen",
       text: isLocal
-        ? `We begrijpen de markt in ${region.name} en West-Friesland.`
+        ? // Op de West-Friesland-pagina zelf stond hier "in West-Friesland en
+          // West-Friesland".
+          region.name === "West-Friesland"
+          ? "We begrijpen de markt in West-Friesland als geen ander."
+          : `We begrijpen de markt in ${region.name} en West-Friesland.`
         : `Door onze locatie in Enkhuizen bieden we scherpe prijzen.`,
     },
   ];
@@ -273,69 +278,39 @@ const WerkgebiedDetail = () => {
         </section>
 
         {/* Waarom Nieuwblik */}
-        <section className="bg-secondary/30 py-16 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Waarom Nieuwblik?
-              </h2>
-              <p className="text-muted-foreground mb-10 sm:mb-12 max-w-xl mx-auto">
-                {isLocal
-                  ? `We zijn lokaal gevestigd en kennen de regio ${region.name} goed.`
-                  : `Ook vanuit ${region.name} kun je rekenen op onze expertise.`}
-              </p>
-
-              <div className="grid sm:grid-cols-3 gap-6">
-                {whyPoints.map((point, idx) => (
-                  <motion.div
-                    key={point.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 text-accent">
-                      {point.icon}
-                    </div>
-                    <h3 className="font-bold text-lg mb-2 text-foreground">{point.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{point.text}</p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Benefits */}
-              <div className="mt-12 grid sm:grid-cols-2 gap-3 text-left max-w-2xl mx-auto">
-                {[
-                  `Binnen ${LEVERTIJD.standaard} live met je nieuwe website`,
-                  isLocal ? `Persoonlijk contact - we zitten vlakbij` : `Persoonlijke service, ook op afstand`,
-                  `Transparante prijzen zonder verborgen kosten`,
-                  `Mobiel-geoptimaliseerd voor al je klanten`,
-                  `Gratis SEO-scan van je huidige website`,
-                  `Continue ondersteuning na oplevering`,
-                ].map((benefit, idx) => (
-                  <motion.div
-                    key={benefit}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.05 }}
-                    className="flex items-center gap-3"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
-                    <p className="text-sm text-foreground">{benefit}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+        <BenefitList
+          h2="Waarom Nieuwblik?"
+          intro={
+            isLocal
+              ? `We zijn lokaal gevestigd en kennen de regio ${region.name} goed.`
+              : `Ook vanuit ${region.name} kun je rekenen op onze expertise.`
+          }
+          items={whyPoints.map((point) => ({ h3: point.title, text: point.text }))}
+          className="bg-secondary/30"
+        >
+          <div className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {[
+              `Binnen ${LEVERTIJD.standaard} live met je nieuwe website`,
+              isLocal ? `Persoonlijk contact - we zitten vlakbij` : `Persoonlijke service, ook op afstand`,
+              `Transparante prijzen zonder verborgen kosten`,
+              `Mobiel-geoptimaliseerd voor al je klanten`,
+              `Gratis SEO-scan van je huidige website`,
+              `Continue ondersteuning na oplevering`,
+            ].map((benefit, idx) => (
+              <motion.div
+                key={benefit}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.05 }}
+                className="flex items-center gap-3"
+              >
+                <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
+                <p className="text-sm text-foreground">{benefit}</p>
+              </motion.div>
+            ))}
           </div>
-        </section>
+        </BenefitList>
 
         {/* Portfolio */}
         <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-24">
