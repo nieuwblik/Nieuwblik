@@ -14,9 +14,8 @@ import { SITE_URL } from "@/config/site";
  * van Nieuwblik opnieuw te beschrijven.
  */
 
-export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
-export const WEBSITE_ID = `${SITE_URL}/#website`;
-export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
+const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
 
 type Node = Record<string, unknown>;
 

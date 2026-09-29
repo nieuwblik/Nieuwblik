@@ -10,7 +10,3 @@
  * verificatie) deze waarde kunnen lezen.
  */
 export const SITE_URL = "https://nieuwblik.com";
-
-/** Absolute URL voor een pad op de site. `absoluteUrl("/")` geeft de homepage zonder slash. */
-export const absoluteUrl = (path: string): string =>
-  path === "/" || path === "" ? SITE_URL : `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

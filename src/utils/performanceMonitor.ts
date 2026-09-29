@@ -94,21 +94,3 @@ function getRating(metric: string, value: number): 'good' | 'needs-improvement' 
   if (value <= threshold.poor) return 'needs-improvement';
   return 'poor';
 }
-
-/**
- * Report to analytics (placeholder - integrate with your analytics service)
- */
-export const reportWebVitals = (metric: PerformanceMetric) => {
-  // Example: send to Google Analytics
-  // if (window.gtag) {
-  //   window.gtag('event', metric.name, {
-  //     value: Math.round(metric.value),
-  //     metric_rating: metric.rating,
-  //   });
-  // }
-  
-  // For now, just log in development
-  if (import.meta.env.DEV) {
-    console.log(`[Web Vitals] ${metric.name}:`, metric.value, `(${metric.rating})`);
-  }
-};

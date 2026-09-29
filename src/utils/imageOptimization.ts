@@ -1,19 +1,4 @@
 /**
- * Image optimization utilities for better performance
- */
-
-/**
- * Generate srcset for responsive images
- * @param imagePath - Base image path
- * @param sizes - Array of sizes to generate
- */
-export const generateSrcSet = (imagePath: string, sizes: number[] = [400, 800, 1200]): string => {
-  // For now, return the base image
-  // In production, you would generate multiple sizes server-side or use a CDN
-  return sizes.map(size => `${imagePath} ${size}w`).join(', ');
-};
-
-/**
  * Get optimal image sizes attribute for responsive images
  */
 export const getImageSizes = (type: 'hero' | 'card' | 'thumbnail' | 'logo'): string => {
@@ -29,29 +14,4 @@ export const getImageSizes = (type: 'hero' | 'card' | 'thumbnail' | 'logo'): str
     default:
       return '100vw';
   }
-};
-
-/**
- * Lazy load images with intersection observer
- */
-export const lazyLoadImage = (img: HTMLImageElement) => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const lazyImage = entry.target as HTMLImageElement;
-          if (lazyImage.dataset['src']) {
-            lazyImage.src = lazyImage.dataset['src'];
-            lazyImage.classList.add('loaded');
-            observer.unobserve(lazyImage);
-          }
-        }
-      });
-    },
-    {
-      rootMargin: '50px', // Start loading 50px before image enters viewport
-    }
-  );
-
-  observer.observe(img);
 };

@@ -500,23 +500,10 @@ export const regions: Region[] = [
 export const getWerkgebiedRegionBySlug = (slug: string): Region | undefined =>
   regions.find((region) => region.slug === slug && region.type === 'local');
 
-export const getRegionBySlug = (slug: string): Region | undefined => {
-  console.log('getRegionBySlug called with slug:', slug);
-  console.log('Total regions:', regions.length);
-  console.log('Available slugs:', regions.map(r => r.slug));
-  const found = regions.find(region => region.slug === slug);
-  console.log('Found region:', found);
-  return found;
-};
-
 export const getLocalRegions = (): Region[] => {
   return regions.filter(region => region.type === 'local');
 };
 
 export const getMajorRegions = (): Region[] => {
   return regions.filter(region => region.type === 'major');
-};
-
-export const getRegionsByProvince = (province: string): Region[] => {
-  return regions.filter(region => region.province === province);
 };
