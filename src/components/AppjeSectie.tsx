@@ -1,18 +1,21 @@
 import {
+  Fragment,
   useEffect,
   useRef,
+  useState,
   type MutableRefObject,
   type ReactNode,
 } from "react";
-import { CalendarCheck } from "lucide-react";
 import {
   motion,
   useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   animate,
   useInView,
   useTransform,
   type MotionValue,
+  type Variants,
 } from "framer-motion";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
@@ -74,17 +77,20 @@ interface Bericht {
   /** Alleen klant: vanaf hier kleuren de vinkjes blauw. */
   gelezen?: number;
   /** Plek rond de telefoon in orbit-stand, in procenten van de foto. */
-  orbit: { kant: "links" | "rechts"; y: number };
+  orbit: { kant: "links" | "rechts" | "midden"; y: number };
 }
 
 // Desktopfoto (over de schouder): de telefoon staat tussen x 55–76,5% en
 // y 13–76%. Het gesprek staat óp de telefoon, als één kolom over het donkere
 // scherm, en steekt aan beide kanten een stuk buiten de telefoon uit:
-// Nieuwblik-appjes beginnen links op 47%, klantappjes lijnen rechts uit op 84%,
-// zoals in WhatsApp. De appjes zijn 17% van de foto breed.
-// Verticaal staan ze onder elkaar met 2,3% van de foto ertussen (18–21px). De
+// Nieuwblik-appjes beginnen links op 49%, klantappjes lijnen rechts uit op 82%,
+// zoals in WhatsApp. De appjes zijn 20% van de foto breed, dus in het midden
+// (62–69%) lopen ze langs elkaar, en verticaal overlappen ze 0,9% van de foto
+// (±7px, binnen de binnenrand): een later appje ligt licht over het vorige,
+// zonder tekst te bedekken. De geplande
+// kennismaking staat daaronder, gecentreerd op de telefoon (x 65,8%). De
 // hoogtes zijn gemeten op 1280×800, waar ze relatief het hoogst zijn; zo loopt
-// het gesprek van 16% tot 75%, binnen de telefoon.
+// het gesprek van 27% tot 70%, onder in het scherm.
 const GESPREK: Bericht[] = [
   {
     id: "k1",
@@ -93,7 +99,7 @@ const GESPREK: Bericht[] = [
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
     op: 0.05,
     gelezen: 0.13,
-    orbit: { kant: "rechts", y: 16 },
+    orbit: { kant: "rechts", y: 27.1 },
   },
   {
     id: "n1",
@@ -101,7 +107,7 @@ const GESPREK: Bericht[] = [
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
     typen: 0.13,
     op: 0.22,
-    orbit: { kant: "links", y: 25.3 },
+    orbit: { kant: "links", y: 33.2 },
   },
   {
     id: "k2",
@@ -109,7 +115,7 @@ const GESPREK: Bericht[] = [
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
     op: 0.33,
     gelezen: 0.41,
-    orbit: { kant: "rechts", y: 37.4 },
+    orbit: { kant: "rechts", y: 39.8 },
   },
   {
     id: "n2",
@@ -117,7 +123,7 @@ const GESPREK: Bericht[] = [
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
     typen: 0.41,
     op: 0.5,
-    orbit: { kant: "links", y: 46.7 },
+    orbit: { kant: "links", y: 45.9 },
   },
   {
     id: "k3",
@@ -125,14 +131,14 @@ const GESPREK: Bericht[] = [
     tekst: "Top! Morgen 10:00?",
     op: 0.6,
     gelezen: 0.67,
-    orbit: { kant: "rechts", y: 61 },
+    orbit: { kant: "rechts", y: 54.8 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
     op: 0.71,
-    orbit: { kant: "links", y: 68.1 },
+    orbit: { kant: "midden", y: 63 },
   },
 ];
 
@@ -192,30 +198,7 @@ const Vinkjes = ({
 };
 
 const Bubbel = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
-  if (b.van === "gepland") {
-    return (
-      <div
-        className="flex items-center gap-3 rounded-2xl px-4 py-3 text-white"
-        style={{
-          background: "hsl(160 84% 13% / 0.94)",
-          border: `1px solid hsl(160 70% 58% / 0.4)`,
-          boxShadow: SCHADUW,
-        }}
-      >
-        <CalendarCheck
-          className="h-[1.25em] w-[1.25em] shrink-0"
-          style={{ color: GROEN_LICHT }}
-          aria-hidden="true"
-        />
-        <span className="leading-tight">
-          <span className="block font-semibold">{b.tekst}</span>
-          <span className="block text-[0.82em] text-white/70">
-            Videobellen · morgen 10:00
-          </span>
-        </span>
-      </div>
-    );
-  }
+  if (b.van === "gepland") return <GeplandChip b={b} p={p} />;
 
   const klant = b.van === "klant";
   return (
@@ -275,12 +258,210 @@ const Typen = () => (
   </div>
 );
 
+// ── Slotstuk: de geplande kennismaking ─────────────────────────────────────
+//
+// Geen appje maar een melding onderaan het gesprek, gecentreerd zoals een
+// systeembericht in WhatsApp. Hij ploft erin met een veer (iets te groot, dan
+// terug), er gaan twee groene ringen vanaf, een handvol vonkjes spat weg en
+// het vinkje in de kalender tekent zichzelf.
+
+const VONKEN = Array.from({ length: 10 }, (_, i) => {
+  const hoek = (i / 10) * Math.PI * 2 + 0.25;
+  const ver = i % 3 === 0 ? 1.12 : 0.92;
+  return {
+    x: Math.cos(hoek) * 150 * ver,
+    y: Math.sin(hoek) * 62 * ver,
+    kleur: i % 2 === 0 ? GROEN_LICHT : "#ffffff",
+  };
+});
+
+const chipVarianten: Variants = {
+  uit: { opacity: 0, scale: 0.45, y: 28 },
+  aan: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 420,
+      damping: 13,
+      mass: 0.9,
+      opacity: { duration: 0.18 },
+    },
+  },
+};
+
+const ringVarianten = (i: number): Variants => ({
+  uit: { opacity: 0, scale: 1 },
+  aan: {
+    opacity: [0, 0.75, 0],
+    scale: [0.92, 1.45],
+    transition: {
+      duration: 1.3,
+      delay: 0.2 + i * 0.4,
+      ease: [0.22, 1, 0.36, 1],
+      opacity: { times: [0, 0.15, 1], duration: 1.3, delay: 0.2 + i * 0.4 },
+    },
+  },
+});
+
+const regelVarianten = (vertraging: number): Variants => ({
+  uit: { opacity: 0, y: 8 },
+  aan: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: vertraging, duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+  },
+});
+
+/** Kalender met een vinkje dat zichzelf tekent (lucide calendar-check). */
+const Kalender = () => (
+  <motion.span
+    className="inline-flex shrink-0"
+    style={{ color: GROEN_LICHT }}
+    variants={{
+      uit: { rotate: 0 },
+      aan: {
+        rotate: [0, -16, 12, -5, 0],
+        transition: { delay: 0.22, duration: 0.7 },
+      },
+    }}
+  >
+    <svg
+      viewBox="0 0 24 24"
+      className="h-[1.35em] w-[1.35em]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M8 2v4M16 2v4" />
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M3 10h18" />
+      <motion.path
+        d="m9 16 2 2 4-4"
+        variants={{
+          uit: { pathLength: 0 },
+          aan: {
+            pathLength: 1,
+            transition: { delay: 0.45, duration: 0.45, ease: "easeOut" },
+          },
+        }}
+      />
+    </svg>
+  </motion.span>
+);
+
+const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
+  const reduce = useReducedMotion();
+  const [aan, setAan] = useState(false);
+  useMotionValueEvent(p, "change", (v) => {
+    if (v >= b.op - IN) setAan(true);
+  });
+  useEffect(() => {
+    if (p.get() >= b.op - IN) setAan(true);
+  }, [p, b.op]);
+  // Zonder beweging alleen een fade; de varianten (veer, ringen) vallen weg.
+  const met = (varianten: Variants) => (reduce ? {} : { variants: varianten });
+
+  const kaart = (
+    <motion.div
+      className="relative flex items-center gap-3 whitespace-nowrap rounded-2xl px-4 py-3 text-white"
+      style={{
+        background: "hsl(160 84% 13% / 0.95)",
+        border: `1px solid hsl(160 70% 58% / 0.45)`,
+        boxShadow: `${SCHADUW}, 0 0 28px -6px hsl(160 70% 58% / 0.45)`,
+      }}
+      {...met(chipVarianten)}
+    >
+      <Kalender />
+      <span className="leading-tight">
+        <motion.span
+          className="block font-semibold"
+          {...met(regelVarianten(0.16))}
+        >
+          {b.tekst}
+        </motion.span>
+        <motion.span
+          className="block text-[0.82em] text-white/70"
+          {...met(regelVarianten(0.28))}
+        >
+          Videobellen · morgen 10:00
+        </motion.span>
+      </span>
+    </motion.div>
+  );
+
+  if (reduce) {
+    return (
+      <motion.div
+        initial={false}
+        animate={{ opacity: aan ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {kaart}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      className="relative"
+      initial="uit"
+      animate={aan ? "aan" : "uit"}
+    >
+      {VONKEN.map((v, i) => (
+        <motion.span
+          key={i}
+          className="pointer-events-none absolute left-1/2 top-1/2 -ml-[3px] -mt-[3px] block h-[6px] w-[6px] rounded-full"
+          style={{ background: v.kleur }}
+          variants={{
+            uit: { opacity: 0, x: 0, y: 0, scale: 0 },
+            aan: {
+              opacity: [0, 1, 1, 0],
+              x: v.x,
+              y: v.y,
+              scale: [0, 1.2, 1, 0.5],
+              transition: {
+                delay: 0.1 + (i % 3) * 0.04,
+                duration: 0.95,
+                ease: [0.16, 1, 0.3, 1],
+              },
+            },
+          }}
+        />
+      ))}
+      {[0, 1].map((i) => (
+        <motion.span
+          key={`ring-${i}`}
+          className="pointer-events-none absolute inset-0 rounded-2xl"
+          style={{ border: `2px solid ${GROEN_LICHT}` }}
+          variants={ringVarianten(i)}
+        />
+      ))}
+      {kaart}
+    </motion.div>
+  );
+};
+
 // ── Orbit-stand: appjes rondom de telefoon ─────────────────────────────────
 
 const plekStijl = (b: Bericht) =>
   b.orbit.kant === "links"
-    ? { top: `${b.orbit.y}%`, left: "47%", transformOrigin: "0% 50%" }
-    : { top: `${b.orbit.y}%`, right: "16%", transformOrigin: "100% 50%" };
+    ? { top: `${b.orbit.y}%`, left: "49%", transformOrigin: "0% 50%" }
+    : { top: `${b.orbit.y}%`, right: "18%", transformOrigin: "100% 50%" };
+
+/** De geplande kennismaking: gecentreerd onder het gesprek, op de telefoon. */
+const OrbitGepland = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => (
+  <div
+    className="appje-orbit-bubbel absolute -translate-x-1/2"
+    style={{ top: `${b.orbit.y}%`, left: "65.8%", maxWidth: "none" }}
+  >
+    <GeplandChip b={b} p={p} />
+  </div>
+);
 
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const zicht = useTransform(p, [b.op - IN, b.op], [0, 1], { clamp: true });
@@ -345,7 +526,10 @@ const zichtbaar = (it: StapelItem, v: number) =>
       )
     : ramp(v, it.start - IN, it.start);
 
-const STAPEL_GAT = 12;
+// Negatief: de appjes lopen licht over elkaar heen. De geplande kennismaking
+// krijgt juist wat lucht, voor de ringen en vonkjes.
+const STAPEL_GAT = -8;
+const gat = (it: StapelItem) => (it.b.van === "gepland" ? 18 : STAPEL_GAT);
 
 const StapelRegel = ({
   it,
@@ -365,26 +549,36 @@ const StapelRegel = ({
 }) => {
   // Elk later bericht duwt dit bericht omhoog met zijn eigen hoogte, naar rato
   // van hoe ver het al verschenen is. Bovenin vervaagt de container (mask).
+  const gepland = it.b.van === "gepland";
   const y = useTransform<number, number>([p, versie], ([v = 0]) => {
     let omhoog = 0;
     for (let j = index + 1; j < ITEMS.length; j++) {
       omhoog +=
-        ((hoogtes.current[j] ?? 0) + STAPEL_GAT) * zichtbaar(ITEMS[j]!, v);
+        ((hoogtes.current[j] ?? 0) + gat(ITEMS[j]!)) * zichtbaar(ITEMS[j]!, v);
     }
-    return -omhoog + (1 - zichtbaar(it, v)) * 14;
+    return -omhoog + (gepland ? 0 : (1 - zichtbaar(it, v)) * 14);
   });
-  const opacity = useTransform(p, (v) => zichtbaar(it, v));
-  const scale = useTransform(p, (v) => 0.88 + 0.12 * zichtbaar(it, v));
+  // De kennismaking heeft een eigen entree (GeplandChip).
+  const opacity = useTransform(p, (v) => (gepland ? 1 : zichtbaar(it, v)));
+  const scale = useTransform(p, (v) =>
+    gepland ? 1 : 0.88 + 0.12 * zichtbaar(it, v),
+  );
   const rechts = it.b.van === "klant";
   return (
     <motion.div
       ref={meet}
-      className={`absolute bottom-0 max-w-[86%] ${rechts ? "right-0" : "left-0"}`}
+      className={`absolute bottom-0 max-w-[86%] ${
+        gepland ? "left-1/2 -translate-x-1/2" : rechts ? "right-0" : "left-0"
+      }`}
       style={{
         y,
         opacity,
         scale,
-        transformOrigin: rechts ? "100% 100%" : "0% 100%",
+        transformOrigin: gepland
+          ? "50% 100%"
+          : rechts
+            ? "100% 100%"
+            : "0% 100%",
       }}
     >
       {it.soort === "typen" ? <Typen /> : <Bubbel b={it.b} p={p} />}
@@ -461,18 +655,6 @@ const KOP = [
 const WOORD_START = 0.45;
 const WOORD_STAP = 0.045;
 const WOORD_DUUR = 0.26;
-
-/** Het WhatsApp-logo, hetzelfde als op de zwevende knop, in het groen van WhatsApp. */
-const WhatsAppIcoon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    className="h-[1.15em] w-[1.15em] shrink-0"
-    fill="#25D366"
-    aria-hidden="true"
-  >
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-  </svg>
-);
 
 // ── Sectie ─────────────────────────────────────────────────────────────────
 
@@ -560,14 +742,18 @@ const AppjeSectie = () => {
               className="absolute inset-0 hidden orbit:block"
               aria-hidden="true"
             >
+              {/* In volgorde van het gesprek, zodat een later appje boven
+                  het vorige ligt waar ze elkaar overlappen. */}
               {GESPREK.map((b) =>
-                b.typen !== undefined ? (
-                  <OrbitTypen key={`${b.id}-typen`} b={b} p={gesprek} />
-                ) : null,
+                b.van === "gepland" ? (
+                  <OrbitGepland key={b.id} b={b} p={gesprek} />
+                ) : (
+                  <Fragment key={b.id}>
+                    {b.typen !== undefined && <OrbitTypen b={b} p={gesprek} />}
+                    <OrbitBericht b={b} p={gesprek} />
+                  </Fragment>
+                ),
               )}
-              {GESPREK.map((b) => (
-                <OrbitBericht key={b.id} b={b} p={gesprek} />
-              ))}
             </div>
           </motion.div>
 
@@ -665,10 +851,7 @@ const AppjeSectie = () => {
               style={{ opacity: tekstOpacity }}
             >
               <AnimatedButton href={WHATSAPP} size="lg" variant="white">
-                <span className="inline-flex items-center gap-2.5 whitespace-nowrap">
-                  <WhatsAppIcoon />
-                  Stuur een appje
-                </span>
+                <span className="whitespace-nowrap">Stuur een appje</span>
               </AnimatedButton>
               <a
                 href={TELEFOON}
