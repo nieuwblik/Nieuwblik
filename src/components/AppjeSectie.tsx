@@ -54,7 +54,7 @@ const KLANT_BUBBEL = "hsl(140 60% 90%)";
 const SCHADUW =
   "0 14px 34px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06)";
 /** Hoe lang het gesprek duurt, in seconden (ruim een seconde per bericht). */
-const GESPREK_DUUR = 8.5;
+const GESPREK_DUUR = 8;
 
 const WHATSAPP = `${companyInfo.whatsapp}?text=${encodeURIComponent(
   "Hoi Nieuwblik! Ik heb een vraag over een website.",
@@ -90,47 +90,47 @@ const GESPREK: Bericht[] = [
     van: "klant",
     tekst:
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
-    op: 0.12,
-    gelezen: 0.2,
+    op: 0.05,
+    gelezen: 0.13,
     orbit: { kant: "rechts", y: 18 },
   },
   {
     id: "n1",
     van: "nieuwblik",
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
-    typen: 0.2,
-    op: 0.29,
+    typen: 0.13,
+    op: 0.22,
     orbit: { kant: "links", y: 23 },
   },
   {
     id: "k2",
     van: "klant",
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
-    op: 0.4,
-    gelezen: 0.48,
+    op: 0.33,
+    gelezen: 0.41,
     orbit: { kant: "rechts", y: 29 },
   },
   {
     id: "n2",
     van: "nieuwblik",
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
-    typen: 0.48,
-    op: 0.57,
+    typen: 0.41,
+    op: 0.5,
     orbit: { kant: "links", y: 34 },
   },
   {
     id: "k3",
     van: "klant",
     tekst: "Top! Morgen 10:00?",
-    op: 0.67,
-    gelezen: 0.74,
+    op: 0.6,
+    gelezen: 0.67,
     orbit: { kant: "rechts", y: 39 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
-    op: 0.78,
+    op: 0.71,
     orbit: { kant: "links", y: 47 },
   },
 ];
@@ -451,9 +451,12 @@ const MaskWoord = ({
   );
 };
 
-// Drie vaste regels. Het laatste woord moet binnen de binnenkomst (0–1) klaar
+// Twee vaste regels. Het laatste woord moet binnen de binnenkomst (0–1) klaar
 // zijn: start 0,45 + 4 × 0,06 = 0,69, plus 0,26 duur = 0,95.
-const KOP = [["Contact?"], ["Eén", "appje"], ["is", "genoeg."]];
+const KOP = [
+  ["Contact?", "Eén", "appje"],
+  ["is", "genoeg."],
+];
 const WOORD_START = 0.45;
 const WOORD_STAP = 0.06;
 const WOORD_DUUR = 0.26;
@@ -482,7 +485,7 @@ const AppjeSectie = () => {
   // leidt zijn stand af van deze twee waarden.
   const binnen = useMotionValue(0);
   const gesprek = useMotionValue(0);
-  const inBeeld = useInView(wrapperRef, { once: true, amount: 0.45 });
+  const inBeeld = useInView(wrapperRef, { once: true, amount: 0.3 });
 
   useEffect(() => {
     // Met reduced motion: meteen de eindstand.
@@ -496,7 +499,7 @@ const AppjeSectie = () => {
     const chat = animate(gesprek, 1, {
       duration: GESPREK_DUUR,
       ease: "linear",
-      delay: 0.9,
+      delay: 0.2,
     });
     return () => {
       kop.stop();
@@ -514,7 +517,6 @@ const AppjeSectie = () => {
     clamp: true,
   });
   const tekstY = useTransform(binnen, [0.55, 0.95], [18, 0], { clamp: true });
-  const knopGloed = useTransform(gesprek, [0.8, 0.9], [0, 1], { clamp: true });
 
   return (
     <section
@@ -605,7 +607,7 @@ const AppjeSectie = () => {
                 id="appje-kop"
                 className="font-bold tracking-tight text-white"
                 style={{
-                  fontSize: "clamp(2rem, 3.8vw, 3.9rem)",
+                  fontSize: "clamp(1.85rem, 3.1vw, 3.4rem)",
                   lineHeight: 1.04,
                 }}
               >
@@ -661,23 +663,12 @@ const AppjeSectie = () => {
               className="pointer-events-auto flex flex-wrap items-center gap-x-6 gap-y-3 pr-16 orbit:mt-10 orbit:pr-0"
               style={{ opacity: tekstOpacity }}
             >
-              <span className="relative inline-flex">
-                {/* Zachte gloed rond de knop zodra het gesprek rond is. */}
-                <motion.span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -inset-2 rounded-xl"
-                  style={{
-                    opacity: knopGloed,
-                    boxShadow: `0 0 0 1px ${GROEN_LICHT}, 0 0 32px 4px hsl(160 70% 50% / 0.45)`,
-                  }}
-                />
-                <AnimatedButton href={WHATSAPP} size="lg" variant="white">
-                  <span className="inline-flex items-center gap-2.5 whitespace-nowrap">
-                    <WhatsAppIcoon />
-                    Stuur een appje
-                  </span>
-                </AnimatedButton>
-              </span>
+              <AnimatedButton href={WHATSAPP} size="lg" variant="white">
+                <span className="inline-flex items-center gap-2.5 whitespace-nowrap">
+                  <WhatsAppIcoon />
+                  Stuur een appje
+                </span>
+              </AnimatedButton>
               <a
                 href={TELEFOON}
                 className="text-sm text-white/80 underline-offset-4 transition-colors hover:text-white hover:underline"
@@ -688,17 +679,17 @@ const AppjeSectie = () => {
               {/* Achter een laptop stuur je niet zomaar een appje: scan de code
                   met je telefoon en het gesprek staat klaar. Alleen met een
                   muis of trackpad, en alleen in de brede stand. */}
-              <div className="hidden w-full items-center gap-4 pt-3 orbit:pointer-fine:flex">
-                <span className="rounded-lg bg-white p-1.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]">
-                  <img
-                    src={whatsappQr}
-                    alt="QR-code die WhatsApp opent met een bericht aan Nieuwblik"
-                    width={76}
-                    height={76}
-                    loading="lazy"
-                    className="block h-[76px] w-[76px]"
-                  />
-                </span>
+              <div className="hidden w-full items-center gap-5 pt-4 orbit:pointer-fine:flex">
+                {/* Wit op de donkere achtergrond, zonder vlak eromheen. De
+                    camera's van iPhone en Android lezen omgekeerde codes. */}
+                <img
+                  src={whatsappQr}
+                  alt="QR-code die WhatsApp opent met een bericht aan Nieuwblik"
+                  width={116}
+                  height={116}
+                  loading="lazy"
+                  className="-ml-2 block h-[116px] w-[116px] shrink-0"
+                />
                 <span className="max-w-[14rem] text-sm leading-snug text-white/70">
                   Achter je laptop? Scan de code met je telefoon, dan staat je
                   appje al klaar.

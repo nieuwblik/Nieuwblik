@@ -641,7 +641,8 @@ h1, h2, h3, h4, h5, h6 {
 @custom-variant orbit (@media (min-width: 1024px) and (min-aspect-ratio: 3/2));
 
 /* Tekstkolom: in orbit-stand verticaal gecentreerd links, en nooit breder dan
-   tot vlak voor de appjes links van de telefoon (die beginnen op 37% van de foto). */
+   tot vlak voor de appjes links van de telefoon (die beginnen op 45% van de foto;
+   de kolom houdt 2% plus 2,5rem afstand). */
 .appje-tekst {
   position: absolute;
   inset: 5.5rem 6cqw 1.5rem 6cqw;
@@ -660,20 +661,20 @@ h1, h2, h3, h4, h5, h6 {
     left: 6cqw;
     top: 50%;
     translate: 0 -50%;
-    width: min(34rem, calc((100cqw - var(--cover-b)) / 2 + var(--cover-b) * 0.37 - 6cqw - 2.5rem));
+    width: min(36rem, calc((100cqw - var(--cover-b)) / 2 + var(--cover-b) * 0.43 - 6cqw - 2.5rem));
     display: block;
   }
 }
 
 /* Lopende chat voor smalle schermen. Staand: tussen de kop en de telefoon, en
    over de bovenkant van de telefoon heen (tot 66% van de foto), alsof de
-   appjes uit het scherm komen. Nooit hoger dan 21rem, anders raakt hij de
+   appjes uit het scherm komen. Nooit hoger dan 18,5rem, anders raakt hij de
    kop. Liggend: links van de telefoon, onder de tekst. */
 .appje-stapel {
   position: absolute;
   left: 6cqw;
   right: 6cqw;
-  top: max(21rem, calc((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.3));
+  top: max(18.5rem, calc((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.3));
   bottom: calc(100cqh - ((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.66));
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
