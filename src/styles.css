@@ -666,7 +666,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Lopende chat voor smalle schermen. Staand: tussen de kop en de telefoon, en
-   over de bovenkant van de telefoon heen (tot 62% van de foto), alsof de
+   over de bovenkant van de telefoon heen (tot 66% van de foto), alsof de
    appjes uit het scherm komen. Nooit hoger dan 21rem, anders raakt hij de
    kop. Liggend: links van de telefoon, onder de tekst. */
 .appje-stapel {
@@ -674,7 +674,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 6cqw;
   right: 6cqw;
   top: max(21rem, calc((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.3));
-  bottom: calc(100cqh - ((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.62));
+  bottom: calc(100cqh - ((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.66));
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
@@ -690,10 +690,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Appjes in orbit-stand schalen mee met de foto. */
 .appje-orbit-bubbel {
-  max-width: calc(var(--cover-b) * 0.13);
+  max-width: calc(var(--cover-b) * 0.15);
   font-size: clamp(13px, calc(var(--cover-b) * 0.0092), 17px);
 }
-.appje-orbit-rechts { max-width: calc(var(--cover-b) * 0.115); }
 
 @keyframes appje-typen {
   0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }

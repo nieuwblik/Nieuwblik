@@ -9,8 +9,8 @@ import {
   motion,
   useMotionValue,
   useReducedMotion,
-  useScroll,
-  useSpring,
+  animate,
+  useInView,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -25,18 +25,18 @@ import mobiel1080 from "@/assets/contact/appje-mobiel-1080.webp";
 /*
  * "Contact? Eén appje is genoeg."
  *
- * Schermvullende sectie onderaan de homepage. Terwijl je scrolt blijft hij
- * staan (sticky, geen gekaapte scroll) en speelt er een WhatsApp-gesprek af
- * rondom de telefoon op de foto: typbolletjes, bericht, blauwe vinkjes,
- * antwoord, en tot slot een geplande kennismaking. Terugscrollen speelt het
- * terug.
+ * Schermvullende sectie onderaan de homepage. Zodra hij voor bijna de helft
+ * in beeld is, speelt er één keer een WhatsApp-gesprek af rondom de telefoon
+ * op de foto: typbolletjes, bericht, blauwe vinkjes, antwoord, en tot slot een
+ * geplande kennismaking. De appjes vallen een stukje over de telefoon heen.
  *
  * Twee standen, gekozen met CSS (zie .appje-* in styles.css):
- *  - orbit (breed scherm): de appjes zweven links en rechts van de telefoon.
+ *  - orbit (breed scherm): de appjes zweven links en rechts over de randen
+ *    van de telefoon.
  *    Ze staan in dezelfde "cover"-doos als de foto, dus ze blijven op elk
  *    schermformaat naast de telefoon, hoe de foto ook wordt bijgesneden.
- *  - stapel (telefoon, tablet): een lopende chat die net onder de telefoon
- *    uitkomt, met hooguit drie berichten tegelijk in beeld.
+ *  - stapel (telefoon, tablet): een lopende chat over de bovenkant van de
+ *    telefoon, met hooguit drie berichten tegelijk in beeld.
  *
  * Het gesprek is een voorbeeld, geen echte klant, en daarom aria-hidden. De
  * kop, de tekst en de knoppen staan gewoon in de HTML.
@@ -49,7 +49,8 @@ const INKT = "hsl(160 30% 8%)";
 const KLANT_BUBBEL = "hsl(140 60% 90%)";
 const SCHADUW =
   "0 14px 34px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06)";
-const SPRING = { stiffness: 140, damping: 28, mass: 0.35, restDelta: 0.0005 };
+/** Hoe lang het gesprek duurt, in seconden (ruim een seconde per bericht). */
+const GESPREK_DUUR = 8.5;
 
 const WHATSAPP = `${companyInfo.whatsapp}?text=${encodeURIComponent(
   "Hoi Nieuwblik! Ik heb een vraag over een website.",
@@ -74,11 +75,11 @@ interface Bericht {
 
 // Desktopfoto (over de schouder): het scherm staat tussen x 55,7–76,1% en
 // y 13,9–74,1%. De vingers omklemmen de linkerrand (x 53–57%, y 40–70%), de
-// duim ligt rechts (x 74–77%, y 38–44%). Links eindigen de appjes daarom op
-// 52,5%, rechts beginnen ze op 79%, in het lege zwart rechtsboven. Rechts zijn
-// ze smaller (11,5% van de foto) zodat ze ook op een 3:2-scherm met de
-// inzoom van 3% binnen beeld blijven: 66 + (90,5 − 66) × 1,03 = 91,2%, en er
-// is tot 92,4% zichtbaar.
+// duim ligt rechts (x 74–77%, y 38–44%). De appjes vallen een stukje over
+// de telefoon heen: links lopen ze tot 60%, rechts beginnen ze op 71%. Ze zijn
+// 15% van de foto breed, dus rechts eindigen ze op 86% (met de inzoom van 3%:
+// 86,6%), ruim binnen wat op een 3:2-scherm zichtbaar is (92,4%).
+// Verticaal zitten ze dicht op elkaar en lezen ze van boven naar beneden.
 const GESPREK: Bericht[] = [
   {
     id: "k1",
@@ -87,7 +88,7 @@ const GESPREK: Bericht[] = [
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
     op: 0.12,
     gelezen: 0.2,
-    orbit: { kant: "rechts", y: 16 },
+    orbit: { kant: "rechts", y: 18 },
   },
   {
     id: "n1",
@@ -95,7 +96,7 @@ const GESPREK: Bericht[] = [
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
     typen: 0.2,
     op: 0.29,
-    orbit: { kant: "links", y: 22 },
+    orbit: { kant: "links", y: 23 },
   },
   {
     id: "k2",
@@ -111,7 +112,7 @@ const GESPREK: Bericht[] = [
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
     typen: 0.48,
     op: 0.57,
-    orbit: { kant: "links", y: 38 },
+    orbit: { kant: "links", y: 34 },
   },
   {
     id: "k3",
@@ -119,14 +120,14 @@ const GESPREK: Bericht[] = [
     tekst: "Top! Morgen 10:00?",
     op: 0.67,
     gelezen: 0.74,
-    orbit: { kant: "rechts", y: 44 },
+    orbit: { kant: "rechts", y: 39 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
     op: 0.78,
-    orbit: { kant: "links", y: 55 },
+    orbit: { kant: "links", y: 47 },
   },
 ];
 
@@ -256,8 +257,8 @@ const Typen = () => (
 
 const plekStijl = (b: Bericht) =>
   b.orbit.kant === "links"
-    ? { top: `${b.orbit.y}%`, right: "47.5%", transformOrigin: "100% 50%" }
-    : { top: `${b.orbit.y}%`, left: "79%", transformOrigin: "0% 50%" };
+    ? { top: `${b.orbit.y}%`, right: "40%", transformOrigin: "100% 50%" }
+    : { top: `${b.orbit.y}%`, left: "71%", transformOrigin: "0% 50%" };
 
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const zicht = useTransform(p, [b.op - IN, b.op], [0, 1], { clamp: true });
@@ -265,7 +266,7 @@ const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const y = useTransform(zicht, [0, 1], [16, 0]);
   return (
     <motion.div
-      className={`appje-orbit-bubbel absolute ${b.orbit.kant === "rechts" ? "appje-orbit-rechts" : ""}`}
+      className="appje-orbit-bubbel absolute"
       style={{ ...plekStijl(b), opacity: zicht, scale: schaal, y }}
     >
       <Bubbel b={b} p={p} />
@@ -281,7 +282,7 @@ const OrbitTypen = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const schaal = useTransform(zicht, [0, 1], [0.8, 1]);
   return (
     <motion.div
-      className={`appje-orbit-bubbel absolute ${b.orbit.kant === "rechts" ? "appje-orbit-rechts" : ""}`}
+      className="appje-orbit-bubbel absolute"
       style={{ ...plekStijl(b), opacity: zicht, scale: schaal }}
     >
       <Typen />
@@ -322,7 +323,7 @@ const zichtbaar = (it: StapelItem, v: number) =>
       )
     : ramp(v, it.start - IN, it.start);
 
-const STAPEL_GAT = 10;
+const STAPEL_GAT = 6;
 
 const StapelRegel = ({
   it,
@@ -443,24 +444,32 @@ const AppjeSectie = () => {
   const wrapperRef = useRef<HTMLElement>(null);
   const podiumRef = useDarkNavSection<HTMLDivElement>();
 
-  // Binnenkomst: van "bovenkant onderin beeld" tot "bovenkant bovenin beeld".
-  const { scrollYProgress: binnenRuw } = useScroll({
-    target: wrapperRef,
-    offset: ["start end", "start start"],
-  });
-  // Vastgezet: het gesprek, over de hoogte van de wrapper.
-  const { scrollYProgress: gesprekRuw } = useScroll({
-    target: wrapperRef,
-    offset: ["start start", "end end"],
-  });
+  // Twee klokken van 0 naar 1, die starten zodra de sectie voor bijna de helft
+  // in beeld is: eerst de kop (kort), daarna het gesprek. Alles wat beweegt
+  // leidt zijn stand af van deze twee waarden.
+  const binnen = useMotionValue(0);
+  const gesprek = useMotionValue(0);
+  const inBeeld = useInView(wrapperRef, { once: true, amount: 0.45 });
 
-  const binnenVeer = useSpring(binnenRuw, SPRING);
-  const gesprekVeer = useSpring(gesprekRuw, SPRING);
-  const een = useMotionValue(1);
-
-  // Met reduced motion: alles in de eindstand, niets vastgezet.
-  const binnen = reduce ? een : binnenVeer;
-  const gesprek = reduce ? een : gesprekVeer;
+  useEffect(() => {
+    // Met reduced motion: meteen de eindstand.
+    if (reduce) {
+      binnen.set(1);
+      gesprek.set(1);
+      return;
+    }
+    if (!inBeeld) return;
+    const kop = animate(binnen, 1, { duration: 1.4, ease: [0.22, 1, 0.36, 1] });
+    const chat = animate(gesprek, 1, {
+      duration: GESPREK_DUUR,
+      ease: "linear",
+      delay: 0.9,
+    });
+    return () => {
+      kop.stop();
+      chat.stop();
+    };
+  }, [inBeeld, reduce, binnen, gesprek]);
 
   // Foto: zoomt bij binnenkomst iets uit, en tijdens het gesprek langzaam weer in.
   const fotoSchaal = useTransform<number, number>(
@@ -479,11 +488,11 @@ const AppjeSectie = () => {
       ref={wrapperRef}
       aria-labelledby="appje-kop"
       className="relative"
-      style={{ height: reduce ? "100svh" : "260svh", background: FOOTER_GROEN }}
+      style={{ background: FOOTER_GROEN }}
     >
       <div
         ref={podiumRef}
-        className="appje-podium sticky top-0 h-[100svh] w-full overflow-hidden"
+        className="appje-podium relative h-[100svh] w-full overflow-hidden"
       >
         <div className="appje-binnen">
           {/* Foto + appjes rond de telefoon: één doos, zodat ze samen meeschalen. */}
