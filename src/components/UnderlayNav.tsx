@@ -374,15 +374,10 @@ export default function UnderlayNav({
       const header = headerRef.current;
       if (!header) return;
 
-      // Mobile carries a blurred scrim behind the header instead, so the
-      // backdrop is always light there — inverting would put a white logo on a
-      // light scrim. Keep it on the ink treatment and skip the observer.
-      if (!window.matchMedia("(min-width: 768px)").matches) {
-        activeDarkRef.current.clear();
-        applyTheme(false);
-        return;
-      }
-
+      // Op mobiel zit er een wazige achtergrond achter de header. Die schakelt
+      // nu mee (licht of donker, zie de scrim hieronder), dus de detectie
+      // draait daar ook: boven een donkere sectie wordt de balk donker en het
+      // logo wit, in plaats van een lichte balk over een donkere sectie.
       const sensorY = header.offsetHeight / 2;
       const bottom = Math.max(0, window.innerHeight - sensorY - 1);
       const io = new IntersectionObserver(
@@ -454,10 +449,13 @@ export default function UnderlayNav({
           aria-hidden="true"
           className="absolute inset-0 md:hidden pointer-events-none"
           style={{
-            background: "hsl(var(--background) / 0.72)",
+            background: isDarkBg ? "hsl(160 60% 4% / 0.55)" : "hsl(var(--background) / 0.72)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
-            borderBottom: "1px solid hsl(var(--sw-rule) / 0.08)",
+            borderBottom: isDarkBg
+              ? "1px solid hsl(0 0% 100% / 0.06)"
+              : "1px solid hsl(var(--sw-rule) / 0.08)",
+            transition: "background-color 0.25s ease, border-color 0.25s ease",
           }}
         />
         <div className="relative flex items-center justify-between p-[1.25em] md:p-[2.5em]">
