@@ -244,16 +244,17 @@ const Typen = () => (
 // ── Slotstuk: de geplande kennismaking ─────────────────────────────────────
 //
 // Geen appje maar een melding onderaan het gesprek, gecentreerd zoals een
-// systeembericht in WhatsApp. Hij ploft erin met een veer (iets te groot, dan
-// terug), er gaan twee groene ringen vanaf, een handvol vonkjes spat weg en
-// het vinkje in de kalender tekent zichzelf.
+// systeembericht in WhatsApp. De kaart ploft erin met een veer (iets te groot,
+// dan terug); de beweging zit verder in het kalendericoon: dat springt erin
+// en wiebelt, er gaan groene ringen vanaf, een paar vonkjes spatten weg en het
+// vinkje tekent zichzelf.
 
-const VONKEN = Array.from({ length: 10 }, (_, i) => {
-  const hoek = (i / 10) * Math.PI * 2 + 0.25;
-  const ver = i % 3 === 0 ? 1.12 : 0.92;
+const VONKEN = Array.from({ length: 8 }, (_, i) => {
+  const hoek = (i / 8) * Math.PI * 2 + 0.4;
+  const ver = i % 2 === 0 ? 1.9 : 1.55;
   return {
-    x: Math.cos(hoek) * 150 * ver,
-    y: Math.sin(hoek) * 62 * ver,
+    x: `${(Math.cos(hoek) * ver).toFixed(2)}em`,
+    y: `${(Math.sin(hoek) * ver).toFixed(2)}em`,
     kleur: i % 2 === 0 ? GROEN_LICHT : "#ffffff",
   };
 });
@@ -274,20 +275,6 @@ const chipVarianten: Variants = {
   },
 };
 
-const ringVarianten = (i: number): Variants => ({
-  uit: { opacity: 0, scale: 1 },
-  aan: {
-    opacity: [0, 0.75, 0],
-    scale: [0.92, 1.45],
-    transition: {
-      duration: 1.3,
-      delay: 0.2 + i * 0.4,
-      ease: [0.22, 1, 0.36, 1],
-      opacity: { times: [0, 0.15, 1], duration: 1.3, delay: 0.2 + i * 0.4 },
-    },
-  },
-});
-
 const regelVarianten = (vertraging: number): Variants => ({
   uit: { opacity: 0, y: 8 },
   aan: {
@@ -297,44 +284,100 @@ const regelVarianten = (vertraging: number): Variants => ({
   },
 });
 
+// Ringen rond het icoon: drie keer een puls, daarna rust.
+const ringVarianten = (i: number): Variants => ({
+  uit: { opacity: 0, scale: 1 },
+  aan: {
+    opacity: [0, 0.85, 0],
+    scale: [0.9, 2.3],
+    transition: {
+      duration: 1.1,
+      delay: 0.35 + i * 0.3,
+      ease: "easeOut",
+      repeat: 2,
+      repeatDelay: 0.9,
+    },
+  },
+});
+
 /** Kalender met een vinkje dat zichzelf tekent (lucide calendar-check). */
-const Kalender = () => (
-  <motion.span
-    className="inline-flex shrink-0"
+const Kalender = ({ beweeg }: { beweeg: boolean }) => (
+  <span
+    className="relative inline-flex shrink-0"
     style={{ color: GROEN_LICHT }}
-    variants={{
-      uit: { rotate: 0 },
-      aan: {
-        rotate: [0, -16, 12, -5, 0],
-        transition: { delay: 0.22, duration: 0.7 },
-      },
-    }}
   >
-    <svg
+    {beweeg &&
+      [0, 1].map((i) => (
+        <motion.span
+          key={`ring-${i}`}
+          className="pointer-events-none absolute inset-0 rounded-full"
+          style={{ border: `1.5px solid ${GROEN_LICHT}` }}
+          variants={ringVarianten(i)}
+        />
+      ))}
+    {beweeg &&
+      VONKEN.map((v, i) => (
+        <motion.span
+          key={i}
+          className="pointer-events-none absolute left-1/2 top-1/2 -ml-[2px] -mt-[2px] block h-[4px] w-[4px] rounded-full"
+          style={{ background: v.kleur }}
+          variants={{
+            uit: { opacity: 0, x: "0em", y: "0em", scale: 0 },
+            aan: {
+              opacity: [0, 1, 1, 0],
+              x: v.x,
+              y: v.y,
+              scale: [0, 1.3, 1, 0.4],
+              transition: {
+                delay: 0.3 + (i % 2) * 0.05,
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
+              },
+            },
+          }}
+        />
+      ))}
+    <motion.svg
       viewBox="0 0 24 24"
-      className="h-[1.35em] w-[1.35em]"
+      className="relative h-[1.35em] w-[1.35em]"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
+      {...(beweeg
+        ? {
+            variants: {
+              uit: { scale: 0, rotate: -30 },
+              aan: {
+                scale: [0, 1.35, 1],
+                rotate: [-30, 14, -8, 4, 0],
+                transition: { delay: 0.15, duration: 0.8, ease: "easeOut" },
+              },
+            },
+          }
+        : {})}
     >
       <path d="M8 2v4M16 2v4" />
       <rect width="18" height="18" x="3" y="4" rx="2" />
       <path d="M3 10h18" />
       <motion.path
         d="m9 16 2 2 4-4"
-        variants={{
-          uit: { pathLength: 0 },
-          aan: {
-            pathLength: 1,
-            transition: { delay: 0.45, duration: 0.45, ease: "easeOut" },
-          },
-        }}
+        {...(beweeg
+          ? {
+              variants: {
+                uit: { pathLength: 0 },
+                aan: {
+                  pathLength: 1,
+                  transition: { delay: 0.6, duration: 0.4, ease: "easeOut" },
+                },
+              },
+            }
+          : {})}
       />
-    </svg>
-  </motion.span>
+    </motion.svg>
+  </span>
 );
 
 const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
@@ -346,7 +389,7 @@ const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   useEffect(() => {
     if (p.get() >= b.op - IN) setAan(true);
   }, [p, b.op]);
-  // Zonder beweging alleen een fade; de varianten (veer, ringen) vallen weg.
+  // Zonder beweging alleen een fade; de varianten (veer, icoon) vallen weg.
   const met = (varianten: Variants) => (reduce ? {} : { variants: varianten });
 
   const kaart = (
@@ -359,7 +402,7 @@ const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
       }}
       {...met(chipVarianten)}
     >
-      <Kalender />
+      <Kalender beweeg={!reduce} />
       <span className="leading-tight">
         <motion.span
           className="block font-semibold"
@@ -395,35 +438,6 @@ const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
       initial="uit"
       animate={aan ? "aan" : "uit"}
     >
-      {VONKEN.map((v, i) => (
-        <motion.span
-          key={i}
-          className="pointer-events-none absolute left-1/2 top-1/2 -ml-[3px] -mt-[3px] block h-[6px] w-[6px] rounded-full"
-          style={{ background: v.kleur }}
-          variants={{
-            uit: { opacity: 0, x: 0, y: 0, scale: 0 },
-            aan: {
-              opacity: [0, 1, 1, 0],
-              x: v.x,
-              y: v.y,
-              scale: [0, 1.2, 1, 0.5],
-              transition: {
-                delay: 0.1 + (i % 3) * 0.04,
-                duration: 0.95,
-                ease: [0.16, 1, 0.3, 1],
-              },
-            },
-          }}
-        />
-      ))}
-      {[0, 1].map((i) => (
-        <motion.span
-          key={`ring-${i}`}
-          className="pointer-events-none absolute inset-0 rounded-2xl"
-          style={{ border: `2px solid ${GROEN_LICHT}` }}
-          variants={ringVarianten(i)}
-        />
-      ))}
       {kaart}
     </motion.div>
   );
