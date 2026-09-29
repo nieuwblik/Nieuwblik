@@ -691,7 +691,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Appjes in orbit-stand schalen mee met de foto. */
 .appje-orbit-bubbel {
-  max-width: calc(var(--cover-b) * 0.15);
+  max-width: calc(var(--cover-b) * 0.17);
   font-size: clamp(13px, calc(var(--cover-b) * 0.0092), 17px);
 }
 

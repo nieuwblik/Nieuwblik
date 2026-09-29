@@ -77,16 +77,14 @@ interface Bericht {
   orbit: { kant: "links" | "rechts"; y: number };
 }
 
-// Desktopfoto (over de schouder): het scherm staat tussen x 55,7–76,1% en
-// y 13,9–74,1%. De vingers omklemmen de linkerrand (x 53–57%, y 40–70%), de
-// duim ligt rechts (x 74–77%, y 38–44%). De appjes vallen een stukje over
-// de telefoon heen: links lopen ze tot 60%, rechts beginnen ze op 71%. Ze zijn
-// 15% van de foto breed, dus rechts eindigen ze op 86% (met de inzoom van 3%:
-// 86,6%), ruim binnen wat op een 3:2-scherm zichtbaar is (92,4%).
-// Verticaal lezen ze van boven naar beneden, met zo'n 4% van de foto tussen
-// twee appjes aan dezelfde kant (gemeten op 1280×800, waar ze het hoogst zijn).
-// Het bovenste begint op 20%, zodat het ook op een ultrabreed scherm (waar de
-// foto boven en onder wordt bijgesneden) onder de menubalk blijft.
+// Desktopfoto (over de schouder): de telefoon staat tussen x 55–76,5% en
+// y 13–76%. Het gesprek staat óp de telefoon, als één kolom over het donkere
+// scherm, en steekt aan beide kanten een stuk buiten de telefoon uit:
+// Nieuwblik-appjes beginnen links op 47%, klantappjes lijnen rechts uit op 84%,
+// zoals in WhatsApp. De appjes zijn 17% van de foto breed.
+// Verticaal staan ze onder elkaar met 2,3% van de foto ertussen (18–21px). De
+// hoogtes zijn gemeten op 1280×800, waar ze relatief het hoogst zijn; zo loopt
+// het gesprek van 16% tot 75%, binnen de telefoon.
 const GESPREK: Bericht[] = [
   {
     id: "k1",
@@ -95,7 +93,7 @@ const GESPREK: Bericht[] = [
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
     op: 0.05,
     gelezen: 0.13,
-    orbit: { kant: "rechts", y: 20 },
+    orbit: { kant: "rechts", y: 16 },
   },
   {
     id: "n1",
@@ -103,7 +101,7 @@ const GESPREK: Bericht[] = [
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
     typen: 0.13,
     op: 0.22,
-    orbit: { kant: "links", y: 25.5 },
+    orbit: { kant: "links", y: 25.3 },
   },
   {
     id: "k2",
@@ -111,7 +109,7 @@ const GESPREK: Bericht[] = [
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
     op: 0.33,
     gelezen: 0.41,
-    orbit: { kant: "rechts", y: 33.5 },
+    orbit: { kant: "rechts", y: 37.4 },
   },
   {
     id: "n2",
@@ -119,7 +117,7 @@ const GESPREK: Bericht[] = [
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
     typen: 0.41,
     op: 0.5,
-    orbit: { kant: "links", y: 39.5 },
+    orbit: { kant: "links", y: 46.7 },
   },
   {
     id: "k3",
@@ -127,14 +125,14 @@ const GESPREK: Bericht[] = [
     tekst: "Top! Morgen 10:00?",
     op: 0.6,
     gelezen: 0.67,
-    orbit: { kant: "rechts", y: 45 },
+    orbit: { kant: "rechts", y: 61 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
     op: 0.71,
-    orbit: { kant: "links", y: 55.5 },
+    orbit: { kant: "links", y: 68.1 },
   },
 ];
 
@@ -281,8 +279,8 @@ const Typen = () => (
 
 const plekStijl = (b: Bericht) =>
   b.orbit.kant === "links"
-    ? { top: `${b.orbit.y}%`, right: "40%", transformOrigin: "100% 50%" }
-    : { top: `${b.orbit.y}%`, left: "71%", transformOrigin: "0% 50%" };
+    ? { top: `${b.orbit.y}%`, left: "47%", transformOrigin: "0% 50%" }
+    : { top: `${b.orbit.y}%`, right: "16%", transformOrigin: "100% 50%" };
 
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const zicht = useTransform(p, [b.op - IN, b.op], [0, 1], { clamp: true });
