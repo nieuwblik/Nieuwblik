@@ -692,10 +692,26 @@ h1, h2, h3, h4, h5, h6 {
   .appje-stapel { display: none; }
 }
 
-/* Appjes in orbit-stand schalen mee met de foto. */
+/* Orbit-stand: het gesprek als kolom op de telefoon, in procenten van de foto
+   (x 49–82%, onderkant op 70%). De appjes schalen mee met de foto en staan op
+   een vaste afstand van elkaar. */
+.appje-orbit-gesprek {
+  position: absolute;
+  left: 49%;
+  right: 18%;
+  bottom: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  font-size: clamp(13px, calc(var(--cover-b) * 0.0092), 17px);
+}
+/* Lage schermen: het gesprek iets lager en compacter, zodat het eerste appje
+   niet tegen het menu aan komt. */
+@media (max-height: 760px) {
+  .appje-orbit-gesprek { bottom: 27%; gap: 0.55em; }
+}
 .appje-orbit-bubbel {
   max-width: calc(var(--cover-b) * 0.2);
-  font-size: clamp(13px, calc(var(--cover-b) * 0.0092), 17px);
 }
 
 @keyframes appje-typen {

@@ -1,5 +1,4 @@
 import {
-  Fragment,
   useEffect,
   useRef,
   useState,
@@ -76,21 +75,11 @@ interface Bericht {
   typen?: number;
   /** Alleen klant: vanaf hier kleuren de vinkjes blauw. */
   gelezen?: number;
-  /** Plek rond de telefoon in orbit-stand, in procenten van de foto. */
-  orbit: { kant: "links" | "rechts" | "midden"; y: number };
 }
 
-// Desktopfoto (over de schouder): de telefoon staat tussen x 55–76,5% en
-// y 13–76%. Het gesprek staat óp de telefoon, als één kolom over het donkere
-// scherm, en steekt aan beide kanten een stuk buiten de telefoon uit:
-// Nieuwblik-appjes beginnen links op 49%, klantappjes lijnen rechts uit op 82%,
-// zoals in WhatsApp. De appjes zijn 20% van de foto breed, dus in het midden
-// (62–69%) lopen ze langs elkaar, en verticaal overlappen ze 0,9% van de foto
-// (±7px, binnen de binnenrand): een later appje ligt licht over het vorige,
-// zonder tekst te bedekken. De geplande
-// kennismaking staat daaronder, gecentreerd op de telefoon (x 65,8%). De
-// hoogtes zijn gemeten op 1280×800, waar ze relatief het hoogst zijn; zo loopt
-// het gesprek van 27% tot 70%, onder in het scherm.
+// Het gesprek. In orbit-stand staat het als één kolom op de telefoon (zie
+// .appje-orbit-gesprek): klant rechts, Nieuwblik links, de geplande
+// kennismaking gecentreerd onderaan.
 const GESPREK: Bericht[] = [
   {
     id: "k1",
@@ -99,7 +88,6 @@ const GESPREK: Bericht[] = [
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
     op: 0.05,
     gelezen: 0.13,
-    orbit: { kant: "rechts", y: 27.1 },
   },
   {
     id: "n1",
@@ -107,7 +95,6 @@ const GESPREK: Bericht[] = [
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
     typen: 0.13,
     op: 0.22,
-    orbit: { kant: "links", y: 33.2 },
   },
   {
     id: "k2",
@@ -115,7 +102,6 @@ const GESPREK: Bericht[] = [
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
     op: 0.33,
     gelezen: 0.41,
-    orbit: { kant: "rechts", y: 39.8 },
   },
   {
     id: "n2",
@@ -123,7 +109,6 @@ const GESPREK: Bericht[] = [
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
     typen: 0.41,
     op: 0.5,
-    orbit: { kant: "links", y: 45.9 },
   },
   {
     id: "k3",
@@ -131,14 +116,12 @@ const GESPREK: Bericht[] = [
     tekst: "Top! Morgen 10:00?",
     op: 0.6,
     gelezen: 0.67,
-    orbit: { kant: "rechts", y: 54.8 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
     op: 0.71,
-    orbit: { kant: "midden", y: 63 },
   },
 ];
 
@@ -448,20 +431,12 @@ const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
 
 // ── Orbit-stand: appjes rondom de telefoon ─────────────────────────────────
 
-const plekStijl = (b: Bericht) =>
-  b.orbit.kant === "links"
-    ? { top: `${b.orbit.y}%`, left: "49%", transformOrigin: "0% 50%" }
-    : { top: `${b.orbit.y}%`, right: "18%", transformOrigin: "100% 50%" };
-
-/** De geplande kennismaking: gecentreerd onder het gesprek, op de telefoon. */
-const OrbitGepland = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => (
-  <div
-    className="appje-orbit-bubbel absolute -translate-x-1/2"
-    style={{ top: `${b.orbit.y}%`, left: "65.8%", maxWidth: "none" }}
-  >
-    <GeplandChip b={b} p={p} />
-  </div>
-);
+// Desktopfoto (over de schouder): de telefoon staat tussen x 55–76,5% en
+// y 13–76%. Het gesprek is één kolom over het donkere scherm, van x 49% tot
+// 82%, die aan beide kanten een stuk buiten de telefoon uitsteekt, met de
+// onderkant op 70%. De appjes zijn 20% van de foto breed, dus in het midden
+// (62–69%) lopen ze langs elkaar; verticaal staan ze op een vaste afstand, hoe
+// breed het scherm ook is.
 
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const zicht = useTransform(p, [b.op - IN, b.op], [0, 1], { clamp: true });
@@ -469,14 +444,19 @@ const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const y = useTransform(zicht, [0, 1], [16, 0]);
   return (
     <motion.div
-      className="appje-orbit-bubbel absolute"
-      style={{ ...plekStijl(b), opacity: zicht, scale: schaal, y }}
+      style={{
+        opacity: zicht,
+        scale: schaal,
+        y,
+        transformOrigin: b.van === "klant" ? "100% 50%" : "0% 50%",
+      }}
     >
       <Bubbel b={b} p={p} />
     </motion.div>
   );
 };
 
+/** Typbolletjes, op de plek waar straks het bericht komt. */
 const OrbitTypen = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const typen = b.typen ?? b.op;
   const zicht = useTransform(p, (v) =>
@@ -485,11 +465,29 @@ const OrbitTypen = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const schaal = useTransform(zicht, [0, 1], [0.8, 1]);
   return (
     <motion.div
-      className="appje-orbit-bubbel absolute"
-      style={{ ...plekStijl(b), opacity: zicht, scale: schaal }}
+      className="absolute left-0 top-0"
+      style={{ opacity: zicht, scale: schaal, transformOrigin: "0% 50%" }}
     >
       <Typen />
     </motion.div>
+  );
+};
+
+const OrbitRegel = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
+  if (b.van === "gepland") {
+    return (
+      <div className="mt-[0.9em] self-center">
+        <GeplandChip b={b} p={p} />
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`appje-orbit-bubbel relative ${b.van === "klant" ? "self-end" : "self-start"}`}
+    >
+      {b.typen !== undefined && <OrbitTypen b={b} p={p} />}
+      <OrbitBericht b={b} p={p} />
+    </div>
   );
 };
 
@@ -526,9 +524,8 @@ const zichtbaar = (it: StapelItem, v: number) =>
       )
     : ramp(v, it.start - IN, it.start);
 
-// Negatief: de appjes lopen licht over elkaar heen. De geplande kennismaking
-// krijgt juist wat lucht, voor de ringen en vonkjes.
-const STAPEL_GAT = -8;
+// De geplande kennismaking krijgt wat extra lucht, voor de ringen en vonkjes.
+const STAPEL_GAT = 10;
 const gat = (it: StapelItem) => (it.b.van === "gepland" ? 18 : STAPEL_GAT);
 
 const StapelRegel = ({
@@ -742,18 +739,11 @@ const AppjeSectie = () => {
               className="absolute inset-0 hidden orbit:block"
               aria-hidden="true"
             >
-              {/* In volgorde van het gesprek, zodat een later appje boven
-                  het vorige ligt waar ze elkaar overlappen. */}
-              {GESPREK.map((b) =>
-                b.van === "gepland" ? (
-                  <OrbitGepland key={b.id} b={b} p={gesprek} />
-                ) : (
-                  <Fragment key={b.id}>
-                    {b.typen !== undefined && <OrbitTypen b={b} p={gesprek} />}
-                    <OrbitBericht b={b} p={gesprek} />
-                  </Fragment>
-                ),
-              )}
+              <div className="appje-orbit-gesprek">
+                {GESPREK.map((b) => (
+                  <OrbitRegel key={b.id} b={b} p={gesprek} />
+                ))}
+              </div>
             </div>
           </motion.div>
 
