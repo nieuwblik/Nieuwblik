@@ -635,10 +635,10 @@ h1, h2, h3, h4, h5, h6 {
   translate: -50% -50%;
 }
 
-/* Breed genoeg voor appjes links én rechts van de telefoon. Vanaf 4:3 past het:
-   op 1024×768 is er links van de telefoon 225px ruimte en eindigen de appjes
-   rechts op 86,5% van de foto, terwijl er tot 87,7% zichtbaar is. */
-@custom-variant orbit (@media (min-width: 1024px) and (min-aspect-ratio: 4/3));
+/* Breed genoeg voor appjes links én rechts van de telefoon. De telefoon staat
+   rechts in beeld (tot 76% van de foto) en de appjes rechts lopen tot 92,5%.
+   Vanaf 3:2 is dat zichtbaar (tot 92,4%); smaller krijgt de lopende chat. */
+@custom-variant orbit (@media (min-width: 1024px) and (min-aspect-ratio: 3/2));
 
 /* Tekstkolom: in orbit-stand verticaal gecentreerd links, en nooit breder dan
    tot vlak voor de appjes links van de telefoon (die beginnen op 37% van de foto). */
@@ -654,7 +654,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (orientation: landscape) {
   .appje-tekst { right: auto; width: min(46cqw, 28rem); }
 }
-@media (min-width: 1024px) and (min-aspect-ratio: 4/3) {
+@media (min-width: 1024px) and (min-aspect-ratio: 3/2) {
   .appje-tekst {
     inset: auto;
     left: 6cqw;
@@ -665,14 +665,16 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Lopende chat voor smalle schermen: staand komt hij net onder de telefoon
-   uit (58% van de foto), liggend staat hij links van de telefoon. */
+/* Lopende chat voor smalle schermen. Staand: tussen de kop en de telefoon, en
+   over de bovenkant van de telefoon heen (tot 62% van de foto), alsof de
+   appjes uit het scherm komen. Nooit hoger dan 21rem, anders raakt hij de
+   kop. Liggend: links van de telefoon, onder de tekst. */
 .appje-stapel {
   position: absolute;
   left: 6cqw;
   right: 6cqw;
-  top: calc((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.58);
-  bottom: 8.5rem;
+  top: max(21rem, calc((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.3));
+  bottom: calc(100cqh - ((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.62));
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
   mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
@@ -688,9 +690,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Appjes in orbit-stand schalen mee met de foto. */
 .appje-orbit-bubbel {
-  max-width: calc(var(--cover-b) * 0.16);
+  max-width: calc(var(--cover-b) * 0.13);
   font-size: clamp(13px, calc(var(--cover-b) * 0.0092), 17px);
 }
+.appje-orbit-rechts { max-width: calc(var(--cover-b) * 0.115); }
 
 @keyframes appje-typen {
   0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }

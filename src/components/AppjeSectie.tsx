@@ -72,9 +72,13 @@ interface Bericht {
   orbit: { kant: "links" | "rechts"; y: number };
 }
 
-// De telefoon staat op de desktopfoto tussen x 54–69,5% en y 43–79%; het
-// gezicht rechtsboven (x 64–80%, y 10–48%). Links van de telefoon eindigen de
-// appjes op 53,5%, rechts beginnen ze op 70,5%, en ze blijven onder de kin.
+// Desktopfoto (over de schouder): het scherm staat tussen x 55,7–76,1% en
+// y 13,9–74,1%. De vingers omklemmen de linkerrand (x 53–57%, y 40–70%), de
+// duim ligt rechts (x 74–77%, y 38–44%). Links eindigen de appjes daarom op
+// 52,5%, rechts beginnen ze op 79%, in het lege zwart rechtsboven. Rechts zijn
+// ze smaller (11,5% van de foto) zodat ze ook op een 3:2-scherm met de
+// inzoom van 3% binnen beeld blijven: 66 + (90,5 − 66) × 1,03 = 91,2%, en er
+// is tot 92,4% zichtbaar.
 const GESPREK: Bericht[] = [
   {
     id: "k1",
@@ -83,7 +87,7 @@ const GESPREK: Bericht[] = [
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
     op: 0.12,
     gelezen: 0.2,
-    orbit: { kant: "rechts", y: 52 },
+    orbit: { kant: "rechts", y: 16 },
   },
   {
     id: "n1",
@@ -91,7 +95,7 @@ const GESPREK: Bericht[] = [
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
     typen: 0.2,
     op: 0.29,
-    orbit: { kant: "links", y: 44 },
+    orbit: { kant: "links", y: 22 },
   },
   {
     id: "k2",
@@ -99,7 +103,7 @@ const GESPREK: Bericht[] = [
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
     op: 0.4,
     gelezen: 0.48,
-    orbit: { kant: "rechts", y: 63 },
+    orbit: { kant: "rechts", y: 29 },
   },
   {
     id: "n2",
@@ -107,7 +111,7 @@ const GESPREK: Bericht[] = [
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
     typen: 0.48,
     op: 0.57,
-    orbit: { kant: "links", y: 57 },
+    orbit: { kant: "links", y: 38 },
   },
   {
     id: "k3",
@@ -115,14 +119,14 @@ const GESPREK: Bericht[] = [
     tekst: "Top! Morgen 10:00?",
     op: 0.67,
     gelezen: 0.74,
-    orbit: { kant: "rechts", y: 74 },
+    orbit: { kant: "rechts", y: 44 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
     op: 0.78,
-    orbit: { kant: "links", y: 71 },
+    orbit: { kant: "links", y: 55 },
   },
 ];
 
@@ -252,8 +256,8 @@ const Typen = () => (
 
 const plekStijl = (b: Bericht) =>
   b.orbit.kant === "links"
-    ? { top: `${b.orbit.y}%`, right: "46.5%", transformOrigin: "100% 50%" }
-    : { top: `${b.orbit.y}%`, left: "70.5%", transformOrigin: "0% 50%" };
+    ? { top: `${b.orbit.y}%`, right: "47.5%", transformOrigin: "100% 50%" }
+    : { top: `${b.orbit.y}%`, left: "79%", transformOrigin: "0% 50%" };
 
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const zicht = useTransform(p, [b.op - IN, b.op], [0, 1], { clamp: true });
@@ -261,7 +265,7 @@ const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const y = useTransform(zicht, [0, 1], [16, 0]);
   return (
     <motion.div
-      className="appje-orbit-bubbel absolute"
+      className={`appje-orbit-bubbel absolute ${b.orbit.kant === "rechts" ? "appje-orbit-rechts" : ""}`}
       style={{ ...plekStijl(b), opacity: zicht, scale: schaal, y }}
     >
       <Bubbel b={b} p={p} />
@@ -277,7 +281,7 @@ const OrbitTypen = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const schaal = useTransform(zicht, [0, 1], [0.8, 1]);
   return (
     <motion.div
-      className="appje-orbit-bubbel absolute"
+      className={`appje-orbit-bubbel absolute ${b.orbit.kant === "rechts" ? "appje-orbit-rechts" : ""}`}
       style={{ ...plekStijl(b), opacity: zicht, scale: schaal }}
     >
       <Typen />
@@ -461,7 +465,7 @@ const AppjeSectie = () => {
   // Foto: zoomt bij binnenkomst iets uit, en tijdens het gesprek langzaam weer in.
   const fotoSchaal = useTransform<number, number>(
     [binnen, gesprek],
-    ([b = 1, g = 0]) => (b < 1 ? 1.08 - 0.08 * b : 1 + 0.05 * g),
+    ([b = 1, g = 0]) => (b < 1 ? 1.08 - 0.08 * b : 1 + 0.03 * g),
   );
 
   const tekstOpacity = useTransform(binnen, [0.55, 0.95], [0, 1], {
@@ -487,7 +491,7 @@ const AppjeSectie = () => {
             className="appje-cover"
             style={{
               scale: reduce ? 1 : fotoSchaal,
-              transformOrigin: "61.5% 58%",
+              transformOrigin: "66% 44%",
             }}
           >
             <picture>
@@ -559,7 +563,7 @@ const AppjeSectie = () => {
                 id="appje-kop"
                 className="font-bold tracking-tight text-white"
                 style={{
-                  fontSize: "clamp(2.2rem, 3.8vw, 3.9rem)",
+                  fontSize: "clamp(2rem, 3.8vw, 3.9rem)",
                   lineHeight: 1.04,
                 }}
               >
@@ -584,7 +588,7 @@ const AppjeSectie = () => {
                 })}
               </h2>
               <motion.p
-                className="mt-5 max-w-md text-base leading-relaxed text-white/80 md:text-lg"
+                className="mt-4 max-w-md text-[15px] leading-normal text-white/80 md:mt-5 md:text-lg md:leading-relaxed"
                 style={{ opacity: tekstOpacity, y: tekstY }}
               >
                 Geen formulier, geen gedoe. Stuur ons een appje met je vraag of
