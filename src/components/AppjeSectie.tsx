@@ -27,7 +27,7 @@ import justinAvatar from "@/assets/contact/justin-avatar.webp";
 import whatsappQr from "@/assets/contact/whatsapp-qr.svg";
 
 /*
- * "Contact? Eén appje is genoeg."
+ * "Je nieuwe website begint met een appje."
  *
  * Schermvullende sectie onderaan de homepage. Zodra hij voor bijna de helft
  * in beeld is, speelt er één keer een WhatsApp-gesprek af rondom de telefoon
@@ -453,13 +453,13 @@ const MaskWoord = ({
 };
 
 // Twee vaste regels. Het laatste woord moet binnen de binnenkomst (0–1) klaar
-// zijn: start 0,45 + 4 × 0,06 = 0,69, plus 0,26 duur = 0,95.
+// zijn: start 0,45 + 6 × 0,045 = 0,72, plus 0,26 duur = 0,98.
 const KOP = [
-  ["Contact?", "Eén", "appje"],
-  ["is", "genoeg."],
+  ["Je", "nieuwe", "website"],
+  ["begint", "met", "een", "appje."],
 ];
 const WOORD_START = 0.45;
-const WOORD_STAP = 0.06;
+const WOORD_STAP = 0.045;
 const WOORD_DUUR = 0.26;
 
 /** Het WhatsApp-logo, hetzelfde als op de zwevende knop, in het groen van WhatsApp. */
@@ -608,7 +608,7 @@ const AppjeSectie = () => {
                 id="appje-kop"
                 className="font-bold tracking-tight text-white"
                 style={{
-                  fontSize: "clamp(1.85rem, 3.1vw, 3.4rem)",
+                  fontSize: "clamp(1.6rem, 9cqi, 3.4rem)",
                   lineHeight: 1.04,
                 }}
               >

@@ -644,6 +644,9 @@ h1, h2, h3, h4, h5, h6 {
    tot vlak voor de appjes links van de telefoon (die beginnen op 45% van de foto;
    de kolom houdt 2% plus 2,5rem afstand). */
 .appje-tekst {
+  /* Eigen container: de kop rekent zijn lettergrootte uit de breedte van deze
+     kolom (cqi), zodat hij op elk formaat op twee regels blijft. */
+  container-type: inline-size;
   position: absolute;
   inset: 5.5rem 6cqw 1.5rem 6cqw;
   display: flex;
