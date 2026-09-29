@@ -55,8 +55,8 @@ const INKT = "hsl(160 30% 8%)";
 const KLANT_BUBBEL = "hsl(140 60% 90%)";
 const SCHADUW =
   "0 14px 34px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06)";
-/** Hoe lang het gesprek duurt, in seconden (ruim een seconde per bericht). */
-const GESPREK_DUUR = 8;
+/** Hoe lang het gesprek duurt, in seconden. De kennismaking staat er op 90%. */
+const GESPREK_DUUR = 4;
 
 const WHATSAPP = `${companyInfo.whatsapp}?text=${encodeURIComponent(
   "Hoi Nieuwblik! Ik heb een vraag over een website.",
@@ -86,42 +86,42 @@ const GESPREK: Bericht[] = [
     van: "klant",
     tekst:
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
-    op: 0.05,
-    gelezen: 0.13,
+    op: 0.06,
+    gelezen: 0.16,
   },
   {
     id: "n1",
     van: "nieuwblik",
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
-    typen: 0.13,
-    op: 0.22,
+    typen: 0.16,
+    op: 0.28,
   },
   {
     id: "k2",
     van: "klant",
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
-    op: 0.33,
-    gelezen: 0.41,
+    op: 0.42,
+    gelezen: 0.52,
   },
   {
     id: "n2",
     van: "nieuwblik",
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
-    typen: 0.41,
-    op: 0.5,
+    typen: 0.52,
+    op: 0.64,
   },
   {
     id: "k3",
     van: "klant",
     tekst: "Top! Morgen 10:00?",
-    op: 0.6,
-    gelezen: 0.67,
+    op: 0.76,
+    gelezen: 0.85,
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
-    op: 0.71,
+    op: 0.9,
   },
 ];
 
@@ -129,8 +129,8 @@ const GESPREK: Bericht[] = [
 const ramp = (v: number, a: number, b: number) =>
   Math.min(1, Math.max(0, (v - a) / (b - a)));
 
-const IN = 0.035; // hoe lang een bericht erover doet om te verschijnen
-const TYP_IN = 0.02;
+const IN = 0.05; // hoe lang een bericht erover doet om te verschijnen
+const TYP_IN = 0.03;
 
 // ── Onderdelen van een bubbel ─────────────────────────────────────────────
 
