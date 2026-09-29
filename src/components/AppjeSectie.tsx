@@ -645,7 +645,10 @@ const MaskWoord = ({
   start: number;
   children: ReactNode;
 }) => {
-  const y = useTransform(e, [start, start + WOORD_DUUR], ["108%", "0%"], {
+  // 150%: het masker is door de pb-[0.14em] hoger dan het woord, en J, b en de
+  // puntjes van i/j steken boven het woord uit. Bij 108% bleven die topjes
+  // vóór de animatie net zichtbaar.
+  const y = useTransform(e, [start, start + WOORD_DUUR], ["150%", "0%"], {
     clamp: true,
   });
   return (
