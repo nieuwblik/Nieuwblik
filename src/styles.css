@@ -597,3 +597,108 @@ h1, h2, h3, h4, h5, h6 {
 @media (prefers-reduced-motion: reduce) {
   .nb-gloed-a, .nb-gloed-b, .nb-gloed-c { animation: none; }
 }
+
+/* ── Appje-sectie (homepage) ─────────────────────────────────────────────
+ * Scherm vullende sectie met een foto van iemand met een telefoon en een
+ * WhatsApp-gesprek dat bij het scrollen opbouwt.
+ *
+ * Probleem: een foto van 100vw × 100vh wordt op elk scherm anders bijgesneden,
+ * en de appjes moeten toch rondom de telefoon blijven. Oplossing: de foto en
+ * de laag met appjes zitten samen in één "cover"-doos met exact de verhouding
+ * van de foto (b/h 1,7684), die het podium altijd vult. Posities in procenten
+ * van die doos vallen daardoor op elk scherm op hetzelfde punt van de foto.
+ * De cq-eenheden verwijzen naar .appje-podium (container-type: size).
+ */
+.appje-podium { container-type: size; }
+
+.appje-binnen {
+  --ratio: 1.7684;
+  --cover-b: max(100cqw, calc(100cqh * var(--ratio)));
+  --cover-h: max(100cqh, calc(100cqw / var(--ratio)));
+  position: absolute;
+  inset: 0;
+}
+/* Staand scherm: staande foto, dus de verhouding andersom. */
+@media (orientation: portrait) {
+  .appje-binnen {
+    --cover-b: max(100cqw, calc(100cqh / var(--ratio)));
+    --cover-h: max(100cqh, calc(100cqw * var(--ratio)));
+  }
+}
+
+.appje-cover {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--cover-b);
+  height: var(--cover-h);
+  translate: -50% -50%;
+}
+
+/* Breed genoeg voor appjes links én rechts van de telefoon. Vanaf 4:3 past het:
+   op 1024×768 is er links van de telefoon 225px ruimte en eindigen de appjes
+   rechts op 86,5% van de foto, terwijl er tot 87,7% zichtbaar is. */
+@custom-variant orbit (@media (min-width: 1024px) and (min-aspect-ratio: 4/3));
+
+/* Tekstkolom: in orbit-stand verticaal gecentreerd links, en nooit breder dan
+   tot vlak voor de appjes links van de telefoon (die beginnen op 37% van de foto). */
+.appje-tekst {
+  position: absolute;
+  inset: 5.5rem 6cqw 1.5rem 6cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* Liggend maar te smal voor orbit (tablet, liggende telefoon): tekst links. De
+   orbit-regel hieronder overschrijft dit weer. */
+@media (orientation: landscape) {
+  .appje-tekst { right: auto; width: min(46cqw, 28rem); }
+}
+@media (min-width: 1024px) and (min-aspect-ratio: 4/3) {
+  .appje-tekst {
+    inset: auto;
+    left: 6cqw;
+    top: 50%;
+    translate: 0 -50%;
+    width: min(34rem, calc((100cqw - var(--cover-b)) / 2 + var(--cover-b) * 0.37 - 6cqw - 2.5rem));
+    display: block;
+  }
+}
+
+/* Lopende chat voor smalle schermen: staand komt hij net onder de telefoon
+   uit (58% van de foto), liggend staat hij links van de telefoon. */
+.appje-stapel {
+  position: absolute;
+  left: 6cqw;
+  right: 6cqw;
+  top: calc((100cqh - var(--cover-h)) / 2 + var(--cover-h) * 0.58);
+  bottom: 8.5rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 30%);
+}
+@media (orientation: landscape) {
+  .appje-stapel { right: auto; width: min(46cqw, 24rem); top: 46cqh; bottom: 9rem; }
+}
+/* Heel laag scherm (telefoon liggend): geen ruimte voor een gesprek, alleen
+   kop en knoppen. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .appje-stapel { display: none; }
+}
+
+/* Appjes in orbit-stand schalen mee met de foto. */
+.appje-orbit-bubbel {
+  max-width: calc(var(--cover-b) * 0.16);
+  font-size: clamp(13px, calc(var(--cover-b) * 0.0092), 17px);
+}
+
+@keyframes appje-typen {
+  0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+.appje-stip { animation: appje-typen 1.2s ease-in-out infinite; }
+.appje-stip:nth-child(2) { animation-delay: 0.15s; }
+.appje-stip:nth-child(3) { animation-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) {
+  .appje-stip { animation: none; opacity: 0.7; }
+}

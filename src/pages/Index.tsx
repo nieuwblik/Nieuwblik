@@ -14,6 +14,7 @@ import Reveal from "@/components/Reveal";
 // Below-the-fold sections - lazy loaded for faster initial paint
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
+const AppjeSectie = lazy(() => import("@/components/AppjeSectie"));
 const PricingPackages = lazy(() => import("@/components/PricingPackages"));
 const ScrollPortfolio = lazy(() => import("@/components/ScrollPortfolio"));
 const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
@@ -223,6 +224,11 @@ const Index = () => {
     {/* FAQ Section */}
     <Suspense fallback={<div className="min-h-[420px]" />}>
       <FAQSection />
+    </Suspense>
+
+    {/* Contact via WhatsApp: schermvullend, gesprek speelt af bij het scrollen */}
+    <Suspense fallback={<div className="min-h-[100svh]" style={{ background: "hsl(160 84% 12%)" }} />}>
+      <AppjeSectie />
     </Suspense>
 
     <Footer />
