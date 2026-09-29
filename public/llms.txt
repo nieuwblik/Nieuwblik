@@ -67,6 +67,7 @@ Nieuwblik bouwt branchespecifieke websites. Elk pad volgt het patroon /website-l
 ## Blog
 
 - [Blog](https://nieuwblik.com/blog): Artikelen over webdesign, SEO en online groei.
+- [Google Bedrijfsprofiel in 2026](https://nieuwblik.com/blog/google-bedrijfsprofiel-instellingen-2026): De zeven instellingen die lokaal het verschil maken, van bedrijfsnaam en categorie tot openingstijden, servicegebied en reviews.
 - [Vindbaar worden in ChatGPT](https://nieuwblik.com/blog/vindbaar-in-chatgpt-geo-west-friesland): Wat GEO is en hoe lokale ondernemers genoemd worden in ChatGPT en Gemini.
 - [Toegankelijke website en de European Accessibility Act](https://nieuwblik.com/blog/toegankelijke-website-european-accessibility-act): Voor wie de EAA geldt, de zes meest voorkomende fouten en hoe je je site zelf checkt.
 - [Case study BeNoted](https://nieuwblik.com/blog/case-study-benoted-snelheid-zichtbaarheid): Hoe snelheid en structuur de zichtbaarheid van BeNoted verbeterden.

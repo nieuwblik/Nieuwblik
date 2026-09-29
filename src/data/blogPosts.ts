@@ -1,3 +1,4 @@
+import bedrijfsprofielImg from "@/assets/blog/SEO-Blog-bedrijfsprofiel.webp";
 import vindbaarInChatgptImg from "@/assets/blog/SEO-Blog-nieuwblik.webp";
 import toegankelijkeWebsiteImg from "@/assets/blog/SEO-Blog-toegankelijkheid.webp";
 import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
@@ -45,6 +46,113 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "google-bedrijfsprofiel-instellingen-2026",
+    image: bedrijfsprofielImg,
+    imageWidth: 1920,
+    imageHeight: 1086,
+    imageAlt: "Hand met een smartphone in een winkelstraat, met op het scherm het bedrijfsprofiel van de bakkerij op de achtergrond: 4,8 sterren, nu open, knoppen voor route en bellen",
+    seoTitle: "Google Bedrijfsprofiel 2026: 7 instellingen",
+    seoKeywords: "Google Bedrijfsprofiel, Google Bedrijfsprofiel optimaliseren, Google Maps, lokale SEO, lokaal gevonden worden, openingstijden Google, Google reviews, servicegebied, bedrijfscategorie, West-Friesland, Nieuwblik",
+    title: {
+      nl: "Google Bedrijfsprofiel in 2026: de instellingen die lokaal het verschil maken",
+      en: "Google Business Profile in 2026: the settings that make the difference locally"
+    },
+    excerpt: {
+      nl: "Je Google Bedrijfsprofiel is vaak de eerste indruk, nog vóór je website. Zeven instellingen die lokaal het verschil maken, volgens Google zelf.",
+      en: "Your Google Business Profile is often the first impression, even before your website. Seven settings that make the difference locally, based on what Google itself says."
+    },
+    date: "2026-09-29",
+    readingTime: 6,
+    content: {
+      nl: `Iemand loopt door de Westerstraat, heeft zin in vers brood en typt "bakker" in zijn telefoon. Een paar tellen later stapt hij naar binnen. Niet per se bij de bakker met de mooiste website, maar bij de bakker die bovenaan stond, open was en in één tik de route gaf.
+
+Dat blokje met kaart, sterren en openingstijden is je Google Bedrijfsprofiel. Voor veel lokale ondernemers is het de eerste indruk, nog vóór de website. En toch is het vaak in tien minuten ingevuld en daarna nooit meer aangeraakt.
+
+Hieronder de instellingen die er in 2026 echt toe doen. We baseren ons zoveel mogelijk op wat Google zelf zegt, en we zeggen erbij wanneer iets uit onderzoek van anderen komt.
+
+## Hoe Google kiest wie er bovenaan staat
+
+Google is er [zelf vrij open over](https://support.google.com/business/answer/7091?hl=nl): lokale resultaten draaien om drie dingen.
+
+**Relevantie.** Past jouw profiel bij wat iemand zoekt?
+
+**Afstand.** Hoe ver zit je van degene die zoekt?
+
+**Prominentie.** Hoe bekend is je bedrijf? Google kijkt daarvoor onder meer naar je reviews en naar hoeveel websites naar je linken.
+
+Aan afstand kun je niks doen. Aan de andere twee wel. Kopen kan trouwens niet, dat schrijft Google er nadrukkelijk bij.
+
+## 1. Je bedrijfsnaam: precies zoals op de gevel
+
+De verleiding is groot. Zet "beste bakker Enkhuizen" achter je naam en je bent toch zeker beter vindbaar?
+
+Het is vooral een risico. Volgens [Google's richtlijnen](https://support.google.com/business/answer/3038177?hl=nl) moet je naam overeenkomen met hoe je in het echt heet: op je gevel, op je website, op je facturen. Zoekwoorden, plaatsnamen of slogans in je naam kunnen leiden tot opschorting van je hele profiel.
+
+Zie je een concurrent die het wel doet en ermee wegkomt? Dat kan een tijdje goed gaan. Tot het niet meer goed gaat.
+
+## 2. Je hoofdcategorie: wat je bent, niet wat je hebt
+
+De categorie vertelt Google wat voor bedrijf je bent, en daarmee bij welke zoekopdrachten je hoort. Google legt het zelf helder uit: kies wat je bedrijf ís, niet wat het heeft. Een motel met een zwembad is een motel, geen zwembad.
+
+Kies de meest specifieke categorie die klopt, dus "Loodgieter" en niet "Aannemer". En houd het aantal extra categorieën klein. De algemenere categorieën voegt Google er achter de schermen zelf bij.
+
+## 3. Openingstijden, ook als je dicht bent
+
+Dit punt onderschatten de meeste ondernemers. In de [jaarlijkse enquête van Whitespark](https://whitespark.ca/blog/7-local-search-ranking-factors-that-may-challenge-your-current-thinking/) onder lokale SEO-specialisten staat "open op het moment dat iemand zoekt" op de vijfde plek van belangrijkste factoren voor de kaartresultaten. Ze zagen zelfs dat je positie in het laatste uur voor sluitingstijd al begint te zakken.
+
+Dat is geen officiële uitspraak van Google. Maar het is wel logisch: Google stuurt mensen liever niet naar een dichte deur.
+
+Wat je ermee doet:
+
+- Controleer of je normale rooster nog klopt. Ook na de zomer, ook op koopavond.
+- Zet **afwijkende openingstijden** voor de feestdagen er nu al in. Kerst en oud en nieuw komen eraan, en een profiel dat "open" zegt terwijl je dicht bent, levert je vroeg of laat een boze review op.
+- Werk je alleen op afspraak? Dan raadt Google juist aan om géén openingstijden in te vullen.
+
+## 4. Werk je bij de klant? Verberg dan je adres
+
+Loodgieters, schilders, hoveniers, installateurs: jij gaat naar de klant, niet andersom. Voor Google ben je dan een bedrijf met een servicegebied, en dan hoort je adres verborgen te zijn. Zeker als je vanuit huis werkt. Google noemt zelf de loodgieter die zijn bedrijf vanaf zijn woonadres runt als voorbeeld.
+
+Stel in plaats daarvan je servicegebied in: de plaatsen waar je echt komt. Google houdt als richtlijn aan dat dat gebied niet verder reikt dan zo'n twee uur rijden vanaf je bedrijf.
+
+## 5. Reviews: vragen mag, belonen niet
+
+Reviews tellen mee voor je prominentie. Het goede nieuws: je mag er gewoon om vragen. Google heeft er zelfs een [link en een QR-code](https://support.google.com/business/answer/3474122?hl=nl) voor, die je op je bon, je factuur of je toonbank kunt zetten.
+
+Wat niet mag: iets terugdoen voor een review. Korting, een gratis kop koffie, een kans op een prijs. Google noemt dat valse betrokkenheid en is daar heel streng in.
+
+En reageer op je reviews. Kort, vriendelijk, met je naam eronder. Ook op de negatieve: een rustig en eerlijk antwoord zegt de volgende lezer vaak meer dan de review zelf. Noem daarbij nooit persoonlijke gegevens van de reviewer.
+
+## 6. Beschrijving en foto's: laat zien wie je bent
+
+In de beschrijving vertel je wat je doet, voor wie, en wat je achtergrond is. Google verbiedt daar twee dingen die ondernemers vaak proberen: aanbiedingen en prijzen ("50% korting") en links. Een beschrijving vol acties kan gewoon worden afgewezen.
+
+Bij foto's geldt: echt boven mooi. Je zaak, je team, je werk. Geen stockfoto's. Een klant wil zien waar hij naartoe gaat, en een foto van je ingang scheelt hem zoekwerk.
+
+## 7. Het vragenblok is weg. Je website moet het antwoord geven
+
+Tot eind 2025 had je profiel een onderdeel waar klanten vragen konden stellen en jij kon antwoorden. Google is daar [eind 2025 mee gestopt](https://developers.google.com/my-business/content/qanda/change-log).
+
+Wat betekent dat voor jou? Dat de antwoorden op de vragen die klanten hebben ergens anders moeten staan: in je profiel zelf en op je website. Kun je er parkeren? Is er een drempel bij de ingang? Wat is de levertijd? Wat kost het ongeveer?
+
+Hoe duidelijker dat op je site staat, hoe beter Google het kan oppikken. En niet alleen Google: ook ChatGPT en Gemini lezen je website, zoals we uitlegden in [onze blog over GEO](/blog/vindbaar-in-chatgpt-geo-west-friesland).
+
+## Wat je profiel niet voor je doet
+
+Een sterk profiel brengt mensen naar je deur of aan de telefoon. Maar zodra iemand twijfelt, klikt hij door naar je website. Staat daar een andere naam, een ander telefoonnummer, of kloppen de openingstijden niet? Dan haakt hij af. En Google ziet die tegenstrijdigheid ook.
+
+Dus: dezelfde naam, hetzelfde adres en hetzelfde nummer op je profiel, je website, je KvK-inschrijving en je socials. Een saai klusje van een halfuur, met veel effect. Je profiel is één kant van [lokale vindbaarheid](/seo-enkhuizen), je website de andere.
+
+## Eerlijk verhaal
+
+Niemand buiten Google weet precies hoe de lokale ranking werkt, en Google houdt dat bewust zo. Wie je een gegarandeerde plek bovenaan de kaart belooft, verkoopt je iets.
+
+Wat wel vaststaat: een compleet, eerlijk en bijgehouden profiel, gekoppeld aan een [snelle website](/diensten/website-op-maat) die hetzelfde verhaal vertelt. Daar begint het.
+
+Wil je dat we even naar jouw profiel kijken? [Stuur ons een appje](https://wa.me/31646253607) met je bedrijfsnaam, dan sturen we je terug wat we zouden aanpassen.`,
+      en: "Your Google Business Profile is often a local customer's first impression. Google ranks local results on relevance, distance and prominence. Seven settings that matter in 2026: an accurate business name, a specific primary category, correct and special opening hours, a hidden address for service-area businesses, reviews without incentives, an honest description with real photos, and answers on your own website now that the Q&A section is gone."
+    }
+  },
   {
     slug: "vindbaar-in-chatgpt-geo-west-friesland",
     image: vindbaarInChatgptImg,
