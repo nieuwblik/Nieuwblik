@@ -83,7 +83,10 @@ interface Bericht {
 // de telefoon heen: links lopen ze tot 60%, rechts beginnen ze op 71%. Ze zijn
 // 15% van de foto breed, dus rechts eindigen ze op 86% (met de inzoom van 3%:
 // 86,6%), ruim binnen wat op een 3:2-scherm zichtbaar is (92,4%).
-// Verticaal zitten ze dicht op elkaar en lezen ze van boven naar beneden.
+// Verticaal lezen ze van boven naar beneden, met zo'n 4% van de foto tussen
+// twee appjes aan dezelfde kant (gemeten op 1280×800, waar ze het hoogst zijn).
+// Het bovenste begint op 20%, zodat het ook op een ultrabreed scherm (waar de
+// foto boven en onder wordt bijgesneden) onder de menubalk blijft.
 const GESPREK: Bericht[] = [
   {
     id: "k1",
@@ -92,7 +95,7 @@ const GESPREK: Bericht[] = [
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
     op: 0.05,
     gelezen: 0.13,
-    orbit: { kant: "rechts", y: 18 },
+    orbit: { kant: "rechts", y: 20 },
   },
   {
     id: "n1",
@@ -100,7 +103,7 @@ const GESPREK: Bericht[] = [
     tekst: "Hoi! Zeker. Wat heb je nu, en wat wil je anders?",
     typen: 0.13,
     op: 0.22,
-    orbit: { kant: "links", y: 23 },
+    orbit: { kant: "links", y: 25.5 },
   },
   {
     id: "k2",
@@ -108,7 +111,7 @@ const GESPREK: Bericht[] = [
     tekst: "Mijn site is oud en niet te vinden in Google 😅",
     op: 0.33,
     gelezen: 0.41,
-    orbit: { kant: "rechts", y: 29 },
+    orbit: { kant: "rechts", y: 33.5 },
   },
   {
     id: "n2",
@@ -116,7 +119,7 @@ const GESPREK: Bericht[] = [
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
     typen: 0.41,
     op: 0.5,
-    orbit: { kant: "links", y: 34 },
+    orbit: { kant: "links", y: 39.5 },
   },
   {
     id: "k3",
@@ -124,14 +127,14 @@ const GESPREK: Bericht[] = [
     tekst: "Top! Morgen 10:00?",
     op: 0.6,
     gelezen: 0.67,
-    orbit: { kant: "rechts", y: 39 },
+    orbit: { kant: "rechts", y: 45 },
   },
   {
     id: "g1",
     van: "gepland",
     tekst: "Kennismaking gepland",
     op: 0.71,
-    orbit: { kant: "links", y: 47 },
+    orbit: { kant: "links", y: 55.5 },
   },
 ];
 
@@ -344,7 +347,7 @@ const zichtbaar = (it: StapelItem, v: number) =>
       )
     : ramp(v, it.start - IN, it.start);
 
-const STAPEL_GAT = 6;
+const STAPEL_GAT = 12;
 
 const StapelRegel = ({
   it,
