@@ -107,8 +107,9 @@ const GESPREK: Bericht[] = [
     id: "n2",
     van: "nieuwblik",
     tekst: "Herkenbaar. Zullen we even videobellen? Dan laten we zien wat kan.",
-    typen: 0.52,
-    op: 0.64,
+    // Geen typbolletjes: alleen het eerste antwoord laat zien dat Justin typt,
+    // anders flitst er twee keer een vlakje op vlak voor het bericht.
+    op: 0.6,
   },
   {
     id: "k3",
