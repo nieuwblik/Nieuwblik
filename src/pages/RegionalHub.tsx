@@ -33,10 +33,10 @@ export const HUBS: RegionHubData[] = [
   {
     slug: "noord-holland",
     name: "Noord-Holland",
-    title: "Website laten maken Noord-Holland | Nieuwblik",
+    title: `Website laten maken Noord-Holland vanaf €${PRIJZEN.starter}`,
     description:
-      `Website laten maken in Noord-Holland door een lokaal bureau uit Enkhuizen. Snelle sites, conversie eerst, vanaf ${PRIJZEN.starter} euro. Actief in Amsterdam, Haarlem, Alkmaar en heel West-Friesland.`,
-    h1: "Website laten maken in Noord-Holland",
+      `Website laten maken in Noord-Holland vanaf €${PRIJZEN.starter}. Snel, vindbaar en binnen ${LEVERTIJD.standaard} live. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Noord-Holland vanaf €${PRIJZEN.starter}`,
     intro:
       "Van de Amsterdamse grachten tot de haven van Enkhuizen bouwen we websites voor ondernemers die willen groeien. Wij zitten zelf in West-Friesland en kennen zowel de kleine dorpskern als de grote stad. Dat merk je in elke keuze die we maken voor jouw site.",
     cities: [
@@ -60,10 +60,10 @@ export const HUBS: RegionHubData[] = [
   {
     slug: "randstad",
     name: "Randstad",
-    title: "Website laten maken Randstad | Nieuwblik",
+    title: `Website laten maken Randstad vanaf €${PRIJZEN.starter} | Nieuwblik`,
     description:
-      `Website laten maken in de Randstad. Wij bouwen conversiegerichte sites voor MKB in Amsterdam, Rotterdam, Den Haag, Utrecht en omgeving. Vanaf ${PRIJZEN.starter} euro, altijd persoonlijk contact.`,
-    h1: "Website laten maken in de Randstad",
+      `Website laten maken in de Randstad vanaf €${PRIJZEN.starter}. Conversiegericht, persoonlijk en binnen ${LEVERTIJD.standaard} live. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in de Randstad vanaf €${PRIJZEN.starter}`,
     intro:
       "De Randstad is dichtbevolkt, concurrerend en snel. Ondernemers hier hebben geen tijd voor trage bureaus of eindeloze revisies. Wij leveren sites die binnen weken live staan en direct meetellen op Google.",
     cities: [
@@ -90,10 +90,10 @@ export const HUBS: RegionHubData[] = [
   {
     slug: "oost-nederland",
     name: "Oost-Nederland",
-    title: "Website laten maken Oost-Nederland | Nieuwblik",
+    title: `Website laten maken Oost-Nederland vanaf €${PRIJZEN.starter}`,
     description:
-      `Website laten maken in Oost-Nederland. Nieuwblik bouwt voor MKB in Gelderland en Overijssel. Persoonlijk, snel en betaalbaar. Vanaf ${PRIJZEN.starter} euro, met lokale SEO.`,
-    h1: "Website laten maken in Oost-Nederland",
+      `Website laten maken in Oost-Nederland vanaf €${PRIJZEN.starter}. Lokale SEO, persoonlijk contact en binnen ${LEVERTIJD.standaard} live. Vraag een offerte aan.`,
+    h1: `Website laten maken in Oost-Nederland vanaf €${PRIJZEN.starter}`,
     intro:
       "Ondernemers in Oost-Nederland waarderen duidelijke afspraken en no-nonsense samenwerking. Precies onze manier van werken. We bouwen sites voor MKB van Zwolle tot Nijmegen, met aandacht voor de lokale markt.",
     cities: [
@@ -119,10 +119,10 @@ export const HUBS: RegionHubData[] = [
   {
     slug: "zuid-nederland",
     name: "Zuid-Nederland",
-    title: "Website laten maken Zuid-Nederland | Nieuwblik",
+    title: `Website laten maken Zuid-Nederland vanaf €${PRIJZEN.starter}`,
     description:
-      `Website laten maken in Zuid-Nederland. Voor MKB in Noord-Brabant en Limburg. Snelle sites, sterke SEO en vaste prijzen vanaf ${PRIJZEN.starter} euro. Vraag een offerte aan.`,
-    h1: "Website laten maken in Zuid-Nederland",
+      `Website laten maken in Zuid-Nederland vanaf €${PRIJZEN.starter}. Sterke SEO, vaste prijzen en binnen ${LEVERTIJD.standaard} live. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Zuid-Nederland vanaf €${PRIJZEN.starter}`,
     intro:
       "Van Eindhoven en Den Bosch tot Maastricht en Venlo, Zuid-Nederland kent een sterke MKB-cultuur en een eigen manier van zakendoen. Wij bouwen sites die daarbij passen, met de rust en zorgvuldigheid die klanten hier verwachten.",
     cities: [
@@ -212,14 +212,16 @@ const RegionalHub = () => {
         </section>
 
         <BenefitList
-          h2={`Waarom Nieuwblik in ${hub.name}`}
+          h2={`Waarom ondernemers in ${hub.name} voor Nieuwblik kiezen`}
           items={hub.strengths.map((s) => ({ h3: s.title, text: s.text }))}
           className="bg-muted/30"
         />
 
         <section className="py-16">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Steden in {hub.name}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+              Vind jouw lokale websitepartner in {hub.name}
+            </h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
               {hub.cities.map((c) => (
                 <Link
@@ -241,7 +243,9 @@ const RegionalHub = () => {
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Recent werk voor ondernemers in {hub.name}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                Websites die bezoekers omzetten in klanten
+              </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">Een greep uit websites die we recent opleverden. Van webshop tot leadgeneratie, elke case gebouwd voor snelheid, conversie en lokale vindbaarheid.</p>
             </div>
             <CaseGrid projects={hubCases} />
@@ -283,7 +287,7 @@ const RegionalHub = () => {
           </div>
         </section>
 
-        <ContactBlock h2={`Klaar voor een website in ${hub.name}?`} body="Vertel over jouw bedrijf en plan. Binnen 24 uur een reactie met een concreet voorstel." />
+        <ContactBlock h2={`Start jouw website in ${hub.name} vanaf €${PRIJZEN.starter}`} body="Vertel over jouw bedrijf en plan. Binnen 24 uur een reactie met een concreet voorstel." />
       </main>
       <Footer />
     </div>

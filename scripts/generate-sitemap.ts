@@ -277,11 +277,25 @@ const robots = `# Robots.txt for Nieuwblik
 
 User-agent: *
 Allow: /
-
-# Intern portaal, dekt /admin en alles eronder
 Disallow: /admin
 
-# Sitemap location
+# AI-crawlers mogen de publieke site lezen, maar niet het interne portaal
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+
+# Inhoudsoverzicht voor AI-assistenten
+Llms: ${SITE_URL}/llms.txt
+
+# Sitemap
 Sitemap: ${SITE_URL}/sitemap.xml
 `;
 fs.writeFileSync(rel("public/robots.txt"), robots, "utf-8");
