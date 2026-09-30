@@ -86,7 +86,7 @@ const GESPREK: Bericht[] = [
     van: "klant",
     tekst:
       "Hoi! Ik wil een nieuwe website voor mijn kapsalon. Kunnen jullie dat?",
-    op: 0.06,
+    op: 0.09,
     gelezen: 0.16,
   },
   {
@@ -129,8 +129,14 @@ const GESPREK: Bericht[] = [
 const ramp = (v: number, a: number, b: number) =>
   Math.min(1, Math.max(0, (v - a) / (b - a)));
 
-const IN = 0.05; // hoe lang een bericht erover doet om te verschijnen
+// Hoe lang een bericht erover doet om te verschijnen (0,08 × 4 s ≈ 0,3 s).
+const IN = 0.08;
 const TYP_IN = 0.03;
+
+/** Zachte uitloop (ease-out cubic), zodat een appje niet lineair binnenschuift. */
+const uit = (t: number) => 1 - (1 - t) ** 3;
+/** Ease-out back: schiet iets over 1 heen en veert terug, als een pop. */
+const pop = (t: number) => 1 + 2.4 * (t - 1) ** 3 + 1.4 * (t - 1) ** 2;
 
 // ── Onderdelen van een bubbel ─────────────────────────────────────────────
 
@@ -453,11 +459,13 @@ const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
 // breed het scherm ook is.
 
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
-  const zicht = useTransform(p, [b.op - IN, b.op], [0, 1], { clamp: true });
-  const schaal = useTransform(zicht, [0, 1], [0.72, 1]);
-  const y = useTransform(zicht, [0, 1], [16, 0]);
+  const t = useTransform(p, (v) => ramp(v, b.op - IN, b.op));
+  const zicht = useTransform(t, uit);
+  const schaal = useTransform(t, (x) => 0.8 + 0.2 * pop(x));
+  const y = useTransform(zicht, [0, 1], [14, 0]);
   return (
     <motion.div
+      className="will-change-[transform,opacity]"
       style={{
         opacity: zicht,
         scale: schaal,
@@ -474,12 +482,16 @@ const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
 const OrbitTypen = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
   const typen = b.typen ?? b.op;
   const zicht = useTransform(p, (v) =>
-    Math.min(ramp(v, typen, typen + TYP_IN), 1 - ramp(v, b.op - TYP_IN, b.op)),
+    // Weg in de eerste helft van de binnenkomst van het bericht.
+    Math.min(
+      ramp(v, typen, typen + TYP_IN),
+      1 - ramp(v, b.op - IN, b.op - IN / 2),
+    ),
   );
   const schaal = useTransform(zicht, [0, 1], [0.8, 1]);
   return (
     <motion.div
-      className="absolute left-0 top-0"
+      className="absolute left-0 top-0 will-change-[transform,opacity]"
       style={{ opacity: zicht, scale: schaal, transformOrigin: "0% 50%" }}
     >
       <Typen />
@@ -534,9 +546,9 @@ const zichtbaar = (it: StapelItem, v: number) =>
   it.soort === "typen"
     ? Math.min(
         ramp(v, it.start, it.start + TYP_IN),
-        1 - ramp(v, (it.eind ?? it.start) - TYP_IN, it.eind ?? it.start),
+        1 - ramp(v, (it.eind ?? it.start) - IN, (it.eind ?? it.start) - IN / 2),
       )
-    : ramp(v, it.start - IN, it.start);
+    : uit(ramp(v, it.start - IN, it.start));
 
 // De geplande kennismaking krijgt wat extra lucht, voor de ringen en vonkjes.
 const STAPEL_GAT = 10;
@@ -578,7 +590,7 @@ const StapelRegel = ({
   return (
     <motion.div
       ref={meet}
-      className={`absolute bottom-0 max-w-[86%] ${
+      className={`absolute bottom-0 max-w-[86%] will-change-[transform,opacity] ${
         gepland ? "left-1/2 -translate-x-1/2" : rechts ? "right-0" : "left-0"
       }`}
       style={{
@@ -684,6 +696,28 @@ const AppjeSectie = () => {
   const gesprek = useMotionValue(0);
   const inBeeld = useInView(wrapperRef, { once: true, amount: 0.3 });
 
+  // Pas starten als de foto gedecodeerd is: anders valt het decoderen van de
+  // grote foto midden in de animatie. Uiterlijk 1,2 s na in beeld start hij toch.
+  const fotoRef = useRef<HTMLImageElement>(null);
+  const [fotoKlaar, setFotoKlaar] = useState(false);
+  const fotoGeladen = () => {
+    const img = fotoRef.current;
+    if (!img) return;
+    img
+      .decode()
+      .catch(() => undefined)
+      .then(() => setFotoKlaar(true));
+  };
+  useEffect(() => {
+    if (fotoRef.current?.complete) fotoGeladen();
+  }, []);
+  // Vangnet vanaf het moment dat de sectie in beeld is (de foto laadt lazy).
+  useEffect(() => {
+    if (!inBeeld) return;
+    const t = setTimeout(() => setFotoKlaar(true), 1200);
+    return () => clearTimeout(t);
+  }, [inBeeld]);
+
   useEffect(() => {
     // Met reduced motion: meteen de eindstand.
     if (reduce) {
@@ -691,7 +725,7 @@ const AppjeSectie = () => {
       gesprek.set(1);
       return;
     }
-    if (!inBeeld) return;
+    if (!inBeeld || !fotoKlaar) return;
     const kop = animate(binnen, 1, { duration: 1.4, ease: [0.22, 1, 0.36, 1] });
     const chat = animate(gesprek, 1, {
       duration: GESPREK_DUUR,
@@ -702,7 +736,7 @@ const AppjeSectie = () => {
       kop.stop();
       chat.stop();
     };
-  }, [inBeeld, reduce, binnen, gesprek]);
+  }, [inBeeld, fotoKlaar, reduce, binnen, gesprek]);
 
   // Foto: zoomt bij binnenkomst iets uit, en tijdens het gesprek langzaam weer in.
   const fotoSchaal = useTransform<number, number>(
@@ -727,9 +761,13 @@ const AppjeSectie = () => {
         className="appje-podium relative h-[100svh] w-full overflow-hidden"
       >
         <div className="appje-binnen">
-          {/* Foto + appjes rond de telefoon: één doos, zodat ze samen meeschalen. */}
+          {/* Foto en appjes staan in dezelfde cover-doos, maar in aparte lagen:
+              alleen de foto zoomt. Zoomden de appjes mee, dan moest de browser
+              de hele foto met alle bewegende appjes elk beeldje opnieuw tekenen
+              (dat haperde). De zoom is om x 66%, y 44%, het midden van de
+              telefoon; daar blijven de appjes op een paar pixels na staan. */}
           <motion.div
-            className="appje-cover"
+            className="appje-cover will-change-transform"
             style={{
               scale: reduce ? 1 : fotoSchaal,
               transformOrigin: "66% 44%",
@@ -749,9 +787,13 @@ const AppjeSectie = () => {
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 h-full w-full"
+                ref={fotoRef}
+                onLoad={fotoGeladen}
               />
             </picture>
+          </motion.div>
 
+          <div className="appje-cover">
             <div
               className="absolute inset-0 hidden orbit:block"
               aria-hidden="true"
@@ -762,7 +804,7 @@ const AppjeSectie = () => {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Donkere verlopen voor contrast: links op breed, boven en onder op smal. */}
           <div
