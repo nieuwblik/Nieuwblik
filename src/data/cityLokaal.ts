@@ -20,6 +20,13 @@ export interface CityLokaal {
   title: string;
   metaDescription: string;
   h1: string;
+  /** Optionele actiegerichte koppen die de gegenereerde stadskoppen vervangen. */
+  headings?: {
+    benefits?: string;
+    reviews?: string;
+    portfolio?: string;
+    contact?: string;
+  };
   /** Vervangt de gegenereerde intro-alinea. Ongeveer 200 tot 350 woorden. */
   lokaal: { h2: string; alineas: string[] };
   /** 4 tot 6 vragen die echt over deze plaats gaan. */
@@ -28,11 +35,17 @@ export interface CityLokaal {
 
 export const cityLokaal: Record<string, CityLokaal> = {
   leiden: {
-    title: `Website laten maken Leiden | Vanaf €${PRIJZEN.starter}, op maat | Nieuwblik`,
-    metaDescription: `Website op maat voor ondernemers in Leiden. Vanaf €${PRIJZEN.starter}, geen verborgen kosten en binnen enkele weken live. Vraag vrijblijvend een offerte aan.`,
-    h1: "Website laten maken in Leiden",
+    title: `Website laten maken Leiden vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Meer klanten met een snelle website op maat in Leiden. Vanaf €${PRIJZEN.starter} en binnen 2 tot 4 weken live. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Leiden vanaf €${PRIJZEN.starter}`,
+    headings: {
+      benefits: "Waarom Leidse ondernemers kiezen voor Nieuwblik",
+      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      portfolio: "Websites die bezoekers omzetten in klanten",
+      contact: "Klaar om online te groeien in Leiden?",
+    },
     lokaal: {
-      h2: "Ondernemen in Leiden: kennis, zorg en een drukke binnenstad",
+      h2: "Meer aanvragen uit Leiden met een snelle website op maat",
       alineas: [
         "Leiden is een universiteitsstad. De Universiteit Leiden is de oudste van Nederland, en samen met het LUMC en het Leiden Bio Science Park zorgt dat voor een stad vol kennisintensieve bedrijven: onderzoek, life sciences, zorg en alle dienstverleners die daaromheen werken. Wie in die hoek onderneemt, heeft een website nodig die inhoud begrijpelijk maakt zonder oppervlakkig te worden. Een bezoeker die jouw dienst nog niet kent, moet binnen een paar zinnen snappen wat je doet en voor wie.",
         "Daarnaast heeft Leiden een historische binnenstad met grachten, hofjes en musea als Naturalis en het Rijksmuseum van Oudheden. Dat trekt bezoekers, en dat merken winkels, horeca en praktijken aan huis. Voor die ondernemers telt iets anders: snel vindbaar zijn op je telefoon, meteen zien waar je zit en wanneer je open bent, en in één tik kunnen bellen of een afspraak maken. Wij bouwen zulke sites mobiel eerst, omdat het merendeel van dat verkeer van een telefoon komt.",
