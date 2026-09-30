@@ -1,6 +1,6 @@
 import { kiesCases } from "@/lib/cases";
 import BenefitList from "@/components/BenefitList";
-import { LEVERTIJD } from "@/config/business";
+import { LEVERTIJD, PRIJZEN } from "@/config/business";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link, useParams } from "@/lib/router-compat";
 import {
@@ -58,12 +58,20 @@ const WerkgebiedDetail = () => {
   }
 
   const isLocal = region.type === "local";
+  const isHoorn = region.slug === "hoorn";
+  const pageTitle = `Website laten maken ${region.name} vanaf €${PRIJZEN.starter} | Nieuwblik`;
+  const pageDescription = isHoorn
+    ? `Website laten maken in Hoorn? Vanaf €${PRIJZEN.starter}, binnen ${LEVERTIJD.standaard} live en persoonlijk contact vanuit Enkhuizen. Vraag vrijblijvend een offerte aan.`
+    : `Website laten maken in ${region.name} vanaf €${PRIJZEN.starter}. Persoonlijk, vindbaar en binnen ${LEVERTIJD.standaard} live. Vraag vrijblijvend een offerte aan.`;
 
   const getIntroText = () => {
-    if (isLocal) {
-      return `Als webdesign bureau gevestigd in Enkhuizen, zijn we vlakbij ${region.name}. Dat betekent snelle service, persoonlijk contact en begrip van de lokale markt.`;
+    if (isHoorn) {
+      return `Trek meer klanten uit Hoorn en West-Friesland met een snelle, vindbare website op maat. Je werkt rechtstreeks met de makers, krijgt vooraf een heldere prijs en kunt binnen ${LEVERTIJD.standaard} live.`;
     }
-    return `Hoewel we gevestigd zijn in Enkhuizen, werken we graag voor bedrijven in ${region.name}. Door slimme online samenwerking kunnen we ook voor jou een topwebsite bouwen.`;
+    if (isLocal) {
+      return `Laat jouw bedrijf in ${region.name} groeien met een snelle, vindbare website vanaf €${PRIJZEN.starter}. Je krijgt persoonlijk contact, een heldere prijs en kunt binnen ${LEVERTIJD.standaard} live.`;
+    }
+    return `Laat jouw bedrijf in ${region.name} groeien met een snelle, vindbare website vanaf €${PRIJZEN.starter}. Je werkt rechtstreeks met de makers en kunt binnen ${LEVERTIJD.standaard} live.`;
   };
 
   const services = [
@@ -125,8 +133,8 @@ const WerkgebiedDetail = () => {
   return (
     <>
       <SEOHead
-        title={`Webdesign ${region.name} | Website Laten Maken ${region.name} - Nieuwblik`}
-        description={`Professioneel webdesign bureau voor ${region.name}. Website, webshop of SEO nodig? ${isLocal ? "Lokaal gevestigd in de regio" : "Ook landelijk actief"}. Neem contact op!`}
+        title={pageTitle}
+        description={pageDescription}
         keywords={
           region.keywords?.join(", ") ||
           `webdesign ${region.name}, website laten maken ${region.name}, webshop ${region.name}`
@@ -167,8 +175,8 @@ const WerkgebiedDetail = () => {
             </motion.div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              Website laten maken in{" "}
-              <span className="text-accent">{region.name}</span>
+              Website laten maken in <span className="text-accent">{region.name}</span>
+              {` vanaf €${PRIJZEN.starter}`}
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
@@ -250,7 +258,7 @@ const WerkgebiedDetail = () => {
             className="max-w-4xl mx-auto text-center"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Wat kunnen we voor je doen?
+              Meer klanten met een website die werkt in {region.name}
             </h2>
             <p className="text-muted-foreground mb-10 sm:mb-12 max-w-xl mx-auto">
               Complete webdesign oplossingen voor ondernemers in {region.name}.
@@ -279,7 +287,7 @@ const WerkgebiedDetail = () => {
 
         {/* Waarom Nieuwblik */}
         <BenefitList
-          h2="Waarom Nieuwblik?"
+          h2={`Waarom ondernemers in ${region.name} voor Nieuwblik kiezen`}
           intro={
             isLocal
               ? `We zijn lokaal gevestigd en kennen de regio ${region.name} goed.`
@@ -323,7 +331,7 @@ const WerkgebiedDetail = () => {
           >
             <div className="text-center mb-10 sm:mb-14">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Bekijk ons portfolio
+                Bekijk websites die bezoekers omzetten in klanten
               </h2>
               <p className="text-muted-foreground max-w-xl mx-auto">
                 Een selectie van recente projecten waar we trots op zijn.
@@ -351,7 +359,7 @@ const WerkgebiedDetail = () => {
               className="max-w-3xl mx-auto text-center"
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Zo werken we
+                Binnen {LEVERTIJD.standaard} live in vier heldere stappen
               </h2>
               <p className="text-muted-foreground mb-10 sm:mb-12">
                 Van eerste gesprek tot live website in 4 stappen
@@ -387,7 +395,7 @@ const WerkgebiedDetail = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground leading-tight">
-              Klaar voor een nieuwe website in {region.name}?
+              Start jouw website in {region.name} vanaf €{PRIJZEN.starter}
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
               Neem vrijblijvend contact op en ontdek wat een professionele website voor jouw bedrijf kan betekenen.

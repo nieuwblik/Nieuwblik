@@ -116,7 +116,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 1: Waarom een professionele website.
           section1.body wordt hier bewust niet gerenderd — die is woord voor
           woord gelijk aan city.intro, die hierboven al één keer staat. */}
-      <BenefitList h2={city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
+      <BenefitList h2={lokaal?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
 
       {/* Sectie 2: Vergelijking */}
       <ProblemSolutionSection />
@@ -128,7 +128,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
           style={{ background: 'radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)' }} />
         <div className="container relative z-10 mx-auto px-4 sm:px-6">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-10 text-center text-white">
-            {city.section3H2}
+            {lokaal?.headings?.reviews ?? city.section3H2}
           </h2>
           <TestimonialsCarousel />
         </div>
@@ -138,7 +138,9 @@ const CityLanding = ({ slug }: { slug: string }) => {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{city.section4.h2}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              {lokaal?.headings?.portfolio ?? city.section4.h2}
+            </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">{city.section4.intro}</p>
           </div>
           <CaseGrid projects={featuredProjects} />
@@ -154,7 +156,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {lokaal && <LandingFaq h2={`Veelgestelde vragen over een website in ${city.name}`} items={lokaal.faq} />}
 
       {/* Sectie 6: Contactblok */}
-      <ContactBlock h2={city.contactBlock.h2} body={city.contactBlock.body} />
+      <ContactBlock h2={lokaal?.headings?.contact ?? city.contactBlock.h2} body={city.contactBlock.body} />
 
       {/* Interne linksectie */}
       <section className="py-12 bg-background">
