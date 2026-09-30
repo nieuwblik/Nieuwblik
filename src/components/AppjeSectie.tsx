@@ -132,7 +132,6 @@ const ramp = (v: number, a: number, b: number) =>
 
 // Hoe lang een bericht erover doet om te verschijnen (0,08 × 4 s ≈ 0,3 s).
 const IN = 0.08;
-const TYP_IN = 0.03;
 
 /** Zachte uitloop (ease-out cubic), zodat een appje niet lineair binnenschuift. */
 const uit = (t: number) => 1 - (1 - t) ** 3;
@@ -230,23 +229,101 @@ const Avatar = () => (
   />
 );
 
-const Typen = () => (
-  <div
-    className="inline-flex items-center gap-1 rounded-2xl rounded-bl-md bg-white py-2 pl-2 pr-3.5"
-    style={{ boxShadow: SCHADUW }}
-  >
-    <span className="mr-1.5 inline-flex text-[0.8em]">
-      <Avatar />
-    </span>
-    {[0, 1, 2].map((i) => (
-      <span
-        key={i}
-        className="appje-stip block h-[0.45em] w-[0.45em] rounded-full"
-        style={{ background: "hsl(160 10% 45%)" }}
-      />
-    ))}
-  </div>
-);
+// ── Typen in het appje zelf ────────────────────────────────────────────────
+//
+// Een Nieuwblik-antwoord met typen verschijnt eerst als klein appje met naam
+// en typbolletjes, en groeit dan uit tot het bericht: één vlak, geen apart
+// typvlakje dat opflitst. Een onzichtbare kopie van het volledige bericht
+// houdt de ruimte vast, zodat de rest van het gesprek niet verspringt; het
+// zichtbare appje groeit binnen die ruimte (framer-motion layout-animatie).
+
+const GROEI = { duration: 0.42, ease: [0.22, 1, 0.36, 1] as const };
+
+/** "typen" tot het bericht er is, daarna "bericht". */
+const useFase = (b: Bericht, p: MotionValue<number>) => {
+  const bepaal = (v: number) => (v >= b.op - IN / 2 ? "bericht" : "typen");
+  const [fase, setFase] = useState(() => bepaal(p.get()));
+  useMotionValueEvent(p, "change", (v) => {
+    const nieuw = bepaal(v);
+    setFase((oud) => (oud === nieuw ? oud : nieuw));
+  });
+  return fase;
+};
+
+const TypBericht = ({
+  b,
+  p,
+  anker,
+}: {
+  b: Bericht;
+  p: MotionValue<number>;
+  /** Waar het kleine appje staat: boven (orbit) of onder (lopende chat). */
+  anker: "boven" | "onder";
+}) => {
+  const reduce = useReducedMotion();
+  const fase = useFase(b, p);
+  const layout = !reduce;
+  return (
+    <div className="relative">
+      <div className="invisible">
+        <Bubbel b={b} p={p} />
+      </div>
+      <div
+        className={`absolute left-0 max-w-full ${anker === "boven" ? "top-0" : "bottom-0"}`}
+      >
+        <motion.div
+          layout={layout}
+          transition={{ layout: GROEI }}
+          className="overflow-hidden px-3.5 py-2.5 leading-snug"
+          style={{
+            background: "#ffffff",
+            color: INKT,
+            boxShadow: SCHADUW,
+            borderTopLeftRadius: 16,
+            borderTopRightRadius: 16,
+            borderBottomRightRadius: 16,
+            borderBottomLeftRadius: 6,
+          }}
+        >
+          <motion.span
+            layout={layout ? "position" : false}
+            className="mb-1 flex items-center gap-1.5 whitespace-nowrap text-[0.74em] font-semibold"
+            style={{ color: GROEN }}
+          >
+            <Avatar />
+            Justin · Nieuwblik
+          </motion.span>
+          {fase === "typen" ? (
+            <motion.span
+              key="stippen"
+              layout={layout ? "position" : false}
+              className="flex h-[1.35em] items-center gap-1"
+            >
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className="appje-stip block h-[0.45em] w-[0.45em] rounded-full"
+                  style={{ background: "hsl(160 10% 45%)" }}
+                />
+              ))}
+            </motion.span>
+          ) : (
+            <motion.span
+              key="tekst"
+              layout={layout ? "position" : false}
+              className="block"
+              initial={reduce ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.14, duration: 0.3 }}
+            >
+              {b.tekst}
+            </motion.span>
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
 
 // ── Slotstuk: de geplande kennismaking ─────────────────────────────────────
 //
@@ -291,7 +368,7 @@ const regelVarianten = (vertraging: number): Variants => ({
   },
 });
 
-// Ringen rond het icoon: drie keer een puls, daarna rust.
+// Eén ring rond het icoon, één keer, daarna rust.
 const ringVarianten = (i: number): Variants => ({
   uit: { opacity: 0, scale: 1 },
   aan: {
@@ -301,8 +378,6 @@ const ringVarianten = (i: number): Variants => ({
       duration: 1.1,
       delay: 0.35 + i * 0.3,
       ease: "easeOut",
-      repeat: 2,
-      repeatDelay: 0.9,
     },
   },
 });
@@ -314,7 +389,7 @@ const Kalender = ({ beweeg }: { beweeg: boolean }) => (
     style={{ color: GROEN_LICHT }}
   >
     {beweeg &&
-      [0, 1].map((i) => (
+      [0].map((i) => (
         <motion.span
           key={`ring-${i}`}
           className="pointer-events-none absolute inset-0 rounded-full"
@@ -459,8 +534,13 @@ const GeplandChip = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
 // (62–69%) lopen ze langs elkaar; verticaal staan ze op een vaste afstand, hoe
 // breed het scherm ook is.
 
+/** Wanneer een appje binnenkomt: bij typen zodra het typen begint. */
+const binnenkomst = (b: Bericht): [number, number] =>
+  b.typen !== undefined ? [b.typen, b.typen + IN] : [b.op - IN, b.op];
+
 const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
-  const t = useTransform(p, (v) => ramp(v, b.op - IN, b.op));
+  const [van, tot] = binnenkomst(b);
+  const t = useTransform(p, (v) => ramp(v, van, tot));
   const zicht = useTransform(t, uit);
   const schaal = useTransform(t, (x) => 0.8 + 0.2 * pop(x));
   const y = useTransform(zicht, [0, 1], [14, 0]);
@@ -474,28 +554,11 @@ const OrbitBericht = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
         transformOrigin: b.van === "klant" ? "100% 50%" : "0% 50%",
       }}
     >
-      <Bubbel b={b} p={p} />
-    </motion.div>
-  );
-};
-
-/** Typbolletjes, op de plek waar straks het bericht komt. */
-const OrbitTypen = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
-  const typen = b.typen ?? b.op;
-  const zicht = useTransform(p, (v) =>
-    // Weg in de eerste helft van de binnenkomst van het bericht.
-    Math.min(
-      ramp(v, typen, typen + TYP_IN),
-      1 - ramp(v, b.op - IN, b.op - IN / 2),
-    ),
-  );
-  const schaal = useTransform(zicht, [0, 1], [0.8, 1]);
-  return (
-    <motion.div
-      className="absolute left-0 top-0 will-change-[transform,opacity]"
-      style={{ opacity: zicht, scale: schaal, transformOrigin: "0% 50%" }}
-    >
-      <Typen />
+      {b.typen !== undefined ? (
+        <TypBericht b={b} p={p} anker="boven" />
+      ) : (
+        <Bubbel b={b} p={p} />
+      )}
     </motion.div>
   );
 };
@@ -512,7 +575,6 @@ const OrbitRegel = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
     <div
       className={`appje-orbit-bubbel relative ${b.van === "klant" ? "self-end" : "self-start"}`}
     >
-      {b.typen !== undefined && <OrbitTypen b={b} p={p} />}
       <OrbitBericht b={b} p={p} />
     </div>
   );
@@ -522,34 +584,19 @@ const OrbitRegel = ({ b, p }: { b: Bericht; p: MotionValue<number> }) => {
 
 interface StapelItem {
   sleutel: string;
-  soort: "bericht" | "typen";
   b: Bericht;
   start: number;
-  eind?: number;
 }
 
-const ITEMS: StapelItem[] = GESPREK.flatMap((b) => {
-  const items: StapelItem[] = [];
-  if (b.typen !== undefined)
-    items.push({
-      sleutel: `${b.id}-typen`,
-      soort: "typen",
-      b,
-      start: b.typen,
-      eind: b.op,
-    });
-  items.push({ sleutel: b.id, soort: "bericht", b, start: b.op });
-  return items;
-});
+const ITEMS: StapelItem[] = GESPREK.map((b) => ({
+  sleutel: b.id,
+  b,
+  start: binnenkomst(b)[1],
+}));
 
 /** Hoe zichtbaar een item is bij voortgang v (0–1). */
 const zichtbaar = (it: StapelItem, v: number) =>
-  it.soort === "typen"
-    ? Math.min(
-        ramp(v, it.start, it.start + TYP_IN),
-        1 - ramp(v, (it.eind ?? it.start) - IN, (it.eind ?? it.start) - IN / 2),
-      )
-    : uit(ramp(v, it.start - IN, it.start));
+  uit(ramp(v, it.start - IN, it.start));
 
 // De geplande kennismaking krijgt wat extra lucht, voor de ringen en vonkjes.
 const STAPEL_GAT = 10;
@@ -605,7 +652,11 @@ const StapelRegel = ({
             : "0% 100%",
       }}
     >
-      {it.soort === "typen" ? <Typen /> : <Bubbel b={it.b} p={p} />}
+      {it.b.typen !== undefined ? (
+        <TypBericht b={it.b} p={p} anker="onder" />
+      ) : (
+        <Bubbel b={it.b} p={p} />
+      )}
     </motion.div>
   );
 };
