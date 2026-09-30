@@ -5,6 +5,7 @@ import {
   motion,
   AnimatePresence,
   useReducedMotion,
+  useMotionValue,
   useScroll,
   useSpring,
   useTransform,
@@ -38,9 +39,12 @@ const PEAK_TOP = (PEAK_Y / 300) * 100;
  * Scroll-gestuurde animatie.
  *
  * Alles hieronder hangt aan de scrollpositie in plaats van aan een klok: scroll
- * je langzaam, dan bouwt de sectie langzaam op; scroll je terug, dan speelt hij
- * terug. Drie assen, elk aan zijn eigen element gekoppeld, zodat het op mobiel
- * (alles onder elkaar) net zo klopt als op desktop (naast elkaar):
+ * je langzaam, dan bouwt de sectie langzaam op. De opbouw speelt één keer:
+ * scroll je terug, dan blijft alles staan (zie useEenmalig). Alleen de
+ * groeilijn met stip, label en stippellijn blijft de scroll volgen, zodat die
+ * zich opnieuw tekent als je terug en weer naar beneden scrolt. Drie assen,
+ * elk aan zijn eigen element gekoppeld, zodat het op mobiel (alles onder
+ * elkaar) net zo klopt als op desktop (naast elkaar):
  *
  *  - linkerkolom: lijn trekt zich uit, de kop komt woord voor woord omhoog
  *    uit een masker, daarna tekst en knop;
@@ -60,6 +64,15 @@ const PEAK_TOP = (PEAK_Y / 300) * 100;
  * het oude probleem op waarbij de grafiek op iOS soms nooit animeerde.
  */
 const SPRING = { stiffness: 150, damping: 28, mass: 0.35, restDelta: 0.0005 };
+
+/** Voortgang die alleen oploopt: de hoogste waarde tot nu toe. */
+const useEenmalig = (p: MotionValue<number>) => {
+  const hoogste = useMotionValue(p.get());
+  useMotionValueEvent(p, "change", (v) => {
+    if (v > hoogste.get()) hoogste.set(v);
+  });
+  return hoogste;
+};
 
 /** Waarde van a naar b over [van, tot] van de voortgang; buiten dat venster geklemd. */
 const useRange = (
@@ -275,14 +288,16 @@ const SearchVisibility = () => {
     target: leftRef,
     offset: ["start 0.95", "start 0.35"],
   });
-  const left = useSpring(leftRaw, SPRING);
+  const left = useSpring(useEenmalig(leftRaw), SPRING);
 
   // Paneel: begint zodra het onderin beeld komt, staat als het midden op 55% van het scherm staat.
   const { scrollYProgress: panelRaw } = useScroll({
     target: panelRef,
     offset: ["start end", "center 0.55"],
   });
-  const panel = useSpring(panelRaw, SPRING);
+  const panel = useSpring(useEenmalig(panelRaw), SPRING);
+  // De grafiek volgt de scroll wél in beide richtingen.
+  const lijn = useSpring(panelRaw, SPRING);
 
   // Daarna: het paneel drijft iets langzamer weg dan de pagina.
   const { scrollYProgress: driftRaw } = useScroll({
@@ -295,7 +310,7 @@ const SearchVisibility = () => {
     target: tilesRef,
     offset: ["start 0.98", "end 0.72"],
   });
-  const tiles = useSpring(tilesRaw, SPRING);
+  const tiles = useSpring(useEenmalig(tilesRaw), SPRING);
 
   // Linkerkolom
   const ruleScale = useRange(left, 0, 0.32, 0, 1);
@@ -315,15 +330,15 @@ const SearchVisibility = () => {
   // Inhoud van het paneel, in volgorde van opbouw.
   const headerOpacity = useRange(panel, 0.3, 0.52, 0, 1);
   const headerY = useRange(panel, 0.3, 0.52, 14, 0);
-  const lineLength = useRange(panel, 0.36, 0.86, 0, 1);
+  const lineLength = useRange(lijn, 0.36, 0.86, 0, 1);
   const axisOpacity = useRange(panel, 0.42, 0.62, 0, 1);
-  const dotScale = useRange(panel, 0.84, 0.92, 0, 1);
-  const extrasOpacity = useRange(panel, 0.86, 0.98, 0, 1);
-  const tooltipY = useRange(panel, 0.88, 0.98, 10, 0);
+  const dotScale = useRange(lijn, 0.84, 0.92, 0, 1);
+  const extrasOpacity = useRange(lijn, 0.86, 0.98, 0, 1);
+  const tooltipY = useRange(lijn, 0.88, 0.98, 10, 0);
 
   // Ring rond de piek pulseert pas als de lijn daar is; scroll je terug, dan stopt hij.
   const [peaked, setPeaked] = useState(false);
-  useMotionValueEvent(panel, "change", (v) => setPeaked(v > 0.9));
+  useMotionValueEvent(lijn, "change", (v) => setPeaked(v > 0.9));
 
   const footOpacity = useRange(tiles, 0.62, 0.95, 0, 1);
 
