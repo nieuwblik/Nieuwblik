@@ -1,400 +1,383 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from '@/lib/router-compat'
-import { OptimizedImage } from '@/components/OptimizedImage'
-import Reveal from "@/components/Reveal"
-import logo from '@/assets/logo.webp'
-import { companyInfo } from '@/config/company'
-import { useDarkNavSection } from '@/components/UnderlayNav'
+import { useEffect, useRef, type ReactNode } from "react";
+import { Link } from "@/lib/router-compat";
+import Reveal from "@/components/Reveal";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useReducedMotion } from "@/lib/reduced-motion";
+import logo from "@/assets/logo.webp";
+import studio960 from "@/assets/footer/footer-studio-960.webp";
+import studio1600 from "@/assets/footer/footer-studio-1600.webp";
+import studio2560 from "@/assets/footer/footer-studio-2560.webp";
+import { companyInfo } from "@/config/company";
+import { LEVERTIJD, PRIJZEN, REVIEWS, euroTeken } from "@/config/business";
 // Alleen de links, niet de volledige paginateksten: de footer staat op elke
 // pagina en die records wegen samen bijna 300 KB.
-import { cityLinks as cities } from '@/data/cityLinks'
-import { industryLinks as industries } from '@/data/industryLinks'
+import { cityLinks as cities } from "@/data/cityLinks";
+import { industryLinks as industries } from "@/data/industryLinks";
 
-// ── Design tokens ──────────────────────────────────────────────
+/*
+ * Footer in twee delen, naar het voorbeeld van Interieurstudio Laan:
+ *  - bovenaan een afsluitende call-to-action op een schermbrede sfeerfoto
+ *    (avondstudio aan de haven, Higgsfield) die via een verloop overloopt in
+ *    het groen van de footer;
+ *  - daaronder het logo met omschrijving en rustige linkkolommen, de
+ *    werkgebied- en branchelinks (voor de interne links naar de
+ *    landingspagina's) en de juridische regel.
+ * Op de homepage staat de foto-CTA uit (cta={false}): daar sluit de
+ * WhatsApp-sectie de pagina al af.
+ */
 
-const FONT_BODY = "'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+const GROEN = "hsl(160 84% 12%)";
+const GROEN_LICHT = "hsl(160 70% 58%)";
+const TELEFOON = `tel:${companyInfo.phone.replace(/\s/g, "")}`;
 
-const WHITE        = '#ffffff'
-const STEEL        = 'rgba(255,255,255,0.50)'
-const BG           = 'hsl(160 84% 12%)'
-const ACCENT_LIGHT = 'hsl(160 60% 65%)'
-const ACCENT_GRAD  = 'linear-gradient(135deg, hsl(160 84% 25%) 0%, hsl(160 84% 50%) 50%, hsl(160 84% 35%) 100%)'
+const NAVIGATIE = [
+  { label: "Diensten", to: "/diensten" },
+  { label: "Portfolio", to: "/portfolio" },
+  { label: "Over ons", to: "/over-ons" },
+  { label: "Reviews", to: "/reviews" },
+  { label: "Blog", to: "/blog" },
+  { label: "Contact", to: "/contact" },
+  { label: "Gratis website-analyse", to: "/gratis-website-analyse" },
+];
 
-const EASE_OUT = [0.16, 1, 0.3, 1] as const
+const DIENSTEN = [
+  { label: "Website laten maken", to: "/website-laten-maken" },
+  { label: "Website op maat", to: "/diensten/website-op-maat" },
+  { label: "Webdesign bureau", to: "/webdesign-bureau" },
+  { label: "Webshops", to: "/diensten/webshops" },
+  { label: "E-commerce", to: "/diensten/e-commerce" },
+  { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
+];
 
-// ── Breakpoint ─────────────────────────────────────────────────
+const VOLG = [
+  { label: "LinkedIn", href: companyInfo.social.linkedin },
+  { label: "WhatsApp", href: companyInfo.whatsapp },
+  { label: "Google-reviews", href: REVIEWS.profielUrl },
+];
 
-function useBp() {
-  const [bp, setBp] = useState({ isMobile: false, isTablet: false })
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth
-      setBp({ isMobile: w < 768, isTablet: w >= 768 && w < 1024 })
-    }
-    update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [])
-  return bp
-}
+const REGIO = [
+  { label: "Noord-Holland", to: "/regio/noord-holland" },
+  { label: "Randstad", to: "/regio/randstad" },
+  { label: "Oost-Nederland", to: "/regio/oost-nederland" },
+  { label: "Zuid-Nederland", to: "/regio/zuid-nederland" },
+];
 
-// ── Nav columns ────────────────────────────────────────────────
+const JURIDISCH = [
+  { label: "Privacy", to: "/privacy" },
+  { label: "Cookies", to: "/cookies" },
+  { label: "Algemene voorwaarden", to: "/algemene-voorwaarden" },
+];
 
-const FOOTER_COLS = [
-  {
-    label: 'Navigatie',
-    links: [
-      { label: 'Home',      to: '/' },
-      { label: 'Diensten',  to: '/diensten' },
-      { label: 'Portfolio', to: '/portfolio' },
-      { label: 'Over Ons',  to: '/over-ons' },
-      { label: 'Reviews',   to: '/reviews' },
-      { label: 'Contact',   to: '/contact' },
-      { label: 'Gratis website-analyse', to: '/gratis-website-analyse' },
-      { label: 'Blog',      to: '/blog' },
-    ],
-  },
-  {
-    label: 'Diensten',
-    links: [
-      { label: 'Website op maat', to: '/diensten/website-op-maat' },
-      { label: 'Website laten maken', to: '/website-laten-maken' },
-      { label: 'Webdesign bureau', to: '/webdesign-bureau' },
-      { label: 'Webshops',        to: '/diensten/webshops' },
-      { label: 'E-commerce',      to: '/diensten/e-commerce' },
-      { label: 'SEO Enkhuizen',   to: '/seo-enkhuizen' },
-      { label: 'Alle diensten →', to: '/diensten' },
-    ],
-  },
-]
+const LINK = "transition-colors duration-200 hover:text-white";
 
-// ── Numbered link ──────────────────────────────────────────────
-
-function NumLink({ label, to }: { label: string; to: string; index?: number }) {
-  const [hov, setHov] = useState(false)
+function Kolom({
+  titel,
+  className,
+  children,
+}: {
+  titel: string;
+  className?: string;
+  children: ReactNode;
+}) {
   return (
-    <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
-      <Link
-        to={to}
-        style={{
-          display: 'block', textDecoration: 'none',
-          padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.05)',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: FONT_BODY, fontSize: 13, fontWeight: 300, display: 'inline-block',
-            color: hov ? WHITE : STEEL,
-            transform: hov ? 'translateX(2px)' : 'none',
-            transition: 'color 0.18s ease, transform 0.18s ease',
-          }}
-        >
-          {label}
-        </span>
-      </Link>
+    <div className={className}>
+      <h2 className="mb-5 text-sm font-normal text-white/45">{titel}</h2>
+      <ul className="space-y-3 text-[0.9375rem] text-white/85">{children}</ul>
     </div>
-  )
+  );
 }
 
-// ── Nav block ──────────────────────────────────────────────────
-
-function FooterNavBlock({ col }: { col: typeof FOOTER_COLS[number] }) {
+/** Linkrij voor de werkgebied- en branchepagina's: klein en rustig. */
+function LinkRij({ titel, children }: { titel: string; children: ReactNode }) {
   return (
     <div>
-      <div style={{ marginBottom: 18 }}>
-        <span style={{
-          fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
-          letterSpacing: '0.28em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
-        }}>
-          {col.label}
-        </span>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {col.links.map((link, i) => (
-          <NumLink key={link.to + link.label} label={link.label} to={link.to} index={i} />
-        ))}
-      </div>
+      <h2 className="mb-3 text-sm font-normal text-white/45">{titel}</h2>
+      <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] text-white/55">
+        {children}
+      </ul>
     </div>
-  )
+  );
 }
 
-// ── Footer ─────────────────────────────────────────────────────
+/**
+ * Foto die iets trager meeschuift dan de pagina. Eén scroll-listener die
+ * alleen een transform zet, en alleen zolang de sectie in beeld is.
+ */
+function useParallax() {
+  const sectieRef = useRef<HTMLElement | null>(null);
+  const fotoRef = useRef<HTMLImageElement | null>(null);
+  const reduced = useReducedMotion();
 
-function FooterComponent() {
-  const { isMobile, isTablet } = useBp()
-  // Dark background: tell the fixed header to invert while this is under it.
-  const darkRef = useDarkNavSection<HTMLElement>()
+  useEffect(() => {
+    const sectie = sectieRef.current;
+    const foto = fotoRef.current;
+    if (!sectie || !foto || reduced) return;
+
+    let frame = 0;
+    let inBeeld = false;
+    const zet = () => {
+      frame = 0;
+      const r = sectie.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // -1 als de sectie net onderin binnenkomt, 1 als hij bovenin verdwijnt.
+      const p = Math.max(
+        -1,
+        Math.min(1, (vh / 2 - (r.top + r.height / 2)) / ((vh + r.height) / 2)),
+      );
+      foto.style.transform = `translate3d(0, ${(p * 8).toFixed(2)}%, 0)`;
+    };
+    const onScroll = () => {
+      if (inBeeld && !frame) frame = requestAnimationFrame(zet);
+    };
+    const io = new IntersectionObserver(([e]) => {
+      inBeeld = !!e?.isIntersecting;
+      if (inBeeld) onScroll();
+    });
+    io.observe(sectie);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [reduced]);
+
+  return { sectieRef, fotoRef };
+}
+
+function FooterCta() {
+  const { sectieRef, fotoRef } = useParallax();
+  return (
+    <section
+      ref={sectieRef}
+      aria-labelledby="footer-cta-kop"
+      className="relative isolate overflow-hidden"
+    >
+      <img
+        ref={fotoRef}
+        src={studio1600}
+        srcSet={`${studio960} 960w, ${studio1600} 1600w, ${studio2560} 2560w`}
+        sizes="100vw"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-x-0 -top-[10%] -z-10 h-[120%] w-full object-cover will-change-transform"
+        style={{ objectPosition: "50% 50%" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10"
+        style={{
+          background: `linear-gradient(180deg, hsl(160 60% 4% / 0.55) 0%, hsl(160 60% 4% / 0.45) 55%, ${GROEN} 100%)`,
+        }}
+      />
+      <div className="container mx-auto px-6 py-[clamp(7rem,4rem+12vw,15rem)] text-center">
+        <Reveal>
+          <h2
+            id="footer-cta-kop"
+            className="mx-auto max-w-3xl font-bold tracking-tight text-white"
+            style={{
+              fontSize: "clamp(2.4rem, 1.2rem + 4.6vw, 5rem)",
+              lineHeight: 1.02,
+            }}
+          >
+            Klaar om <span style={{ color: GROEN_LICHT }}>gevonden</span> te
+            worden?
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-white/80 md:text-lg">
+            Een website op maat die klanten oplevert. Vanaf{" "}
+            {euroTeken(PRIJZEN.starter)}, binnen {LEVERTIJD.standaard} online,
+            met persoonlijk contact vanuit {companyInfo.address.city}.
+          </p>
+        </Reveal>
+        <Reveal
+          delay={0.16}
+          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+        >
+          <AnimatedButton to="/contact" size="lg" variant="white">
+            Start je project
+          </AnimatedButton>
+          <AnimatedButton href={TELEFOON} size="lg" variant="outlineWhite">
+            Bel {companyInfo.phone}
+          </AnimatedButton>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const Footer = ({ cta = true }: { cta?: boolean }) => {
+  // Donkere achtergrond: de vaste header schakelt naar licht zolang dit eronder zit.
+  const darkRef = useDarkNavSection<HTMLElement>();
+  const jaar = new Date().getFullYear();
+  const { address } = companyInfo;
 
   return (
-    <Reveal
-      as="footer"
-      afstand={0}
-      innerRef={(node) => { darkRef.current = node; }}
-      style={{ background: BG, position: 'relative', overflow: 'hidden' }}
+    <footer
+      ref={darkRef}
+      className="relative overflow-hidden text-white"
+      style={{ background: GROEN }}
     >
-      {/* Animated green glow blobs */}
-      <div
-        className="nb-gloed-a"
-        style={{
-          position: 'absolute', top: '-35%', left: '-12%', width: '75%', height: '90%',
-          background: 'radial-gradient(ellipse at center, hsl(160 84% 40% / 0.14) 0%, transparent 60%)',
-          pointerEvents: 'none', zIndex: 0,
-        }}
-      />
-      <div
-        className="nb-gloed-b"
-        style={{
-          position: 'absolute', bottom: '-25%', right: '-18%', width: '70%', height: '70%',
-          background: 'radial-gradient(ellipse at center, hsl(160 84% 55% / 0.10) 0%, hsl(160 84% 30% / 0.06) 40%, transparent 68%)',
-          pointerEvents: 'none', zIndex: 0,
-        }}
-      />
-      <div
-        className="nb-gloed-c"
-        style={{
-          position: 'absolute', top: '25%', right: '10%', width: '40%', height: '50%',
-          background: 'radial-gradient(ellipse at center, hsl(160 84% 60% / 0.07) 0%, transparent 58%)',
-          pointerEvents: 'none', zIndex: 0,
-        }}
-      />
+      {cta && <FooterCta />}
 
-      <div style={{ maxWidth: 1280, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-
-        {/* Green gradient rule */}
-        <div style={{
-          height: 1,
-          background: 'linear-gradient(90deg, transparent 0%, hsl(160 84% 35%) 25%, hsl(160 84% 55%) 50%, hsl(160 84% 35%) 75%, transparent 100%)',
-          opacity: 0.6,
-        }} />
-
-        {/* Eyebrow */}
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: isMobile ? '18px 24px' : '20px 48px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          flexWrap: 'wrap' as const, gap: 12,
-        }}>
-          <span style={{ fontFamily: FONT_BODY, fontSize: 10, letterSpacing: '0.28em', color: 'rgba(255,255,255,0.35)' }}>
-            {"NIEUWBLIK · WEBDESIGN BUREAU "}
-          </span>
-          <span style={{ fontFamily: FONT_BODY, fontSize: 10, letterSpacing: '0.2em', color: ACCENT_LIGHT }}>
-            {companyInfo.address.city.toUpperCase()} · NEDERLAND
-          </span>
-        </div>
-
-        {/* Main body */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile || isTablet ? '1fr' : '5fr 7fr',
-          padding: isMobile ? '56px 24px' : '80px 48px',
-          gap: isMobile ? 56 : 96,
-        }}>
-
-          {/* Left — editorial */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2 style={{
-              fontFamily: "'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", fontWeight: 700,
-              fontSize: 'clamp(34px, 4.2vw, 56px)',
-              color: WHITE, lineHeight: 0.9, letterSpacing: '-0.01em',
-              margin: '0 0 28px', textTransform: 'uppercase' as const,
-            }}>
-              WEBSITES <br />DIE GROEIEN
-            </h2>
-            <p style={{
-              fontFamily: FONT_BODY, fontSize: 14, fontWeight: 300, color: STEEL,
-              lineHeight: 1.75, margin: '0 0 36px', maxWidth: 300,
-            }}>
-              Webdesign bureau dat strategie en design combineert tot meetbaar resultaat. Geen templates, elk project op maat gebouwd.
+      <div className="container mx-auto px-6 md:px-12">
+        <div
+          className={`grid grid-cols-2 gap-x-6 gap-y-12 py-16 md:py-20 lg:grid-cols-12 lg:gap-8 ${cta ? "" : "border-t border-white/10"}`}
+        >
+          <div className="col-span-2 lg:col-span-4">
+            <Link
+              to="/"
+              aria-label="Nieuwblik, naar de homepage"
+              className="inline-block"
+            >
+              <img
+                src={logo}
+                alt="Nieuwblik"
+                width={400}
+                height={113}
+                loading="lazy"
+                className="h-auto w-44 brightness-0 invert"
+              />
+            </Link>
+            <p className="mt-7 max-w-sm text-[0.9375rem] leading-relaxed text-white/65">
+              Webdesign bureau dat strategie en design combineert tot meetbaar
+              resultaat. Geen templates, elk project op maat gebouwd.
             </p>
+          </div>
 
-            {/* Brand facts */}
-            <div style={{ paddingTop: 20, marginBottom: 32, position: 'relative' }}>
-              <div style={{
-                position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-                background: ACCENT_GRAD, opacity: 0.35,
-              }} />
-              {([
-                ['OPGERICHT', companyInfo.foundingDate],
-                ['LOCATIE',   companyInfo.address.city.toUpperCase()],
-                ['KVK',       companyInfo.kvk],
-              ] as [string, string][]).map(([key, val]) => (
-                <div key={key} style={{
-                  display: 'flex', gap: 16, alignItems: 'baseline',
-                  padding: '7px 0', borderBottom: '1px solid rgba(255,255,255,0.04)',
-                }}>
-                  <span style={{
-                    fontFamily: FONT_BODY, fontSize: 9,
-                    color: 'rgba(255,255,255,0.28)', letterSpacing: '0.2em', minWidth: 80,
-                  }}>
-                    {key}
-                  </span>
-                  <span style={{ fontFamily: FONT_BODY, fontSize: 10, color: ACCENT_LIGHT, letterSpacing: '0.1em' }}>
-                    {val}
-                  </span>
-                </div>
+          <nav aria-label="Footer" className="contents">
+            <Kolom titel="Navigatie" className="lg:col-span-2">
+              {NAVIGATIE.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className={LINK}>
+                    {l.label}
+                  </Link>
+                </li>
               ))}
-            </div>
-
-          </div>
-
-          {/* Right — nav 2×2 */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: isMobile ? '40px 24px' : '48px 40px',
-            alignContent: 'start',
-          }}>
-            {FOOTER_COLS.map(col => <FooterNavBlock key={col.label} col={col} />)}
-          </div>
-        </div>
-
-        {/* Regio hubs */}
-        <div style={{
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          padding: isMobile ? '32px 24px' : '32px 48px',
-        }}>
-          <div style={{ marginBottom: 16 }}>
-            <span style={{
-              fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
-              letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
-            }}>
-              Website laten maken per regio
-            </span>
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 20px' }}>
-            {[
-              { label: 'Noord-Holland', to: '/regio/noord-holland' },
-              { label: 'Randstad', to: '/regio/randstad' },
-              { label: 'Oost-Nederland', to: '/regio/oost-nederland' },
-              { label: 'Zuid-Nederland', to: '/regio/zuid-nederland' },
-            ].map((r) => (
-              <Link key={r.to} to={r.to} style={{
-                fontFamily: FONT_BODY, fontSize: 12, fontWeight: 300,
-                color: STEEL, textDecoration: 'none', padding: '4px 0',
-              }}>
-                {r.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* SEO mega section — steden & branches */}
-        <div style={{
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          padding: isMobile ? '40px 24px' : '48px 48px',
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-          gap: isMobile ? 40 : 64,
-        }}>
-          <div>
-            <div style={{ marginBottom: 16 }}>
-              <span style={{
-                fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
-                letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
-              }}>
-                Website laten maken per stad
-              </span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px 16px' }}>
-              {cities.map(c => (
-                <Link
-                  key={c.slug}
-                  to={`/website-laten-maken-${c.slug}`}
-                  style={{
-                    fontFamily: FONT_BODY, fontSize: 12, fontWeight: 300,
-                    color: STEEL, textDecoration: 'none', padding: '4px 0', display: 'block',
-                  }}
-                >
-                  {c.name}
-                </Link>
+            </Kolom>
+            <Kolom titel="Diensten" className="lg:col-span-2">
+              {DIENSTEN.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className={LINK}>
+                    {l.label}
+                  </Link>
+                </li>
               ))}
-            </div>
-          </div>
-          <div>
-            <div style={{ marginBottom: 16 }}>
-              <span style={{
-                fontFamily: FONT_BODY, fontSize: 9, fontWeight: 700,
-                letterSpacing: '0.22em', textTransform: 'uppercase' as const, color: ACCENT_LIGHT,
-              }}>
-                Website laten maken per branche
-              </span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2px 16px' }}>
-              {industries.map(b => (
-                <Link
-                  key={b.slug}
-                  to={`/website-laten-maken-${b.slug}`}
-                  style={{
-                    fontFamily: FONT_BODY, fontSize: 12, fontWeight: 300,
-                    color: STEEL, textDecoration: 'none', padding: '4px 0', display: 'block',
-                  }}
-                >
-                  {b.name}
-                </Link>
-              ))}
-              <Link
-                to="/taxi-website-laten-maken"
-                style={{
-                  fontFamily: FONT_BODY, fontSize: 12, fontWeight: 300,
-                  color: STEEL, textDecoration: 'none', padding: '4px 0', display: 'block',
-                }}
+            </Kolom>
+          </nav>
+
+          <Kolom titel="Contact" className="lg:col-span-2">
+            <li>
+              <a href={TELEFOON} className={LINK}>
+                {companyInfo.phone}
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${companyInfo.email}`}
+                className={`${LINK} [overflow-wrap:anywhere]`}
               >
-                Taxi
-              </Link>
-            </div>
-          </div>
-        </div>
+                {companyInfo.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={address.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${LINK} leading-relaxed`}
+              >
+                {address.street}
+                <br />
+                {address.postalCode} {address.city}
+              </a>
+            </li>
+          </Kolom>
 
-        {/* Legal bar */}
-        <div style={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: isMobile ? 'flex-start' : 'center',
-          justifyContent: 'space-between',
-          padding: isMobile ? '24px 24px 40px' : '24px 48px',
-          gap: isMobile ? 12 : 0,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <OptimizedImage
-              src={logo}
-              alt="Nieuwblik"
-              className="brightness-0 invert opacity-30"
-              type="logo"
-              width={72}
-              height={18}
-            />
-            <span style={{ fontFamily: FONT_BODY, fontSize: 10, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.1em' }}>
-              © {new Date().getFullYear()} {companyInfo.name}
-            </span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            {[
-              { label: 'Privacy',              to: '/privacy' },
-              { label: 'Cookies',              to: '/cookies' },
-              { label: 'Algemene Voorwaarden', to: '/algemene-voorwaarden' },
-            ].map((item, i) => (
-              <React.Fragment key={item.to}>
-                {i > 0 && <span style={{ color: 'rgba(255,255,255,0.1)', fontFamily: FONT_BODY, fontSize: 9 }}>·</span>}
-                <Link
-                  to={item.to}
-                  style={{
-                    fontFamily: FONT_BODY, fontSize: 10, letterSpacing: '0.1em',
-                    color: 'rgba(255,255,255,0.28)', textDecoration: 'none',
-                  }}
+          <Kolom titel="Volg" className="lg:col-span-2">
+            {VOLG.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${s.label} (opent in nieuw venster)`}
+                  className={LINK}
                 >
-                  {item.label}
-                </Link>
-              </React.Fragment>
+                  {s.label}
+                </a>
+              </li>
             ))}
+          </Kolom>
+        </div>
+
+        {/* Werkgebied en branches: interne links naar de landingspagina's. */}
+        <div className="grid gap-8 border-t border-white/10 py-10 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-4">
+            <LinkRij titel="Website laten maken per regio">
+              {REGIO.map((r) => (
+                <li key={r.to}>
+                  <Link to={r.to} className={LINK}>
+                    {r.label}
+                  </Link>
+                </li>
+              ))}
+            </LinkRij>
+          </div>
+          <div className="lg:col-span-4">
+            <LinkRij titel="Per stad">
+              {cities.map((c) => (
+                <li key={c.slug}>
+                  <Link to={`/website-laten-maken-${c.slug}`} className={LINK}>
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </LinkRij>
+          </div>
+          <div className="lg:col-span-4">
+            <LinkRij titel="Per branche">
+              {industries.map((b) => (
+                <li key={b.slug}>
+                  <Link to={`/website-laten-maken-${b.slug}`} className={LINK}>
+                    {b.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link to="/taxi-website-laten-maken" className={LINK}>
+                  Taxi
+                </Link>
+              </li>
+            </LinkRij>
           </div>
         </div>
 
+        <div className="flex flex-col gap-2 border-t border-white/10 py-5 text-sm text-white/45 md:flex-row md:items-center md:justify-between">
+          <p>
+            © {jaar} {companyInfo.name} · KvK {companyInfo.kvk}
+          </p>
+          <ul className="flex flex-wrap items-center gap-x-6">
+            {JURIDISCH.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  className={`${LINK} inline-flex min-h-11 items-center`}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </Reveal>
-  )
-}
+    </footer>
+  );
+};
 
-// ── Default export ─────────────────────────────────────────────
-
-const Footer = () => <FooterComponent />
-export default Footer
+export default Footer;

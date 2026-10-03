@@ -231,7 +231,7 @@ const Index = () => {
       <AppjeSectie />
     </Suspense>
 
-    <Footer />
+    <Footer cta={false} />
   </div>;
 };
 export default Index;
