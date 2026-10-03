@@ -292,8 +292,9 @@ User-agent: PerplexityBot
 Allow: /
 Disallow: /admin
 
-# Inhoudsoverzicht voor AI-assistenten
-Llms: ${SITE_URL}/llms.txt
+# Inhoudsoverzicht voor AI-assistenten: ${SITE_URL}/llms.txt
+# (als commentaar: "Llms:" is geen robots.txt-regel en Search Console
+# meldt hem dan als syntaxisfout; llms.txt staat op de vaste plek in de root)
 
 # Sitemap
 Sitemap: ${SITE_URL}/sitemap.xml
