@@ -75,6 +75,8 @@ export const HUBS: RegionHubData[] = [
       { name: "Delft", slug: "delft", note: "Tech en innovatie" },
       { name: "Dordrecht", slug: "dordrecht", note: "MKB en industrie" },
       { name: "Zoetermeer", slug: "zoetermeer", note: "Zakelijke dienstverlening" },
+      { name: "Almere", slug: "almere", note: "Jonge stad met groeiend MKB" },
+      { name: "Westland", slug: "westland", note: "Glastuinbouw en handel" },
     ],
     strengths: [
       { title: "Snelheid", text: `${LEVERTIJD.standaard} van briefing naar live. Dat is het tempo van de Randstad, en dat halen wij.` },
@@ -142,6 +144,31 @@ export const HUBS: RegionHubData[] = [
       { q: "Zijn jullie bekend met de Zuid-Nederlandse markt?", a: "Ja. We hebben klanten in Eindhoven, Breda, Tilburg en Maastricht. De regio kent zijn eigen dynamiek en die respecteren we." },
       { q: "Werken jullie ook in het Duits voor grens-regio's?", a: "Ja. Voor bedrijven in Venlo of Maastricht met Duitse klanten zetten we meertalige sites op met correcte SEO per taal." },
       { q: "Wat kost een website in Zuid-Nederland?", a: `Vanaf ${PRIJZEN.starter} euro voor een complete site. Webshops en uitgebreide projecten liggen tussen ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
+    ],
+  },
+  {
+    slug: "noord-nederland",
+    name: "Noord-Nederland",
+    title: `Website laten maken Noord-Nederland vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    description:
+      `Website laten maken in Noord-Nederland vanaf €${PRIJZEN.starter}. Persoonlijk contact, vindbaar in Google en binnen ${LEVERTIJD.standaard} live. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Noord-Nederland vanaf €${PRIJZEN.starter}`,
+    intro:
+      "Van Groningen en Leeuwarden tot Emmen: ook in het noorden bouwen we websites voor ondernemers die online gevonden willen worden. We werken vanuit Enkhuizen en stemmen af via videocall, met korte lijnen en één vast aanspreekpunt.",
+    cities: [
+      { name: "Groningen", slug: "groningen", note: "Studentenstad en kennisbedrijven" },
+      { name: "Leeuwarden", slug: "leeuwarden", note: "Hoofdstad van Friesland" },
+      { name: "Emmen", slug: "emmen", note: "MKB in Zuidoost-Drenthe" },
+    ],
+    strengths: [
+      { title: "Op afstand, toch persoonlijk", text: "Kennismaken en afstemmen doen we via videocall. Je hebt één vast aanspreekpunt, van het eerste gesprek tot de oplevering." },
+      { title: "Lokaal vindbaar", text: "We optimaliseren voor de zoektermen die klanten in jouw stad gebruiken, zoals website laten maken Groningen of Leeuwarden." },
+      { title: "Vaste prijs vooraf", text: `Je weet vooraf waar je aan toe bent. Een complete website vanaf ${PRIJZEN.starter} euro.` },
+    ],
+    faq: [
+      { q: "Werken jullie ook voor bedrijven in Groningen, Friesland en Drenthe?", a: "Ja. We werken voor ondernemers door heel Nederland. Afstemmen gaat via videocall, dus de afstand tot Enkhuizen maakt voor je project niet uit." },
+      { q: "Hoe lang duurt het voordat mijn website in het noorden live staat?", a: `De meeste websites staan binnen ${LEVERTIJD.standaard} live. Grotere sites en webshops duren ${LEVERTIJD.complex}.` },
+      { q: "Wat kost een website in Noord-Nederland?", a: `Een complete website begint bij ${PRIJZEN.starter} euro. Webshops en uitgebreide projecten liggen tussen ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
   },
 ];

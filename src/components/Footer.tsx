@@ -10,10 +10,6 @@ import studio1600 from "@/assets/footer/footer-studio-1600.webp";
 import studio2560 from "@/assets/footer/footer-studio-2560.webp";
 import { companyInfo } from "@/config/company";
 import { LEVERTIJD, PRIJZEN, REVIEWS, euroTeken } from "@/config/business";
-// Alleen de links, niet de volledige paginateksten: de footer staat op elke
-// pagina en die records wegen samen bijna 300 KB.
-import { cityLinks as cities } from "@/data/cityLinks";
-import { industryLinks as industries } from "@/data/industryLinks";
 
 /*
  * Footer in twee delen, naar het voorbeeld van Interieurstudio Laan:
@@ -56,11 +52,26 @@ const VOLG = [
   { label: "Google-reviews", href: REVIEWS.profielUrl },
 ];
 
+// Werkgebied en branches compact: de regiopagina's linken samen naar alle
+// stadspagina's, /website-laten-maken#branches naar alle branchepagina's.
+// Zo blijft elke landingspagina via een passende overzichtspagina vindbaar,
+// zonder een blok van zestig links onder elke pagina.
 const REGIO = [
   { label: "Noord-Holland", to: "/regio/noord-holland" },
   { label: "Randstad", to: "/regio/randstad" },
   { label: "Oost-Nederland", to: "/regio/oost-nederland" },
   { label: "Zuid-Nederland", to: "/regio/zuid-nederland" },
+  { label: "Noord-Nederland", to: "/regio/noord-nederland" },
+  { label: "Alle plaatsen →", to: "/werkgebied" },
+];
+
+const BRANCHES = [
+  { label: "Kapper", to: "/website-laten-maken-kapper" },
+  { label: "Restaurant", to: "/website-laten-maken-restaurant" },
+  { label: "Bouwbedrijf", to: "/website-laten-maken-bouwbedrijf" },
+  { label: "Fysiotherapeut", to: "/website-laten-maken-fysiotherapeut" },
+  { label: "Advocaat", to: "/website-laten-maken-advocaat" },
+  { label: "Alle branches →", to: "/website-laten-maken#branches" },
 ];
 
 const JURIDISCH = [
@@ -91,8 +102,10 @@ function Kolom({
 /** Linkrij voor de werkgebied- en branchepagina's: klein en rustig. */
 function LinkRij({ titel, children }: { titel: string; children: ReactNode }) {
   return (
-    <div>
-      <h2 className="mb-3 text-sm font-normal text-white/45">{titel}</h2>
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
+      <h2 className="shrink-0 text-sm font-normal text-white/45 sm:w-28">
+        {titel}
+      </h2>
       <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] text-white/55">
         {children}
       </ul>
@@ -316,46 +329,26 @@ const Footer = ({ cta = true }: { cta?: boolean }) => {
           </Kolom>
         </div>
 
-        {/* Werkgebied en branches: interne links naar de landingspagina's. */}
-        <div className="grid gap-8 border-t border-white/10 py-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
-            <LinkRij titel="Website laten maken per regio">
-              {REGIO.map((r) => (
-                <li key={r.to}>
-                  <Link to={r.to} className={LINK}>
-                    {r.label}
-                  </Link>
-                </li>
-              ))}
-            </LinkRij>
-          </div>
-          <div className="lg:col-span-4">
-            <LinkRij titel="Per stad">
-              {cities.map((c) => (
-                <li key={c.slug}>
-                  <Link to={`/website-laten-maken-${c.slug}`} className={LINK}>
-                    {c.name}
-                  </Link>
-                </li>
-              ))}
-            </LinkRij>
-          </div>
-          <div className="lg:col-span-4">
-            <LinkRij titel="Per branche">
-              {industries.map((b) => (
-                <li key={b.slug}>
-                  <Link to={`/website-laten-maken-${b.slug}`} className={LINK}>
-                    {b.name}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link to="/taxi-website-laten-maken" className={LINK}>
-                  Taxi
+        {/* Werkgebied en branches: twee korte regels. */}
+        <div className="space-y-4 border-t border-white/10 py-8">
+          <LinkRij titel="Werkgebied">
+            {REGIO.map((r) => (
+              <li key={r.to}>
+                <Link to={r.to} className={LINK}>
+                  {r.label}
                 </Link>
               </li>
-            </LinkRij>
-          </div>
+            ))}
+          </LinkRij>
+          <LinkRij titel="Branches">
+            {BRANCHES.map((b) => (
+              <li key={b.to}>
+                <Link to={b.to} className={LINK}>
+                  {b.label}
+                </Link>
+              </li>
+            ))}
+          </LinkRij>
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/10 py-5 text-sm text-white/45 md:flex-row md:items-center md:justify-between">

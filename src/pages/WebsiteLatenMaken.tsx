@@ -8,6 +8,7 @@ import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
+import { industryLinks } from "@/data/industryLinks";
 
 const url = `${SITE_URL}/website-laten-maken`;
 
@@ -177,21 +178,19 @@ const WebsiteLatenMaken = () => {
         </section>
 
         {/* Voor wie */}
-        <section className="py-16 bg-muted/30">
+        {/* Alle branchepagina's: de footer linkt hiernaartoe (#branches). */}
+        <section id="branches" className="py-16 bg-muted/30 scroll-mt-24">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Voor welke ondernemers werken wij</h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                { name: "Kappers", slug: "kapper" },
-                { name: "Restaurants & horeca", slug: "restaurant" },
-                { name: "Bouw & installatie", slug: "bouwbedrijf" },
-                { name: "Fysiotherapie & zorg", slug: "fysiotherapeut" },
-                { name: "Advocaten", slug: "advocaat" },
-                { name: "Fotografen", slug: "fotograaf" },
-              ].map((b) => (
-                <Link key={b.slug} to={`/website-laten-maken-${b.slug}`} className="bg-background border border-border rounded-xl p-4 hover:border-accent transition-colors flex items-center justify-between">
-                  <span className="font-medium">{b.name}</span>
-                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="flex flex-wrap justify-center gap-2.5">
+              {[...industryLinks, { name: "Taxi", slug: "taxi" }].map((b) => (
+                <Link
+                  key={b.slug}
+                  to={b.slug === "taxi" ? "/taxi-website-laten-maken" : `/website-laten-maken-${b.slug}`}
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:border-accent"
+                >
+                  {b.name}
+                  <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                 </Link>
               ))}
             </div>
@@ -209,6 +208,7 @@ const WebsiteLatenMaken = () => {
                 { name: "Randstad", slug: "randstad" },
                 { name: "Oost-Nederland", slug: "oost-nederland" },
                 { name: "Zuid-Nederland", slug: "zuid-nederland" },
+                { name: "Noord-Nederland", slug: "noord-nederland" },
               ].map((r) => (
                 <Link key={r.slug} to={`/regio/${r.slug}`} className="px-4 py-2 rounded-full border border-border text-sm font-medium hover:bg-muted transition-colors">
                   {r.name}
