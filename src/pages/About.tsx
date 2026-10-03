@@ -132,7 +132,6 @@ const structuredData = {
 const About = () => {
   // Two dark bands (testimonials + CTA) — each needs its own ref.
   const darkTestimonialsRef = useDarkNavSection<HTMLElement>();
-  const darkCtaRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -393,23 +392,6 @@ const About = () => {
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
       <FAQSection />
-
-      {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <section ref={darkCtaRef} className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <AnimatedText as="h2" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary-foreground">
-            Klaar om samen iets<br />moois te bouwen?
-          </AnimatedText>
-          <AnimatedText as="p" className="text-lg md:text-xl text-primary-foreground/90 mb-10 max-w-2xl mx-auto font-light" delay={0.1}>
-            We horen graag jouw verhaal. Een eerste gesprek is altijd gratis en vrijblijvend.
-          </AnimatedText>
-          <AnimatedSection delay={0.2}>
-            <AnimatedButton to="/contact" size="lg" variant="white">
-              Start je project
-            </AnimatedButton>
-          </AnimatedSection>
-        </div>
-      </section>
 
       <Footer />
     </div>

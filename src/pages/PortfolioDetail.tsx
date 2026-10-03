@@ -12,11 +12,9 @@ import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const PortfolioDetail = () => {
   // Dark CTA band: invert the fixed header while it's under it.
-  const darkNavRef = useDarkNavSection<HTMLElement>();
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
 
@@ -344,36 +342,6 @@ const PortfolioDetail = () => {
                     </div>
                 </motion.section>
             )}
-
-            {/* CTA Section */}
-            <motion.section
-                ref={darkNavRef}
-                className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={staggerContainer}
-            >
-                <div className="container mx-auto px-6 text-center">
-                    <motion.h2
-                        className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground"
-                        variants={fadeUp}
-                    >
-                        Wil jij ook zo'n resultaat?
-                    </motion.h2>
-                    <motion.p
-                        className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light"
-                        variants={fadeUp}
-                    >
-                        Laten we samen kijken hoe we jouw online aanwezigheid naar een hoger niveau kunnen tillen.
-                    </motion.p>
-                    <motion.div variants={fadeUp}>
-                        <AnimatedButton to="/contact" size="lg" variant="white">
-                            Dit wil ik ook
-                        </AnimatedButton>
-                    </motion.div>
-                </div>
-            </motion.section>
 
             <Footer />
         </div>

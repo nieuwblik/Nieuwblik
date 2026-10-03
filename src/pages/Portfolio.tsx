@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import PortfolioCard from "@/components/PortfolioCard";
-import { AnimatedButton } from "@/components/ui/animated-button";
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -33,11 +32,9 @@ import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.
 import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.webp";
 import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp";
 import compressorListingImg from "@/assets/projects/compressor-listing.webp";
-import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const Portfolio = () => {
   // Dark CTA band: invert the fixed header while it's under it.
-  const darkNavRef = useDarkNavSection<HTMLElement>();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -437,36 +434,6 @@ const Portfolio = () => {
           </AnimatePresence>
         </DialogContent>
       </Dialog>
-
-      {/* CTA Section */}
-      <motion.section
-        ref={darkNavRef}
-        className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground"
-            variants={fadeUp}
-          >
-            Klaar om jouw succesverhaal te schrijven?
-          </motion.h2>
-          <motion.p
-            className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light"
-            variants={fadeUp}
-          >
-            Laten we samen werken aan een project waar jij net zo trots op bent als wij.
-          </motion.p>
-          <motion.div variants={fadeUp}>
-            <AnimatedButton to="/contact" size="lg" variant="white">
-              Start je project
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
 
       <Footer />
     </div>

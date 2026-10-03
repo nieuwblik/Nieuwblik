@@ -9,7 +9,6 @@ import SocialContentSection from "@/components/SocialContentSection";
 import ToolsSlider from "@/components/ToolsSlider";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
-import { useDarkNavSection } from "@/components/UnderlayNav";
 
 const ServiceCard = ({
   service,
@@ -110,7 +109,6 @@ const ServiceCard = ({
 
 const Services = () => {
   // Dark CTA band: invert the fixed header while it's under it.
-  const darkNavRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   const services = [
@@ -231,36 +229,6 @@ const Services = () => {
 
       {/* Social Content Section */}
       <SocialContentSection />
-
-      {/* CTA Section */}
-      <motion.section
-        ref={darkNavRef}
-        className="py-20 md:py-32 bg-gradient-to-br from-primary to-accent bg-[length:200%_200%] animate-gradient-shift"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-6 text-primary-foreground"
-            variants={fadeUp}
-          >
-            Klaar om jouw merk te laten schitteren?
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto font-light"
-            variants={fadeUp}
-          >
-            Laten we bespreken hoe onze diensten jou kunnen helpen je bedrijfsdoelen te bereiken.
-          </motion.p>
-          <motion.div variants={fadeUp}>
-            <AnimatedButton to="/contact" size="lg" variant="white">
-              Start vandaag
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
 
       <Footer />
     </div>
