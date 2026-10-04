@@ -58,6 +58,7 @@ const VoorNaSectie = () => {
   const podiumRef = useRef<HTMLDivElement>(null);
   const schermRef = useRef<HTMLDivElement>(null);
   const lamellenRef = useRef<HTMLDivElement>(null);
+  const nieuwRef = useRef<HTMLImageElement>(null);
   const greepRef = useRef<HTMLDivElement>(null);
   const bereikRef = useRef<HTMLInputElement>(null);
   const slepen = useRef(false);
@@ -67,6 +68,16 @@ const VoorNaSectie = () => {
     const p = klem(v);
     schermRef.current?.style.setProperty("--pos", String(p));
     if (bereikRef.current) bereikRef.current.value = String(Math.round(p));
+  };
+
+  // De lamellen tonen dezelfde afbeelding die de browser via srcset voor de
+  // nieuwe site koos (uit de cache), pas als die geladen is.
+  const vulLamellen = () => {
+    const bron = nieuwRef.current?.currentSrc;
+    if (!bron || !lamellenRef.current) return;
+    lamellenRef.current
+      .querySelectorAll<HTMLElement>("[data-binnen]")
+      .forEach((el) => (el.style.backgroundImage = `url("${bron}")`));
   };
 
   // Beginstand: helemaal oud (met animatie) of het midden (zonder).
@@ -81,6 +92,8 @@ const VoorNaSectie = () => {
       const laag = lamellenRef.current;
       if (!podium || !laag) return;
       const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
+      const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
+      if (nieuwRef.current?.complete) vulLamellen();
 
       // Als alle lamellen hangen, springt de schuif eronder naar 'nieuw' en
       // verdwijnen de lamellen: er verspringt niets. Een tween in plaats van
@@ -93,22 +106,28 @@ const VoorNaSectie = () => {
             start: "top top",
             end: "+=80%",
             pin: true,
-            scrub: 0.6,
+            scrub: 1,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            // Vangnet: de load van de afbeelding kan al vóór de hydratatie vallen.
+            onToggle: vulLamellen,
           },
         })
         .fromTo(greepRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
         .fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
+        // Alleen transforms (geen clip-path): de lamel zakt, het beeld erin
+        // gaat even ver omhoog en staat dus stil. Dat rekent de GPU, zonder
+        // dat de site per frame opnieuw getekend wordt.
         .fromTo(
           lamellen,
-          { clipPath: "inset(0% 0% 100% 0%)" },
-          {
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 0.5,
-            ease: "power3.inOut",
-            stagger: 0.055,
-          },
+          { yPercent: -100 },
+          { yPercent: 0, duration: 0.55, ease: "power2.inOut", stagger: 0.06 },
+          0.02,
+        )
+        .fromTo(
+          binnen,
+          { yPercent: 100 },
+          { yPercent: 0, duration: 0.55, ease: "power2.inOut", stagger: 0.06 },
           0.02,
         )
         .fromTo(
@@ -214,6 +233,7 @@ const VoorNaSectie = () => {
           >
             {/* Nieuw onderop, oud erboven en rechts weggeknipt. */}
             <img
+              ref={nieuwRef}
               {...BRON.nieuw}
               sizes={SCHERM_SIZES}
               width={2400}
@@ -222,6 +242,7 @@ const VoorNaSectie = () => {
               loading="lazy"
               decoding="async"
               draggable={false}
+              onLoad={vulLamellen}
               className="absolute inset-0 h-full w-full"
             />
             <img
@@ -238,7 +259,7 @@ const VoorNaSectie = () => {
             />
 
             {/* De lamellen: alleen zichtbaar tijdens de overgang. Elke lamel is
-                een verticale strook van de nieuwe site (img op 1000% breed). */}
+                een verticale strook van de nieuwe site. */}
             {!reduced && (
               <div
                 ref={lamellenRef}
@@ -249,24 +270,20 @@ const VoorNaSectie = () => {
                   <div
                     key={i}
                     data-lamel=""
-                    className="absolute inset-y-0 overflow-hidden"
+                    className="absolute inset-y-0 overflow-hidden will-change-transform"
                     style={{
                       left: `${(i * 100) / LAMELLEN.length}%`,
                       width: `calc(${100 / LAMELLEN.length}% + 0.5px)`,
-                      clipPath: "inset(0% 0% 100% 0%)",
                     }}
                   >
-                    <img
-                      {...BRON.nieuw}
-                      sizes={SCHERM_SIZES}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      draggable={false}
-                      className="absolute inset-y-0 h-full max-w-none"
+                    {/* Achtergrond in plaats van een img van 1000% breed:
+                        zo blijft elke laag zo groot als zijn strook. */}
+                    <div
+                      data-binnen=""
+                      className="absolute inset-0 bg-no-repeat will-change-transform"
                       style={{
-                        width: `${LAMELLEN.length * 100}%`,
-                        left: `${-i * 100}%`,
+                        backgroundSize: `${LAMELLEN.length * 100}% 100%`,
+                        backgroundPosition: `${(i / (LAMELLEN.length - 1)) * 100}% 0%`,
                       }}
                     />
                   </div>
