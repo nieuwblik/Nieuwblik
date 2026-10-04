@@ -4,7 +4,8 @@ import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/Reveal";
-import ProjectCard from "@/components/ProjectCard";
+import CaseGrid from "@/components/CaseGrid";
+import { kiesCases } from "@/lib/cases";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { ShoppingCart, CreditCard, BarChart3 } from "lucide-react";
 import {
@@ -19,37 +20,8 @@ import {
   Vragen,
 } from "@/components/dienst/DienstBlokken";
 
-// Project images for webshop cases
-import puurinharmonieImg from "@/assets/puurinharmonie.webp";
-import kyodaiImg from "@/assets/projects/kyodaioriginals.nl.webp";
-import bushidoImg from "@/assets/bushidoshop-portfolio-nieuw.webp";
-
-const cases = [
-  {
-    title: "Puur in Harmonie",
-    category: "Salon & E-commerce",
-    description: "Webshop met Stripe integratie voor een holistische salon. Klanten bestellen eenvoudig producten online.",
-    image: puurinharmonieImg,
-    url: "https://puurinharmonie.nl",
-    tags: ["WooCommerce", "Stripe", "E-commerce"]
-  },
-  {
-    title: "Kyodai Originals",
-    category: "Fashion & Streetwear",
-    description: "Stijlvolle webshop voor een streetwear merk met complete productcatalogus en veilige betalingen.",
-    image: kyodaiImg,
-    url: "https://kyodaioriginals.nl",
-    tags: ["E-commerce", "Fashion", "Webshop"]
-  },
-  {
-    title: "Bushido Shop",
-    category: "Martial Arts & Sport",
-    description: "Complete e-commerce oplossing voor martial arts producten met uitgebreid voorraadbeheer en verzendopties.",
-    image: bushidoImg,
-    url: "https://bushidoshop.nl",
-    tags: ["E-commerce", "Sport", "Webshop"]
-  }
-];
+// De webshopcases uit het portfolio, met het caseraster van de homepage.
+const cases = kiesCases(["kyodai-originals", "bushido-shop", "een-bundel-geluk", "puur-in-harmonie"], 4);
 
 const Webshops = () => {
   const usps = [
@@ -209,22 +181,11 @@ const Webshops = () => {
 
       <Sectie>
         <SectieKop titel="Recente webshop projecten" intro="Bekijk enkele van onze succesvolle e-commerce projecten" />
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {cases.map((project, index) => (
-            <Reveal key={project.title} afstand={24} delay={index * 0.08}>
-              <ProjectCard
-                title={project.title}
-                category={project.category}
-                description={project.description}
-                image={project.image}
-                url={project.url}
-                tags={project.tags}
-              />
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-12">
-          <AnimatedButton to="/portfolio" size="lg" variant="outline">
+        <Reveal afstand={24}>
+          <CaseGrid projects={cases} />
+        </Reveal>
+        <div className="mt-16 md:mt-20">
+          <AnimatedButton to="/portfolio" size="lg">
             Bekijk alle projecten
           </AnimatedButton>
         </div>

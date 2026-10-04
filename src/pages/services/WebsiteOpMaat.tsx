@@ -2,7 +2,8 @@ import { PRIJZEN, LEVERTIJD, euroTeken } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import ProjectCard from "@/components/ProjectCard";
+import CaseGrid from "@/components/CaseGrid";
+import { kiesCases } from "@/lib/cases";
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Palette, Zap, Bot } from "lucide-react";
@@ -19,11 +20,8 @@ import {
   Stappen,
 } from "@/components/dienst/DienstBlokken";
 
-// Project images for cases
-import puurinharmonieImg from "@/assets/puurinharmonie.webp";
-import benotedImg from "@/assets/benoted-portfolio-nieuw.webp";
-import daniqueImg from "@/assets/daniquekwakman.webp";
-import ericaImg from "@/assets/ericavandijk-portfolio-nieuw.webp";
+// Zelfde cases als voorheen, nu met het caseraster van de homepage.
+const cases = kiesCases(["puur-in-harmonie", "benoted", "danique-kwakman", "erica-van-dijk"], 4);
 
 // Tool logos
 import lovableLogo from "@/assets/tools/lovable-logo.webp";
@@ -68,36 +66,6 @@ const WebsiteOpMaat = () => {
 
   const includedStandard = ["Responsive & mobile-first design", "SEO-fundament met HadoSEO koppeling", "Google Analytics 4 integratie", "Google Business koppeling voor reviews", "SSL-certificaat & beveiliging", "Laadtijd onder 2 seconden", "Contactformulieren met automatisering", "3 revisierondes inbegrepen"];
   const optionalModules = ["Custom AI chatbot integratie", "E-commerce functionaliteit", "Meertalige website opties", "Premium CMS licenties", "Geavanceerde animaties", "Lead generation funnels"];
-
-  const cases = [{
-    title: "Puur in Harmonie",
-    category: "Salon & E-commerce",
-    description: "Een serene website met webshop-integratie via Stripe. Minimalistisch design dat de rust en harmonie van de salon perfect weerspiegelt.",
-    image: puurinharmonieImg,
-    url: "https://puurinharmonie.nl",
-    tags: ["Web Design", "E-commerce", "Stripe"]
-  }, {
-    title: "BeNoted",
-    category: "Social Media Marketing",
-    description: "Razendsnelle, high-performance website voor de financiële sector. Gebouwd met focus op autoriteit, conversie en maximale vindbaarheid.",
-    image: benotedImg,
-    url: "https://benoted.nl",
-    tags: ["Web Design", "Performance", "SEO"]
-  }, {
-    title: "Danique Kwakman",
-    category: "Personal Brand",
-    description: "Professionele website die de persoonlijke brand van Danique naar voren brengt met een modern en strak design.",
-    image: daniqueImg,
-    url: "https://daniquekwakman.nl",
-    tags: ["Web Design", "Personal Brand", "Portfolio"]
-  }, {
-    title: "Erica van Dijk",
-    category: "Dienstverlening",
-    description: "Elegante website met een warme uitstraling, volledig geoptimaliseerd voor mobiel en zoekmachines.",
-    image: ericaImg,
-    url: "https://ericavandijk.nl",
-    tags: ["Web Design", "Dienstverlening", "SEO"]
-  }];
 
   const tools = [
   { name: "Lovable", logo: lovableLogo },
@@ -185,22 +153,11 @@ const WebsiteOpMaat = () => {
 
       <Sectie>
         <SectieKop titel="Recente website projecten" intro="Bekijk enkele van onze meest recente succesvolle website projecten" />
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
-          {cases.map((project, index) => (
-            <Reveal key={project.title} afstand={24} delay={(index % 2) * 0.08}>
-              <ProjectCard
-                title={project.title}
-                category={project.category}
-                description={project.description}
-                image={project.image}
-                url={project.url}
-                tags={project.tags}
-              />
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-12">
-          <AnimatedButton to="/portfolio" size="lg" variant="outline">
+        <Reveal afstand={24}>
+          <CaseGrid projects={cases} />
+        </Reveal>
+        <div className="mt-16 md:mt-20">
+          <AnimatedButton to="/portfolio" size="lg">
             Bekijk alle projecten
           </AnimatedButton>
         </div>

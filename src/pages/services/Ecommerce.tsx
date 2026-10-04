@@ -13,7 +13,6 @@ import {
   Inbegrepen,
   Pijlers,
   Quote,
-  RAND,
   Sectie,
   SectieKop,
   Stappen,
@@ -161,29 +160,44 @@ const Ecommerce = () => {
 
       <Sectie>
         <SectieKop titel="Onze e-commerce projecten" intro="Professionele listings die daadwerkelijk verkopen" />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* Zelfde kaart als het portfolio op de homepage (PortfolioCard), maar
+            een listing heeft geen casepagina: klikken opent hem groot. */}
+        <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 md:gap-y-20">
           {ecommerceListings.map((listing, index) => (
-            <Reveal key={listing.title} afstand={24} delay={(index % 3) * 0.08}>
+            <Reveal key={listing.title} afstand={30} delay={(index % 2) * 0.08}>
               <button
                 type="button"
                 onClick={() => setSelectedImage(listing.image)}
                 className="group block w-full text-left"
                 aria-label={`${listing.title}: bekijk groter`}
               >
-                <span className="relative mb-4 block aspect-[4/3] overflow-hidden rounded-2xl border bg-white" style={{ borderColor: RAND }}>
+                <span className="relative block aspect-[16/10] overflow-hidden rounded-2xl" style={{ background: "hsl(var(--sw-ink) / 0.03)" }}>
                   <img
                     src={listing.image}
                     alt={listing.title}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="h-full w-full object-cover object-top transition-[filter,transform] duration-500 ease-out group-hover:scale-[1.04] group-hover:blur-[6px] group-hover:grayscale"
                   />
-                  <span className="absolute bottom-3 right-3 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-medium opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 sw-ink">
-                    Bekijk groter
+                  <span
+                    className="absolute bottom-4 right-4 rounded-full px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-wider text-white transition-opacity duration-300 group-hover:opacity-0"
+                    style={{ background: "rgba(28,33,31,0.72)", backdropFilter: "blur(4px)" }}
+                  >
+                    Product listing
+                  </span>
+                  <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                    <span
+                      className="flex scale-75 items-center justify-center rounded-full bg-white text-sm font-semibold uppercase tracking-[0.15em] text-black opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100"
+                      style={{ width: 120, height: 120 }}
+                    >
+                      Bekijk
+                    </span>
                   </span>
                 </span>
-                <span className="block text-lg font-bold tracking-tight sw-ink">{listing.title}</span>
-                <span className="mt-1 block text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
+                <span className="mt-6 block text-2xl font-bold uppercase leading-[1.1] tracking-tight md:text-[1.75rem]">
+                  {listing.title}
+                </span>
+                <span className="mt-4 block text-sm font-light leading-relaxed md:text-base" style={{ color: INKT_65 }}>
                   {listing.description}
                 </span>
               </button>
