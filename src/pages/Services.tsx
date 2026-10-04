@@ -1,144 +1,173 @@
+import type { ElementType } from "react";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { Globe, Palette, ShoppingBag, Pen } from "lucide-react";
+import { Globe, Palette, ShoppingBag, Pen, Check } from "lucide-react";
 import SocialContentSection from "@/components/SocialContentSection";
-import ToolsSlider from "@/components/ToolsSlider";
-import { motion, useReducedMotion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
 
-const ServiceCard = ({
-  service,
-  index
-}: {
-  service: {
-    icon: React.ElementType;
-    title: string;
-    description: string;
-    features: string[];
-    link?: string;
-    linkText?: string;
-  };
-  index: number;
-}) => {
-  const shouldReduceMotion = useReducedMotion();
+/*
+ * Dienstenpagina in de stijl van de homepage: grote, strakke koppen in
+ * --sw-ink met een groen accent, lichte lopende tekst, een donkergroen paneel
+ * zoals de vindbaarheidssectie voor de hoofddienst en rustige witte kaarten op
+ * --sw-paper voor de rest. Animatie alleen via Reveal (CSS, één keer).
+ */
 
+interface Dienst {
+  icon: ElementType;
+  title: string;
+  description: string;
+  features: string[];
+  link?: string;
+  linkText?: string;
+}
+
+const GROEN_LICHT = "hsl(160 70% 58%)";
+const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
+
+const services: Dienst[] = [
+  {
+    icon: Globe,
+    title: "Website design & development",
+    description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
+    features: ["Responsive & mobile-first design", "SEO optimalisatie", "Prestatie & snelheidsoptimalisatie", "CMS integratie (op aanvraag)", "E-commerce oplossingen"],
+    link: "/diensten/website-op-maat",
+    linkText: "Bekijk website dienst"
+  },
+  {
+    icon: Palette,
+    title: "Merkidentiteit & brand kits",
+    description: "Complete merkidentiteitssystemen die jouw unieke visuele taal vastleggen. Wij creëren samenhangende brand kits die consistentie garanderen op alle contactpunten met je klanten.",
+    features: ["Logo design & variaties", "Kleurenpalet ontwikkeling", "Typografie systeem", "Brand richtlijnen", "Marketing materialen"]
+  },
+  {
+    icon: ShoppingBag,
+    title: "E-commerce oplossingen",
+    description: "Full-service e-commerce design inclusief productlijsten, banners en complete shop designs die verkoop stimuleren en gebruikerservaring verbeteren.",
+    features: ["Productlijst design", "Custom banners & graphics", "Shop pagina layouts", "Conversie optimalisatie", "Mobiele shopping ervaring"],
+    link: "/diensten/e-commerce",
+    linkText: "Bekijk e-commerce dienst"
+  },
+  {
+    icon: Pen,
+    title: "Custom design services",
+    description: "Van e-books tot autobelettering - wij leveren hoogwaardige custom designs op maat, perfect afgestemd op jouw specifieke wensen en merkidentiteit.",
+    features: ["E-book design & layout", "Voertuigbelettering graphics", "Drukwerk materialen", "Social media graphics", "Custom illustraties"]
+  }
+];
+
+/** Lijst met groene vinkjes, licht of donker. */
+const Kenmerken = ({ items, donker = false }: { items: string[]; donker?: boolean }) => (
+  <ul className="space-y-2.5">
+    {items.map((item) => (
+      <li key={item} className="flex items-start gap-3">
+        <Check
+          className="mt-0.5 h-4 w-4 shrink-0"
+          style={{ color: donker ? GROEN_LICHT : "hsl(var(--sw-green))" }}
+          strokeWidth={2.6}
+          aria-hidden="true"
+        />
+        <span className={`text-[0.9375rem] ${donker ? "text-white/80" : ""}`} style={donker ? undefined : { color: INKT_65 }}>
+          {item}
+        </span>
+      </li>
+    ))}
+  </ul>
+);
+
+/** De hoofddienst: donkergroen paneel, net als de vindbaarheidssectie op de homepage. */
+const HoofdDienst = ({ dienst }: { dienst: Dienst }) => {
+  const Icon = dienst.icon;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ 
-        delay: shouldReduceMotion ? 0 : index * 0.15, 
-        duration: 0.5, 
-        ease: easings.easeOutExpo 
-      }}
-    >
-      <motion.div
-        whileHover={shouldReduceMotion ? {} : { 
-          y: -8, 
-          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)" 
+    <Reveal afstand={30}>
+      <article
+        className="relative overflow-hidden rounded-2xl border p-8 text-white md:p-12"
+        style={{
+          borderColor: "hsl(160 70% 58% / 0.14)",
+          background: "linear-gradient(165deg, hsl(160 84% 11%) 0%, hsl(160 84% 8%) 100%)",
+          boxShadow: "0 30px 70px -30px rgba(0,0,0,0.55)",
         }}
-        transition={{ duration: 0.3, ease: easings.easeOutExpo }}
       >
-        <Card
-          className="h-full group rounded-2xl bg-card overflow-hidden transition-colors"
-          style={{ borderColor: "hsl(var(--sw-rule) / 0.14)" }}
-        >
-          <CardHeader>
-            <motion.div
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-4"
-              whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 6 }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse 80% 70% at 15% 0%, hsl(160 70% 45% / 0.22) 0%, transparent 60%)" }}
+        />
+        <div className="relative grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <span
+              className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl"
+              style={{ background: "hsl(160 70% 58% / 0.12)" }}
             >
-              <service.icon className="w-8 h-8 text-accent" />
-            </motion.div>
-            <CardTitle className="text-2xl md:text-3xl mb-3 group-hover:text-accent transition-colors duration-300">
-              {service.title}
-            </CardTitle>
-            <CardDescription className="text-base text-muted-foreground font-light leading-relaxed">
-              {service.description}
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent>
-            <div
-              className="p-6 rounded-xl border"
-              style={{ background: "hsl(150, 14%, 97.5%)", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
-            >
-              <h4 className="sw-mono mb-4" style={{ color: "hsl(var(--sw-green))" }}>Wat je krijgt</h4>
-              <ul className="space-y-3">
-                {service.features.map((feature: string, idx: number) => (
-                  <motion.li
-                    key={idx}
-                    className="flex items-start gap-3 group/item"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{
-                      delay: shouldReduceMotion ? 0 : 0.1 + idx * 0.05,
-                      duration: 0.3,
-                      ease: easings.easeOutExpo
-                    }}
-                  >
-                    <motion.span
-                      className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0"
-                      whileHover={shouldReduceMotion ? {} : { scale: 1.5 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                    <span className="text-sm text-muted-foreground">{feature}</span>
-                  </motion.li>
-                ))}
-              </ul>
+              <Icon className="h-6 w-6" style={{ color: GROEN_LICHT }} aria-hidden="true" />
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl" style={{ lineHeight: 1.04 }}>
+              {dienst.title}
+            </h2>
+            <p className="mt-5 max-w-xl text-base font-light leading-relaxed text-white/70 md:text-lg">
+              {dienst.description}
+            </p>
+            {dienst.link && (
+              <div className="mt-8">
+                <AnimatedButton to={dienst.link} size="lg" variant="white">
+                  {dienst.linkText}
+                </AnimatedButton>
+              </div>
+            )}
+          </div>
+          <div className="lg:col-span-5 lg:self-end">
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6 md:p-7">
+              <h3 className="mb-5 text-sm font-semibold" style={{ color: GROEN_LICHT }}>
+                Wat je krijgt
+              </h3>
+              <Kenmerken items={dienst.features} donker />
             </div>
-          </CardContent>
+          </div>
+        </div>
+      </article>
+    </Reveal>
+  );
+};
 
-          <CardFooter>
-            <AnimatedButton to={service.link || "/contact"} className="w-full">
-              {service.linkText || "Start je project"}
-            </AnimatedButton>
-          </CardFooter>
-        </Card>
-      </motion.div>
-    </motion.div>
+/** De overige diensten: rustige witte kaarten op het papier van de homepage. */
+const DienstKaart = ({ dienst, index }: { dienst: Dienst; index: number }) => {
+  const Icon = dienst.icon;
+  return (
+    <Reveal afstand={24} delay={index * 0.08} className="h-full">
+      <article
+        className="flex h-full flex-col rounded-2xl border bg-white p-7 transition-shadow duration-300 hover:shadow-lg md:p-8"
+        style={{ borderColor: "hsl(var(--sw-rule) / 0.1)" }}
+      >
+        <span
+          className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl"
+          style={{ background: "hsl(var(--sw-green) / 0.08)" }}
+        >
+          <Icon className="h-5 w-5" style={{ color: "hsl(var(--sw-green))" }} aria-hidden="true" />
+        </span>
+        <h2 className="text-2xl font-bold tracking-tight sw-ink" style={{ lineHeight: 1.1 }}>
+          {dienst.title}
+        </h2>
+        <p className="mt-3 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
+          {dienst.description}
+        </p>
+        <h3 className="mb-4 mt-7 text-sm font-semibold" style={{ color: "hsl(var(--sw-green))" }}>
+          Wat je krijgt
+        </h3>
+        <Kenmerken items={dienst.features} />
+        <div className="mt-auto pt-8">
+          <AnimatedButton to={dienst.link || "/contact"} variant={dienst.link ? "solid" : "outline"}>
+            {dienst.linkText || "Start je project"}
+          </AnimatedButton>
+        </div>
+      </article>
+    </Reveal>
   );
 };
 
 const Services = () => {
-  // Dark CTA band: invert the fixed header while it's under it.
-  const shouldReduceMotion = useReducedMotion();
-
-  const services = [
-    {
-      icon: Globe,
-      title: "Website design & development",
-      description: "Op maat gemaakte, responsive websites die prachtig design combineren met krachtige functionaliteit. Van corporate sites tot complexe webapplicaties - wij creëren digitale ervaringen die bezoekers omzetten in klanten.",
-      features: ["Responsive & mobile-first design", "SEO optimalisatie", "Prestatie & snelheidsoptimalisatie", "CMS integratie (op aanvraag)", "E-commerce oplossingen"],
-      link: "/diensten/website-op-maat",
-      linkText: "Bekijk website dienst"
-    },
-    {
-      icon: Palette,
-      title: "Merkidentiteit & brand kits",
-      description: "Complete merkidentiteitssystemen die jouw unieke visuele taal vastleggen. Wij creëren samenhangende brand kits die consistentie garanderen op alle contactpunten met je klanten.",
-      features: ["Logo design & variaties", "Kleurenpalet ontwikkeling", "Typografie systeem", "Brand richtlijnen", "Marketing materialen"]
-    },
-    {
-      icon: ShoppingBag,
-      title: "E-commerce oplossingen",
-      description: "Full-service e-commerce design inclusief productlijsten, banners en complete shop designs die verkoop stimuleren en gebruikerservaring verbeteren.",
-      features: ["Productlijst design", "Custom banners & graphics", "Shop pagina layouts", "Conversie optimalisatie", "Mobiele shopping ervaring"]
-    },
-    {
-      icon: Pen,
-      title: "Custom design services",
-      description: "Van e-books tot autobelettering - wij leveren hoogwaardige custom designs op maat, perfect afgestemd op jouw specifieke wensen en merkidentiteit.",
-      features: ["E-book design & layout", "Voertuigbelettering graphics", "Drukwerk materialen", "Social media graphics", "Custom illustraties"]
-    }
-  ];
+  const [hoofd, ...overig] = services;
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -167,67 +196,56 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
-        title="Diensten | Webdesign, Webshops & SEO Enkhuizen - Nieuwblik" 
-        description="Ontdek onze diensten: website op maat, webshops, branding en SEO. Webdesign bureau Enkhuizen voor MKB in West-Friesland. Vraag een offerte aan." 
-        keywords="webdesign Enkhuizen, webshop laten maken, SEO West-Friesland, branding, e-commerce, website ontwikkeling, online zichtbaarheid" 
-        canonicalUrl={`${SITE_URL}/diensten`} 
-        structuredData={structuredData} 
+      <SEOHead
+        title="Diensten | Webdesign, Webshops & SEO Enkhuizen - Nieuwblik"
+        description="Ontdek onze diensten: website op maat, webshops, branding en SEO. Webdesign bureau Enkhuizen voor MKB in West-Friesland. Vraag een offerte aan."
+        keywords="webdesign Enkhuizen, webshop laten maken, SEO West-Friesland, branding, e-commerce, website ontwikkeling, online zichtbaarheid"
+        canonicalUrl={`${SITE_URL}/diensten`}
+        structuredData={structuredData}
         breadcrumbs={[
           { name: "Home", url: SITE_URL },
           { name: "Diensten", url: `${SITE_URL}/diensten` }
-        ]} 
+        ]}
       />
-      
-      {/* Breadcrumb */}
-      <section className="pt-32 pb-8 md:pb-12">
-        <div className="container mx-auto px-6">
+
+      {/* Hero */}
+      <section className="pt-32 pb-16 md:pb-20">
+        <div className="container mx-auto px-4 sm:px-6">
           <Breadcrumb items={[{ label: "Diensten", path: "/diensten" }]} />
+          {/* Geen Reveal: de kop moet direct zichtbaar zijn (eerste beeld,
+              laadsnelheid). Een CSS-animatie bij het laden is genoeg. */}
+          <div className="mt-10 md:mt-14 animate-in fade-in slide-in-from-bottom-4 duration-700 motion-reduce:animate-none">
+            <h1
+              className="max-w-5xl text-4xl font-bold tracking-tight sw-ink md:text-6xl lg:text-7xl"
+              style={{ lineHeight: 1.02 }}
+            >
+              Complete digitale oplossingen{" "}
+              <span style={{ color: "hsl(var(--sw-green))" }}>die groeien met jouw ambities</span>
+            </h1>
+          </div>
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-backwards motion-reduce:animate-none">
+            <p
+              className="mt-6 max-w-2xl text-lg font-light leading-relaxed md:text-xl"
+              style={{ color: INKT_65 }}
+            >
+              Wij specialiseren ons in het creëren van premium digitale ervaringen die jouw merk naar een hoger niveau tillen en meetbare resultaten opleveren.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Hero Section */}
-      <motion.section
-        className="pb-20 md:pb-28"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-      >
-        <div className="container mx-auto px-6">
-          <motion.p
-            className="sw-mono mb-6"
-            style={{ color: "hsl(var(--sw-green))" }}
-            variants={fadeUp}
-          >
-            ONZE DIENSTEN
-          </motion.p>
-          <motion.h1 
-            className="text-display mb-6"
-            variants={fadeUp}
-          >
-            Complete digitale oplossingen die groeien met jouw ambities
-          </motion.h1>
-          <motion.p 
-            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light"
-            variants={fadeUp}
-          >
-            Wij specialiseren ons in het creëren van premium digitale ervaringen die jouw merk naar een hoger niveau tillen en meetbare resultaten opleveren.
-          </motion.p>
-        </div>
-      </motion.section>
-
-      {/* Services Grid */}
-      <section className="pb-20 md:pb-32">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
+      {/* Diensten */}
+      <section className="sw-paper py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          {hoofd && <HoofdDienst dienst={hoofd} />}
+          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {overig.map((dienst, index) => (
+              <DienstKaart key={dienst.title} dienst={dienst} index={index} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Social Content Section */}
       <SocialContentSection />
 
       <Footer />
