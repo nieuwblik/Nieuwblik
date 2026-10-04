@@ -194,7 +194,12 @@ export default function UnderlayNav({
       syncHeaderHeight();
 
       gsap.set(overlayEl, { visibility: "hidden", pointerEvents: "none" });
-      gsap.set(mainEl, { x: 0 });
+      // No transform on <main> while the menu is closed: any transform (even
+      // translate(0)) makes it the containing block for position:fixed, which
+      // breaks ScrollTrigger pins inside the page.
+      const clearMainTransform = () =>
+        gsap.set(mainEl, { clearProps: "transform" });
+      clearMainTransform();
       gsap.set(toggleLabels, { yPercent: 0 });
       gsap.set(toggleBars, { y: 0, rotation: 0 });
       gsap.set(menuBorder, { scaleX: 0 });
@@ -202,6 +207,7 @@ export default function UnderlayNav({
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: "energy", easeReverse: "power2.inOut" },
+        onReverseComplete: clearMainTransform,
       });
       tlRef.current = tl;
 
@@ -272,7 +278,8 @@ export default function UnderlayNav({
         .to(toggleBars, { y: 0, rotation: 0, duration: 0.25, ease: "power3.in" }, "<")
         .to(headerScrimRef.current, { autoAlpha: 1, duration: 0.25 }, "<")
         .to(logoRef.current, { autoAlpha: 1, duration: 0.25 }, "<")
-        .set(overlayEl, { visibility: "hidden", pointerEvents: "none" });
+        .set(overlayEl, { visibility: "hidden", pointerEvents: "none" })
+        .call(clearMainTransform);
 
       // Body scroll lock. Lenis drives scrolling on desktop, so hiding overflow
       // alone would not stop it; html has scrollbar-gutter:stable so removing
