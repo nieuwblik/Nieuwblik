@@ -31,7 +31,6 @@ const FeaturedBlogPosts = () => {
       <div className="container mx-auto px-4 sm:px-6">
         {/* Swiss header */}
         <div className="mb-14 md:mb-16">
-          <div className="h-px w-full mb-5" style={{ background: RULE }} />
           <div className="mb-6">
             <span className="sw-reveal sw-mono inline-block" style={{ color: GREEN }}>Insights</span>
           </div>
@@ -51,7 +50,7 @@ const FeaturedBlogPosts = () => {
         >
           <Link
             to={`/blog/${featuredPost.slug}`}
-            className="sw-feat group grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch border-t border-b py-10 md:py-12"
+            className="sw-feat group grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch border-b pb-10 md:pb-12"
             style={{ borderColor: RULE }}
           >
             {/* Text */}

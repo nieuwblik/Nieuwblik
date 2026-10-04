@@ -113,8 +113,6 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
             </div>
           </div>
 
-          <div className="mt-5 h-px w-full" style={{ background: "hsl(var(--sw-rule) / 0.18)" }} />
-
           {description && (
             <p className="mt-4 text-sm md:text-base text-muted-foreground font-light leading-relaxed">
               {description}

@@ -152,7 +152,6 @@ const Blog = () => {
                       </p>
 
                       {/* Read More */}
-                      <div className="h-px w-full mb-4" style={{ background: "hsl(var(--sw-rule) / 0.14)" }} />
                       <div className="flex items-center gap-2 font-semibold text-sm" style={{ color: "hsl(var(--sw-green))" }}>
                         Lees meer
                         <motion.span

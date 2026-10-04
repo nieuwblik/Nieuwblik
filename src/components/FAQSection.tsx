@@ -227,7 +227,6 @@ const FAQSection = () => {
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Links: kop en tekst */}
           <div className="lg:col-span-4">
-            <div className="h-px w-full mb-5" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
             <h2 className="sw-reveal text-3xl md:text-[2.1rem] font-bold tracking-tight mb-3 leading-[1.08]" style={{ color: "hsl(var(--sw-ink))" }}>
               Nog vragen?{" "}
               <span style={{ color: "hsl(var(--sw-green))" }}>Wij hebben antwoorden</span>

@@ -194,10 +194,6 @@ const SearchVisibility = () => {
       <div className="container mx-auto grid grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20">
         {/* ── Left — editorial heading + intro + CTA ─────────────── */}
         <div>
-          <div
-            className="mb-5 h-px w-full"
-            style={{ background: "hsl(var(--sw-rule) / 0.16)" }}
-          />
           <Reveal afstand={14} className="mb-6">
             <span
               className="sw-mono inline-block"

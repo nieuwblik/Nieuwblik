@@ -54,13 +54,11 @@ const SwissHead = ({
   centered = false,
 }: { label: string; title: string; intro?: string; dark?: boolean; centered?: boolean; }) => {
   const ink   = dark ? "rgba(255,255,255,1)" : "hsl(var(--sw-ink))";
-  const ruleC = dark ? "rgba(255,255,255,0.20)" : "hsl(var(--sw-rule) / 0.16)";
   const accentC = dark ? "hsl(160, 70%, 58%)" : "hsl(var(--sw-green))";
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
   return (
     <div ref={ref} className={`mb-12 md:mb-16${centered ? " text-center" : ""}`}>
-      <div className="h-px w-full mb-5" style={{ background: ruleC }} />
       <div className="mb-6">
         <span className="sw-reveal sw-mono inline-block" style={{ color: accentC }}>{label}</span>
       </div>
