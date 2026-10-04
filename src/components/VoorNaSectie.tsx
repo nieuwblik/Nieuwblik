@@ -9,7 +9,7 @@ import nieuw2000 from "@/assets/voorna/display-nieuw-2000.webp";
 
 /*
  * Voor en na: hetzelfde Studio Display twee keer, met links de verouderde en rechts de
- * nieuwe website van een (fictief) bouwbedrijf. De twee beelden zijn op het
+ * nieuwe website van een (fictieve) yogastudio. De twee beelden zijn op het
  * scherm na pixel voor pixel gelijk (één Higgsfield-mockup in 4K, met beide
  * schermbeelden er los in gezet en de achtergrond glad op #f5f5f5), dus alleen het scherm verandert onder de
  * schuif. De schuif loopt alleen over het scherm.
@@ -134,7 +134,7 @@ const VoorNaSectie = () => {
                 sizes={SIZES}
                 width={2000}
                 height={1448}
-                alt="Hetzelfde beeldscherm met de nieuwe, moderne website van het bouwbedrijf"
+                alt="Hetzelfde beeldscherm met de nieuwe, moderne website van de yogastudio"
                 loading="lazy"
                 decoding="async"
                 draggable={false}
@@ -146,7 +146,7 @@ const VoorNaSectie = () => {
                 sizes={SIZES}
                 width={2000}
                 height={1448}
-                alt="Beeldscherm met de verouderde website van een bouwbedrijf"
+                alt="Beeldscherm met de verouderde website van een yogastudio"
                 loading="lazy"
                 decoding="async"
                 draggable={false}
@@ -219,7 +219,7 @@ const VoorNaSectie = () => {
               />
             </div>
             <p className="mt-4 text-center text-sm" style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>
-              Voorbeeld met een fictief bouwbedrijf
+              Voorbeeld met een fictieve yogastudio
             </p>
           </div>
         </Reveal>
