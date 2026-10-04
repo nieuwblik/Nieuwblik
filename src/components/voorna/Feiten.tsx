@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import gsap from "gsap";
 
 /*
@@ -56,8 +57,9 @@ const FEITEN: Feit[] = [
   },
 ];
 
-const GROEN = "hsl(var(--sw-green))";
-const SPOOR = "hsl(var(--sw-green) / 0.14)";
+// Kleuren komen uit het thema van de kaart (CSS-variabelen).
+const GROEN = "var(--k-accent)";
+const SPOOR = "var(--k-spoor)";
 
 const getal = (f: Feit, v: number) =>
   `${f.voor ?? ""}${v.toFixed(f.decimalen).replace(".", ",")}${f.na ?? ""}`;
@@ -91,12 +93,12 @@ function IcoonSvg({ soort }: { soort: Icoon }) {
             y1="28"
             x2="20"
             y2="17"
-            stroke="hsl(var(--sw-ink))"
+            stroke="var(--k-naald)"
             strokeWidth={2.2}
             strokeLinecap="round"
             transform={`rotate(${METER_HOEK} 20 28)`}
           />
-          <circle cx="20" cy="28" r="2.4" fill="hsl(var(--sw-ink))" />
+          <circle cx="20" cy="28" r="2.4" fill="var(--k-naald)" />
         </>
       )}
       {soort === "staven" && (
@@ -141,12 +143,12 @@ function IcoonSvg({ soort }: { soort: Icoon }) {
             y1="22"
             x2="20"
             y2="14"
-            stroke="hsl(var(--sw-ink))"
+            stroke="var(--k-naald)"
             strokeWidth={2.2}
             strokeLinecap="round"
             transform="rotate(18 20 22)"
           />
-          <circle cx="20" cy="22" r="2" fill="hsl(var(--sw-ink))" />
+          <circle cx="20" cy="22" r="2" fill="var(--k-naald)" />
         </>
       )}
     </svg>
@@ -160,6 +162,47 @@ const PLEK = [
   "lg:right-[4%] lg:top-[77%]",
 ];
 
+/*
+ * Kleurthema per kaart, uit het palet van Nieuwblik: donkergroen (zoals de
+ * vindbaarheidssectie), fel mintgroen en een lichte mint.
+ */
+const THEMA: CSSProperties[] = [
+  {
+    background:
+      "linear-gradient(160deg, hsl(160 84% 14%) 0%, hsl(160 84% 8%) 100%)",
+    borderColor: "hsl(160 70% 58% / 0.18)",
+    color: "#fff",
+    "--k-tekst": "rgb(255 255 255 / 0.72)",
+    "--k-bron": "rgb(255 255 255 / 0.45)",
+    "--k-getal": "hsl(160 70% 62%)",
+    "--k-accent": "hsl(160 70% 58%)",
+    "--k-spoor": "hsl(160 70% 58% / 0.22)",
+    "--k-naald": "#fff",
+  } as CSSProperties,
+  {
+    background: "hsl(160 70% 58%)",
+    borderColor: "hsl(160 70% 50%)",
+    color: "hsl(160 84% 9%)",
+    "--k-tekst": "hsl(160 84% 9% / 0.78)",
+    "--k-bron": "hsl(160 84% 9% / 0.55)",
+    "--k-getal": "hsl(160 84% 9%)",
+    "--k-accent": "hsl(160 84% 12%)",
+    "--k-spoor": "hsl(160 84% 12% / 0.2)",
+    "--k-naald": "hsl(160 84% 9%)",
+  } as CSSProperties,
+  {
+    background: "hsl(155 45% 94%)",
+    borderColor: "hsl(160 50% 80%)",
+    color: "hsl(var(--sw-ink))",
+    "--k-tekst": "hsl(var(--sw-ink) / 0.68)",
+    "--k-bron": "hsl(var(--sw-ink) / 0.45)",
+    "--k-getal": "hsl(var(--sw-green))",
+    "--k-accent": "hsl(var(--sw-green))",
+    "--k-spoor": "hsl(var(--sw-green) / 0.16)",
+    "--k-naald": "hsl(var(--sw-ink))",
+  } as CSSProperties,
+];
+
 export function FeitKaarten() {
   return (
     <ul className="mt-4 grid grid-cols-3 gap-2 lg:pointer-events-none lg:absolute lg:inset-0 lg:mt-0 lg:block">
@@ -167,28 +210,28 @@ export function FeitKaarten() {
         <li
           key={f.icoon}
           data-feit={i}
-          className={`rounded-xl border bg-white/90 p-2.5 shadow-[0_18px_44px_-22px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-3 lg:absolute lg:z-30 lg:w-[220px] lg:rounded-2xl lg:p-4 ${PLEK[i]}`}
-          style={{ borderColor: "hsl(var(--sw-rule) / 0.1)" }}
+          className={`rounded-xl border p-2.5 shadow-[0_22px_50px_-24px_rgba(0,0,0,0.45)] sm:p-3 lg:absolute lg:z-30 lg:w-[220px] lg:rounded-2xl lg:p-4 ${PLEK[i]}`}
+          style={THEMA[i]}
         >
           <div className="mb-2 hidden h-10 w-10 lg:block">
             <IcoonSvg soort={f.icoon} />
           </div>
           <p
             data-getal=""
-            className="text-lg font-bold tabular-nums tracking-tight sw-ink sm:text-xl lg:text-3xl"
-            style={{ lineHeight: 1.05 }}
+            className="text-lg font-bold tabular-nums tracking-tight sm:text-xl lg:text-3xl"
+            style={{ lineHeight: 1.05, color: "var(--k-getal)" }}
           >
             {getal(f, f.waarde)}
           </p>
           <p
             className="mt-1 text-[11px] leading-snug sm:text-xs lg:text-sm"
-            style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
+            style={{ color: "var(--k-tekst)" }}
           >
             {f.tekst}
           </p>
           <p
             className="mt-1.5 text-[10px] leading-tight lg:text-[11px]"
-            style={{ color: "hsl(var(--sw-ink) / 0.4)" }}
+            style={{ color: "var(--k-bron)" }}
           >
             Bron: {f.bron}
           </p>
