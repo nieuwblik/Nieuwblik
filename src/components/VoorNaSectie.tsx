@@ -23,17 +23,18 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 /*
  * Voor en na: een Studio Display (Higgsfield-mockup in 4K) met in het scherm
  * de verouderde en de nieuwe website van een (fictieve) yogastudio. Display en
- * sites zijn losse lagen, zodat alleen de site beweegt en het display stil
- * blijft staan.
+ * sites zijn losse lagen, zodat alleen het scherm verandert.
  *
- * Animatie (GSAP ScrollTrigger, gekoppeld aan de scroll, ook terug):
- *  1. Terwijl de sectie in beeld scrolt, zoomt de oude site in het scherm uit.
- *  2. De sectie staat kort vast en de nieuwe site schuift over de oude heen
- *     (en zoomt zelf ook licht uit).
+ * Animatie (GSAP ScrollTrigger, gekoppeld aan de scroll, ook terug), naar het
+ * puzzeleffect uit "Animated Product Grid Preview" (Codrops):
+ *  1. De sectie staat kort vast; de oude site valt uiteen in 3×2 kaarten met
+ *     zwarte voegen ertussen.
+ *  2. De kaarten van de nieuwe site schuiven als puzzelstukjes naar binnen en
+ *     sluiten naadloos aan.
  *  3. Daarna kun je zelf slepen (muis, touch) of de pijltjestoetsen gebruiken.
  * De schuifstand staat in de CSS-variabele --pos (procenten van het scherm),
  * zodat scrollen en slepen geen React-renders per beeldje kosten.
- * Met prefers-reduced-motion: geen vastzetten of zoom, schuif in het midden.
+ * Met prefers-reduced-motion: geen vastzetten of puzzel, schuif in het midden.
  */
 
 // Het scherm in het displaybeeld, in procenten (2900×2100 bron).
@@ -43,9 +44,24 @@ const DISPLAY_SIZES = "(min-width: 1280px) 1100px, 92vw";
 const SCHERM_SIZES = "(min-width: 1280px) 950px, 80vw";
 // Breedte van het display: past altijd met kop en bijschrift in één schermhoogte.
 const BREEDTE = "min(1100px, 92vw, calc((100svh - 300px) * 1.381))";
-// Hoe ver de sites ingezoomd beginnen.
-const ZOOM_OUD = 1.6;
-const ZOOM_NIEUW = 1.15;
+
+// De puzzel: kolommen × rijen, en hoe klein de kaarten worden als ze los liggen.
+const KOLOMMEN = 3;
+const RIJEN = 2;
+const LOS = 0.88;
+const KAARTEN = Array.from({ length: KOLOMMEN * RIJEN }, (_, i) => ({
+  x: i % KOLOMMEN,
+  y: Math.floor(i / KOLOMMEN),
+}));
+// Hoe ver een nieuwe kaart naar buiten ligt voor hij aansluit (procent van
+// zijn eigen maat), weg van het midden van het scherm.
+const uitX = (x: number) => ((x + 0.5) / KOLOMMEN - 0.5) * 2 * 10;
+const uitY = (y: number) => ((y + 0.5) / RIJEN - 0.5) * 2 * 10;
+
+const BRON = {
+  oud: { src: oud2400, srcSet: `${oud1200} 1200w, ${oud2400} 2400w` },
+  nieuw: { src: nieuw2400, srcSet: `${nieuw1200} 1200w, ${nieuw2400} 2400w` },
+};
 
 const klem = (v: number) => Math.min(100, Math.max(0, v));
 
@@ -53,10 +69,8 @@ const VoorNaSectie = () => {
   const reduced = useReducedMotion();
   const sectieRef = useRef<HTMLElement>(null);
   const podiumRef = useRef<HTMLDivElement>(null);
-  const vlakRef = useRef<HTMLDivElement>(null);
   const schermRef = useRef<HTMLDivElement>(null);
-  const oudRef = useRef<HTMLImageElement>(null);
-  const nieuwRef = useRef<HTMLImageElement>(null);
+  const puzzelRef = useRef<HTMLDivElement>(null);
   const greepRef = useRef<HTMLDivElement>(null);
   const bereikRef = useRef<HTMLInputElement>(null);
   const slepen = useRef(false);
@@ -77,65 +91,82 @@ const VoorNaSectie = () => {
     () => {
       if (reduced) return;
       const podium = podiumRef.current;
-      if (!podium || !oudRef.current || !nieuwRef.current) return;
-
-      // 1. Uitzoomen tijdens het in beeld scrollen: kost geen extra scroll.
-      // Begint als het display binnenkomt en is klaar als de sectie vastzet.
-      gsap.fromTo(
-        oudRef.current,
-        { scale: ZOOM_OUD },
-        {
-          scale: 1,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: vlakRef.current,
-            start: "top 95%",
-            endTrigger: podium,
-            end: "top top",
-            scrub: 0.6,
-          },
-        },
+      const puzzel = puzzelRef.current;
+      if (!podium || !puzzel) return;
+      const oud = gsap.utils.toArray<HTMLElement>("[data-kaart='oud']", puzzel);
+      const nieuw = gsap.utils.toArray<HTMLElement>(
+        "[data-kaart='nieuw']",
+        puzzel,
       );
+      const volgorde = {
+        each: 0.05,
+        from: "center" as const,
+        grid: [RIJEN, KOLOMMEN] as [number, number],
+      };
 
-      // 2. Vast en de nieuwe site eroverheen.
+      // Onder de puzzel springt de schuif alvast naar 'nieuw', zodat er na
+      // afloop niets verspringt. Een tween in plaats van een call, zodat
+      // terugscrollen hem ook terugzet.
       const stand = { p: 100 };
       gsap
         .timeline({
-          defaults: { ease: "none" },
+          defaults: { ease: "power2.inOut" },
           scrollTrigger: {
             trigger: podium,
             start: "top top",
-            end: "+=90%",
+            end: "+=100%",
             pin: true,
             scrub: 0.6,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         })
+        .fromTo(greepRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
+        .fromTo(puzzel, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
+        // 1. Oud valt uiteen in kaarten.
         .fromTo(
-          greepRef.current,
-          { autoAlpha: 0 },
-          { autoAlpha: 1, duration: 0.1 },
-          0,
+          oud,
+          { scale: 1, borderRadius: 0, autoAlpha: 1 },
+          { scale: LOS, borderRadius: 10, duration: 0.4, stagger: volgorde },
+          0.02,
         )
+        .to(oud, { autoAlpha: 0, duration: 0.2, stagger: volgorde }, 0.38)
         .fromTo(
           stand,
           { p: 100 },
-          {
-            p: 0,
-            duration: 1,
-            ease: "power1.inOut",
-            onUpdate: () => zetPos(stand.p),
-          },
-          0,
+          { p: 0, duration: 0.01, onUpdate: () => zetPos(stand.p) },
+          0.5,
+        )
+        // 2. Nieuw schuift als puzzelstukjes naar binnen.
+        .fromTo(
+          nieuw,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.2, stagger: volgorde },
+          0.38,
         )
         .fromTo(
-          nieuwRef.current,
-          { scale: ZOOM_NIEUW },
-          { scale: 1, duration: 1, ease: "power2.out" },
-          0,
+          nieuw,
+          {
+            scale: LOS,
+            borderRadius: 10,
+            xPercent: (i: number) => uitX(KAARTEN[i]?.x ?? 1),
+            yPercent: (i: number) => uitY(KAARTEN[i]?.y ?? 0),
+          },
+          {
+            scale: 1,
+            borderRadius: 0,
+            xPercent: 0,
+            yPercent: 0,
+            duration: 0.55,
+            ease: "power3.inOut",
+            stagger: volgorde,
+          },
+          0.38,
         )
-        .to({}, { duration: 0.15 });
+        // 3. Naadloos: puzzel weg, schuif erbij.
+        .to(puzzel, { autoAlpha: 0, duration: 0.01 })
+        .to(greepRef.current, { autoAlpha: 1, duration: 0.12 })
+        .to({}, { duration: 0.12 });
 
       // De sectie laadt lazy en de secties erboven ook: als de pagina daarna
       // langer wordt, moeten de scrollposities opnieuw worden gemeten.
@@ -194,7 +225,6 @@ const VoorNaSectie = () => {
         </Reveal>
 
         <div
-          ref={vlakRef}
           className="relative cursor-ew-resize touch-pan-y select-none"
           style={{ width: BREEDTE, aspectRatio: "2000 / 1448" }}
           onPointerDown={omlaag}
@@ -215,7 +245,7 @@ const VoorNaSectie = () => {
             className="absolute inset-0 h-full w-full"
           />
 
-          {/* Het scherm: de sites zoomen hierbinnen, het display staat stil. */}
+          {/* Het scherm met de sites */}
           <div
             ref={schermRef}
             className="absolute overflow-hidden bg-black"
@@ -230,12 +260,9 @@ const VoorNaSectie = () => {
               } as CSSProperties
             }
           >
-            {/* Nieuw onderop, oud erboven en rechts weggeknipt. De knip zit op
-                een omhulsel, zodat de zoom van de site hem niet meeschaalt. */}
+            {/* Nieuw onderop, oud erboven en rechts weggeknipt. */}
             <img
-              ref={nieuwRef}
-              src={nieuw2400}
-              srcSet={`${nieuw1200} 1200w, ${nieuw2400} 2400w`}
+              {...BRON.nieuw}
               sizes={SCHERM_SIZES}
               width={2400}
               height={1342}
@@ -243,28 +270,63 @@ const VoorNaSectie = () => {
               loading="lazy"
               decoding="async"
               draggable={false}
-              className="absolute inset-0 h-full w-full will-change-transform"
-              style={{ transformOrigin: "50% 30%" }}
+              className="absolute inset-0 h-full w-full"
             />
-            <div
-              className="absolute inset-0"
+            <img
+              {...BRON.oud}
+              sizes={SCHERM_SIZES}
+              width={2400}
+              height={1342}
+              alt="De verouderde website van dezelfde yogastudio"
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              className="absolute inset-0 h-full w-full"
               style={{ clipPath: "inset(0 calc(100% - var(--pos) * 1%) 0 0)" }}
-            >
-              <img
-                ref={oudRef}
-                src={oud2400}
-                srcSet={`${oud1200} 1200w, ${oud2400} 2400w`}
-                sizes={SCHERM_SIZES}
-                width={2400}
-                height={1342}
-                alt="De verouderde website van dezelfde yogastudio"
-                loading="lazy"
-                decoding="async"
-                draggable={false}
-                className="absolute inset-0 h-full w-full will-change-transform"
-                style={{ transformOrigin: "50% 30%" }}
-              />
-            </div>
+            />
+
+            {/* De puzzel: alleen zichtbaar tijdens de overgang. Elke kaart is
+                een uitsnede van de hele site (img op 300% × 200%). */}
+            {!reduced && (
+              <div
+                ref={puzzelRef}
+                aria-hidden="true"
+                className="invisible absolute inset-0 z-10 bg-black"
+              >
+                {(["oud", "nieuw"] as const).map((soort) =>
+                  KAARTEN.map(({ x, y }) => (
+                    <div
+                      key={`${soort}-${x}-${y}`}
+                      data-kaart={soort}
+                      className="absolute overflow-hidden will-change-transform"
+                      style={{
+                        left: `${(x * 100) / KOLOMMEN}%`,
+                        top: `${(y * 100) / RIJEN}%`,
+                        width: `calc(${100 / KOLOMMEN}% + 0.5px)`,
+                        height: `calc(${100 / RIJEN}% + 0.5px)`,
+                        visibility: soort === "nieuw" ? "hidden" : undefined,
+                      }}
+                    >
+                      <img
+                        {...BRON[soort]}
+                        sizes={SCHERM_SIZES}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable={false}
+                        className="absolute max-w-none"
+                        style={{
+                          width: `${KOLOMMEN * 100}%`,
+                          height: `${RIJEN * 100}%`,
+                          left: `${-x * 100}%`,
+                          top: `${-y * 100}%`,
+                        }}
+                      />
+                    </div>
+                  )),
+                )}
+              </div>
+            )}
 
             {/* Labels in de onderhoeken; ze verdwijnen als hun kant bijna dicht is */}
             <span
@@ -287,7 +349,7 @@ const VoorNaSectie = () => {
             <div
               ref={greepRef}
               aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 w-0.5 -translate-x-1/2 bg-white"
+              className="pointer-events-none absolute inset-y-0 z-20 w-0.5 -translate-x-1/2 bg-white"
               style={{
                 left: "calc(var(--pos) * 1%)",
                 boxShadow:
