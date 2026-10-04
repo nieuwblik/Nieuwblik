@@ -25,16 +25,13 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
  * de verouderde en de nieuwe website van een (fictieve) yogastudio. Display en
  * sites zijn losse lagen, zodat alleen het scherm verandert.
  *
- * Animatie (GSAP ScrollTrigger, gekoppeld aan de scroll, ook terug), naar het
- * puzzeleffect uit "Animated Product Grid Preview" (Codrops):
- *  1. De sectie staat kort vast; de oude site valt uiteen in 3×2 kaarten met
- *     zwarte voegen ertussen.
- *  2. De kaarten van de nieuwe site schuiven als puzzelstukjes naar binnen en
- *     sluiten naadloos aan.
- *  3. Daarna kun je zelf slepen (muis, touch) of de pijltjestoetsen gebruiken.
+ * Animatie (GSAP ScrollTrigger, gekoppeld aan de scroll, ook terug):
+ *  1. De sectie staat kort vast; de nieuwe site valt in tien verticale
+ *     lamellen van links naar rechts over de oude heen, als een jaloezie.
+ *  2. Daarna kun je zelf slepen (muis, touch) of de pijltjestoetsen gebruiken.
  * De schuifstand staat in de CSS-variabele --pos (procenten van het scherm),
  * zodat scrollen en slepen geen React-renders per beeldje kosten.
- * Met prefers-reduced-motion: geen vastzetten of puzzel, schuif in het midden.
+ * Met prefers-reduced-motion: geen vastzetten of lamellen, schuif in het midden.
  */
 
 // Het scherm in het displaybeeld, in procenten (2900×2100 bron).
@@ -45,18 +42,8 @@ const SCHERM_SIZES = "(min-width: 1280px) 950px, 80vw";
 // Breedte van het display: past altijd met kop en bijschrift in één schermhoogte.
 const BREEDTE = "min(1100px, 92vw, calc((100svh - 300px) * 1.381))";
 
-// De puzzel: kolommen × rijen, en hoe klein de kaarten worden als ze los liggen.
-const KOLOMMEN = 3;
-const RIJEN = 2;
-const LOS = 0.88;
-const KAARTEN = Array.from({ length: KOLOMMEN * RIJEN }, (_, i) => ({
-  x: i % KOLOMMEN,
-  y: Math.floor(i / KOLOMMEN),
-}));
-// Hoe ver een nieuwe kaart naar buiten ligt voor hij aansluit (procent van
-// zijn eigen maat), weg van het midden van het scherm.
-const uitX = (x: number) => ((x + 0.5) / KOLOMMEN - 0.5) * 2 * 10;
-const uitY = (y: number) => ((y + 0.5) / RIJEN - 0.5) * 2 * 10;
+// Aantal lamellen.
+const LAMELLEN = Array.from({ length: 10 }, (_, i) => i);
 
 const BRON = {
   oud: { src: oud2400, srcSet: `${oud1200} 1200w, ${oud2400} 2400w` },
@@ -70,7 +57,7 @@ const VoorNaSectie = () => {
   const sectieRef = useRef<HTMLElement>(null);
   const podiumRef = useRef<HTMLDivElement>(null);
   const schermRef = useRef<HTMLDivElement>(null);
-  const puzzelRef = useRef<HTMLDivElement>(null);
+  const lamellenRef = useRef<HTMLDivElement>(null);
   const greepRef = useRef<HTMLDivElement>(null);
   const bereikRef = useRef<HTMLInputElement>(null);
   const slepen = useRef(false);
@@ -91,30 +78,20 @@ const VoorNaSectie = () => {
     () => {
       if (reduced) return;
       const podium = podiumRef.current;
-      const puzzel = puzzelRef.current;
-      if (!podium || !puzzel) return;
-      const oud = gsap.utils.toArray<HTMLElement>("[data-kaart='oud']", puzzel);
-      const nieuw = gsap.utils.toArray<HTMLElement>(
-        "[data-kaart='nieuw']",
-        puzzel,
-      );
-      const volgorde = {
-        each: 0.05,
-        from: "center" as const,
-        grid: [RIJEN, KOLOMMEN] as [number, number],
-      };
+      const laag = lamellenRef.current;
+      if (!podium || !laag) return;
+      const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
 
-      // Onder de puzzel springt de schuif alvast naar 'nieuw', zodat er na
-      // afloop niets verspringt. Een tween in plaats van een call, zodat
-      // terugscrollen hem ook terugzet.
+      // Als alle lamellen hangen, springt de schuif eronder naar 'nieuw' en
+      // verdwijnen de lamellen: er verspringt niets. Een tween in plaats van
+      // een call, zodat terugscrollen hem ook terugzet.
       const stand = { p: 100 };
       gsap
         .timeline({
-          defaults: { ease: "power2.inOut" },
           scrollTrigger: {
             trigger: podium,
             start: "top top",
-            end: "+=100%",
+            end: "+=80%",
             pin: true,
             scrub: 0.6,
             anticipatePin: 1,
@@ -122,51 +99,26 @@ const VoorNaSectie = () => {
           },
         })
         .fromTo(greepRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
-        .fromTo(puzzel, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
-        // 1. Oud valt uiteen in kaarten.
+        .fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
         .fromTo(
-          oud,
-          { scale: 1, borderRadius: 0, autoAlpha: 1 },
-          { scale: LOS, borderRadius: 10, duration: 0.4, stagger: volgorde },
+          lamellen,
+          { clipPath: "inset(0% 0% 100% 0%)" },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 0.5,
+            ease: "power3.inOut",
+            stagger: 0.055,
+          },
           0.02,
         )
-        .to(oud, { autoAlpha: 0, duration: 0.2, stagger: volgorde }, 0.38)
         .fromTo(
           stand,
           { p: 100 },
           { p: 0, duration: 0.01, onUpdate: () => zetPos(stand.p) },
-          0.5,
         )
-        // 2. Nieuw schuift als puzzelstukjes naar binnen.
-        .fromTo(
-          nieuw,
-          { autoAlpha: 0 },
-          { autoAlpha: 1, duration: 0.2, stagger: volgorde },
-          0.38,
-        )
-        .fromTo(
-          nieuw,
-          {
-            scale: LOS,
-            borderRadius: 10,
-            xPercent: (i: number) => uitX(KAARTEN[i]?.x ?? 1),
-            yPercent: (i: number) => uitY(KAARTEN[i]?.y ?? 0),
-          },
-          {
-            scale: 1,
-            borderRadius: 0,
-            xPercent: 0,
-            yPercent: 0,
-            duration: 0.55,
-            ease: "power3.inOut",
-            stagger: volgorde,
-          },
-          0.38,
-        )
-        // 3. Naadloos: puzzel weg, schuif erbij.
-        .to(puzzel, { autoAlpha: 0, duration: 0.01 })
+        .to(laag, { autoAlpha: 0, duration: 0.01 })
         .to(greepRef.current, { autoAlpha: 1, duration: 0.12 })
-        .to({}, { duration: 0.12 });
+        .to({}, { duration: 0.1 });
 
       // De sectie laadt lazy en de secties erboven ook: als de pagina daarna
       // langer wordt, moeten de scrollposities opnieuw worden gemeten.
@@ -285,46 +237,40 @@ const VoorNaSectie = () => {
               style={{ clipPath: "inset(0 calc(100% - var(--pos) * 1%) 0 0)" }}
             />
 
-            {/* De puzzel: alleen zichtbaar tijdens de overgang. Elke kaart is
-                een uitsnede van de hele site (img op 300% × 200%). */}
+            {/* De lamellen: alleen zichtbaar tijdens de overgang. Elke lamel is
+                een verticale strook van de nieuwe site (img op 1000% breed). */}
             {!reduced && (
               <div
-                ref={puzzelRef}
+                ref={lamellenRef}
                 aria-hidden="true"
-                className="invisible absolute inset-0 z-10 bg-black"
+                className="invisible absolute inset-0 z-10"
               >
-                {(["oud", "nieuw"] as const).map((soort) =>
-                  KAARTEN.map(({ x, y }) => (
-                    <div
-                      key={`${soort}-${x}-${y}`}
-                      data-kaart={soort}
-                      className="absolute overflow-hidden will-change-transform"
+                {LAMELLEN.map((i) => (
+                  <div
+                    key={i}
+                    data-lamel=""
+                    className="absolute inset-y-0 overflow-hidden"
+                    style={{
+                      left: `${(i * 100) / LAMELLEN.length}%`,
+                      width: `calc(${100 / LAMELLEN.length}% + 0.5px)`,
+                      clipPath: "inset(0% 0% 100% 0%)",
+                    }}
+                  >
+                    <img
+                      {...BRON.nieuw}
+                      sizes={SCHERM_SIZES}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                      className="absolute inset-y-0 h-full max-w-none"
                       style={{
-                        left: `${(x * 100) / KOLOMMEN}%`,
-                        top: `${(y * 100) / RIJEN}%`,
-                        width: `calc(${100 / KOLOMMEN}% + 0.5px)`,
-                        height: `calc(${100 / RIJEN}% + 0.5px)`,
-                        visibility: soort === "nieuw" ? "hidden" : undefined,
+                        width: `${LAMELLEN.length * 100}%`,
+                        left: `${-i * 100}%`,
                       }}
-                    >
-                      <img
-                        {...BRON[soort]}
-                        sizes={SCHERM_SIZES}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        draggable={false}
-                        className="absolute max-w-none"
-                        style={{
-                          width: `${KOLOMMEN * 100}%`,
-                          height: `${RIJEN * 100}%`,
-                          left: `${-x * 100}%`,
-                          top: `${-y * 100}%`,
-                        }}
-                      />
-                    </div>
-                  )),
-                )}
+                    />
+                  </div>
+                ))}
               </div>
             )}
 
