@@ -14,16 +14,8 @@ const SocialContentSection = lazy(() => import("@/components/SocialContentSectio
 
 import { projects } from "@/data/projects";
 
-// Resolved brand colors (not `hsl(var(--sw-*))`) — the filter pills below are
-// motion.button, and framer-motion auto-animates `style` prop changes on top
-// of whileHover; it can't interpolate a color containing a CSS var (warns
-// "not an animatable color" and silently fails to transition), only literal
-// comma-syntax hsl()/hsla().
+// Merkkleuren voor de filterschakelaar.
 const SW_GREEN = "hsl(160, 84%, 16%)";
-const SW_GREEN_35 = "hsla(160, 84%, 16%, 0.35)";
-const SW_PAPER = "hsl(150, 14%, 97.5%)";
-const SW_INK = "hsl(160, 14%, 7%)";
-const SW_INK_60 = "hsla(160, 14%, 7%, 0.6)";
 const SW_RULE_16 = "hsla(160, 12%, 8%, 0.16)";
 
 // Import e-commerce listing images
@@ -169,41 +161,34 @@ const Portfolio = () => {
         transition={{ duration: 0.5, ease: easings.easeOutExpo }}
       >
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap gap-2.5 justify-center">
-            {filters.map((filter) => {
-              const active = activeFilter === filter.id;
-              return (
-                <motion.button
-                  key={filter.id}
-                  onClick={() => setActiveFilter(filter.id)}
-                  className="font-epilogue text-sm font-medium px-5 py-2.5 rounded-full border transition-all duration-300"
-                  style={
-                    active
-                      ? {
-                          background: SW_GREEN,
-                          borderColor: SW_GREEN,
-                          color: "#fff",
-                          boxShadow: "0 10px 25px -8px rgba(5, 102, 57, 0.45)",
-                        }
-                      : {
-                          background: SW_PAPER,
-                          borderColor: SW_RULE_16,
-                          color: SW_INK_60,
-                        }
-                  }
-                  whileHover={
-                    shouldReduceMotion
-                      ? {}
-                      : active
-                        ? { y: -1 }
-                        : { y: -1, borderColor: SW_GREEN_35, color: SW_INK }
-                  }
-                  whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-                >
-                  {filter.label}
-                </motion.button>
-              );
-            })}
+          {/* Rustige schakelaar: één witte houder, de actieve keuze in het
+              donkergroen. Geen schaduw of optillen; kleur via CSS-transities,
+              zodat er na het hoveren geen kleur blijft hangen. */}
+          <div className="flex justify-center">
+            <div
+              role="group"
+              aria-label="Filter projecten"
+              className="inline-flex flex-wrap justify-center gap-1 rounded-full border bg-white p-1"
+              style={{ borderColor: SW_RULE_16 }}
+            >
+              {filters.map((filter) => {
+                const active = activeFilter === filter.id;
+                return (
+                  <button
+                    key={filter.id}
+                    type="button"
+                    onClick={() => setActiveFilter(filter.id)}
+                    aria-pressed={active}
+                    className={`font-epilogue rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 ${
+                      active ? "text-white" : "text-[hsla(160,14%,7%,0.6)] hover:bg-[hsl(150,14%,97.5%)] hover:text-[hsl(160,14%,7%)]"
+                    }`}
+                    style={active ? { background: SW_GREEN } : undefined}
+                  >
+                    {filter.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </motion.section>
