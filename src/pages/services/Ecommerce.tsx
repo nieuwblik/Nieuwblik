@@ -1,22 +1,24 @@
+import { useState } from "react";
 import { faqPage } from "@/lib/structured-data";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
-import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { AnimatedButton } from "@/components/ui/animated-button";
-import { Card, CardContent } from "@/components/ui/card";
-import { MagicCard } from "@/components/ui/magic-card";
-import { useState } from "react";
+import Reveal from "@/components/Reveal";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Image, Package, BookOpen, Check, Plus, MessageCircle, Star } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, modalVariants, easings } from "@/lib/motion";
+import { Image, Package, BookOpen } from "lucide-react";
 import {
-  optimizedStaggerContainer,
-  optimizedStaggerItem,
-  gpuAcceleration,
-  optimizedViewport
-} from "@/lib/optimized-motion";
+  DienstHero,
+  GroenPaneel,
+  INKT_65,
+  Inbegrepen,
+  Pijlers,
+  Quote,
+  RAND,
+  Sectie,
+  SectieKop,
+  Stappen,
+  Vragen,
+} from "@/components/dienst/DienstBlokken";
 
 // Import e-commerce listing images
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
@@ -27,7 +29,6 @@ import compressorListingImg from "@/assets/projects/compressor-listing.webp";
 
 const Ecommerce = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const shouldReduceMotion = useReducedMotion();
 
   const ecommerceListings = [
     {
@@ -75,19 +76,15 @@ const Ecommerce = () => {
   }];
 
   const steps = [{
-    number: "01",
     title: "Briefing & research",
     description: "We analyseren je product, doelgroep en concurrentie voor de beste aanpak."
   }, {
-    number: "02",
     title: "Concept & design",
     description: "Eerste concepten voor listings, verpakkingen of e-books ter beoordeling."
   }, {
-    number: "03",
     title: "Revisierondes",
     description: "Feedback verwerken tot je 100% tevreden bent met het eindresultaat."
   }, {
-    number: "04",
     title: "Oplevering",
     description: "Alle bestanden in de juiste formaten, klaar voor upload of productie."
   }];
@@ -138,539 +135,104 @@ const Ecommerce = () => {
         ]}
       />
 
-      {/* Breadcrumb */}
-      <section className="pt-32 pb-0">
-        <div className="container mx-auto px-6">
-          <Breadcrumb items={[{
-            label: "Diensten",
-            path: "/diensten"
-          }, {
-            label: "E-commerce",
-            path: "/diensten/e-commerce"
-          }]} />
-        </div>
-      </section>
 
-      {/* Hero Section */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        animate="visible"
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
-      >
-        <div className="container mx-auto px-6">
-          <motion.p
-            className="text-accent mb-6 uppercase tracking-wide font-medium"
-            variants={fadeUp}
-          >
-            E-commerce
-          </motion.p>
-          <motion.h1
-            className="text-display mb-6"
-            variants={fadeUp}
-          >
-            E-commerce die echt groeit
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-6"
-            variants={fadeUp}
-          >
-            Wij maken professionele product listings, verpakkingsdesigns en extra waarde producten zoals e-books.
-            De verkoop, logistiek en klantenservice? Dat is voor jou, wij focussen op wat je verkoopt.
-          </motion.p>
-          <motion.div
-            className="bg-secondary/80 border border-border rounded-lg p-4 mb-10 max-w-2xl"
-            variants={fadeUp}
-          >
-            <p className="text-muted-foreground text-sm">
-              <strong className="text-foreground">Onze focus:</strong> Wij creëren de visuele en tekstuele content die jouw producten laat verkopen.
-              De webshop, marketplace accounts, fulfillment en klantcontact regel jij zelf of via een andere partner.
-            </p>
-          </motion.div>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4"
-            variants={fadeUp}
-          >
-            <AnimatedButton to="/contact" size="lg">
-              Bespreek je groeikansen
-            </AnimatedButton>
-            <AnimatedButton href="https://wa.me/31681762670" size="lg" variant="outline" showArrow={false}>
-              <MessageCircle className="w-5 h-5 mr-2 inline" />
-              WhatsApp direct
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
+      <DienstHero
+        kruimels={[
+          { label: "Diensten", path: "/diensten" },
+          { label: "E-commerce", path: "/diensten/e-commerce" },
+        ]}
+        titel="E-commerce"
+        accent="die echt groeit"
+        intro={<>
+          Wij maken professionele product listings, verpakkingsdesigns en extra waarde producten zoals e-books.
+          De verkoop, logistiek en klantenservice? Dat is voor jou, wij focussen op wat je verkoopt.
+        </>}
+        kader={<>
+          <strong className="font-semibold sw-ink">Onze focus:</strong> Wij creëren de visuele en tekstuele content die jouw producten laat verkopen.
+          De webshop, marketplace accounts, fulfillment en klantcontact regel jij zelf of via een andere partner.
+        </>}
+        knop={{ label: "Bespreek je groeikansen", to: "/contact" }}
+      />
 
-      {/* USPs */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}
-          >
-            Waarom onze e-commerce aanpak werkt
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Geen losse projecten, maar een strategie voor duurzame groei
-          </motion.p>
+      <Sectie papier>
+        <SectieKop titel="Waarom onze e-commerce aanpak werkt" intro="Geen losse projecten, maar een strategie voor duurzame groei" />
+        <Pijlers items={usps} />
+      </Sectie>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
-          >
-            {usps.map((usp, index) => (
-              <motion.div
-                key={index}
-                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
-                className="h-full"
-              >
-                <motion.div
-                  whileHover={shouldReduceMotion ? {} : {
-                    y: -8,
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
-                  }}
-                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-                  className="h-full"
-                >
-                  <MagicCard
-                    className="text-center flex flex-col items-center justify-center h-full p-6 md:p-8 shadow-none hover:shadow-none"
-                    maskClassName="bg-card"
-                  >
-                    <div className="relative z-10 flex flex-col items-center">
-                      <motion.div
-                        className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6"
-                        whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
-                        transition={{ duration: 0.2, ease: easings.easeOutQuart }}
-                      >
-                        <usp.icon className="w-8 h-8 text-accent" />
-                      </motion.div>
-                      <h3 className="text-xl font-bold mb-2">{usp.title}</h3>
-                      <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
-                      <p className="text-muted-foreground">{usp.description}</p>
-                    </div>
-                  </MagicCard>
-                </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Portfolio Section */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}
-          >
-            Onze e-commerce projecten
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Professionele listings die daadwerkelijk verkopen
-          </motion.p>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
-          >
-            {ecommerceListings.map((listing, index) => (
-              <motion.div
-                key={index}
-                className="group cursor-pointer"
-                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
+      <Sectie>
+        <SectieKop titel="Onze e-commerce projecten" intro="Professionele listings die daadwerkelijk verkopen" />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {ecommerceListings.map((listing, index) => (
+            <Reveal key={listing.title} afstand={24} delay={(index % 3) * 0.08}>
+              <button
+                type="button"
                 onClick={() => setSelectedImage(listing.image)}
+                className="group block w-full text-left"
+                aria-label={`${listing.title}: bekijk groter`}
               >
-                <motion.div
-                  className="aspect-[4/3] bg-secondary rounded-lg mb-4 overflow-hidden relative"
-                  whileHover={shouldReduceMotion ? {} : {
-                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-                  }}
-                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-                >
-                  <motion.img
+                <span className="relative mb-4 block aspect-[4/3] overflow-hidden rounded-2xl border bg-white" style={{ borderColor: RAND }}>
+                  <img
                     src={listing.image}
                     alt={listing.title}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover object-top"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                    transition={{ duration: 0.5, ease: easings.easeOutExpo }}
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-accent/20 to-background/80 flex items-center justify-center"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.span
-                      className="text-sm font-medium bg-background px-4 py-2 rounded-full shadow-lg"
-                      initial={{ y: 10, opacity: 0 }}
-                      whileHover={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.2, delay: 0.1 }}
-                    >
-                      Bekijk groter
-                    </motion.span>
-                  </motion.div>
-                </motion.div>
-                <h3 className="text-lg font-semibold mb-1 group-hover:text-accent transition-colors">{listing.title}</h3>
-                <p className="text-muted-foreground text-sm">{listing.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+                  <span className="absolute bottom-3 right-3 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-medium opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 sw-ink">
+                    Bekijk groter
+                  </span>
+                </span>
+                <span className="block text-lg font-bold tracking-tight sw-ink">{listing.title}</span>
+                <span className="mt-1 block text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
+                  {listing.description}
+                </span>
+              </button>
+            </Reveal>
+          ))}
         </div>
-      </motion.section>
+      </Sectie>
 
-      {/* Image Modal */}
+      {/* Afbeelding groot bekijken */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="max-w-7xl w-[95vw] h-[95vh] p-0 overflow-hidden border-0">
-          <AnimatePresence>
-            {selectedImage && (
-              <motion.img
-                src={selectedImage}
-                alt="E-commerce listing"
-                className="w-full h-full object-contain"
-                variants={modalVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              />
-            )}
-          </AnimatePresence>
+          {selectedImage && (
+            <img src={selectedImage} alt="E-commerce listing" className="h-full w-full object-contain" />
+          )}
         </DialogContent>
       </Dialog>
 
-      {/* Steps */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}
-          >
-            Onze e-commerce aanpak
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Gestructureerd naar meetbare resultaten
-          </motion.p>
+      <Sectie papier>
+        <SectieKop titel="Onze e-commerce aanpak" intro="Gestructureerd naar meetbare resultaten" />
+        <Stappen items={steps} />
+      </Sectie>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
-          >
-            {steps.map((step, index) => (
-              <motion.div
-                key={index}
-                className="relative"
-                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
-              >
-                <motion.div
-                  className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
-                  whileHover={shouldReduceMotion ? {} : {
-                    y: -4,
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-                  }}
-                  transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-                >
-                  <span className="text-5xl font-extrabold text-accent/20 absolute top-4 right-4">
-                    {step.number}
-                  </span>
-                  <div className="relative z-10">
-                    <h3 className="text-lg font-bold mb-3 pr-12">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
-                  </div>
-                </motion.div>
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30" />
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
+      <Sectie>
+        <SectieKop titel="Wat we voor je regelen" intro="Complete e-commerce oplossingen op maat" />
+        <Inbegrepen
+          standaardTitel="Kernonderdelen"
+          standaard={includedStandard}
+          extraTitel="Uitbreidingen"
+          extra={optionalModules}
+        />
+      </Sectie>
 
-      {/* What's Included */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}
-          >
-            Wat we voor je regelen
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Complete e-commerce oplossingen op maat
-          </motion.p>
+      <GroenPaneel
+        titel="Klaar om je omzet te verdubbelen?"
+        tekst="Plan een vrijblijvend strategiegesprek en ontdek de groeikansen voor jouw business."
+        knop={{ label: "Plan een strategiegesprek", to: "/contact" }}
+      />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <motion.div
-              className="bg-card border border-border rounded-xl p-8"
-              variants={slideInLeft}
-              whileHover={shouldReduceMotion ? {} : {
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                  <Check className="w-5 h-5 text-accent-foreground" />
-                </div>
-                <h3 className="text-xl font-bold">Kernonderdelen</h3>
-              </div>
-              <ul className="space-y-4">
-                {includedStandard.map((item, index) => (
-                  <motion.li
-                    key={index}
-                    className="flex items-start gap-3"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{
-                      delay: shouldReduceMotion ? 0 : index * 0.05,
-                      duration: 0.3,
-                      ease: easings.easeOutExpo
-                    }}
-                  >
-                    <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
+      <Sectie>
+        <SectieKop titel="Veelgestelde vragen" intro="Antwoorden op de meest voorkomende e-commerce vragen" />
+        <Vragen items={faqs} />
+      </Sectie>
 
-            <motion.div
-              className="bg-card border border-border rounded-xl p-8"
-              variants={slideInRight}
-              whileHover={shouldReduceMotion ? {} : {
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Plus className="w-5 h-5 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold">Uitbreidingen</h3>
-              </div>
-              <ul className="space-y-4">
-                {optionalModules.map((item, index) => (
-                  <motion.li
-                    key={index}
-                    className="flex items-start gap-3"
-                    initial={{ opacity: 0, x: 10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{
-                      delay: shouldReduceMotion ? 0 : index * 0.05,
-                      duration: 0.3,
-                      ease: easings.easeOutExpo
-                    }}
-                  >
-                    <Plus className="w-5 h-5 text-accent/60 flex-shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* CTA */}
-      <motion.section
-        className="py-16 md:py-24 bg-accent text-accent-foreground"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
-            variants={fadeUp}
-          >
-            Klaar om je omzet te verdubbelen?
-          </motion.h2>
-          <motion.p
-            className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Plan een vrijblijvend strategiegesprek en ontdek de groeikansen voor jouw business.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={fadeUp}
-          >
-            <AnimatedButton to="/contact" size="lg" variant="white">
-              Plan een strategiegesprek
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* FAQ */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}
-          >
-            Veelgestelde vragen
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Antwoorden op de meest voorkomende e-commerce vragen
-          </motion.p>
-
-          <motion.div
-            className="max-w-3xl mx-auto space-y-6"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}
-          >
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                className="bg-card border border-border rounded-lg p-6"
-                variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
-                whileHover={shouldReduceMotion ? {} : {
-                  y: -2,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-                }}
-                transition={{ duration: 0.3, ease: easings.easeOutExpo }}
-              >
-                <h3 data-faq-vraag="" className="text-lg font-bold mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground">{faq.answer}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Testimonial */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6">
-          <motion.div
-            className="max-w-3xl mx-auto text-center"
-            variants={scaleUp}
-          >
-            <motion.div
-              className="flex justify-center gap-1 mb-6"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.4, ease: easings.easeOutExpo }}
-            >
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={shouldReduceMotion ? {} : { scale: 0, rotate: -20 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : i * 0.05,
-                    duration: 0.3,
-                    ease: easings.softBounce
-                  }}
-                >
-                  <Star className="w-6 h-6 fill-accent text-accent" />
-                </motion.div>
-              ))}
-            </motion.div>
-            <motion.blockquote
-              className="text-xl md:text-2xl text-muted-foreground italic mb-6"
-              variants={fadeUp}
-            >
-              "Door de multichannel aanpak van Nieuwblik zijn we nu ook succesvol op Bol.com en Amazon. Onze omzet is in 6 maanden met 140% gestegen!"
-            </motion.blockquote>
-            <motion.p
-              className="font-bold"
-              variants={fadeUp}
-            >
-              - Maarten, Kitchenz
-            </motion.p>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Footer CTA */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}
-      >
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
-            variants={fadeUp}
-          >
-            Laten we jouw e-commerce naar het volgende niveau tillen
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
-            variants={fadeUp}
-          >
-            Neem contact op voor een vrijblijvend gesprek over jouw groeimogelijkheden
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={fadeUp}
-          >
-            <AnimatedButton to="/contact" size="lg">
-              Neem contact op
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
+      <Sectie papier>
+        <Quote
+          tekst="Door de multichannel aanpak van Nieuwblik zijn we nu ook succesvol op Bol.com en Amazon. Onze omzet is in 6 maanden met 140% gestegen!"
+          naam="Maarten, Kitchenz"
+        />
+      </Sectie>
 
       <Footer />
     </div>

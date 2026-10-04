@@ -92,20 +92,6 @@ export const staggerContainer: Variants = {
   },
 };
 
-// Stagger container with slower timing for premium feel
-export const staggerContainerSlow: Variants = {
-  hidden: {
-    opacity: 1,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.15,
-    },
-  },
-};
-
 // Stagger item - VERY VISIBLE with large y offset
 export const staggerItem: Variants = {
   hidden: {

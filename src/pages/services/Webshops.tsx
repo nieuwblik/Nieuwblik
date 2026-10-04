@@ -2,30 +2,56 @@ import { PRIJZEN, LEVERTIJD, euroTeken } from "@/config/business";
 import { faqPage } from "@/lib/structured-data";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
-import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
-import { AnimatedButton } from "@/components/ui/animated-button";
-import { Card, CardContent } from "@/components/ui/card";
-import { MagicCard } from "@/components/ui/magic-card";
+import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
-import { ShoppingCart, CreditCard, BarChart3, Check, Plus, MessageCircle, Star } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { ShoppingCart, CreditCard, BarChart3 } from "lucide-react";
+import {
+  DienstHero,
+  GroenPaneel,
+  Inbegrepen,
+  Pijlers,
+  Quote,
+  Sectie,
+  SectieKop,
+  Stappen,
+  Vragen,
+} from "@/components/dienst/DienstBlokken";
 
 // Project images for webshop cases
 import puurinharmonieImg from "@/assets/puurinharmonie.webp";
 import kyodaiImg from "@/assets/projects/kyodaioriginals.nl.webp";
 import bushidoImg from "@/assets/bushidoshop-portfolio-nieuw.webp";
-import { motion, useReducedMotion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerContainerSlow, staggerItem, slideInLeft, slideInRight, scaleUp, easings } from "@/lib/motion";
-import {
-  optimizedStaggerContainer,
-  optimizedStaggerItem,
-  gpuAcceleration,
-  optimizedViewport } from
-"@/lib/optimized-motion";
+
+const cases = [
+  {
+    title: "Puur in Harmonie",
+    category: "Salon & E-commerce",
+    description: "Webshop met Stripe integratie voor een holistische salon. Klanten bestellen eenvoudig producten online.",
+    image: puurinharmonieImg,
+    url: "https://puurinharmonie.nl",
+    tags: ["WooCommerce", "Stripe", "E-commerce"]
+  },
+  {
+    title: "Kyodai Originals",
+    category: "Fashion & Streetwear",
+    description: "Stijlvolle webshop voor een streetwear merk met complete productcatalogus en veilige betalingen.",
+    image: kyodaiImg,
+    url: "https://kyodaioriginals.nl",
+    tags: ["E-commerce", "Fashion", "Webshop"]
+  },
+  {
+    title: "Bushido Shop",
+    category: "Martial Arts & Sport",
+    description: "Complete e-commerce oplossing voor martial arts producten met uitgebreid voorraadbeheer en verzendopties.",
+    image: bushidoImg,
+    url: "https://bushidoshop.nl",
+    tags: ["E-commerce", "Sport", "Webshop"]
+  }
+];
 
 const Webshops = () => {
-  const shouldReduceMotion = useReducedMotion();
-
   const usps = [
   {
     icon: ShoppingCart,
@@ -49,22 +75,18 @@ const Webshops = () => {
 
   const steps = [
   {
-    number: "01",
     title: "Strategie & producten",
     description: "We analyseren jouw markt, doelgroep en producten om de perfecte webshop strategie te bepalen."
   },
   {
-    number: "02",
     title: "Design & branding",
     description: "Een luxe, conversiegerichte webshop die jouw merk versterkt en vertrouwen wekt bij klanten."
   },
   {
-    number: "03",
     title: "Technische setup",
     description: "Complete configuratie van betalingen, verzending, voorraad en automatiseringen."
   },
   {
-    number: "04",
     title: "Lancering & groei",
     description: "Live gaan met SEO-optimalisatie en continue ondersteuning voor maximale verkoop."
   }];
@@ -144,519 +166,85 @@ const Webshops = () => {
         } />
       
 
-      {/* Breadcrumb */}
-      <section className="pt-32 pb-0">
-        <div className="container mx-auto px-6">
-          <Breadcrumb
-            items={[
-            { label: "Diensten", path: "/diensten" },
-            { label: "Webshops", path: "/diensten/webshops" }]
-            } />
-          
-        </div>
-      </section>
 
-      {/* Hero Section */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        animate="visible"
-        variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}>
-        
-        <div className="container mx-auto px-6">
-          <motion.p
-            className="text-accent mb-6 uppercase tracking-wide font-medium"
-            variants={fadeUp}>
-            
-            Webshops
-          </motion.p>
-          <motion.h1
-            className="text-display mb-6 text-6xl"
-            variants={fadeUp}>
-            
-            Webshops die verkopen terwijl jij slaapt
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-2xl text-muted-foreground max-w-3xl font-light mb-10"
-            variants={fadeUp}>
-            
-            Van eerste bezoeker tot terugkerende klant. Wij bouwen webshops die converteren
-            met veilige betalingen, slim voorraadbeheer en een koopervaring die klanten niet vergeten.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4"
-            variants={fadeUp}>
-            
-            <AnimatedButton to="/contact" size="lg">
-              Start jouw webshop
-            </AnimatedButton>
-            <AnimatedButton href="https://wa.me/31681762670" size="lg" variant="outline" showArrow={false}>
-              <MessageCircle className="w-5 h-5 mr-2 inline" />
-              WhatsApp direct
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
+      <DienstHero
+        kruimels={[
+          { label: "Diensten", path: "/diensten" },
+          { label: "Webshops", path: "/diensten/webshops" },
+        ]}
+        titel="Webshops"
+        accent="die verkopen terwijl jij slaapt"
+        intro={<>
+          Van eerste bezoeker tot terugkerende klant. Wij bouwen webshops die converteren
+          met veilige betalingen, slim voorraadbeheer en een koopervaring die klanten niet vergeten.
+        </>}
+        knop={{ label: "Start jouw webshop", to: "/contact" }}
+      />
 
-      {/* USPs */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}>
-            
-            Waarom kiezen voor onze webshops?
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Alles wat je nodig hebt om succesvol online te verkopen
-          </motion.p>
+      <Sectie papier>
+        <SectieKop titel="Waarom kiezen voor onze webshops?" intro="Alles wat je nodig hebt om succesvol online te verkopen" />
+        <Pijlers items={usps} />
+      </Sectie>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}>
-            
-            {usps.map((usp, index) =>
-            <motion.div
-              key={index}
-              variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}>
-              
-                <motion.div
-                whileHover={shouldReduceMotion ? {} : {
-                  y: -8,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
-                }}
-                transition={{ duration: 0.3, ease: easings.easeOutExpo }}>
-                
-                  <MagicCard
-                  className="text-center flex flex-col items-center justify-center h-full p-6 md:p-8 shadow-none hover:shadow-none"
-                  maskClassName="bg-card">
-                  
-                    <div className="relative z-10 flex flex-col items-center">
-                      <motion.div
-                      className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6"
-                      whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: 5 }}
-                      transition={{ duration: 0.2, ease: easings.easeOutQuart }}>
-                      
-                        <usp.icon className="w-8 h-8 text-accent" />
-                      </motion.div>
-                      <h3 className="text-xl font-bold mb-2">{usp.title}</h3>
-                      <p className="text-accent font-medium text-sm mb-4">{usp.subtitle}</p>
-                      <p className="text-muted-foreground">{usp.description}</p>
-                    </div>
-                  </MagicCard>
-                </motion.div>
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
-      </motion.section>
+      <Sectie>
+        <SectieKop titel="Zo bouwen wij jouw webshop" intro="Van idee tot verkopende webshop in vier stappen" />
+        <Stappen items={steps} />
+      </Sectie>
 
-      {/* Steps */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}>
-            
-            Zo bouwen wij jouw webshop
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Van idee tot verkopende webshop in vier stappen
-          </motion.p>
+      <Sectie papier>
+        <SectieKop titel="Wat zit er in jouw webshop?" intro="Complete webshop oplossing zonder verborgen kosten" />
+        <Inbegrepen
+          standaardTitel="Standaard inbegrepen"
+          standaard={includedStandard}
+          extraTitel="Optionele uitbreidingen"
+          extra={optionalModules}
+        />
+      </Sectie>
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}>
-            
-            {steps.map((step, index) =>
-            <motion.div
-              key={index}
-              className="relative"
-              variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}>
-              
-                <motion.div
-                className="bg-card border border-border rounded-lg p-6 h-full hover:border-accent/50 transition-colors"
-                whileHover={shouldReduceMotion ? {} : {
-                  y: -4,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-                }}
-                transition={{ duration: 0.3, ease: easings.easeOutExpo }}>
-                
-                  <span className="text-5xl font-extrabold text-accent/20 absolute top-4 right-4">
-                    {step.number}
-                  </span>
-                  <div className="relative z-10">
-                    <h3 className="text-lg font-bold mb-3 pr-12">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
-                  </div>
-                </motion.div>
-                {index < steps.length - 1 &&
-              <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-accent/30" />
-              }
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
-      </motion.section>
+      <GroenPaneel
+        titel="Klaar om online te verkopen?"
+        tekst={<>Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf {euroTeken(PRIJZEN.webshopVanaf)}.</>}
+        knop={{ label: "Vraag een offerte aan", to: "/contact" }}
+      />
 
-      {/* What's Included */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}>
-            
-            Wat zit er in jouw webshop?
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Complete webshop oplossing zonder verborgen kosten
-          </motion.p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <motion.div
-              className="bg-card border border-border rounded-xl p-8"
-              variants={slideInLeft}
-              whileHover={shouldReduceMotion ? {} : {
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}>
-              
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                  <Check className="w-5 h-5 text-accent-foreground" />
-                </div>
-                <h3 className="text-xl font-bold">Standaard inbegrepen</h3>
-              </div>
-              <ul className="space-y-4">
-                {includedStandard.map((item, index) =>
-                <motion.li
-                  key={index}
-                  className="flex items-start gap-3"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : index * 0.05,
-                    duration: 0.3,
-                    ease: easings.easeOutExpo
-                  }}>
-                  
-                    <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </motion.li>
-                )}
-              </ul>
-            </motion.div>
-
-            <motion.div
-              className="bg-card border border-border rounded-xl p-8"
-              variants={slideInRight}
-              whileHover={shouldReduceMotion ? {} : {
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}>
-              
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Plus className="w-5 h-5 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold">Optionele uitbreidingen</h3>
-              </div>
-              <ul className="space-y-4">
-                {optionalModules.map((item, index) =>
-                <motion.li
-                  key={index}
-                  className="flex items-start gap-3"
-                  initial={{ opacity: 0, x: 10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : index * 0.05,
-                    duration: 0.3,
-                    ease: easings.easeOutExpo
-                  }}>
-                  
-                    <Plus className="w-5 h-5 text-accent/60 flex-shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </motion.li>
-                )}
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* CTA */}
-      <motion.section
-        className="py-16 md:py-24 bg-accent text-accent-foreground"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
-            variants={fadeUp}>
-            
-            Klaar om online te verkopen?
-          </motion.h2>
-          <motion.p
-            className="text-xl text-accent-foreground/90 mb-8 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Laten we bespreken hoe jouw webshop eruit moet zien. Webshops vanaf {euroTeken(PRIJZEN.webshopVanaf)}.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={fadeUp}>
-            
-            <AnimatedButton to="/contact" size="lg" variant="white">
-              Vraag een offerte aan
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Webshop Cases */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}>
-            
-            Recente webshop projecten
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Bekijk enkele van onze succesvolle e-commerce projecten
-          </motion.p>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}>
-            
-            {[
-            {
-              title: "Puur in Harmonie",
-              category: "Salon & E-commerce",
-              description: "Webshop met Stripe integratie voor een holistische salon. Klanten bestellen eenvoudig producten online.",
-              image: puurinharmonieImg,
-              url: "https://puurinharmonie.nl",
-              tags: ["WooCommerce", "Stripe", "E-commerce"]
-            },
-            {
-              title: "Kyodai Originals",
-              category: "Fashion & Streetwear",
-              description: "Stijlvolle webshop voor een streetwear merk met complete productcatalogus en veilige betalingen.",
-              image: kyodaiImg,
-              url: "https://kyodaioriginals.nl",
-              tags: ["E-commerce", "Fashion", "Webshop"]
-            },
-            {
-              title: "Bushido Shop",
-              category: "Martial Arts & Sport",
-              description: "Complete e-commerce oplossing voor martial arts producten met uitgebreid voorraadbeheer en verzendopties.",
-              image: bushidoImg,
-              url: "https://bushidoshop.nl",
-              tags: ["E-commerce", "Sport", "Webshop"]
-            }].
-            map((project, index) =>
-            <motion.div
-              key={index}
-              variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}>
-              
-                <ProjectCard
+      <Sectie>
+        <SectieKop titel="Recente webshop projecten" intro="Bekijk enkele van onze succesvolle e-commerce projecten" />
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {cases.map((project, index) => (
+            <Reveal key={project.title} afstand={24} delay={index * 0.08}>
+              <ProjectCard
                 title={project.title}
                 category={project.category}
                 description={project.description}
                 image={project.image}
                 url={project.url}
-                tags={project.tags} />
-              
-              </motion.div>
-            )}
-          </motion.div>
-
-          <motion.div className="text-center mt-12" variants={fadeUp}>
-            <AnimatedButton to="/portfolio" size="lg" variant="outline">
-              Bekijk alle projecten
-            </AnimatedButton>
-          </motion.div>
+                tags={project.tags}
+              />
+            </Reveal>
+          ))}
         </div>
-      </motion.section>
-
-      {/* FAQ */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-4"
-            variants={fadeUp}>
-            
-            Veelgestelde vragen
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Alles wat je wilt weten over onze webshops
-          </motion.p>
-
-          <motion.div
-            className="max-w-3xl mx-auto space-y-6"
-            variants={optimizedStaggerContainer(shouldReduceMotion)} viewport={optimizedViewport}>
-            
-            {faqs.map((faq, index) =>
-            <motion.div
-              key={index}
-              className="bg-card border border-border rounded-lg p-6"
-              variants={optimizedStaggerItem(shouldReduceMotion)} style={gpuAcceleration}
-              whileHover={shouldReduceMotion ? {} : {
-                y: -2,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              transition={{ duration: 0.3, ease: easings.easeOutExpo }}>
-              
-                <h3 data-faq-vraag="" className="text-lg font-bold mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground">{faq.answer}</p>
-              </motion.div>
-            )}
-          </motion.div>
+        <div className="mt-12">
+          <AnimatedButton to="/portfolio" size="lg" variant="outline">
+            Bekijk alle projecten
+          </AnimatedButton>
         </div>
-      </motion.section>
+      </Sectie>
 
-      {/* Testimonial */}
-      <motion.section
-        className="py-16 md:py-24 bg-secondary/50"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6">
-          <motion.div
-            className="max-w-3xl mx-auto text-center"
-            variants={scaleUp}>
-            
-            <motion.div
-              className="flex justify-center gap-1 mb-6"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.4, ease: easings.easeOutExpo }}>
-              
-              {[...Array(5)].map((_, i) =>
-              <motion.div
-                key={i}
-                initial={shouldReduceMotion ? {} : { scale: 0, rotate: -20 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{
-                  delay: shouldReduceMotion ? 0 : i * 0.05,
-                  duration: 0.3,
-                  ease: easings.softBounce
-                }}>
-                
-                  <Star className="w-6 h-6 fill-accent text-accent" />
-                </motion.div>
-              )}
-            </motion.div>
-            <motion.blockquote
-              className="text-xl md:text-2xl text-muted-foreground italic mb-6"
-              variants={fadeUp}>
-              
-              "Onze webshop draait nu volledig automatisch. Orders komen binnen, betalingen worden verwerkt
-              en klanten krijgen automatisch hun verzendinfo. Echt ontzorgd!"
-            </motion.blockquote>
-            <motion.p
-              className="font-bold"
-              variants={fadeUp}>
-              
-              - Tevreden webshop klant
-            </motion.p>
-          </motion.div>
-        </div>
-      </motion.section>
+      <Sectie papier>
+        <SectieKop titel="Veelgestelde vragen" intro="Alles wat je wilt weten over onze webshops" />
+        <Vragen items={faqs} />
+      </Sectie>
 
-      {/* Footer CTA */}
-      <motion.section
-        className="py-16 md:py-24"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={optimizedStaggerContainer(shouldReduceMotion)}>
-        
-        <div className="container mx-auto px-6 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
-            variants={fadeUp}>
-            
-            Start vandaag met verkopen
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
-            variants={fadeUp}>
-            
-            Neem contact op voor een vrijblijvend gesprek over jouw webshop wensen
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={fadeUp}>
-            
-            <AnimatedButton to="/contact" size="lg">
-              Neem contact op
-            </AnimatedButton>
-            <AnimatedButton href="tel:+31646253607" size="lg" variant="outline" showArrow={false}>
-              Bel direct: 06 46253607
-            </AnimatedButton>
-          </motion.div>
-        </div>
-      </motion.section>
+      <Sectie>
+        <Quote
+          tekst="Onze webshop draait nu volledig automatisch. Orders komen binnen, betalingen worden verwerkt en klanten krijgen automatisch hun verzendinfo. Echt ontzorgd!"
+          naam="Tevreden webshop klant"
+        />
+      </Sectie>
 
       <Footer />
-    </div>);
-
+    </div>
+  );
 };
 
 export default Webshops;
