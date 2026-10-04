@@ -223,7 +223,7 @@ const FAQSection = () => {
       ref={sectionRef}
       className="py-14 md:py-16 bg-secondary/50 relative overflow-hidden"
     >
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Links: kop en tekst */}
           <div className="lg:col-span-4">
