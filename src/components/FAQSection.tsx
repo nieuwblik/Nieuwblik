@@ -29,8 +29,8 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
     >
       <motion.div
         onClick={onClick}
-        className={`group relative overflow-hidden rounded-xl cursor-pointer transition-all duration-500 border ${isOpen
-          ? "border-transparent shadow-2xl"
+        className={`group relative overflow-hidden rounded-xl cursor-pointer transition-[border-color,box-shadow] duration-300 border ${isOpen
+          ? "border-transparent shadow-lg"
           : "bg-white border-border/50 hover:border-accent/30 hover:shadow-md"
           }`}
         style={{
@@ -38,7 +38,6 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
             ? 'linear-gradient(135deg, hsl(160 84% 14%) 0%, hsl(160 84% 10%) 50%, hsl(160 70% 8%) 100%)'
             : 'rgb(255, 255, 255)'
         }}
-        layout
       >
         {/* Dark Background Texture/Sparkles for Open State */}
         <AnimatePresence>
@@ -61,12 +60,12 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
           )}
         </AnimatePresence>
 
-        <div className="relative z-10 px-5 py-4 md:px-6 md:py-5">
+        <div className="relative z-10 px-5 py-3.5">
           {/* De vraag is een echte knop in de kop: bedienbaar met toetsenbord en
               met aria-expanded/aria-controls voor schermlezers. De hele kaart
               blijft daarnaast klikbaar; stopPropagation voorkomt dubbel togglen. */}
           <motion.h3
-            className={`text-base md:text-[1.0625rem] font-semibold leading-snug transition-colors duration-300 ${isOpen ? "text-white" : "text-foreground"
+            className={`text-[0.9375rem] font-semibold leading-snug transition-colors duration-300 ${isOpen ? "text-white" : "text-foreground"
               }`}
           >
             <button
@@ -106,14 +105,14 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
             style={{
               gridTemplateRows: expanded ? "1fr" : "0fr",
               opacity: expanded ? 1 : 0,
-              marginTop: expanded ? 12 : 0,
+              marginTop: expanded ? 10 : 0,
               transition: shouldReduceMotion
                 ? "none"
                 : `grid-template-rows ${ANTWOORD_MS}ms ${ANTWOORD_EASE}, opacity ${ANTWOORD_MS}ms ${ANTWOORD_EASE}, margin-top ${ANTWOORD_MS}ms ${ANTWOORD_EASE}`,
             }}
           >
             <div className="min-h-0 overflow-clip">
-              <p className="text-[0.9375rem] text-white/80 font-light leading-relaxed pr-6">
+              <p className="text-sm text-white/80 font-light leading-relaxed pr-6">
                 {item.answer}
               </p>
             </div>
@@ -125,19 +124,20 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
 };
 
 const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // Default open first one
+  // Elke vraag klapt los open en dicht. Klapte het openen van een vraag een
+  // andere dicht, dan schoof alles eronder omhoog terwijl je klikte.
+  const [open, setOpen] = useState<Set<number>>(() => new Set([0]));
   const sectionRef = useRef<HTMLElement>(null);
   useReveal(sectionRef);
 
   const handleToggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+    setOpen((oud) => {
+      const nieuw = new Set(oud);
+      if (nieuw.has(index)) nieuw.delete(index);
+      else nieuw.add(index);
+      return nieuw;
+    });
   };
-
-  // Twee kolommen op desktop: eerste helft links, tweede helft rechts. Twee
-  // losse kolommen (geen grid-rijen), zodat een open antwoord alleen zijn
-  // eigen kolom langer maakt en de kaarten ernaast niet verspringen.
-  const helft = Math.ceil(faqs.length / 2);
-  const kolommen = [faqs.slice(0, helft), faqs.slice(helft)];
 
   return (
     <section
@@ -145,37 +145,31 @@ const FAQSection = () => {
       className="py-16 md:py-20 bg-secondary/50 relative overflow-hidden"
     >
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        <div className="h-px w-full mb-5" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
-        <div className="grid gap-4 lg:grid-cols-12 lg:gap-16 lg:items-end mb-10 md:mb-12">
-          <div className="lg:col-span-7">
-            <span className="sw-reveal sw-mono inline-block mb-5" style={{ color: "hsl(var(--sw-green))" }}>Vragen</span>
-            <h2 className="sw-reveal text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.05]" style={{ color: "hsl(var(--sw-ink))" }}>
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          {/* Links: kop en tekst, blijven staan terwijl je door de vragen scrolt */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="h-px w-full mb-6" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
+            <h2 className="sw-reveal text-3xl md:text-4xl lg:text-[2.6rem] font-bold tracking-tight mb-4 leading-[1.05]" style={{ color: "hsl(var(--sw-ink))" }}>
               Nog vragen?{" "}
               <span style={{ color: "hsl(var(--sw-green))" }}>Wij hebben antwoorden</span>
             </h2>
+            <p className="sw-reveal text-base font-light leading-relaxed max-w-sm" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+              Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.
+            </p>
           </div>
-          <p className="sw-reveal lg:col-span-5 text-base md:text-lg font-light leading-relaxed max-w-md" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
-            Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.
-          </p>
-        </div>
 
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-4 lg:items-start">
-          {kolommen.map((kolom, k) => (
-            <div key={k} className="flex flex-col gap-3 lg:gap-4">
-              {kolom.map((faq, i) => {
-                const index = k * helft + i;
-                return (
-                  <FAQCard
-                    key={index}
-                    index={i}
-                    item={faq}
-                    isOpen={openIndex === index}
-                    onClick={() => handleToggle(index)}
-                  />
-                );
-              })}
-            </div>
-          ))}
+          {/* Rechts: de vragen */}
+          <div className="lg:col-span-7 flex flex-col gap-2.5">
+            {faqs.map((faq, index) => (
+              <FAQCard
+                key={index}
+                index={index}
+                item={faq}
+                isOpen={open.has(index)}
+                onClick={() => handleToggle(index)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
