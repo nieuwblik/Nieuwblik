@@ -29,6 +29,7 @@ const TELEFOON = `tel:${companyInfo.phone.replace(/\s/g, "")}`;
 
 const NAVIGATIE = [
   { label: "Diensten", to: "/diensten" },
+  { label: "Prijzen", to: "/prijzen" },
   { label: "Portfolio", to: "/portfolio" },
   { label: "Over ons", to: "/over-ons" },
   { label: "Reviews", to: "/reviews" },

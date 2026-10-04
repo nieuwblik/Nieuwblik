@@ -14,6 +14,7 @@ const FreeAnalysisPopup = lazy(() => import("@/components/FreeAnalysisPopup"));
 const NAV_LINKS: UnderlayNavItem[] = [
   { label: "Home", href: "/" },
   { label: "Diensten", href: "/diensten" },
+  { label: "Prijzen", href: "/prijzen" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Over Ons", href: "/over-ons" },
   { label: "Blog", href: "/blog" },

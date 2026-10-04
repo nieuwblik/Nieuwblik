@@ -15,7 +15,7 @@ import Reveal from "@/components/Reveal";
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const AppjeSectie = lazy(() => import("@/components/AppjeSectie"));
-const PricingPackages = lazy(() => import("@/components/PricingPackages"));
+const VoorNaSectie = lazy(() => import("@/components/VoorNaSectie"));
 const ScrollPortfolio = lazy(() => import("@/components/ScrollPortfolio"));
 const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
 
@@ -175,8 +175,9 @@ const Index = () => {
     <Suspense fallback={<div className="min-h-[600px]" />}>
       <SearchVisibility />
     </Suspense>
-    <Suspense fallback={<div className="min-h-[480px]" />}>
-      <PricingPackages />
+    {/* Voor en na: oude en nieuwe website op dezelfde iMac (prijzen staan op /prijzen) */}
+    <Suspense fallback={<div className="min-h-[600px]" style={{ background: "#f5f5f5" }} />}>
+      <VoorNaSectie />
     </Suspense>
 
     {/* Problem vs Solution Section */}

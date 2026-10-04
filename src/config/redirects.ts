@@ -48,7 +48,6 @@ export const REDIRECTS: Redirect[] = [
   // Oude Webflow-site
   { from: "/webdesign", to: "/diensten", reden: "Oude dienstenpagina, opvolger is het dienstenoverzicht" },
   { from: "/seo", to: "/seo-enkhuizen", reden: "Oude SEO-dienstpagina" },
-  { from: "/prijzen", to: "/website-laten-maken", reden: "Prijzen en pakketten staan op de verkooppagina" },
   { from: "/ecommerce", to: "/diensten/e-commerce", reden: "Zelfde dienst, nieuw pad" },
   { from: "/diensten/ecommerce", to: "/diensten/e-commerce", reden: "Zelfde dienst, pad zonder streepje" },
   { from: "/listings", to: "/diensten/e-commerce", reden: "Product listings vallen onder de e-commercedienst" },

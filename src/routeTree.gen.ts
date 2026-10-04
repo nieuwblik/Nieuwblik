@@ -19,6 +19,7 @@ import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicCookiesRouteImport } from './routes/_public/cookies'
 import { Route as PublicGratisWebsiteAnalyseRouteImport } from './routes/_public/gratis-website-analyse'
 import { Route as PublicOverOnsRouteImport } from './routes/_public/over-ons'
+import { Route as PublicPrijzenRouteImport } from './routes/_public/prijzen'
 import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
@@ -88,6 +89,11 @@ const PublicGratisWebsiteAnalyseRoute =
 const PublicOverOnsRoute = PublicOverOnsRouteImport.update({
   id: '/over-ons',
   path: '/over-ons',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicPrijzenRoute = PublicPrijzenRouteImport.update({
+  id: '/prijzen',
+  path: '/prijzen',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicPrivacyRoute = PublicPrivacyRouteImport.update({
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof PublicCookiesRoute
   '/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
   '/over-ons': typeof PublicOverOnsRoute
+  '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof PublicCookiesRoute
   '/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
   '/over-ons': typeof PublicOverOnsRoute
+  '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -259,6 +267,7 @@ export interface FileRoutesById {
   '/_public/cookies': typeof PublicCookiesRoute
   '/_public/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
   '/_public/over-ons': typeof PublicOverOnsRoute
+  '/_public/prijzen': typeof PublicPrijzenRoute
   '/_public/privacy': typeof PublicPrivacyRoute
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -292,6 +301,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/gratis-website-analyse'
     | '/over-ons'
+    | '/prijzen'
     | '/privacy'
     | '/reviews'
     | '/seo-enkhuizen'
@@ -321,6 +331,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/gratis-website-analyse'
     | '/over-ons'
+    | '/prijzen'
     | '/privacy'
     | '/reviews'
     | '/seo-enkhuizen'
@@ -352,6 +363,7 @@ export interface FileRouteTypes {
     | '/_public/cookies'
     | '/_public/gratis-website-analyse'
     | '/_public/over-ons'
+    | '/_public/prijzen'
     | '/_public/privacy'
     | '/_public/reviews'
     | '/_public/seo-enkhuizen'
@@ -450,6 +462,13 @@ declare module '@tanstack/react-router' {
       path: '/over-ons'
       fullPath: '/over-ons'
       preLoaderRoute: typeof PublicOverOnsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/prijzen': {
+      id: '/_public/prijzen'
+      path: '/prijzen'
+      fullPath: '/prijzen'
+      preLoaderRoute: typeof PublicPrijzenRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/privacy': {
@@ -597,6 +616,7 @@ interface PublicRouteChildren {
   PublicCookiesRoute: typeof PublicCookiesRoute
   PublicGratisWebsiteAnalyseRoute: typeof PublicGratisWebsiteAnalyseRoute
   PublicOverOnsRoute: typeof PublicOverOnsRoute
+  PublicPrijzenRoute: typeof PublicPrijzenRoute
   PublicPrivacyRoute: typeof PublicPrivacyRoute
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
@@ -626,6 +646,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicCookiesRoute: PublicCookiesRoute,
   PublicGratisWebsiteAnalyseRoute: PublicGratisWebsiteAnalyseRoute,
   PublicOverOnsRoute: PublicOverOnsRoute,
+  PublicPrijzenRoute: PublicPrijzenRoute,
   PublicPrivacyRoute: PublicPrivacyRoute,
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,

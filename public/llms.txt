@@ -7,6 +7,7 @@ Nieuwblik combineert strak design, sterke teksten en moderne technologie. We wer
 ## Diensten
 
 - [Diensten](https://nieuwblik.com/diensten): Overzicht van alle diensten, van website tot SEO en AI-oplossingen.
+- [Prijzen](https://nieuwblik.com/prijzen): De pakketten Starter, Professional en Op maat, met vaste prijs vooraf.
 - [Website op maat](https://nieuwblik.com/diensten/website-op-maat): Maatwerk websites voor het MKB, gebouwd voor snelheid en conversie.
 - [Webshops](https://nieuwblik.com/diensten/webshops): Webshops met Shopify en Stripe, klaar om te verkopen.
 - [E-commerce](https://nieuwblik.com/diensten/e-commerce): E-commerce strategie, van assortiment tot betaalflow.

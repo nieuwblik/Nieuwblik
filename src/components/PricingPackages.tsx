@@ -142,16 +142,6 @@ const PricingPackages = () => {
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${PAD_X}px`, position: "relative", zIndex: 2 }}>
         {/* Heading block */}
         <div style={{ textAlign: "center", marginBottom: isMobile ? 56 : 88 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: EASE }}
-            viewport={{ once: true, margin: "-80px" }}
-            style={{ marginBottom: 24 }}
-          >
-            <span className="sw-mono" style={{ color: GREEN_LIGHT }}>Tarieven</span>
-          </motion.div>
-
           <motion.h2
             initial={{ opacity: 0, y: reduce ? 0 : 24 }}
             whileInView={{ opacity: 1, y: 0 }}

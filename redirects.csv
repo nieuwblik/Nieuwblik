@@ -12,7 +12,6 @@ source_path,target_url,rule_type
 /werkgebied/alkmaar,https://nieuwblik.com/website-laten-maken-alkmaar,redirect
 /webdesign,https://nieuwblik.com/diensten,redirect
 /seo,https://nieuwblik.com/seo-enkhuizen,redirect
-/prijzen,https://nieuwblik.com/website-laten-maken,redirect
 /ecommerce,https://nieuwblik.com/diensten/e-commerce,redirect
 /diensten/ecommerce,https://nieuwblik.com/diensten/e-commerce,redirect
 /listings,https://nieuwblik.com/diensten/e-commerce,redirect
