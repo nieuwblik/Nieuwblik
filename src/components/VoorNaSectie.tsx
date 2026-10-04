@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Reveal from "@/components/Reveal";
+import { FeitKaarten, maakFeitenTijdlijn } from "@/components/voorna/Feiten";
 import { useReducedMotion } from "@/lib/reduced-motion";
 import display1200 from "@/assets/voorna/display-leeg-1200.webp";
 import display2000 from "@/assets/voorna/display-leeg-2000.webp";
@@ -60,6 +61,7 @@ const VoorNaSectie = () => {
   const lamellenRef = useRef<HTMLDivElement>(null);
   const nieuwRef = useRef<HTMLImageElement>(null);
   const greepRef = useRef<HTMLDivElement>(null);
+  const kaartenRef = useRef<HTMLDivElement>(null);
   const bereikRef = useRef<HTMLInputElement>(null);
   const slepen = useRef(false);
   const [focus, setFocus] = useState(false);
@@ -99,20 +101,20 @@ const VoorNaSectie = () => {
       // verdwijnen de lamellen: er verspringt niets. Een tween in plaats van
       // een call, zodat terugscrollen hem ook terugzet.
       const stand = { p: 100 };
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: podium,
-            start: "top top",
-            end: "+=80%",
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            // Vangnet: de load van de afbeelding kan al vóór de hydratatie vallen.
-            onToggle: vulLamellen,
-          },
-        })
+      const hoofd = gsap.timeline({
+        scrollTrigger: {
+          trigger: podium,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          // Vangnet: de load van de afbeelding kan al vóór de hydratatie vallen.
+          onToggle: vulLamellen,
+        },
+      });
+      hoofd
         .fromTo(greepRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
         .fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
         // Alleen transforms (geen clip-path): de lamel zakt, het beeld erin
@@ -137,7 +139,28 @@ const VoorNaSectie = () => {
         )
         .to(laag, { autoAlpha: 0, duration: 0.01 })
         .to(greepRef.current, { autoAlpha: 1, duration: 0.12 })
-        .to({}, { duration: 0.1 });
+        // Rust aan het eind: hier komen de feitenkaarten binnen.
+        .to({}, { duration: 0.4 });
+
+      // De kaarten spelen op hun eigen tempo (niet gekoppeld aan de scroll):
+      // zo tellen de getallen altijd netjes door. Afgespeeld als de lamellen
+      // hangen, terug als je weer omhoog scrollt.
+      const kaarten = kaartenRef.current
+        ? maakFeitenTijdlijn(kaartenRef.current)
+        : null;
+      const klaar = (hoofd.duration() - 0.4) / hoofd.duration();
+      let zichtbaar = false;
+      hoofd.eventCallback("onUpdate", () => {
+        if (!kaarten) return;
+        const p = hoofd.progress();
+        if (p >= klaar && !zichtbaar) {
+          zichtbaar = true;
+          kaarten.timeScale(1).play();
+        } else if (p < klaar - 0.08 && zichtbaar) {
+          zichtbaar = false;
+          kaarten.timeScale(1.8).reverse();
+        }
+      });
 
       // De sectie laadt lazy en de secties erboven ook: als de pagina daarna
       // langer wordt, moeten de scrollposities opnieuw worden gemeten.
@@ -195,157 +218,164 @@ const VoorNaSectie = () => {
           </p>
         </Reveal>
 
-        <div
-          className="relative cursor-ew-resize touch-pan-y select-none"
-          style={{ width: BREEDTE, aspectRatio: "2000 / 1448" }}
-          onPointerDown={omlaag}
-          onPointerMove={beweeg}
-          onPointerUp={los}
-          onPointerCancel={los}
-        >
-          <img
-            src={display2000}
-            srcSet={`${display1200} 1200w, ${display2000} 2000w`}
-            sizes={DISPLAY_SIZES}
-            width={2000}
-            height={1448}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-            className="absolute inset-0 h-full w-full"
-          />
-
-          {/* Het scherm met de sites */}
+        {/* Display met de feitenkaarten eromheen (vanaf lg) of eronder. */}
+        <div ref={kaartenRef} className="relative" style={{ width: BREEDTE }}>
           <div
-            ref={schermRef}
-            className="absolute overflow-hidden bg-black"
-            // Beginwaarde voor --pos al in de HTML; daarna zet zetPos() hem.
-            style={
-              {
-                left: `${SCHERM.links}%`,
-                right: `${100 - SCHERM.rechts}%`,
-                top: `${SCHERM.boven}%`,
-                bottom: `${100 - SCHERM.onder}%`,
-                "--pos": 100,
-              } as CSSProperties
-            }
+            className="relative w-full cursor-ew-resize touch-pan-y select-none"
+            style={{ aspectRatio: "2000 / 1448" }}
+            onPointerDown={omlaag}
+            onPointerMove={beweeg}
+            onPointerUp={los}
+            onPointerCancel={los}
           >
-            {/* Nieuw onderop, oud erboven en rechts weggeknipt. */}
             <img
-              ref={nieuwRef}
-              {...BRON.nieuw}
-              sizes={SCHERM_SIZES}
-              width={2400}
-              height={1342}
-              alt="De nieuwe, moderne website van de yogastudio"
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-              onLoad={vulLamellen}
-              className="absolute inset-0 h-full w-full"
-            />
-            <img
-              {...BRON.oud}
-              sizes={SCHERM_SIZES}
-              width={2400}
-              height={1342}
-              alt="De verouderde website van dezelfde yogastudio"
+              src={display2000}
+              srcSet={`${display1200} 1200w, ${display2000} 2000w`}
+              sizes={DISPLAY_SIZES}
+              width={2000}
+              height={1448}
+              alt=""
               loading="lazy"
               decoding="async"
               draggable={false}
               className="absolute inset-0 h-full w-full"
-              style={{ clipPath: "inset(0 calc(100% - var(--pos) * 1%) 0 0)" }}
             />
 
-            {/* De lamellen: alleen zichtbaar tijdens de overgang. Elke lamel is
-                een verticale strook van de nieuwe site. */}
-            {!reduced && (
-              <div
-                ref={lamellenRef}
-                aria-hidden="true"
-                className="invisible absolute inset-0 z-10"
-              >
-                {LAMELLEN.map((i) => (
-                  <div
-                    key={i}
-                    data-lamel=""
-                    className="absolute inset-y-0 overflow-hidden will-change-transform"
-                    style={{
-                      left: `${(i * 100) / LAMELLEN.length}%`,
-                      width: `calc(${100 / LAMELLEN.length}% + 0.5px)`,
-                    }}
-                  >
-                    {/* Achtergrond in plaats van een img van 1000% breed:
-                        zo blijft elke laag zo groot als zijn strook. */}
-                    <div
-                      data-binnen=""
-                      className="absolute inset-0 bg-no-repeat will-change-transform"
-                      style={{
-                        backgroundSize: `${LAMELLEN.length * 100}% 100%`,
-                        backgroundPosition: `${(i / (LAMELLEN.length - 1)) * 100}% 0%`,
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Labels in de onderhoeken; ze verdwijnen als hun kant bijna dicht is */}
-            <span
-              className="pointer-events-none absolute bottom-2.5 left-2.5 rounded-full bg-black/70 px-3 py-1 text-[11px] font-medium text-white md:text-xs"
-              style={{ opacity: "clamp(0, calc((var(--pos) - 10) / 7), 1)" }}
-            >
-              Oud
-            </span>
-            <span
-              className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-full px-3 py-1 text-[11px] font-medium text-white md:text-xs"
-              style={{
-                background: "hsl(var(--sw-green))",
-                opacity: "clamp(0, calc((90 - var(--pos)) / 7), 1)",
-              }}
-            >
-              Nieuw
-            </span>
-
-            {/* De schuif: een lijn over het scherm met een greep in het midden */}
+            {/* Het scherm met de sites */}
             <div
-              ref={greepRef}
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 z-20 w-0.5 -translate-x-1/2 bg-white"
-              style={{
-                left: "calc(var(--pos) * 1%)",
-                boxShadow:
-                  "0 0 0 1px rgba(0,0,0,0.08), 0 0 18px rgba(0,0,0,0.25)",
-              }}
+              ref={schermRef}
+              className="absolute overflow-hidden bg-black"
+              // Beginwaarde voor --pos al in de HTML; daarna zet zetPos() hem.
+              style={
+                {
+                  left: `${SCHERM.links}%`,
+                  right: `${100 - SCHERM.rechts}%`,
+                  top: `${SCHERM.boven}%`,
+                  bottom: `${100 - SCHERM.onder}%`,
+                  "--pos": 100,
+                } as CSSProperties
+              }
             >
-              <span
-                className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg md:h-12 md:w-12"
+              {/* Nieuw onderop, oud erboven en rechts weggeknipt. */}
+              <img
+                ref={nieuwRef}
+                {...BRON.nieuw}
+                sizes={SCHERM_SIZES}
+                width={2400}
+                height={1342}
+                alt="De nieuwe, moderne website van de yogastudio"
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                onLoad={vulLamellen}
+                className="absolute inset-0 h-full w-full"
+              />
+              <img
+                {...BRON.oud}
+                sizes={SCHERM_SIZES}
+                width={2400}
+                height={1342}
+                alt="De verouderde website van dezelfde yogastudio"
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                className="absolute inset-0 h-full w-full"
                 style={{
-                  color: "hsl(var(--sw-green))",
-                  outline: focus ? "3px solid hsl(var(--sw-green))" : "none",
-                  outlineOffset: 3,
+                  clipPath: "inset(0 calc(100% - var(--pos) * 1%) 0 0)",
+                }}
+              />
+
+              {/* De lamellen: alleen zichtbaar tijdens de overgang. Elke lamel is
+                een verticale strook van de nieuwe site. */}
+              {!reduced && (
+                <div
+                  ref={lamellenRef}
+                  aria-hidden="true"
+                  className="invisible absolute inset-0 z-10"
+                >
+                  {LAMELLEN.map((i) => (
+                    <div
+                      key={i}
+                      data-lamel=""
+                      className="absolute inset-y-0 overflow-hidden will-change-transform"
+                      style={{
+                        left: `${(i * 100) / LAMELLEN.length}%`,
+                        width: `calc(${100 / LAMELLEN.length}% + 0.5px)`,
+                      }}
+                    >
+                      {/* Achtergrond in plaats van een img van 1000% breed:
+                        zo blijft elke laag zo groot als zijn strook. */}
+                      <div
+                        data-binnen=""
+                        className="absolute inset-0 bg-no-repeat will-change-transform"
+                        style={{
+                          backgroundSize: `${LAMELLEN.length * 100}% 100%`,
+                          backgroundPosition: `${(i / (LAMELLEN.length - 1)) * 100}% 0%`,
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Labels in de onderhoeken; ze verdwijnen als hun kant bijna dicht is */}
+              <span
+                className="pointer-events-none absolute bottom-2.5 left-2.5 rounded-full bg-black/70 px-3 py-1 text-[11px] font-medium text-white md:text-xs"
+                style={{ opacity: "clamp(0, calc((var(--pos) - 10) / 7), 1)" }}
+              >
+                Oud
+              </span>
+              <span
+                className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-full px-3 py-1 text-[11px] font-medium text-white md:text-xs"
+                style={{
+                  background: "hsl(var(--sw-green))",
+                  opacity: "clamp(0, calc((90 - var(--pos)) / 7), 1)",
                 }}
               >
-                <ChevronsLeftRight className="h-5 w-5" />
+                Nieuw
               </span>
-            </div>
 
-            {/* Toetsenbord en schermlezers */}
-            <input
-              ref={bereikRef}
-              type="range"
-              min={0}
-              max={100}
-              defaultValue={reduced ? 50 : 100}
-              onInput={(e) => zetPos(Number(e.currentTarget.value))}
-              aria-label="Vergelijk de oude en de nieuwe website"
-              onFocus={() => setFocus(true)}
-              onBlur={() => setFocus(false)}
-              className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
-              style={{ pointerEvents: "none" }}
-            />
+              {/* De schuif: een lijn over het scherm met een greep in het midden */}
+              <div
+                ref={greepRef}
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 z-20 w-0.5 -translate-x-1/2 bg-white"
+                style={{
+                  left: "calc(var(--pos) * 1%)",
+                  boxShadow:
+                    "0 0 0 1px rgba(0,0,0,0.08), 0 0 18px rgba(0,0,0,0.25)",
+                }}
+              >
+                <span
+                  className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg md:h-12 md:w-12"
+                  style={{
+                    color: "hsl(var(--sw-green))",
+                    outline: focus ? "3px solid hsl(var(--sw-green))" : "none",
+                    outlineOffset: 3,
+                  }}
+                >
+                  <ChevronsLeftRight className="h-5 w-5" />
+                </span>
+              </div>
+
+              {/* Toetsenbord en schermlezers */}
+              <input
+                ref={bereikRef}
+                type="range"
+                min={0}
+                max={100}
+                defaultValue={reduced ? 50 : 100}
+                onInput={(e) => zetPos(Number(e.currentTarget.value))}
+                aria-label="Vergelijk de oude en de nieuwe website"
+                onFocus={() => setFocus(true)}
+                onBlur={() => setFocus(false)}
+                className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
+                style={{ pointerEvents: "none" }}
+              />
+            </div>
           </div>
+
+          <FeitKaarten />
         </div>
 
         <p
