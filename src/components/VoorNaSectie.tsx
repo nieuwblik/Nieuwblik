@@ -2,16 +2,16 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import { ChevronsLeftRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { useReducedMotion } from "@/lib/reduced-motion";
-import oud1200 from "@/assets/voorna/imac-oud-1200.webp";
-import oud2000 from "@/assets/voorna/imac-oud-2000.webp";
-import nieuw1200 from "@/assets/voorna/imac-nieuw-1200.webp";
-import nieuw2000 from "@/assets/voorna/imac-nieuw-2000.webp";
+import oud1200 from "@/assets/voorna/display-oud-1200.webp";
+import oud2000 from "@/assets/voorna/display-oud-2000.webp";
+import nieuw1200 from "@/assets/voorna/display-nieuw-1200.webp";
+import nieuw2000 from "@/assets/voorna/display-nieuw-2000.webp";
 
 /*
- * Voor en na: dezelfde iMac twee keer, met links de verouderde en rechts de
+ * Voor en na: hetzelfde Studio Display twee keer, met links de verouderde en rechts de
  * nieuwe website van een (fictief) bouwbedrijf. De twee beelden zijn op het
- * scherm na pixel voor pixel gelijk (één Higgsfield-mockup, met beide
- * schermbeelden er los in gezet), dus alleen het scherm verandert onder de
+ * scherm na pixel voor pixel gelijk (één Higgsfield-mockup in 4K, met beide
+ * schermbeelden er los in gezet en de achtergrond glad op #f5f5f5), dus alleen het scherm verandert onder de
  * schuif. De schuif loopt alleen over het scherm.
  *
  * Bediening: slepen (muis en touch) of het onzichtbare bereikveld met de
@@ -19,14 +19,11 @@ import nieuw2000 from "@/assets/voorna/imac-nieuw-2000.webp";
  * helemaal oud naar het midden, zodat je ziet dat er iets te schuiven valt.
  */
 
-// Het scherm in de uitsnede, in procenten van het beeld (2700×1950 bron).
-const SCHERM = { links: 9.2, rechts: 90.8, boven: 7.6, onder: 63.7 };
+// Het scherm in de uitsnede, in procenten van het beeld (2900×2100 bron).
+const SCHERM = { links: 6.83, rechts: 93.14, boven: 7.05, onder: 73.71 };
 const ACHTERGROND = "#f5f5f5";
 const SRC_SET = (klein: string, groot: string) => `${klein} 1200w, ${groot} 2000w`;
 const SIZES = "(min-width: 1280px) 1100px, 92vw";
-
-const VERVAAG =
-  "linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 4%, #000 94%, transparent 100%)";
 
 const klem = (v: number) => Math.min(SCHERM.rechts, Math.max(SCHERM.links, v));
 
@@ -124,16 +121,7 @@ const VoorNaSectie = () => {
             <div
               ref={vlakRef}
               className="relative cursor-ew-resize touch-pan-y select-none"
-              style={{
-                aspectRatio: "2000 / 1444",
-                // De fotoachtergrond wijkt een tint af van #f5f5f5; de randen
-                // vloeien daarom weg in de sectie (alleen achtergrond, de iMac
-                // valt erbinnen).
-                maskImage: VERVAAG,
-                WebkitMaskImage: VERVAAG,
-                maskComposite: "intersect",
-                WebkitMaskComposite: "source-in",
-              }}
+              style={{ aspectRatio: "2000 / 1448" }}
               onPointerDown={omlaag}
               onPointerMove={beweeg}
               onPointerUp={los}
@@ -145,8 +133,8 @@ const VoorNaSectie = () => {
                 srcSet={SRC_SET(nieuw1200, nieuw2000)}
                 sizes={SIZES}
                 width={2000}
-                height={1444}
-                alt="Dezelfde iMac met de nieuwe, moderne website van het bouwbedrijf"
+                height={1448}
+                alt="Hetzelfde beeldscherm met de nieuwe, moderne website van het bouwbedrijf"
                 loading="lazy"
                 decoding="async"
                 draggable={false}
@@ -157,8 +145,8 @@ const VoorNaSectie = () => {
                 srcSet={SRC_SET(oud1200, oud2000)}
                 sizes={SIZES}
                 width={2000}
-                height={1444}
-                alt="iMac met de verouderde website van een bouwbedrijf"
+                height={1448}
+                alt="Beeldscherm met de verouderde website van een bouwbedrijf"
                 loading="lazy"
                 decoding="async"
                 draggable={false}
@@ -166,12 +154,12 @@ const VoorNaSectie = () => {
                 style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
               />
 
-              {/* Labels in de bovenhoeken van het scherm */}
+              {/* Labels in de onderhoeken van het scherm (bovenin zit de navigatie van de sites) */}
               <span
                 className="pointer-events-none absolute rounded-full bg-black/70 px-3 py-1 text-[11px] font-medium text-white transition-opacity duration-300 md:text-xs"
                 style={{
                   left: `calc(${SCHERM.links}% + 10px)`,
-                  top: `calc(${SCHERM.boven}% + 10px)`,
+                  bottom: `calc(${100 - SCHERM.onder}% + 10px)`,
                   opacity: pos - SCHERM.links > 14 ? 1 : 0,
                 }}
               >
@@ -181,7 +169,7 @@ const VoorNaSectie = () => {
                 className="pointer-events-none absolute rounded-full px-3 py-1 text-[11px] font-medium text-white transition-opacity duration-300 md:text-xs"
                 style={{
                   right: `calc(${100 - SCHERM.rechts}% + 10px)`,
-                  top: `calc(${SCHERM.boven}% + 10px)`,
+                  bottom: `calc(${100 - SCHERM.onder}% + 10px)`,
                   background: "hsl(var(--sw-green))",
                   opacity: SCHERM.rechts - pos > 14 ? 1 : 0,
                 }}

@@ -175,7 +175,7 @@ const Index = () => {
     <Suspense fallback={<div className="min-h-[600px]" />}>
       <SearchVisibility />
     </Suspense>
-    {/* Voor en na: oude en nieuwe website op dezelfde iMac (prijzen staan op /prijzen) */}
+    {/* Voor en na: oude en nieuwe website op hetzelfde beeldscherm (prijzen staan op /prijzen) */}
     <Suspense fallback={<div className="min-h-[600px]" style={{ background: "#f5f5f5" }} />}>
       <VoorNaSectie />
     </Suspense>
