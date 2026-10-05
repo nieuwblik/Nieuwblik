@@ -35,8 +35,15 @@ function cachebaar(request: Request, url: URL): boolean {
   return !/^\/(admin|api|_server|_serverFn)(\/|$)/.test(url.pathname);
 }
 
-const cacheSleutel = (url: URL) =>
-  new Request(`https://edge-cache.nieuwblik/${BUILD_ID}${url.pathname}${url.search}`);
+// Sleutel onder het eigen domein: Cloudflare bewaart in productie niets onder
+// een hostnaam die niet bij de zone hoort (lokaal in Wrangler wel, vandaar).
+// De build-id zit als query in de sleutel, zodat een nieuwe publicatie leeg start.
+const cacheSleutel = (url: URL) => {
+  const sleutel = new URL(url.pathname, url.origin);
+  sleutel.search = url.search;
+  sleutel.searchParams.set("__build", BUILD_ID ?? "");
+  return new Request(sleutel.toString());
+};
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
