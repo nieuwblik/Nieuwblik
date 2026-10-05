@@ -16,7 +16,8 @@ export const companyInfo = {
     country: "NL",
     countryName: "Nederland",
     full: "De Trompet 18H, 1601 MK Enkhuizen",
-    googleMapsUrl: "https://www.google.com/maps/dir//De+Trompet+18H,+1601+MK+Enkhuizen/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x47c8a3932165dee3:0xecaa07e808a362fc?sa=X&ved=1t:707&ictx=111"
+    // Het Google Bedrijfsprofiel zelf (met routeknop en reviews), niet alleen het gebouw.
+    googleMapsUrl: "https://www.google.com/maps?cid=3817182585058649266"
   },
   
   // Legal identifiers
@@ -69,8 +70,10 @@ export const organizationJsonLd = {
     contactType: "customer service",
     availableLanguage: ["Dutch", "English"],
   },
+  // Het Google Bedrijfsprofiel erbij: zo koppelt Google site en profiel.
   sameAs: [
     companyInfo.social.linkedin,
+    companyInfo.address.googleMapsUrl,
   ],
   // Dutch business identifiers
   taxID: companyInfo.btw,
@@ -170,8 +173,11 @@ export const localBusinessJsonLd = {
       },
     ],
   },
+  // Het Google Bedrijfsprofiel erbij: zo koppelt Google site en profiel.
   sameAs: [
     companyInfo.social.linkedin,
+    companyInfo.address.googleMapsUrl,
   ],
+  hasMap: companyInfo.address.googleMapsUrl,
 };
 

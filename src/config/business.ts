@@ -14,15 +14,14 @@ export const REVIEWS = {
   /** Gemiddelde op Google. */
   score: 5,
   scoreLabel: "5,0",
-  // TODO(Justin): echt aantal Google-reviews aanleveren. "19+" is de tekst die
-  // op de homepage stond en is niet gecontroleerd.
-  aantalLabel: "19+",
+  /** Aantal Google-reviews, gecontroleerd op het profiel op 05-10-2026. */
+  aantalLabel: "19",
   /**
-   * Google Bedrijfsprofiel van Nieuwblik. De CID komt uit de place-ID in
-   * companyInfo.address.googleMapsUrl (0x…:0xecaa07e808a362fc), omgerekend
-   * naar decimaal.
+   * Google Bedrijfsprofiel van Nieuwblik (place 0x47c8a310c36365c7:0x34f95b56393a64b2,
+   * CID decimaal). De oude CID 17053451632150536956 was het gebouw De Trompet 18H,
+   * niet het bedrijf: wie op "Google-reviews" klikte, zag de reviews niet.
    */
-  profielUrl: "https://www.google.com/maps?cid=17053451632150536956",
+  profielUrl: "https://www.google.com/maps?cid=3817182585058649266",
 } as const;
 
 export const PRIJZEN = {
