@@ -33,7 +33,7 @@ const SCHERM = { links: 6.83, rechts: 93.14, boven: 7.05, onder: 73.71 };
 const ACHTERGROND = "#f5f5f5";
 const DISPLAY_SIZES = "(min-width: 1280px) 1100px, 92vw";
 const SCHERM_SIZES = "(min-width: 1280px) 950px, 80vw";
-// Breedte van het display: past altijd met kop en bijschrift in één schermhoogte.
+// Breedte van het display: past altijd met de kop in één schermhoogte.
 const BREEDTE = "min(1100px, 92vw, calc((100svh - 300px) * 1.381))";
 
 // Aantal lamellen, en hun beeld: de nieuwe site als achtergrond. image-set
@@ -247,13 +247,6 @@ const VoorNaSectie = () => {
 
           <FeitKaarten />
         </div>
-
-        <p
-          className="mt-5 text-center text-sm"
-          style={{ color: "hsl(var(--sw-ink) / 0.5)" }}
-        >
-          Voorbeeld met een fictieve yogastudio
-        </p>
       </div>
     </section>
   );

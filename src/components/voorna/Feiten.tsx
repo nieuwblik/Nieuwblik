@@ -178,6 +178,7 @@ const THEMA: CSSProperties[] = [
     "--k-accent": "hsl(160 70% 58%)",
     "--k-spoor": "hsl(160 70% 58% / 0.22)",
     "--k-naald": "#fff",
+    "--k-chip": "hsl(160 70% 58% / 0.12)",
   } as CSSProperties,
   {
     background: "hsl(160 70% 58%)",
@@ -189,6 +190,7 @@ const THEMA: CSSProperties[] = [
     "--k-accent": "hsl(160 84% 12%)",
     "--k-spoor": "hsl(160 84% 12% / 0.2)",
     "--k-naald": "hsl(160 84% 9%)",
+    "--k-chip": "rgb(255 255 255 / 0.35)",
   } as CSSProperties,
   {
     background: "hsl(155 45% 94%)",
@@ -200,37 +202,63 @@ const THEMA: CSSProperties[] = [
     "--k-accent": "hsl(var(--sw-green))",
     "--k-spoor": "hsl(var(--sw-green) / 0.16)",
     "--k-naald": "hsl(var(--sw-ink))",
+    "--k-chip": "#fff",
   } as CSSProperties,
 ];
 
+/** Eigen karakter per kaart: de mintgroene hangt er als sticker iets schuin bij. */
+const STIJL = ["", "lg:-rotate-2", ""];
+
 export function FeitKaarten() {
   return (
-    <ul className="mt-4 grid grid-cols-3 gap-2 lg:pointer-events-none lg:absolute lg:inset-0 lg:mt-0 lg:block">
+    <ul className="mt-5 grid grid-cols-3 gap-2 sm:gap-3 lg:pointer-events-none lg:absolute lg:inset-0 lg:mt-0 lg:block">
       {FEITEN.map((f, i) => (
         <li
           key={f.icoon}
           data-feit={i}
-          className={`rounded-xl border p-2.5 shadow-[0_22px_50px_-24px_rgba(0,0,0,0.45)] sm:p-3 lg:absolute lg:z-30 lg:w-[220px] lg:rounded-2xl lg:p-4 ${PLEK[i]}`}
+          className={`flex flex-col rounded-2xl border p-3 shadow-[0_24px_50px_-26px_rgba(0,0,0,0.5)] sm:p-4 lg:absolute lg:z-30 lg:w-[232px] lg:rounded-[22px] lg:p-5 ${PLEK[i]} ${STIJL[i]}`}
           style={THEMA[i]}
         >
-          <div className="mb-2 hidden h-10 w-10 lg:block">
-            <IcoonSvg soort={f.icoon} />
+          {/* Getal groot, het icoon als infographic in een eigen rondje. */}
+          <div className="flex flex-col-reverse items-start gap-2 sm:flex-row sm:justify-between">
+            <p
+              data-getal=""
+              className="whitespace-nowrap text-[1.375rem] font-bold tabular-nums tracking-tighter sm:text-3xl lg:text-[2.6rem]"
+              style={{ lineHeight: 0.95, color: "var(--k-getal)" }}
+            >
+              {getal(f, f.waarde)}
+            </p>
+            <span
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-full sm:h-10 sm:w-10 lg:h-12 lg:w-12"
+              style={{ background: "var(--k-chip)" }}
+            >
+              <span className="h-6 w-6 sm:h-7 sm:w-7 lg:h-9 lg:w-9">
+                <IcoonSvg soort={f.icoon} />
+              </span>
+            </span>
           </div>
           <p
-            data-getal=""
-            className="text-lg font-bold tabular-nums tracking-tight sm:text-xl lg:text-3xl"
-            style={{ lineHeight: 1.05, color: "var(--k-getal)" }}
-          >
-            {getal(f, f.waarde)}
-          </p>
-          <p
-            className="mt-1 text-[11px] leading-snug sm:text-xs lg:text-sm"
+            className="mt-2 text-[11px] leading-snug sm:text-[13px] lg:mt-3 lg:text-sm"
             style={{ color: "var(--k-tekst)" }}
           >
             {f.tekst}
           </p>
+          {/* 53%: een balk die tot zijn waarde volloopt. */}
+          {f.icoon === "meter" && (
+            <span
+              aria-hidden="true"
+              className="mt-3 block h-1.5 overflow-hidden rounded-full"
+              style={{ background: "var(--k-spoor)" }}
+            >
+              <span
+                data-balk=""
+                className="block h-full rounded-full"
+                style={{ width: `${f.waarde}%`, background: "var(--k-accent)" }}
+              />
+            </span>
+          )}
           <p
-            className="mt-1.5 text-[10px] leading-tight lg:text-[11px]"
+            className="mt-auto pt-2.5 text-[10px] leading-tight lg:text-[11px]"
             style={{ color: "var(--k-bron)" }}
           >
             Bron: {f.bron}
@@ -307,17 +335,24 @@ export function maakFeitenTijdlijn(root: HTMLElement) {
         { strokeDashoffset: 1 },
         { strokeDashoffset: 0.47, duration: 1.3, ease: "power3.out" },
         start + 0.1,
-      ).fromTo(
-        q("[data-naald]"),
-        { rotation: -90 },
-        {
-          rotation: METER_HOEK,
-          svgOrigin: "20 28",
-          duration: 1.3,
-          ease: "back.out(1.6)",
-        },
-        start + 0.1,
-      );
+      )
+        .fromTo(
+          q("[data-naald]"),
+          { rotation: -90 },
+          {
+            rotation: METER_HOEK,
+            svgOrigin: "20 28",
+            duration: 1.3,
+            ease: "back.out(1.6)",
+          },
+          start + 0.1,
+        )
+        .fromTo(
+          q("[data-balk]"),
+          { scaleX: 0, transformOrigin: "0% 50%" },
+          { scaleX: 1, duration: 1.3, ease: "power3.out" },
+          start + 0.15,
+        );
     } else if (f.icoon === "staven") {
       tl.fromTo(
         q("[data-staaf]"),
