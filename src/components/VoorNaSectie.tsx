@@ -19,13 +19,13 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
  * de verouderde en de nieuwe website van een (fictieve) yogastudio. Display en
  * sites zijn losse lagen, zodat alleen het scherm verandert.
  *
- * Animatie (GSAP ScrollTrigger, gekoppeld aan de scroll, ook terug):
- *  1. De sectie staat kort vast; de nieuwe site valt in tien verticale
- *     lamellen van links naar rechts over de oude heen, als een jaloezie.
- *  2. Tijdens die overgang poppen drie feitenkaarten op, één keer (zie
- *     voorna/Feiten).
- * Met prefers-reduced-motion: geen vastzetten of lamellen, meteen de nieuwe
- * site en de kaarten.
+ * Animatie (GSAP, één keer zodra het display goed in beeld is, niet
+ * vastgezet en niet gekoppeld aan de scroll):
+ *  1. De nieuwe site valt in tien verticale lamellen van links naar rechts
+ *     over de oude heen, als een jaloezie.
+ *  2. Tijdens die overgang poppen drie feitenkaarten op (zie voorna/Feiten).
+ * Met prefers-reduced-motion: geen lamellen, meteen de nieuwe site en de
+ * kaarten.
  */
 
 // Het scherm in het displaybeeld, in procenten (2900×2100 bron).
@@ -47,7 +47,7 @@ const BRON = {
 const VoorNaSectie = () => {
   const reduced = useReducedMotion();
   const sectieRef = useRef<HTMLElement>(null);
-  const podiumRef = useRef<HTMLDivElement>(null);
+  const displayRef = useRef<HTMLDivElement>(null);
   const lamellenRef = useRef<HTMLDivElement>(null);
   const nieuwRef = useRef<HTMLImageElement>(null);
   const oudRef = useRef<HTMLDivElement>(null);
@@ -67,31 +67,29 @@ const VoorNaSectie = () => {
   useGSAP(
     () => {
       if (reduced) return;
-      const podium = podiumRef.current;
+      const display = displayRef.current;
       const laag = lamellenRef.current;
-      if (!podium || !laag) return;
+      if (!display || !laag) return;
       const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
       if (nieuwRef.current?.complete) vulLamellen();
 
-      // Als alle lamellen hangen, verdwijnen de oude site en de lamellen
-      // tegelijk: er verspringt niets.
-      const hoofd = gsap.timeline({
+      // Eén keer afspelen, op een vast tempo, zodra het display goed in beeld
+      // is (zijn midden op 70% van het venster). Geen vastzetten: het scrollen
+      // loopt gewoon door. Wie de pagina al voorbij die plek opent, krijgt de
+      // animatie meteen.
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: podium,
-          start: "top top",
-          end: "+=85%",
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          // Vangnet: de load van de afbeelding kan al vóór de hydratatie vallen.
-          onToggle: vulLamellen,
+          trigger: display,
+          start: "center 70%",
+          toggleActions: "play none none none",
+          once: true,
         },
       });
-      hoofd
+      tl
+        // Vangnet: de load van de afbeelding kan al vóór de hydratatie vallen.
+        .add(vulLamellen, 0)
         .fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
-        .fromTo(oudRef.current, { autoAlpha: 1 }, { autoAlpha: 1 }, 0)
         .fromTo(nieuwLabelRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
         // Alleen transforms (geen clip-path): de lamel zakt, het beeld erin
         // gaat even ver omhoog en staat dus stil. Dat rekent de GPU, zonder
@@ -99,33 +97,26 @@ const VoorNaSectie = () => {
         .fromTo(
           lamellen,
           { yPercent: -100 },
-          { yPercent: 0, duration: 0.55, ease: "power2.inOut", stagger: 0.06 },
-          0.02,
+          { yPercent: 0, duration: 0.7, ease: "power3.inOut", stagger: 0.07 },
+          0.05,
         )
         .fromTo(
           binnen,
           { yPercent: 100 },
-          { yPercent: 0, duration: 0.55, ease: "power2.inOut", stagger: 0.06 },
-          0.02,
+          { yPercent: 0, duration: 0.7, ease: "power3.inOut", stagger: 0.07 },
+          0.05,
         )
-        .to(oudRef.current, { autoAlpha: 0, duration: 0.01 })
-        .to(laag, { autoAlpha: 0, duration: 0.01 }, "<")
-        .to(nieuwLabelRef.current, { autoAlpha: 1, duration: 0.1 })
-        .to({}, { duration: 0.15 });
+        // Als alle lamellen hangen, verdwijnen de oude site en de lamellen
+        // tegelijk: er verspringt niets.
+        .set(oudRef.current, { autoAlpha: 0 })
+        .set(laag, { autoAlpha: 0 })
+        .to(nieuwLabelRef.current, { autoAlpha: 1, duration: 0.3 });
 
-      // De kaarten poppen op terwijl de lamellen vallen, op hun eigen tempo
-      // (niet gekoppeld aan de scroll, zodat de getallen netjes doortellen).
-      // Eén keer: terugscrollen laat ze gewoon staan.
-      const kaarten = kaartenRef.current
-        ? maakFeitenTijdlijn(kaartenRef.current)
-        : null;
-      const KAARTEN_VANAF = 0.18; // ongeveer als de derde lamel valt
-      const opUpdate = () => {
-        if (!kaarten || hoofd.time() < KAARTEN_VANAF) return;
-        kaarten.play();
-        hoofd.eventCallback("onUpdate", null);
-      };
-      hoofd.eventCallback("onUpdate", opUpdate);
+      // De kaarten poppen op terwijl de lamellen vallen (ongeveer bij de
+      // derde lamel), elk op hun eigen manier.
+      if (kaartenRef.current) {
+        tl.add(maakFeitenTijdlijn(kaartenRef.current).paused(false), 0.35);
+      }
 
       // De sectie laadt lazy en de secties erboven ook: als de pagina daarna
       // langer wordt, moeten de scrollposities opnieuw worden gemeten.
@@ -145,10 +136,7 @@ const VoorNaSectie = () => {
 
   return (
     <section ref={sectieRef} style={{ background: ACHTERGROND }}>
-      <div
-        ref={podiumRef}
-        className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-14 sm:px-6"
-      >
+      <div className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-14 sm:px-6">
         <Reveal afstand={20} className="mb-8 text-center md:mb-10">
           <h2
             className="mx-auto max-w-4xl text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl"
@@ -169,6 +157,7 @@ const VoorNaSectie = () => {
         {/* Display met de feitenkaarten eromheen (vanaf lg) of eronder. */}
         <div ref={kaartenRef} className="relative" style={{ width: BREEDTE }}>
           <div
+            ref={displayRef}
             className="relative w-full"
             style={{ aspectRatio: "2000 / 1448" }}
           >
