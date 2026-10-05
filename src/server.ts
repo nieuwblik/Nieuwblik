@@ -5,46 +5,6 @@ import { renderErrorPage } from "./lib/error-page";
 import { findRedirect } from "./config/redirects";
 import { SITE_URL } from "./config/site";
 
-// Uniek per build (vite.config.ts). Ontbreekt hij, dan cachen we niets.
-declare const __BUILD_ID__: string | undefined;
-const BUILD_ID = typeof __BUILD_ID__ === "string" ? __BUILD_ID__ : undefined;
-
-/*
- * Edge-cache voor de SSR-HTML. De pagina's zijn voor iedere bezoeker gelijk,
- * maar werden bij elk verzoek opnieuw gerenderd (±0,5-0,9 s wachttijd, ook voor
- * Googlebot). Nu bewaart Cloudflare de HTML maximaal een uur per datacenter.
- * De sleutel bevat de build-id: na elke publicatie start de cache leeg, dus
- * nooit oude HTML die naar verdwenen JS-bestanden verwijst.
- * Alleen GET, status 200, text/html, zonder autorisatie, en nooit voor /admin
- * of serverfuncties.
- */
-const EDGE_TTL = 3600;
-type EdgeCache = {
-  match: (key: Request) => Promise<Response | undefined>;
-  put: (key: Request, response: Response) => Promise<void>;
-};
-const edgeCache = (): EdgeCache | undefined =>
-  (globalThis as { caches?: { default?: EdgeCache } }).caches?.default;
-
-function cachebaar(request: Request, url: URL): boolean {
-  if (!BUILD_ID || request.method !== "GET") return false;
-  // Cookies tellen niet: de SSR leest ze nergens (inloggen gaat via de
-  // authorization-header en localStorage), en anders sloeg iedereen met een
-  // analytics- of toestemmingscookie de cache over.
-  if (request.headers.has("authorization")) return false;
-  return !/^\/(admin|api|_server|_serverFn)(\/|$)/.test(url.pathname);
-}
-
-// Sleutel onder het eigen domein: Cloudflare bewaart in productie niets onder
-// een hostnaam die niet bij de zone hoort (lokaal in Wrangler wel, vandaar).
-// De build-id zit als query in de sleutel, zodat een nieuwe publicatie leeg start.
-const cacheSleutel = (url: URL) => {
-  const sleutel = new URL(url.pathname, url.origin);
-  sleutel.search = url.search;
-  sleutel.searchParams.set("__build", BUILD_ID ?? "");
-  return new Request(sleutel.toString());
-};
-
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
@@ -110,50 +70,10 @@ export default {
       }
     }
 
-    const url = new URL(request.url);
-    const cache = cachebaar(request, url) ? edgeCache() : undefined;
-    if (cache) {
-      try {
-        const bewaard = await cache.match(cacheSleutel(url));
-        if (bewaard) {
-          const antwoord = new Response(bewaard.body, bewaard);
-          antwoord.headers.set("cache-control", "no-cache, must-revalidate, max-age=0");
-          antwoord.headers.set("x-edge-cache", "HIT");
-          return antwoord;
-        }
-      } catch {
-        // Cache niet beschikbaar: gewoon renderen.
-      }
-    }
-
     try {
       const handler = await getServerEntry();
-      const response = await normalizeCatastrophicSsrResponse(
-        await handler.fetch(request, env, ctx),
-      );
-      if (
-        cache &&
-        response.status === 200 &&
-        (response.headers.get("content-type") ?? "").includes("text/html") &&
-        !response.headers.has("set-cookie")
-      ) {
-        // De HTML eerst helemaal ophalen en opslaan, dan pas antwoorden: Nitro
-        // geeft geen ctx (dus geen waitUntil) door, en zonder wachten breekt de
-        // worker het opslaan af. Alleen de eerste aanvraag per uur wacht dus
-        // op de volledige render; daarna komt alles uit de cache.
-        const html = await response.text();
-        const opTeSlaan = new Response(html, response);
-        opTeSlaan.headers.set("cache-control", `public, max-age=${EDGE_TTL}`);
-        try {
-          await cache.put(cacheSleutel(url), opTeSlaan);
-        } catch {
-          // Niet opgeslagen: volgende keer opnieuw renderen.
-        }
-        const uit = new Response(html, response);
-        uit.headers.set("x-edge-cache", "MISS");
-        return uit;
-      }
-      return response;
+      const response = await handler.fetch(request, env, ctx);
+      return await normalizeCatastrophicSsrResponse(response);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
