@@ -181,7 +181,7 @@ const Contact = () => {
 
                   <p className="mt-8 flex items-center gap-2.5 text-sm text-white/65">
                     <span aria-hidden="true" className="h-2 w-2 rounded-full" style={{ background: "hsl(160 70% 58%)" }} />
-                    Beschikbaar ma-vr van 9:00 - 18:00 uur
+                    Beschikbaar ma-vr van 7:30 tot 18:00 uur
                   </p>
                 </div>
               </div>
