@@ -1,4 +1,5 @@
 import { SITE_URL } from "./site";
+import { PRIJZEN } from "./business";
 
 // Centralized company information for Nieuwblik
 // Used across Footer, legal pages, and structured data
@@ -39,7 +40,7 @@ export const companyInfo = {
   foundingDate: "2023",
   
   // Description
-  description: "Professioneel webdesign bureau in Enkhuizen. Wij creëren websites en designs die emotie wekken, conversies stimuleren en je bedrijf naar nieuwe hoogtes tillen.",
+  description: `Webdesign bureau in Enkhuizen. Websites en webshops op maat die snel laden en vindbaar zijn in Google én ChatGPT. Persoonlijk contact, vanaf €${PRIJZEN.starter}.`,
   slogan: "Digitale groei begint hier",
 };
 

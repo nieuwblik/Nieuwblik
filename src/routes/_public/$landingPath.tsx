@@ -4,6 +4,7 @@ import LandingRouter from "@/pages/LandingRouter";
 import NotFound from "@/pages/NotFound";
 import { getCityBySlug } from "@/data/cities";
 import { getCityLokaal } from "@/data/cityLokaal";
+import { getLandingMeta } from "@/data/landingMeta";
 import { getIndustryBySlug } from "@/data/industries";
 import { buildHead } from "@/lib/seo";
 import { companyInfo } from "@/config/company";
@@ -31,17 +32,19 @@ export const Route = createFileRoute("/_public/$landingPath")({
       if (city) {
         // Handgeschreven tekst per stad gaat voor op de gegenereerde data.
         const lokaal = getCityLokaal(slug);
+        const meta = getLandingMeta(slug);
         return buildHead({
-          title: lokaal?.title ?? city.title,
-          description: lokaal?.metaDescription ?? city.metaDescription,
+          title: lokaal?.title ?? meta?.title ?? city.title,
+          description: lokaal?.metaDescription ?? meta?.metaDescription ?? city.metaDescription,
           canonical: `${companyInfo.url}/${PREFIX}${slug}`,
         });
       }
       const industry = getIndustryBySlug(slug);
       if (industry) {
+        const meta = getLandingMeta(slug);
         return buildHead({
-          title: industry.title,
-          description: industry.metaDescription,
+          title: meta?.title ?? industry.title,
+          description: meta?.metaDescription ?? industry.metaDescription,
           canonical: `${companyInfo.url}/${PREFIX}${slug}`,
         });
       }

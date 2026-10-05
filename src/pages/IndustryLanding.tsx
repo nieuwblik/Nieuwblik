@@ -1,5 +1,6 @@
 import { kiesCases } from "@/lib/cases";
 import { PRIJZEN } from "@/config/business";
+import { getLandingMeta } from "@/data/landingMeta";
 import { Link } from "@/lib/router-compat";
 import NotFound from "./NotFound";
 import { ArrowRight } from "lucide-react";
@@ -29,8 +30,9 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
   // Hand-authored per branche in industries.ts — unique per record, unlike the
   // old rotating 3-template generator (which caused ~14/30 industry pages to
   // share a near-identical meta description).
-  const seoTitle = industry.title;
-  const seoDescription = industry.metaDescription;
+  const meta = getLandingMeta(industry.slug);
+  const seoTitle = meta?.title ?? industry.title;
+  const seoDescription = meta?.metaDescription ?? industry.metaDescription;
   const extra = getIndustryExtra(industry.slug);
   // De cases die bij deze branche horen eerst, aangevuld tot zes.
   const branchProjects = kiesCases(extra?.relevantCaseSlugs ?? []);

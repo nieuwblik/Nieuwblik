@@ -11,6 +11,7 @@ import BenefitList from "@/components/BenefitList";
 import LandingFaq from "@/components/LandingFaq";
 import { faqPage } from "@/lib/structured-data";
 import { getCityLokaal } from "@/data/cityLokaal";
+import { getLandingMeta } from "@/data/landingMeta";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { AnimatedButton } from "@/components/ui/animated-button";
@@ -50,8 +51,9 @@ const CityLanding = ({ slug }: { slug: string }) => {
   // gegenereerde data in cities.ts. Staat een stad daar nog niet in, dan blijft
   // alles precies zoals het was.
   const lokaal = getCityLokaal(city.slug);
-  const seoTitle = lokaal?.title ?? city.title;
-  const seoDescription = lokaal?.metaDescription ?? city.metaDescription;
+  const meta = getLandingMeta(city.slug);
+  const seoTitle = lokaal?.title ?? meta?.title ?? city.title;
+  const seoDescription = lokaal?.metaDescription ?? meta?.metaDescription ?? city.metaDescription;
   const extra = getCityExtra(city.slug);
   const nearbyCities = (extra?.nearby ?? [])
     .map((s) => getCityBySlug(s))
