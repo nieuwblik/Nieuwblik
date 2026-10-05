@@ -49,7 +49,7 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
       onMouseEnter={(e) => roll(e.currentTarget, -100)}
       onMouseLeave={(e) => roll(e.currentTarget, 0)}
     >
-      <Link to={`/portfolio/${slug}`} aria-label={`Bekijk de case: ${title}`} className="block">
+      <Link to={`/portfolio/${slug}`} aria-label={`${title}: bekijk de case`} className="block">
         {/* Image */}
         <div
           className="relative overflow-hidden rounded-2xl aspect-[16/10]"

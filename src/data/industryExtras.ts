@@ -88,7 +88,11 @@ export const industryExtras: IndustryExtra[] = [
       "Duidelijke informatie over vergoeding en verzekering",
       "Patiëntervaringen en praktijkinformatie",
     ],
-    relevantCaseSlugs: ["jord-de-boer-osteopathie", "quantum-rehab-europe", "danique-kwakman"],
+    relevantCaseSlugs: [
+      "jord-de-boer-osteopathie",
+      "quantum-rehab-europe",
+      "danique-kwakman",
+    ],
   },
   {
     slug: "accountant",
@@ -268,7 +272,11 @@ export const industryExtras: IndustryExtra[] = [
       "Laagdrempelig contact- of intakeformulier",
       "Persoonlijke kennismaking met de therapeut",
     ],
-    relevantCaseSlugs: ["jord-de-boer-osteopathie", "danique-kwakman", "puur-in-harmonie"],
+    relevantCaseSlugs: [
+      "jord-de-boer-osteopathie",
+      "danique-kwakman",
+      "puur-in-harmonie",
+    ],
   },
   {
     slug: "horecabedrijf",
@@ -358,7 +366,11 @@ export const industryExtras: IndustryExtra[] = [
       "Overzicht van lidmaatschappen en tarieven",
       "Sfeerbeelden en video's van de sportschool",
     ],
-    relevantCaseSlugs: ["vv-madjoe", "casper-nieskens-pt", "karate-school-cor-slok"],
+    relevantCaseSlugs: [
+      "vv-madjoe",
+      "casper-nieskens-pt",
+      "karate-school-cor-slok",
+    ],
   },
   {
     slug: "boekhouder",
@@ -512,11 +524,18 @@ const INDUSTRY_CATEGORY: Record<string, string> = {
 
 // Deterministic (array order, not random) — same slug always returns the
 // same related branches.
+// De branches die na deze in dezelfde categorie komen, rondlopend. Met
+// .slice(0, count) kregen de eerste drie van elke categorie alle links en de
+// rest geen enkele; zo wordt elke branche door zijn voorgangers gelinkt.
 export const getRelatedIndustrySlugs = (slug: string, count = 3): string[] => {
   const category = INDUSTRY_CATEGORY[slug];
   if (!category) return [];
-  return industryExtras
+  const groep = industryExtras
     .map((e) => e.slug)
-    .filter((s) => s !== slug && INDUSTRY_CATEGORY[s] === category)
-    .slice(0, count);
+    .filter((s) => INDUSTRY_CATEGORY[s] === category);
+  const plek = groep.indexOf(slug);
+  return Array.from(
+    { length: Math.min(count, groep.length - 1) },
+    (_, i) => groep[(plek + 1 + i) % groep.length]!,
+  );
 };

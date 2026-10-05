@@ -477,6 +477,8 @@ export default function UnderlayNav({
               <img
                 src={logoSrc}
                 alt="Nieuwblik"
+                width={400}
+                height={113}
                 className="w-full h-auto"
                 draggable={false}
                 // Raster logo: brightness(0) forces it black, +invert(1) forces

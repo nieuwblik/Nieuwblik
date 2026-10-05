@@ -128,7 +128,7 @@ const Index = () => {
             no extra cap) instead of stopping at max-w-4xl, so the two
             sections read as one grid. Unchanged below lg per spec. */}
         <div className="max-w-4xl lg:max-w-none mx-auto text-center">
-          <p className="sw-lead sw-mono mb-6 text-balance" style={{ color: "hsl(var(--sw-ink) / 0.55)" }}>
+          <p className="sw-lead sw-mono mb-6 text-balance" style={{ color: "hsl(var(--sw-ink) / 0.66)" }}>
             Vertrouwd door MKB ondernemers door heel Nederland
           </p>
 
@@ -158,7 +158,7 @@ const Index = () => {
             </div>
             <span className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.8)" }}>
               {REVIEWS.scoreLabel} op Google,{" "}
-              <span style={{ color: "hsl(var(--sw-ink) / 0.5)" }}>op basis van {REVIEWS.aantalLabel} reviews</span>
+              <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>op basis van {REVIEWS.aantalLabel} reviews</span>
             </span>
           </div>
         </div>

@@ -29,6 +29,11 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    // Uniek per build: sleutel van de edge-cache in src/server.ts, zodat een
+    // nieuwe publicatie nooit oude HTML krijgt.
+    define: {
+      __BUILD_ID__: JSON.stringify(Date.now().toString(36)),
+    },
     ssr: {
       // Supabase publiceert CJS-bestanden die de dev-SSR-resolver niet vindt
       // ("Cannot find module .../postgrest-js/dist/index.cjs"); bundelen lost

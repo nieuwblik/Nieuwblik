@@ -5,6 +5,8 @@ import { useParams, Link, Navigate } from "@/lib/router-compat";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Footer from "@/components/Footer";
+import GerelateerdeArtikelen from "@/components/GerelateerdeArtikelen";
+import { blogTitel } from "@/lib/blogTitel";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import { Clock, ArrowLeft, Phone, Menu } from "lucide-react";
@@ -532,7 +534,7 @@ const BlogPost = () => {
     <div className="min-h-screen bg-background">
       {post && (
         <SEOHead
-          title={post.seoTitle ? `${post.seoTitle} | Nieuwblik` : `${post.title.nl.length > 45 ? post.title.nl.substring(0, 45).trim() + '…' : post.title.nl} | Nieuwblik`}
+          title={blogTitel(post)}
           description={post.excerpt.nl}
           keywords={post.seoKeywords || "webdesign, SEO, conversie, digitale marketing, website optimalisatie"}
           canonicalUrl={`${SITE_URL}/blog/${slug}`}
@@ -865,6 +867,8 @@ const BlogPost = () => {
           </div>
         </div>
       </article>
+
+      <GerelateerdeArtikelen slug={post.slug} />
 
       <Footer />
     </div>

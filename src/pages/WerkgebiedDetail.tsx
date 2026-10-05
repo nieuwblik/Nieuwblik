@@ -18,6 +18,7 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { getWerkgebiedRegionBySlug, regions } from "@/data/regions";
+import { cityLinks } from "@/data/cityLinks";
 import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
@@ -59,6 +60,17 @@ const WerkgebiedDetail = () => {
 
   const isLocal = region.type === "local";
   const isHoorn = region.slug === "hoorn";
+
+  // Omliggende plaatsen met een eigen pagina: eerst het werkgebied, anders de
+  // landelijke stadspagina (zoals Alkmaar). Plaatsen zonder pagina vallen weg.
+  const buren = (region.nearbyPlaces ?? []).flatMap((naam) => {
+    const s = naam.toLowerCase().replace(/\s+/g, "-");
+    const werkgebied = getWerkgebiedRegionBySlug(s);
+    if (werkgebied) return [{ naam: werkgebied.name, to: `/werkgebied/${s}` }];
+    if (cityLinks.some((c) => c.slug === s))
+      return [{ naam, to: `/website-laten-maken-${s}` }];
+    return [];
+  });
   const pageTitle = `Website laten maken ${region.name} vanaf €${PRIJZEN.starter} | Nieuwblik`;
   const pageDescription = isHoorn
     ? `Website laten maken in Hoorn? Vanaf €${PRIJZEN.starter}, binnen ${LEVERTIJD.standaard} live en persoonlijk contact vanuit Enkhuizen. Vraag vrijblijvend een offerte aan.`
@@ -227,6 +239,31 @@ const WerkgebiedDetail = () => {
           </section>
         )}
 
+
+        {/* In de buurt: de omliggende plaatsen als link, als er een pagina voor
+            is (werkgebied of landelijke stadspagina). Zonder dit blok waren
+            sommige werkgebiedpagina's alleen via /werkgebied te vinden. */}
+        {buren.length > 0 && (
+          <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
+                In de buurt
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {buren.map((b) => (
+                  <Link
+                    key={b.to}
+                    to={b.to}
+                    className="group inline-flex items-center gap-2 bg-secondary/50 hover:bg-accent/10 border border-border hover:border-accent/30 rounded-xl px-4 py-3 transition-colors"
+                  >
+                    <MapPin className="w-4 h-4 text-accent opacity-70 group-hover:opacity-100" />
+                    <span className="text-sm font-semibold text-foreground">{b.naam}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Team foto */}
         <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">

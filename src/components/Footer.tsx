@@ -94,7 +94,7 @@ function Kolom({
 }) {
   return (
     <div className={className}>
-      <h2 className="mb-5 text-sm font-normal text-white/45">{titel}</h2>
+      <h2 className="mb-5 text-sm font-normal text-white/60">{titel}</h2>
       <ul className="space-y-3 text-[0.9375rem] text-white/85">{children}</ul>
     </div>
   );
@@ -104,7 +104,7 @@ function Kolom({
 function LinkRij({ titel, children }: { titel: string; children: ReactNode }) {
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
-      <h2 className="shrink-0 text-sm font-normal text-white/45 sm:w-28">
+      <h2 className="shrink-0 text-sm font-normal text-white/60 sm:w-28">
         {titel}
       </h2>
       <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] text-white/55">
@@ -352,7 +352,7 @@ const Footer = ({ cta = true }: { cta?: boolean }) => {
           </LinkRij>
         </div>
 
-        <div className="flex flex-col gap-2 border-t border-white/10 py-5 text-sm text-white/45 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-2 border-t border-white/10 py-5 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>
             © {jaar} {companyInfo.name} · KvK {companyInfo.kvk}
           </p>

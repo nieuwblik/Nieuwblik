@@ -4,6 +4,7 @@ import BlogPost from "@/pages/BlogPost";
 import NotFound from "@/pages/NotFound";
 import { blogPosts } from "@/data/blogPosts";
 import { buildHead } from "@/lib/seo";
+import { blogTitel } from "@/lib/blogTitel";
 import { companyInfo } from "@/config/company";
 
 // Verwijderde artikelen 301'en via src/config/redirects.ts (server-side).
@@ -24,11 +25,8 @@ export const Route = createFileRoute("/_public/blog/$slug")({
         noIndex: true,
       });
     }
-    const kop =
-      post.seoTitle ??
-      (post.title.nl.length > 45 ? `${post.title.nl.substring(0, 45).trim()}…` : post.title.nl);
     return buildHead({
-      title: `${kop} | Nieuwblik`,
+      title: blogTitel(post),
       description: post.excerpt.nl,
       keywords: post.seoKeywords,
       canonical: `${companyInfo.url}/blog/${post.slug}`,
