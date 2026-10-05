@@ -23,10 +23,16 @@ import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 import CaseGrid from "@/components/CaseGrid";
+import Alinea from "@/components/Alinea";
+import LandingFaq from "@/components/LandingFaq";
+import { faqPage } from "@/lib/structured-data";
+import { getWerkgebiedLokaal } from "@/data/werkgebiedLokaal";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 
-// Deze vier eerst, aangevuld tot zes met de nieuwste cases.
-const featuredProjects = kiesCases(["puur-in-harmonie", "benoted", "danique-kwakman", "erica-van-dijk"]);
+// Deze vier eerst, aangevuld tot zes met de nieuwste cases. Voor West-Friese
+// plaatsen eerst de klanten uit de regio zelf.
+const STANDAARD_CASES = ["puur-in-harmonie", "benoted", "danique-kwakman", "erica-van-dijk"];
+const REGIO_CASES = ["vv-madjoe", "een-bundel-geluk", "taxi-drechterland", "aardingsbedrijf-west-friesland"];
 
 const WEST_FRIESLAND_KERNEN = [
   'enkhuizen', 'hoorn', 'medemblik', 'bovenkarspel', 'hoogkarspel',
@@ -59,6 +65,9 @@ const WerkgebiedDetail = () => {
   }
 
   const isLocal = region.type === "local";
+  const lokaal = getWerkgebiedLokaal(region.slug);
+  const westFries = region.slug === "west-friesland" || WEST_FRIESLAND_KERNEN.includes(region.slug);
+  const featuredProjects = kiesCases(westFries ? REGIO_CASES : STANDAARD_CASES);
   const isHoorn = region.slug === "hoorn";
 
   // Omliggende plaatsen met een eigen pagina: eerst het werkgebied, anders de
@@ -145,6 +154,7 @@ const WerkgebiedDetail = () => {
   return (
     <>
       <SEOHead
+        {...(lokaal ? { structuredData: faqPage(lokaal.faq) } : {})}
         title={pageTitle}
         description={pageDescription}
         keywords={
@@ -240,25 +250,16 @@ const WerkgebiedDetail = () => {
         )}
 
 
-        {/* In de buurt: de omliggende plaatsen als link, als er een pagina voor
-            is (werkgebied of landelijke stadspagina). Zonder dit blok waren
-            sommige werkgebiedpagina's alleen via /werkgebied te vinden. */}
-        {buren.length > 0 && (
+        {/* Lokaal blok: handgeschreven per plaats (src/data/werkgebiedLokaal.ts) */}
+        {lokaal && (
           <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
-                In de buurt
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-foreground">
+                {lokaal.lokaal.h2}
               </h2>
-              <div className="flex flex-wrap gap-3">
-                {buren.map((b) => (
-                  <Link
-                    key={b.to}
-                    to={b.to}
-                    className="group inline-flex items-center gap-2 bg-secondary/50 hover:bg-accent/10 border border-border hover:border-accent/30 rounded-xl px-4 py-3 transition-colors"
-                  >
-                    <MapPin className="w-4 h-4 text-accent opacity-70 group-hover:opacity-100" />
-                    <span className="text-sm font-semibold text-foreground">{b.naam}</span>
-                  </Link>
+              <div className="space-y-4">
+                {lokaal.lokaal.alineas.map((alinea, idx) => (
+                  <Alinea key={idx} tekst={alinea} />
                 ))}
               </div>
             </div>
@@ -421,6 +422,35 @@ const WerkgebiedDetail = () => {
             </motion.div>
           </div>
         </section>
+
+        {lokaal && (
+          <LandingFaq h2={`Veelgestelde vragen over een website in ${region.name}`} items={lokaal.faq} />
+        )}
+
+        {/* In de buurt: de omliggende plaatsen als link, als er een pagina voor
+            is (werkgebied of landelijke stadspagina). Zonder dit blok waren
+            sommige werkgebiedpagina's alleen via /werkgebied te vinden. */}
+        {buren.length > 0 && (
+          <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
+                In de buurt
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {buren.map((b) => (
+                  <Link
+                    key={b.to}
+                    to={b.to}
+                    className="group inline-flex items-center gap-2 bg-secondary/50 hover:bg-accent/10 border border-border hover:border-accent/30 rounded-xl px-4 py-3 transition-colors"
+                  >
+                    <MapPin className="w-4 h-4 text-accent opacity-70 group-hover:opacity-100" />
+                    <span className="text-sm font-semibold text-foreground">{b.naam}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-24">

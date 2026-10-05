@@ -9,6 +9,7 @@ import ContactBlock from "@/components/ContactBlock";
 import CaseGrid from "@/components/CaseGrid";
 import BenefitList from "@/components/BenefitList";
 import LandingFaq from "@/components/LandingFaq";
+import Alinea from "@/components/Alinea";
 import { faqPage } from "@/lib/structured-data";
 import { getCityLokaal } from "@/data/cityLokaal";
 import { getLandingMeta } from "@/data/landingMeta";
@@ -22,23 +23,6 @@ import { useDarkNavSection } from "@/components/UnderlayNav";
 
 // Zes cases, nieuwste eerst, in het raster van de portfoliopagina.
 const featuredProjects = kiesCases();
-
-/** Alinea met [tekst](/pad) als interne link. */
-const Alinea = ({ tekst }: { tekst: string }) => (
-  <p className="text-muted-foreground leading-relaxed">
-    {tekst.split(/\[([^\]]+)\]\((\/[^)]+)\)/).map((deel, i, delen) => {
-      // De split levert om en om: tekst, linktekst, pad, tekst, ...
-      if (i % 3 === 1) {
-        return (
-          <Link key={i} to={delen[i + 1]!} className="text-accent hover:underline font-semibold">
-            {deel}
-          </Link>
-        );
-      }
-      return i % 3 === 2 ? null : <span key={i}>{deel}</span>;
-    })}
-  </p>
-);
 
 const CityLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.

@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 // gebruikt requestAnimationFrame. Op de server valt dat om.
 if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 import Footer from "@/components/Footer";
+import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
@@ -138,7 +139,14 @@ const Index = () => {
           </h1>
 
           <p className="sw-lead mx-auto mt-6 max-w-xl lg:max-w-2xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
-            Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn, van eerste schets tot livegang.
+            Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn, van eerste schets tot livegang. Voor ondernemers in{" "}
+            <Link
+              to="/werkgebied/enkhuizen"
+              className="underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]"
+            >
+              Enkhuizen
+            </Link>
+            , West-Friesland en heel Nederland.
           </p>
 
           <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
