@@ -247,7 +247,7 @@ export function maakFeitenTijdlijn(root: HTMLElement) {
   FEITEN.forEach((f, i) => {
     const kaart = root.querySelector<HTMLElement>(`[data-feit="${i}"]`);
     if (!kaart) return;
-    const start = i * 0.14;
+    const start = i * 0.2;
     const teller = { v: f.van };
     const getalEl = kaart.querySelector<HTMLElement>("[data-getal]");
 

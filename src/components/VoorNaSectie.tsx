@@ -22,7 +22,8 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
  * Animatie (GSAP ScrollTrigger, gekoppeld aan de scroll, ook terug):
  *  1. De sectie staat kort vast; de nieuwe site valt in tien verticale
  *     lamellen van links naar rechts over de oude heen, als een jaloezie.
- *  2. Daarna komen drie feitenkaarten binnen (zie voorna/Feiten).
+ *  2. Tijdens die overgang poppen drie feitenkaarten op, één keer (zie
+ *     voorna/Feiten).
  * Met prefers-reduced-motion: geen vastzetten of lamellen, meteen de nieuwe
  * site en de kaarten.
  */
@@ -79,7 +80,7 @@ const VoorNaSectie = () => {
         scrollTrigger: {
           trigger: podium,
           start: "top top",
-          end: "+=100%",
+          end: "+=85%",
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -110,28 +111,21 @@ const VoorNaSectie = () => {
         .to(oudRef.current, { autoAlpha: 0, duration: 0.01 })
         .to(laag, { autoAlpha: 0, duration: 0.01 }, "<")
         .to(nieuwLabelRef.current, { autoAlpha: 1, duration: 0.1 })
-        // Rust aan het eind: hier komen de feitenkaarten binnen.
-        .to({}, { duration: 0.4 });
+        .to({}, { duration: 0.15 });
 
-      // De kaarten spelen op hun eigen tempo (niet gekoppeld aan de scroll):
-      // zo tellen de getallen altijd netjes door. Afgespeeld als de lamellen
-      // hangen, terug als je weer omhoog scrollt.
+      // De kaarten poppen op terwijl de lamellen vallen, op hun eigen tempo
+      // (niet gekoppeld aan de scroll, zodat de getallen netjes doortellen).
+      // Eén keer: terugscrollen laat ze gewoon staan.
       const kaarten = kaartenRef.current
         ? maakFeitenTijdlijn(kaartenRef.current)
         : null;
-      const klaar = (hoofd.duration() - 0.4) / hoofd.duration();
-      let zichtbaar = false;
-      hoofd.eventCallback("onUpdate", () => {
-        if (!kaarten) return;
-        const p = hoofd.progress();
-        if (p >= klaar && !zichtbaar) {
-          zichtbaar = true;
-          kaarten.timeScale(1).play();
-        } else if (p < klaar - 0.08 && zichtbaar) {
-          zichtbaar = false;
-          kaarten.timeScale(1.8).reverse();
-        }
-      });
+      const KAARTEN_VANAF = 0.18; // ongeveer als de derde lamel valt
+      const opUpdate = () => {
+        if (!kaarten || hoofd.time() < KAARTEN_VANAF) return;
+        kaarten.play();
+        hoofd.eventCallback("onUpdate", null);
+      };
+      hoofd.eventCallback("onUpdate", opUpdate);
 
       // De sectie laadt lazy en de secties erboven ook: als de pagina daarna
       // langer wordt, moeten de scrollposities opnieuw worden gemeten.
