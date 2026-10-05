@@ -159,7 +159,7 @@ function IcoonSvg({ soort }: { soort: Icoon }) {
 const PLEK = [
   "lg:right-[-4%] lg:top-[5%] xl:right-[-13%]",
   "lg:left-[-4%] lg:top-[56%] xl:left-[-15%]",
-  "lg:right-[4%] lg:top-[77%]",
+  "lg:right-[-3%] lg:top-[60%] xl:right-[-8%]",
 ];
 
 /*
