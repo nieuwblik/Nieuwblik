@@ -20,6 +20,9 @@ source_path,target_url,rule_type
 /cookiebeleid,https://nieuwblik.com/cookies,redirect
 /privacybeleid,https://nieuwblik.com/privacy,redirect
 /start-je-project,https://nieuwblik.com/contact,redirect
+/services,https://nieuwblik.com/diensten,redirect
+/about,https://nieuwblik.com/over-ons,redirect
+/start-your-project,https://nieuwblik.com/contact,redirect
 /project-esveld,https://nieuwblik.com/portfolio/esveld-installatie,redirect
 /project-kyodai,https://nieuwblik.com/portfolio/kyodai-originals,redirect
 /project-rrs,https://nieuwblik.com/portfolio/rrs-royal,redirect
@@ -33,4 +36,4 @@ source_path,target_url,rule_type
 /blog/waarom-snelle-websites-meer-verkopen,https://nieuwblik.com/blog/case-study-benoted-snelheid-zichtbaarheid,redirect
 /blog/van-bezoeker-naar-klant-conversie-optimalisatie,https://nieuwblik.com/gratis-website-analyse,redirect
 /blog/wordpress-vs-maatwerk-website,https://nieuwblik.com/diensten/website-op-maat,redirect
-/blog/wat-kost-website-laten-maken-2026,https://nieuwblik.com/website-laten-maken,redirect
+/blog/wat-kost-website-laten-maken-2026,https://nieuwblik.com/prijzen,redirect

@@ -59,6 +59,15 @@ export default {
           headers: { location: `${SITE_URL}${doel}${url.search}` },
         });
       }
+      // Trailing slash: zelf een 301 naar het pad zonder, anders doet de
+      // router het met een tijdelijke 307.
+      if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
+        const zonder = url.pathname.replace(/\/+$/, "");
+        return new Response(null, {
+          status: 301,
+          headers: { location: `${SITE_URL}${zonder}${url.search}` },
+        });
+      }
     }
 
     try {
