@@ -64,8 +64,17 @@ const SPOOR = "var(--k-spoor)";
 const getal = (f: Feit, v: number) =>
   `${f.voor ?? ""}${v.toFixed(f.decimalen).replace(".", ",")}${f.na ?? ""}`;
 
-// Meter: de boog loopt tot 53%, de naald draait mee (van -90° tot +5,4°).
-const METER_HOEK = -90 + 0.53 * 180;
+// De wijzers staan in de SVG al in hun eindstand (zonder transform, zodat
+// GSAP ze vanuit hun echte draaipunt kan draaien). Meter: boog tot 53%, de
+// naald 5,4° rechts van recht omhoog. Stopwatch: wijzer op 18°.
+const METER_HOEK = 0.53 * 180 - 90;
+const punt = (cx: number, cy: number, lengte: number, graden: number) => ({
+  x: +(cx + lengte * Math.sin((graden * Math.PI) / 180)).toFixed(2),
+  y: +(cy - lengte * Math.cos((graden * Math.PI) / 180)).toFixed(2),
+});
+const NAALD = punt(20, 26, 11, METER_HOEK);
+const WIJZER_HOEK = 18;
+const WIJZER = punt(20, 22, 8, WIJZER_HOEK);
 
 function IcoonSvg({ soort }: { soort: Icoon }) {
   const lijn = {
@@ -77,10 +86,10 @@ function IcoonSvg({ soort }: { soort: Icoon }) {
     <svg viewBox="0 0 40 40" className="h-full w-full" aria-hidden="true">
       {soort === "meter" && (
         <>
-          <path d="M7 28 A13 13 0 0 1 33 28" stroke={SPOOR} {...lijn} />
+          <path d="M7 26 A13 13 0 0 1 33 26" stroke={SPOOR} {...lijn} />
           <path
             data-boog=""
-            d="M7 28 A13 13 0 0 1 33 28"
+            d="M7 26 A13 13 0 0 1 33 26"
             pathLength={1}
             stroke={GROEN}
             strokeDasharray="1 1"
@@ -90,15 +99,14 @@ function IcoonSvg({ soort }: { soort: Icoon }) {
           <line
             data-naald=""
             x1="20"
-            y1="28"
-            x2="20"
-            y2="17"
+            y1="26"
+            x2={NAALD.x}
+            y2={NAALD.y}
             stroke="var(--k-naald)"
             strokeWidth={2.2}
             strokeLinecap="round"
-            transform={`rotate(${METER_HOEK} 20 28)`}
           />
-          <circle cx="20" cy="28" r="2.4" fill="var(--k-naald)" />
+          <circle cx="20" cy="26" r="2.4" fill="var(--k-naald)" />
         </>
       )}
       {soort === "staven" && (
@@ -141,12 +149,11 @@ function IcoonSvg({ soort }: { soort: Icoon }) {
             data-wijzer=""
             x1="20"
             y1="22"
-            x2="20"
-            y2="14"
+            x2={WIJZER.x}
+            y2={WIJZER.y}
             stroke="var(--k-naald)"
             strokeWidth={2.2}
             strokeLinecap="round"
-            transform="rotate(18 20 22)"
           />
           <circle cx="20" cy="22" r="2" fill="var(--k-naald)" />
         </>
@@ -332,16 +339,21 @@ export function maakFeitenTijdlijn(root: HTMLElement) {
     if (f.icoon === "meter") {
       tl.fromTo(
         q("[data-boog]"),
-        { strokeDashoffset: 1 },
-        { strokeDashoffset: 0.47, duration: 1.3, ease: "power3.out" },
+        { attr: { "stroke-dashoffset": 1 } },
+        {
+          attr: { "stroke-dashoffset": 0.47 },
+          duration: 1.3,
+          ease: "power3.out",
+        },
         start + 0.1,
       )
         .fromTo(
           q("[data-naald]"),
-          { rotation: -90 },
+          // Vanaf de linkerkant (-90°) naar de getekende stand.
+          { rotation: -90 - METER_HOEK, svgOrigin: "20 26" },
           {
-            rotation: METER_HOEK,
-            svgOrigin: "20 28",
+            rotation: 0,
+            svgOrigin: "20 26",
             duration: 1.3,
             ease: "back.out(1.6)",
           },
@@ -363,13 +375,18 @@ export function maakFeitenTijdlijn(root: HTMLElement) {
     } else {
       tl.fromTo(
         q("[data-ring]"),
-        { strokeDashoffset: 1 },
-        { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" },
+        { attr: { "stroke-dashoffset": 1 } },
+        {
+          attr: { "stroke-dashoffset": 0 },
+          duration: 1.1,
+          ease: "power2.inOut",
+        },
         start + 0.1,
       ).fromTo(
         q("[data-wijzer]"),
-        { rotation: 0 },
-        { rotation: 378, svgOrigin: "20 22", duration: 1.3, ease: "expo.out" },
+        // Een rondje plus de getekende stand: vanaf 12 uur rond naar 18°.
+        { rotation: -360 - WIJZER_HOEK, svgOrigin: "20 22" },
+        { rotation: 0, svgOrigin: "20 22", duration: 1.3, ease: "expo.out" },
         start + 0.1,
       );
     }
