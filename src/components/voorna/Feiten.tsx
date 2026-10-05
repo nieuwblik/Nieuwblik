@@ -241,22 +241,52 @@ export function FeitKaarten() {
   );
 }
 
+/*
+ * Elke kaart komt op zijn eigen manier binnen, en duidelijk na de vorige:
+ *  1. schuift van rechts naar binnen en draait recht;
+ *  2. popt op vanuit de kant van het display, met een kleine veer;
+ *  3. komt van onderen omhoog en kantelt recht.
+ */
+const BINNENKOMST: {
+  start: number;
+  van: gsap.TweenVars;
+  naar: gsap.TweenVars;
+}[] = [
+  {
+    start: 0,
+    van: { autoAlpha: 0, x: 56, rotation: 4 },
+    naar: { autoAlpha: 1, x: 0, rotation: 0, duration: 1.1, ease: "expo.out" },
+  },
+  {
+    start: 0.38,
+    van: { autoAlpha: 0, scale: 0.55, transformOrigin: "100% 50%" },
+    naar: { autoAlpha: 1, scale: 1, duration: 0.9, ease: "back.out(1.7)" },
+  },
+  {
+    start: 0.74,
+    van: { autoAlpha: 0, y: 64, rotation: -3, transformOrigin: "0% 100%" },
+    naar: {
+      autoAlpha: 1,
+      y: 0,
+      rotation: 0,
+      duration: 1.2,
+      ease: "power4.out",
+    },
+  },
+];
+
 /** Gepauzeerde tijdlijn voor de kaarten binnen `root`. */
 export function maakFeitenTijdlijn(root: HTMLElement) {
   const tl = gsap.timeline({ paused: true });
   FEITEN.forEach((f, i) => {
     const kaart = root.querySelector<HTMLElement>(`[data-feit="${i}"]`);
-    if (!kaart) return;
-    const start = i * 0.2;
+    const binnen = BINNENKOMST[i];
+    if (!kaart || !binnen) return;
+    const start = binnen.start;
     const teller = { v: f.van };
     const getalEl = kaart.querySelector<HTMLElement>("[data-getal]");
 
-    tl.fromTo(
-      kaart,
-      { autoAlpha: 0, y: 28, scale: 0.94 },
-      { autoAlpha: 1, y: 0, scale: 1, duration: 1, ease: "expo.out" },
-      start,
-    ).fromTo(
+    tl.fromTo(kaart, binnen.van, binnen.naar, start).fromTo(
       teller,
       { v: f.van },
       {
