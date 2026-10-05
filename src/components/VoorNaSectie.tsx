@@ -36,8 +36,10 @@ const SCHERM_SIZES = "(min-width: 1280px) 950px, 80vw";
 // Breedte van het display: past altijd met kop en bijschrift in één schermhoogte.
 const BREEDTE = "min(1100px, 92vw, calc((100svh - 300px) * 1.381))";
 
-// Aantal lamellen.
+// Aantal lamellen, en hun beeld: de nieuwe site als achtergrond. image-set
+// laat de browser zelf de resolutie kiezen (scherpe schermen krijgen 2400).
 const LAMELLEN = Array.from({ length: 10 }, (_, i) => i);
+const LAMEL_BEELD = `image-set(url("${nieuw1200}") 1x, url("${nieuw2400}") 2x)`;
 
 const BRON = {
   oud: { src: oud2400, srcSet: `${oud1200} 1200w, ${oud2400} 2400w` },
@@ -49,20 +51,9 @@ const VoorNaSectie = () => {
   const sectieRef = useRef<HTMLElement>(null);
   const displayRef = useRef<HTMLDivElement>(null);
   const lamellenRef = useRef<HTMLDivElement>(null);
-  const nieuwRef = useRef<HTMLImageElement>(null);
   const oudRef = useRef<HTMLDivElement>(null);
   const nieuwLabelRef = useRef<HTMLSpanElement>(null);
   const kaartenRef = useRef<HTMLDivElement>(null);
-
-  // De lamellen tonen dezelfde afbeelding die de browser via srcset voor de
-  // nieuwe site koos (uit de cache), pas als die geladen is.
-  const vulLamellen = () => {
-    const bron = nieuwRef.current?.currentSrc;
-    if (!bron || !lamellenRef.current) return;
-    lamellenRef.current
-      .querySelectorAll<HTMLElement>("[data-binnen]")
-      .forEach((el) => (el.style.backgroundImage = `url("${bron}")`));
-  };
 
   useGSAP(
     () => {
@@ -72,7 +63,6 @@ const VoorNaSectie = () => {
       if (!display || !laag) return;
       const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
-      if (nieuwRef.current?.complete) vulLamellen();
 
       // Eén keer afspelen, op een vast tempo, zodra het display goed in beeld
       // is (zijn midden op 70% van het venster). Geen vastzetten: het scrollen
@@ -86,10 +76,7 @@ const VoorNaSectie = () => {
           once: true,
         },
       });
-      tl
-        // Vangnet: de load van de afbeelding kan al vóór de hydratatie vallen.
-        .add(vulLamellen, 0)
-        .fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
+      tl.fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
         .fromTo(nieuwLabelRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
         // Alleen transforms (geen clip-path): de lamel zakt, het beeld erin
         // gaat even ver omhoog en staat dus stil. Dat rekent de GPU, zonder
@@ -106,10 +93,9 @@ const VoorNaSectie = () => {
           { yPercent: 0, duration: 0.7, ease: "power3.inOut", stagger: 0.07 },
           0.05,
         )
-        // Als alle lamellen hangen, verdwijnen de oude site en de lamellen
-        // tegelijk: er verspringt niets.
+        // Als alle lamellen hangen, verdwijnt de oude site eronder. De lamellen
+        // blijven staan (zelfde beeld), dus nooit een leeg scherm.
         .set(oudRef.current, { autoAlpha: 0 })
-        .set(laag, { autoAlpha: 0 })
         .to(nieuwLabelRef.current, { autoAlpha: 1, duration: 0.3 });
 
       // De kaarten poppen op terwijl de lamellen vallen (ongeveer bij de
@@ -186,7 +172,6 @@ const VoorNaSectie = () => {
             >
               {/* Nieuw onderop, oud erboven (met label) tot de lamellen hangen. */}
               <img
-                ref={nieuwRef}
                 {...BRON.nieuw}
                 sizes={SCHERM_SIZES}
                 width={2400}
@@ -195,7 +180,6 @@ const VoorNaSectie = () => {
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                onLoad={vulLamellen}
                 className="absolute inset-0 h-full w-full"
               />
               {!reduced && (
@@ -241,6 +225,7 @@ const VoorNaSectie = () => {
                         data-binnen=""
                         className="absolute inset-0 bg-no-repeat will-change-transform"
                         style={{
+                          backgroundImage: LAMEL_BEELD,
                           backgroundSize: `${LAMELLEN.length * 100}% 100%`,
                           backgroundPosition: `${(i / (LAMELLEN.length - 1)) * 100}% 0%`,
                         }}
