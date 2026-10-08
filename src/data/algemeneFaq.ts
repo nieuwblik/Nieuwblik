@@ -23,7 +23,7 @@ export const ALGEMENE_FAQ: FaqItem[] = [
   },
   {
     question: "Bieden jullie ook onderhoud en support na oplevering?",
-    answer: "Absoluut! We bieden verschillende onderhoudspakketten aan, van basis support tot volledig beheer inclusief updates, backups en security monitoring. Ook kun je altijd bij ons terecht voor eenmalige aanpassingen of uitbreidingen van je website."
+    answer: "Ja. Basisonderhoud zit inbegrepen bij de hosting: back-ups en updates. Er is geen apart onderhoudscontract. Ook kun je altijd bij ons terecht voor eenmalige aanpassingen of uitbreidingen van je website."
   },
   {
     question: "Wordt mijn website ook goed gevonden in Google?",

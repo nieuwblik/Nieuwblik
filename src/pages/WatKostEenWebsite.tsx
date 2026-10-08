@@ -15,7 +15,7 @@ const faqItems = [
   { q: "Wat kost een gemiddelde website in 2026?", a: `Een professionele MKB-website kost in 2026 tussen de ${euroTeken(PRIJZEN.starter)} en ${euroTeken(PRIJZEN.professional)}. Kleine sites tot 5 pagina's beginnen bij ${euroTeken(PRIJZEN.starter)}, complete sites met blog en uitgebreide SEO bij ${euroTeken(PRIJZEN.professional)}. Een CMS om zelf te beheren is op aanvraag. Webshops starten bij ${euroTeken(PRIJZEN.webshopVanaf)}.` },
   { q: "Waarom kiezen jullie voor een vaste prijs in plaats van een uurtarief?", a: `Met een vaste prijs weet je vooraf precies waar je aan toe bent. Bij een uurtarief betaal je elke extra ronde feedback, elke technische blip en elk telefoontje. Wij spreken een bedrag en een oplevertermijn af en daaraan houden we ons.` },
   { q: "Zijn er nog verborgen kosten bij een website?", a: `Bij ons niet. Wat je wel altijd kwijt bent, ook bij andere bureaus: een domeinnaam (circa 10 euro per jaar) en hosting (vanaf 25 euro per maand bij ons). Die vermeld we gewoon bij de offerte, zodat je geen verrassingen krijgt.` },
-  { q: "Wat kost onderhoud na de oplevering?", a: `Kleine aanpassingen doen we het eerste jaar kosteloos. Daarna kun je kiezen voor een onderhoudscontract of gewoon een uurtarief als er iets nodig is. Verplicht is het niet.` },
+  { q: "Wat kost onderhoud na de oplevering?", a: `Basisonderhoud zit inbegrepen bij de hosting, vanaf 25 euro per maand. Er is geen apart onderhoudscontract.` },
   { q: "Is een duurdere website beter?", a: `Niet automatisch. Een goede website verdient zichzelf terug door aanvragen op te leveren, niet door zoveel mogelijk te kosten. Daarom adviseren we vaak eerst een compacte site die goed converteert, en later uitbreiden zodra het bedrijf groeit.` },
   { q: "Hoe snel kan ik een website hebben?", a: `Een Starter-pakket staat binnen ${LEVERTIJD.starter} live, een volledige MKB-website binnen ${LEVERTIJD.standaard}. Grote projecten en webshops duren ${LEVERTIJD.complex}.` },
   { q: "Wat kost een webshop laten maken?", a: `Een webshop bij Nieuwblik start bij ${euroTeken(PRIJZEN.webshopVanaf)}. Daar zit de koppeling met Stripe inbegrepen, plus instructies om zelf te starten met verkopen. Bekijk ook onze pagina over webshops.` },
@@ -31,7 +31,7 @@ const prijsFactoren = [
 const verborgenKosten = [
   { kosten: "Domeinnaam", prijs: "circa 10 euro per jaar", toelichting: "Regel je zelf of wij nemen hem mee in de opdracht." },
   { kosten: "Hosting", prijs: `vanaf 25 euro per maand`, toelichting: "Snelle servers, back-ups en updates voor jou geregeld." },
-  { kosten: "Onderhoud", prijs: "eerste jaar kosteloos", toelichting: "Daarna een onderhoudscontract of los uurtarief, nooit verplicht." },
+  { kosten: "Onderhoud", prijs: "inbegrepen bij de hosting", toelichting: "Basisonderhoud zit bij de hosting, er is geen apart onderhoudscontract." },
   { kosten: "Google-tools", prijs: "gratis", toelichting: "Analytics en Search Console koppelen wij standaard bij elk project." },
 ];
 
@@ -216,9 +216,8 @@ const WatKostEenWebsite = () => {
                 "Alle teksten geschreven voor jouw doelgroep",
                 "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
                 "PageSpeed score van 90+ op mobiel",
-                "Beheer door ons, of op aanvraag een eenvoudig CMS om zelf aan te passen",
+                "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
                 "Google Analytics en Search Console koppeling",
-                "1 jaar kosteloos kleine aanpassingen na livegang",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
