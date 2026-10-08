@@ -60,7 +60,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     faq: [
       {
         q: "Werken jullie voor bedrijven in Leiden terwijl jullie in Enkhuizen zitten?",
-        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt. Wil je elkaar liever een keer fysiek spreken, dan kan dat in overleg.",
+        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.",
       },
       {
         q: "Kunnen jullie een website in het Nederlands én Engels maken voor internationale klanten of studenten?",
@@ -432,7 +432,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     },
     faq: [
       { q: 'Wij concurreren met bedrijven uit Amsterdam. Hoe vallen we op?', a: "Door concreet te zijn: wat je levert, voor wie, een prijsindicatie en echte foto's van je werk. Benoem je werkgebied rond Purmerend expliciet, dan kiest een klant sneller voor de ondernemer om de hoek." },
-      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Hoe verloopt het contact met jullie?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
       { q: 'Hoe snel staat mijn website live?', a: "Meestal binnen 2 tot 4 weken na de kennismaking, afhankelijk van hoe snel teksten en foto's klaar zijn. We helpen ook met het schrijven van de teksten." },
     ],
@@ -460,7 +460,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     faq: [
       { q: 'Maken jullie ook websites voor technische en maritieme bedrijven?', a: 'Ja. Denk aan installateurs, toeleveranciers en onderhoudsbedrijven. We zetten diensten, projecten en certificeringen helder neer, met een eenvoudige manier om een offerte aan te vragen.' },
       { q: 'Wij richten ons op toeristen richting Texel. Waar letten jullie op?', a: 'Op mobiel en snelheid. Bezoekers zoeken onderweg, dus openingstijden, route en reserveren of bellen staan bovenaan. Ook je Google Bedrijfsprofiel nemen we mee.' },
-      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Hoe houden we contact tijdens het project?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
     ],
   },
@@ -487,7 +487,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     faq: [
       { q: 'Wij zitten op een bedrijventerrein. Wat heeft onze website nodig?', a: "Een heldere omschrijving van wat je levert en voor wie, echte projectfoto's, en een makkelijke offerteaanvraag. Daarmee doet je site het werk van een etalage." },
       { q: 'Moeten we Heerhugowaard of Dijk en Waard op de site noemen?', a: 'Allebei. Klanten zoeken vooral op Heerhugowaard, maar de gemeentenaam helpt voor duidelijkheid. We verwerken beide natuurlijk in je teksten.' },
-      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Hoe gaat de kennismaking in zijn werk?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
     ],
   },
@@ -514,7 +514,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     faq: [
       { q: 'Ons werkgebied is groot. Hoe worden we in alle dorpen gevonden?', a: "Door je werkgebied concreet te noemen en je Google Bedrijfsprofiel goed in te richten. We maken geen dunne pagina's per dorp, maar zorgen dat je diensten en regio helder op de site staan." },
       { q: 'Wij zijn een familiebedrijf zonder veel tijd. Hoeveel werk is een website voor ons?', a: 'Weinig. Na een kennismaking schrijven we mee aan de teksten en regelen we de techniek. Jij geeft feedback, wij doen de rest.' },
-      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Hoe verloopt de samenwerking op afstand?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
     ],
   },
@@ -534,12 +534,12 @@ export const cityLokaal: Record<string, CityLokaal> = {
       alineas: [
         'Medemblik is een van de oudste steden van West-Friesland, met kasteel Radboud, een historische haven aan het IJsselmeer en de stoomtram naar Hoorn. De gemeente omvat ook Wervershoof, Andijk, Abbekerk en Opperdoes, met veel agrarische bedrijven, watersport en recreatie.',
         'Wij zitten zelf in Enkhuizen, op een kwartiertje afstand. We kennen de regio en de ondernemers die er werken. Voor watersport en toerisme bouwen we sites die bezoekers overtuigen om te boeken; voor vakmensen en bedrijven sites die offertes opleveren.',
-        'Elke site is mobiel eerst, snel en makkelijk zelf bij te houden. Je krijgt een vaste prijs en één aanspreekpunt, en we komen graag langs voor een kop koffie.',
+        'Elke site is mobiel eerst en snel. Je krijgt een vaste prijs en één vast aanspreekpunt.',
         'Werk je in heel West-Friesland, bekijk dan ook [Hoorn](/werkgebied/hoorn), [Andijk](/werkgebied/andijk) en onze [West-Friesland-pagina](/seo-enkhuizen).',
       ],
     },
     faq: [
-      { q: 'Komen jullie echt langs in Medemblik?', a: 'Ja, we zitten in Enkhuizen en zijn zo bij je. Een kennismaking op locatie is vaak het fijnst om je bedrijf te leren kennen.' },
+      { q: 'Hoe werken jullie samen met ondernemers in Medemblik?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: via videobellen, telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
       { q: 'Wij zitten in Wervershoof of Andijk. Is deze pagina ook voor ons?', a: 'Zeker. We werken in de hele gemeente Medemblik en de rest van West-Friesland, en verwerken je eigen werkgebied in de teksten.' },
       { q: 'Maken jullie ook websites voor watersport en recreatie?', a: "Ja. Denk aan verhuur, campings en jachthavens: mooie foto's, duidelijke prijzen en online reserveren of contact op één tik." },
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },

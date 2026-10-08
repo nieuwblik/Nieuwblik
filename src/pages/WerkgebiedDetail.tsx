@@ -126,7 +126,7 @@ const WerkgebiedDetail = () => {
       icon: <MapPin className="w-5 h-5" />,
       title: isLocal ? "Lokaal en dichtbij" : "Snelle communicatie",
       text: isLocal
-        ? `We zitten vlakbij ${region.name} en kunnen bij je langskomen.`
+        ? `We zitten vlakbij ${region.name} en werken met korte lijnen.`
         : `Via videobellen, e-mail en telefoon blijven we nauw in contact.`,
     },
     {
