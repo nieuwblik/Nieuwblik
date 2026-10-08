@@ -551,7 +551,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     ],
   },
 
-  "schagen": {
+  schagen: {
     title: `Website laten maken Schagen vanaf €${PRIJZEN.starter} | Nieuwblik`,
     metaDescription: `Website laten maken in Schagen? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
     h1: `Website laten maken in Schagen vanaf €${PRIJZEN.starter}`,
@@ -561,20 +561,75 @@ export const cityLokaal: Record<string, CityLokaal> = {
       portfolio: "Voorbeelden van ons werk",
       contact: 'Tijd voor een nieuwe website in Schagen?',
     },
+    eigenOpbouw: true,
+    intro: `Website laten maken in Schagen voor je praktijk, salon, studio of club. Met een duidelijke route naar een afspraak of inschrijving, en een vaste prijs vanaf ${STARTER}.`,
+    cases: ["jord-de-boer-osteopathie", "puur-in-harmonie", "karate-school-cor-slok", "vv-madjoe"],
     lokaal: {
-      h2: 'Meer aanvragen uit Schagen en de Kop met een website op maat',
+      h2: "Een website die afspraken en aanmeldingen oplevert",
       alineas: [
-        'Schagen is een marktstad in de Kop van Noord-Holland, bekend van de West-Friese markt in de zomer. De gemeente is groot en landelijk, met veel agrarische bedrijven, familiebedrijven, aannemers en lokale winkels. Klanten komen hier vaak uit de wijde omgeving, van Callantsoog tot Warmenhuizen.',
-        "Juist in zo'n uitgestrekt gebied zoeken mensen eerst online. Wij bouwen sites die je werkgebied duidelijk maken, laten zien wat je doet en contact opnemen makkelijk maken. Nuchter, zonder poespas, met een vaste prijs.",
-        "Voor familiebedrijven en vakmensen leggen we de nadruk op vertrouwen: echte foto's, ervaringen van klanten en een direct telefoonnummer. Dat werkt beter dan algemene beloftes.",
-        "Werk je ook richting Den Helder of Heerhugowaard, bekijk dan onze pagina's voor [Den Helder](/website-laten-maken-den-helder) en [Heerhugowaard](/website-laten-maken-heerhugowaard).",
+        "Heb je in Schagen een praktijk, salon, sportschool of vereniging, dan wil je dat een bezoeker zo snel mogelijk een stap zet: een afspraak plannen, een proefles aanvragen of lid worden. Nieuwblik bouwt websites die precies die stap makkelijk maken, vanuit ons kantoor in Enkhuizen en met één vast aanspreekpunt.",
+        "Mensen die een behandelaar of club zoeken, twijfelen vaak nog. Wat kost het, word ik vergoed, past dit bij mij? Een goede site beantwoordt die vragen al voordat iemand belt. Daarom kijken we eerst welke vragen jouw klanten stellen en zetten we de antwoorden daar waar ze ze zoeken.",
       ],
     },
+    secties: [
+      {
+        h2: "Voorbeelden: praktijk, salon en sportclub",
+        alineas: [
+          "Voor osteopaat [Jord de Boer](/portfolio/jord-de-boer-osteopathie) staat 'Plan afspraak' vast in de navigatie en gaat die knop rechtstreeks naar de online agenda. Bovenaan de homepage lees je meteen dat je geen verwijzing van de huisarts nodig hebt, en wie eerst iets wil vragen, stuurt via WhatsApp een bericht.",
+          "[Puur in Harmonie](/portfolio/puur-in-harmonie) is een holistische salon. De site is mobiel eerst gebouwd, in de rustige sfeer van de salon zelf, en heeft een webshop met Stripe waarin klanten online bestellen.",
+          "Bij [Karate School Cor Slok](/portfolio/karate-school-cor-slok) staan lesroosters en locaties direct vindbaar en loopt de inschrijving volledig digitaal. Voor volleybalvereniging [Madjoe](/portfolio/vv-madjoe) kreeg elk team een eigen pagina en staan 'Proefles aanvragen' en 'Lid worden' overal binnen bereik.",
+          "Meer per vakgebied lees je op onze pagina's voor een [fysiotherapeut](/website-laten-maken-fysiotherapeut), een [schoonheidssalon](/website-laten-maken-schoonheidssalon), een [sportschool](/website-laten-maken-sportschool) of een [therapeut](/website-laten-maken-therapeut).",
+        ],
+      },
+      {
+        h2: "Wat je betaalt, nu en later",
+        alineas: [
+          `Eenmalig: voor een compacte site met 1 tot 5 pagina's, contactformulier en Google Maps is Starter genoeg. Die kost ${STARTER}. Wil je een online agenda of boekingssysteem koppelen dat je al gebruikt, of een blog met uitleg over je behandelingen, dan kies je Professional vanaf ${PROFESSIONAL}. Een eigen ledenportaal of inschrijfsysteem is maatwerk, daarvoor maken we een offerte.`,
+          "Doorlopend: hosting kan bij ons, op snelle servers vanaf 25 euro per maand. Een onderhoudscontract voor updates, back-ups en kleine aanpassingen is optioneel. Je zit nergens aan vast.",
+          "En de site is van jou. Alle code, teksten en afbeeldingen zijn na de oplevering jouw eigendom, dus je kunt hem altijd meenemen. Alle pakketten naast elkaar zie je op [prijzen](/prijzen).",
+        ],
+      },
+      {
+        h2: "Waar we op letten bij een praktijk, salon of club",
+        alineas: [
+          "De belangrijkste knop staat op elke pagina op dezelfde plek, op de telefoon net zo goed als op een laptop. Tarieven, vergoedingen en lestijden staan op een eigen pagina in plaats van in een pdf. Foto's laten je eigen ruimte en je eigen mensen zien.",
+          "Roosters en prijzen veranderen. Wil je die zelf bijwerken, dan bouwen we op verzoek een beheersysteem waarmee dat zonder technische kennis kan. Anders passen wij het voor je aan.",
+          "Voor zoekopdrachten in je eigen omgeving werken website en Google Bedrijfsprofiel samen, met reviews van klanten erbij. Zo vergroot je de kans dat je verschijnt als iemand in de buurt naar jouw vak zoekt.",
+          "Werk je ook voor klanten buiten Schagen? Lees dan over [website laten maken in Den Helder](/website-laten-maken-den-helder), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard), [website laten maken in Alkmaar](/website-laten-maken-alkmaar) of onze aanpak voor [Noord-Holland](/regio/noord-holland).",
+        ],
+      },
+    ],
     faq: [
-      { q: 'Ons werkgebied is groot. Hoe worden we in alle dorpen gevonden?', a: "Door je werkgebied concreet te noemen en je Google Bedrijfsprofiel goed in te richten. We maken geen dunne pagina's per dorp, maar zorgen dat je diensten en regio helder op de site staan." },
-      { q: 'Wij zijn een familiebedrijf zonder veel tijd. Hoeveel werk is een website voor ons?', a: 'Weinig. Na een kennismaking schrijven we mee aan de teksten en regelen we de techniek. Jij geeft feedback, wij doen de rest.' },
-      { q: 'Hoe verloopt de samenwerking op afstand?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
-      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+      {
+        q: "Wat kost een website voor een praktijk of salon in Schagen?",
+        a: `Een Starter-site kost ${STARTER}. Met een gekoppelde online agenda of een blog kom je meestal uit op Professional, vanaf ${PROFESSIONAL}. Je krijgt vooraf een vaste prijs.`,
+      },
+      {
+        q: "Kunnen klanten via de website een afspraak maken?",
+        a: "Ja. Gebruik je al een online agenda, dan sturen we bezoekers daar met één knop naartoe. Wil je liever dat mensen eerst een vraag stellen, dan kan dat ook via een WhatsApp-knop.",
+      },
+      {
+        q: "Wat zijn de vaste kosten na de oplevering?",
+        a: "Hosting kan bij ons vanaf 25 euro per maand. Onderhoud met updates, back-ups en kleine aanpassingen is optioneel. Je bent nergens toe verplicht.",
+      },
+      {
+        q: "Is de website daarna van mij?",
+        a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Er is geen vendor lock-in.",
+      },
+      {
+        q: "Maken jullie ook websites voor sportclubs en verenigingen in Schagen?",
+        a: "Ja. Voor clubs bouwen we bijvoorbeeld teampagina's, lesroosters en een makkelijke route naar een proefles of lidmaatschap. Bekijk de sites van volleybalvereniging Madjoe en Karate School Cor Slok als voorbeeld.",
+      },
+      {
+        q: "Hoe snel staat mijn site online?",
+        a: `Een Starter-site meestal binnen ${LEVERTIJD.starter}, een uitgebreidere site binnen ${LEVERTIJD.standaard}. Met een ledenportaal of webshop reken je op ${LEVERTIJD.complex}.`,
+      },
+    ],
+    todo: [
+      "Klanten uit Schagen of de Kop van Noord-Holland: naam, branche en wat de site opleverde (alleen met toestemming).",
+      "Waar spreek je af met ondernemers uit Schagen: bij hen op locatie, in Enkhuizen of via video?",
+      "Ervaring met praktijken, salons of clubs in deze regio die je kunt noemen.",
+      "Een review of citaat van een klant uit Schagen, als die er is.",
     ],
   },
 
