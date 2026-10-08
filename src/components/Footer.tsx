@@ -40,6 +40,7 @@ const NAVIGATIE = [
 
 const DIENSTEN = [
   { label: "Website laten maken", to: "/website-laten-maken" },
+  { label: "Wat kost een website", to: "/wat-kost-een-website" },
   { label: "Website op maat", to: "/diensten/website-op-maat" },
   { label: "Webdesign bureau", to: "/webdesign-bureau" },
   { label: "Webshops", to: "/diensten/webshops" },
