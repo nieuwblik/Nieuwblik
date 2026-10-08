@@ -24,6 +24,7 @@ import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
 import { Route as PublicTaxiWebsiteLatenMakenRouteImport } from './routes/_public/taxi-website-laten-maken'
+import { Route as PublicWatKostEenWebsiteRouteImport } from './routes/_public/wat-kost-een-website'
 import { Route as PublicWebdesignBureauRouteImport } from './routes/_public/webdesign-bureau'
 import { Route as PublicWebsiteLatenMakenRouteImport } from './routes/_public/website-laten-maken'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
@@ -117,6 +118,11 @@ const PublicTaxiWebsiteLatenMakenRoute =
     path: '/taxi-website-laten-maken',
     getParentRoute: () => PublicRoute,
   } as any)
+const PublicWatKostEenWebsiteRoute = PublicWatKostEenWebsiteRouteImport.update({
+  id: '/wat-kost-een-website',
+  path: '/wat-kost-een-website',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicWebdesignBureauRoute = PublicWebdesignBureauRouteImport.update({
   id: '/webdesign-bureau',
   path: '/webdesign-bureau',
@@ -209,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof PublicReviewsRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
+  '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
@@ -239,6 +246,7 @@ export interface FileRoutesByTo {
   '/reviews': typeof PublicReviewsRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
+  '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
   '/_public/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
+  '/_public/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/_public/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/_public/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/seo-enkhuizen'
     | '/taxi-website-laten-maken'
+    | '/wat-kost-een-website'
     | '/webdesign-bureau'
     | '/website-laten-maken'
     | '/admin/$'
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/seo-enkhuizen'
     | '/taxi-website-laten-maken'
+    | '/wat-kost-een-website'
     | '/webdesign-bureau'
     | '/website-laten-maken'
     | '/admin/$'
@@ -368,6 +379,7 @@ export interface FileRouteTypes {
     | '/_public/reviews'
     | '/_public/seo-enkhuizen'
     | '/_public/taxi-website-laten-maken'
+    | '/_public/wat-kost-een-website'
     | '/_public/webdesign-bureau'
     | '/_public/website-laten-maken'
     | '/admin/$'
@@ -499,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicTaxiWebsiteLatenMakenRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/wat-kost-een-website': {
+      id: '/_public/wat-kost-een-website'
+      path: '/wat-kost-een-website'
+      fullPath: '/wat-kost-een-website'
+      preLoaderRoute: typeof PublicWatKostEenWebsiteRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/webdesign-bureau': {
       id: '/_public/webdesign-bureau'
       path: '/webdesign-bureau'
@@ -621,6 +640,7 @@ interface PublicRouteChildren {
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
   PublicTaxiWebsiteLatenMakenRoute: typeof PublicTaxiWebsiteLatenMakenRoute
+  PublicWatKostEenWebsiteRoute: typeof PublicWatKostEenWebsiteRoute
   PublicWebdesignBureauRoute: typeof PublicWebdesignBureauRoute
   PublicWebsiteLatenMakenRoute: typeof PublicWebsiteLatenMakenRoute
   PublicIndexRoute: typeof PublicIndexRoute
@@ -651,6 +671,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
   PublicTaxiWebsiteLatenMakenRoute: PublicTaxiWebsiteLatenMakenRoute,
+  PublicWatKostEenWebsiteRoute: PublicWatKostEenWebsiteRoute,
   PublicWebdesignBureauRoute: PublicWebdesignBureauRoute,
   PublicWebsiteLatenMakenRoute: PublicWebsiteLatenMakenRoute,
   PublicIndexRoute: PublicIndexRoute,
