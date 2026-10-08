@@ -9,7 +9,7 @@ import { ALGEMENE_FAQ } from "@/data/algemeneFaq";
 const ANTWOORD_MS = 400;
 const ANTWOORD_EASE = `cubic-bezier(${easings.easeOutExpo.join(",")})`;
 /** Ruimte tussen vraag en antwoord als het open is (px). */
-const ANTWOORD_MARGE = 8;
+const ANTWOORD_MARGE = 10;
 
 const faqs = ALGEMENE_FAQ;
 
@@ -35,7 +35,7 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
       <div
         data-faq-kaart=""
         onClick={onClick}
-        className={`group relative overflow-hidden rounded-lg cursor-pointer transition-[border-color,box-shadow] duration-300 border ${isOpen
+        className={`group relative overflow-hidden rounded-xl cursor-pointer transition-[border-color,box-shadow] duration-300 border ${isOpen
           ? "border-transparent shadow-md"
           : "bg-white border-border/50 hover:border-accent/30 hover:shadow-sm"
           }`}
@@ -57,12 +57,12 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
           )}
         </AnimatePresence>
 
-        <div data-faq-binnen="" className="relative z-10 px-4 py-3">
+        <div data-faq-binnen="" className="relative z-10 px-5 py-4 md:px-6 md:py-5">
           {/* De vraag is een echte knop in de kop: bedienbaar met toetsenbord en
               met aria-expanded/aria-controls voor schermlezers. De hele kaart
               blijft daarnaast klikbaar; stopPropagation voorkomt dubbel togglen. */}
           <h3
-            className={`text-sm font-semibold leading-snug transition-colors duration-300 ${isOpen ? "text-white" : "text-foreground"
+            className={`text-[0.9375rem] md:text-base font-semibold leading-snug transition-colors duration-300 ${isOpen ? "text-white" : "text-foreground"
               }`}
           >
             <button
@@ -81,13 +81,13 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
 
               <motion.span
                 aria-hidden="true"
-                className={`shrink-0 flex items-center justify-center w-6 h-6 rounded-full border transition-colors duration-300 ${isOpen
+                className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-full border transition-colors duration-300 ${isOpen
                   ? "bg-white/10 border-white/20 text-white"
                   : "bg-secondary border-transparent text-foreground group-hover:bg-accent group-hover:text-white"
                   }`}
                 animate={{ rotate: isOpen ? 180 : 0 }}
               >
-                {isOpen ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+                {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
               </motion.span>
             </button>
           </h3>
@@ -109,7 +109,7 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
             }}
           >
             <div className="min-h-0 overflow-clip">
-              <p className="text-[0.8125rem] text-white/80 font-light leading-relaxed pr-5">
+              <p className="text-[0.9375rem] text-white/80 font-light leading-relaxed pr-6">
                 {item.answer}
               </p>
             </div>
@@ -221,17 +221,17 @@ const FAQSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-14 md:py-16 bg-secondary/50 relative overflow-hidden"
+      className="py-20 md:py-28 bg-secondary/50 relative overflow-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Links: kop en tekst */}
           <div className="lg:col-span-4">
-            <h2 className="sw-reveal text-3xl md:text-[2.1rem] font-bold tracking-tight mb-3 leading-[1.08]" style={{ color: "hsl(var(--sw-ink))" }}>
+            <h2 className="sw-reveal text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-5 leading-[1.05]" style={{ color: "hsl(var(--sw-ink))" }}>
               Nog vragen?{" "}
               <span style={{ color: "hsl(var(--sw-green))" }}>Wij hebben antwoorden</span>
             </h2>
-            <p className="sw-reveal text-[0.9375rem] font-light leading-relaxed max-w-xs" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+            <p className="sw-reveal text-base md:text-lg font-light leading-relaxed max-w-sm" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
               Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.
             </p>
           </div>
@@ -239,11 +239,11 @@ const FAQSection = () => {
           {/* Rechts: de vragen, op brede schermen in twee kolommen */}
           <div
             ref={blokRef}
-            className="lg:col-span-8 grid gap-2 md:grid-cols-2 md:gap-x-3 items-start"
+            className="lg:col-span-8 grid gap-3 md:grid-cols-2 md:gap-x-4 items-start"
             style={{ minHeight: minHoogte }}
           >
             {kolommen.map((kolom, k) => (
-              <div key={k} className="flex flex-col gap-2">
+              <div key={k} className="flex flex-col gap-3">
                 {kolom.map((faq, i) => {
                   const index = k * helft + i;
                   return (
