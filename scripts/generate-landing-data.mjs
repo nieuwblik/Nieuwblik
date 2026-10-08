@@ -35,6 +35,11 @@ const cities = [
   { slug: "alkmaar", name: "Alkmaar", region: "Noord-Holland", trait: "kaasstad met karakter", market: "een loyaal lokaal MKB" },
   { slug: "emmen", name: "Emmen", region: "Drenthe", trait: "ondernemende noorderling", market: "een nuchter ondernemersklimaat" },
   { slug: "leeuwarden", name: "Leeuwarden", region: "Friesland", trait: "Friese hoofdstad", market: "een betrokken regionale ondernemerskring" },
+  { slug: "purmerend", name: "Purmerend", region: "Noord-Holland", trait: "groeistad in Waterland", market: "een bedrijvig lokaal MKB" },
+  { slug: "den-helder", name: "Den Helder", region: "Noord-Holland", trait: "marinestad aan de kop van Noord-Holland", market: "een hechte maritieme ondernemerskring" },
+  { slug: "heerhugowaard", name: "Heerhugowaard", region: "Noord-Holland", trait: "jonge groeigemeente in Dijk en Waard", market: "een ondernemend en groeiend MKB" },
+  { slug: "schagen", name: "Schagen", region: "Noord-Holland", trait: "marktstad in de Kop van Noord-Holland", market: "een nuchtere regionale markt" },
+  { slug: "medemblik", name: "Medemblik", region: "West-Friesland", trait: "historische havenstad aan het IJsselmeer", market: "een hechte West-Friese ondernemerskring" },
 ];
 
 const industries = [

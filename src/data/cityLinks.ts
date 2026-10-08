@@ -121,5 +121,25 @@ export const cityLinks: LandingLink[] = [
   {
     "slug": "leeuwarden",
     "name": "Leeuwarden"
+  },
+  {
+    "slug": "purmerend",
+    "name": "Purmerend"
+  },
+  {
+    "slug": "den-helder",
+    "name": "Den Helder"
+  },
+  {
+    "slug": "heerhugowaard",
+    "name": "Heerhugowaard"
+  },
+  {
+    "slug": "schagen",
+    "name": "Schagen"
+  },
+  {
+    "slug": "medemblik",
+    "name": "Medemblik"
   }
 ];
