@@ -13,6 +13,7 @@ import {
 } from "framer-motion";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import Reveal from "@/components/Reveal";
+import { Link } from "@/lib/router-compat";
 
 // AI / search-engine logos (kept from the original vindbaarheid section)
 import claudeLogo from "@/assets/ai/claude-logo.webp";
@@ -24,6 +25,9 @@ import perplexityLogo from "@/assets/ai/perplexity-logo.webp";
 const GREEN_LINE = "hsl(160, 84%, 45%)"; // glowing accent line (matches connection-line green)
 const GREEN_LIGHT = "hsl(160, 70%, 58%)"; // accent text on dark
 const EASE = [0.22, 1, 0.36, 1] as const;
+/** Zelfde linkstijl als de Enkhuizen-link in de hero. */
+const REGIO_LINK =
+  "underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]";
 
 // Peak of the growth curve, expressed in the 600×300 viewBox so the tooltip
 // (positioned with %) lines up with the SVG point exactly. Kept well short of
@@ -233,6 +237,27 @@ const SearchVisibility = () => {
               "Zichtbaarheid is geen toeval, het is strategie. Wij zorgen dat
               jouw website de juiste vindbaarheid krijgt, vandaag en in de
               toekomst."
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.23}>
+            <p
+              className="mt-6 max-w-lg text-base font-light leading-relaxed"
+              style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
+            >
+              Ook dichtbij huis in Noord-Holland. Lees over{" "}
+              <Link to="/werkgebied/hoorn" className={REGIO_LINK}>
+                een website laten maken in Hoorn
+              </Link>
+              ,{" "}
+              <Link to="/website-laten-maken-heerhugowaard" className={REGIO_LINK}>
+                webdesign in Heerhugowaard
+              </Link>{" "}
+              of{" "}
+              <Link to="/website-laten-maken-alkmaar" className={REGIO_LINK}>
+                een nieuwe website in Alkmaar
+              </Link>
+              .
             </p>
           </Reveal>
 

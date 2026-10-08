@@ -214,6 +214,12 @@ const WebsiteLatenMaken = () => {
                 </Link>
               ))}
             </div>
+            <p className="text-muted-foreground mt-8">
+              Dicht bij ons kantoor in Enkhuizen? Lees over{" "}
+              <Link to="/website-laten-maken-alkmaar" className="text-accent hover:underline font-semibold">website laten maken in Alkmaar</Link>,{" "}
+              <Link to="/werkgebied/hoorn" className="text-accent hover:underline font-semibold">een website voor je bedrijf in Hoorn</Link> of{" "}
+              <Link to="/website-laten-maken-heerhugowaard" className="text-accent hover:underline font-semibold">webdesign in Heerhugowaard</Link>.
+            </p>
           </div>
         </section>
 

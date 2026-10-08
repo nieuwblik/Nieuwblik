@@ -251,7 +251,7 @@ const WerkgebiedDetail = () => {
                 })}
               </div>
               <div className="max-w-2xl mx-auto mt-8 text-center">
-                <Alinea tekst="Ons eigen kantoor staat in Enkhuizen. Lees over [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen)." />
+                <Alinea tekst="Voor de grotere plaatsen in en rond West-Friesland is er een uitgebreide pagina met prijzen, werkwijze en voorbeelden: [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard) en [website laten maken in Alkmaar](/website-laten-maken-alkmaar). Ons eigen kantoor staat in Enkhuizen: lees over [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen)." />
               </div>
             </div>
           </section>

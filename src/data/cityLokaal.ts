@@ -1,4 +1,4 @@
-import { HOSTING_ZIN, LEVERTIJD, PRIJZEN, REVIEWS, euroTeken } from "@/config/business";
+import { LEVERTIJD, PRIJZEN, euroTeken, REVIEWS, HOSTING_ZIN } from "@/config/business";
 import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
@@ -17,6 +17,7 @@ import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
  * - Titel maximaal 60 tekens, meta description maximaal 155 (getest in seo-verify).
  * - In de alinea's mag [tekst](/pad) staan voor een interne link.
  */
+
 const STARTER = euroTeken(PRIJZEN.starter);
 const PROFESSIONAL = euroTeken(PRIJZEN.professional);
 const WEBSHOP = euroTeken(PRIJZEN.webshopVanaf);
@@ -469,7 +470,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     ],
   },
 
-  "heerhugowaard": {
+  heerhugowaard: {
     title: `Website laten maken Heerhugowaard vanaf €${PRIJZEN.starter} | Nieuwblik`,
     metaDescription: `Website laten maken in Heerhugowaard? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
     h1: `Website laten maken in Heerhugowaard vanaf €${PRIJZEN.starter}`,
@@ -479,20 +480,74 @@ export const cityLokaal: Record<string, CityLokaal> = {
       portfolio: "Voorbeelden van ons werk",
       contact: 'Klaar om online te groeien in Heerhugowaard?',
     },
+    eigenOpbouw: true,
+    intro: `Website laten maken in Heerhugowaard: een site op maat die aanvragen oplevert, met een vaste prijs vooraf en meestal binnen ${LEVERTIJD.standaard} live.`,
+    cases: ["feigro-dakwerken", "esveld-installatie", "aardingsbedrijf-west-friesland", "mhb-techniek"],
     lokaal: {
-      h2: 'Een website die werkt voor ondernemers in Heerhugowaard en Dijk en Waard',
+      h2: "Website laten maken in Heerhugowaard",
       alineas: [
-        'Heerhugowaard is sinds 2022 onderdeel van de gemeente Dijk en Waard en een van de snelst gegroeide plaatsen van Noord-Holland. Met grote bedrijventerreinen, een druk winkelhart en veel nieuwe wijken is er een groot aanbod aan lokale ondernemers, van bouw en techniek tot zorg en retail.',
-        'Op een bedrijventerrein loopt geen klant zomaar binnen. Je website is dan je etalage: daar beslist een opdrachtgever of hij belt. Wij bouwen sites die laten zien wat je maakt of levert, met echte projecten en een offerte die makkelijk aan te vragen is.',
-        'Voor winkels en praktijken in het centrum draait het om vindbaarheid op je telefoon, actuele openingstijden en afspraken maken in één tik. Alles mobiel eerst en snel geladen.',
-        "Werk je ook in Alkmaar of West-Friesland, dan sluiten onze pagina's voor [Alkmaar](/website-laten-maken-alkmaar) en [Hoorn](/werkgebied/hoorn) daarop aan.",
+        "Voor ondernemers in Heerhugowaard bouwt Nieuwblik websites met één doel: dat de juiste klant contact opneemt. We werken vanuit Enkhuizen, met korte lijnen. Je praat rechtstreeks met de mensen die je site maken, zonder tussenpersoon.",
+        "Verkoop je iets wat je klant vooraf niet kan zien, zoals een dak, een installatie, advies of onderhoud? Dan moet je website het vertrouwen geven dat anders uit een showroom komt. Met duidelijke uitleg, echte foto's van je werk en een aanvraag die in een paar stappen klaar is.",
       ],
     },
+    secties: [
+      {
+        h2: "Websites voor bouw, techniek en dienstverlening",
+        alineas: [
+          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) kreeg een merkwebsite met naast het gewone offertetraject een directe lekkagemelder, zodat een klant met een acuut probleem niet hoeft te wachten tot iemand terugbelt.",
+          "Voor [Esveld Installatie](/portfolio/esveld-installatie) maakten we een website voor installatiediensten met een klantportaal. En [Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) gebruikt zijn site vooral om aanvragen uit de regio binnen te halen, met uitleg over aarding en een korte route naar een offerte of inspectie.",
+          "Werk je in een van deze vakgebieden? Kijk dan ook op onze pagina's over een website voor een [bouwbedrijf](/website-laten-maken-bouwbedrijf), een [elektricien](/website-laten-maken-elektricien), een [loodgieter](/website-laten-maken-loodgieter) of een [schilder](/website-laten-maken-schilder).",
+        ],
+      },
+      {
+        h2: "Wat een website in Heerhugowaard kost",
+        alineas: [
+          `Wil je vooral online laten zien wie je bent en goed bereikbaar zijn, dan volstaat Starter. Voor ${STARTER} krijg je maximaal vijf pagina's, een contactformulier, Google Maps en een site die op elke telefoon goed werkt. Reken op ongeveer ${LEVERTIJD.starter} tot de livegang.`,
+          `Moet je website zelf aanvragen binnenhalen, met een pagina per dienst en artikelen die laten zien wat je weet? Kies dan Professional vanaf ${PROFESSIONAL}. Daarin zitten tot tien pagina's, uitgebreide SEO, een blog, koppelingen met je eigen software en een maand gratis nazorg na de livegang.`,
+          `Een klantportaal, een koppeling met je planning of een webshop is maatwerk. Webshops beginnen bij ${WEBSHOP}, andere uitbreidingen bespreken we per project. Wat het kost, zie je altijd vooraf in de offerte. Een overzicht van alle pakketten staat op de [prijzenpagina](/prijzen).`,
+        ],
+      },
+      {
+        h2: "Van eerste gesprek tot livegang",
+        alineas: [
+          "Na de kennismaking krijg je binnen 24 uur een reactie met een concrete offerte. Daarin staat wat je krijgt, wat het kost en wanneer het af is.",
+          "Tijdens de bouw zie je de site groeien en geef je feedback op tussentijdse versies. We schrijven de teksten met je mee, zodat je vakkennis erin terugkomt en ze aansluiten op de woorden die klanten gebruiken.",
+          "Na de livegang blijven wij het beheer doen, tenzij je zelf wilt kunnen aanpassen. Dan bouwen we op verzoek een eenvoudig beheersysteem. Wil je ook een logo of huisstijl, dan nemen we dat in hetzelfde traject mee.",
+          "Dichtbij werken we ook voor ondernemers in de rest van Noord-Holland. Lees verder over [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [website laten maken in Hoorn](/werkgebied/hoorn) of [website laten maken in Schagen](/website-laten-maken-schagen).",
+        ],
+      },
+    ],
     faq: [
-      { q: 'Wij zitten op een bedrijventerrein. Wat heeft onze website nodig?', a: "Een heldere omschrijving van wat je levert en voor wie, echte projectfoto's, en een makkelijke offerteaanvraag. Daarmee doet je site het werk van een etalage." },
-      { q: 'Moeten we Heerhugowaard of Dijk en Waard op de site noemen?', a: 'Allebei. Klanten zoeken vooral op Heerhugowaard, maar de gemeentenaam helpt voor duidelijkheid. We verwerken beide natuurlijk in je teksten.' },
-      { q: 'Hoe gaat de kennismaking in zijn werk?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
-      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+      {
+        q: "Wat kost een website voor een bedrijf in Heerhugowaard?",
+        a: `Starter kost ${STARTER}, Professional vanaf ${PROFESSIONAL} en een webshop vanaf ${WEBSHOP}. Welke past, hangt af van wat je site moet doen. Dat bespreken we in de kennismaking, daarna krijg je een vaste prijs.`,
+      },
+      {
+        q: "Kunnen jullie een website maken die offerteaanvragen oplevert?",
+        a: "Ja, daar is de opbouw op gericht: per dienst een duidelijke pagina, een kort aanvraagformulier en een knop om direct te bellen of te appen. Zo hoeft niemand te zoeken hoe je bereikbaar bent.",
+      },
+      {
+        q: "Ik werk in de bouw of techniek. Hebben jullie daar ervaring mee?",
+        a: "Ja. In ons portfolio staan onder meer Feigro Dakwerken, Esveld Installatie en Aardingsbedrijf West-Friesland. Bij al die sites draait het om vertrouwen en een makkelijke aanvraag.",
+      },
+      {
+        q: "Hoe lang duurt het voordat mijn site live staat?",
+        a: `Meestal ${LEVERTIJD.standaard}. Een Starter-site kan in ${LEVERTIJD.starter}, grotere projecten duren ${LEVERTIJD.complex}.`,
+      },
+      {
+        q: "Wie onderhoudt de website na de oplevering?",
+        a: "Dat doen wij. Updates, back-ups en beveiliging houden we bij, en kleine aanpassingen of uitbreidingen kunnen altijd los.",
+      },
+      {
+        q: "Kunnen jullie ook mijn logo en huisstijl maken?",
+        a: "Ja. Van een logo tot een complete huisstijl. Doe je dat samen met je website, dan klopt alles in één keer met elkaar.",
+      },
+    ],
+    todo: [
+      "Klanten uit Heerhugowaard of de rest van Dijk en Waard: naam, branche en wat de site opleverde (alleen met toestemming).",
+      "Waar spreek je af met ondernemers uit Heerhugowaard: bij hen op locatie, op kantoor in Enkhuizen of via video?",
+      "Regionale ervaring: branches of projecten in en rond Heerhugowaard waar je over kunt vertellen.",
+      "Een review of citaat van een klant uit deze omgeving, als die er is.",
     ],
   },
 
@@ -549,6 +604,91 @@ export const cityLokaal: Record<string, CityLokaal> = {
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
     ],
   },
+  alkmaar: {
+    title: `Website laten maken Alkmaar vanaf ${STARTER} | Nieuwblik`,
+    metaDescription: `Website laten maken in Alkmaar? Vaste prijs vanaf ${STARTER}, direct contact met de makers en vindbaar in Google en ChatGPT. Binnen 2 tot 4 weken live.`,
+    h1: "Website laten maken in Alkmaar",
+    eigenOpbouw: true,
+    intro: `Een bedrijfswebsite of webshop voor ondernemers in Alkmaar, gebouwd door een klein team uit Noord-Holland. Vaste prijs vanaf ${STARTER}, zonder accountmanager ertussen.`,
+    cases: ["benoted", "een-bundel-geluk", "kyodai-originals", "taxi-drechterland"],
+    headings: {
+      reviews: "Wat klanten over Nieuwblik zeggen",
+      portfolio: "Voorbeelden van ons werk",
+      contact: "Plannen voor een nieuwe website in Alkmaar?",
+    },
+    lokaal: {
+      h2: "Webdesign voor ondernemers in Alkmaar",
+      alineas: [
+        "Wie in Alkmaar een webbureau zoekt, heeft keus genoeg. Waarom dan Nieuwblik? Omdat je bij ons rechtstreeks werkt met de mensen die je site ontwerpen en bouwen, omdat je vooraf weet wat het kost en omdat we elke site maken om gevonden te worden: in Google, en ook in AI-zoekmachines als ChatGPT.",
+        "Ons kantoor staat in Enkhuizen. Het meeste werk doen we op afstand, met korte lijnen via telefoon, mail en WhatsApp. Je hebt één aanspreekpunt dat je project van begin tot eind kent.",
+      ],
+    },
+    secties: [
+      {
+        h2: "Welke website past bij jouw bedrijf?",
+        alineas: [
+          `Starter (${STARTER}) is gemaakt voor ondernemers die een compacte, nette site willen: 1 tot 5 pagina's, een contactformulier, Google Maps, de basis van SEO en een site die snel laadt op elke telefoon. Meestal staat hij binnen ${LEVERTIJD.starter} online.`,
+          `Professional (vanaf ${PROFESSIONAL}) is voor bedrijven die online klanten willen werven. Je krijgt tot 10 pagina's, uitgebreide SEO, een blog om je kennis te laten zien, koppelingen met externe tools en 30 dagen gratis nazorg.`,
+          `Op maat is voor alles wat groter is: een webshop met betaalkoppelingen, een beheersysteem op aanvraag, onbeperkt pagina's of een koppeling met je eigen systemen. Webshops beginnen bij ${WEBSHOP}. Bekijk alle pakketten op [prijzen](/prijzen), of lees hoe we [webshops](/diensten/webshops) aanpakken.`,
+        ],
+      },
+      {
+        h2: "Wat we voor anderen bouwden",
+        alineas: [
+          "Voor [BeNoted](/portfolio/benoted) bouwden we een platform waarin snelheid voorop stond. Wat dat oplevert, beschrijven we in onze [case over websitesnelheid](/blog/case-study-benoted-snelheid-zichtbaarheid).",
+          "[Een Bundel Geluk](/portfolio/een-bundel-geluk) uit Enkhuizen kreeg een webshop waarin klanten ook via WhatsApp een bestelling kunnen doen. En voor [Kyodai Originals](/portfolio/kyodai-originals) maakten we een digitale galerie waarin vertrouwen en de herkomst van elk stuk centraal staan.",
+        ],
+      },
+      {
+        h2: "Hoe we samenwerken",
+        alineas: [
+          "Het begint met een gesprek over je bedrijf, je klanten en wat de site moet opleveren. Binnen 24 uur ontvang je daarna een offerte met een vaste prijs en een planning.",
+          "We ontwerpen en bouwen in stappen. Bij elke tussenversie geef je feedback, zodat er bij de oplevering geen verrassingen zijn. Teksten schrijven we samen, op basis van wat jij weet en wat klanten in Alkmaar en omgeving zoeken.",
+          "Na de lancering houden wij de site snel en veilig. Zelf aanpassen kan ook: op verzoek bouwen we een beheersysteem waarmee je teksten en foto's wijzigt.",
+        ],
+      },
+      {
+        h2: "Vindbaar in Alkmaar en de regio",
+        alineas: [
+          "Een mooie site waar niemand op uitkomt, levert niets op. Daarom zit vindbaarheid vanaf de eerste schets in het werk: een snelle site, een logische opbouw met een pagina per dienst en teksten die antwoord geven op de vragen van je klanten. Zo begrijpen Google en AI-zoekmachines waar je bedrijf over gaat. Hoe dat bij ChatGPT werkt, lees je in ons artikel over [vindbaar worden in ChatGPT](/blog/vindbaar-in-chatgpt-geo-west-friesland).",
+          "Werk je ook buiten Alkmaar? Lees dan over [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard), [webdesign in Purmerend](/website-laten-maken-purmerend), [website laten maken in Hoorn](/werkgebied/hoorn) of onze aanpak voor [Noord-Holland](/regio/noord-holland).",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Wat kost een website laten maken in Alkmaar?",
+        a: `Starter kost ${STARTER}, Professional begint bij ${PROFESSIONAL} en een webshop bij ${WEBSHOP}. Je krijgt vooraf een offerte met een vaste prijs.`,
+      },
+      {
+        q: "Maken jullie ook webshops voor ondernemers in Alkmaar?",
+        a: `Ja. Een webshop bouwen we op maat, met betaalkoppelingen. Wil je zelf producten beheren, dan bouwen we op aanvraag een beheeromgeving. Webshops beginnen bij ${WEBSHOP}, afhankelijk van het aantal producten en koppelingen.`,
+      },
+      {
+        q: "Hoe lang duurt het om een website te laten maken?",
+        a: `Een Starter-site staat meestal binnen ${LEVERTIJD.starter} live, een bedrijfswebsite binnen ${LEVERTIJD.standaard} en een grote site of webshop binnen ${LEVERTIJD.complex}.`,
+      },
+      {
+        q: "Zit jullie kantoor in Alkmaar?",
+        a: "Nee, we zitten in Enkhuizen. Voor klanten in Alkmaar werken we grotendeels op afstand, met contact via telefoon, mail en WhatsApp. Je hebt steeds hetzelfde aanspreekpunt.",
+      },
+      {
+        q: "Word ik met een nieuwe website ook gevonden in ChatGPT?",
+        a: "Daar houden we rekening mee. AI-zoekmachines halen hun antwoorden uit sites die snel, duidelijk en goed opgebouwd zijn. Dezelfde basis die je hoger in Google zet, maakt je ook beter zichtbaar in ChatGPT.",
+      },
+      {
+        q: "Kunnen jullie mijn huidige website verbeteren in plaats van opnieuw bouwen?",
+        a: "Soms wel. Met een [gratis website-analyse](/gratis-website-analyse) zie je wat er goed gaat en wat beter kan. Daarna bepalen we samen of verbeteren of vernieuwen verstandiger is.",
+      },
+    ],
+    todo: [
+      "Klanten uit Alkmaar: naam, branche en wat de site opleverde (alleen met toestemming van de klant).",
+      "Waar spreek je af met ondernemers uit Alkmaar: bij hen op locatie, in Enkhuizen of via video?",
+      "Regionale ervaring in Alkmaar en omgeving die je kunt noemen.",
+      "Een review of citaat van een klant uit Alkmaar, als die er is.",
+    ],
+  },
+
   enkhuizen: {
     title: `Website laten maken Enkhuizen vanaf ${STARTER} | Nieuwblik`,
     metaDescription: `Website laten maken in Enkhuizen bij een webbureau uit Enkhuizen. Vaste prijs vanaf ${STARTER}, één aanspreekpunt en gebouwd om gevonden te worden.`,
