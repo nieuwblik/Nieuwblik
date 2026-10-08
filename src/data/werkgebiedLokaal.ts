@@ -1,4 +1,4 @@
-import { LEVERTIJD, PRIJZEN, euroTeken } from "@/config/business";
+import { LEVERTIJD, PRIJZEN, euroTeken, HOSTING_ZIN } from "@/config/business";
 import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
@@ -71,7 +71,7 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
         h2: "Wat kost een website laten maken in Hoorn?",
         alineas: [
           `De prijs staat vooraf vast. Voor een zzp'er of een kleine zaak in Hoorn is het Starter-pakket vaak genoeg: ${STARTER} voor een site van 1 tot 5 pagina's die goed werkt op de telefoon, met een contactformulier, Google Maps en de basis van SEO. Zo'n site staat meestal binnen ${LEVERTIJD.starter} live.`,
-          `Bied je meerdere diensten aan, of wil je met losse dienstpagina's en blogs gevonden worden op wat mensen in de regio zoeken? Dan past Professional beter. Dat begint bij ${PROFESSIONAL} en bevat tot 10 pagina's, uitgebreide SEO, een blogfunctie, koppelingen met de software die je al gebruikt en 30 dagen gratis nazorg.`,
+          `Bied je meerdere diensten aan, of wil je met losse dienstpagina's en blogs gevonden worden op wat mensen in de regio zoeken? Dan past Professional beter. Dat begint bij ${PROFESSIONAL} en bevat tot 10 pagina's, uitgebreide SEO, een blogfunctie en koppelingen met de software die je al gebruikt.`,
           `Een webshop of een site met maatwerk, zoals een klantportaal of een eigen boekingsroute, prijzen we op maat. Webshops beginnen bij ${WEBSHOP}. In de offerte zie je per onderdeel wat het kost, zodat je achteraf niet voor verrassingen staat. Alle pakketten naast elkaar vind je op de pagina met [prijzen](/prijzen).`,
         ],
       },
@@ -80,7 +80,7 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
         alineas: [
           "Eerst bespreken we in een kennismaking wat je website moet doen en voor wie hij is. Binnen 24 uur heb je daarna een reactie met een concrete offerte: wat je krijgt, wat het kost en wanneer het klaar is.",
           "Tijdens het bouwen zie je tussentijdse versies en geef je feedback voordat er iets live gaat. Teksten schrijven we met je mee, zodat ze kloppen met je vak en aansluiten op hoe klanten zoeken.",
-          "Na de livegang doen wij standaard het beheer, zodat snelheid en veiligheid op orde blijven. Wil je zelf teksten en foto's aanpassen, dan bouwen we op verzoek een eenvoudig beheersysteem.",
+          `${HOSTING_ZIN} Wil je zelf teksten en foto's aanpassen, dan bouwen we op verzoek een eenvoudig beheersysteem.`,
         ],
       },
       {
@@ -111,7 +111,7 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
       },
       {
         q: "Kan ik de website daarna zelf aanpassen?",
-        a: "Standaard doen wij het beheer, zodat je er geen omkijken naar hebt. Wil je zelf teksten en foto's wijzigen, dan bouwen we op verzoek een beheersysteem op maat.",
+        a: `${HOSTING_ZIN} Wil je zelf teksten en foto's wijzigen, dan bouwen we op verzoek een beheersysteem op maat.`,
       },
       {
         q: "Hoe word ik beter gevonden in Hoorn?",

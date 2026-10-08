@@ -432,7 +432,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       h2: "Webdesign voor ondernemers in Purmerend",
       alineas: [
         "Veel ondernemers die bij ons aankloppen hebben al een website. Hij is traag op de telefoon, ziet er gedateerd uit of levert te weinig aanvragen op. Nieuwblik bouwt een nieuwe site die dat oplost, en houdt daarbij vast wat al goed werkt.",
-        "We werken vanuit Enkhuizen en grotendeels op afstand, met contact via telefoon, mail en WhatsApp. Je praat steeds met de mensen die je site ontwerpen en bouwen.",
+        "We werken vanuit Enkhuizen en grotendeels op afstand, met contact via telefoon, mail en WhatsApp. Je hebt één vast aanspreekpunt voor je hele project.",
       ],
     },
     secties: [
@@ -446,7 +446,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Maatwerk in plaats van een zware template",
         alineas: [
-          "Voor de meeste bedrijfssites bouwen we maatwerk in React. Dat levert betere PageSpeed-scores op, een veiligere site zonder plugin-updates en een schonere basis voor SEO. Ons doel is een PageSpeed-score van 90 of hoger op mobiel. WordPress kan nog steeds, maar dat adviseren we steeds minder vaak.",
+          "Voor de meeste bedrijfssites bouwen we maatwerk met React. Zo'n site laadt snel en heeft geen plugins die bijgewerkt moeten worden. Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
           "Hoeveel snelheid uitmaakt, beschrijven we in onze [case over BeNoted](/blog/case-study-benoted-snelheid-zichtbaarheid), een platform waarbij een razendsnelle gebruikerservaring voorop stond.",
         ],
       },
@@ -454,8 +454,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Wat een nieuwe website kost",
         alineas: [
           `Starter (${STARTER}) vervangt een kleine site: 1 tot 5 pagina's, responsive, met basis SEO, contactformulier en Google Maps. Meestal binnen ${LEVERTIJD.starter} live.`,
-          `Professional (vanaf ${PROFESSIONAL}) is voor een uitgebreidere site: tot 10 pagina's, uitgebreide SEO, een blog, koppelingen met externe tools en 30 dagen gratis nazorg.`,
-          `Een webshop of maatwerk met eigen koppelingen prijzen we op maat; webshops beginnen bij ${WEBSHOP}. Na de oplevering is alles van jou: code, teksten en afbeeldingen. Alle pakketten staan op [prijzen](/prijzen).`,
+          `Professional (vanaf ${PROFESSIONAL}) is voor een uitgebreidere site: tot 10 pagina's, uitgebreide SEO, een blog en koppelingen met externe tools.`,
+          `Een webshop of maatwerk met eigen koppelingen prijzen we op maat; webshops beginnen bij ${WEBSHOP}. Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht. Alle pakketten staan op [prijzen](/prijzen).`,
         ],
       },
       {
@@ -478,15 +478,15 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Verlies ik mijn plek in Google als ik overstap?",
-        a: "Niet als de overstap goed gaat. Oude adressen moeten met een 301-redirect doorverwijzen naar de nieuwe pagina's, zodat bezoekers en Google op de juiste plek uitkomen. Dat nemen we mee bij het bouwen van je nieuwe site.",
+        a: "Een overstap geeft altijd wat schommeling in de posities, ook als alles goed gaat. Wij zetten oude adressen met een 301-redirect door naar de nieuwe pagina's en controleren na de livegang in Search Console of alles goed is overgenomen.",
       },
       {
         q: "Mijn site draait op WordPress. Moet ik daar vanaf?",
-        a: "Nee, het hoeft niet. Voor de meeste bedrijfssites adviseren we maatwerk, omdat dat sneller en veiliger is en geen plugin-updates nodig heeft. Maar WordPress blijft mogelijk als dat beter bij je past.",
+        a: "Nee, het hoeft niet. Voor de meeste bedrijfssites adviseren we maatwerk met React: zo'n site laadt snel en heeft geen plugins die bijgewerkt moeten worden. Bouwen in WordPress kan ook, als dat beter bij je past.",
       },
       {
-        q: "Is de nieuwe website van mij?",
-        a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Er is geen vendor lock-in.",
+        q: "Wat gebeurt er met mijn site als ik later wil overstappen?",
+        a: "Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht.",
       },
       {
         q: "Hoe lang duurt de overstap naar een nieuwe site?",
@@ -517,7 +517,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     lokaal: {
       h2: "Website laten maken in Den Helder",
       alineas: [
-        "Nieuwblik maakt bedrijfswebsites voor ondernemers in Den Helder: zzp'ers, adviseurs, vakmensen en winkels. Je werkt rechtstreeks met de mensen die de site ontwerpen en bouwen, vanuit ons kantoor in Enkhuizen.",
+        "Nieuwblik maakt bedrijfswebsites voor ondernemers in Den Helder: zzp'ers, adviseurs, vakmensen en winkels. Een klein team in Enkhuizen doet alles zelf, van ontwerp tot livegang, zonder accountmanager ertussen.",
         "Een goede bedrijfswebsite laat in een paar seconden zien wat je doet, voor wie en hoe iemand contact opneemt. Daar begint elk ontwerp. Pas daarna kijken we naar kleuren, foto's en extra functies.",
       ],
     },
@@ -526,7 +526,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Prijzen voor een bedrijfswebsite in Den Helder",
         alineas: [
           `Starter kost ${STARTER}. Daarvoor krijg je een site van 1 tot 5 pagina's, volledig responsive, met de basis van SEO, een contactformulier en Google Maps. Hij staat meestal binnen ${LEVERTIJD.starter} live. Voor veel zzp'ers en kleine bedrijven is dat genoeg.`,
-          `Professional begint bij ${PROFESSIONAL}. Je krijgt tot 10 pagina's, uitgebreide SEO, een blog, koppelingen met tools die je al gebruikt en 30 dagen gratis nazorg. Dat past als je meerdere diensten hebt en daar ook op gevonden wilt worden.`,
+          `Professional begint bij ${PROFESSIONAL}. Je krijgt tot 10 pagina's, uitgebreide SEO, een blog en koppelingen met tools die je al gebruikt. Dat past als je meerdere diensten hebt en daar ook op gevonden wilt worden.`,
           "Heb je meer nodig, zoals onbeperkt pagina's, een klantportaal of koppelingen met je eigen systemen, dan maken we een offerte op maat. Alle pakketten staan op [prijzen](/prijzen).",
         ],
       },
@@ -535,7 +535,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         alineas: [
           "Het begint met een gesprek over je bedrijf en wat de site moet opleveren. Binnen 24 uur krijg je een offerte met een vaste prijs en een planning.",
           "Ga je akkoord, dan vragen we je om content: teksten, foto's en je logo, als je die hebt. De teksten schrijven we met je mee. Heb je nog geen logo of huisstijl, dan kunnen we die ook maken.",
-          "Daarna ontwerpen en bouwen we de site. Je ziet elke stap en geeft feedback voordat er iets live gaat. Na de livegang doen wij standaard het beheer.",
+          `Daarna ontwerpen en bouwen we de site. Je ziet elke stap en geeft feedback voordat er iets live gaat. ${HOSTING_ZIN}`,
         ],
       },
       {
@@ -562,20 +562,20 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: "Teksten, foto's en je logo, als je die hebt. De teksten schrijven we met je mee, en een logo of huisstijl kunnen we ook voor je maken.",
       },
       {
-        q: "Hoe lang duurt het voordat mijn website online staat?",
+        q: "Wanneer staat mijn bedrijfswebsite online?",
         a: `Starter meestal ${LEVERTIJD.starter}, een gewone bedrijfswebsite ${LEVERTIJD.standaard}. Hoe snel het gaat, hangt ook af van hoe snel de content klaar is.`,
       },
       {
         q: "Welke kosten komen er na de livegang nog bij?",
-        a: "Hosting, vanaf 25 euro per maand, met basisonderhoud inbegrepen. Er is geen apart onderhoudscontract. Daarnaast betaal je je domeinnaam, circa 10 euro per jaar.",
+        a: `${HOSTING_ZIN} Er is geen apart onderhoudscontract. Daarnaast betaal je je domeinnaam, vanaf circa 10 euro per jaar.`,
       },
       {
         q: "Kan ik vanuit Den Helder ook online verkopen?",
         a: `Ja. Een webshop bouwen we op maat met betaalkoppelingen, vanaf ${WEBSHOP}.`,
       },
       {
-        q: "Is de website na de oplevering van mij?",
-        a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Je kunt de site altijd meenemen naar een andere partij.",
+        q: "Kan ik later naar een andere partij overstappen?",
+        a: "Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht.",
       },
     ],
     todo: [
@@ -602,7 +602,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     lokaal: {
       h2: "Website laten maken in Heerhugowaard",
       alineas: [
-        "Voor ondernemers in Heerhugowaard bouwt Nieuwblik websites met één doel: dat de juiste klant contact opneemt. We werken vanuit Enkhuizen, met korte lijnen. Je praat rechtstreeks met de mensen die je site maken, zonder tussenpersoon.",
+        "Voor ondernemers in Heerhugowaard bouwt Nieuwblik websites met één doel: dat de juiste klant contact opneemt. We werken vanuit Enkhuizen, met korte lijnen en zonder tussenlagen.",
         "Verkoop je iets wat je klant vooraf niet kan zien, zoals een dak, een installatie, advies of onderhoud? Dan moet je website het vertrouwen geven dat anders uit een showroom komt. Met duidelijke uitleg, echte foto's van je werk en een aanvraag die in een paar stappen klaar is.",
       ],
     },
@@ -611,7 +611,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Websites voor bouw, techniek en dienstverlening",
         alineas: [
           "[Feigro Dakwerken](/portfolio/feigro-dakwerken) kreeg een merkwebsite met naast het gewone offertetraject een directe lekkagemelder, zodat een klant met een acuut probleem niet hoeft te wachten tot iemand terugbelt.",
-          "Voor [Esveld Installatie](/portfolio/esveld-installatie) maakten we een website voor installatiediensten met een klantportaal. En [Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) gebruikt zijn site vooral om aanvragen uit de regio binnen te halen, met uitleg over aarding en een korte route naar een offerte of inspectie.",
+          "Voor [Esveld Installatie](/portfolio/esveld-installatie) maakten we een website voor installatiediensten met een klantportaal. Bij [Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) maakt de site de risico's van slechte aarding zichtbaar, zoals brandgevaar en defecte apparatuur. Zo begrijpt een bezoeker waarom de dienst nodig is, en zwevende knoppen voor bellen, WhatsApp en een offerte maken de volgende stap klein.",
           "Werk je in een van deze vakgebieden? Kijk dan ook op onze pagina's over een website voor een [bouwbedrijf](/website-laten-maken-bouwbedrijf), een [elektricien](/website-laten-maken-elektricien), een [loodgieter](/website-laten-maken-loodgieter) of een [schilder](/website-laten-maken-schilder).",
         ],
       },
@@ -619,7 +619,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Wat een website in Heerhugowaard kost",
         alineas: [
           `Wil je vooral online laten zien wie je bent en goed bereikbaar zijn, dan volstaat Starter. Voor ${STARTER} krijg je maximaal vijf pagina's, een contactformulier, Google Maps en een site die op elke telefoon goed werkt. Reken op ongeveer ${LEVERTIJD.starter} tot de livegang.`,
-          `Moet je website zelf aanvragen binnenhalen, met een pagina per dienst en artikelen die laten zien wat je weet? Kies dan Professional vanaf ${PROFESSIONAL}. Daarin zitten tot tien pagina's, uitgebreide SEO, een blog, koppelingen met je eigen software en een maand gratis nazorg na de livegang.`,
+          `Moet je website zelf aanvragen binnenhalen, met een pagina per dienst en artikelen die laten zien wat je weet? Kies dan Professional vanaf ${PROFESSIONAL}. Daarin zitten tot tien pagina's, uitgebreide SEO, een blog en koppelingen met je eigen software.`,
           `Een klantportaal, een koppeling met je planning of een webshop is maatwerk. Webshops beginnen bij ${WEBSHOP}, andere uitbreidingen bespreken we per project. Wat het kost, zie je altijd vooraf in de offerte. Een overzicht van alle pakketten staat op de [prijzenpagina](/prijzen).`,
         ],
       },
@@ -628,7 +628,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         alineas: [
           "Na de kennismaking krijg je binnen 24 uur een reactie met een concrete offerte. Daarin staat wat je krijgt, wat het kost en wanneer het af is.",
           "Tijdens de bouw zie je de site groeien en geef je feedback op tussentijdse versies. We schrijven de teksten met je mee, zodat je vakkennis erin terugkomt en ze aansluiten op de woorden die klanten gebruiken.",
-          "Na de livegang blijven wij het beheer doen, tenzij je zelf wilt kunnen aanpassen. Dan bouwen we op verzoek een eenvoudig beheersysteem. Wil je ook een logo of huisstijl, dan nemen we dat in hetzelfde traject mee.",
+          `${HOSTING_ZIN} Wil je zelf kunnen aanpassen, dan bouwen we op verzoek een eenvoudig beheersysteem. Wil je ook een logo of huisstijl, dan nemen we dat in hetzelfde traject mee.`,
           "Dichtbij werken we ook voor ondernemers in de rest van Noord-Holland. Lees verder over [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [website laten maken in Hoorn](/werkgebied/hoorn) of [website laten maken in Schagen](/website-laten-maken-schagen).",
         ],
       },
@@ -647,12 +647,12 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: "Ja. In ons portfolio staan onder meer Feigro Dakwerken, Esveld Installatie en Aardingsbedrijf West-Friesland. Bij al die sites draait het om vertrouwen en een makkelijke aanvraag.",
       },
       {
-        q: "Hoe lang duurt het voordat mijn site live staat?",
+        q: "Hoeveel weken zitten er tussen akkoord en livegang?",
         a: `Meestal ${LEVERTIJD.standaard}. Een Starter-site kan in ${LEVERTIJD.starter}, grotere projecten duren ${LEVERTIJD.complex}.`,
       },
       {
         q: "Wie onderhoudt de website na de oplevering?",
-        a: "Dat doen wij. Basisonderhoud, zoals back-ups en updates, zit inbegrepen bij de hosting. Aanpassingen of uitbreidingen kunnen altijd los.",
+        a: `${HOSTING_ZIN} Daarin zitten back-ups en updates. Aanpassingen en uitbreidingen doen we op aanvraag, met een aparte offerte.`,
       },
       {
         q: "Kunnen jullie ook mijn logo en huisstijl maken?",
@@ -701,15 +701,15 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Wat je betaalt, nu en later",
         alineas: [
           `Eenmalig: voor een compacte site met 1 tot 5 pagina's, contactformulier en Google Maps is Starter genoeg. Die kost ${STARTER}. Wil je een online agenda of boekingssysteem koppelen dat je al gebruikt, of een blog met uitleg over je behandelingen, dan kies je Professional vanaf ${PROFESSIONAL}. Een eigen ledenportaal of inschrijfsysteem is maatwerk, daarvoor maken we een offerte.`,
-          "Doorlopend: hosting kan bij ons, op snelle servers vanaf 25 euro per maand. Basisonderhoud met back-ups en updates zit daarbij inbegrepen; een apart onderhoudscontract is er niet.",
-          "En de site is van jou. Alle code, teksten en afbeeldingen zijn na de oplevering jouw eigendom, dus je kunt hem altijd meenemen. Alle pakketten naast elkaar zie je op [prijzen](/prijzen).",
+          `Doorlopend: ${HOSTING_ZIN} Een apart onderhoudscontract is er niet.`,
+          "Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht. Alle pakketten naast elkaar zie je op [prijzen](/prijzen).",
         ],
       },
       {
         h2: "Waar we op letten bij een praktijk, salon of club",
         alineas: [
           "De belangrijkste knop staat op elke pagina op dezelfde plek, op de telefoon net zo goed als op een laptop. Tarieven, vergoedingen en lestijden staan op een eigen pagina in plaats van in een pdf. Foto's laten je eigen ruimte en je eigen mensen zien.",
-          "Roosters en prijzen veranderen. Wil je die zelf bijwerken, dan bouwen we op verzoek een beheersysteem waarmee dat zonder technische kennis kan. Anders passen wij het voor je aan.",
+          "Roosters en prijzen veranderen. Wil je die zelf bijwerken, dan bouwen we op verzoek een beheersysteem waarmee dat zonder technische kennis kan. Anders passen wij het op aanvraag voor je aan.",
           "Voor zoekopdrachten in je eigen omgeving werken website en Google Bedrijfsprofiel samen, met reviews van klanten erbij. Zo vergroot je de kans dat je verschijnt als iemand in de buurt naar jouw vak zoekt.",
           "Werk je ook voor klanten buiten Schagen? Lees dan over [website laten maken in Den Helder](/website-laten-maken-den-helder), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard), [website laten maken in Alkmaar](/website-laten-maken-alkmaar) of onze aanpak voor [Noord-Holland](/regio/noord-holland).",
         ],
@@ -726,19 +726,19 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Wat zijn de vaste kosten na de oplevering?",
-        a: "Hosting kan bij ons vanaf 25 euro per maand, met basisonderhoud inbegrepen. Er is geen apart onderhoudscontract.",
+        a: `${HOSTING_ZIN} Er is geen apart onderhoudscontract.`,
       },
       {
-        q: "Is de website daarna van mij?",
-        a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Er is geen vendor lock-in.",
+        q: "Wat mag ik na de oplevering met mijn website?",
+        a: "Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht.",
       },
       {
         q: "Maken jullie ook websites voor sportclubs en verenigingen in Schagen?",
         a: "Ja. Voor clubs bouwen we bijvoorbeeld teampagina's, lesroosters en een makkelijke route naar een proefles of lidmaatschap. Bekijk de sites van volleybalvereniging Madjoe en Karate School Cor Slok als voorbeeld.",
       },
       {
-        q: "Wanneer kunnen klanten online een afspraak bij mij plannen?",
-        a: `Zodra de site live staat. Een Starter-site staat meestal binnen ${LEVERTIJD.starter}, een uitgebreidere site binnen ${LEVERTIJD.standaard}. Met een ledenportaal of webshop reken je op ${LEVERTIJD.complex}.`,
+        q: "Hoe lang duurt het voordat mijn website live staat?",
+        a: `Een Starter-site staat meestal binnen ${LEVERTIJD.starter} live, een uitgebreidere site binnen ${LEVERTIJD.standaard}. Met een ledenportaal of webshop reken je op ${LEVERTIJD.complex}.`,
       },
     ],
     todo: [
@@ -756,7 +756,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     headings: {
       benefits: "Waarom ondernemers uit Medemblik kiezen voor Nieuwblik",
       reviews: REVIEWKOP,
-      portfolio: "Voorbeelden van ons werk",
+      portfolio: "Websites uit de regio die klanten opleveren",
       contact: 'Klaar voor een nieuwe website in Medemblik?',
     },
     eigenOpbouw: true,
@@ -773,8 +773,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Hoe we bedrijven in de regio vindbaar maakten",
         alineas: [
-          "[Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) wilde aanvragen uit de eigen regio, met Medemblik, Hoorn en Enkhuizen als belangrijkste plaatsen. De site legt eerst uit waarom aarding en de NEN 1010-norm belangrijk zijn. Dat wekt vertrouwen, en daarna is een offerte of inspectie in een paar stappen aangevraagd.",
-          "Voor [Taxi Drechterland](/portfolio/taxi-drechterland) kregen de luchthavenritten en de kernen in het werkgebied elk een eigen pagina. Zo wordt de chauffeur gevonden op precies de zoekopdracht waar iemand op dat moment mee bezig is.",
+          "[Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) wil gevonden worden door particulieren en bedrijven in heel West-Friesland, waaronder Medemblik. Elke dienst, van hulpaarding en diepte-aarding tot metingen, wordt helder uitgelegd, en Google-reviews staan prominent in beeld als bewijs voor wie het bedrijf nog niet kent.",
+          "Bij [Taxi Drechterland](/portfolio/taxi-drechterland) hoorde lokale vindbaarheid bij de opdracht: in de dorpen in de omgeving en bij zoekopdrachten voor luchthavenritten. Daarom zijn er aparte pagina's voor de luchthavenritten en worden de kernen in het werkgebied afzonderlijk uitgelicht. Zo wordt de chauffeur gevonden op zoekopdrachten als 'taxi Hoogkarspel' of 'taxi naar Schiphol vanuit West-Friesland'.",
           "[Feigro Dakwerken](/portfolio/feigro-dakwerken) werkt in heel West-Friesland. Opgeleverde projecten staan op de site als bewijs, en een lekkage meld je via een eigen, snelle route naast de gewone offerteaanvraag.",
         ],
       },
@@ -782,7 +782,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Wat een vindbare website in Medemblik kost",
         alineas: [
           `In elke site zit de technische basis voor Google: snelle laadtijden, structured data, meta-tags per pagina, een sitemap en robots.txt. Met Starter (${STARTER}, 1 tot 5 pagina's) heb je die basis, plus contactformulier en Google Maps.`,
-          `Wil je per dienst een eigen pagina en met artikelen laten zien wat je weet, dan kies je Professional vanaf ${PROFESSIONAL}. Daarin zitten tot 10 pagina's, uitgebreide SEO, een blog en 30 dagen gratis nazorg. Voor doorlopend werk aan je zoekposities bieden we losse SEO-pakketten aan.`,
+          `Wil je per dienst een eigen pagina en met artikelen laten zien wat je weet, dan kies je Professional vanaf ${PROFESSIONAL}. Daarin zitten tot 10 pagina's, uitgebreide SEO en een blog. Voor doorlopend werk aan je zoekposities bieden we losse SEO-pakketten aan.`,
           `Een webshop of maatwerk prijzen we per project. Webshops beginnen bij ${WEBSHOP}. Een overzicht van alle pakketten staat op [prijzen](/prijzen).`,
         ],
       },
@@ -790,7 +790,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Website en Google Bedrijfsprofiel samen",
         alineas: [
           "Bij zoekopdrachten met een plaatsnaam laat Google naast gewone resultaten ook bedrijven op de kaart zien. Die komen uit het Google Bedrijfsprofiel. Een profiel met dezelfde gegevens als je website, de juiste categorie en reviews van klanten maakt de kans groter dat je daar verschijnt. Hoe je dat instelt, lees je in ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
-          "Werk je ook in de rest van de regio? Kijk dan bij [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Enkhuizen](/) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
+          "Werk je ook in de rest van de regio? Kijk dan bij [website laten maken in Hoorn](/werkgebied/hoorn), [ons kantoor in Enkhuizen](/) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
         ],
       },
     ],
@@ -829,7 +829,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
   },
   alkmaar: {
     title: `Website laten maken Alkmaar vanaf ${STARTER} | Nieuwblik`,
-    metaDescription: `Website laten maken in Alkmaar? Vaste prijs vanaf ${STARTER}, direct contact met de makers en vindbaar in Google en ChatGPT. Binnen 2 tot 4 weken live.`,
+    metaDescription: `Website laten maken in Alkmaar? Vaste prijs vanaf ${STARTER}, direct contact met de makers en gebouwd om gevonden te worden. Binnen 2 tot 4 weken live.`,
     h1: "Website laten maken in Alkmaar",
     eigenOpbouw: true,
     intro: `Een bedrijfswebsite of webshop voor ondernemers in Alkmaar, gebouwd door een klein team uit Noord-Holland. Vaste prijs vanaf ${STARTER}, zonder accountmanager ertussen.`,
@@ -851,7 +851,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Welke website past bij jouw bedrijf?",
         alineas: [
           `Starter (${STARTER}) is gemaakt voor ondernemers die een compacte, nette site willen: 1 tot 5 pagina's, een contactformulier, Google Maps, de basis van SEO en een site die snel laadt op elke telefoon. Meestal staat hij binnen ${LEVERTIJD.starter} online.`,
-          `Professional (vanaf ${PROFESSIONAL}) is voor bedrijven die online klanten willen werven. Je krijgt tot 10 pagina's, uitgebreide SEO, een blog om je kennis te laten zien, koppelingen met externe tools en 30 dagen gratis nazorg.`,
+          `Professional (vanaf ${PROFESSIONAL}) is voor bedrijven die online klanten willen werven. Je krijgt tot 10 pagina's, uitgebreide SEO, een blog om je kennis te laten zien en koppelingen met externe tools.`,
           `Op maat is voor alles wat groter is: een webshop met betaalkoppelingen, een beheersysteem op aanvraag, onbeperkt pagina's of een koppeling met je eigen systemen. Webshops beginnen bij ${WEBSHOP}. Bekijk alle pakketten op [prijzen](/prijzen), of lees hoe we [webshops](/diensten/webshops) aanpakken.`,
         ],
       },
@@ -867,7 +867,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         alineas: [
           "Het begint met een gesprek over je bedrijf, je klanten en wat de site moet opleveren. Binnen 24 uur ontvang je daarna een offerte met een vaste prijs en een planning.",
           "We ontwerpen en bouwen in stappen. Bij elke tussenversie geef je feedback, zodat er bij de oplevering geen verrassingen zijn. Teksten schrijven we samen, op basis van wat jij weet en wat klanten in Alkmaar en omgeving zoeken.",
-          "Na de lancering houden wij de site snel en veilig. Zelf aanpassen kan ook: op verzoek bouwen we een beheersysteem waarmee je teksten en foto's wijzigt.",
+          `${HOSTING_ZIN} Zelf aanpassen kan ook: op verzoek bouwen we een beheersysteem waarmee je teksten en foto's wijzigt.`,
         ],
       },
       {
