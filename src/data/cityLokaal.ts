@@ -567,7 +567,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Welke kosten komen er na de livegang nog bij?",
-        a: "Hosting kan bij ons vanaf 25 euro per maand. Een onderhoudscontract voor updates, back-ups en kleine aanpassingen is optioneel.",
+        a: "Hosting, vanaf 25 euro per maand, met basisonderhoud inbegrepen. Er is geen apart onderhoudscontract. Daarnaast betaal je je domeinnaam, circa 10 euro per jaar.",
       },
       {
         q: "Kan ik vanuit Den Helder ook online verkopen?",
@@ -652,7 +652,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Wie onderhoudt de website na de oplevering?",
-        a: "Dat doen wij. Updates, back-ups en beveiliging houden we bij, en kleine aanpassingen of uitbreidingen kunnen altijd los.",
+        a: "Dat doen wij. Basisonderhoud, zoals back-ups en updates, zit inbegrepen bij de hosting. Aanpassingen of uitbreidingen kunnen altijd los.",
       },
       {
         q: "Kunnen jullie ook mijn logo en huisstijl maken?",
@@ -701,7 +701,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Wat je betaalt, nu en later",
         alineas: [
           `Eenmalig: voor een compacte site met 1 tot 5 pagina's, contactformulier en Google Maps is Starter genoeg. Die kost ${STARTER}. Wil je een online agenda of boekingssysteem koppelen dat je al gebruikt, of een blog met uitleg over je behandelingen, dan kies je Professional vanaf ${PROFESSIONAL}. Een eigen ledenportaal of inschrijfsysteem is maatwerk, daarvoor maken we een offerte.`,
-          "Doorlopend: hosting kan bij ons, op snelle servers vanaf 25 euro per maand. Een onderhoudscontract voor updates, back-ups en kleine aanpassingen is optioneel. Je zit nergens aan vast.",
+          "Doorlopend: hosting kan bij ons, op snelle servers vanaf 25 euro per maand. Basisonderhoud met back-ups en updates zit daarbij inbegrepen; een apart onderhoudscontract is er niet.",
           "En de site is van jou. Alle code, teksten en afbeeldingen zijn na de oplevering jouw eigendom, dus je kunt hem altijd meenemen. Alle pakketten naast elkaar zie je op [prijzen](/prijzen).",
         ],
       },
@@ -726,7 +726,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Wat zijn de vaste kosten na de oplevering?",
-        a: "Hosting kan bij ons vanaf 25 euro per maand. Onderhoud met updates, back-ups en kleine aanpassingen is optioneel. Je bent nergens toe verplicht.",
+        a: "Hosting kan bij ons vanaf 25 euro per maand, met basisonderhoud inbegrepen. Er is geen apart onderhoudscontract.",
       },
       {
         q: "Is de website daarna van mij?",
