@@ -227,7 +227,7 @@ const WatKostEenWebsite = () => {
               ))}
             </ul>
             <p className="text-muted-foreground mt-8">
-              Verdienen terug doet zo'n website zich doorgaans in aanvragen die je anders had gemist. Met 19 vijfsternreviews van ondernemers vóór jou weten we dat de investering zich laat voelen in de agenda, niet in de portemonnee.
+              Terugverdienen doet zo'n website doorgaans in de aanvragen die je anders had gemist. Met 19 vijfsternreviews van ondernemers vóór jou weten we dat de investering zich vooral laat voelen in een vollere agenda, niet in je portemonnee.
             </p>
           </div>
         </section>
