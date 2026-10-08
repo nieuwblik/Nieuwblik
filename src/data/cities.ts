@@ -1156,6 +1156,196 @@ export const cities: CityRecord[] = [
       "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
     },
     "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
+  },
+  {
+    "slug": "purmerend",
+    "name": "Purmerend",
+    "title": "Website Laten Maken Purmerend | Snel & Pro - Nieuwblik",
+    "metaDescription": "Website laten maken in Purmerend? Nieuwblik bouwt snelle, conversiegerichte sites voor MKB. Persoonlijk contact en moderne aanpak. Vraag offerte aan.",
+    "h1": "Website laten maken in Purmerend die klanten oplevert",
+    "heroSubtitle": "Ondernemen hier betekent werken in een bedrijvig lokaal MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
+    "intro": "Voor ondernemers in Purmerend draait alles om opvallen tussen het brede een bedrijvig lokaal MKB. Een sterke website is daarbij geen luxe, maar pure noodzaak. Nieuwblik bouwt voor MKB door heel Nederland aan websites die conversiegericht en visueel sterk zijn. Door persoonlijk contact te combineren met een AI gedreven aanpak leveren we snel, betaalbaar en met aandacht voor detail. Of je nu net begint of jouw bestaande website een nieuwe boost wilt geven, wij denken vanaf de eerste minuut met je mee.",
+    "section1": {
+      "h2": "Waarom Purmerendse ondernemers kiezen voor een sterke website",
+      "body": "Voor ondernemers in Purmerend draait alles om opvallen tussen het brede een bedrijvig lokaal MKB. Een sterke website is daarbij geen luxe, maar pure noodzaak. Nieuwblik bouwt voor MKB door heel Nederland aan websites die conversiegericht en visueel sterk zijn. Door persoonlijk contact te combineren met een AI gedreven aanpak leveren we snel, betaalbaar en met aandacht voor detail. Of je nu net begint of jouw bestaande website een nieuwe boost wilt geven, wij denken vanaf de eerste minuut met je mee.",
+      "benefits": [
+        {
+          "h3": "Persoonlijk contact",
+          "text": "Je krijgt een vast aanspreekpunt dat jouw bedrijf echt leert kennen. Geen accountmanagers of callcenters, gewoon directe lijnen."
+        },
+        {
+          "h3": "Lokale voelhorens",
+          "text": "We werken al jaren met MKB in heel Nederland en weten wat lokale ondernemers nodig hebben. Geen onnodige toeters en bellen."
+        },
+        {
+          "h3": "Mobile first design",
+          "text": "Het overgrote deel van bezoekers komt via de smartphone binnen. Wij ontwerpen daarom altijd eerst voor mobiel."
+        }
+      ]
+    },
+    "section2H2": "Wat je tegenkomt zonder Nieuwblik als ondernemer in Purmerend",
+    "section3H2": "Wat ondernemers zeggen over samenwerken met Nieuwblik",
+    "section4": {
+      "h2": "Bekijk onze recente projecten",
+      "intro": "Een selectie van projecten die laten zien hoe wij ondernemers verder helpen."
+    },
+    "contactBlock": {
+      "h2": "Klaar voor een website die werkt voor jouw bedrijf in Purmerend?",
+      "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
+    },
+    "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
+  },
+  {
+    "slug": "den-helder",
+    "name": "Den Helder",
+    "title": "Website Laten Maken Den Helder | Modern MKB - Nieuwblik",
+    "metaDescription": "Op zoek naar webdesign in Den Helder? Nieuwblik levert betaalbare websites die scoren in Google en bezoekers omzetten in klanten. Plan een kennismaking.",
+    "h1": "Professionele website laten maken in Den Helder",
+    "heroSubtitle": "Ondernemen hier betekent werken in een hechte maritieme ondernemerskring. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
+    "intro": "Den Helder is een marinestad aan de kop van Noord-Holland waar ondernemen energie en visie vraagt. Met de juiste online uitstraling vergroot je jouw bereik direct. Nieuwblik werkt vanuit Enkhuizen voor klanten in heel Nederland en levert websites die in lijn zijn met jouw doelen. Wij koppelen creatief design aan slimme techniek, zodat je sneller live bent zonder kwaliteitsverlies. Persoonlijk contact, transparante prijzen en een focus op meetbaar resultaat zijn vanzelfsprekend.",
+    "section1": {
+      "h2": "Zo valt jouw bedrijf in Den Helder online op",
+      "body": "Den Helder is een marinestad aan de kop van Noord-Holland waar ondernemen energie en visie vraagt. Met de juiste online uitstraling vergroot je jouw bereik direct. Nieuwblik werkt vanuit Enkhuizen voor klanten in heel Nederland en levert websites die in lijn zijn met jouw doelen. Wij koppelen creatief design aan slimme techniek, zodat je sneller live bent zonder kwaliteitsverlies. Persoonlijk contact, transparante prijzen en een focus op meetbaar resultaat zijn vanzelfsprekend.",
+      "benefits": [
+        {
+          "h3": "Resultaatgericht",
+          "text": "We meten en optimaliseren na de lancering, want een website is nooit klaar. Samen maken we hem steeds sterker."
+        },
+        {
+          "h3": "SEO klaar opgeleverd",
+          "text": "Snelle laadtijd, technische SEO en doordachte teksten zitten standaard inbegrepen. Klaar om gevonden te worden in Google."
+        },
+        {
+          "h3": "AI gedreven aanpak",
+          "text": "We zetten slimme tools in om sneller te bouwen en beter te schrijven. Jij profiteert van de tijdwinst en de kwaliteit."
+        }
+      ]
+    },
+    "section2H2": "Herken jij deze problemen als ondernemer in Den Helder?",
+    "section3H2": "Ervaringen van klanten die voor Nieuwblik kozen",
+    "section4": {
+      "h2": "Websites die wij bouwden voor ondernemers als jij",
+      "intro": "Bekijk hoe we voor andere MKB klanten resultaat boekten en wat dat voor jouw bedrijf kan betekenen."
+    },
+    "contactBlock": {
+      "h2": "Benieuwd wat Nieuwblik kan betekenen voor jouw zaak in Den Helder?",
+      "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
+    },
+    "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
+  },
+  {
+    "slug": "heerhugowaard",
+    "name": "Heerhugowaard",
+    "title": "Website Laten Maken Heerhugowaard | Betaalbaar - Nieuwblik",
+    "metaDescription": "Een professionele website laten bouwen in Heerhugowaard? Wij combineren strakke designs met AI gedreven ontwikkeling voor snel resultaat. Bekijk hoe.",
+    "h1": "Website laten maken in Heerhugowaard voor jouw bedrijf",
+    "heroSubtitle": "Ondernemen hier betekent werken in een ondernemend en groeiend MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
+    "intro": "Een goede website is voor MKB in Heerhugowaard de basis voor groei. Bezoekers maken in seconden een oordeel, dus elke detail telt. Nieuwblik helpt je daar bij met websites die professioneel ogen, snel laden en bezoekers omzetten in klanten. Onze AI gedreven manier van werken maakt het traject korter en scherper geprijsd. Wij bedienen ondernemers door heel Nederland en geloven in heldere communicatie van briefing tot live.",
+    "section1": {
+      "h2": "Online groeien als ondernemer in Heerhugowaard begint hier",
+      "body": "Een goede website is voor MKB in Heerhugowaard de basis voor groei. Bezoekers maken in seconden een oordeel, dus elke detail telt. Nieuwblik helpt je daar bij met websites die professioneel ogen, snel laden en bezoekers omzetten in klanten. Onze AI gedreven manier van werken maakt het traject korter en scherper geprijsd. Wij bedienen ondernemers door heel Nederland en geloven in heldere communicatie van briefing tot live.",
+      "benefits": [
+        {
+          "h3": "Persoonlijk contact",
+          "text": "Je krijgt een vast aanspreekpunt dat jouw bedrijf echt leert kennen. Geen accountmanagers of callcenters, gewoon directe lijnen."
+        },
+        {
+          "h3": "Lokale voelhorens",
+          "text": "We werken al jaren met MKB in heel Nederland en weten wat lokale ondernemers nodig hebben. Geen onnodige toeters en bellen."
+        },
+        {
+          "h3": "Mobile first design",
+          "text": "Het overgrote deel van bezoekers komt via de smartphone binnen. Wij ontwerpen daarom altijd eerst voor mobiel."
+        }
+      ]
+    },
+    "section2H2": "Zo verschilt werken met Nieuwblik van andere bureaus in Heerhugowaard",
+    "section3H2": "Tevreden klanten vertellen over hun nieuwe website",
+    "section4": {
+      "h2": "Werk waar we trots op zijn",
+      "intro": "Deze cases tonen onze aanpak in beeld, met dezelfde kwaliteit die wij elke ondernemer bieden."
+    },
+    "contactBlock": {
+      "h2": "Tijd voor een nieuwe website voor jouw onderneming in Heerhugowaard?",
+      "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
+    },
+    "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
+  },
+  {
+    "slug": "schagen",
+    "name": "Schagen",
+    "title": "Website Laten Maken Schagen | AI Webdesign - Nieuwblik",
+    "metaDescription": "Website nodig voor jouw bedrijf in Schagen? Nieuwblik werkt voor MKB door heel Nederland met snelle oplevering en duidelijke prijzen. Start vandaag.",
+    "h1": "Jouw bedrijfswebsite laten maken in Schagen",
+    "heroSubtitle": "Ondernemen hier betekent werken in een nuchtere regionale markt. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
+    "intro": "Voor ondernemers in Schagen draait alles om opvallen tussen het brede een nuchtere regionale markt. Een sterke website is daarbij geen luxe, maar pure noodzaak. Nieuwblik bouwt voor MKB door heel Nederland aan websites die conversiegericht en visueel sterk zijn. Door persoonlijk contact te combineren met een AI gedreven aanpak leveren we snel, betaalbaar en met aandacht voor detail. Of je nu net begint of jouw bestaande website een nieuwe boost wilt geven, wij denken vanaf de eerste minuut met je mee.",
+    "section1": {
+      "h2": "Een website die werkt voor MKB in Schagen",
+      "body": "Voor ondernemers in Schagen draait alles om opvallen tussen het brede een nuchtere regionale markt. Een sterke website is daarbij geen luxe, maar pure noodzaak. Nieuwblik bouwt voor MKB door heel Nederland aan websites die conversiegericht en visueel sterk zijn. Door persoonlijk contact te combineren met een AI gedreven aanpak leveren we snel, betaalbaar en met aandacht voor detail. Of je nu net begint of jouw bestaande website een nieuwe boost wilt geven, wij denken vanaf de eerste minuut met je mee.",
+      "benefits": [
+        {
+          "h3": "Snel live",
+          "text": "Wij leveren binnen enkele weken op zonder in te leveren op kwaliteit. Strakke planning en korte lijnen houden het tempo hoog."
+        },
+        {
+          "h3": "Strategisch meedenken",
+          "text": "We bouwen niet zomaar wat je vraagt, maar adviseren waar het beter kan. Jouw doel staat altijd centraal."
+        },
+        {
+          "h3": "Conversiegericht ontwerp",
+          "text": "Elke knop, kop en sectie heeft een doel en is gericht op actie. Je website wordt een verkoper die altijd aan staat."
+        }
+      ]
+    },
+    "section2H2": "Veelvoorkomende valkuilen voor MKB in Schagen",
+    "section3H2": "Stemmen van MKB ondernemers die ons inschakelden",
+    "section4": {
+      "h2": "Een greep uit onze laatste opleveringen",
+      "intro": "Een selectie van projecten die laten zien hoe wij ondernemers verder helpen."
+    },
+    "contactBlock": {
+      "h2": "Laten we samen jouw online verhaal in Schagen sterker maken",
+      "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
+    },
+    "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
+  },
+  {
+    "slug": "medemblik",
+    "name": "Medemblik",
+    "title": "Website Laten Maken Medemblik | Snel Live - Nieuwblik",
+    "metaDescription": "Webdesign bureau voor ondernemers in Medemblik. Strategisch ontwerp, sterke teksten en goede vindbaarheid in één pakket. Ontdek wat wij doen.",
+    "h1": "Modern webdesign voor ondernemers in Medemblik",
+    "heroSubtitle": "Ondernemen hier betekent werken in een hechte West-Friese ondernemerskring. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
+    "intro": "Medemblik is een historische havenstad aan het IJsselmeer waar ondernemen energie en visie vraagt. Met de juiste online uitstraling vergroot je jouw bereik direct. Nieuwblik werkt vanuit Enkhuizen voor klanten in heel Nederland en levert websites die in lijn zijn met jouw doelen. Wij koppelen creatief design aan slimme techniek, zodat je sneller live bent zonder kwaliteitsverlies. Persoonlijk contact, transparante prijzen en een focus op meetbaar resultaat zijn vanzelfsprekend.",
+    "section1": {
+      "h2": "De kracht van een professionele site voor Medemblik",
+      "body": "Medemblik is een historische havenstad aan het IJsselmeer waar ondernemen energie en visie vraagt. Met de juiste online uitstraling vergroot je jouw bereik direct. Nieuwblik werkt vanuit Enkhuizen voor klanten in heel Nederland en levert websites die in lijn zijn met jouw doelen. Wij koppelen creatief design aan slimme techniek, zodat je sneller live bent zonder kwaliteitsverlies. Persoonlijk contact, transparante prijzen en een focus op meetbaar resultaat zijn vanzelfsprekend.",
+      "benefits": [
+        {
+          "h3": "Persoonlijk contact",
+          "text": "Je krijgt een vast aanspreekpunt dat jouw bedrijf echt leert kennen. Geen accountmanagers of callcenters, gewoon directe lijnen."
+        },
+        {
+          "h3": "Lokale voelhorens",
+          "text": "We werken al jaren met MKB in heel Nederland en weten wat lokale ondernemers nodig hebben. Geen onnodige toeters en bellen."
+        },
+        {
+          "h3": "Mobile first design",
+          "text": "Het overgrote deel van bezoekers komt via de smartphone binnen. Wij ontwerpen daarom altijd eerst voor mobiel."
+        }
+      ]
+    },
+    "section2H2": "Waar het vaak misgaat bij websites in Medemblik",
+    "section3H2": "Reacties van klanten na de oplevering",
+    "section4": {
+      "h2": "Projecten die laten zien wat we maken",
+      "intro": "Bekijk hoe we voor andere MKB klanten resultaat boekten en wat dat voor jouw bedrijf kan betekenen."
+    },
+    "contactBlock": {
+      "h2": "Plan jouw kennismaking en groei online in Medemblik",
+      "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
+    },
+    "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
   }
 ];
 
