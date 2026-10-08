@@ -7,7 +7,7 @@ import { buildHead } from "@/lib/seo";
 export const Route = createFileRoute("/_public/contact")({
   head: () =>
     buildHead({
-      title: "Contact | Webdesign Bureau Enkhuizen - Nieuwblik",
+      title: "Contact | Nieuwblik, webdesign in Enkhuizen",
       description:
         "Neem contact op met Nieuwblik in Enkhuizen. Website of webshop laten maken? Bel, WhatsApp of vul het formulier in. Reactie binnen 24 uur gegarandeerd.",
       keywords:

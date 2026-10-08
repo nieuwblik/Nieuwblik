@@ -137,7 +137,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Over Ons | Webdesign Bureau Enkhuizen - Nieuwblik"
+        title="Over Nieuwblik | Webdesign uit Enkhuizen"
         description="Maak kennis met Nieuwblik, jouw webdesign bureau uit Enkhuizen. Passie voor websites, webshops en SEO in West-Friesland. Persoonlijke aanpak, meetbaar resultaat."
         keywords="over ons, webdesign bureau Enkhuizen, digitale agency West-Friesland, nieuwblik team, website laten maken Enkhuizen"
         canonicalUrl={`${SITE_URL}/over-ons`}

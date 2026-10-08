@@ -91,7 +91,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Contact | Webdesign Bureau Enkhuizen - Nieuwblik"
+        title="Contact | Nieuwblik, webdesign in Enkhuizen"
         description="Neem contact op met Nieuwblik in Enkhuizen. Website of webshop laten maken? Bel, WhatsApp of vul het formulier in. Reactie binnen 24 uur gegarandeerd."
         keywords="contact webdesign Enkhuizen, offerte website, website laten maken West-Friesland, webdesign bureau contact"
         canonicalUrl={`${SITE_URL}/contact`}

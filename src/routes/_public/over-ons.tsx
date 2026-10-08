@@ -7,7 +7,7 @@ import { buildHead } from "@/lib/seo";
 export const Route = createFileRoute("/_public/over-ons")({
   head: () =>
     buildHead({
-      title: "Over Ons | Webdesign Bureau Enkhuizen - Nieuwblik",
+      title: "Over Nieuwblik | Webdesign uit Enkhuizen",
       description:
         "Maak kennis met Nieuwblik, jouw webdesign bureau uit Enkhuizen. Passie voor websites, webshops en SEO in West-Friesland. Persoonlijke aanpak, meetbaar resultaat.",
       keywords:
