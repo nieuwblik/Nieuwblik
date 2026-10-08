@@ -406,6 +406,141 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
     ],
   },
+
+  "purmerend": {
+    title: `Website laten maken Purmerend vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website laten maken in Purmerend? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Purmerend vanaf €${PRIJZEN.starter}`,
+    headings: {
+      benefits: "Waarom ondernemers uit Purmerend kiezen voor Nieuwblik",
+      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      portfolio: "Websites uit de regio die klanten opleveren",
+      contact: 'Klaar om online te groeien in Purmerend?',
+    },
+    lokaal: {
+      h2: 'Meer klanten uit Purmerend en Waterland met een website die werkt',
+      alineas: [
+        'Purmerend is de grootste stad van Waterland en sterk gegroeid, met veel inwoners die dagelijks richting Amsterdam forensen. Dat betekent een grote lokale klantenkring voor winkels, praktijken, horeca en dienstverleners, maar ook veel concurrentie uit de hoofdstad. Een bezoeker vergelijkt jouw site in een paar tellen met die van een Amsterdams bureau of bedrijf.',
+        'Wij bouwen daarom sites die direct duidelijk maken wat je doet, waar je zit en wat het kost. Mobiel eerst, snel geladen en met bellen, WhatsApp of een offerte aanvragen op één tik. Zo kiest een klant uit Purmerend, Beemster of Edam-Volendam voor de ondernemer dichtbij.',
+        'Voor lokale vindbaarheid zetten we je werkgebied, Google Bedrijfsprofiel en echte voorbeelden van je werk centraal. Dat weegt voor Google zwaarder dan algemene teksten over kwaliteit.',
+        "Werk je ook richting Zaandam of Amsterdam, dan sluiten onze pagina's voor [Zaanstad](/website-laten-maken-zaanstad) en [Amsterdam](/website-laten-maken-amsterdam) daarop aan. Bekijk ook ons [portfolio](/portfolio).",
+      ],
+    },
+    faq: [
+      { q: 'Wij concurreren met bedrijven uit Amsterdam. Hoe vallen we op?', a: "Door concreet te zijn: wat je levert, voor wie, een prijsindicatie en echte foto's van je werk. Benoem je werkgebied rond Purmerend expliciet, dan kiest een klant sneller voor de ondernemer om de hoek." },
+      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+      { q: 'Hoe snel staat mijn website live?', a: "Meestal binnen 2 tot 4 weken na de kennismaking, afhankelijk van hoe snel teksten en foto's klaar zijn. We helpen ook met het schrijven van de teksten." },
+    ],
+  },
+
+  "den-helder": {
+    title: `Website laten maken Den Helder vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website laten maken in Den Helder? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Den Helder vanaf €${PRIJZEN.starter}`,
+    headings: {
+      benefits: "Waarom ondernemers uit Den Helder kiezen voor Nieuwblik",
+      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      portfolio: "Websites uit de regio die klanten opleveren",
+      contact: 'Tijd voor een nieuwe website in Den Helder?',
+    },
+    lokaal: {
+      h2: 'Online zichtbaar in Den Helder en de Kop van Noord-Holland',
+      alineas: [
+        'Den Helder is de marinestad van Nederland, met de marinehaven, de veerdienst naar Texel en een flinke maritieme en technische sector. Daarnaast trekken het strand en de musea toeristen, wat kansen geeft voor horeca, verhuur en recreatie. Twee heel verschillende doelgroepen dus, die allebei eerst online zoeken.',
+        'Voor technische en maritieme bedrijven bouwen we sites die vertrouwen geven aan zakelijke opdrachtgevers: duidelijke diensten, certificeringen en projecten. Voor toerisme en horeca draait het om mobiel, openingstijden, reserveren en vindbaarheid voor bezoekers die op weg zijn naar Texel.',
+        'Omdat de stad aan de kop van Noord-Holland ligt, werk je vaak in een groot gebied. Dat werkgebied maken we zichtbaar op je site, zodat je ook gevonden wordt in Julianadorp, Anna Paulowna en Schagen.',
+        'Werk je ook in de rest van de Kop, bekijk dan onze pagina voor [Schagen](/website-laten-maken-schagen) of ons werk in [West-Friesland](/seo-enkhuizen).',
+      ],
+    },
+    faq: [
+      { q: 'Maken jullie ook websites voor technische en maritieme bedrijven?', a: 'Ja. Denk aan installateurs, toeleveranciers en onderhoudsbedrijven. We zetten diensten, projecten en certificeringen helder neer, met een eenvoudige manier om een offerte aan te vragen.' },
+      { q: 'Wij richten ons op toeristen richting Texel. Waar letten jullie op?', a: 'Op mobiel en snelheid. Bezoekers zoeken onderweg, dus openingstijden, route en reserveren of bellen staan bovenaan. Ook je Google Bedrijfsprofiel nemen we mee.' },
+      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+    ],
+  },
+
+  "heerhugowaard": {
+    title: `Website laten maken Heerhugowaard vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website laten maken in Heerhugowaard? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Heerhugowaard vanaf €${PRIJZEN.starter}`,
+    headings: {
+      benefits: "Waarom ondernemers uit Heerhugowaard kiezen voor Nieuwblik",
+      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      portfolio: "Websites uit de regio die klanten opleveren",
+      contact: 'Klaar om online te groeien in Heerhugowaard?',
+    },
+    lokaal: {
+      h2: 'Een website die werkt voor ondernemers in Heerhugowaard en Dijk en Waard',
+      alineas: [
+        'Heerhugowaard is sinds 2022 onderdeel van de gemeente Dijk en Waard en een van de snelst gegroeide plaatsen van Noord-Holland. Met grote bedrijventerreinen, een druk winkelhart en veel nieuwe wijken is er een groot aanbod aan lokale ondernemers, van bouw en techniek tot zorg en retail.',
+        'Op een bedrijventerrein loopt geen klant zomaar binnen. Je website is dan je etalage: daar beslist een opdrachtgever of hij belt. Wij bouwen sites die laten zien wat je maakt of levert, met echte projecten en een offerte die makkelijk aan te vragen is.',
+        'Voor winkels en praktijken in het centrum draait het om vindbaarheid op je telefoon, actuele openingstijden en afspraken maken in één tik. Alles mobiel eerst en snel geladen.',
+        "Werk je ook in Alkmaar of West-Friesland, dan sluiten onze pagina's voor [Alkmaar](/website-laten-maken-alkmaar) en [Hoorn](/werkgebied/hoorn) daarop aan.",
+      ],
+    },
+    faq: [
+      { q: 'Wij zitten op een bedrijventerrein. Wat heeft onze website nodig?', a: "Een heldere omschrijving van wat je levert en voor wie, echte projectfoto's, en een makkelijke offerteaanvraag. Daarmee doet je site het werk van een etalage." },
+      { q: 'Moeten we Heerhugowaard of Dijk en Waard op de site noemen?', a: 'Allebei. Klanten zoeken vooral op Heerhugowaard, maar de gemeentenaam helpt voor duidelijkheid. We verwerken beide natuurlijk in je teksten.' },
+      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+    ],
+  },
+
+  "schagen": {
+    title: `Website laten maken Schagen vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website laten maken in Schagen? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Schagen vanaf €${PRIJZEN.starter}`,
+    headings: {
+      benefits: "Waarom ondernemers uit Schagen kiezen voor Nieuwblik",
+      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      portfolio: "Websites uit de regio die klanten opleveren",
+      contact: 'Tijd voor een nieuwe website in Schagen?',
+    },
+    lokaal: {
+      h2: 'Meer aanvragen uit Schagen en de Kop met een website op maat',
+      alineas: [
+        'Schagen is een marktstad in de Kop van Noord-Holland, bekend van de West-Friese markt in de zomer. De gemeente is groot en landelijk, met veel agrarische bedrijven, familiebedrijven, aannemers en lokale winkels. Klanten komen hier vaak uit de wijde omgeving, van Callantsoog tot Warmenhuizen.',
+        "Juist in zo'n uitgestrekt gebied zoeken mensen eerst online. Wij bouwen sites die je werkgebied duidelijk maken, laten zien wat je doet en contact opnemen makkelijk maken. Nuchter, zonder poespas, met een vaste prijs.",
+        "Voor familiebedrijven en vakmensen leggen we de nadruk op vertrouwen: echte foto's, ervaringen van klanten en een direct telefoonnummer. Dat werkt beter dan algemene beloftes.",
+        "Werk je ook richting Den Helder of Heerhugowaard, bekijk dan onze pagina's voor [Den Helder](/website-laten-maken-den-helder) en [Heerhugowaard](/website-laten-maken-heerhugowaard).",
+      ],
+    },
+    faq: [
+      { q: 'Ons werkgebied is groot. Hoe worden we in alle dorpen gevonden?', a: "Door je werkgebied concreet te noemen en je Google Bedrijfsprofiel goed in te richten. We maken geen dunne pagina's per dorp, maar zorgen dat je diensten en regio helder op de site staan." },
+      { q: 'Wij zijn een familiebedrijf zonder veel tijd. Hoeveel werk is een website voor ons?', a: 'Weinig. Na een kennismaking schrijven we mee aan de teksten en regelen we de techniek. Jij geeft feedback, wij doen de rest.' },
+      { q: 'Komen jullie langs voor een kennismaking?', a: 'Ja. We zitten in Enkhuizen en zijn binnen de regio snel ter plaatse. Liever op afstand? Dan bellen we via video, en daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp.' },
+      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+    ],
+  },
+
+  "medemblik": {
+    title: `Website laten maken Medemblik vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Website laten maken in Medemblik? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
+    h1: `Website laten maken in Medemblik vanaf €${PRIJZEN.starter}`,
+    headings: {
+      benefits: "Waarom ondernemers uit Medemblik kiezen voor Nieuwblik",
+      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      portfolio: "Websites uit de regio die klanten opleveren",
+      contact: 'Klaar voor een nieuwe website in Medemblik?',
+    },
+    lokaal: {
+      h2: 'Een website voor ondernemers in Medemblik en omgeving',
+      alineas: [
+        'Medemblik is een van de oudste steden van West-Friesland, met kasteel Radboud, een historische haven aan het IJsselmeer en de stoomtram naar Hoorn. De gemeente omvat ook Wervershoof, Andijk, Abbekerk en Opperdoes, met veel agrarische bedrijven, watersport en recreatie.',
+        'Wij zitten zelf in Enkhuizen, op een kwartiertje afstand. We kennen de regio en de ondernemers die er werken. Voor watersport en toerisme bouwen we sites die bezoekers overtuigen om te boeken; voor vakmensen en bedrijven sites die offertes opleveren.',
+        'Elke site is mobiel eerst, snel en makkelijk zelf bij te houden. Je krijgt een vaste prijs en één aanspreekpunt, en we komen graag langs voor een kop koffie.',
+        'Werk je in heel West-Friesland, bekijk dan ook [Hoorn](/werkgebied/hoorn), [Andijk](/werkgebied/andijk) en onze [West-Friesland-pagina](/seo-enkhuizen).',
+      ],
+    },
+    faq: [
+      { q: 'Komen jullie echt langs in Medemblik?', a: 'Ja, we zitten in Enkhuizen en zijn zo bij je. Een kennismaking op locatie is vaak het fijnst om je bedrijf te leren kennen.' },
+      { q: 'Wij zitten in Wervershoof of Andijk. Is deze pagina ook voor ons?', a: 'Zeker. We werken in de hele gemeente Medemblik en de rest van West-Friesland, en verwerken je eigen werkgebied in de teksten.' },
+      { q: 'Maken jullie ook websites voor watersport en recreatie?', a: "Ja. Denk aan verhuur, campings en jachthavens: mooie foto's, duidelijke prijzen en online reserveren of contact op één tik." },
+      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+    ],
+  },
 };
 
 export const getCityLokaal = (slug: string): CityLokaal | undefined => cityLokaal[slug];

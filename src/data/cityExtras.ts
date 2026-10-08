@@ -44,6 +44,11 @@ export const cityExtras: CityExtra[] = [
   { slug: "alkmaar", region: "Noord-Holland", nearby: ["haarlem", "zaanstad", "amsterdam"] },
   { slug: "emmen", region: "Drenthe", nearby: ["groningen"] },
   { slug: "leeuwarden", region: "Friesland", nearby: ["groningen", "emmen"] },
+  { slug: "purmerend", region: "Noord-Holland", nearby: ["zaanstad", "amsterdam", "alkmaar"] },
+  { slug: "den-helder", region: "Noord-Holland", nearby: ["schagen", "alkmaar"] },
+  { slug: "heerhugowaard", region: "Noord-Holland", nearby: ["alkmaar", "schagen", "medemblik"] },
+  { slug: "schagen", region: "Noord-Holland", nearby: ["den-helder", "heerhugowaard", "alkmaar"] },
+  { slug: "medemblik", region: "Noord-Holland", nearby: ["heerhugowaard", "purmerend", "schagen"] },
 ];
 
 export const getCityExtra = (slug: string): CityExtra | undefined =>
