@@ -63,8 +63,8 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
       {
         h2: "Werk voor ondernemers in en rond Hoorn",
         alineas: [
-          "Voor [Taxi Drechterland](/portfolio/taxi-drechterland) uit Hoogkarspel bouwden we de website van een chauffeur die overdag onder meer in Hoorn, Venhuizen en Enkhuizen rijdt. Het boekingsformulier zet de ritwens van de klant om in een kant-en-klaar WhatsApp-bericht, zodat een aanvraag zonder omweg bij de chauffeur binnenkomt. Voor de vindbaarheid kregen de luchthavenritten en de kernen in het werkgebied elk een eigen pagina.",
-          "Bij [Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) draait de site om aanvragen uit de regio, met Hoorn, Enkhuizen en Medemblik als belangrijkste plaatsen. Bezoekers lezen eerst waarom aarding en de NEN 1010-norm ertoe doen en vragen daarna in een paar stappen een offerte of inspectie aan.",
+          "Voor [Taxi Drechterland](/portfolio/taxi-drechterland) uit Hoogkarspel bouwden we de website van een chauffeur die overdag onder meer in Hoorn, Venhuizen en Enkhuizen rijdt. Het boekingsformulier zet de ritwens van de klant om in een kant-en-klaar WhatsApp-bericht, zodat een aanvraag zonder omweg bij de chauffeur binnenkomt. Voor de vindbaarheid zijn aparte pagina's gemaakt voor de luchthavenritten, en zijn de kernen in het werkgebied afzonderlijk uitgelicht.",
+          "Bij [Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) draait de site om aanvragen uit West-Friesland, waaronder Hoorn, Enkhuizen en Medemblik. Bezoekers lezen eerst waarom aarding en de NEN 1010-norm ertoe doen en vragen daarna in een paar stappen een offerte of inspectie aan.",
         ],
       },
       {

@@ -461,7 +461,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Sites die we vernieuwden",
         alineas: [
-          "Bij [Puur in Harmonie](/portfolio/puur-in-harmonie) miste de oude site rust en werkte hij niet goed op mobiel. De nieuwe site is mobiel eerst gebouwd en heeft een webshop met Stripe.",
+          "Bij [Puur in Harmonie](/portfolio/puur-in-harmonie) miste de oude site de visuele rust en de technische finesse voor mobiele apparaten. De nieuwe site is mobiel eerst gebouwd en heeft een webshop met Stripe.",
           "[Karate School Cor Slok](/portfolio/karate-school-cor-slok) wilde de lange traditie van de school moderniseren en de drempel voor nieuwe leden verlagen. Lestijden en locaties staan nu direct vindbaar en inschrijven gaat volledig digitaal.",
           "Werk je ook buiten Purmerend? Lees dan over [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [website laten maken in Hoorn](/werkgebied/hoorn) of onze aanpak voor [Noord-Holland](/regio/noord-holland).",
         ],
@@ -610,7 +610,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Websites voor bouw, techniek en dienstverlening",
         alineas: [
-          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) kreeg een merkwebsite met naast het gewone offertetraject een directe lekkagemelder, zodat een klant met een acuut probleem niet hoeft te wachten tot iemand terugbelt.",
+          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) kreeg een merkwebsite met naast het gewone offertetraject een directe lekkagemelder, zodat een melding van een acuut probleem niet tussen de gewone aanvragen verdwijnt.",
           "Voor [Esveld Installatie](/portfolio/esveld-installatie) maakten we een website voor installatiediensten met een klantportaal. Bij [Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) maakt de site de risico's van slechte aarding zichtbaar, zoals brandgevaar en defecte apparatuur. Zo begrijpt een bezoeker waarom de dienst nodig is, en zwevende knoppen voor bellen, WhatsApp en een offerte maken de volgende stap klein.",
           "Werk je in een van deze vakgebieden? Kijk dan ook op onze pagina's over een website voor een [bouwbedrijf](/website-laten-maken-bouwbedrijf), een [elektricien](/website-laten-maken-elektricien), een [loodgieter](/website-laten-maken-loodgieter) of een [schilder](/website-laten-maken-schilder).",
         ],
