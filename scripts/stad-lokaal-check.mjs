@@ -63,7 +63,7 @@ function zichtbareTekst(html) {
     .replace(/\s+([,.;:!?])/g, "$1");
 }
 
-const zonderLinks = (t) => t.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+const zonderLinks = (t) => t.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1");
 
 for (const [slug, data] of Object.entries(cityLokaal)) {
   const pad = `/website-laten-maken-${slug}`;
@@ -113,7 +113,7 @@ for (const [slug, data] of Object.entries(cityLokaal)) {
   );
 
   // Interne links uit de alinea's: bestaan ze, en is het geen redirect?
-  for (const m of alleAlineas.join(" ").matchAll(/\[([^\]]+)\]\((\/[^)]+)\)/g)) {
+  for (const m of alleAlineas.join(" ").matchAll(/\[([^\]]+)\]\((\/[^)]*)\)/g)) {
     const doel = m[2];
     ok(!findRedirect(doel), pad, `interne link is geen redirect`, doel);
     ok(html.includes(`href="${doel}"`), pad, `interne link staat in de HTML`, doel);
