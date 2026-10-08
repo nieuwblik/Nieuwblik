@@ -17,7 +17,7 @@ const faqItems = [
   { q: "Voor welke bedrijven werken jullie?", a: "We werken vooral voor MKB en ZZP tussen 1 en 50 medewerkers. Van kappers en restaurants tot advocaten, bouwbedrijven en e-commerce merken. Elke sector waar een sterke online aanwezigheid het verschil maakt." },
   { q: "Wat maakt Nieuwblik anders dan andere webdesign bureaus?", a: `We combineren snelheid met zorgvuldigheid. Waar veel bureaus 8 tot 12 weken doen over een MKB-site, leveren wij die in ${LEVERTIJD.standaard} op zonder in te leveren op kwaliteit. Dat komt door onze AI-ondersteunde workflow en directe communicatie zonder tussenlagen.` },
   { q: "Kunnen jullie ook met een bestaand merk werken?", a: "Absoluut. Als je al een huisstijl, logo en tone-of-voice hebt, verwerken we die 1-op-1. Als je nog niets hebt, ontwikkelen we die samen met jou tijdens het project." },
-  { q: "Hoe zit het met eigendom en bronbestanden?", a: "Alles is van jou na oplevering. Code, Figma-bestanden, teksten en afbeeldingen. Geen vendor lock-in, geen verrassingen. Je kunt de site altijd meenemen naar een ander bureau." },
+  { q: "Hoe zit het met eigendom en bronbestanden?", a: "Je krijgt het gebruiksrecht op je website: ontwerp, teksten en afbeeldingen. De intellectuele eigendom blijft volgens onze algemene voorwaarden bij Nieuwblik. Wil je naar een andere partij, dan werken we mee aan de overdracht." },
 ];
 
 const jsonLd = {

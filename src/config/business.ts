@@ -51,6 +51,15 @@ export const LEVERTIJD = {
   complex: "4 tot 6 weken",
 } as const;
 
+/** Hosting bij Nieuwblik is optioneel: prijs per maand, exclusief btw. Basisonderhoud zit erbij. */
+export const HOSTING_PER_MAAND = 29.95;
+
+/** Bedrag met centen, zoals "€29,95". */
+export const euroMetCenten = (bedrag: number): string => `€${bedrag.toFixed(2).replace(".", ",")}`;
+
+/** Eén formulering voor hosting en basisonderhoud, overal op de site gelijk. */
+export const HOSTING_ZIN = `Hosting kan bij ons voor ${euroMetCenten(HOSTING_PER_MAAND)} per maand (excl. btw), met basisonderhoud inbegrepen.`;
+
 /** Bedrag met euroteken en duizendtalpunt, zoals "€2.990". Zonder toLocaleString: server en browser moeten exact gelijk renderen. */
 export const euroTeken = (bedrag: number): string =>
   `€${String(bedrag).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;

@@ -1,4 +1,4 @@
-import { PRIJZEN } from "@/config/business";
+import { PRIJZEN, REVIEWS } from "@/config/business";
 import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
@@ -17,6 +17,9 @@ import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
  * - Titel maximaal 60 tekens, meta description maximaal 155 (getest in seo-verify).
  * - In de alinea's mag [tekst](/pad) staan voor een interne link.
  */
+/** Reviewkop met het aantal en de score uit config/business.ts. */
+const REVIEWKOP = `${REVIEWS.aantalLabel} ondernemers beoordelen Nieuwblik met ${REVIEWS.scoreLabel} sterren`;
+
 export interface CityLokaal extends LokaleUitbreiding {
   title: string;
   metaDescription: string;
@@ -41,7 +44,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     h1: `Website laten maken in Leiden vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom Leidse ondernemers kiezen voor Nieuwblik",
-      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
+      reviews: REVIEWKOP,
       portfolio: "Websites die bezoekers omzetten in klanten",
       contact: "Klaar om online te groeien in Leiden?",
     },
@@ -414,8 +417,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
     h1: `Website laten maken in Purmerend vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom ondernemers uit Purmerend kiezen voor Nieuwblik",
-      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
-      portfolio: "Websites uit de regio die klanten opleveren",
+      reviews: REVIEWKOP,
+      portfolio: "Voorbeelden van ons werk",
       contact: 'Klaar om online te groeien in Purmerend?',
     },
     lokaal: {
@@ -441,8 +444,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
     h1: `Website laten maken in Den Helder vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom ondernemers uit Den Helder kiezen voor Nieuwblik",
-      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
-      portfolio: "Websites uit de regio die klanten opleveren",
+      reviews: REVIEWKOP,
+      portfolio: "Voorbeelden van ons werk",
       contact: 'Tijd voor een nieuwe website in Den Helder?',
     },
     lokaal: {
@@ -468,8 +471,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
     h1: `Website laten maken in Heerhugowaard vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom ondernemers uit Heerhugowaard kiezen voor Nieuwblik",
-      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
-      portfolio: "Websites uit de regio die klanten opleveren",
+      reviews: REVIEWKOP,
+      portfolio: "Voorbeelden van ons werk",
       contact: 'Klaar om online te groeien in Heerhugowaard?',
     },
     lokaal: {
@@ -495,8 +498,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
     h1: `Website laten maken in Schagen vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom ondernemers uit Schagen kiezen voor Nieuwblik",
-      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
-      portfolio: "Websites uit de regio die klanten opleveren",
+      reviews: REVIEWKOP,
+      portfolio: "Voorbeelden van ons werk",
       contact: 'Tijd voor een nieuwe website in Schagen?',
     },
     lokaal: {
@@ -522,8 +525,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
     h1: `Website laten maken in Medemblik vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom ondernemers uit Medemblik kiezen voor Nieuwblik",
-      reviews: "19+ ondernemers beoordelen Nieuwblik met 5 sterren",
-      portfolio: "Websites uit de regio die klanten opleveren",
+      reviews: REVIEWKOP,
+      portfolio: "Voorbeelden van ons werk",
       contact: 'Klaar voor een nieuwe website in Medemblik?',
     },
     lokaal: {

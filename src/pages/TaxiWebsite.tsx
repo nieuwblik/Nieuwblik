@@ -80,7 +80,7 @@ const buildBlocks = [
   {
     icon: <Zap className="w-5 h-5" />,
     title: "Maatwerk zonder CMS-overhead",
-    text: "Gebouwd in React met een statische build. Geen WordPress-plugins die traag worden of veiligheidslekken opleveren, gewoon schone code die precies doet wat nodig is.",
+    text: "Gebouwd in React met een statische build. De site laadt snel en heeft geen plugins die bijgewerkt moeten worden: schone code die precies doet wat nodig is.",
   },
   {
     icon: <MessageCircle className="w-5 h-5" />,

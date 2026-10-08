@@ -61,7 +61,6 @@ const PRICING = [
       "Tot 10 pagina's op maat",
       "Uitgebreide SEO en blogfunctie",
       "Koppelingen met externe tools",
-      "30 dagen gratis nazorg",
     ],
   },
   {
@@ -77,7 +76,6 @@ const PRICING = [
       "Webshop met betaalkoppelingen",
       "Maatwerk integraties en API's",
       "Persoonlijke strategie en advies",
-      "Doorlopende ondersteuning",
     ],
   },
 ];

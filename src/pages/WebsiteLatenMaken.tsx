@@ -1,4 +1,4 @@
-import { PRIJZEN, PAKKETTEN, LEVERTIJD } from "@/config/business";
+import { PRIJZEN, PAKKETTEN, LEVERTIJD, HOSTING_ZIN } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { CheckCircle2, Zap, Search, Users, Rocket, Shield, ArrowRight } from "lucide-react";
@@ -15,9 +15,9 @@ const url = `${SITE_URL}/website-laten-maken`;
 const faqItems = [
   { q: "Wat kost een website laten maken in 2026?", a: `Een professionele website op maat bij Nieuwblik begint bij ${PRIJZEN.starter} euro. Voor sites met meer pagina's, integraties of een webshop ligt de prijs tussen ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro. Alles vooraf transparant, geen verrassingen achteraf.` },
   { q: "Hoe lang duurt het om een website te bouwen?", a: `Een standaard MKB-website leveren we binnen ${LEVERTIJD.standaard} op. Grotere projecten met veel content of een webshop duren ${LEVERTIJD.complex}. We werken met korte lijnen zodat er geen tijd verloren gaat aan wachten op feedback.` },
-  { q: "WordPress, Webflow of maatwerk, wat kies ik?", a: "Voor de meeste MKB-sites bouwen we maatwerk in React. Dat geeft betere PageSpeed-scores, veiligere sites zonder plugin-updates en een schonere basis voor SEO. WordPress kan nog, maar we adviseren het steeds minder vaak." },
-  { q: "Krijg ik de eigendom van mijn website?", a: "Ja. Alle code, teksten en afbeeldingen zijn na oplevering van jou. Geen vendor lock-in. Je kunt de site altijd meenemen naar een andere partij als dat ooit nodig is." },
-  { q: "Doen jullie ook onderhoud en hosting?", a: "Ja. We bieden hosting op snelle servers vanaf 25 euro per maand, met basisonderhoud inbegrepen: back-ups en updates. Er is geen apart onderhoudscontract." },
+  { q: "WordPress, Webflow of maatwerk, wat kies ik?", a: "Voor de meeste MKB-sites bouwen we maatwerk met React. Zo'n site laadt snel en heeft geen plugins die bijgewerkt moeten worden. Bouwen in WordPress kan ook, als dat beter bij je past." },
+  { q: "Krijg ik de eigendom van mijn website?", a: "Je krijgt het gebruiksrecht op je website: ontwerp, teksten en afbeeldingen. De intellectuele eigendom blijft volgens onze algemene voorwaarden bij Nieuwblik. Wil je naar een andere partij, dan werken we mee aan de overdracht." },
+  { q: "Doen jullie ook onderhoud en hosting?", a: `Ja. ${HOSTING_ZIN} Daarin zitten back-ups en updates. Er is geen apart onderhoudscontract.` },
   { q: "Kan ik zelf teksten en foto's aanpassen na oplevering?", a: "Ja, op aanvraag. Standaard verzorgen wij het beheer van je website. Wil je zelf blogs, projecten, teksten en afbeeldingen beheren, dan bouwen we daar een eenvoudig CMS voor, met een aparte offerte. Zonder technische kennis te gebruiken." },
   { q: "Hoe zit het met SEO?", a: "Elke site die wij bouwen is technisch SEO-ready: snelle laadtijden, correcte structured data, meta-tags per pagina, sitemap en robots.txt. Voor doorlopende content-SEO bieden we losse pakketten aan." },
   { q: "Werken jullie in heel Nederland?", a: "Ja. Wij zitten in Enkhuizen maar bouwen sites voor MKB door heel Nederland, van Groningen tot Maastricht. Meestal volledig op afstand, voor grotere trajecten komen we langs." },

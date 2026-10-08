@@ -23,7 +23,7 @@ export const ALGEMENE_FAQ: FaqItem[] = [
   },
   {
     question: "Bieden jullie ook onderhoud en support na oplevering?",
-    answer: "Ja. Basisonderhoud zit inbegrepen bij de hosting: back-ups en updates. Er is geen apart onderhoudscontract. Ook kun je altijd bij ons terecht voor eenmalige aanpassingen of uitbreidingen van je website."
+    answer: `Ja. ${HOSTING_ZIN} Daarin zitten back-ups en updates. Er is geen apart onderhoudscontract. Ook kun je altijd bij ons terecht voor eenmalige aanpassingen of uitbreidingen van je website.`
   },
   {
     question: "Wordt mijn website ook goed gevonden in Google?",
@@ -44,5 +44,5 @@ export const ALGEMENE_FAQ: FaqItem[] = [
 ];;
 
 /** Als vraag/antwoord-paren voor faqPage(). */
-export const algemeneFaqParen = () => ALGEMENE_FAQ.map(({ question, answer }) => ({ q: question, a: answer }));import { PRIJZEN, LEVERTIJD } from "@/config/business";
+export const algemeneFaqParen = () => ALGEMENE_FAQ.map(({ question, answer }) => ({ q: question, a: answer }));import { PRIJZEN, LEVERTIJD, HOSTING_ZIN } from "@/config/business";
 
