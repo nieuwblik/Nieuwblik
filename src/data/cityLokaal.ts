@@ -416,30 +416,88 @@ export const cityLokaal: Record<string, CityLokaal> = {
     ],
   },
 
-  "purmerend": {
-    title: `Website laten maken Purmerend vanaf €${PRIJZEN.starter} | Nieuwblik`,
-    metaDescription: `Website laten maken in Purmerend? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
-    h1: `Website laten maken in Purmerend vanaf €${PRIJZEN.starter}`,
+  purmerend: {
+    title: `Webdesign Purmerend: website laten maken vanaf ${STARTER}`,
+    metaDescription: `Webdesign in Purmerend: een snelle website op maat vanaf ${STARTER}, ook als vervanger van je huidige site. Begin met een gratis website-analyse.`,
+    h1: "Webdesign en website laten maken in Purmerend",
+    eigenOpbouw: true,
+    intro: `Webdesign voor ondernemers in Purmerend die een nieuwe website willen, of een site die sneller en beter moet. Vaste prijs vanaf ${STARTER}.`,
+    cases: ["puur-in-harmonie", "karate-school-cor-slok", "benoted", "feigro-dakwerken"],
     headings: {
-      benefits: "Waarom ondernemers uit Purmerend kiezen voor Nieuwblik",
-      reviews: REVIEWKOP,
-      portfolio: "Voorbeelden van ons werk",
-      contact: 'Klaar om online te groeien in Purmerend?',
+      reviews: "Ondernemers over hun nieuwe website",
+      portfolio: "Een greep uit ons werk",
+      contact: "Je website vernieuwen in Purmerend?",
     },
     lokaal: {
-      h2: 'Meer klanten uit Purmerend en Waterland met een website die werkt',
+      h2: "Webdesign voor ondernemers in Purmerend",
       alineas: [
-        'Purmerend is de grootste stad van Waterland en sterk gegroeid, met veel inwoners die dagelijks richting Amsterdam forensen. Dat betekent een grote lokale klantenkring voor winkels, praktijken, horeca en dienstverleners, maar ook veel concurrentie uit de hoofdstad. Een bezoeker vergelijkt jouw site in een paar tellen met die van een Amsterdams bureau of bedrijf.',
-        'Wij bouwen daarom sites die direct duidelijk maken wat je doet, waar je zit en wat het kost. Mobiel eerst, snel geladen en met bellen, WhatsApp of een offerte aanvragen op één tik. Zo kiest een klant uit Purmerend, Beemster of Edam-Volendam voor de ondernemer dichtbij.',
-        'Voor lokale vindbaarheid zetten we je werkgebied, Google Bedrijfsprofiel en echte voorbeelden van je werk centraal. Dat weegt voor Google zwaarder dan algemene teksten over kwaliteit.',
-        "Werk je ook richting Zaandam of Amsterdam, dan sluiten onze pagina's voor [Zaanstad](/website-laten-maken-zaanstad) en [Amsterdam](/website-laten-maken-amsterdam) daarop aan. Bekijk ook ons [portfolio](/portfolio).",
+        "Veel ondernemers die bij ons aankloppen hebben al een website. Hij is traag op de telefoon, ziet er gedateerd uit of levert te weinig aanvragen op. Nieuwblik bouwt een nieuwe site die dat oplost, en houdt daarbij vast wat al goed werkt.",
+        "We werken vanuit Enkhuizen en grotendeels op afstand, met contact via telefoon, mail en WhatsApp. Je praat steeds met de mensen die je site ontwerpen en bouwen.",
       ],
     },
+    secties: [
+      {
+        h2: "Eerst kijken wat je huidige site doet",
+        alineas: [
+          "Voordat we iets nieuws voorstellen, bekijken we je huidige website op snelheid, vindbaarheid en conversie. Dat kan met een [gratis website-analyse](/gratis-website-analyse): binnen 24 uur krijg je een persoonlijke analyse met concrete verbeterpunten.",
+          "Soms is verbeteren genoeg. Vaak is vernieuwen verstandiger, omdat de basis van de oude site niet meer meekan. Die keuze maken we samen, op basis van wat de analyse laat zien.",
+        ],
+      },
+      {
+        h2: "Maatwerk in plaats van een zware template",
+        alineas: [
+          "Voor de meeste bedrijfssites bouwen we maatwerk in React. Dat levert betere PageSpeed-scores op, een veiligere site zonder plugin-updates en een schonere basis voor SEO. Ons doel is een PageSpeed-score van 90 of hoger op mobiel. WordPress kan nog steeds, maar dat adviseren we steeds minder vaak.",
+          "Hoeveel snelheid uitmaakt, beschrijven we in onze [case over BeNoted](/blog/case-study-benoted-snelheid-zichtbaarheid), een platform waarbij een razendsnelle gebruikerservaring voorop stond.",
+        ],
+      },
+      {
+        h2: "Wat een nieuwe website kost",
+        alineas: [
+          `Starter (${STARTER}) vervangt een kleine site: 1 tot 5 pagina's, responsive, met basis SEO, contactformulier en Google Maps. Meestal binnen ${LEVERTIJD.starter} live.`,
+          `Professional (vanaf ${PROFESSIONAL}) is voor een uitgebreidere site: tot 10 pagina's, uitgebreide SEO, een blog, koppelingen met externe tools en 30 dagen gratis nazorg.`,
+          `Een webshop of maatwerk met eigen koppelingen prijzen we op maat; webshops beginnen bij ${WEBSHOP}. Na de oplevering is alles van jou: code, teksten en afbeeldingen. Alle pakketten staan op [prijzen](/prijzen).`,
+        ],
+      },
+      {
+        h2: "Sites die we vernieuwden",
+        alineas: [
+          "Bij [Puur in Harmonie](/portfolio/puur-in-harmonie) miste de oude site rust en werkte hij niet goed op mobiel. De nieuwe site is mobiel eerst gebouwd en heeft een webshop met Stripe.",
+          "[Karate School Cor Slok](/portfolio/karate-school-cor-slok) wilde de lange traditie van de school moderniseren en de drempel voor nieuwe leden verlagen. Lestijden en locaties staan nu direct vindbaar en inschrijven gaat volledig digitaal.",
+          "Werk je ook buiten Purmerend? Lees dan over [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [website laten maken in Hoorn](/werkgebied/hoorn) of onze aanpak voor [Noord-Holland](/regio/noord-holland).",
+        ],
+      },
+    ],
     faq: [
-      { q: 'Wij concurreren met bedrijven uit Amsterdam. Hoe vallen we op?', a: "Door concreet te zijn: wat je levert, voor wie, een prijsindicatie en echte foto's van je werk. Benoem je werkgebied rond Purmerend expliciet, dan kiest een klant sneller voor de ondernemer om de hoek." },
-      { q: 'Hoe verloopt het contact met jullie?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
-      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
-      { q: 'Hoe snel staat mijn website live?', a: "Meestal binnen 2 tot 4 weken na de kennismaking, afhankelijk van hoe snel teksten en foto's klaar zijn. We helpen ook met het schrijven van de teksten." },
+      {
+        q: "Wat kost webdesign in Purmerend?",
+        a: `Een Starter-site kost ${STARTER}, Professional begint bij ${PROFESSIONAL} en een webshop bij ${WEBSHOP}. Na een kennismaking krijg je een offerte met een vaste prijs.`,
+      },
+      {
+        q: "Kunnen jullie mijn huidige website vernieuwen?",
+        a: "Ja. We beginnen met een analyse van je huidige site op snelheid, vindbaarheid en conversie. Daarna bepalen we samen of verbeteren of vernieuwen verstandiger is.",
+      },
+      {
+        q: "Verlies ik mijn plek in Google als ik overstap?",
+        a: "Niet als de overstap goed gaat. Oude adressen moeten met een 301-redirect doorverwijzen naar de nieuwe pagina's, zodat bezoekers en Google op de juiste plek uitkomen. Dat nemen we mee bij het bouwen van je nieuwe site.",
+      },
+      {
+        q: "Mijn site draait op WordPress. Moet ik daar vanaf?",
+        a: "Nee, het hoeft niet. Voor de meeste bedrijfssites adviseren we maatwerk, omdat dat sneller en veiliger is en geen plugin-updates nodig heeft. Maar WordPress blijft mogelijk als dat beter bij je past.",
+      },
+      {
+        q: "Is de nieuwe website van mij?",
+        a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Er is geen vendor lock-in.",
+      },
+      {
+        q: "Hoe snel staat de nieuwe site online?",
+        a: `Een Starter-site meestal binnen ${LEVERTIJD.starter}, een bedrijfswebsite binnen ${LEVERTIJD.standaard} en een grotere site of webshop binnen ${LEVERTIJD.complex}.`,
+      },
+    ],
+    todo: [
+      "Klanten uit Purmerend en omgeving: naam, branche en wat de site opleverde (alleen met toestemming).",
+      "Waar spreek je af met ondernemers uit Purmerend: bij hen op locatie, in Enkhuizen of via video?",
+      "Ervaring met het vernieuwen van sites in deze regio die je kunt noemen.",
+      "Een review of citaat van een klant uit Purmerend, als die er is.",
     ],
   },
 
