@@ -10,6 +10,9 @@ source_path,target_url,rule_type
 /werkgebied/breda,https://nieuwblik.com/website-laten-maken-breda,redirect
 /werkgebied/nijmegen,https://nieuwblik.com/website-laten-maken-nijmegen,redirect
 /werkgebied/alkmaar,https://nieuwblik.com/website-laten-maken-alkmaar,redirect
+/werkgebied/enkhuizen,https://nieuwblik.com/,redirect
+/werkgebied/heerhugowaard,https://nieuwblik.com/website-laten-maken-heerhugowaard,redirect
+/werkgebied/schagen,https://nieuwblik.com/website-laten-maken-schagen,redirect
 /webdesign,https://nieuwblik.com/diensten,redirect
 /seo,https://nieuwblik.com/seo-enkhuizen,redirect
 /ecommerce,https://nieuwblik.com/diensten/e-commerce,redirect

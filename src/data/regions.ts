@@ -497,11 +497,18 @@ export const regions: Region[] = [
  * steden staan hier nog wel in (het werkgebied-overzicht toont ze), maar hun
  * pagina is /website-laten-maken-{stad}; /werkgebied/{stad} 301't daarheen.
  */
+/**
+ * Plaatsen waarvan /werkgebied/{slug} is opgeheven tegen kannibalisatie. Ze
+ * 301'en via src/config/redirects.ts naar de ene hoofdpagina voor die plaats.
+ */
+export const SAMENGEVOEGDE_WERKGEBIEDEN = ['enkhuizen', 'heerhugowaard', 'schagen'] as const;
+const isSamengevoegd = (slug: string) => (SAMENGEVOEGDE_WERKGEBIEDEN as readonly string[]).includes(slug);
+
 export const getWerkgebiedRegionBySlug = (slug: string): Region | undefined =>
-  regions.find((region) => region.slug === slug && region.type === 'local');
+  regions.find((region) => region.slug === slug && region.type === 'local' && !isSamengevoegd(region.slug));
 
 export const getLocalRegions = (): Region[] => {
-  return regions.filter(region => region.type === 'local');
+  return regions.filter(region => region.type === 'local' && !isSamengevoegd(region.slug));
 };
 
 export const getMajorRegions = (): Region[] => {

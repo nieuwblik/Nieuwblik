@@ -763,19 +763,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://nieuwblik.com/werkgebied/enkhuizen</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://nieuwblik.com/werkgebied/hauwert</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://nieuwblik.com/werkgebied/heerhugowaard</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -794,12 +782,6 @@
   </url>
   <url>
     <loc>https://nieuwblik.com/werkgebied/hoorn</loc>
-    <lastmod>2026-02-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://nieuwblik.com/werkgebied/schagen</loc>
     <lastmod>2026-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

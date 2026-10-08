@@ -42,6 +42,12 @@ export const REDIRECTS: Redirect[] = [
     reden: "Kannibalisatie: zelfde zoekwoord als de landelijke stadspagina",
   })),
 
+  // Stap 2 groeiplan (okt 2026): één hoofdpagina per plaats. Google koos voor
+  // Enkhuizen al de homepage; Heerhugowaard en Schagen hebben nu een volwaardige stadspagina.
+  { from: "/werkgebied/enkhuizen", to: "/", reden: "Kannibalisatie: homepage rankt op website laten maken/webdesign Enkhuizen" },
+  { from: "/werkgebied/heerhugowaard", to: "/website-laten-maken-heerhugowaard", reden: "Kannibalisatie: zelfde zoekwoord als de nieuwe stadspagina" },
+  { from: "/werkgebied/schagen", to: "/website-laten-maken-schagen", reden: "Kannibalisatie: zelfde zoekwoord als de nieuwe stadspagina" },
+
   // Defect 3: routes van vóór de migratie. De git-historie begint pas bij
   // Lovable (nov 2025); deze paden komen uit het Wayback Machine-archief.
 
