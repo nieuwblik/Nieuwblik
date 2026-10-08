@@ -22,6 +22,8 @@ const MAX_TITEL = 60;
 const MAX_META = 155;
 const MIN_WOORDEN = 200;
 const MAX_WOORDEN = 350;
+/** Pagina's met eigenOpbouw vervangen de sjabloonblokken en mogen langer zijn. */
+const MAX_WOORDEN_EIGEN = 1400;
 
 let fouten = 0;
 let controles = 0;
@@ -91,22 +93,27 @@ for (const [slug, data] of Object.entries(cityLokaal)) {
   ok(canonical === `${SITE_URL}${pad}`, pad, "canonical", canonical);
 
   ok(tekst.includes(data.lokaal.h2), pad, "lokale H2 in HTML");
-  data.lokaal.alineas.forEach((alinea, i) => {
+  // Bij eigenOpbouw telt ook de tekst van de eigen secties mee.
+  const secties = data.secties ?? [];
+  secties.forEach((sectie) => ok(tekst.includes(sectie.h2), pad, "sectie-H2 in HTML", sectie.h2));
+  const alleAlineas = [...data.lokaal.alineas, ...secties.flatMap((sectie) => sectie.alineas)];
+  alleAlineas.forEach((alinea, i) => {
     // Alleen de eerste zin vergelijken: links worden als losse elementen gerenderd.
     const eerste = zonderLinks(alinea).split(". ")[0];
     ok(tekst.includes(eerste), pad, `alinea ${i + 1} server-side in HTML`, eerste.slice(0, 50));
   });
 
-  const woorden = zonderLinks(data.lokaal.alineas.join(" ")).split(/\s+/).length;
+  const woorden = zonderLinks(alleAlineas.join(" ")).split(/\s+/).length;
+  const max = data.eigenOpbouw ? MAX_WOORDEN_EIGEN : MAX_WOORDEN;
   ok(
-    woorden >= MIN_WOORDEN && woorden <= MAX_WOORDEN,
+    woorden >= MIN_WOORDEN && woorden <= max,
     pad,
-    `lokale tekst ${MIN_WOORDEN}-${MAX_WOORDEN} woorden`,
+    `lokale tekst ${MIN_WOORDEN}-${max} woorden`,
     `${woorden}`,
   );
 
   // Interne links uit de alinea's: bestaan ze, en is het geen redirect?
-  for (const m of data.lokaal.alineas.join(" ").matchAll(/\[([^\]]+)\]\((\/[^)]+)\)/g)) {
+  for (const m of alleAlineas.join(" ").matchAll(/\[([^\]]+)\]\((\/[^)]+)\)/g)) {
     const doel = m[2];
     ok(!findRedirect(doel), pad, `interne link is geen redirect`, doel);
     ok(html.includes(`href="${doel}"`), pad, `interne link staat in de HTML`, doel);

@@ -1,4 +1,5 @@
 import { LEVERTIJD, PRIJZEN } from "@/config/business";
+import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
  * Handgeschreven, unieke inhoud per werkgebiedpagina (/werkgebied/{slug}).
@@ -9,7 +10,7 @@ import { LEVERTIJD, PRIJZEN } from "@/config/business";
  * Zelfde regels als src/data/cityLokaal.ts: alleen controleerbare feiten, geen
  * verzonnen klanten of cijfers, en [tekst](/pad) voor een interne link.
  */
-export interface WerkgebiedLokaal {
+export interface WerkgebiedLokaal extends LokaleUitbreiding {
   lokaal: { h2: string; alineas: string[] };
   faq: { q: string; a: string }[];
 }

@@ -25,7 +25,8 @@ import { companyInfo } from "@/config/company";
 import CaseGrid from "@/components/CaseGrid";
 import Alinea from "@/components/Alinea";
 import LandingFaq from "@/components/LandingFaq";
-import { faqPage } from "@/lib/structured-data";
+import { dienstInPlaats, faqPage } from "@/lib/structured-data";
+import { LokaleSecties, TodoBlok } from "@/components/LokaleSecties";
 import { getWerkgebiedLokaal } from "@/data/werkgebiedLokaal";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 
@@ -67,7 +68,9 @@ const WerkgebiedDetail = () => {
   const isLocal = region.type === "local";
   const lokaal = getWerkgebiedLokaal(region.slug);
   const westFries = region.slug === "west-friesland" || WEST_FRIESLAND_KERNEN.includes(region.slug);
-  const featuredProjects = kiesCases(westFries ? REGIO_CASES : STANDAARD_CASES);
+  const featuredProjects = kiesCases(lokaal?.cases ?? (westFries ? REGIO_CASES : STANDAARD_CASES));
+  const eigenOpbouw = Boolean(lokaal?.eigenOpbouw);
+  const paginaUrl = `${companyInfo.url}/werkgebied/${region.slug}`;
   const isHoorn = region.slug === "hoorn";
 
   // Omliggende plaatsen met een eigen pagina: eerst het werkgebied, anders de
@@ -154,7 +157,9 @@ const WerkgebiedDetail = () => {
   return (
     <>
       <SEOHead
-        {...(lokaal ? { structuredData: faqPage(lokaal.faq) } : {})}
+        {...(lokaal
+          ? { structuredData: [faqPage(lokaal.faq), dienstInPlaats({ plaats: region.name, url: paginaUrl })] }
+          : {})}
         title={pageTitle}
         description={pageDescription}
         keywords={
@@ -202,7 +207,7 @@ const WerkgebiedDetail = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
-              {getIntroText()}
+              {lokaal?.intro ?? getIntroText()}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -266,6 +271,9 @@ const WerkgebiedDetail = () => {
           </section>
         )}
 
+        {lokaal?.secties && <LokaleSecties secties={lokaal.secties} />}
+        <TodoBlok items={lokaal?.todo} />
+
         {/* Team foto */}
         <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
           <motion.div
@@ -286,6 +294,8 @@ const WerkgebiedDetail = () => {
           </motion.div>
         </section>
 
+        {!eigenOpbouw && (
+          <>
         {/* Services */}
         <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
           <motion.div
@@ -358,6 +368,9 @@ const WerkgebiedDetail = () => {
           </div>
         </BenefitList>
 
+          </>
+        )}
+
         {/* Portfolio */}
         <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-24">
           <motion.div
@@ -386,6 +399,8 @@ const WerkgebiedDetail = () => {
           </motion.div>
         </section>
 
+        {!eigenOpbouw && (
+          <>
         {/* Proces */}
         <section className="bg-secondary/30 py-16 sm:py-24">
           <div className="container mx-auto px-4 sm:px-6">
@@ -422,6 +437,9 @@ const WerkgebiedDetail = () => {
             </motion.div>
           </div>
         </section>
+
+          </>
+        )}
 
         {lokaal && (
           <LandingFaq h2={`Veelgestelde vragen over een website in ${region.name}`} items={lokaal.faq} />

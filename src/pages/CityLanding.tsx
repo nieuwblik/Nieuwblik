@@ -10,7 +10,8 @@ import CaseGrid from "@/components/CaseGrid";
 import BenefitList from "@/components/BenefitList";
 import LandingFaq from "@/components/LandingFaq";
 import Alinea from "@/components/Alinea";
-import { faqPage } from "@/lib/structured-data";
+import { dienstInPlaats, faqPage } from "@/lib/structured-data";
+import { LokaleSecties, TodoBlok } from "@/components/LokaleSecties";
 import { getCityLokaal } from "@/data/cityLokaal";
 import { getLandingMeta } from "@/data/landingMeta";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
@@ -22,7 +23,7 @@ import { companyInfo } from "@/config/company";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 
 // Zes cases, nieuwste eerst, in het raster van de portfoliopagina.
-const featuredProjects = kiesCases();
+const standaardCases = kiesCases();
 
 const CityLanding = ({ slug }: { slug: string }) => {
   // Dark CTA band: invert the fixed header while it's under it.
@@ -35,6 +36,8 @@ const CityLanding = ({ slug }: { slug: string }) => {
   // gegenereerde data in cities.ts. Staat een stad daar nog niet in, dan blijft
   // alles precies zoals het was.
   const lokaal = getCityLokaal(city.slug);
+  const eigenOpbouw = Boolean(lokaal?.eigenOpbouw);
+  const featuredProjects = lokaal?.cases ? kiesCases(lokaal.cases) : standaardCases;
   const meta = getLandingMeta(city.slug);
   const seoTitle = lokaal?.title ?? meta?.title ?? city.title;
   const seoDescription = lokaal?.metaDescription ?? meta?.metaDescription ?? city.metaDescription;
@@ -55,6 +58,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       },
       // Alleen een FAQPage als de vragen echt over deze plaats gaan.
       ...(lokaal ? [{ ...faqPage(lokaal.faq), "@id": `${url}#faq` }] : []),
+      ...(eigenOpbouw ? [dienstInPlaats({ plaats: city.name, url })] : []),
     ],
   };
 
@@ -68,7 +72,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
         includeLocalBusinessSchema={true}
       />
 
-      <LandingHero h1={lokaal?.h1 ?? city.h1} subtitle={city.heroSubtitle} />
+      <LandingHero h1={lokaal?.h1 ?? city.h1} subtitle={lokaal?.intro ?? city.heroSubtitle} />
 
       {/* Lokaal blok: handgeschreven per stad, anders de gegenereerde intro */}
       <section className="py-12 md:py-16 bg-background">
@@ -102,10 +106,19 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 1: Waarom een professionele website.
           section1.body wordt hier bewust niet gerenderd — die is woord voor
           woord gelijk aan city.intro, die hierboven al één keer staat. */}
-      <BenefitList h2={lokaal?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
+      {/* Eigen secties en plaatshouders (handgeschreven steden) */}
+      {lokaal?.secties && <LokaleSecties secties={lokaal.secties} />}
+      <TodoBlok items={lokaal?.todo} />
 
-      {/* Sectie 2: Vergelijking */}
-      <ProblemSolutionSection />
+      {/* Sjabloonblokken: alleen zonder eigen opbouw */}
+      {!eigenOpbouw && (
+        <>
+          <BenefitList h2={lokaal?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
+
+          {/* Sectie 2: Vergelijking */}
+          <ProblemSolutionSection />
+        </>
+      )}
 
       {/* Sectie 3: Reviews */}
       <section ref={darkNavRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
@@ -147,6 +160,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {/* Interne linksectie */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+          {!eigenOpbouw && (<>
           <p className="text-muted-foreground leading-relaxed">
             {city.internalLinks.split(/(diensten|portfolio|contactpagina)/).map((part, i) => {
               if (part === "diensten") return <Link key={i} to="/diensten" className="text-accent hover:underline font-semibold">diensten</Link>;
@@ -161,6 +175,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
             {" "}of het{" "}
             <Link to="/werkgebied/west-friesland" className="text-accent hover:underline font-semibold">werkgebied West-Friesland</Link>.
           </p>
+          </>)}
 
           {nearbyCities.length > 0 && (
             <div className="mt-8 pt-8 border-t border-border">

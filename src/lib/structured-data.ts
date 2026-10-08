@@ -1,5 +1,6 @@
 import { companyInfo, localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/config/company";
 import { SITE_URL } from "@/config/site";
+import { PRIJZEN } from "@/config/business";
 
 /**
  * Eén JSON-LD-blok per pagina, als één @graph.
@@ -112,5 +113,22 @@ export function faqPage(items: { q: string; a: string }[]): Node {
       name: it.q,
       acceptedAnswer: { "@type": "Answer", text: it.a },
     })),
+  };
+}
+
+/**
+ * Service-node voor een plaatsgebonden landingspagina: website laten maken in
+ * {plaats}, geleverd door het LocalBusiness-blok van de site.
+ */
+export function dienstInPlaats({ plaats, url }: { plaats: string; url: string }): Node {
+  return {
+    "@type": "Service",
+    "@id": `${url}#dienst`,
+    name: `Website laten maken in ${plaats}`,
+    serviceType: "Webdesign en websiteontwikkeling",
+    provider: { "@id": BUSINESS_ID },
+    areaServed: { "@type": "City", name: plaats },
+    url,
+    offers: { "@type": "AggregateOffer", priceCurrency: "EUR", lowPrice: PRIJZEN.starter },
   };
 }

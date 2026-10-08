@@ -1,4 +1,5 @@
 import { PRIJZEN } from "@/config/business";
+import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
  * Handgeschreven, unieke inhoud per stadspagina.
@@ -16,7 +17,7 @@ import { PRIJZEN } from "@/config/business";
  * - Titel maximaal 60 tekens, meta description maximaal 155 (getest in seo-verify).
  * - In de alinea's mag [tekst](/pad) staan voor een interne link.
  */
-export interface CityLokaal {
+export interface CityLokaal extends LokaleUitbreiding {
   title: string;
   metaDescription: string;
   h1: string;
