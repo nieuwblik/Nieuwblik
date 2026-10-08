@@ -453,20 +453,78 @@ export const cityLokaal: Record<string, CityLokaal> = {
       portfolio: "Voorbeelden van ons werk",
       contact: 'Tijd voor een nieuwe website in Den Helder?',
     },
+    eigenOpbouw: true,
+    intro: `Een bedrijfswebsite laten maken in Den Helder voor een vaste prijs vanaf ${STARTER}. Je weet vooraf wat je krijgt, wat je aanlevert en wanneer de site live staat.`,
+    cases: ["erica-van-dijk", "interieur-studio-laan", "esveld-installatie", "een-bundel-geluk"],
     lokaal: {
-      h2: 'Online zichtbaar in Den Helder en de Kop van Noord-Holland',
+      h2: "Website laten maken in Den Helder",
       alineas: [
-        'Den Helder is de marinestad van Nederland, met de marinehaven, de veerdienst naar Texel en een flinke maritieme en technische sector. Daarnaast trekken het strand en de musea toeristen, wat kansen geeft voor horeca, verhuur en recreatie. Twee heel verschillende doelgroepen dus, die allebei eerst online zoeken.',
-        'Voor technische en maritieme bedrijven bouwen we sites die vertrouwen geven aan zakelijke opdrachtgevers: duidelijke diensten, certificeringen en projecten. Voor toerisme en horeca draait het om mobiel, openingstijden, reserveren en vindbaarheid voor bezoekers die op weg zijn naar Texel.',
-        'Omdat de stad aan de kop van Noord-Holland ligt, werk je vaak in een groot gebied. Dat werkgebied maken we zichtbaar op je site, zodat je ook gevonden wordt in Julianadorp, Anna Paulowna en Schagen.',
-        'Werk je ook in de rest van de Kop, bekijk dan onze pagina voor [Schagen](/website-laten-maken-schagen) of ons werk in [West-Friesland](/seo-enkhuizen).',
+        "Nieuwblik maakt bedrijfswebsites voor ondernemers in Den Helder: zzp'ers, adviseurs, vakmensen en winkels. Je werkt rechtstreeks met de mensen die de site ontwerpen en bouwen, vanuit ons kantoor in Enkhuizen.",
+        "Een goede bedrijfswebsite laat in een paar seconden zien wat je doet, voor wie en hoe iemand contact opneemt. Daar begint elk ontwerp. Pas daarna kijken we naar kleuren, foto's en extra functies.",
       ],
     },
+    secties: [
+      {
+        h2: "Prijzen voor een bedrijfswebsite in Den Helder",
+        alineas: [
+          `Starter kost ${STARTER}. Daarvoor krijg je een site van 1 tot 5 pagina's, volledig responsive, met de basis van SEO, een contactformulier en Google Maps. Hij staat meestal binnen ${LEVERTIJD.starter} live. Voor veel zzp'ers en kleine bedrijven is dat genoeg.`,
+          `Professional begint bij ${PROFESSIONAL}. Je krijgt tot 10 pagina's, uitgebreide SEO, een blog, koppelingen met tools die je al gebruikt en 30 dagen gratis nazorg. Dat past als je meerdere diensten hebt en daar ook op gevonden wilt worden.`,
+          "Heb je meer nodig, zoals onbeperkt pagina's, een klantportaal of koppelingen met je eigen systemen, dan maken we een offerte op maat. Alle pakketten staan op [prijzen](/prijzen).",
+        ],
+      },
+      {
+        h2: "Wat we van je nodig hebben",
+        alineas: [
+          "Het begint met een gesprek over je bedrijf en wat de site moet opleveren. Binnen 24 uur krijg je een offerte met een vaste prijs en een planning.",
+          "Ga je akkoord, dan vragen we je om content: teksten, foto's en je logo, als je die hebt. De teksten schrijven we met je mee. Heb je nog geen logo of huisstijl, dan kunnen we die ook maken.",
+          "Daarna ontwerpen en bouwen we de site. Je ziet elke stap en geeft feedback voordat er iets live gaat. Na de livegang doen wij standaard het beheer.",
+        ],
+      },
+      {
+        h2: "Voorbeelden van bedrijfswebsites",
+        alineas: [
+          "Voor HR-interim manager [Erica van Dijk](/portfolio/erica-van-dijk) bouwden we een zakelijke site met haar diensten helder op een rij en haar ervaring direct zichtbaar. [Interieur Studio Laan](/portfolio/interieur-studio-laan) kreeg een portfolio waarin bezoekers door de projecten heen lopen, met een aanvraag voor een consult. En [Esveld Installatie](/portfolio/esveld-installatie) heeft een site voor installatiediensten met een klantportaal.",
+        ],
+      },
+      {
+        h2: "Ook een webshop in Den Helder",
+        alineas: [
+          `Wil je online verkopen, dan bouwen we een webshop op maat met betaalkoppelingen, vanaf ${WEBSHOP}. [Een Bundel Geluk](/portfolio/een-bundel-geluk) en [Bushido Shop](/portfolio/bushido-shop) zijn voorbeelden. Meer lees je bij [webshops](/diensten/webshops) en in onze [handleiding over Stripe](/blog/stripe-betalingen-webshop-handleiding). Verkoop je ook via Bol.com of Amazon, dan maken we daar [productlistings](/diensten/e-commerce) voor.`,
+          "Werk je ook in de rest van de regio? Lees dan over [website laten maken in Schagen](/website-laten-maken-schagen) of onze aanpak voor [Noord-Holland](/regio/noord-holland).",
+        ],
+      },
+    ],
     faq: [
-      { q: 'Maken jullie ook websites voor technische en maritieme bedrijven?', a: 'Ja. Denk aan installateurs, toeleveranciers en onderhoudsbedrijven. We zetten diensten, projecten en certificeringen helder neer, met een eenvoudige manier om een offerte aan te vragen.' },
-      { q: 'Wij richten ons op toeristen richting Texel. Waar letten jullie op?', a: 'Op mobiel en snelheid. Bezoekers zoeken onderweg, dus openingstijden, route en reserveren of bellen staan bovenaan. Ook je Google Bedrijfsprofiel nemen we mee.' },
-      { q: 'Hoe houden we contact tijdens het project?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
-      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+      {
+        q: "Wat kost een website laten maken in Den Helder?",
+        a: `Een Starter-site kost ${STARTER}, Professional begint bij ${PROFESSIONAL}. Grotere sites en webshops prijzen we op maat; webshops beginnen bij ${WEBSHOP}. De prijs staat vooraf vast.`,
+      },
+      {
+        q: "Wat moet ik zelf aanleveren?",
+        a: "Teksten, foto's en je logo, als je die hebt. De teksten schrijven we met je mee, en een logo of huisstijl kunnen we ook voor je maken.",
+      },
+      {
+        q: "Hoe lang duurt het voordat mijn website online staat?",
+        a: `Starter meestal ${LEVERTIJD.starter}, een gewone bedrijfswebsite ${LEVERTIJD.standaard}. Hoe snel het gaat, hangt ook af van hoe snel de content klaar is.`,
+      },
+      {
+        q: "Wat zijn de kosten na de oplevering?",
+        a: "Hosting kan bij ons vanaf 25 euro per maand. Een onderhoudscontract voor updates, back-ups en kleine aanpassingen is optioneel.",
+      },
+      {
+        q: "Maken jullie ook webshops voor ondernemers in Den Helder?",
+        a: `Ja. Een webshop bouwen we op maat met betaalkoppelingen, vanaf ${WEBSHOP}.`,
+      },
+      {
+        q: "Is de website na de oplevering van mij?",
+        a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Je kunt de site altijd meenemen naar een andere partij.",
+      },
+    ],
+    todo: [
+      "Klanten uit Den Helder: naam, branche en wat de site opleverde (alleen met toestemming).",
+      "Waar spreek je af met ondernemers uit Den Helder: bij hen op locatie, in Enkhuizen of via video?",
+      "Regionale ervaring in de Kop van Noord-Holland die je kunt noemen.",
+      "Een review of citaat van een klant uit Den Helder, als die er is.",
     ],
   },
 
