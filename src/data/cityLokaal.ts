@@ -489,7 +489,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: "Ja. Alle code, teksten en afbeeldingen zijn na de oplevering van jou. Er is geen vendor lock-in.",
       },
       {
-        q: "Hoe snel staat de nieuwe site online?",
+        q: "Hoe lang duurt de overstap naar een nieuwe site?",
         a: `Een Starter-site meestal binnen ${LEVERTIJD.starter}, een bedrijfswebsite binnen ${LEVERTIJD.standaard} en een grotere site of webshop binnen ${LEVERTIJD.complex}.`,
       },
     ],
@@ -554,7 +554,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     ],
     faq: [
       {
-        q: "Wat kost een website laten maken in Den Helder?",
+        q: "Wat kost een bedrijfswebsite in Den Helder?",
         a: `Een Starter-site kost ${STARTER}, Professional begint bij ${PROFESSIONAL}. Grotere sites en webshops prijzen we op maat; webshops beginnen bij ${WEBSHOP}. De prijs staat vooraf vast.`,
       },
       {
@@ -566,11 +566,11 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: `Starter meestal ${LEVERTIJD.starter}, een gewone bedrijfswebsite ${LEVERTIJD.standaard}. Hoe snel het gaat, hangt ook af van hoe snel de content klaar is.`,
       },
       {
-        q: "Wat zijn de kosten na de oplevering?",
+        q: "Welke kosten komen er na de livegang nog bij?",
         a: "Hosting kan bij ons vanaf 25 euro per maand. Een onderhoudscontract voor updates, back-ups en kleine aanpassingen is optioneel.",
       },
       {
-        q: "Maken jullie ook webshops voor ondernemers in Den Helder?",
+        q: "Kan ik vanuit Den Helder ook online verkopen?",
         a: `Ja. Een webshop bouwen we op maat met betaalkoppelingen, vanaf ${WEBSHOP}.`,
       },
       {
@@ -737,8 +737,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: "Ja. Voor clubs bouwen we bijvoorbeeld teampagina's, lesroosters en een makkelijke route naar een proefles of lidmaatschap. Bekijk de sites van volleybalvereniging Madjoe en Karate School Cor Slok als voorbeeld.",
       },
       {
-        q: "Hoe snel staat mijn site online?",
-        a: `Een Starter-site meestal binnen ${LEVERTIJD.starter}, een uitgebreidere site binnen ${LEVERTIJD.standaard}. Met een ledenportaal of webshop reken je op ${LEVERTIJD.complex}.`,
+        q: "Wanneer kunnen klanten online een afspraak bij mij plannen?",
+        a: `Zodra de site live staat. Een Starter-site staat meestal binnen ${LEVERTIJD.starter}, een uitgebreidere site binnen ${LEVERTIJD.standaard}. Met een ledenportaal of webshop reken je op ${LEVERTIJD.complex}.`,
       },
     ],
     todo: [
@@ -796,7 +796,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     ],
     faq: [
       {
-        q: "Wat kost een website laten maken in Medemblik?",
+        q: "Wat kost een vindbare website in Medemblik?",
         a: `Starter kost ${STARTER}, Professional begint bij ${PROFESSIONAL} en een webshop bij ${WEBSHOP}. Je krijgt vooraf een offerte met een vaste prijs.`,
       },
       {
@@ -812,7 +812,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: "De technische basis wel: snelheid, structured data, meta-tags, sitemap en robots.txt. Uitgebreide SEO zit in Professional. Wil je daarna doorlopend werken aan je posities, dan kan dat met een los SEO-pakket.",
       },
       {
-        q: "Hoe snel staat mijn website online?",
+        q: "Binnen hoeveel weken staat mijn site in Medemblik live?",
         a: `Een Starter-site meestal binnen ${LEVERTIJD.starter}, een bedrijfswebsite binnen ${LEVERTIJD.standaard}, een grotere site of webshop binnen ${LEVERTIJD.complex}.`,
       },
       {
