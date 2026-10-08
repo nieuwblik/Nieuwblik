@@ -15,6 +15,10 @@ import { PRIJZEN } from "@/config/business";
 export interface LandingMeta {
   title: string;
   metaDescription: string;
+  /** Optioneel: vervangt de gegenereerde H1 (alleen stadspagina's). */
+  h1?: string;
+  /** Optioneel: vervangt gegenereerde koppen (alleen stadspagina's). */
+  headings?: { benefits?: string; contact?: string };
 }
 
 const stad = (naam: string): LandingMeta => ({
@@ -24,7 +28,18 @@ const stad = (naam: string): LandingMeta => ({
 
 export const landingMeta: Record<string, LandingMeta> = {
   // Steden
-  utrecht: stad("Utrecht"),
+  // Utrecht: de oude /werkgebied/utrecht (301 sinds 16-09-2026) rankte op
+  // "webdesign utrecht" en "webdesign bureau utrecht"; die termen terug in
+  // title, H1 en koppen.
+  utrecht: {
+    title: `Webdesign Utrecht: website laten maken vanaf €${PRIJZEN.starter}`,
+    metaDescription: `Webdesign bureau voor Utrecht: we maken je website op maat, vanaf €${PRIJZEN.starter} en binnen 2 tot 4 weken live. Vindbaar in Google en ChatGPT. Vraag een offerte aan.`,
+    h1: "Webdesign en website laten maken in Utrecht",
+    headings: {
+      benefits: "Webdesign bureau voor ondernemers in Utrecht",
+      contact: "Je nieuwe website maken in Utrecht? Vertel ons je plan",
+    },
+  },
   amersfoort: stad("Amersfoort"),
   delft: stad("Delft"),
 

@@ -72,7 +72,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
         includeLocalBusinessSchema={true}
       />
 
-      <LandingHero h1={lokaal?.h1 ?? city.h1} subtitle={lokaal?.intro ?? city.heroSubtitle} />
+      <LandingHero h1={lokaal?.h1 ?? meta?.h1 ?? city.h1} subtitle={lokaal?.intro ?? city.heroSubtitle} />
 
       {/* Lokaal blok: handgeschreven per stad, anders de gegenereerde intro */}
       <section className="py-12 md:py-16 bg-background">
@@ -113,7 +113,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {/* Sjabloonblokken: alleen zonder eigen opbouw */}
       {!eigenOpbouw && (
         <>
-          <BenefitList h2={lokaal?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
+          <BenefitList h2={lokaal?.headings?.benefits ?? meta?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
 
           {/* Sectie 2: Vergelijking */}
           <ProblemSolutionSection />
@@ -155,7 +155,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {lokaal && <LandingFaq h2={`Veelgestelde vragen over een website in ${city.name}`} items={lokaal.faq} />}
 
       {/* Sectie 6: Contactblok */}
-      <ContactBlock h2={lokaal?.headings?.contact ?? city.contactBlock.h2} body={city.contactBlock.body} />
+      <ContactBlock h2={lokaal?.headings?.contact ?? meta?.headings?.contact ?? city.contactBlock.h2} body={city.contactBlock.body} />
 
       {/* Interne linksectie */}
       <section className="py-12 bg-background">
