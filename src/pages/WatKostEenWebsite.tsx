@@ -14,7 +14,7 @@ const url = `${SITE_URL}/wat-kost-een-website`;
 const faqItems = [
   { q: "Wat kost een gemiddelde website in 2026?", a: `Een professionele MKB-website kost in 2026 tussen de ${euroTeken(PRIJZEN.starter)} en ${euroTeken(PRIJZEN.professional)}. Kleine sites tot 5 pagina's beginnen bij ${euroTeken(PRIJZEN.starter)}, complete sites met blog en uitgebreide SEO bij ${euroTeken(PRIJZEN.professional)}. Een CMS om zelf te beheren is op aanvraag. Webshops starten bij ${euroTeken(PRIJZEN.webshopVanaf)}.` },
   { q: "Waarom kiezen jullie voor een vaste prijs in plaats van een uurtarief?", a: `Met een vaste prijs weet je vooraf precies waar je aan toe bent. Bij een uurtarief betaal je elke extra ronde feedback, elke technische blip en elk telefoontje. Wij spreken een bedrag en een oplevertermijn af en daaraan houden we ons.` },
-  { q: "Zijn er nog verborgen kosten bij een website?", a: `Bij ons niet. Wat je wel altijd kwijt bent, ook bij andere bureaus: een domeinnaam (circa 10 euro per jaar) en hosting (bij ons ${euroMetCenten(HOSTING_PER_MAAND)} per maand excl. btw, optioneel). Die vermeld we gewoon bij de offerte, zodat je geen verrassingen krijgt.` },
+  { q: "Zijn er nog verborgen kosten bij een website?", a: `Bij ons niet. Wat je wel altijd kwijt bent, ook bij andere bureaus: een domeinnaam (circa 10 euro per jaar) en hosting (bij ons vanaf ${euroMetCenten(HOSTING_PER_MAAND)} per maand excl. btw, optioneel). Die vermeld we gewoon bij de offerte, zodat je geen verrassingen krijgt.` },
   { q: "Wat kost onderhoud na de oplevering?", a: `${HOSTING_ZIN} Er is geen apart onderhoudscontract.` },
   { q: "Is een duurdere website beter?", a: `Niet automatisch. Een goede website verdient zichzelf terug door aanvragen op te leveren, niet door zoveel mogelijk te kosten. Daarom adviseren we vaak eerst een compacte site die goed converteert, en later uitbreiden zodra het bedrijf groeit.` },
   { q: "Hoe snel kan ik een website hebben?", a: `Een Starter-pakket staat binnen ${LEVERTIJD.starter} live, een volledige MKB-website binnen ${LEVERTIJD.standaard}. Grote projecten en webshops duren ${LEVERTIJD.complex}.` },
@@ -30,7 +30,7 @@ const prijsFactoren = [
 
 const verborgenKosten = [
   { kosten: "Domeinnaam", prijs: "circa 10 euro per jaar", toelichting: "Regel je zelf of wij nemen hem mee in de opdracht." },
-  { kosten: "Hosting", prijs: `${euroMetCenten(HOSTING_PER_MAAND)} per maand excl. btw`, toelichting: "Optioneel. Snelle servers, met back-ups en updates voor jou geregeld." },
+  { kosten: "Hosting", prijs: `vanaf ${euroMetCenten(HOSTING_PER_MAAND)} per maand excl. btw`, toelichting: "Optioneel; de prijs hangt af van wat je site nodig heeft. Snelle servers, met back-ups en updates voor jou geregeld." },
   { kosten: "Onderhoud", prijs: "inbegrepen bij de hosting", toelichting: "Basisonderhoud zit bij de hosting, er is geen apart onderhoudscontract." },
   { kosten: "Google-tools", prijs: "gratis", toelichting: "Analytics en Search Console koppelen wij standaard bij elk project." },
 ];
