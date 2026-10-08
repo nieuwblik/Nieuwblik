@@ -633,7 +633,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     ],
   },
 
-  "medemblik": {
+  medemblik: {
     title: `Website laten maken Medemblik vanaf €${PRIJZEN.starter} | Nieuwblik`,
     metaDescription: `Website laten maken in Medemblik? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
     h1: `Website laten maken in Medemblik vanaf €${PRIJZEN.starter}`,
@@ -643,20 +643,72 @@ export const cityLokaal: Record<string, CityLokaal> = {
       portfolio: "Voorbeelden van ons werk",
       contact: 'Klaar voor een nieuwe website in Medemblik?',
     },
+    eigenOpbouw: true,
+    intro: `Website laten maken in Medemblik: een site die gevonden wordt door mensen in je eigen omgeving. Vaste prijs vanaf ${STARTER}, gebouwd vanuit Enkhuizen.`,
+    cases: ["aardingsbedrijf-west-friesland", "taxi-drechterland", "feigro-dakwerken", "vv-madjoe"],
     lokaal: {
-      h2: 'Een website voor ondernemers in Medemblik en omgeving',
+      h2: "Website laten maken in Medemblik",
       alineas: [
-        'Medemblik is een van de oudste steden van West-Friesland, met kasteel Radboud, een historische haven aan het IJsselmeer en de stoomtram naar Hoorn. De gemeente omvat ook Wervershoof, Andijk, Abbekerk en Opperdoes, met veel agrarische bedrijven, watersport en recreatie.',
-        'Wij zitten zelf in Enkhuizen, op een kwartiertje afstand. We kennen de regio en de ondernemers die er werken. Voor watersport en toerisme bouwen we sites die bezoekers overtuigen om te boeken; voor vakmensen en bedrijven sites die offertes opleveren.',
-        'Elke site is mobiel eerst en snel. Je krijgt een vaste prijs en één vast aanspreekpunt.',
-        'Werk je in heel West-Friesland, bekijk dan ook [Hoorn](/werkgebied/hoorn), [Andijk](/werkgebied/andijk) en onze [West-Friesland-pagina](/seo-enkhuizen).',
+        "De meeste klanten van een ondernemer in Medemblik wonen in de buurt. Ze zoeken op hun telefoon naar een dienst met de plaatsnaam erachter, of op 'in de buurt'. Wie dan bovenaan staat, krijgt het telefoontje. Nieuwblik bouwt websites die daarop zijn ingericht, vanuit Enkhuizen en met één vast aanspreekpunt.",
+        "Lokaal gevonden worden is geen trucje achteraf. Het begint bij hoe de site in elkaar zit: welke pagina's er zijn, wat erop staat en hoe snel ze laden. Dat regelen we vanaf het eerste ontwerp.",
       ],
     },
+    secties: [
+      {
+        h2: "Hoe we bedrijven in de regio vindbaar maakten",
+        alineas: [
+          "[Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) wilde aanvragen uit de eigen regio, met Medemblik, Hoorn en Enkhuizen als belangrijkste plaatsen. De site legt eerst uit waarom aarding en de NEN 1010-norm belangrijk zijn. Dat wekt vertrouwen, en daarna is een offerte of inspectie in een paar stappen aangevraagd.",
+          "Voor [Taxi Drechterland](/portfolio/taxi-drechterland) kregen de luchthavenritten en de kernen in het werkgebied elk een eigen pagina. Zo wordt de chauffeur gevonden op precies de zoekopdracht waar iemand op dat moment mee bezig is.",
+          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) werkt in heel West-Friesland. Opgeleverde projecten staan op de site als bewijs, en een lekkage meld je via een eigen, snelle route naast de gewone offerteaanvraag.",
+        ],
+      },
+      {
+        h2: "Wat een vindbare website in Medemblik kost",
+        alineas: [
+          `In elke site zit de technische basis voor Google: snelle laadtijden, structured data, meta-tags per pagina, een sitemap en robots.txt. Met Starter (${STARTER}, 1 tot 5 pagina's) heb je die basis, plus contactformulier en Google Maps.`,
+          `Wil je per dienst een eigen pagina en met artikelen laten zien wat je weet, dan kies je Professional vanaf ${PROFESSIONAL}. Daarin zitten tot 10 pagina's, uitgebreide SEO, een blog en 30 dagen gratis nazorg. Voor doorlopend werk aan je zoekposities bieden we losse SEO-pakketten aan.`,
+          `Een webshop of maatwerk prijzen we per project. Webshops beginnen bij ${WEBSHOP}. Een overzicht van alle pakketten staat op [prijzen](/prijzen).`,
+        ],
+      },
+      {
+        h2: "Website en Google Bedrijfsprofiel samen",
+        alineas: [
+          "Bij zoekopdrachten met een plaatsnaam laat Google naast gewone resultaten ook bedrijven op de kaart zien. Die komen uit het Google Bedrijfsprofiel. Een profiel met dezelfde gegevens als je website, de juiste categorie en reviews van klanten maakt de kans groter dat je daar verschijnt. Hoe je dat instelt, lees je in ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
+          "Werk je ook in de rest van de regio? Kijk dan bij [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Enkhuizen](/) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
+        ],
+      },
+    ],
     faq: [
-      { q: 'Hoe werken jullie samen met ondernemers in Medemblik?', a: 'We zitten in Enkhuizen en werken grotendeels op afstand: via videobellen, telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.' },
-      { q: 'Wij zitten in Wervershoof of Andijk. Is deze pagina ook voor ons?', a: 'Zeker. We werken in de hele gemeente Medemblik en de rest van West-Friesland, en verwerken je eigen werkgebied in de teksten.' },
-      { q: 'Maken jullie ook websites voor watersport en recreatie?', a: "Ja. Denk aan verhuur, campings en jachthavens: mooie foto's, duidelijke prijzen en online reserveren of contact op één tik." },
-      { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+      {
+        q: "Wat kost een website laten maken in Medemblik?",
+        a: `Starter kost ${STARTER}, Professional begint bij ${PROFESSIONAL} en een webshop bij ${WEBSHOP}. Je krijgt vooraf een offerte met een vaste prijs.`,
+      },
+      {
+        q: "Hoe kom ik op de kaart in Google als iemand in Medemblik zoekt?",
+        a: "Via je Google Bedrijfsprofiel. Vul het volledig in, gebruik dezelfde naam, adres en openingstijden als op je website en vraag klanten om een review. Je website helpt mee door duidelijk te maken wat je doet en waar je werkt.",
+      },
+      {
+        q: "Heb ik een aparte pagina per dienst nodig?",
+        a: "Als je meerdere diensten aanbiedt, meestal wel. Iemand die op één dienst zoekt, komt dan op een pagina die precies daarover gaat. Daarvoor is Professional bedoeld, met tot 10 pagina's.",
+      },
+      {
+        q: "Zit SEO bij de prijs inbegrepen?",
+        a: "De technische basis wel: snelheid, structured data, meta-tags, sitemap en robots.txt. Uitgebreide SEO zit in Professional. Wil je daarna doorlopend werken aan je posities, dan kan dat met een los SEO-pakket.",
+      },
+      {
+        q: "Hoe snel staat mijn website online?",
+        a: `Een Starter-site meestal binnen ${LEVERTIJD.starter}, een bedrijfswebsite binnen ${LEVERTIJD.standaard}, een grotere site of webshop binnen ${LEVERTIJD.complex}.`,
+      },
+      {
+        q: "Werken jullie ook voor bedrijven elders in West-Friesland?",
+        a: "Ja. We zitten zelf in Enkhuizen en bouwen sites voor ondernemers in heel West-Friesland, onder meer in Hoorn, Enkhuizen en de dorpen eromheen.",
+      },
+    ],
+    todo: [
+      "Klanten uit Medemblik of de dorpen eromheen: naam, branche en wat de site opleverde (alleen met toestemming).",
+      "Waar spreek je af met ondernemers uit Medemblik: bij hen op locatie, in Enkhuizen of via video?",
+      "Ervaring met lokale vindbaarheid in deze regio die je kunt noemen.",
+      "Een review of citaat van een klant uit Medemblik, als die er is.",
     ],
   },
   alkmaar: {
