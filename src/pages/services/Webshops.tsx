@@ -95,7 +95,7 @@ const Webshops = () => {
   },
   {
     question: "Kan ik zelf producten toevoegen en beheren?",
-    answer: "Absoluut! Je krijgt een gebruiksvriendelijk dashboard waar je zelfstandig producten, prijzen en voorraad kunt beheren."
+    answer: "Ja, op aanvraag. Standaard beheren wij je webshop. Wil je zelf producten, prijzen en voorraad bijhouden, dan bouwen we daar een gebruiksvriendelijk dashboard voor, met een aparte offerte."
   },
   {
     question: "Wat kost een professionele webshop?",

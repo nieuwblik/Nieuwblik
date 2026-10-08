@@ -12,7 +12,7 @@ import { companyInfo } from "@/config/company";
 const url = `${SITE_URL}/wat-kost-een-website`;
 
 const faqItems = [
-  { q: "Wat kost een gemiddelde website in 2026?", a: `Een professionele MKB-website kost in 2026 tussen de ${euroTeken(PRIJZEN.starter)} en ${euroTeken(PRIJZEN.professional)}. Kleine sites tot 5 pagina's beginnen bij ${euroTeken(PRIJZEN.starter)}, complete sites met CMS en SEO-basis bij ${euroTeken(PRIJZEN.professional)}. Webshops starten bij ${euroTeken(PRIJZEN.webshopVanaf)}.` },
+  { q: "Wat kost een gemiddelde website in 2026?", a: `Een professionele MKB-website kost in 2026 tussen de ${euroTeken(PRIJZEN.starter)} en ${euroTeken(PRIJZEN.professional)}. Kleine sites tot 5 pagina's beginnen bij ${euroTeken(PRIJZEN.starter)}, complete sites met blog en uitgebreide SEO bij ${euroTeken(PRIJZEN.professional)}. Een CMS om zelf te beheren is op aanvraag. Webshops starten bij ${euroTeken(PRIJZEN.webshopVanaf)}.` },
   { q: "Waarom kiezen jullie voor een vaste prijs in plaats van een uurtarief?", a: `Met een vaste prijs weet je vooraf precies waar je aan toe bent. Bij een uurtarief betaal je elke extra ronde feedback, elke technische blip en elk telefoontje. Wij spreken een bedrag en een oplevertermijn af en daaraan houden we ons.` },
   { q: "Zijn er nog verborgen kosten bij een website?", a: `Bij ons niet. Wat je wel altijd kwijt bent, ook bij andere bureaus: een domeinnaam (circa 10 euro per jaar) en hosting (vanaf 25 euro per maand bij ons). Die vermeld we gewoon bij de offerte, zodat je geen verrassingen krijgt.` },
   { q: "Wat kost onderhoud na de oplevering?", a: `Kleine aanpassingen doen we het eerste jaar kosteloos. Daarna kun je kiezen voor een onderhoudscontract of gewoon een uurtarief als er iets nodig is. Verplicht is het niet.` },
@@ -129,7 +129,7 @@ const WatKostEenWebsite = () => {
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 { name: PAKKETTEN.starter.naam, price: euroTeken(PAKKETTEN.starter.prijs), desc: "One-pager of kleine site tot 5 pagina's. Ideaal voor ZZP-ers en starters die gevonden willen worden.", levertijd: LEVERTIJD.starter },
-                { name: PAKKETTEN.professional.naam, price: euroTeken(PAKKETTEN.professional.prijs), desc: "Complete site tot 10 pagina's met CMS, sterke SEO-basis en koppelingen met Google.", levertijd: LEVERTIJD.standaard, highlight: true },
+                { name: PAKKETTEN.professional.naam, price: euroTeken(PAKKETTEN.professional.prijs), desc: "Complete site tot 10 pagina's met blog, uitgebreide SEO en koppelingen met Google.", levertijd: LEVERTIJD.standaard, highlight: true },
                 { name: PAKKETTEN.opMaat.naam, price: `vanaf ${euroTeken(PRIJZEN.webshopVanaf)}`, desc: "Uitgebreide site of webshop met integraties, meerdere talen of een klantportaal.", levertijd: LEVERTIJD.complex },
               ].map((p) => (
                 <div key={p.name} className={`rounded-2xl p-6 border ${p.highlight ? "border-accent bg-background shadow-lg" : "border-border bg-background"}`}>
@@ -216,7 +216,7 @@ const WatKostEenWebsite = () => {
                 "Alle teksten geschreven voor jouw doelgroep",
                 "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
                 "PageSpeed score van 90+ op mobiel",
-                "Eenvoudig CMS om zelf teksten en afbeeldingen te beheren",
+                "Beheer door ons, of op aanvraag een eenvoudig CMS om zelf aan te passen",
                 "Google Analytics en Search Console koppeling",
                 "1 jaar kosteloos kleine aanpassingen na livegang",
               ].map((f) => (

@@ -11,7 +11,7 @@ export interface FaqItem {
 export const ALGEMENE_FAQ: FaqItem[] = [
   {
     question: "Wat kost het om een website te laten maken?",
-    answer: `Onze pakketten starten vanaf ${PRIJZEN.starter} euro voor een complete starterswebsite. Het Professional pakket start vanaf ${PRIJZEN.professional} euro, met meer pagina's, CMS en SEO basis. Voor maatwerk of webshops maken we een offerte op basis van jouw wensen. Tijdens een vrijblijvend gesprek bespreken we wat het beste past.`
+    answer: `Onze pakketten starten vanaf ${PRIJZEN.starter} euro voor een complete starterswebsite. Het Professional pakket start vanaf ${PRIJZEN.professional} euro, met meer pagina's, uitgebreide SEO en een blogfunctie. Een CMS om zelf teksten aan te passen is op aanvraag mogelijk. Voor maatwerk of webshops maken we een offerte op basis van jouw wensen. Tijdens een vrijblijvend gesprek bespreken we wat het beste past.`
   },
   {
     question: "Hoe lang duurt het voordat mijn website live staat?",

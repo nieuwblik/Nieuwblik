@@ -73,7 +73,7 @@ const PRICING = [
     highlighted: false,
     features: [
       "Onbeperkt pagina's en functies",
-      "CMS, beheer alles zelf",
+      "Op aanvraag een CMS om zelf te beheren",
       "Webshop met betaalkoppelingen",
       "Maatwerk integraties en API's",
       "Persoonlijke strategie en advies",

@@ -18,7 +18,7 @@ const faqItems = [
   { q: "WordPress, Webflow of maatwerk, wat kies ik?", a: "Voor de meeste MKB-sites bouwen we maatwerk in React. Dat geeft betere PageSpeed-scores, veiligere sites zonder plugin-updates en een schonere basis voor SEO. WordPress kan nog, maar we adviseren het steeds minder vaak." },
   { q: "Krijg ik de eigendom van mijn website?", a: "Ja. Alle code, teksten en afbeeldingen zijn na oplevering van jou. Geen vendor lock-in. Je kunt de site altijd meenemen naar een andere partij als dat ooit nodig is." },
   { q: "Doen jullie ook onderhoud en hosting?", a: "Ja. We bieden hosting op snelle servers vanaf 25 euro per maand en onderhoudscontracten voor updates, back-ups en kleine aanpassingen. Optioneel, je bent nergens aan verplicht." },
-  { q: "Kan ik zelf teksten en foto's aanpassen na oplevering?", a: "Ja. We bouwen een eenvoudig CMS in waar je zelf blogs, projecten, teksten en afbeeldingen kunt beheren. Zonder technische kennis." },
+  { q: "Kan ik zelf teksten en foto's aanpassen na oplevering?", a: "Ja, op aanvraag. Standaard verzorgen wij het beheer van je website. Wil je zelf blogs, projecten, teksten en afbeeldingen beheren, dan bouwen we daar een eenvoudig CMS voor, met een aparte offerte. Zonder technische kennis te gebruiken." },
   { q: "Hoe zit het met SEO?", a: "Elke site die wij bouwen is technisch SEO-ready: snelle laadtijden, correcte structured data, meta-tags per pagina, sitemap en robots.txt. Voor doorlopende content-SEO bieden we losse pakketten aan." },
   { q: "Werken jullie in heel Nederland?", a: "Ja. Wij zitten in Enkhuizen maar bouwen sites voor MKB door heel Nederland, van Groningen tot Maastricht. Meestal volledig op afstand, voor grotere trajecten komen we langs." },
 ];
@@ -140,7 +140,7 @@ const WebsiteLatenMaken = () => {
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 { name: PAKKETTEN.starter.naam, price: String(PAKKETTEN.starter.prijs), desc: "One-pager of kleine site tot 5 pagina's. Ideaal voor ZZP en starters." },
-                { name: PAKKETTEN.professional.naam, price: String(PAKKETTEN.professional.prijs), desc: "Complete site tot 10 pagina's, met CMS en sterke SEO-basis.", highlight: true },
+                { name: PAKKETTEN.professional.naam, price: String(PAKKETTEN.professional.prijs), desc: "Complete site tot 10 pagina's, met blog en uitgebreide SEO.", highlight: true },
                 { name: PAKKETTEN.opMaat.naam, price: null, desc: "Uitgebreide site of webshop, met integraties en meerdere talen." },
               ].map((p) => (
                 <div key={p.name} className={`rounded-2xl p-6 border ${p.highlight ? "border-accent bg-background shadow-lg" : "border-border bg-background"}`}>
@@ -163,7 +163,7 @@ const WebsiteLatenMaken = () => {
                 "Volledig responsive voor mobiel, tablet en desktop",
                 "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
                 "PageSpeed score van 90+ op mobiel",
-                "Eenvoudig CMS om zelf teksten en afbeeldingen aan te passen",
+                "Beheer door ons, of op aanvraag een eenvoudig CMS om zelf aan te passen",
                 "WhatsApp, contactformulier en Google Maps integratie",
                 "Google Analytics en Search Console koppeling",
                 "1 jaar kosteloos kleine aanpassingen na livegang",
