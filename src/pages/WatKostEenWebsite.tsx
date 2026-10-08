@@ -18,7 +18,7 @@ const faqItems = [
   { q: "Wat kost onderhoud na de oplevering?", a: `Kleine aanpassingen doen we het eerste jaar kosteloos. Daarna kun je kiezen voor een onderhoudscontract of gewoon een uurtarief als er iets nodig is. Verplicht is het niet.` },
   { q: "Is een duurdere website beter?", a: `Niet automatisch. Een goede website verdient zichzelf terug door aanvragen op te leveren, niet door zoveel mogelijk te kosten. Daarom adviseren we vaak eerst een compacte site die goed converteert, en later uitbreiden zodra het bedrijf groeit.` },
   { q: "Hoe snel kan ik een website hebben?", a: `Een Starter-pakket staat binnen ${LEVERTIJD.starter} live, een volledige MKB-website binnen ${LEVERTIJD.standaard}. Grote projecten en webshops duren ${LEVERTIJD.complex}.` },
-  { q: "Wat kost een webshop laten maken?", a: `Een webshop bij Nieuwblik start bij ${euroTeken(PRIJZEN.webshopVanaf)}. Daar zitten de koppeling met Stripe, een verzeevalidator en instructies bij om zelf te starten met verkopen. Bekijk ook onze pagina over webshops.` },
+  { q: "Wat kost een webshop laten maken?", a: `Een webshop bij Nieuwblik start bij ${euroTeken(PRIJZEN.webshopVanaf)}. Daar zit de koppeling met Stripe inbegrepen, plus instructies om zelf te starten met verkopen. Bekijk ook onze pagina over webshops.` },
   { q: "Kan ik ergens anders goedkoper uit zijn?", a: `Met een bouwpakket of een student die het "even probeert" wel, maar daar betaal je later dubbel voor: trage sites, geen Google-vindbaarheid en niemand die je kunt bellen. Wij leveren maatwerk met doorlopende support waar je niet omheen kunt.` },
 ];
 
@@ -113,7 +113,7 @@ const WatKostEenWebsite = () => {
               Een website laten maken kost bij een betrouwbaar Nederlands bureau in 2026 gemiddeld tussen de {euroTeken(PRIJZEN.starter)} en {euroTeken(PRIJZEN.professional)}. Onder de {euroTeken(500)} kom je alleen terecht bij bouwpakketten waar je zelf alles moet doen, of bij partijen die een template in tien minuten neerzetten en daarna verdwijnen.
             </p>
             <p className="text-muted-foreground mb-6">
-              Boven de {euroTeken(5000)} betaal je meestal voor bureaus met grote kantoren, accountmanagers en overlege Layers tussen jou en de maker. Soms terecht bij complexe trajecten, maar voor de meeste ondernemers is het gewoon geld dat niet in de site zit.
+              Boven de {euroTeken(5000)} betaal je meestal voor bureaus met grote kantoren, accountmanagers en overleglagen tussen jou en de maker. Soms terecht bij complexe trajecten, maar voor de meeste ondernemers is het gewoon geld dat niet in de site zit.
             </p>
             <p className="text-muted-foreground">
               Onze aanpak zit daar tussenin: vaste prijzen, geen tussenpersonen, en je spreekt rechtstreeks met degene die bouwt.
@@ -170,7 +170,7 @@ const WatKostEenWebsite = () => {
               Veel bureaus rekenen een uurtarief van 75 tot 150 euro en sturen daarna een offerte "indicatief". In de praktijk betekent dat: een bodemprijs bij de start en een rekening die meegroeit met elke e-mail die je verstuurt. Het gemiddelde MKB-project loopt op die manier vaak een paar honderd euro over de oorspronkelijke schatting heen.
             </p>
             <p className="text-muted-foreground mb-4">
-              Met een vaste prijs leggen wij het risico in eigen hand. Als een project meer tijd kost dan we dachten, is dat ons probleem, niet dat van jou. Jij betaalt wat we afspraken, ongeacht hoe lang wij erover doen.
+              Met een vaste prijs leggen wij het risico in eigen hand. Als een project meer tijd kost dan we dachten, is dat ons probleem, niet dat van jou. Jij betaalt wat we zijn overeengekomen, ongeacht hoe lang wij erover doen.
             </p>
             <p className="text-muted-foreground">
               Het nadeel van een vaste prijs is dat je precies moet weten wat je wilt. Daarom nemen we bij elk project een uitgebreide kennismaking, zodat er geen discussie kan ontstaan over wat er wel en niet in zit.
