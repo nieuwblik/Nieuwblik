@@ -4,9 +4,10 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import PricingPackages from "@/components/PricingPackages";
 import { DienstHero } from "@/components/dienst/DienstBlokken";
+import { Link } from "@/lib/router-compat";
 
 export const PRIJZEN_TITEL = `Prijzen website laten maken | Vanaf ${euroTeken(PRIJZEN.starter)} - Nieuwblik`;
-export const PRIJZEN_OMSCHRIJVING = `Wat kost een website? Starter vanaf ${euroTeken(PRIJZEN.starter)}, Professional vanaf ${euroTeken(PRIJZEN.professional)} of maatwerk op aanvraag. Vaste prijs vooraf, binnen ${LEVERTIJD.standaard} live.`;
+export const PRIJZEN_OMSCHRIJVING = `Prijzen van Nieuwblik: Starter ${euroTeken(PRIJZEN.starter)}, Professional vanaf ${euroTeken(PRIJZEN.professional)} of maatwerk op aanvraag. Vaste prijs vooraf, levertijd vanaf ${LEVERTIJD.starter}.`;
 
 /**
  * Prijzenpagina: de pakketten die eerst op de homepage stonden, met een eigen
@@ -38,6 +39,19 @@ const Prijzen = () => (
     />
 
     <PricingPackages />
+
+    {/* /prijzen is de pakketpagina; de uitleg over wat een website kost staat op de gids. */}
+    <section className="py-12 md:py-16 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+        <p className="text-muted-foreground leading-relaxed">
+          Wil je weten wat de prijs van een website bepaalt? Lees{" "}
+          <Link to="/wat-kost-een-website" className="text-accent hover:underline font-semibold">
+            wat een website kost in 2026
+          </Link>
+          .
+        </p>
+      </div>
+    </section>
 
     <Footer />
   </div>

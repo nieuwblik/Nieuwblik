@@ -88,7 +88,7 @@ export const REDIRECTS: Redirect[] = [
   { from: "/blog/waarom-snelle-websites-meer-verkopen", to: "/blog/case-study-benoted-snelheid-zichtbaarheid", reden: "Laadtijd en resultaat; de BeNoted-case gaat over snelheid" },
   { from: "/blog/van-bezoeker-naar-klant-conversie-optimalisatie", to: "/gratis-website-analyse", reden: "Geen blog over conversie meer; de website-analyse behandelt conversie en snelheid het uitgebreidst" },
   { from: "/blog/wordpress-vs-maatwerk-website", to: "/diensten/website-op-maat", reden: "Keuze voor maatwerk, verwijderd 14-09-2026" },
-  { from: "/blog/wat-kost-website-laten-maken-2026", to: "/prijzen", reden: "Over prijzen; sinds 04-10-2026 is er een eigen prijzenpagina (verwijderd 14-09-2026)" },
+  { from: "/blog/wat-kost-website-laten-maken-2026", to: "/wat-kost-een-website", reden: "Kostenartikel (verwijderd 14-09-2026); de gids /wat-kost-een-website dekt dezelfde informatieve zoekvraag, /prijzen is de pakketpagina" },
 ];
 
 const BY_PATH = new Map(REDIRECTS.map((r) => [r.from, r.to]));
