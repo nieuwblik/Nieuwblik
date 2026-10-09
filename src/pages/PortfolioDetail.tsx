@@ -9,6 +9,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import CaseMockup from "@/components/CaseMockup";
+import CaseTelefoon from "@/components/CaseTelefoon";
 import { caseMockups, caseTelefoons } from "@/data/caseMockups";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
@@ -160,21 +161,7 @@ const PortfolioDetail = () => {
             )}
             {telefoon && (
                 <section className="lg:flex">
-                    <div className="relative w-full lg:w-1/2 shrink-0">
-                        <div className="relative aspect-[4/5] overflow-hidden lg:sticky lg:top-0 lg:aspect-auto lg:h-[110vh]">
-                            <img
-                                src={telefoon.src}
-                                srcSet={telefoon.srcSet}
-                                sizes="(min-width: 1024px) 50vw, 100vw"
-                                width={telefoon.breedte}
-                                height={telefoon.hoogte}
-                                alt={`Mobiele website van ${project.title} op een iPhone`}
-                                loading="lazy"
-                                decoding="async"
-                                className="absolute inset-0 h-full w-full object-cover object-[50%_45%]"
-                            />
-                        </div>
-                    </div>
+                    <CaseTelefoon foto={telefoon} alt={`Mobiele website van ${project.title} op een iPhone`} />
 
                     <motion.div
                         className="w-full lg:w-1/2 px-6 py-20 md:px-12 lg:px-16 lg:py-32 xl:px-24"
