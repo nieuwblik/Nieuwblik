@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUp, ChevronUp, Gauge, Search, TrendingUp } from "lucide-react";
+import { ArrowUp, Gauge, Plus, Search, TrendingUp } from "lucide-react";
 import { useLocation } from "@/lib/router-compat";
 import { companyInfo } from "@/config/company";
 import { AnimatedButton } from "@/components/ui/animated-button";
@@ -46,13 +46,12 @@ const WhatsAppIcoon = () => (
 
 /**
  * Eén zwevende balk rechtsonder: de gratis website-analyse, terug naar boven
- * en WhatsApp, naadloos naast elkaar. De pijl bij de analyse klapt de uitleg
- * omhoog open, in hetzelfde blok. Vervangt de losse WhatsApp-knop en de oude
+ * en WhatsApp, naadloos naast elkaar. Het plusje bij de analyse klapt de
+ * uitleg omhoog open, in hetzelfde blok. Vervangt de losse WhatsApp-knop en de oude
  * analyse-pop-up.
  *
- * De balk staat er altijd en heeft altijd dezelfde breedte; terug naar boven
- * is bovenaan de pagina alleen gedimd. Alles is fixed, dus geen verschuiving
- * van de pagina.
+ * De balk staat er altijd. Terug naar boven schuift pas in beeld na wat
+ * scrollen. Alles is fixed, dus geen verschuiving van de pagina.
  */
 const ZwevendeKnoppen = () => {
   const { pathname } = useLocation();
@@ -62,7 +61,7 @@ const ZwevendeKnoppen = () => {
   const metAnalyse = !HIDDEN_ON.some((pad) => pathname.startsWith(pad));
 
   useEffect(() => {
-    const opScroll = () => setBovenaan(window.scrollY < 200);
+    const opScroll = () => setBovenaan(window.scrollY < 300);
     opScroll();
     window.addEventListener("scroll", opScroll, { passive: true });
     return () => window.removeEventListener("scroll", opScroll);
@@ -135,35 +134,37 @@ const ZwevendeKnoppen = () => {
                   Binnen 24 uur, vrijblijvend
                 </span>
               </span>
-              <span
-                className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors group-hover:bg-[hsl(var(--sw-green)/0.1)]"
-                style={{ background: "hsl(var(--sw-green) / 0.06)" }}
-              >
-                <ChevronUp
-                  className={`h-4 w-4 transition-transform duration-500 motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
-                  style={{ color: GROEN, transitionTimingFunction: VLOEIEND }}
-                  aria-hidden="true"
-                />
-              </span>
+              {/* Plus die bij openen een kruisje wordt: duidelijk iets anders dan de pijl naar boven. */}
+              <Plus
+                className={`h-[18px] w-[18px] shrink-0 transition-transform duration-500 motion-reduce:transition-none ${open ? "rotate-45" : ""}`}
+                style={{ color: GROEN, transitionTimingFunction: VLOEIEND }}
+                aria-hidden="true"
+              />
               <span className="sr-only">{open ? "Minder tonen" : "Meer over de gratis website-analyse"}</span>
             </button>
-            <span aria-hidden="true" className="my-3 w-px shrink-0" style={{ background: RAND }} />
           </>
         )}
 
-        <button
-          type="button"
-          onClick={naarBoven}
-          aria-label="Terug naar boven"
-          disabled={bovenaan}
-          className={`flex w-[52px] shrink-0 cursor-pointer items-center justify-center disabled:cursor-default disabled:hover:bg-transparent ${KNOP}`}
+        {/* Terug naar boven schuift pas in beeld na wat scrollen. Met analysedeel
+            blijft de balk even breed (dat deel krimpt mee); zonder groeit hij. */}
+        <div
+          className={`relative flex shrink-0 overflow-hidden transition-[width,opacity] duration-500 motion-reduce:transition-none ${bovenaan ? "w-0 opacity-0" : "w-[52px] opacity-100"}`}
+          style={{ transitionTimingFunction: VLOEIEND }}
+          aria-hidden={bovenaan}
         >
-          <ArrowUp
-            className={`h-[18px] w-[18px] transition-opacity duration-300 ${bovenaan ? "opacity-30" : "opacity-100"}`}
-            style={{ color: GROEN }}
-            aria-hidden="true"
-          />
-        </button>
+          {metAnalyse && (
+            <span aria-hidden="true" className="absolute bottom-3 left-0 top-3 w-px" style={{ background: RAND }} />
+          )}
+          <button
+            type="button"
+            onClick={naarBoven}
+            aria-label="Terug naar boven"
+            tabIndex={bovenaan ? -1 : 0}
+            className={`flex w-[52px] shrink-0 cursor-pointer items-center justify-center ${KNOP}`}
+          >
+            <ArrowUp className="h-[18px] w-[18px]" style={{ color: GROEN }} aria-hidden="true" />
+          </button>
+        </div>
 
         <a
           href={companyInfo.whatsapp}
