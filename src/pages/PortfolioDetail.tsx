@@ -9,7 +9,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import CaseMockup from "@/components/CaseMockup";
-import { caseMockups } from "@/data/caseMockups";
+import { caseMockups, caseTelefoons } from "@/data/caseMockups";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
@@ -22,6 +22,7 @@ const PortfolioDetail = () => {
 
     const project = projects.find((p) => p.slug === slug);
     const mockup = project ? caseMockups[project.slug] : undefined;
+    const telefoon = project ? caseTelefoons[project.slug] : undefined;
 
     useEffect(() => {
         if (!project) {
@@ -95,12 +96,14 @@ const PortfolioDetail = () => {
             >
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl">
-                        <motion.p
-                            className="text-accent mb-6 font-medium"
-                            variants={fadeUp}
-                        >
-                            PROJECT CASE
-                        </motion.p>
+                        {!telefoon && (
+                            <motion.p
+                                className="text-accent mb-6 font-medium"
+                                variants={fadeUp}
+                            >
+                                PROJECT CASE
+                            </motion.p>
+                        )}
                         <motion.h1
                             className="text-display mb-6"
                             variants={fadeUp}
@@ -126,7 +129,72 @@ const PortfolioDetail = () => {
                 </div>
             </motion.section>
 
+            {/* Case met telefoonfoto: links de foto (halve breedte, 110vh), rechts de casetekst */}
+            {telefoon && (
+                <section className="lg:flex">
+                    <div className="relative w-full lg:w-1/2 shrink-0">
+                        <div className="relative aspect-[4/5] overflow-hidden lg:sticky lg:top-0 lg:aspect-auto lg:h-[110vh]">
+                            <motion.img
+                                src={telefoon.src}
+                                srcSet={telefoon.srcSet}
+                                sizes="(min-width: 1024px) 50vw, 100vw"
+                                width={telefoon.breedte}
+                                height={telefoon.hoogte}
+                                alt={`Mobiele website van ${project.title} op een iPhone`}
+                                loading="lazy"
+                                decoding="async"
+                                className="absolute inset-0 h-full w-full object-cover object-[50%_45%]"
+                                initial={{ scale: 1.08 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true, margin: "-10%" }}
+                                transition={{ duration: 1.4, ease: easings.easeOutExpo }}
+                            />
+                        </div>
+                    </div>
+
+                    <motion.div
+                        className="w-full lg:w-1/2 px-6 py-20 md:px-12 lg:px-16 lg:py-32 xl:px-24"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        variants={staggerContainer}
+                    >
+                        <div className="max-w-[620px] space-y-16">
+                            <motion.div variants={fadeUp} className="space-y-6">
+                                <h2 className="text-3xl md:text-4xl font-bold font-display leading-tight">
+                                    Over {project.title}
+                                </h2>
+                                <p className="text-lg text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">
+                                    {project.detail?.details || "Gegevens volgen nog..."}
+                                </p>
+                            </motion.div>
+
+                            {project.detail?.goal && (
+                                <motion.div variants={fadeUp} className="space-y-4 border-t border-border/60 pt-12">
+                                    <h3 className="text-2xl font-bold font-display leading-tight">Het doel</h3>
+                                    <p className="text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">{project.detail.goal}</p>
+                                </motion.div>
+                            )}
+
+                            {project.detail?.idea && (
+                                <motion.div variants={fadeUp} className="space-y-4 border-t border-border/60 pt-12">
+                                    <h3 className="text-2xl font-bold font-display leading-tight">Het idee</h3>
+                                    <p className="text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">{project.detail.idea}</p>
+                                </motion.div>
+                            )}
+
+                            {project.detail?.year && (
+                                <motion.p variants={fadeUp} className="border-t border-border/60 pt-8 text-muted-foreground font-light">
+                                    Opgeleverd in {project.detail.year}
+                                </motion.p>
+                            )}
+                        </div>
+                    </motion.div>
+                </section>
+            )}
+
             {/* Case Section */}
+            {!telefoon && (
             <section className="pb-32 border-t border-border/50 pt-20">
                 <div className="container mx-auto px-6">
                     <div className="flex flex-col md:flex-row gap-12 lg:gap-24">
@@ -205,6 +273,7 @@ const PortfolioDetail = () => {
                     </div>
                 </div>
             </section>
+            )}
 
             {/* Gallery Section */}
             {project.gallery && project.gallery.length > 0 && (
