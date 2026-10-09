@@ -496,7 +496,7 @@ export default function UnderlayNav({
             type="button"
             aria-expanded="false"
             aria-label="open menu"
-            className="flex items-center justify-center gap-[0.75em] -m-[1em] p-[1em] bg-transparent border-0 font-epilogue"
+            className="flex cursor-pointer items-center justify-center gap-[0.75em] -m-[1em] p-[1em] bg-transparent border-0 font-epilogue"
           >
             <span
               ref={toggleTextRef}
