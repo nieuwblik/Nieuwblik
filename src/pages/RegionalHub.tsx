@@ -48,12 +48,12 @@ export const HUBS: RegionHubData[] = [
     ],
     strengths: [
       { title: "Lokale kennis", text: "We wonen en werken in Noord-Holland zelf. Van Enkhuizen tot Amsterdam kennen we de lokale markt." },
-      { title: "Persoonlijk contact", text: "Eén vast aanspreekpunt, via videocall, telefoon, mail en WhatsApp. Liever in het echt? Dan komen we bij je langs." },
+      { title: "Persoonlijk contact", text: "Eén vast aanspreekpunt, via videocall, telefoon, mail en WhatsApp. Liever in het echt? Dan komen we in overleg bij je langs." },
       { title: "Regio-SEO", text: "We optimaliseren op de zoektermen die in jouw plaats werken, niet op algemene termen." },
     ],
     faq: [
       { q: "Werken jullie voor bedrijven in heel Noord-Holland?", a: "Ja. In de provincie bouwden we onder meer sites voor ondernemers in West-Friesland, zoals in Enkhuizen en Hoogkarspel. Verder werken we grotendeels op afstand, voor ondernemers door heel Nederland." },
-      { q: "Hoe verloopt de kennismaking?", a: "Meestal via een videocall. Spreek je elkaar liever in het echt, dan komen we bij je langs. Daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp." },
+      { q: "Hoe verloopt de kennismaking?", a: "Meestal via een videocall. Spreek je elkaar liever in het echt, dan komen we in overleg bij je langs. Daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp." },
       { q: "Wat kost een website in Noord-Holland?", a: `Onze projecten starten vanaf ${PRIJZEN.starter} euro. Voor uitgebreide sites en webshops rekenen we tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
   },
@@ -114,7 +114,7 @@ export const HUBS: RegionHubData[] = [
     ],
     faq: [
       { q: "Werken jullie ook voor bedrijven in Twente?", a: "Ja. Voor Carbon6 bouwden we een vastgoedplatform voor de markt in Enschede. Verder werken we grotendeels op afstand, voor ondernemers door heel Nederland." },
-      { q: "Hoe werken jullie samen met klanten in de regio?", a: "Voornamelijk online, via videocall, telefoon, mail en WhatsApp, met één vast aanspreekpunt. Spreek je elkaar liever in het echt, dan komen we bij je langs." },
+      { q: "Hoe werken jullie samen met klanten in de regio?", a: "Voornamelijk online, via videocall, telefoon, mail en WhatsApp, met één vast aanspreekpunt. Spreek je elkaar liever in het echt, dan komen we in overleg bij je langs." },
       { q: "Wat kost een website voor Oost-Nederland?", a: `Onze projecten starten bij ${PRIJZEN.starter} euro. Voor webshops en uitgebreide sites tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
   },
@@ -295,7 +295,7 @@ const RegionalHub = () => {
                   Wij zijn Justin en Job, twee gedreven ontwerpers en developers uit Enkhuizen. Geen groot bureau met accountmanagers en tussenlagen, maar een klein team met korte lijnen. Je spreekt altijd degene die ook daadwerkelijk aan jouw website bouwt.
                 </p>
                 <p className="text-muted-foreground mb-6">
-                  Ook voor ondernemers in {hub.name} werken we persoonlijk. We plannen graag een videocall om jouw plan door te nemen; spreek je elkaar liever in het echt, dan komen we bij je langs. Je spreekt altijd één van ons, en binnen 24 uur heb je een duidelijk voorstel.
+                  Ook voor ondernemers in {hub.name} werken we persoonlijk. We plannen graag een videocall om jouw plan door te nemen; spreek je elkaar liever in het echt, dan komen we in overleg bij je langs. Je spreekt altijd één van ons, en binnen 24 uur heb je een duidelijk voorstel.
                 </p>
                 <AnimatedButton to="/over-ons">Meer over ons</AnimatedButton>
               </div>
