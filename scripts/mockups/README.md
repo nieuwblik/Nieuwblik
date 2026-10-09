@@ -8,6 +8,7 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
 | --- | --- | --- | --- |
 | Warm | monitor (zwart-wit studio, retro aan) | `warm`: hand in de zon, wazige achtergrond | Taxi Drechterland |
 | Studio | tablet (tegenlicht, grijze studio) | `studio`: lichte studio, schuin perspectief | Feigro Dakwerken |
+| Natuur | bureau (monitor voor raam met groen, warm zonlicht) | `bank`: plat op een groen bankje in de zon | Een Bundel Geluk |
 
 ## Nieuwe case in drie stappen
 
@@ -20,8 +21,8 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
    - `<slug>` is de slug uit `src/data/projects.ts`.
    - `--verberg`: zwevende knoppen of pop-ups van de klantsite die niet in beeld
      mogen (bij Taxi Drechterland: `"button.fixed.right-5.bottom-6, div.fixed.bottom-3.left-3"`).
-   - `--toestel monitor` (standaard) of `tablet`: bepaalt het venster van de hero-screenshot.
-   - `--telefoon warm` (standaard) of `studio`: welke telefoonfoto.
+   - `--toestel monitor` (standaard), `tablet` of `bureau`: bepaalt het venster van de hero-screenshot.
+   - `--telefoon warm` (standaard), `studio` of `bank`: welke telefoonfoto.
    - `--alleen hero` of `--alleen telefoon` maakt er maar één.
    - `--spiegel-desktop`: maakt ook `<slug>-telefoon-desktop.webp`, met de lege
      basisfoto gespiegeld en daarna de site erin (dus gewoon leesbaar). Op desktop kijkt
@@ -63,7 +64,29 @@ Benodigd: Chrome op `C:/Program Files/Google/Chrome/Application/chrome.exe`
   - Een groene gloed van het scherm valt op de vloer, niet over de voet.
   - Bij reduced motion staat de monitor meteen aan en scrolt er niets.
 
-## Tablet (hero, `src/components/CaseTablet.tsx`)
+## Toestellen in perspectief (hero, `src/components/CaseToestel.tsx`)
+
+Tablet en bureau gebruiken dezelfde component; per toestel staan de foto's, de
+opmeting, het masker, het licht en de kleur in `src/data/toestellen.ts`. Een nieuw
+toestel: foto's met groen scherm genereren, `schermUit()` draaien (geeft de zwarte
+foto, het masker, de hoeken, de verhouding en de afronding), een entry in
+`toestellen.ts` en een venster in `HEROS` in `nieuwe-case.mjs` (zelfde verhouding
+als het scherm). `donker: true` maakt de vaste header boven de foto licht.
+
+### Bureau (Een Bundel Geluk)
+
+- **Foto's:** `src/assets/mockup/bureau-liggend.webp` en `bureau-staand.webp`: een
+  monitor op een houten bureau voor een raam met groen, warm laag zonlicht, donkere
+  kamer, zonder spullen op het bureau. Groene originelen in `basis/bureau-groen-*.webp`.
+- **Opgemeten:** liggend hoeken 0,2756/0,1884 · 0,7106/0,1629 · 0,7101/0,6322 ·
+  0,2762/0,6005, verhouding 1,75; staand 0,1106/0,2867 · 0,8995/0,2706 · 0,8997/0,5750
+  · 0,1071/0,5555, verhouding 1,55. Hoeken vrijwel recht.
+- **Screenshot:** venster 1440×820 (verhouding 1,75), dpr 1,25, 1800 breed.
+- **Licht** (gemeten): raam RGB 16-34, bureau in de zon 191,136,107, in de schaduw
+  103,75,65; het scherm valt buiten het zonlicht en geeft zelf licht. Daarom 9%
+  vignettering, 3% warme toon, contrast 0,97, geen glans. Header boven de foto wit.
+
+### Tablet (Feigro)
 
 - **Foto's:** `src/assets/mockup/tablet-liggend.webp` (3840×2160) en
   `tablet-staand.webp` (2160×3840). Twee handen houden een tablet omhoog tegen een
@@ -102,6 +125,10 @@ Benodigd: Chrome op `C:/Program Files/Google/Chrome/Application/chrome.exe`
     wazige achtergrond. `midden` 0,44, `telefoonHoogte` 0,44.
   - `basis/telefoon-studio-9x16.webp` (studio): hand met een lichte iPhone 18 Pro,
     schuin in perspectief, lichte studio. `midden` 0,47, `telefoonHoogte` 0,52.
+  - `basis/telefoon-bank-9x16.webp` (bank): iPhone plat en diagonaal op een groen
+    metalen bankje in hard zonlicht. `midden` 0,5, `telefoonHoogte` 0,615. Glans `zon`:
+    het scherm in de zon iets gedempt en warmer (gemeten in de referentie: beige
+    ~171,157,144), met een zonneglans.
 - **Mobiele screenshot:** 402×820 pt @3x (iPhone-viewport zonder statusbalk), met
   een statusbalk van 54 pt erboven (9:41, bereik, wifi, batterij, in de kleur van
   de bovenrand van de site). Samen 1206×2622.
@@ -171,4 +198,4 @@ Let op:
   Gebruik dat dus niet om een foto hoger te maken.
 - Na een nieuwe telefoonfoto `midden` en `telefoonHoogte` in `TELEFOONS` in
   `nieuwe-case.mjs` aanpassen. Na een nieuwe tabletfoto de hoeken, verhouding en
-  afronding opmeten met `schermUit()` en in `CaseTablet.tsx` zetten.
+  afronding opmeten met `schermUit()` en in `src/data/toestellen.ts` zetten.

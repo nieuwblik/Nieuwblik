@@ -8,6 +8,10 @@ import feigroDakwerkenSet from "@/assets/cases/feigro-dakwerken-scherm.webp?w=72
 import feigroDakwerkenTelefoon from "@/assets/cases/feigro-dakwerken-telefoon.webp";
 import feigroDakwerkenTelefoonSet from "@/assets/cases/feigro-dakwerken-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
 import feigroDakwerkenTelefoonDesktopSet from "@/assets/cases/feigro-dakwerken-telefoon-desktop.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+import eenBundelGeluk from "@/assets/cases/een-bundel-geluk-scherm.webp";
+import eenBundelGelukSet from "@/assets/cases/een-bundel-geluk-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
+import eenBundelGelukTelefoon from "@/assets/cases/een-bundel-geluk-telefoon.webp";
+import eenBundelGelukTelefoonSet from "@/assets/cases/een-bundel-geluk-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
 
 /**
  * Full-page screenshots per case voor de mockup in de hero (sleutel = slug
@@ -29,6 +33,13 @@ export const caseMockups: Record<string, MockupScherm> = {
     breedte: 1800,
     hoogte: 11369,
     toestel: "tablet",
+  },
+  "een-bundel-geluk": {
+    src: eenBundelGeluk,
+    srcSet: eenBundelGelukSet,
+    breedte: 1800,
+    hoogte: 11358,
+    toestel: "bureau",
   },
 };
 
@@ -82,5 +93,15 @@ export const caseTelefoons: Record<string, TelefoonFoto> = {
     schaal: 0.8,
     achtergrond: "rgb(242, 241, 241)",
     effect: { zoom: 1.08, naarRechts: 3, zoomMobiel: 1.04, naarRechtsMobiel: 1.5 },
+  },
+  "een-bundel-geluk": {
+    src: eenBundelGelukTelefoon,
+    srcSet: eenBundelGelukTelefoonSet,
+    breedte: 2160,
+    hoogte: 3840,
+    midden: 0.5,
+    telefoonHoogte: 0.615,
+    // Ook hier staat de telefoon groot in beeld (diagonaal): rustigere zoom.
+    effect: { zoom: 1.1, naarRechts: 4, zoomMobiel: 1.05, naarRechtsMobiel: 2 },
   },
 };

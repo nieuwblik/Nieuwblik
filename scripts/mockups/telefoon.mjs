@@ -61,10 +61,14 @@ function homografie(bron, doel) {
  * Glans op het glas, per soort foto.
  * - warm: buiten in de zon (Taxi Drechterland): warme diagonale glans, zwarten iets opgetild.
  * - studio: zacht diffuus studiolicht (Feigro): neutrale, lichtere glans.
+ * - zon: plat in hard zonlicht (Een Bundel Geluk): het scherm is in de zon minder
+ *   helder en warmer dan de omgeving (gemeten in de referentie), met een zonneglans.
+ * tint = vermenigvuldiging per kleurkanaal (warmer = minder blauw).
  */
 export const GLANS = {
-  warm: { kleur: [255, 236, 205], sterkte: 0.09, onder: 0.03, optillen: 5, contrast: 0.97 },
-  studio: { kleur: [255, 255, 255], sterkte: 0.06, onder: 0.015, optillen: 3, contrast: 0.98 },
+  warm: { kleur: [255, 236, 205], sterkte: 0.09, onder: 0.03, optillen: 5, contrast: 0.97, tint: [1, 1, 1] },
+  studio: { kleur: [255, 255, 255], sterkte: 0.06, onder: 0.015, optillen: 3, contrast: 0.98, tint: [1, 1, 1] },
+  zon: { kleur: [255, 244, 225], sterkte: 0.1, onder: 0.02, optillen: 6, contrast: 0.9, tint: [1, 0.97, 0.91] },
 };
 
 /**
@@ -160,7 +164,7 @@ export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm) {
       // Glas: zwarten iets opgetild en een zachte diagonale glans.
       const [u, v] = naarScherm(x + 0.5, y + 0.5);
       const g = glans.sterkte * Math.exp(-((((u / SW) * 0.9 + (v / SH) * 0.55 - 0.42) / 0.2) ** 2)) + glans.onder * (1 - v / SH);
-      for (let k = 0; k < 3; k++) kleur[k] = kleur[k] * glans.contrast + glans.optillen + (glans.kleur[k] - kleur[k]) * g;
+      for (let k = 0; k < 3; k++) kleur[k] = kleur[k] * glans.contrast * glans.tint[k] + glans.optillen + (glans.kleur[k] - kleur[k]) * g;
       const onder = [F[i * 3], Math.min(F[i * 3 + 1], Math.max(F[i * 3], F[i * 3 + 2])), F[i * 3 + 2]];
       for (let k = 0; k < 3; k++) uit[i * 3 + k] = Math.round(Math.max(0, Math.min(255, kleur[k] * a + onder[k] * (1 - a))));
     }

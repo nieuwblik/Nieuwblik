@@ -1,6 +1,6 @@
 // Maakt de mockup-beelden voor een portfolio-case.
 //
-//   node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet] [--telefoon warm|studio]
+//   node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet|bureau] [--telefoon warm|studio|bank]
 //                                         [--verberg "<css-selectors>"] [--alleen hero|telefoon] [--spiegel-desktop]
 //
 // Voorbeeld:
@@ -27,15 +27,17 @@ const UIT = join(HIER, "../../src/assets/cases");
 const TELEFOONS = {
   warm: { basis: join(HIER, "basis/telefoon-groen-9x16.webp"), midden: 0.44, telefoonHoogte: 0.44, glans: GLANS.warm },
   studio: { basis: join(HIER, "basis/telefoon-studio-9x16.webp"), midden: 0.47, telefoonHoogte: 0.52, glans: GLANS.studio },
+  bank: { basis: join(HIER, "basis/telefoon-bank-9x16.webp"), midden: 0.5, telefoonHoogte: 0.615, glans: GLANS.zon },
 };
 
 /**
  * Hero-screenshot: het venster heeft de verhouding van het scherm in het toestel
- * (monitor 1,82, tablet 1,50), wordt scherp gemaakt en daarna op 1800 breed gezet.
+ * (monitor 1,82, tablet 1,50, bureau 1,75), wordt scherp gemaakt en daarna op 1800 breed gezet.
  */
 const HEROS = {
   monitor: { breedte: 1440, hoogte: 790, dpr: 1.5, uitBreedte: 1800, kwaliteit: 82 },
   tablet: { breedte: 1440, hoogte: 960, dpr: 1.25, uitBreedte: 1800, kwaliteit: 82 },
+  bureau: { breedte: 1440, hoogte: 820, dpr: 1.25, uitBreedte: 1800, kwaliteit: 82 },
 };
 /** Mobiele screenshot: iPhone-viewport zonder statusbalk (402×820 pt @3x); de statusbalk komt er los bij. */
 const MOBIEL = { breedte: 402, hoogte: 820, dpr: 3, kwaliteit: 84 };
@@ -53,11 +55,11 @@ const spiegelIndex = args.indexOf("--spiegel-desktop");
 const spiegelDesktop = spiegelIndex >= 0;
 if (spiegelDesktop) args.splice(spiegelIndex, 1);
 const HERO = HEROS[toestel], TELEFOON = TELEFOONS[telefoonSoort];
-if (!HERO) throw new Error(`Onbekend toestel: ${toestel} (monitor of tablet)`);
-if (!TELEFOON) throw new Error(`Onbekende telefoonfoto: ${telefoonSoort} (warm of studio)`);
+if (!HERO) throw new Error(`Onbekend toestel: ${toestel} (monitor, tablet of bureau)`);
+if (!TELEFOON) throw new Error(`Onbekende telefoonfoto: ${telefoonSoort} (warm, studio of bank)`);
 const [slug, url] = args;
 if (!slug || !url) {
-  console.error('Gebruik: node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet] [--telefoon warm|studio] [--verberg "<css>"] [--alleen hero|telefoon]');
+  console.error('Gebruik: node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet|bureau] [--telefoon warm|studio|bank] [--verberg "<css>"] [--alleen hero|telefoon]');
   process.exit(1);
 }
 mkdirSync(UIT, { recursive: true });
@@ -101,7 +103,7 @@ if (heroMaat) {
   console.log(`import ${naam} from "@/assets/cases/${slug}-scherm.webp";
 import ${naam}Set from "@/assets/cases/${slug}-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
 // in caseMockups:
-  "${slug}": { src: ${naam}, srcSet: ${naam}Set, breedte: ${heroMaat[0]}, hoogte: ${heroMaat[1]}${toestel === "tablet" ? ', toestel: "tablet"' : ""} },\n`);
+  "${slug}": { src: ${naam}, srcSet: ${naam}Set, breedte: ${heroMaat[0]}, hoogte: ${heroMaat[1]}${toestel !== "monitor" ? `, toestel: "${toestel}"` : ""} },\n`);
 }
 if (telefoonMaat) {
   console.log(`import ${naam}Telefoon from "@/assets/cases/${slug}-telefoon.webp";

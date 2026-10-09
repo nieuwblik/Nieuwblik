@@ -9,7 +9,8 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import CaseMockup from "@/components/CaseMockup";
-import CaseTablet from "@/components/CaseTablet";
+import CaseToestel from "@/components/CaseToestel";
+import { toestellen } from "@/data/toestellen";
 import CaseTelefoon from "@/components/CaseTelefoon";
 import { caseMockups, caseTelefoons } from "@/data/caseMockups";
 import { motion } from "framer-motion";
@@ -78,9 +79,9 @@ const PortfolioDetail = () => {
                 ]}
             />
 
-            {/* Mockup-hero: de site in een monitor of tablet, schermvullend (alleen als er een screenshot is) */}
-            {mockup?.toestel === "tablet" ? (
-                <CaseTablet scherm={mockup} alt={`Website van ${project.title} op een tablet`} />
+            {/* Mockup-hero: de site in een monitor of ander toestel, schermvullend (alleen als er een screenshot is) */}
+            {mockup?.toestel && mockup.toestel !== "monitor" ? (
+                <CaseToestel toestel={toestellen[mockup.toestel]} scherm={mockup} alt={`Website van ${project.title} op een ${mockup.toestel === "tablet" ? "tablet" : "monitor"}`} />
             ) : (
                 mockup && <CaseMockup scherm={mockup} alt={`Website van ${project.title} op een monitor`} />
             )}

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { ScrollBlob, useSchermScroll } from "@/components/SchermScroll";
+import type { ToestelNaam } from "@/data/toestellen";
 import liggend from "@/assets/mockup/monitor-liggend.webp";
 import liggendSet from "@/assets/mockup/monitor-liggend.webp?w=1280;1920;2880;3840&format=webp&as=srcset";
 import staandSet from "@/assets/mockup/monitor-staand.webp?w=720;1080;1440;1932&format=webp&as=srcset";
@@ -37,8 +38,8 @@ export interface MockupScherm {
   /** Afmetingen van de volledige screenshot. */
   breedte: number;
   hoogte: number;
-  /** In welk toestel de hero de site toont; standaard de monitor. */
-  toestel?: "monitor" | "tablet";
+  /** In welk toestel de hero de site toont; standaard de monitor (CaseMockup), anders een toestel uit src/data/toestellen.ts (CaseToestel). */
+  toestel?: "monitor" | ToestelNaam;
 }
 
 /**
