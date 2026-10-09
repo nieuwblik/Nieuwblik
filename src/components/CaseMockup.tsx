@@ -21,10 +21,19 @@ const LIGGEND = { ar: 3840 / 2160, l: 1083 / 3840, t: 494 / 2160, w: 1675 / 3840
 const STAAND = { ar: 1932 / 4391, l: 129 / 1932, t: 1517 / 4391, w: 1675 / 1932, h: 918 / 4391 };
 const pct = (v: number) => `${(v * 100).toFixed(4)}%`;
 
-/** Automatisch scrollen: schermhoogtes per seconde, altijd dezelfde snelheid. */
-const SNELHEID = 0.25;
 /** Wachttijd na het openen voordat het automatische scrollen begint. */
 const START_NA_MS = 1000;
+
+/**
+ * Vaste reeks "willekeurige" getallen (mulberry32): het scrollen varieert
+ * zoals bij een mens, maar ziet er bij elk bezoek hetzelfde uit.
+ */
+const reeks = (zaad: number) => () => {
+  zaad = (zaad + 0x6d2b79f5) | 0;
+  let t = Math.imul(zaad ^ (zaad >>> 15), 1 | zaad);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
 
 export interface MockupScherm {
   src: string;
@@ -38,8 +47,10 @@ export interface MockupScherm {
  * Hero van een case: schermvullend (100vw × 100svh), met de site in het
  * scherm van de monitor.
  *
- * - Ongeveer een seconde na het openen schuift de volledige pagina met één
- *   constante, rustige snelheid naar beneden en blijft onderaan staan.
+ * - Ongeveer een seconde na het openen scrollt de pagina vanzelf naar beneden
+ *   zoals iemand met een muiswiel doet: een paar snelle tikken, doorglijden en
+ *   afremmen, even lezen, en weer verder; af en toe een stukje terug. Onderaan
+ *   blijft hij staan.
  * - Met de muis boven het scherm pauzeert dat, en scrollt het muiswiel de
  *   site in het scherm in plaats van de pagina. Bovenaan of onderaan de site
  *   gaat het wiel weer naar de pagina, zodat je nergens vast komt te zitten.
@@ -73,6 +84,9 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     let positie = 0; // waar hij nu staat (px), volgt doel met een korte naloop
     let hover = false;
     let laatste = geopend;
+    let wachtTot = geopend + START_NA_MS;
+    const tikken: number[] = []; // nog te geven wieltikken van de huidige vlaag (px)
+    const kans = reeks(20261009);
     let muisX = 0, muisY = 0, blobX = 0, blobY = 0;
     let frame = 0;
 
@@ -81,12 +95,27 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     const tik = (nu: number) => {
       const dt = Math.min(0.05, (nu - laatste) / 1000);
       laatste = nu;
-      // Eén constante snelheid; pauze zolang de muis boven het scherm is.
-      if (!reduced && !hover && nu - geopend >= START_NA_MS && site.complete) {
-        doel = Math.min(max(), doel + vlak.clientHeight * SNELHEID * dt);
+      // Automatisch scrollen als een mens; pauze zolang de muis boven het scherm is.
+      if (!reduced && !hover && site.complete && nu >= wachtTot) {
+        const h = vlak.clientHeight;
+        const m = max();
+        if (tikken.length === 0 && doel < m) {
+          // Nieuwe vlaag: meestal een halve tot ruim driekwart scherm omlaag,
+          // soms een klein stukje terug omhoog. Verdeeld over 2 tot 4 tikken.
+          const terug = doel > h && kans() < 0.12;
+          const totaal = terug ? -h * (0.12 + kans() * 0.1) : h * (0.45 + kans() * 0.4);
+          const aantal = 2 + Math.floor(kans() * 3);
+          for (let i = 0; i < aantal; i++) tikken.push((totaal / aantal) * (0.75 + kans() * 0.5));
+        }
+        const stap = tikken.shift();
+        if (stap !== undefined) {
+          doel = Math.min(m, Math.max(0, doel + stap));
+          // Tikken kort na elkaar; na de laatste tik een leespauze.
+          wachtTot = nu + (tikken.length ? 70 + kans() * 60 : 900 + kans() * 1400);
+        }
       }
-      // Automatisch scrollen loopt exact mee; het muiswiel krijgt een korte, zachte naloop.
-      const naloop = reduced ? 1 : 1 - Math.pow(0.0005, dt);
+      // Naloop zoals bij een muiswiel: snel op gang, dan doorglijden en afremmen.
+      const naloop = reduced ? 1 : 1 - Math.pow(0.004, dt);
       positie += (doel - positie) * naloop;
       if (Math.abs(doel - positie) < 0.1) positie = doel;
       site.style.transform = `translate3d(0, ${-positie}px, 0)`;
@@ -124,6 +153,9 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     };
     const opBuiten = () => {
       hover = false;
+      // Na het verlaten van het scherm even wachten en dan verder als voorheen.
+      tikken.length = 0;
+      wachtTot = performance.now() + 700;
       blobBinnen.dataset["zichtbaar"] = "nee";
     };
 
