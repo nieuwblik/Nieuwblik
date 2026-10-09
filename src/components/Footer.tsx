@@ -45,7 +45,7 @@ const DIENSTEN = [
   { label: "Webdesign bureau", to: "/webdesign-bureau" },
   { label: "Webshops", to: "/diensten/webshops" },
   { label: "E-commerce", to: "/diensten/e-commerce" },
-  { label: "Website laten maken Enkhuizen", to: "/" },
+  { label: "Website laten maken Enkhuizen", to: "/website-laten-maken-enkhuizen" },
   { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
 ];
 

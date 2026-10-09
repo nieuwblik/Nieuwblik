@@ -250,6 +250,9 @@ const WerkgebiedDetail = () => {
                   );
                 })}
               </div>
+              <div className="max-w-2xl mx-auto mt-8 text-center">
+                <Alinea tekst="Ons eigen kantoor staat in Enkhuizen. Lees over [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen)." />
+              </div>
             </div>
           </section>
         )}

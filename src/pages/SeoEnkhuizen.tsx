@@ -198,7 +198,7 @@ const SeoEnkhuizen = () => {
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <p className="text-muted-foreground leading-relaxed">
               Lees meer over ons{" "}
-              <Link to="/" className="text-accent hover:underline font-semibold">website laten maken in Enkhuizen</Link>
+              <Link to="/website-laten-maken-enkhuizen" className="text-accent hover:underline font-semibold">website laten maken in Enkhuizen</Link>
               , ontdek onze regio hub voor{" "}
               <Link to="/werkgebied/west-friesland" className="text-accent hover:underline font-semibold">West-Friesland</Link>
               , bekijk de{" "}

@@ -1346,6 +1346,44 @@ export const cities: CityRecord[] = [
       "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
     },
     "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
+  },
+  {
+    "slug": "enkhuizen",
+    "name": "Enkhuizen",
+    "title": "Website Laten Maken Enkhuizen | Conversie - Nieuwblik",
+    "metaDescription": "Wil je een nieuwe website in Enkhuizen die echt werkt? Nieuwblik bouwt sites die opvallen, klanten aantrekken en jouw merk groter maken. Bel ons.",
+    "h1": "Website bouwen in Enkhuizen, snel en betaalbaar",
+    "heroSubtitle": "Ondernemen hier betekent werken in een gevarieerd lokaal MKB. Nieuwblik bouwt voor jou een website die opvalt, vertrouwen wekt en klanten oplevert.",
+    "intro": "Een goede website is voor MKB in Enkhuizen de basis voor groei. Bezoekers maken in seconden een oordeel, dus elke detail telt. Nieuwblik helpt je daar bij met websites die professioneel ogen, snel laden en bezoekers omzetten in klanten. Onze AI gedreven manier van werken maakt het traject korter en scherper geprijsd. Wij bedienen ondernemers door heel Nederland en geloven in heldere communicatie van briefing tot live.",
+    "section1": {
+      "h2": "Wat een goede website betekent voor jouw bedrijf in Enkhuizen",
+      "body": "Een goede website is voor MKB in Enkhuizen de basis voor groei. Bezoekers maken in seconden een oordeel, dus elke detail telt. Nieuwblik helpt je daar bij met websites die professioneel ogen, snel laden en bezoekers omzetten in klanten. Onze AI gedreven manier van werken maakt het traject korter en scherper geprijsd. Wij bedienen ondernemers door heel Nederland en geloven in heldere communicatie van briefing tot live.",
+      "benefits": [
+        {
+          "h3": "Lokale voelhorens",
+          "text": "We werken al jaren met MKB in heel Nederland en weten wat lokale ondernemers nodig hebben. Geen onnodige toeters en bellen."
+        },
+        {
+          "h3": "Mobile first design",
+          "text": "Het overgrote deel van bezoekers komt via de smartphone binnen. Wij ontwerpen daarom altijd eerst voor mobiel."
+        },
+        {
+          "h3": "Betaalbaar maatwerk",
+          "text": "Vanaf 990 euro krijg je een complete site op maat, zonder verborgen kosten. Heldere offertes voordat we starten."
+        }
+      ]
+    },
+    "section2H2": "Het verschil dat Nieuwblik maakt voor ondernemers in Enkhuizen",
+    "section3H2": "Verhalen van ondernemers die met ons werkten",
+    "section4": {
+      "h2": "Het werk van Nieuwblik in beeld",
+      "intro": "Deze cases tonen onze aanpak in beeld, met dezelfde kwaliteit die wij elke ondernemer bieden."
+    },
+    "contactBlock": {
+      "h2": "Klaar voor een website die werkt voor jouw bedrijf in Enkhuizen?",
+      "body": "Wij denken graag met je mee over jouw plannen. Of je nu een eerste site nodig hebt of jouw bestaande website wilt vernieuwen, neem contact op en ontdek hoe Nieuwblik bijdraagt aan jouw online groei."
+    },
+    "internalLinks": "Nieuwblik werkt voor ondernemers in heel Nederland. Bekijk onze diensten, scroll door ons portfolio voor inspiratie of neem direct contact op via onze contactpagina."
   }
 ];
 

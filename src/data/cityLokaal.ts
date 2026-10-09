@@ -1,4 +1,4 @@
-import { PRIJZEN, REVIEWS } from "@/config/business";
+import { HOSTING_ZIN, LEVERTIJD, PRIJZEN, REVIEWS, euroTeken } from "@/config/business";
 import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
@@ -17,6 +17,10 @@ import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
  * - Titel maximaal 60 tekens, meta description maximaal 155 (getest in seo-verify).
  * - In de alinea's mag [tekst](/pad) staan voor een interne link.
  */
+const STARTER = euroTeken(PRIJZEN.starter);
+const PROFESSIONAL = euroTeken(PRIJZEN.professional);
+const WEBSHOP = euroTeken(PRIJZEN.webshopVanaf);
+
 /** Reviewkop met het aantal en de score uit config/business.ts. */
 const REVIEWKOP = `${REVIEWS.aantalLabel} ondernemers beoordelen Nieuwblik met ${REVIEWS.scoreLabel} sterren`;
 
@@ -543,6 +547,104 @@ export const cityLokaal: Record<string, CityLokaal> = {
       { q: 'Wij zitten in Wervershoof of Andijk. Is deze pagina ook voor ons?', a: 'Zeker. We werken in de hele gemeente Medemblik en de rest van West-Friesland, en verwerken je eigen werkgebied in de teksten.' },
       { q: 'Maken jullie ook websites voor watersport en recreatie?', a: "Ja. Denk aan verhuur, campings en jachthavens: mooie foto's, duidelijke prijzen en online reserveren of contact op één tik." },
       { q: 'Wat kost een website laten maken?', a: "Een complete website op maat begint bij €990 met een vaste prijs, zonder verborgen kosten. Wil je meer pagina's, koppelingen of een webshop, dan krijg je vooraf een heldere offerte. Hosting en onderhoud regelen we desgewenst ook." },
+    ],
+  },
+  enkhuizen: {
+    title: `Website laten maken Enkhuizen vanaf ${STARTER} | Nieuwblik`,
+    metaDescription: `Website laten maken in Enkhuizen bij een webbureau uit Enkhuizen. Vaste prijs vanaf ${STARTER}, één aanspreekpunt en gebouwd om gevonden te worden.`,
+    h1: "Website laten maken in Enkhuizen",
+    eigenOpbouw: true,
+    intro: `Een website laten maken in Enkhuizen, bij het webbureau dat hier zelf zit. Vaste prijs vanaf ${STARTER}, één aanspreekpunt en een site die in Enkhuizen en omgeving gevonden wordt.`,
+    cases: ["vv-madjoe", "feigro-dakwerken", "kyodai-originals", "een-bundel-geluk"],
+    headings: {
+      reviews: REVIEWKOP,
+      portfolio: "Websites die we maakten, in de regio en daarbuiten",
+      contact: "Een website laten maken in Enkhuizen? Plan een kennismaking",
+    },
+    lokaal: {
+      h2: "Website laten maken in Enkhuizen, onze thuisplaats",
+      alineas: [
+        "Enkhuizen is de plek van waaruit wij werken. Van hieruit bouwen we websites voor ondernemers door heel Nederland, maar hier zit ons kantoor. Bij ons spreek je degene die ook daadwerkelijk aan je website bouwt, zonder accountmanager of tussenlaag.",
+        "Een website voor een bedrijf in Enkhuizen begint bij de vraag wie je wilt bereiken: klanten uit de stad zelf, uit de dorpen eromheen of uit de rest van het land. Dat bepaalt welke pagina's er komen, welke woorden erin staan en welke knop een bezoeker als eerste ziet.",
+      ],
+    },
+    secties: [
+      {
+        h2: "Wat we bouwden voor clubs en bedrijven",
+        alineas: [
+          "Voor volleybalvereniging [Madjoe](/portfolio/vv-madjoe) uit Enkhuizen, sinds 1950 een van de grootste volleybalclubs van West-Friesland, maakten we een clubwebsite die het hele clubleven draagt. Elk team heeft een eigen pagina met klasse, trainer, trainingstijden en selectie. Nieuwe leden beginnen met een proefles en melden zich daarna online aan in vijf stappen, en voor evenementen schrijf je je in en betaal je direct met iDEAL. De site is ingericht op zoekopdrachten als 'volleybal Enkhuizen' en 'volleybalclub West-Friesland'.",
+          "Achter de schermen ziet het bestuur van Madjoe in een afgeschermde beheeromgeving alle aanmeldingen, proeflessen, afmeldingen en inschrijvingen bij elkaar, met betaalstatus en een export naar Excel. Sponsors hebben een eigen route met de mogelijkheden als bord-, kleding- of evenementsponsor.",
+          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) ontstond uit de samenvoeging van twee dakdekkersbedrijven uit West-Friesland. De nieuwe website zet het bedrijf neer als één team voor platte en hellende daken, laat opgeleverde projecten zien en scheidt de offerteaanvraag voor een nieuw dak van een snelle route om een lekkage te melden.",
+          "Niet al ons werk is voor de regio. Voor [Kyodai Originals](/portfolio/kyodai-originals), een Amsterdamse galerie voor authentieke Japanse zwaarden en wapenrustingen, bouwden we een online galerie waarin certificering, de geschiedenis van elk stuk en persoonlijk contact het vertrouwen van verzamelaars moeten winnen. De NBTHK-, NBSK- en NTHK-certificeringen en de levenslange authenticiteitsgarantie staan prominent op de productpagina's.",
+          "[Een Bundel Geluk](/portfolio/een-bundel-geluk) uit Enkhuizen maakt handgemengde theeblends en natuurlijke verzorgingsproducten. De webshop vertelt het verhaal van de oprichtster en houdt het contact persoonlijk: vragen en bestellingen lopen via WhatsApp.",
+        ],
+      },
+      {
+        h2: "Wat een website in Enkhuizen kost",
+        alineas: [
+          `Starter kost ${STARTER}: een site van 1 tot 5 pagina's die op elk scherm goed werkt, met de basis van SEO, een contactformulier en Google Maps. Reken op ${LEVERTIJD.starter} tot de livegang.`,
+          `Professional begint bij ${PROFESSIONAL} en is bedoeld voor bedrijven die met meerdere diensten gevonden willen worden: tot 10 pagina's, uitgebreide SEO, een blog en koppelingen met externe tools. De doorlooptijd is ${LEVERTIJD.standaard}.`,
+          `Op maat is er voor webshops met betaalkoppelingen, eigen koppelingen met je systemen en sites zonder paginagrens. Webshops beginnen bij ${WEBSHOP}, grotere projecten duren ${LEVERTIJD.complex}. Een beheersysteem om zelf teksten aan te passen bouwen we op aanvraag.`,
+          `Na de oplevering: ${HOSTING_ZIN} Een apart onderhoudscontract is er niet. Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht. Alle pakketten naast elkaar staan op [prijzen](/prijzen).`,
+        ],
+      },
+      {
+        h2: "Je huidige website vernieuwen",
+        alineas: [
+          "Heb je al een site die traag laadt, niet prettig werkt op de telefoon of weinig aanvragen oplevert? Dan kijken we eerst wat hij nu doet. Met een [gratis website-analyse](/gratis-website-analyse) krijg je binnen 24 uur een persoonlijke analyse van snelheid, vindbaarheid en conversie, met concrete verbeterpunten.",
+          "Daarna kiezen we samen: verbeteren wat er staat, of opnieuw bouwen. Bij een nieuwe site zetten we de adressen van je oude pagina's met een 301-redirect door, zodat bezoekers en Google op de juiste plek uitkomen.",
+        ],
+      },
+      {
+        h2: "Gevonden worden in Enkhuizen",
+        alineas: [
+          "Wie in Enkhuizen een bedrijf zoekt, ziet in Google vaak eerst een kaart met bedrijven uit de buurt. Die komen uit het Google Bedrijfsprofiel. Een volledig profiel met dezelfde naam, hetzelfde adres en dezelfde openingstijden als op je website, de juiste categorie en reviews van klanten vergroot de kans dat je daar verschijnt. Hoe je dat instelt, lees je in [ons artikel over het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
+          "Ook AI-assistenten zoals ChatGPT noemen bedrijven als iemand vraagt naar een aanbieder in de buurt. Hoe je daarin zichtbaar wordt, beschrijven we in [vindbaar worden in ChatGPT](/blog/vindbaar-in-chatgpt-geo-west-friesland).",
+          "Wil je daarna gericht hoger komen op zoektermen in Enkhuizen en West-Friesland, dan is dat een apart traject. Daarover lees je op [SEO in Enkhuizen](/seo-enkhuizen). Werk je ook buiten de stad, bekijk dan [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Hoorn](/werkgebied/hoorn) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Wat kost een website van een webbureau uit Enkhuizen?",
+        a: `Starter kost ${STARTER}, Professional begint bij ${PROFESSIONAL} en een webshop bij ${WEBSHOP}. Na een kennismaking krijg je binnen 24 uur een offerte met een vaste prijs.`,
+      },
+      {
+        q: "Met welke levertijd moet ik rekenen?",
+        a: `Een Starter-site staat meestal binnen ${LEVERTIJD.starter} live, een bedrijfswebsite binnen ${LEVERTIJD.standaard} en een webshop of groter project binnen ${LEVERTIJD.complex}. Het tempo hangt ook af van hoe snel teksten en foto's klaar zijn.`,
+      },
+      {
+        q: "Kunnen we elkaar spreken in Enkhuizen?",
+        a: "Kennismaken gaat meestal via een videocall. Bij grotere trajecten komen we bij je langs.",
+      },
+      {
+        q: "Mijn website is verouderd. Waar beginnen we?",
+        a: "Met een gratis website-analyse van snelheid, vindbaarheid en conversie. Binnen 24 uur heb je die, en daarna bepalen we samen of verbeteren of opnieuw bouwen verstandiger is.",
+      },
+      {
+        q: "Kan ik mijn winkel uitbreiden met een webshop?",
+        a: `Ja. We bouwen webshops op maat met betaalkoppelingen, vanaf ${WEBSHOP}. Je krijgt een gebruiksvriendelijk dashboard waarin je zelf producten, prijzen en voorraad beheert.`,
+      },
+      {
+        q: "Wat heeft mijn Google Bedrijfsprofiel met mijn website te maken?",
+        a: "Veel. Google toont bij lokale zoekopdrachten bedrijven uit het Bedrijfsprofiel en kijkt daarbij of de gegevens kloppen met je website. Dezelfde naam, hetzelfde adres en hetzelfde telefoonnummer op beide plekken helpen, net als reviews van klanten.",
+      },
+      {
+        q: "Werken jullie alleen voor bedrijven in Enkhuizen?",
+        a: "Nee. Enkhuizen is onze thuisplaats, maar we werken grotendeels op afstand, voor ondernemers door heel Nederland. Voor Kyodai Originals in Amsterdam bouwden we bijvoorbeeld een online galerie.",
+      },
+      {
+        q: "Wie regelt de hosting en het onderhoud?",
+        a: `${HOSTING_ZIN} Een apart onderhoudscontract is er niet. Aanpassingen en uitbreidingen doen we op aanvraag, met een aparte offerte.`,
+      },
+    ],
+    todo: [
+      "ADRES EN AFSPREKEN: kunnen klanten op kantoor in Enkhuizen langskomen, op welk adres en hoe (op afspraak)? Pas daarna kan het adres in de tekst en in een eigen LocalBusiness-blok.",
+      "NAAM EN ROL: wie zijn jullie (naam en rol), voor een korte alinea in de ik/wij-vorm over het kantoor.",
+      "KLANTEN UIT ENKHUIZEN: welke klanten uit Enkhuizen mogen we noemen, naast VV Madjoe en Een Bundel Geluk?",
+      "LOKALE BETROKKENHEID: sponsoring, netwerken of verenigingen. In de repo staat een blog over de sponsoring van VV Madjoe Heren 1; mag dat erin?",
+      "REVIEW OF CITAAT: een review of citaat van een klant uit Enkhuizen.",
+      "BRANCHES: voor welke branches in Enkhuizen werken jullie het meest?",
     ],
   },
 };

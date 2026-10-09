@@ -35,7 +35,7 @@ Nieuwblik bouwt branchespecifieke websites. Elk pad volgt het patroon /website-l
 - [Oost-Nederland](https://nieuwblik.com/regio/oost-nederland): Gelderland, Overijssel en omstreken.
 - [Zuid-Nederland](https://nieuwblik.com/regio/zuid-nederland): Brabant en Limburg.
 - [Noord-Nederland](https://nieuwblik.com/regio/noord-nederland): Groningen, Leeuwarden en Emmen.
-- [Werkgebied](https://nieuwblik.com/werkgebied): Steden en kernen waar Nieuwblik actief is, met een eigen pagina per plaats zoals [Enkhuizen](https://nieuwblik.com/seo-enkhuizen), [Hoorn](https://nieuwblik.com/werkgebied/hoorn) en [West-Friesland](https://nieuwblik.com/werkgebied/west-friesland).
+- [Werkgebied](https://nieuwblik.com/werkgebied): Steden en kernen waar Nieuwblik actief is, met een eigen pagina per plaats zoals [Enkhuizen](https://nieuwblik.com/website-laten-maken-enkhuizen), [Hoorn](https://nieuwblik.com/werkgebied/hoorn) en [West-Friesland](https://nieuwblik.com/werkgebied/west-friesland).
 - [Taxi website laten maken](https://nieuwblik.com/taxi-website-laten-maken): Gespecialiseerde pagina met de Taxi Drechterland-case.
 
 ## Cases en projecten

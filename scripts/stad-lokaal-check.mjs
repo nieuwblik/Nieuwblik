@@ -121,7 +121,9 @@ for (const [slug, data] of Object.entries(cityLokaal)) {
     ok(linkRes.status === 200, pad, `interne link geeft 200`, `${doel} → ${linkRes.status}`);
   }
 
-  ok(data.faq.length >= 4 && data.faq.length <= 6, pad, "4 tot 6 FAQ-vragen", `${data.faq.length}`);
+  // Pagina's met eigen opbouw mogen tot acht vragen hebben.
+  const maxFaq = data.eigenOpbouw ? 8 : 6;
+  ok(data.faq.length >= 4 && data.faq.length <= maxFaq, pad, `4 tot ${maxFaq} FAQ-vragen`, `${data.faq.length}`);
   data.faq.forEach((item, i) => {
     ok(tekst.includes(item.q), pad, `FAQ-vraag ${i + 1} in HTML`, item.q.slice(0, 45));
     ok(tekst.includes(item.a.split(". ")[0]), pad, `FAQ-antwoord ${i + 1} in HTML`, item.q.slice(0, 45));

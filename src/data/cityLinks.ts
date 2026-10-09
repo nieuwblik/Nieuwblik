@@ -141,5 +141,9 @@ export const cityLinks: LandingLink[] = [
   {
     "slug": "medemblik",
     "name": "Medemblik"
+  },
+  {
+    "slug": "enkhuizen",
+    "name": "Enkhuizen"
   }
 ];

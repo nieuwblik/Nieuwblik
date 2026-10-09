@@ -40,6 +40,7 @@ const cities = [
   { slug: "heerhugowaard", name: "Heerhugowaard", region: "Noord-Holland", trait: "jonge groeigemeente in Dijk en Waard", market: "een ondernemend en groeiend MKB" },
   { slug: "schagen", name: "Schagen", region: "Noord-Holland", trait: "marktstad in de Kop van Noord-Holland", market: "een nuchtere regionale markt" },
   { slug: "medemblik", name: "Medemblik", region: "West-Friesland", trait: "historische havenstad aan het IJsselmeer", market: "een hechte West-Friese ondernemerskring" },
+  { slug: "enkhuizen", name: "Enkhuizen", region: "West-Friesland", trait: "thuisbasis van Nieuwblik", market: "een gevarieerd lokaal MKB" },
 ];
 
 const industries = [
