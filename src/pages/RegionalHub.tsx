@@ -52,7 +52,7 @@ export const HUBS: RegionHubData[] = [
       { title: "Regio-SEO", text: "We optimaliseren op de zoektermen die in jouw plaats werken, niet op algemene termen." },
     ],
     faq: [
-      { q: "Werken jullie voor bedrijven in heel Noord-Holland?", a: "Ja. Van Den Helder tot Amsterdam, en van Haarlem tot Enkhuizen. Onze klanten zitten door de hele provincie." },
+      { q: "Werken jullie voor bedrijven in heel Noord-Holland?", a: "Ja. In de provincie bouwden we onder meer sites voor ondernemers in West-Friesland, zoals in Enkhuizen en Hoogkarspel, en in Amsterdam. Verder werken we grotendeels op afstand, voor ondernemers door heel Nederland." },
       { q: "Hoe verloopt de kennismaking?", a: "Via een videocall. Daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp." },
       { q: "Wat kost een website in Noord-Holland?", a: `Onze projecten starten vanaf ${PRIJZEN.starter} euro. Voor uitgebreide sites en webshops rekenen we tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
@@ -84,7 +84,7 @@ export const HUBS: RegionHubData[] = [
       { title: "Landelijke uitstraling", text: "Voor bedrijven die vanuit de Randstad heel Nederland bedienen." },
     ],
     faq: [
-      { q: "Zitten jullie zelf in de Randstad?", a: "Nee, wij zitten in Enkhuizen. Voor 90 procent van onze Randstad-klanten werken we volledig op afstand. Werkt prima." },
+      { q: "Zitten jullie zelf in de Randstad?", a: "Nee, wij zitten in Enkhuizen. In de Randstad bouwden we onder meer sites voor ondernemers in Amsterdam en Almere. We werken grotendeels op afstand, voor ondernemers door heel Nederland." },
       { q: "Kunnen jullie meerdere talen aan op één site?", a: "Ja. NL, EN en andere talen zetten we netjes op met correcte hreflang tags voor Google." },
       { q: "Hoe snel kunnen jullie starten?", a: "Meestal binnen twee weken na akkoord. Snelheid is een van de redenen dat ondernemers voor ons kiezen." },
     ],
@@ -113,7 +113,7 @@ export const HUBS: RegionHubData[] = [
       { title: "Blijvend contact", text: "Na oplevering blijven we bereikbaar. Geen ticket-systeem, gewoon direct contact." },
     ],
     faq: [
-      { q: "Werken jullie ook voor bedrijven in Twente?", a: "Zeker. Enschede, Hengelo, Almelo, we hebben in de hele regio klanten." },
+      { q: "Werken jullie ook voor bedrijven in Twente?", a: "Ja. Voor Carbon6 bouwden we een vastgoedplatform voor de markt in Enschede. Verder werken we grotendeels op afstand, voor ondernemers door heel Nederland." },
       { q: "Hoe werken jullie samen met klanten in de regio?", a: "Op afstand, via videocall, telefoon, mail en WhatsApp, met één vast aanspreekpunt." },
       { q: "Wat kost een website voor Oost-Nederland?", a: `Onze projecten starten bij ${PRIJZEN.starter} euro. Voor webshops en uitgebreide sites tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
@@ -141,7 +141,7 @@ export const HUBS: RegionHubData[] = [
       { title: "Sterke content", text: "We schrijven de teksten zelf, in de tone-of-voice die past bij jouw regio en klant." },
     ],
     faq: [
-      { q: "Zijn jullie bekend met de Zuid-Nederlandse markt?", a: "Ja. We hebben klanten in Eindhoven, Breda, Tilburg en Maastricht. De regio kent zijn eigen dynamiek en die respecteren we." },
+      { q: "Zijn jullie bekend met de Zuid-Nederlandse markt?", a: "We werken grotendeels op afstand, voor ondernemers door heel Nederland." },
       { q: "Werken jullie ook in het Duits voor grens-regio's?", a: "Ja. Voor bedrijven in Venlo of Maastricht met Duitse klanten zetten we meertalige sites op met correcte SEO per taal." },
       { q: "Wat kost een website in Zuid-Nederland?", a: `Vanaf ${PRIJZEN.starter} euro voor een complete site. Webshops en uitgebreide projecten liggen tussen ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
