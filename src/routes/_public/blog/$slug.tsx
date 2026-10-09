@@ -6,6 +6,7 @@ import { blogPosts } from "@/data/blogPosts";
 import { buildHead } from "@/lib/seo";
 import { blogTitel } from "@/lib/blogTitel";
 import { companyInfo } from "@/config/company";
+import { laatstGewijzigd } from "@/lib/lastmod";
 
 // Verwijderde artikelen 301'en via src/config/redirects.ts (server-side).
 export const Route = createFileRoute("/_public/blog/$slug")({
@@ -41,6 +42,7 @@ export const Route = createFileRoute("/_public/blog/$slug")({
       ogImageHeight: post.imageHeight,
       ogType: "article",
       articlePublishedTime: post.date,
+      articleModifiedTime: laatstGewijzigd(`/blog/${post.slug}`, post.date),
       articleAuthor: "Justin Slok",
     });
   },

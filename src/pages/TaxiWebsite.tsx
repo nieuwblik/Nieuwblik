@@ -11,6 +11,7 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 import { companyInfo } from "@/config/company";
 import taxiImg from "@/assets/taxidrechterland.webp";
+import { laatstGewijzigd } from "@/lib/lastmod";
 
 const url = `${SITE_URL}/taxi-website-laten-maken`;
 
@@ -49,7 +50,8 @@ const graphJsonLd = {
       author: { "@type": "Organization", name: companyInfo.name, url: companyInfo.url },
       publisher: { "@type": "Organization", name: companyInfo.name, url: companyInfo.url },
       datePublished: "2026-07-15",
-      dateModified: "2026-07-15",
+      // Zelfde bron als de lastmod in de sitemap.
+      dateModified: laatstGewijzigd("/taxi-website-laten-maken", "2026-07-15"),
       mainEntityOfPage: url,
     },
     {

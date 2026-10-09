@@ -11,11 +11,22 @@
  *   met noIndex, en alles wat in de redirecttabel staat.
  * - lastmod per pagina uit git: voor een statische pagina de laatste commit op
  *   routebestand en paginacomponent, voor een dynamische pagina de laatste
- *   commit op het eigen data-blok (git blame). Zonder git (bijvoorbeeld in een
- *   build-omgeving zonder historie) blijft de lastmod uit de huidige sitemap
- *   staan; alleen een pagina die daar nog niet in stond krijgt de datum van vandaag.
+ *   commit op het eigen data-blok (git blame). Niet-gecommitte wijzigingen
+ *   tellen als vandaag.
+ * - Git geldt als onbetrouwbaar als het ontbreekt, als de repository shallow is
+ *   (de build-omgeving van Lovable heeft alleen de laatste commit, waardoor
+ *   elke pagina de datum van die commit kreeg), of als meer dan 90% van de
+ *   URL's via git dezelfde datum krijgt. Dan komen de datums uit de
+ *   gecommitte public/sitemap.xml; alleen een URL die daar nog niet in staat
+ *   krijgt de builddatum. Daarom hoort public/sitemap.xml bij elke
+ *   contentwijziging mee in de commit (controle: npm run sitemap:check).
+ * - Dezelfde datums gaan naar src/data/lastmod.ts, waaruit de pagina's hun
+ *   dateModified en article:modified_time halen. Zo zeggen sitemap en
+ *   structured data hetzelfde.
  *
  * Draait bij elke build (vite.config.ts) en met: npm run generate-sitemap
+ * Met --check schrijft hij niets en faalt hij als de gecommitte sitemap of
+ * lastmod.ts afwijkt van wat hij nu zou genereren.
  * Schrijft ook robots.txt, zodat de Sitemap-regel dezelfde host gebruikt.
  */
 import { execFileSync } from "child_process";
@@ -32,6 +43,8 @@ import { getLocalRegions } from "../src/data/regions";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const rel = (p: string) => path.join(ROOT, p);
 const VANDAAG = new Date().toISOString().slice(0, 10);
+const CONTROLE = process.argv.includes("--check");
+const LASTMOD_BESTAND = "src/data/lastmod.ts";
 
 interface Entry {
   loc: string;
@@ -67,11 +80,15 @@ const NIET_INHOUDELIJK = [
   /^Defect 5:/,
   /^Defect 6: één JSON-LD/,
   /^Defect 7:/,
+  // dateModified uit dezelfde bron als de sitemap: geen inhoudelijke wijziging.
+  /^Lastmod en dateModified uit één bron/,
 ];
 const inhoudelijk = (onderwerp: string) => !NIET_INHOUDELIJK.some((re) => re.test(onderwerp));
 
 /** Laatste inhoudelijke commitdatum (YYYY-MM-DD) waarop een van deze bestanden veranderde. */
 function laatsteCommit(bestanden: string[]): string | null {
+  // Nog niet gecommitte wijzigingen: die worden vandaag gecommit.
+  if (git(["status", "--porcelain", "--", ...bestanden]).trim()) return VANDAAG;
   const uit = git(["log", "--format=%cs%x09%s", "--", ...bestanden]);
   for (const regel of uit.split("\n")) {
     const [datum, onderwerp = ""] = regel.split("\t");
@@ -83,26 +100,57 @@ function laatsteCommit(bestanden: string[]): string | null {
 /** Laatste inhoudelijke commitdatum van een regelbereik (1-based, inclusief). */
 function laatsteCommitRegels(bestand: string, van: number, tot: number): string | null {
   const uit = git(["blame", "--porcelain", "-L", `${van},${tot}`, "--", bestand]);
-  // Porcelain geeft per commit één keer de kopregels (committer-time, summary).
+  // Porcelain: per regel een kop met de commit-hash, de eerste keer per commit
+  // gevolgd door committer-time en summary, en dan de regel zelf (met een tab).
+  // Regels met alleen haakjes en komma's tellen niet: die horen bij een nieuw
+  // blok dat direct na dit blok is ingevoegd.
+  const commits = new Map<string, { tijd: number; summary: string }>();
   const tijden: number[] = [];
-  let tijd = 0;
+  let hash = "";
   for (const regel of uit.split("\n")) {
-    if (regel.startsWith("committer-time ")) tijd = Number(regel.slice(15));
-    else if (regel.startsWith("summary ") && inhoudelijk(regel.slice(8))) tijden.push(tijd);
+    const kop = /^([0-9a-f]{40}) \d+ \d+/.exec(regel);
+    if (kop) {
+      hash = kop[1]!;
+      if (!commits.has(hash)) commits.set(hash, { tijd: 0, summary: "" });
+    } else if (regel.startsWith("committer-time ")) commits.get(hash)!.tijd = Number(regel.slice(15));
+    else if (regel.startsWith("summary ")) commits.get(hash)!.summary = regel.slice(8);
+    else if (regel.startsWith("\t")) {
+      if (/^[\s{}[\](),;]*$/.test(regel.slice(1))) continue;
+      const commit = commits.get(hash)!;
+      if (inhoudelijk(commit.summary)) tijden.push(commit.tijd);
+    }
   }
   if (!tijden.length) return null;
   return new Date(Math.max(...tijden) * 1000).toISOString().slice(0, 10);
 }
 
-// ── bestaande lastmods als vangnet zonder git ───────────────────────
-const bestaand = new Map<string, string>();
-const sitemapPad = rel("public/sitemap.xml");
-if (fs.existsSync(sitemapPad)) {
-  const xml = fs.readFileSync(sitemapPad, "utf8");
-  for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)) {
-    bestaand.set(new URL(m[1]!).pathname.replace(/(.)\/$/, "$1"), m[2]!);
+// ── gecommitte sitemap: vangnet als git onbetrouwbaar is ──────────
+/** Als git(), maar een fout (bestand niet in git) zet git niet op onbeschikbaar. */
+function gitStil(args: string[]): string {
+  if (!gitBeschikbaar) return "";
+  try {
+    return execFileSync("git", args, { cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+  } catch {
+    return "";
   }
 }
+const sitemapPad = rel("public/sitemap.xml");
+const ondiep = git(["rev-parse", "--is-shallow-repository"]).trim() === "true";
+
+/** URL-pad → lastmod uit een sitemap-XML. */
+function leesSitemap(xml: string): Map<string, string> {
+  const uit = new Map<string, string>();
+  for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)) {
+    uit.set(new URL(m[1]!).pathname.replace(/(.)\/$/, "$1"), m[2]!);
+  }
+  return uit;
+}
+
+// De versie uit de laatste commit, niet het bestand op schijf: dat kan al door
+// een eerdere run overschreven zijn. Zonder git is het bestand op schijf de
+// gecommitte versie (de build heeft het nog niet aangeraakt).
+const gecommitXml = gitStil(["show", "HEAD:public/sitemap.xml"]) || (fs.existsSync(sitemapPad) ? fs.readFileSync(sitemapPad, "utf8") : "");
+const gecommit = leesSitemap(gecommitXml);
 
 // ── routes uit de routebestanden ────────────────────────────────────
 /**
@@ -218,9 +266,13 @@ function gewicht(pad: string): { changefreq: string; priority: string } {
 const UITGESLOTEN = new Set(["/$", "/bedankt"]);
 
 // ── opbouwen ────────────────────────────────────────────────────────
-const entries: Entry[] = [];
+// Eerst alle URL's met hun git-datum; pas daarna, als bekend is of git te
+// vertrouwen is, de definitieve lastmod.
+interface Kandidaat extends Omit<Entry, "lastmod"> {
+  uitGit: string | null;
+}
+const kandidaten: Kandidaat[] = [];
 const overgeslagen: string[] = [];
-const lastmodVoor = (pad: string, uitGit: string | null) => uitGit ?? bestaand.get(pad) ?? VANDAAG;
 
 for (const fullPath of routePaden()) {
   if (fullPath.startsWith("/admin") || UITGESLOTEN.has(fullPath)) {
@@ -233,7 +285,7 @@ for (const fullPath of routePaden()) {
     if (!bron) throw new Error(`Dynamische route ${fullPath} heeft geen bron in scripts/generate-sitemap.ts`);
     const { items, alleStarts } = bron();
     for (const item of items) {
-      entries.push({ loc: item.pad, lastmod: lastmodVoor(item.pad, lastmodItem(item, alleStarts)), ...gewicht(item.pad) });
+      kandidaten.push({ loc: item.pad, uitGit: lastmodItem(item, alleStarts), ...gewicht(item.pad) });
     }
     continue;
   }
@@ -247,8 +299,25 @@ for (const fullPath of routePaden()) {
   // canonicaliseren zonder. De homepage houdt zijn slash.
   const pad = fullPath !== "/" && fullPath.endsWith("/") ? fullPath.slice(0, -1) : fullPath;
   const bestanden = [routeFile, paginaBestand(routeFile)].filter((b): b is string => Boolean(b));
-  entries.push({ loc: pad, lastmod: lastmodVoor(pad, laatsteCommit(bestanden)), ...gewicht(pad) });
+  kandidaten.push({ loc: pad, uitGit: laatsteCommit(bestanden), ...gewicht(pad) });
 }
+
+// ── is git te vertrouwen? ───────────────────────────────────────────
+const perDatum = new Map<string, number>();
+for (const k of kandidaten) if (k.uitGit) perDatum.set(k.uitGit, (perDatum.get(k.uitGit) ?? 0) + 1);
+const aandeelGelijk = kandidaten.length ? Math.max(0, ...perDatum.values()) / kandidaten.length : 1;
+const onbetrouwbaar = !gitBeschikbaar
+  ? "git ontbreekt"
+  : ondiep
+    ? "shallow repository"
+    : aandeelGelijk > 0.9
+      ? `${Math.round(aandeelGelijk * 100)}% van de URL's krijgt via git dezelfde datum`
+      : null;
+
+const entries: Entry[] = kandidaten.map(({ uitGit, ...k }) => ({
+  ...k,
+  lastmod: (onbetrouwbaar ? null : uitGit) ?? gecommit.get(k.loc) ?? VANDAAG,
+}));
 
 // ── controles ───────────────────────────────────────────────────────
 const locs = entries.map((e) => e.loc);
@@ -269,7 +338,42 @@ ${entries
   .join("\n")}
 </urlset>
 `;
+
+// Pad → lastmod voor de pagina's zelf (dateModified, article:modified_time).
+const lastmodBron = `// Gegenereerd door scripts/generate-sitemap.ts; niet met de hand aanpassen.
+// Laatste inhoudelijke wijziging per pagina: dezelfde datums als de lastmod in
+// public/sitemap.xml. Gebruikt voor dateModified en article:modified_time.
+export const LASTMOD: Record<string, string> = {
+${[...entries]
+  .sort((a, b) => a.loc.localeCompare(b.loc))
+  .map((e) => `  ${JSON.stringify(e.loc)}: "${e.lastmod}",`)
+  .join("\n")}
+};
+`;
+
+if (CONTROLE) {
+  // Vergelijk met wat gestaged of gecommit is (de index), zodat dit ook als
+  // pre-commit-controle werkt.
+  const ingecheckt = leesSitemap(gitStil(["show", ":public/sitemap.xml"]) || gecommitXml);
+  const nu = new Map(entries.map((e) => [e.loc, e.lastmod]));
+  const fouten: string[] = [];
+  for (const loc of nu.keys()) if (!ingecheckt.has(loc)) fouten.push(`ontbreekt in de gecommitte sitemap: ${loc}`);
+  for (const loc of ingecheckt.keys()) if (!nu.has(loc)) fouten.push(`staat in de gecommitte sitemap maar wordt niet meer gegenereerd: ${loc}`);
+  for (const [loc, d] of nu) if (ingecheckt.has(loc) && ingecheckt.get(loc) !== d) fouten.push(`lastmod ${loc}: gecommit ${ingecheckt.get(loc)}, nu ${d}`);
+  const bronIngecheckt = gitStil(["show", `:${LASTMOD_BESTAND}`]).replace(/\r\n/g, "\n");
+  if (bronIngecheckt !== lastmodBron) fouten.push(`${LASTMOD_BESTAND} wijkt af van de gegenereerde versie`);
+  if (onbetrouwbaar) console.log(`Let op: git onbetrouwbaar (${onbetrouwbaar}); datums uit de gecommitte sitemap.`);
+  if (fouten.length) {
+    console.error(`Sitemapcontrole: ${fouten.length} afwijking(en). Draai npm run generate-sitemap en commit public/sitemap.xml en ${LASTMOD_BESTAND}.`);
+    for (const f of fouten.slice(0, 40)) console.error("  " + f);
+    process.exit(1);
+  }
+  console.log(`Sitemapcontrole: ${entries.length} URL's, gecommitte sitemap en ${LASTMOD_BESTAND} kloppen.`);
+  process.exit(0);
+}
+
 fs.writeFileSync(sitemapPad, xml, "utf-8");
+fs.writeFileSync(rel(LASTMOD_BESTAND), lastmodBron, "utf-8");
 
 const robots = `# Robots.txt for Nieuwblik
 # ${SITE_URL}
@@ -303,5 +407,5 @@ fs.writeFileSync(rel("public/robots.txt"), robots, "utf-8");
 
 const datums = new Set(entries.map((e) => e.lastmod));
 console.log(
-  `Sitemap: ${entries.length} URL's, ${datums.size} verschillende lastmod-datums${gitBeschikbaar ? "" : " (git niet beschikbaar: lastmod uit bestaande sitemap)"}. Overgeslagen: ${overgeslagen.join(", ")}`,
+  `Sitemap: ${entries.length} URL's, ${datums.size} verschillende lastmod-datums${onbetrouwbaar ? ` (git onbetrouwbaar: ${onbetrouwbaar}; lastmod uit de gecommitte sitemap)` : ""}. Overgeslagen: ${overgeslagen.join(", ")}`,
 );

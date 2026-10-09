@@ -17,6 +17,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, scaleUp, easings } from "@/lib/motion";
+import { laatstGewijzigd } from "@/lib/lastmod";
 
 interface TocItem {
   id: string;
@@ -96,7 +97,8 @@ const BlogPost = () => {
     "inLanguage": "nl-NL",
     ...(post.seoKeywords ? { "keywords": post.seoKeywords } : {}),
     "datePublished": post.date,
-    "dateModified": post.date,
+    // Zelfde bron als de lastmod in de sitemap.
+    "dateModified": laatstGewijzigd(`/blog/${post.slug}`, post.date),
     "author": {
       "@type": "Person",
       "name": "Justin Slok",
@@ -541,7 +543,7 @@ const BlogPost = () => {
           ogImage={post.image ? (typeof post.image === 'string' && post.image.startsWith('http') ? post.image : `${SITE_URL}${post.image}`) : `${SITE_URL}/og-image.webp`}
           ogType="article"
           articlePublishedTime={post.date}
-          articleModifiedTime={post.date}
+          articleModifiedTime={laatstGewijzigd(`/blog/${post.slug}`, post.date)}
           articleAuthor="Justin Slok"
           {...(structuredData ? { structuredData } : {})}
           breadcrumbs={[
