@@ -59,7 +59,7 @@ export const LASTMOD: Record<string, string> = {
   "/regio/oost-nederland": "2026-10-09",
   "/regio/randstad": "2026-10-09",
   "/regio/zuid-nederland": "2026-10-09",
-  "/reviews": "2026-08-28",
+  "/reviews": "2026-10-09",
   "/seo-enkhuizen": "2026-10-09",
   "/taxi-website-laten-maken": "2026-10-09",
   "/wat-kost-een-website": "2026-10-09",
