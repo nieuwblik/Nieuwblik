@@ -3,9 +3,8 @@
  * 9 oktober 2026 (19 reviews, allemaal 5 sterren), nieuwste eerst.
  *
  * Letterlijk, met één bewerking: reviews van vóór de naamswijziging noemen de
- * oude naam Baylab. Die staat hier als "[Nieuwblik]"; de rechte haken laten
- * zien dat het woord is aangepast. Verder niets inkorten of herschrijven: een
- * review hoort te zeggen wat de klant schreef.
+ * oude naam Baylab; die is vervangen door Nieuwblik. Verder niets inkorten of
+ * herschrijven: een review hoort te zeggen wat de klant schreef.
  *
  * Nieuwe review op Google? Zet hem bovenaan en werk REVIEWS in
  * src/config/business.ts bij (aantal en score).
@@ -60,27 +59,27 @@ export const googleReviews: GoogleReview[] = [
   {
     naam: "Jesse Huisman",
     sterren: 5,
-    tekst: "[Nieuwblik] is top! Ik heb altijd goed contact gehad met de jongens daar, en hun leveringen zijn snel en betrouwbaar. Ik heb meerdere designs laten maken, van listings tot aan verpakkingen, en elke keer kreeg ik precies wat ik had gevraagd. Ze zijn serieus in wat ze doen, maar maken het proces ook luchtig en plezierig. Absoluut een aanrader voor iedereen die op zoek is naar professionele service en kwaliteit.",
+    tekst: "Nieuwblik is top! Ik heb altijd goed contact gehad met de jongens daar, en hun leveringen zijn snel en betrouwbaar. Ik heb meerdere designs laten maken, van listings tot aan verpakkingen, en elke keer kreeg ik precies wat ik had gevraagd. Ze zijn serieus in wat ze doen, maar maken het proces ook luchtig en plezierig. Absoluut een aanrader voor iedereen die op zoek is naar professionele service en kwaliteit.",
   },
   {
     naam: "Tijs Nieuwboer",
     sterren: 5,
-    tekst: "Vanaf het eerste moment dat ik met [Nieuwblik] in contact kwam, was ik onder de indruk van hun professionele aanpak en creatieve inzicht. Ik had een complete rebranding nodig voor mijn bedrijf, inclusief een nieuwe website, huisstijl, en marketingmateriaal. [Nieuwblik]'s team pakte de uitdaging met beide handen aan en overtrof al mijn verwachtingen. Hun vermogen om mijn visie te vertalen naar visueel aantrekkelijke en effectieve ontwerpen was ongeëvenaard. Ze waren altijd bereikbaar voor overleg en hun feedbackproces zorgde ervoor dat we altijd op één lijn zaten. De eindresultaten hebben niet alleen mijn merkidentiteit versterkt, maar ook de interactie met mijn klanten verbeterd. [Nieuwblik] heeft echt een verschil gemaakt en ik ben zeer tevreden met hun werk. Ze hebben een klantgerichte service, leveren op tijd, en garanderen kwaliteit in elk detail. Voor iedereen die zijn bedrijf naar een hoger niveau wil tillen, [Nieuwblik] is de partner die je zoekt",
+    tekst: "Vanaf het eerste moment dat ik met Nieuwblik in contact kwam, was ik onder de indruk van hun professionele aanpak en creatieve inzicht. Ik had een complete rebranding nodig voor mijn bedrijf, inclusief een nieuwe website, huisstijl, en marketingmateriaal. Nieuwblik's team pakte de uitdaging met beide handen aan en overtrof al mijn verwachtingen. Hun vermogen om mijn visie te vertalen naar visueel aantrekkelijke en effectieve ontwerpen was ongeëvenaard. Ze waren altijd bereikbaar voor overleg en hun feedbackproces zorgde ervoor dat we altijd op één lijn zaten. De eindresultaten hebben niet alleen mijn merkidentiteit versterkt, maar ook de interactie met mijn klanten verbeterd. Nieuwblik heeft echt een verschil gemaakt en ik ben zeer tevreden met hun werk. Ze hebben een klantgerichte service, leveren op tijd, en garanderen kwaliteit in elk detail. Voor iedereen die zijn bedrijf naar een hoger niveau wil tillen, Nieuwblik is de partner die je zoekt",
   },
   {
     naam: "Huub Rood",
     sterren: 5,
-    tekst: "Ik kwam bij [Nieuwblik] omdat ik ze via LinkedIn voorbij zag komen. Had een logo nodig voor mij merk dus klopte ik bij ze aan. Ze hadden goede suggesties hoe ik mijn logo beter kon insteken en ook de naam van mijn merk hebben we daardoor aangepast. Hierdoor ben ik makkelijker vindbaar op google en op andere verkoop platformen. Ik kan [Nieuwblik] iedereen aanraden!",
+    tekst: "Ik kwam bij Nieuwblik omdat ik ze via LinkedIn voorbij zag komen. Had een logo nodig voor mij merk dus klopte ik bij ze aan. Ze hadden goede suggesties hoe ik mijn logo beter kon insteken en ook de naam van mijn merk hebben we daardoor aangepast. Hierdoor ben ik makkelijker vindbaar op google en op andere verkoop platformen. Ik kan Nieuwblik iedereen aanraden!",
   },
   {
     naam: "Thijs Peerdeman",
     sterren: 5,
-    tekst: "Super tevreden met de diensten van [Nieuwblik]. De jongens van [Nieuwblik] denken echt met je mee en zijn pas klaar wanneer jij tevreden bent. Ik raadt ze aan iedereen aan!",
+    tekst: "Super tevreden met de diensten van Nieuwblik. De jongens van Nieuwblik denken echt met je mee en zijn pas klaar wanneer jij tevreden bent. Ik raadt ze aan iedereen aan!",
   },
   {
     naam: "Maarten Gesink",
     sterren: 5,
-    tekst: "Sinds dag 1 klant bij [Nieuwblik], enorm fijn in contact. Komen professioneel en deskundig over en staan klaar met hun expertise en ideeën. Kortom erg tevreden!",
+    tekst: "Sinds dag 1 klant bij Nieuwblik, enorm fijn in contact. Komen professioneel en deskundig over en staan klaar met hun expertise en ideeën. Kortom erg tevreden!",
   },
   {
     naam: "Henk Slok",
@@ -90,7 +89,7 @@ export const googleReviews: GoogleReview[] = [
   {
     naam: "Niels van Esveld",
     sterren: 5,
-    tekst: "[Nieuwblik] heeft voor ons bedrijf de website onderhanden genomen, heel fijn en direct contact, handelt snel en luistert niet alleen naar je wens maar neemt ook initiatief.",
+    tekst: "Nieuwblik heeft voor ons bedrijf de website onderhanden genomen, heel fijn en direct contact, handelt snel en luistert niet alleen naar je wens maar neemt ook initiatief.",
   },
   {
     naam: "Ricardo Slok",
