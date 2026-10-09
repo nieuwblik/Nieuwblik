@@ -88,7 +88,7 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
         alineas: [
           "Elke site bouwen we vanaf de eerste dag op vindbaarheid: snel laden, een heldere opbouw met een eigen pagina per dienst en teksten die aansluiten op hoe mensen in de regio zoeken. Dat helpt in Google en ook in AI-zoekmachines als ChatGPT.",
           "Voor lokale zoekopdrachten telt je Google Bedrijfsprofiel minstens zo zwaar als je website. We stemmen die twee op elkaar af, met dezelfde gegevens en openingstijden. Hoe je dat profiel goed inricht, lees je in ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
-          "Werk je vanuit een andere plaats in de regio? Bekijk dan ook [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard), [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [webdesign in Purmerend](/website-laten-maken-purmerend) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
+          "Werk je vanuit een andere plaats in de regio? Bekijk dan ook [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen), [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard), [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [webdesign in Purmerend](/website-laten-maken-purmerend) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
         ],
       },
     ],
