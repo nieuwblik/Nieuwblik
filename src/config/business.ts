@@ -59,6 +59,8 @@ export const euroMetCenten = (bedrag: number): string => `€${bedrag.toFixed(2)
 
 /** Eén formulering voor hosting en basisonderhoud, overal op de site gelijk. */
 export const HOSTING_ZIN = `Hosting kan bij ons vanaf ${euroMetCenten(HOSTING_PER_MAAND)} per maand (excl. btw), afhankelijk van wat je site nodig heeft, met basisonderhoud inbegrepen.`;
+/** Dezelfde zin met een kleine letter, voor na een dubbele punt. */
+export const HOSTING_ZIN_KLEIN = HOSTING_ZIN.charAt(0).toLowerCase() + HOSTING_ZIN.slice(1);
 
 /** Bedrag met euroteken en duizendtalpunt, zoals "€2.990". Zonder toLocaleString: server en browser moeten exact gelijk renderen. */
 export const euroTeken = (bedrag: number): string =>

@@ -87,7 +87,7 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
         h2: "Gevonden worden in Hoorn en omgeving",
         alineas: [
           "Elke site bouwen we vanaf de eerste dag op vindbaarheid: snel laden, een heldere opbouw met een eigen pagina per dienst en teksten die aansluiten op hoe mensen in de regio zoeken. Dat helpt in Google en ook in AI-zoekmachines als ChatGPT.",
-          "Voor lokale zoekopdrachten telt je Google Bedrijfsprofiel minstens zo zwaar als je website. We stemmen die twee op elkaar af, met dezelfde gegevens en openingstijden. Hoe je dat profiel goed inricht, lees je in ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
+          "Je Google Bedrijfsprofiel en je website horen dezelfde gegevens te tonen; ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026) legt uit hoe je dat regelt.",
           "Werk je vanuit een andere plaats in de regio? Bekijk dan ook [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen), [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard), [website laten maken in Alkmaar](/website-laten-maken-alkmaar), [webdesign in Purmerend](/website-laten-maken-purmerend) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
         ],
       },
@@ -111,7 +111,7 @@ export const werkgebiedLokaal: Record<string, WerkgebiedLokaal> = {
       },
       {
         q: "Kan ik de website daarna zelf aanpassen?",
-        a: `${HOSTING_ZIN} Wil je zelf teksten en foto's wijzigen, dan bouwen we op verzoek een beheersysteem op maat.`,
+        a: `Ja, als je dat wilt: op aanvraag bouwen we een eenvoudig beheersysteem waarmee je zelf teksten en foto's wijzigt. Zonder beheersysteem passen wij de site op jouw verzoek aan. ${HOSTING_ZIN}`,
       },
       {
         q: "Hoe word ik beter gevonden in Hoorn?",

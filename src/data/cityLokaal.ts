@@ -1,4 +1,4 @@
-import { LEVERTIJD, PRIJZEN, euroTeken, REVIEWS, HOSTING_ZIN } from "@/config/business";
+import { LEVERTIJD, PRIJZEN, euroTeken, REVIEWS, HOSTING_ZIN, HOSTING_ZIN_KLEIN } from "@/config/business";
 import type { LokaleUitbreiding } from "@/data/lokaleInhoud";
 
 /**
@@ -65,7 +65,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     faq: [
       {
         q: "Werken jullie voor bedrijven in Leiden terwijl jullie in Enkhuizen zitten?",
-        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt. Spreek je elkaar liever in het echt, dan komen we bij je langs.",
+        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt. Spreek je elkaar liever in het echt, dan komen we in overleg bij je langs.",
       },
       {
         q: "Kunnen jullie een website in het Nederlands én Engels maken voor internationale klanten of studenten?",
@@ -701,7 +701,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Wat je betaalt, nu en later",
         alineas: [
           `Eenmalig: voor een compacte site met 1 tot 5 pagina's, contactformulier en Google Maps is Starter genoeg. Die kost ${STARTER}. Wil je een online agenda of boekingssysteem koppelen dat je al gebruikt, of een blog met uitleg over je behandelingen, dan kies je Professional vanaf ${PROFESSIONAL}. Een eigen ledenportaal of inschrijfsysteem is maatwerk, daarvoor maken we een offerte.`,
-          `Doorlopend: ${HOSTING_ZIN} Een apart onderhoudscontract is er niet.`,
+          `Doorlopend: ${HOSTING_ZIN_KLEIN} Een apart onderhoudscontract is er niet.`,
           "Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht. Alle pakketten naast elkaar zie je op [prijzen](/prijzen).",
         ],
       },
@@ -756,7 +756,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     headings: {
       benefits: "Waarom ondernemers uit Medemblik kiezen voor Nieuwblik",
       reviews: REVIEWKOP,
-      portfolio: "Websites uit de regio die klanten opleveren",
+      portfolio: "Websites uit de regio",
       contact: 'Klaar voor een nieuwe website in Medemblik?',
     },
     eigenOpbouw: true,
@@ -774,7 +774,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
         h2: "Hoe we bedrijven in de regio vindbaar maakten",
         alineas: [
           "[Aardingsbedrijf West-Friesland](/portfolio/aardingsbedrijf-west-friesland) wil gevonden worden door particulieren en bedrijven in heel West-Friesland, waaronder Medemblik. Elke dienst, van hulpaarding en diepte-aarding tot metingen, wordt helder uitgelegd, en Google-reviews staan prominent in beeld als bewijs voor wie het bedrijf nog niet kent.",
-          "Bij [Taxi Drechterland](/portfolio/taxi-drechterland) hoorde lokale vindbaarheid bij de opdracht: in de dorpen in de omgeving en bij zoekopdrachten voor luchthavenritten. Daarom zijn er aparte pagina's voor de luchthavenritten en worden de kernen in het werkgebied afzonderlijk uitgelicht. Zo wordt de chauffeur gevonden op zoekopdrachten als 'taxi Hoogkarspel' of 'taxi naar Schiphol vanuit West-Friesland'.",
+          "Bij [Taxi Drechterland](/portfolio/taxi-drechterland) hoorde lokale vindbaarheid bij de opdracht: in de dorpen in de omgeving en bij zoekopdrachten voor luchthavenritten. Daarom heeft elke luchthavenrit, van Schiphol tot Maastricht Aachen Airport, een eigen pagina, en staan de dorpen in het werkgebied elk apart op de site. Zo wordt de chauffeur gevonden op zoekopdrachten als 'taxi Hoogkarspel' of 'taxi naar Schiphol vanuit West-Friesland'.",
           "[Feigro Dakwerken](/portfolio/feigro-dakwerken) werkt in heel West-Friesland. Opgeleverde projecten staan op de site als bewijs, en een lekkage meld je via een eigen, snelle route naast de gewone offerteaanvraag.",
         ],
       },
@@ -789,8 +789,8 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Website en Google Bedrijfsprofiel samen",
         alineas: [
-          "Bij zoekopdrachten met een plaatsnaam laat Google naast gewone resultaten ook bedrijven op de kaart zien. Die komen uit het Google Bedrijfsprofiel. Een profiel met dezelfde gegevens als je website, de juiste categorie en reviews van klanten maakt de kans groter dat je daar verschijnt. Hoe je dat instelt, lees je in ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
-          "Werk je ook in de rest van de regio? Kijk dan bij [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen) of de pagina voor [heel West-Friesland](/werkgebied/west-friesland).",
+          "Zoekt iemand op een dienst met 'Medemblik' erachter, dan staat er vaak een kaart met bedrijven boven de gewone zoekresultaten. Welke bedrijven daarop komen, haalt Google uit het Bedrijfsprofiel. Wat helpt: het profiel helemaal invullen, een categorie kiezen die precies past bij wat je doet, overal dezelfde naam, hetzelfde adres en dezelfde openingstijden gebruiken als op je website, en klanten om een review vragen. Een stappenplan staat in ons artikel over [het Google Bedrijfsprofiel](/blog/google-bedrijfsprofiel-instellingen-2026).",
+          "Ook voor [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen) en [heel West-Friesland](/werkgebied/west-friesland) is er een eigen pagina.",
         ],
       },
     ],
@@ -897,7 +897,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Word ik met een nieuwe website ook gevonden in ChatGPT?",
-        a: "Daar houden we rekening mee. AI-zoekmachines halen hun antwoorden uit sites die snel, duidelijk en goed opgebouwd zijn. Dezelfde basis die je hoger in Google zet, maakt je ook beter zichtbaar in ChatGPT.",
+        a: "Daar houden we rekening mee. AI-zoekmachines halen hun antwoorden uit sites die snel, duidelijk en goed opgebouwd zijn. Die basis helpt in Google en ook in ChatGPT.",
       },
       {
         q: "Kunnen jullie mijn huidige website verbeteren in plaats van opnieuw bouwen?",
@@ -927,7 +927,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     lokaal: {
       h2: "Website laten maken in Enkhuizen, onze thuisplaats",
       alineas: [
-        "Enkhuizen is onze thuisplaats. Nieuwblik, dat zijn wij: Justin en Job, twee ontwerpers en developers uit Enkhuizen. Justin Slok heeft het bureau opgericht. Bij ons spreek je degene die ook daadwerkelijk aan je website bouwt, zonder accountmanager of tussenlaag.",
+        "Enkhuizen is onze thuisplaats. Nieuwblik zijn Justin en Job, twee ontwerpers en developers uit Enkhuizen. Justin richtte het bureau op. Bij ons spreek je degene die ook daadwerkelijk aan je website bouwt, zonder accountmanager of tussenlaag.",
         "We werken voornamelijk online, via videocall, telefoon, mail en WhatsApp. Spreek je elkaar liever in het echt, dan komen we bij je langs.",
         "Een website voor een bedrijf in Enkhuizen begint bij de vraag wie je wilt bereiken: klanten uit de stad zelf, uit de dorpen eromheen of uit de rest van het land. Dat bepaalt welke pagina's er komen, welke woorden erin staan en welke knop een bezoeker als eerste ziet.",
       ],
@@ -938,7 +938,6 @@ export const cityLokaal: Record<string, CityLokaal> = {
         alineas: [
           "Voor volleybalvereniging [Madjoe](/portfolio/vv-madjoe) uit Enkhuizen, sinds 1950 een van de grootste volleybalclubs van West-Friesland, maakten we een clubwebsite die het hele clubleven draagt. Elk team heeft een eigen pagina met klasse, trainer, trainingstijden en selectie. Nieuwe leden beginnen met een proefles en melden zich daarna online aan in vijf stappen, en voor evenementen schrijf je je in en betaal je direct met iDEAL. De site is ingericht op zoekopdrachten als 'volleybal Enkhuizen' en 'volleybalclub West-Friesland'.",
           "Achter de schermen ziet het bestuur van Madjoe in een afgeschermde beheeromgeving alle aanmeldingen, proeflessen, afmeldingen en inschrijvingen bij elkaar, met betaalstatus en een export naar Excel. Sponsors hebben een eigen route met de mogelijkheden als bord-, kleding- of evenementsponsor.",
-          "We zijn zelf ook betrokken bij de club. Samen met Enza Zaden, Kreeft Autoservice en Toolstra Bouwbedrijf staan we als shirtsponsor op het shirt van Heren 1, dat in de Topdivisie speelt. Daarover schreven we [een blog](/blog/nieuwblik-sponsort-vv-madjoe-heren-1).",
           "[Feigro Dakwerken](/portfolio/feigro-dakwerken) uit Enkhuizen ontstond uit de samenvoeging van twee dakdekkersbedrijven uit West-Friesland. De nieuwe website zet het bedrijf neer als één team voor platte en hellende daken, laat opgeleverde projecten zien en scheidt de offerteaanvraag voor een nieuw dak van een snelle route om een lekkage te melden.",
           "Voor [Kyodai Originals](/portfolio/kyodai-originals), een klant uit Enkhuizen met een besloten showroom in Amsterdam, bouwden we een online galerie voor authentieke Japanse zwaarden en wapenrustingen, waarin certificering, de geschiedenis van elk stuk en persoonlijk contact het vertrouwen van verzamelaars moeten winnen. De NBTHK-, NBSK- en NTHK-certificeringen en de levenslange authenticiteitsgarantie staan prominent op de productpagina's.",
           "[Een Bundel Geluk](/portfolio/een-bundel-geluk) uit Enkhuizen maakt handgemengde theeblends en natuurlijke verzorgingsproducten. De webshop vertelt het verhaal van de oprichtster en houdt het contact persoonlijk: vragen en bestellingen lopen via WhatsApp.",
@@ -950,7 +949,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
           `Starter kost ${STARTER}: een site van 1 tot 5 pagina's die op elk scherm goed werkt, met de basis van SEO, een contactformulier en Google Maps. Reken op ${LEVERTIJD.starter} tot de livegang.`,
           `Professional begint bij ${PROFESSIONAL} en is bedoeld voor bedrijven die met meerdere diensten gevonden willen worden: tot 10 pagina's, uitgebreide SEO, een blog en koppelingen met externe tools. De doorlooptijd is ${LEVERTIJD.standaard}.`,
           `Op maat is er voor webshops met betaalkoppelingen, eigen koppelingen met je systemen en sites zonder paginagrens. Webshops beginnen bij ${WEBSHOP}, grotere projecten duren ${LEVERTIJD.complex}. Een beheersysteem om zelf teksten aan te passen bouwen we op aanvraag.`,
-          `Na de oplevering: ${HOSTING_ZIN} Een apart onderhoudscontract is er niet. Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht. Alle pakketten naast elkaar staan op [prijzen](/prijzen).`,
+          `${HOSTING_ZIN} Een apart onderhoudscontract is er niet. Na de oplevering krijg je het gebruiksrecht op ontwerp en inhoud. Wil je naar een andere partij, dan werken we mee aan de overdracht. Alle pakketten naast elkaar staan op [prijzen](/prijzen).`,
         ],
       },
       {
@@ -992,7 +991,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Wat heeft mijn Google Bedrijfsprofiel met mijn website te maken?",
-        a: "Veel. Google toont bij lokale zoekopdrachten bedrijven uit het Bedrijfsprofiel en kijkt daarbij of de gegevens kloppen met je website. Dezelfde naam, hetzelfde adres en hetzelfde telefoonnummer op beide plekken helpen, net als reviews van klanten.",
+        a: "Ze horen bij elkaar. Bij lokale zoekopdrachten toont Google vaak bedrijven uit het Bedrijfsprofiel. Consistente gegevens helpen daarbij: dezelfde naam, hetzelfde adres en hetzelfde telefoonnummer op je website en in je profiel. Reviews van klanten helpen ook.",
       },
       {
         q: "Werken jullie alleen voor bedrijven in Enkhuizen?",
