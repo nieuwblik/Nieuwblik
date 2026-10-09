@@ -12,6 +12,21 @@ const RAND = "hsl(var(--sw-rule) / 0.12)";
 const KNOP =
   "transition-colors hover:bg-[hsl(var(--sw-green)/0.05)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[hsl(var(--sw-green))]";
 
+// Zachte curve voor het openklappen: snel op gang, lang uitlopend.
+const VLOEIEND = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+/**
+ * De inhoud van het uitklapdeel komt na elkaar binnen (opdoemen en een klein
+ * stukje omhoog) terwijl het blok groeit. Dichtklappen gaat in één keer en
+ * sneller, zodat het niet traag aanvoelt.
+ */
+const verschijn = (open: boolean) =>
+  `transition-[opacity,transform] motion-reduce:transition-none ${open ? "opacity-100 translate-y-0 duration-500" : "opacity-0 translate-y-2 duration-150"}`;
+const vertraging = (open: boolean, i: number) => ({
+  transitionTimingFunction: VLOEIEND,
+  transitionDelay: open ? `${120 + i * 60}ms` : "0ms",
+});
+
 // Pagina's waar het analysedeel niets toevoegt: al aan het converteren, of de
 // pagina waar het zelf naartoe linkt. Daar blijven naar boven en WhatsApp over.
 const HIDDEN_ON = ["/gratis-website-analyse", "/contact", "/bedankt", "/admin"];
@@ -65,23 +80,24 @@ const ZwevendeKnoppen = () => {
 
   return (
     <div
-      className={`fixed bottom-4 right-4 z-50 overflow-hidden rounded-2xl border bg-white shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)] md:bottom-6 md:right-6 ${metAnalyse ? "w-[calc(100vw-2rem)] max-w-[360px]" : ""}`}
-      style={{ borderColor: RAND }}
+      className={`fixed bottom-4 right-4 z-50 overflow-hidden rounded-2xl border bg-white transition-shadow duration-500 md:bottom-6 md:right-6 ${open ? "shadow-[0_24px_60px_-18px_rgba(0,0,0,0.38)]" : "shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)]"} ${metAnalyse ? "w-[calc(100vw-2rem)] max-w-[360px]" : ""}`}
+      style={{ borderColor: RAND, transitionTimingFunction: VLOEIEND }}
     >
       {metAnalyse && (
         <div
           id="analyse-meer"
-          className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+          className={`grid transition-[grid-template-rows] motion-reduce:transition-none ${open ? "grid-rows-[1fr] duration-500" : "grid-rows-[0fr] duration-300"}`}
+          style={{ transitionTimingFunction: VLOEIEND }}
           inert={!open}
         >
           <div className="overflow-hidden">
             <div className="border-b px-4 pb-4 pt-4" style={{ borderColor: RAND }}>
-              <p className="text-sm font-light leading-relaxed" style={{ color: INKT_65 }}>
+              <p className={`text-sm font-light leading-relaxed ${verschijn(open)}`} style={vertraging(open, 0)}>
                 Ontdek in 24 uur waar jouw website kansen laat liggen.
               </p>
               <ul className="mt-4 space-y-3">
-                {CHECKS.map(({ icon: Icon, title, text }) => (
-                  <li key={title} className="flex items-start gap-3">
+                {CHECKS.map(({ icon: Icon, title, text }, i) => (
+                  <li key={title} className={`flex items-start gap-3 ${verschijn(open)}`} style={vertraging(open, i + 1)}>
                     <Icon className="mt-0.5 h-4 w-4 shrink-0" style={{ color: GROEN }} aria-hidden="true" />
                     <span>
                       <span className="block text-sm font-semibold sw-ink">{title}</span>
@@ -92,9 +108,11 @@ const ZwevendeKnoppen = () => {
                   </li>
                 ))}
               </ul>
-              <AnimatedButton to="/gratis-website-analyse" size="sm" className="mt-4 w-full">
-                Start analyse
-              </AnimatedButton>
+              <div className={`mt-4 ${verschijn(open)}`} style={vertraging(open, CHECKS.length + 1)}>
+                <AnimatedButton to="/gratis-website-analyse" size="sm" className="w-full">
+                  Start analyse
+                </AnimatedButton>
+              </div>
             </div>
           </div>
         </div>
@@ -122,8 +140,8 @@ const ZwevendeKnoppen = () => {
                 style={{ background: "hsl(var(--sw-green) / 0.06)" }}
               >
                 <ChevronUp
-                  className={`h-4 w-4 transition-transform duration-300 motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
-                  style={{ color: GROEN }}
+                  className={`h-4 w-4 transition-transform duration-500 motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
+                  style={{ color: GROEN, transitionTimingFunction: VLOEIEND }}
                   aria-hidden="true"
                 />
               </span>
