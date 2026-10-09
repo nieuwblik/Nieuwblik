@@ -53,6 +53,8 @@ export interface Toestel {
    * scherp op zijn plek).
    */
   aan?: "zacht" | "gsap";
+  /** Inzoomen op de liggende foto (1 = cover, 1.15 = 15% ingezoomd), rond het midden van de hero; staand blijft cover. */
+  zoom?: number;
 }
 
 export const toestellen = {
@@ -146,6 +148,7 @@ export const toestellen = {
     licht: "radial-gradient(ellipse 82% 78% at 50% 50%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.08) 100%)",
     donker: true,
     aan: "gsap",
+    zoom: 1.15,
   },
 } satisfies Record<string, Toestel>;
 

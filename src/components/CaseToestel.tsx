@@ -137,9 +137,9 @@ const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: Mocku
   });
 
   return (
-    <section ref={toestel.donker ? donkerRef : undefined} aria-label={alt} className="relative h-[100svh] w-full overflow-hidden" style={{ "--ar": liggend.ar, "--toestel-filter": toestel.filter ?? "contrast(1)", background: toestel.achtergrond } as React.CSSProperties}>
+    <section ref={toestel.donker ? donkerRef : undefined} aria-label={alt} className="relative h-[100svh] w-full overflow-hidden" style={{ "--ar": liggend.ar, "--zoom": toestel.zoom ?? 1, "--toestel-filter": toestel.filter ?? "contrast(1)", background: toestel.achtergrond } as React.CSSProperties}>
       <style>{`
-        @media (orientation: portrait) { [data-case-toestel] { --ar: ${staand.ar}; } }
+        @media (orientation: portrait) { [data-case-toestel] { --ar: ${staand.ar}; --zoom: 1; } }
         [data-toestel-masker] {
           -webkit-mask-image: url("${liggend.masker}"); mask-image: url("${liggend.masker}");
           -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
@@ -167,8 +167,9 @@ const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: Mocku
         data-case-toestel=""
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
-          width: "max(100vw, calc(100svh * var(--ar)))",
-          height: "max(100svh, calc(100vw / var(--ar)))",
+          // Cover, op liggende schermen eventueel ingezoomd (zoom per toestel) rond het midden.
+          width: "calc(max(100vw, calc(100svh * var(--ar))) * var(--zoom))",
+          height: "calc(max(100svh, calc(100vw / var(--ar))) * var(--zoom))",
         }}
       >
         <picture>

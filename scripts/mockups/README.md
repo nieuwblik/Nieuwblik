@@ -82,6 +82,8 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
 - **Opgemeten:** liggend 0,3260/0,2986 · 0,6740/0,2986 · 0,6740/0,6139 · 0,3260/0,6139,
   verhouding 1,96; staand 0,1675/0,3468 · 0,8324/0,3472 · 0,8324/0,5729 · 0,1677/0,5729,
   verhouding 1,66. Screenshot: venster 1440×734.
+- **Zoom:** de liggende foto staat 15% ingezoomd (`zoom: 1.15` in `toestellen.ts`), rond
+  het midden van de hero. Staand blijft cover, anders raakt de monitor de zijkanten.
 - **Licht** (gemeten): muur rond de monitor RGB ~240,165,57, verder weg 49,34,4, bureau
   129,65,11, voorgrond 17,8,2. Het scherm is de koelste lichtbron in de kamer: geen
   warme toon erover, alleen 8% vignettering. Header boven de foto wit.
