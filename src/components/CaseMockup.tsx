@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { MoveVertical } from "lucide-react";
 import liggend from "@/assets/mockup/monitor-liggend.webp";
 import liggendSet from "@/assets/mockup/monitor-liggend.webp?w=1280;1920;2880;3840&format=webp&as=srcset";
 import staandSet from "@/assets/mockup/monitor-staand.webp?w=720;1080;1440;1932&format=webp&as=srcset";
@@ -20,19 +21,31 @@ const LIGGEND = { ar: 3840 / 2160, l: 1083 / 3840, t: 494 / 2160, w: 1675 / 3840
 const STAAND = { ar: 1932 / 4391, l: 129 / 1932, t: 1517 / 4391, w: 1675 / 1932, h: 918 / 4391 };
 const pct = (v: number) => `${(v * 100).toFixed(4)}%`;
 
+/** Automatisch scrollen: schermhoogtes per seconde, altijd dezelfde snelheid. */
+const SNELHEID = 0.25;
+/** Wachttijd na het openen voordat het automatische scrollen begint. */
+const START_NA_MS = 1000;
+
 export interface MockupScherm {
   src: string;
   srcSet: string;
-  /** Afmetingen van de volledige screenshot, voor de scrollduur. */
+  /** Afmetingen van de volledige screenshot. */
   breedte: number;
   hoogte: number;
 }
 
 /**
  * Hero van een case: schermvullend (100vw × 100svh), met de site in het
- * scherm van de monitor. Ongeveer een seconde na het openen schuift de
- * volledige pagina rustig naar beneden en blijft onderaan staan. Bij
- * "animaties beperken" blijft hij bovenaan staan.
+ * scherm van de monitor.
+ *
+ * - Ongeveer een seconde na het openen schuift de volledige pagina met één
+ *   constante, rustige snelheid naar beneden en blijft onderaan staan.
+ * - Met de muis boven het scherm pauzeert dat, en scrollt het muiswiel de
+ *   site in het scherm in plaats van de pagina. Bovenaan of onderaan de site
+ *   gaat het wiel weer naar de pagina, zodat je nergens vast komt te zitten.
+ * - De cursor wordt boven het scherm een groene blob met "Scroll" (alleen bij
+ *   een muis; op touchschermen blijft het bij automatisch scrollen).
+ * - Bij "animaties beperken": geen automatisch scrollen en geen naloop.
  *
  * De foto staat op "cover"; een kader met dezelfde verhouding als de foto
  * rekent mee met hoe die wordt bijgesneden, zodat het scherm op elke
@@ -40,21 +53,94 @@ export interface MockupScherm {
  * krijgen de liggende foto, staande de staande.
  */
 const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
-  const [klaar, setKlaar] = useState(false);
-  const start = useRef(0);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const schermRef = useRef<HTMLDivElement>(null);
+  const siteRef = useRef<HTMLImageElement>(null);
+  const blobRef = useRef<HTMLDivElement>(null);
+  const blobBinnenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    start.current = performance.now();
-    // Al geladen voordat React de onLoad kon koppelen (server-HTML).
-    if (imgRef.current?.complete) setKlaar(true);
-  }, []);
+    const vlak = schermRef.current;
+    const site = siteRef.current;
+    const blob = blobRef.current;
+    const blobBinnen = blobBinnenRef.current;
+    if (!vlak || !site || !blob || !blobBinnen) return;
 
-  // Ongeveer 1,7 s per schermhoogte, tussen 12 en 30 seconden.
-  const schermen = scherm.hoogte / (scherm.breedte / 1.822);
-  const duur = Math.min(30, Math.max(12, schermen * 1.7));
-  // Start één seconde na het openen, of meteen als de screenshot later binnenkomt.
-  const vertraging = klaar ? Math.max(0, 1000 - (performance.now() - start.current)) : 0;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const muis = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const geopend = performance.now();
+
+    let doel = 0; // waar de site naartoe moet (px)
+    let positie = 0; // waar hij nu staat (px), volgt doel met een korte naloop
+    let hover = false;
+    let laatste = geopend;
+    let muisX = 0, muisY = 0, blobX = 0, blobY = 0;
+    let frame = 0;
+
+    const max = () => Math.max(0, site.offsetHeight - vlak.clientHeight);
+
+    const tik = (nu: number) => {
+      const dt = Math.min(0.05, (nu - laatste) / 1000);
+      laatste = nu;
+      // Eén constante snelheid; pauze zolang de muis boven het scherm is.
+      if (!reduced && !hover && nu - geopend >= START_NA_MS && site.complete) {
+        doel = Math.min(max(), doel + vlak.clientHeight * SNELHEID * dt);
+      }
+      // Automatisch scrollen loopt exact mee; het muiswiel krijgt een korte, zachte naloop.
+      const naloop = reduced ? 1 : 1 - Math.pow(0.0005, dt);
+      positie += (doel - positie) * naloop;
+      if (Math.abs(doel - positie) < 0.1) positie = doel;
+      site.style.transform = `translate3d(0, ${-positie}px, 0)`;
+
+      if (muis) {
+        const volg = reduced ? 1 : 1 - Math.pow(0.000005, dt);
+        blobX += (muisX - blobX) * volg;
+        blobY += (muisY - blobY) * volg;
+        blob.style.transform = `translate3d(${blobX}px, ${blobY}px, 0)`;
+      }
+      frame = requestAnimationFrame(tik);
+    };
+    frame = requestAnimationFrame(tik);
+
+    const opWiel = (e: WheelEvent) => {
+      const stap = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * vlak.clientHeight : e.deltaY;
+      const m = max();
+      // Aan het begin of eind van de site: laat het wiel de pagina scrollen.
+      if ((stap > 0 && doel >= m - 0.5) || (stap < 0 && doel <= 0.5)) return;
+      e.preventDefault();
+      doel = Math.min(m, Math.max(0, doel + stap));
+    };
+    const opBinnen = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      hover = true;
+      muisX = blobX = e.clientX;
+      muisY = blobY = e.clientY;
+      blob.style.transform = `translate3d(${blobX}px, ${blobY}px, 0)`;
+      blobBinnen.dataset["zichtbaar"] = "ja";
+    };
+    const opBeweeg = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      muisX = e.clientX;
+      muisY = e.clientY;
+    };
+    const opBuiten = () => {
+      hover = false;
+      blobBinnen.dataset["zichtbaar"] = "nee";
+    };
+
+    vlak.addEventListener("wheel", opWiel, { passive: false });
+    if (muis) {
+      vlak.addEventListener("pointerenter", opBinnen);
+      vlak.addEventListener("pointermove", opBeweeg);
+      vlak.addEventListener("pointerleave", opBuiten);
+    }
+    return () => {
+      cancelAnimationFrame(frame);
+      vlak.removeEventListener("wheel", opWiel);
+      vlak.removeEventListener("pointerenter", opBinnen);
+      vlak.removeEventListener("pointermove", opBeweeg);
+      vlak.removeEventListener("pointerleave", opBuiten);
+    };
+  }, []);
 
   return (
     <section
@@ -74,10 +160,9 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
         @media (orientation: portrait) {
           [data-case-mockup] { --ar: ${STAAND.ar}; --l: ${pct(STAAND.l)}; --t: ${pct(STAAND.t)}; --w: ${pct(STAAND.w)}; --h: ${pct(STAAND.h)}; }
         }
-        @keyframes case-scherm-scroll {
-          from { transform: translateY(0); }
-          to { transform: translateY(calc(-100% + 100cqh)); }
-        }
+        [data-scroll-blob] { opacity: 0; transform: translate(-50%, -50%) scale(0.2); transition: opacity .25s ease, transform .45s cubic-bezier(0.22, 1, 0.36, 1); }
+        [data-scroll-blob][data-zichtbaar="ja"] { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        @media (prefers-reduced-motion: reduce) { [data-scroll-blob] { transition: opacity .15s linear; } }
       `}</style>
       <div
         data-case-mockup=""
@@ -101,29 +186,38 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
           />
         </picture>
 
+        {/* data-lenis-prevent: het muiswiel hoort hier bij het scherm, niet bij de smooth scroll van de pagina. */}
         <div
-          className="absolute overflow-hidden rounded-[0.2%] bg-black"
-          style={{ left: "var(--l)", top: "var(--t)", width: "var(--w)", height: "var(--h)", containerType: "size" }}
+          ref={schermRef}
+          data-lenis-prevent=""
+          className="absolute overflow-hidden rounded-[0.2%] bg-black [@media(hover:hover)_and_(pointer:fine)]:cursor-none"
+          style={{ left: "var(--l)", top: "var(--t)", width: "var(--w)", height: "var(--h)" }}
         >
           <img
-            ref={imgRef}
+            ref={siteRef}
             src={scherm.src}
             srcSet={scherm.srcSet}
             sizes="(orientation: portrait) 88vw, 46vw"
             width={scherm.breedte}
             height={scherm.hoogte}
             alt={alt}
-            onLoad={() => setKlaar(true)}
-            className="block h-auto w-full motion-reduce:!animate-none"
-            style={
-              klaar
-                ? {
-                    animation: `case-scherm-scroll ${duur}s cubic-bezier(0.4, 0, 0.2, 1) ${vertraging}ms forwards`,
-                    willChange: "transform",
-                  }
-                : undefined
-            }
+            draggable={false}
+            className="block h-auto w-full select-none will-change-transform"
           />
+        </div>
+      </div>
+
+      {/* Cursor boven het scherm: groene blob die de muis volgt. */}
+      <div ref={blobRef} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[60]">
+        <div
+          ref={blobBinnenRef}
+          data-scroll-blob=""
+          data-zichtbaar="nee"
+          className="flex h-[84px] w-[84px] flex-col items-center justify-center gap-0.5 rounded-full text-white shadow-[0_12px_30px_-10px_hsl(var(--sw-green)/0.6)]"
+          style={{ background: "hsl(var(--sw-green))" }}
+        >
+          <MoveVertical className="h-5 w-5" aria-hidden="true" />
+          <span className="text-[0.75rem] font-medium leading-none">Scroll</span>
         </div>
       </div>
     </section>
