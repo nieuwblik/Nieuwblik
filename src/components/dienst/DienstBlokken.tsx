@@ -1,6 +1,7 @@
 import type { ElementType, ReactNode } from "react";
-import { Check, MessageCircle, Plus, Star } from "lucide-react";
+import { ArrowRight, Check, Clock, MessageCircle, Plus, Star } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
+import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
@@ -30,6 +31,7 @@ export function DienstHero({
   intro,
   kader,
   knop,
+  tweedeKnop,
 }: {
   kruimels: { label: string; path: string }[];
   /** Eerste deel van de kop, in inkt. */
@@ -40,6 +42,8 @@ export function DienstHero({
   /** Optioneel kadertje onder de intro. */
   kader?: ReactNode;
   knop: { label: string; to: string };
+  /** Tweede knop (outline). Zonder deze prop: WhatsApp. */
+  tweedeKnop?: { label: string; to: string };
 }) {
   return (
     <section className="pt-32 pb-16 md:pb-24">
@@ -76,10 +80,16 @@ export function DienstHero({
           <AnimatedButton to={knop.to} size="lg">
             {knop.label}
           </AnimatedButton>
-          <AnimatedButton href={companyInfo.whatsapp} size="lg" variant="outline" showArrow={false}>
-            <MessageCircle className="mr-2 inline h-5 w-5" />
-            WhatsApp direct
-          </AnimatedButton>
+          {tweedeKnop ? (
+            <AnimatedButton to={tweedeKnop.to} size="lg" variant="outline">
+              {tweedeKnop.label}
+            </AnimatedButton>
+          ) : (
+            <AnimatedButton href={companyInfo.whatsapp} size="lg" variant="outline" showArrow={false}>
+              <MessageCircle className="mr-2 inline h-5 w-5" />
+              WhatsApp direct
+            </AnimatedButton>
+          )}
         </div>
       </div>
     </section>
@@ -130,7 +140,7 @@ export function SectieKop({ titel, intro }: { titel: string; intro?: string }) {
 export interface Pijler {
   icon: ElementType;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
 }
 
@@ -149,9 +159,11 @@ export function Pijlers({ items }: { items: Pijler[] }) {
                 <Icon className="h-5 w-5" style={{ color: GROEN }} aria-hidden="true" />
               </span>
               <h3 className="text-xl font-bold tracking-tight sw-ink">{p.title}</h3>
-              <p className="mt-1 text-sm font-semibold" style={{ color: GROEN }}>
-                {p.subtitle}
-              </p>
+              {p.subtitle && (
+                <p className="mt-1 text-sm font-semibold" style={{ color: GROEN }}>
+                  {p.subtitle}
+                </p>
+              )}
               <p className="mt-4 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
                 {p.description}
               </p>
@@ -323,6 +335,104 @@ export function Quote({ tekst, naam }: { tekst: string; naam: string }) {
           {naam}
         </figcaption>
       </figure>
+    </Reveal>
+  );
+}
+
+// ── Lopende tekst ────────────────────────────────────────────────
+
+export function Tekst({ children }: { children: ReactNode }) {
+  return (
+    <Reveal afstand={20}>
+      <div className="max-w-3xl space-y-5 text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
+        {children}
+      </div>
+    </Reveal>
+  );
+}
+
+// ── Pakketten (prijskaarten) ─────────────────────────────────────
+
+export interface Pakket {
+  naam: string;
+  prijs: string;
+  omschrijving: string;
+  levertijd?: string;
+  /** Groene rand en schaduw, voor het meest gekozen pakket. */
+  uitgelicht?: boolean;
+}
+
+export function Pakketten({ items }: { items: Pakket[] }) {
+  return (
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+      {items.map((p, i) => (
+        <Reveal key={p.naam} afstand={24} delay={i * 0.08} className="h-full">
+          <article
+            className="flex h-full flex-col rounded-2xl border bg-white p-7 md:p-8"
+            style={{
+              borderColor: p.uitgelicht ? GROEN : RAND,
+              boxShadow: p.uitgelicht ? "0 28px 60px -32px hsl(var(--sw-green) / 0.55)" : undefined,
+            }}
+          >
+            <h3 className="text-lg font-bold tracking-tight sw-ink">{p.naam}</h3>
+            <p className="mt-3 text-4xl font-bold tracking-tight sw-ink">{p.prijs}</p>
+            <p className="mt-4 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
+              {p.omschrijving}
+            </p>
+            {p.levertijd && (
+              <p className="mt-auto flex items-center gap-2 pt-6 text-sm" style={{ color: INKT_65 }}>
+                <Clock className="h-4 w-4 shrink-0" style={{ color: GROEN }} aria-hidden="true" />
+                Levertijd: {p.levertijd}
+              </p>
+            )}
+          </article>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+// ── Lijst met vinkjes in een kaart ───────────────────────────────
+
+export function Vinkjes({ items }: { items: string[] }) {
+  return (
+    <Reveal afstand={24}>
+      <div className="rounded-2xl border bg-white p-7 md:p-9" style={{ borderColor: RAND }}>
+        <ul className="grid gap-4 md:grid-cols-2 md:gap-x-10">
+          {items.map((item) => (
+            <li key={item} className="flex items-start gap-3">
+              <Check className="mt-1 h-4 w-4 shrink-0" style={{ color: GROEN }} strokeWidth={2.6} aria-hidden="true" />
+              <span className="text-[0.9375rem] leading-relaxed" style={{ color: INKT_65 }}>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Reveal>
+  );
+}
+
+// ── Interne links als knoppen (branches, regio's) ────────────────
+
+export function Linkjes({ items }: { items: { label: string; to: string }[] }) {
+  return (
+    <Reveal afstand={20}>
+      <div className="flex flex-wrap gap-2.5">
+        {items.map((l) => (
+          <Link
+            key={l.to}
+            to={l.to}
+            className="group inline-flex items-center gap-2 rounded-md border bg-white px-4 py-2.5 text-sm font-medium sw-ink transition-colors hover:border-[hsl(var(--sw-green))]"
+            style={{ borderColor: RAND }}
+          >
+            {l.label}
+            <ArrowRight
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+              style={{ color: GROEN }}
+              aria-hidden="true"
+            />
+          </Link>
+        ))}
+      </div>
     </Reveal>
   );
 }

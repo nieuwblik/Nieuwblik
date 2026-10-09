@@ -1,12 +1,10 @@
 import { PRIJZEN, PAKKETTEN, LEVERTIJD, HOSTING_ZIN } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
-import { CheckCircle2, Zap, Search, Users, Rocket, Shield, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
-import { AnimatedButton } from "@/components/ui/animated-button";
+import { DienstHero, INKT_65, Linkjes, Pakketten, Sectie, SectieKop, Stappen, Tekst, Vinkjes, Vragen } from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 import { industryLinks } from "@/data/industryLinks";
 
@@ -23,11 +21,11 @@ const faqItems = [
   { q: "Werken jullie in heel Nederland?", a: "Ja. Wij zitten in Enkhuizen maar bouwen sites voor MKB door heel Nederland, van Groningen tot Maastricht. Meestal volledig op afstand, voor grotere trajecten komen we langs." },
 ];
 
-const process = [
-  { icon: Users, title: "1. Kennismaking", text: "Videocall van 30 minuten. We bespreken jouw doel, doelgroep en concurrenten. Daarna sturen we een concrete offerte." },
-  { icon: Search, title: "2. Strategie & content", text: "We onderzoeken zoekwoorden, schrijven de teksten en maken het design. Jij ziet elke stap en geeft feedback." },
-  { icon: Rocket, title: "3. Bouw", text: "Onze developers zetten de site in elkaar in React. Snel, veilig en volledig responsive. Twee weken later staat er een testomgeving." },
-  { icon: Zap, title: "4. Livegang", text: "Na akkoord zetten we de site live, koppelen we Google Analytics en Search Console en overhandigen we de instructies." },
+const proces = [
+  { title: "1. Kennismaking", text: "Videocall van 30 minuten. We bespreken jouw doel, doelgroep en concurrenten. Daarna sturen we een concrete offerte." },
+  { title: "2. Strategie & content", text: "We onderzoeken zoekwoorden, schrijven de teksten en maken het design. Jij ziet elke stap en geeft feedback." },
+  { title: "3. Bouw", text: "Onze developers zetten de site in elkaar in React. Snel, veilig en volledig responsive. Twee weken later staat er een testomgeving." },
+  { title: "4. Livegang", text: "Na akkoord zetten we de site live, koppelen we Google Analytics en Search Console en overhandigen we de instructies." },
 ];
 
 const jsonLd = {
@@ -79,151 +77,105 @@ const WebsiteLatenMaken = () => {
       />
 
       <main>
-        {/* Hero */}
-        <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium">
-              <Rocket className="w-4 h-4" /> Complete gids
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              Website laten maken die klanten oplevert
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <DienstHero
+          kruimels={[{ label: "Website laten maken", path: "/website-laten-maken" }]}
+          titel="Website laten maken"
+          accent="die klanten oplevert"
+          intro={
+            <>
               Snel, betaalbaar en sterk in SEO. Wij bouwen conversiegerichte websites voor MKB door heel Nederland. Vanaf {PRIJZEN.starter} euro, transparant en zonder verrassingen.
-            </p>
-            <div className="flex gap-3 justify-center flex-wrap">
-              <AnimatedButton to="/contact">Vraag offerte aan</AnimatedButton>
-              <Link to="/portfolio" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-sm font-medium hover:bg-muted transition-colors">
-                Bekijk portfolio <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
+            </>
+          }
+          knop={{ label: "Vraag offerte aan", to: "/contact" }}
+          tweedeKnop={{ label: "Bekijk portfolio", to: "/portfolio" }}
+        />
 
-        {/* Wat is een goede website */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Wat maakt een website een goede investering</h2>
-            <p className="text-muted-foreground mb-4">
+        <Sectie papier>
+          <SectieKop titel="Wat maakt een website een goede investering" />
+          <Tekst>
+            <p>
               De meeste websites worden gebouwd zoals folders vroeger werden gedrukt: eenmalig, mooi gepolijst en daarna vergeten. Dat werkt niet meer. Een goede website in 2026 is een systeem dat blijft werken voor je bedrijf: aantrekkelijk voor bezoekers, snel voor Google en simpel voor jou om aan te passen.
             </p>
-            <p className="text-muted-foreground mb-4">
+            <p>
               Wat wij zien bij de sterkste sites van onze klanten: ze laden binnen een seconde, ze staan bovenaan Google op de zoektermen die er toe doen, en ze zetten bezoekers om in aanvragen zonder pop-ups of trucjes. Dat is geen toeval, dat is een keuze in hoe je bouwt.
             </p>
-            <p className="text-muted-foreground">
+            <p>
               Wij bouwen sites in React met een schone codebase, WebP-afbeeldingen, correcte structured data en aandacht voor micro-interacties. Het resultaat is een site die niet alleen bij oplevering goed voelt, maar ook drie jaar later nog snel en stabiel is.
             </p>
-          </div>
-        </section>
+          </Tekst>
+        </Sectie>
 
-        {/* Proces */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Zo werken wij</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {process.map((s) => (
-                <div key={s.title} className="bg-background border border-border rounded-2xl p-6">
-                  <s.icon className="w-8 h-8 text-accent mb-4" />
-                  <h3 className="font-semibold mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground">{s.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Sectie>
+          <SectieKop titel="Zo werken wij" />
+          <Stappen items={proces.map((s) => ({ title: s.title, description: s.text }))} />
+        </Sectie>
 
-        {/* Prijzen */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">Wat kost een website in 2026</h2>
-            <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Drie duidelijke pakketten. Geen verborgen kosten, geen vage uurtarieven. Je weet vooraf wat je krijgt en wat je betaalt.</p>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { name: PAKKETTEN.starter.naam, price: String(PAKKETTEN.starter.prijs), desc: "One-pager of kleine site tot 5 pagina's. Ideaal voor ZZP en starters." },
-                { name: PAKKETTEN.professional.naam, price: String(PAKKETTEN.professional.prijs), desc: "Complete site tot 10 pagina's, met blog en uitgebreide SEO.", highlight: true },
-                { name: PAKKETTEN.opMaat.naam, price: null, desc: "Uitgebreide site of webshop, met integraties en meerdere talen." },
-              ].map((p) => (
-                <div key={p.name} className={`rounded-2xl p-6 border ${p.highlight ? "border-accent bg-background shadow-lg" : "border-border bg-background"}`}>
-                  <h3 className="font-semibold text-lg mb-1">{p.name}</h3>
-                  <div className="text-3xl font-bold mb-3">{p.price ? `€${p.price}` : "Op aanvraag"}</div>
-                  <p className="text-sm text-muted-foreground">{p.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Sectie papier>
+          <SectieKop
+            titel="Wat kost een website in 2026"
+            intro="Drie duidelijke pakketten. Geen verborgen kosten, geen vage uurtarieven. Je weet vooraf wat je krijgt en wat je betaalt."
+          />
+          <Pakketten
+            items={[
+              { naam: PAKKETTEN.starter.naam, prijs: `€${PAKKETTEN.starter.prijs}`, omschrijving: "One-pager of kleine site tot 5 pagina's. Ideaal voor ZZP en starters." },
+              { naam: PAKKETTEN.professional.naam, prijs: `€${PAKKETTEN.professional.prijs}`, omschrijving: "Complete site tot 10 pagina's, met blog en uitgebreide SEO.", uitgelicht: true },
+              { naam: PAKKETTEN.opMaat.naam, prijs: "Op aanvraag", omschrijving: "Uitgebreide site of webshop, met integraties en meerdere talen." },
+            ]}
+          />
+        </Sectie>
 
-        {/* Wat je krijgt */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Wat zit er in elk project</h2>
-            <ul className="space-y-3">
-              {[
-                "Uniek design op maat, geen template",
-                "Volledig responsive voor mobiel, tablet en desktop",
-                "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
-                "Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
-                "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
-                "WhatsApp, contactformulier en Google Maps integratie",
-                "Google Analytics en Search Console koppeling",
-              ].map((f) => (
-                <li key={f} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        <Sectie>
+          <SectieKop titel="Wat zit er in elk project" />
+          <Vinkjes
+            items={[
+              "Uniek design op maat, geen template",
+              "Volledig responsive voor mobiel, tablet en desktop",
+              "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
+              "Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
+              "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
+              "WhatsApp, contactformulier en Google Maps integratie",
+              "Google Analytics en Search Console koppeling",
+            ]}
+          />
+        </Sectie>
 
-        {/* Voor wie */}
         {/* Alle branchepagina's: de footer linkt hiernaartoe (#branches). */}
-        <section id="branches" className="py-16 bg-muted/30 scroll-mt-24">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Voor welke ondernemers werken wij</h2>
-            <div className="flex flex-wrap justify-center gap-2.5">
-              {[...industryLinks, { name: "Taxi", slug: "taxi" }].map((b) => (
-                <Link
-                  key={b.slug}
-                  to={b.slug === "taxi" ? "/taxi-website-laten-maken" : `/website-laten-maken-${b.slug}`}
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:border-accent"
-                >
-                  {b.name}
-                  <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              ))}
-            </div>
+        <section id="branches" className="sw-paper scroll-mt-24 py-16 md:py-24">
+          <div className="container mx-auto px-4 sm:px-6">
+            <SectieKop titel="Voor welke ondernemers werken wij" />
+            <Linkjes
+              items={[...industryLinks, { name: "Taxi", slug: "taxi" }].map((b) => ({
+                label: b.name,
+                to: b.slug === "taxi" ? "/taxi-website-laten-maken" : `/website-laten-maken-${b.slug}`,
+              }))}
+            />
           </div>
         </section>
 
-        {/* Regio's */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Actief in heel Nederland</h2>
-            <p className="text-muted-foreground mb-8">Kies jouw regio voor lokale voorbeelden en zoektermen.</p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              {[
-                { name: "Noord-Holland", slug: "noord-holland" },
-                { name: "Randstad", slug: "randstad" },
-                { name: "Oost-Nederland", slug: "oost-nederland" },
-                { name: "Zuid-Nederland", slug: "zuid-nederland" },
-                { name: "Noord-Nederland", slug: "noord-nederland" },
-              ].map((r) => (
-                <Link key={r.slug} to={`/regio/${r.slug}`} className="px-4 py-2 rounded-full border border-border text-sm font-medium hover:bg-muted transition-colors">
-                  {r.name}
-                </Link>
-              ))}
-            </div>
-            <p className="text-muted-foreground mt-8">
-              Dicht bij ons kantoor in Enkhuizen? Lees over{" "}
-              <Link to="/website-laten-maken-alkmaar" className="text-accent hover:underline font-semibold">website laten maken in Alkmaar</Link>,{" "}
-              <Link to="/werkgebied/hoorn" className="text-accent hover:underline font-semibold">een website voor je bedrijf in Hoorn</Link> of{" "}
-              <Link to="/website-laten-maken-heerhugowaard" className="text-accent hover:underline font-semibold">webdesign in Heerhugowaard</Link>.
-            </p>
-          </div>
-        </section>
+        <Sectie>
+          <SectieKop titel="Actief in heel Nederland" intro="Kies jouw regio voor lokale voorbeelden en zoektermen." />
+          <Linkjes
+            items={[
+              { label: "Noord-Holland", to: "/regio/noord-holland" },
+              { label: "Randstad", to: "/regio/randstad" },
+              { label: "Oost-Nederland", to: "/regio/oost-nederland" },
+              { label: "Zuid-Nederland", to: "/regio/zuid-nederland" },
+              { label: "Noord-Nederland", to: "/regio/noord-nederland" },
+            ]}
+          />
+          <p className="mt-10 max-w-3xl text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
+            Dicht bij ons kantoor in Enkhuizen? Lees over{" "}
+            <Link to="/website-laten-maken-alkmaar" className="text-accent hover:underline font-semibold">website laten maken in Alkmaar</Link>,{" "}
+            <Link to="/werkgebied/hoorn" className="text-accent hover:underline font-semibold">een website voor je bedrijf in Hoorn</Link> of{" "}
+            <Link to="/website-laten-maken-heerhugowaard" className="text-accent hover:underline font-semibold">webdesign in Heerhugowaard</Link>.
+          </p>
+        </Sectie>
 
-        <LandingFaq h2="Veelgestelde vragen over een website laten maken" items={faqItems} />
+        <Sectie papier>
+          <SectieKop titel="Veelgestelde vragen over een website laten maken" />
+          <Vragen items={faqItems.map((f) => ({ question: f.q, answer: f.a }))} />
+        </Sectie>
+
         <ContactBlock h2="Klaar om te starten?" body="Vertel over jouw project. Binnen 24 uur een reactie met een concrete offerte." />
       </main>
       <Footer />
