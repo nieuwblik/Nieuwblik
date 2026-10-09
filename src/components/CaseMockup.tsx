@@ -25,6 +25,22 @@ const pct = (v: number) => `${(v * 100).toFixed(4)}%`;
 const START_NA_MS = 1000;
 
 /**
+ * CSS-achtige cubic-bezier als functie van t (0..1). Gebruikt voor de
+ * automatische vlagen: zacht op gang, daarna lang en rustig uitglijden.
+ */
+const bezier = (x1: number, y1: number, x2: number, y2: number) => (t: number) => {
+  let s = t;
+  for (let i = 0; i < 8; i++) {
+    const x = 3 * (1 - s) ** 2 * s * x1 + 3 * (1 - s) * s * s * x2 + s ** 3 - t;
+    const dx = 3 * (1 - s) ** 2 * x1 + 6 * (1 - s) * s * (x2 - x1) + 3 * s * s * (1 - x2);
+    if (Math.abs(x) < 1e-5 || Math.abs(dx) < 1e-6) break;
+    s = Math.min(1, Math.max(0, s - x / dx));
+  }
+  return 3 * (1 - s) ** 2 * s * y1 + 3 * (1 - s) * s * s * y2 + s ** 3;
+};
+const GLIJDEN = bezier(0.3, 0.05, 0.15, 1);
+
+/**
  * Vaste reeks "willekeurige" getallen (mulberry32): het scrollen varieert
  * zoals bij een mens, maar ziet er bij elk bezoek hetzelfde uit.
  */
@@ -48,8 +64,8 @@ export interface MockupScherm {
  * scherm van de monitor.
  *
  * - Ongeveer een seconde na het openen scrollt de pagina vanzelf naar beneden
- *   zoals iemand met een muiswiel doet: een paar snelle tikken, doorglijden en
- *   afremmen, even lezen, en weer verder; af en toe een stukje terug. Onderaan
+ *   zoals iemand die scrollt: een vloeiende vlaag die zacht op gang komt en
+ *   lang uitglijdt, even lezen, en weer verder; af en toe een stukje terug. Onderaan
  *   blijft hij staan.
  * - Met de muis boven het scherm pauzeert dat, en scrollt het muiswiel de
  *   site in het scherm in plaats van de pagina. Bovenaan of onderaan de site
@@ -85,7 +101,8 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     let hover = false;
     let laatste = geopend;
     let wachtTot = geopend + START_NA_MS;
-    const tikken: number[] = []; // nog te geven wieltikken van de huidige vlaag (px)
+    // De lopende automatische beweging (één vlaag), of null tijdens een pauze.
+    let beweging: { van: number; naar: number; start: number; duur: number } | null = null;
     const kans = reeks(20261009);
     let muisX = 0, muisY = 0, blobX = 0, blobY = 0;
     let frame = 0;
@@ -96,28 +113,30 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
       const dt = Math.min(0.05, (nu - laatste) / 1000);
       laatste = nu;
       // Automatisch scrollen als een mens; pauze zolang de muis boven het scherm is.
-      if (!reduced && !hover && site.complete && nu >= wachtTot) {
-        const h = vlak.clientHeight;
-        const m = max();
-        if (tikken.length === 0 && doel < m) {
-          // Nieuwe vlaag: meestal een halve tot ruim driekwart scherm omlaag,
-          // soms een klein stukje terug omhoog. Verdeeld over 2 tot 4 tikken.
+      if (!reduced && !hover && site.complete) {
+        if (beweging) {
+          // Eén vloeiende vlaag: zacht op gang, lang uitglijden.
+          const t = Math.min(1, (nu - beweging.start) / beweging.duur);
+          doel = positie = beweging.van + (beweging.naar - beweging.van) * GLIJDEN(t);
+          if (t >= 1) {
+            beweging = null;
+            wachtTot = nu + 800 + kans() * 1200; // even lezen
+          }
+        } else if (nu >= wachtTot && doel < max()) {
+          // Meestal een halve tot ruim driekwart scherm omlaag, soms een klein stukje terug.
+          const h = vlak.clientHeight;
           const terug = doel > h && kans() < 0.12;
-          const totaal = terug ? -h * (0.12 + kans() * 0.1) : h * (0.45 + kans() * 0.4);
-          const aantal = 2 + Math.floor(kans() * 3);
-          for (let i = 0; i < aantal; i++) tikken.push((totaal / aantal) * (0.75 + kans() * 0.5));
-        }
-        const stap = tikken.shift();
-        if (stap !== undefined) {
-          doel = Math.min(m, Math.max(0, doel + stap));
-          // Tikken kort na elkaar; na de laatste tik een leespauze.
-          wachtTot = nu + (tikken.length ? 70 + kans() * 60 : 900 + kans() * 1400);
+          const afstand = terug ? -h * (0.12 + kans() * 0.1) : h * (0.45 + kans() * 0.4);
+          const naar = Math.min(max(), Math.max(0, doel + afstand));
+          beweging = { van: doel, naar, start: nu, duur: terug ? 700 : 900 + kans() * 500 };
         }
       }
-      // Naloop zoals bij een muiswiel: snel op gang, dan doorglijden en afremmen.
-      const naloop = reduced ? 1 : 1 - Math.pow(0.004, dt);
-      positie += (doel - positie) * naloop;
-      if (Math.abs(doel - positie) < 0.1) positie = doel;
+      // Zelf scrollen met het wiel: zachte naloop naar het doel.
+      if (!beweging) {
+        const naloop = reduced ? 1 : 1 - Math.pow(0.01, dt);
+        positie += (doel - positie) * naloop;
+        if (Math.abs(doel - positie) < 0.1) positie = doel;
+      }
       site.style.transform = `translate3d(0, ${-positie}px, 0)`;
 
       if (muis) {
@@ -141,6 +160,9 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     const opBinnen = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       hover = true;
+      // Een lopende vlaag stopt waar hij is; vanaf hier neemt de muis het over.
+      beweging = null;
+      doel = positie;
       muisX = blobX = e.clientX;
       muisY = blobY = e.clientY;
       blob.style.transform = `translate3d(${blobX}px, ${blobY}px, 0)`;
@@ -154,7 +176,6 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     const opBuiten = () => {
       hover = false;
       // Na het verlaten van het scherm even wachten en dan verder als voorheen.
-      tikken.length = 0;
       wachtTot = performance.now() + 700;
       blobBinnen.dataset["zichtbaar"] = "nee";
     };
