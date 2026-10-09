@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import {
   motion,
   AnimatePresence,
@@ -26,8 +26,13 @@ const GREEN_LINE = "hsl(160, 84%, 45%)"; // glowing accent line (matches connect
 const GREEN_LIGHT = "hsl(160, 70%, 58%)"; // accent text on dark
 const EASE = [0.22, 1, 0.36, 1] as const;
 /** Zelfde linkstijl als de Enkhuizen-link in de hero. */
-const REGIO_LINK =
-  "underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]";
+// Plaatsen dicht bij huis, als losse links onder één korte zin. Enkhuizen voorop.
+const REGIO_LINKS = [
+  { label: "Website laten maken in Enkhuizen", to: "/website-laten-maken-enkhuizen" },
+  { label: "Website laten maken in Hoorn", to: "/werkgebied/hoorn" },
+  { label: "Webdesign in Heerhugowaard", to: "/website-laten-maken-heerhugowaard" },
+  { label: "Website laten maken in Alkmaar", to: "/website-laten-maken-alkmaar" },
+];
 
 // Peak of the growth curve, expressed in the 600×300 viewBox so the tooltip
 // (positioned with %) lines up with the SVG point exactly. Kept well short of
@@ -241,28 +246,31 @@ const SearchVisibility = () => {
           </Reveal>
 
           <Reveal delay={0.23}>
-            <p
-              className="mt-6 max-w-lg text-base font-light leading-relaxed"
-              style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
-            >
-              Ook dichtbij huis in Noord-Holland. Lees over{" "}
-              <Link to="/website-laten-maken-enkhuizen" className={REGIO_LINK}>
-                website laten maken in Enkhuizen
-              </Link>
-              ,{" "}
-              <Link to="/werkgebied/hoorn" className={REGIO_LINK}>
-                een website laten maken in Hoorn
-              </Link>
-              ,{" "}
-              <Link to="/website-laten-maken-heerhugowaard" className={REGIO_LINK}>
-                webdesign in Heerhugowaard
-              </Link>{" "}
-              of{" "}
-              <Link to="/website-laten-maken-alkmaar" className={REGIO_LINK}>
-                een nieuwe website in Alkmaar
-              </Link>
-              .
-            </p>
+            <div className="mt-6 max-w-lg">
+              <p
+                className="text-base font-light leading-relaxed"
+                style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
+              >
+                Ook dicht bij huis werken we voor ondernemers in Noord-Holland.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {REGIO_LINKS.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    className="group inline-flex items-center gap-2 rounded-md border bg-white px-3.5 py-2 text-sm font-medium sw-ink transition-colors hover:border-[hsl(var(--sw-green))]"
+                    style={{ borderColor: "hsl(var(--sw-rule) / 0.12)" }}
+                  >
+                    {l.label}
+                    <ArrowRight
+                      className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                      style={{ color: "hsl(var(--sw-green))" }}
+                      aria-hidden="true"
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
           </Reveal>
 
           <Reveal delay={0.26} className="mt-10">
