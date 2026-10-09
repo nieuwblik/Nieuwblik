@@ -52,6 +52,10 @@ export async function maakScreenshot({ url, breedte, hoogte, dpr, mobiel = false
     await wacht(1500);
     await page.evaluate(() => window.scrollTo(0, 0));
     await wacht(1500);
+    // Geen half afgeronde overgangen in beeld (bijv. een hero-slider die tussen twee
+    // foto's overvloeit): alle CSS-transities direct naar hun eindstand.
+    await page.addStyleTag({ content: "*, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }" });
+    await wacht(400);
     return await page.screenshot({ fullPage: volledig });
   } finally {
     await browser.close();

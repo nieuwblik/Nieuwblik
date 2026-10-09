@@ -58,17 +58,22 @@ function homografie(bron, doel) {
 }
 
 /**
- * Legt `schermPng` (1206×2622) in het groene scherm van `fotoPad`. Werkt voor elke
- * foto met een egaal #00FF00 scherm (ook schuin): de rechte middenstukken van de
- * vier randen worden opgezocht, de hoeken zijn hun snijpunten. Afgeronde hoeken en
- * het Dynamic Island blijven staan omdat alleen groene pixels vervangen worden.
- * Daarna een lichte warme glans op het glas. Geeft een PNG-buffer terug.
+ * Glans op het glas, per soort foto.
+ * - warm: buiten in de zon (Taxi Drechterland): warme diagonale glans, zwarten iets opgetild.
+ * - studio: zacht diffuus studiolicht (Feigro): neutrale, lichtere glans.
  */
-export async function inTelefoon(fotoPad, schermPng) {
-  const foto = await sharp(fotoPad).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  const W = foto.info.width, H = foto.info.height, F = foto.data;
+export const GLANS = {
+  warm: { kleur: [255, 236, 205], sterkte: 0.09, onder: 0.03, optillen: 5, contrast: 0.97 },
+  studio: { kleur: [255, 255, 255], sterkte: 0.06, onder: 0.015, optillen: 3, contrast: 0.98 },
+};
 
-  // 1. Groenheid per pixel (0..1).
+/**
+ * Zoekt het egale #00FF00 scherm in een foto (ook schuin of in perspectief): de
+ * rechte middenstukken van de vier randen worden gefit, de hoeken zijn hun
+ * snijpunten (dus zonder afronding). `radius` is de afronding van de schermhoeken
+ * in fotopixels, gemeten langs de diagonaal van de linkerbovenhoek.
+ */
+export function vindScherm(F, W, H) {
   const groen = new Float32Array(W * H);
   for (let i = 0; i < W * H; i++) {
     const d = F[i * 3 + 1] - Math.max(F[i * 3], F[i * 3 + 2]);
@@ -79,13 +84,13 @@ export async function inTelefoon(fotoPad, schermPng) {
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (isGroen(x, y)) { minY = Math.min(minY, y); maxY = Math.max(maxY, y); minX = Math.min(minX, x); maxX = Math.max(maxX, x); }
   if (minY > maxY) throw new Error("Geen groen scherm gevonden in de foto.");
 
-  // 2. Randpixels, ruwe hoeken via extreme projecties, buitenste punten per zijde.
   const rand = [];
   for (let y = minY; y <= maxY; y++) for (let x = minX; x <= maxX; x++)
     if (isGroen(x, y) && (!isGroen(x - 1, y) || !isGroen(x + 1, y) || !isGroen(x, y - 1) || !isGroen(x, y + 1))) rand.push([x, y]);
   const extreem = (f) => rand.reduce((m, p) => (f(p) > f(m) ? p : m));
   const ruw = { lb: extreem(([x, y]) => -(x + y)), rb: extreem(([x, y]) => x - y), ro: extreem(([x, y]) => x + y), lo: extreem(([x, y]) => y - x) };
   const midden = [(ruw.lb[0] + ruw.rb[0] + ruw.ro[0] + ruw.lo[0]) / 4, (ruw.lb[1] + ruw.rb[1] + ruw.ro[1] + ruw.lo[1]) / 4];
+  // Per stap langs een zijde alleen het buitenste randpunt (zo telt een Dynamic Island niet mee).
   const zijde = (a, b) => {
     const dx = b[0] - a[0], dy = b[1] - a[1], len2 = dx * dx + dy * dy, len = Math.sqrt(len2);
     let nx = dy / len, ny = -dx / len;
@@ -110,9 +115,30 @@ export async function inTelefoon(fotoPad, schermPng) {
   const T = fit(zijde(ruw.lb, ruw.rb), false), B = fit(zijde(ruw.lo, ruw.ro), false);
   const snij = (z, h) => { const y = (h.p * z.q + h.q) / (1 - h.p * z.p); return [z.p * y + z.q, y]; };
   const hoeken = [snij(L, T), snij(R, T), snij(R, B), snij(L, B)];
+
+  // Hoekafronding: vanaf de scherpe hoek langs de diagonaal naar binnen tot het eerste groen.
+  // Bij een cirkelboog met straal r is die afstand r·(√2 − 1).
+  const [hx, hy] = hoeken[0];
+  const lx = midden[0] - hx, ly = midden[1] - hy, ll = Math.hypot(lx, ly);
+  let afstand = 0;
+  while (afstand < ll && !isGroen(Math.round(hx + (lx / ll) * afstand), Math.round(hy + (ly / ll) * afstand))) afstand += 0.25;
+  const radius = afstand / (Math.SQRT2 - 1);
+
+  return { groen, grens: { minX, maxX, minY, maxY }, hoeken, radius };
+}
+
+/**
+ * Legt `schermPng` (1206×2622) in het groene scherm van `fotoPad`, met perspectief
+ * (homografie) en 4x supersampling. Afgeronde hoeken en het Dynamic Island blijven
+ * staan omdat alleen groene pixels vervangen worden. Daarna glans op het glas
+ * (zie GLANS) en de groene zweem van de randen. Geeft een PNG-buffer terug.
+ */
+export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm) {
+  const foto = await sharp(fotoPad).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const W = foto.info.width, H = foto.info.height, F = foto.data;
+  const { groen, grens: { minX, maxX, minY, maxY }, hoeken } = vindScherm(F, W, H);
   console.log("  schermhoeken in de foto:", hoeken.map(([x, y]) => `${Math.round(x)},${Math.round(y)}`).join("  "));
 
-  // 3. Van foto naar schermcoördinaten.
   const scherm = await sharp(schermPng).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const SW = scherm.info.width, SH = scherm.info.height, S = scherm.data;
   const Hi = homografie(hoeken, [[0, 0], [SW, 0], [SW, SH], [0, SH]]);
@@ -123,24 +149,28 @@ export async function inTelefoon(fotoPad, schermPng) {
     return S[i + k] * (1 - fx) * (1 - fy) + S[i + 3 + k] * fx * (1 - fy) + S[i + SW * 3 + k] * (1 - fx) * fy + S[i + SW * 3 + 3 + k] * fx * fy;
   };
 
-  // 4. Samenvoegen, 4x supersampling, glans, randen ontgroenen.
   const uit = Buffer.from(F), marge = 8;
   const SS = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]];
-  const warm = [255, 236, 205];
   for (let y = Math.max(0, minY - marge); y <= Math.min(H - 1, maxY + marge); y++) {
     for (let x = Math.max(0, minX - marge); x <= Math.min(W - 1, maxX + marge); x++) {
       const i = y * W + x, a = groen[i];
       if (a <= 0) continue;
       const kleur = [0, 0, 0];
       for (const [ox, oy] of SS) { const [u, v] = naarScherm(x + ox, y + oy); for (let k = 0; k < 3; k++) kleur[k] += sample(u, v, k) / 4; }
-      // Glas in de zon: zwarten iets opgetild en een zachte, warme diagonale glans.
+      // Glas: zwarten iets opgetild en een zachte diagonale glans.
       const [u, v] = naarScherm(x + 0.5, y + 0.5);
-      const glans = 0.09 * Math.exp(-((((u / SW) * 0.9 + (v / SH) * 0.55 - 0.42) / 0.2) ** 2)) + 0.03 * (1 - v / SH);
-      for (let k = 0; k < 3; k++) kleur[k] = kleur[k] * 0.97 + 5 + (warm[k] - kleur[k]) * glans;
+      const g = glans.sterkte * Math.exp(-((((u / SW) * 0.9 + (v / SH) * 0.55 - 0.42) / 0.2) ** 2)) + glans.onder * (1 - v / SH);
+      for (let k = 0; k < 3; k++) kleur[k] = kleur[k] * glans.contrast + glans.optillen + (glans.kleur[k] - kleur[k]) * g;
       const onder = [F[i * 3], Math.min(F[i * 3 + 1], Math.max(F[i * 3], F[i * 3 + 2])), F[i * 3 + 2]];
       for (let k = 0; k < 3; k++) uit[i * 3 + k] = Math.round(Math.max(0, Math.min(255, kleur[k] * a + onder[k] * (1 - a))));
     }
   }
+  ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge);
+  return sharp(uit, { raw: { width: W, height: H, channels: 3 } }).png().toBuffer();
+}
+
+/** Groene zweem op de rand net buiten het scherm (bezel) neutraliseren. */
+function ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge) {
   for (let y = Math.max(1, minY - marge); y <= Math.min(H - 2, maxY + marge); y++) {
     for (let x = Math.max(1, minX - marge); x <= Math.min(W - 2, maxX + marge); x++) {
       const i = y * W + x; if (groen[i] > 0) continue;
@@ -148,5 +178,41 @@ export async function inTelefoon(fotoPad, schermPng) {
       if (g > Math.max(r, b) + 12) uit[i * 3 + 1] = Math.max(r, b) + 12;
     }
   }
-  return sharp(uit, { raw: { width: W, height: H, channels: 3 } }).png().toBuffer();
+}
+
+/**
+ * Voor een toestel waarvan de site in code in het scherm komt (tablet-hero): maakt
+ * het groene scherm zwart (toestel uit) en geeft de schermhoeken als fractie van de
+ * foto, de verhouding van het scherm en de hoekafronding als fractie van de
+ * schermbreedte. Plus een masker (PNG, wit met als alfa de groenheid, halve
+ * resolutie): in CSS over het scherm gelegd blijft alles wat in de foto vóór het
+ * scherm zit (een duim op de rand) ook vóór de site.
+ * Geeft { png, masker, hoeken, verhouding, radius, breedte, hoogte } terug.
+ */
+export async function schermUit(fotoPad, zwart = [8, 8, 9]) {
+  const foto = await sharp(fotoPad).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const W = foto.info.width, H = foto.info.height, F = foto.data;
+  const { groen, grens, hoeken, radius } = vindScherm(F, W, H);
+  const uit = Buffer.from(F);
+  for (let i = 0; i < W * H; i++) {
+    const a = groen[i];
+    if (a <= 0) continue;
+    const onder = [F[i * 3], Math.min(F[i * 3 + 1], Math.max(F[i * 3], F[i * 3 + 2])), F[i * 3 + 2]];
+    for (let k = 0; k < 3; k++) uit[i * 3 + k] = Math.round(zwart[k] * a + onder[k] * (1 - a));
+  }
+  ontgroenRand(uit, groen, W, H, grens, 8);
+  const [lb, rb, ro, lo] = hoeken;
+  const breedteScherm = (Math.hypot(rb[0] - lb[0], rb[1] - lb[1]) + Math.hypot(ro[0] - lo[0], ro[1] - lo[1])) / 2;
+  const hoogteScherm = (Math.hypot(lo[0] - lb[0], lo[1] - lb[1]) + Math.hypot(ro[0] - rb[0], ro[1] - rb[1])) / 2;
+  const alfa = Buffer.alloc(W * H * 4);
+  for (let i = 0; i < W * H; i++) { alfa[i * 4] = alfa[i * 4 + 1] = alfa[i * 4 + 2] = 255; alfa[i * 4 + 3] = Math.round(groen[i] * 255); }
+  return {
+    png: await sharp(uit, { raw: { width: W, height: H, channels: 3 } }).png().toBuffer(),
+    masker: await sharp(alfa, { raw: { width: W, height: H, channels: 4 } }).resize(Math.round(W / 2)).png({ compressionLevel: 9 }).toBuffer(),
+    hoeken: hoeken.map(([x, y]) => [x / W, y / H]),
+    verhouding: breedteScherm / hoogteScherm,
+    radius: radius / breedteScherm,
+    breedte: W,
+    hoogte: H,
+  };
 }
