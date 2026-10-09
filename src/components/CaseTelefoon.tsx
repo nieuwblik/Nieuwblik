@@ -6,10 +6,10 @@ import type { TelefoonFoto } from "@/data/caseMockups";
 
 if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/** Eindstand van de scroll-animatie: licht ingezoomd en een klein stukje naar rechts. */
-const ZOOM = 1.08;
-/** Verschuiving naar rechts in procenten van de fotobreedte; blijft binnen de zoomspeling ((ZOOM - 1) / 2 = 4%). */
-const NAAR_RECHTS = 2.5;
+/** Eindstand van de scroll-animatie: ingezoomd en een stuk naar rechts. */
+const ZOOM = 1.18;
+/** Verschuiving naar rechts in procenten van de fotobreedte; blijft binnen de zoomspeling ((ZOOM - 1) / 2 = 9%). */
+const NAAR_RECHTS = 6;
 
 /**
  * Linkerkolom van de case: de telefoonfoto. Mobiel volle breedte, op desktop
@@ -42,7 +42,9 @@ const CaseTelefoon = ({ foto, alt }: { foto: TelefoonFoto; alt: string }) => {
             scale: ZOOM,
             xPercent: NAAR_RECHTS,
             ease: "none",
-            scrollTrigger: { trigger: kolomRef.current, start: "top bottom", end: "bottom top", scrub: true },
+            // Klaar zodra de kolom onderaan het venster uitkomt: op desktop is dat het
+            // einde van het vastplakken, dus de hele beweging is te zien.
+            scrollTrigger: { trigger: kolomRef.current, start: "top bottom", end: "bottom bottom", scrub: true },
           },
         );
       });
