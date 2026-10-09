@@ -19,10 +19,11 @@ import staandSet from "@/assets/mockup/monitor-staand.webp?w=720;1080;1440;1932&
  */
 const LIGGEND = { ar: 3840 / 2160, l: 1083 / 3840, t: 494 / 2160, w: 1675 / 3840, h: 919 / 2160 };
 const STAAND = { ar: 1932 / 4391, l: 129 / 1932, t: 1517 / 4391, w: 1675 / 1932, h: 918 / 4391 };
-// Vloer vóór de monitor, net onder de voetplaat (liggend y 1740, staand 1022 + 1740):
-// daar valt de gloed van het scherm.
-const GLOED_LIGGEND = { t: 1740 / 2160, h: 400 / 2160 };
-const GLOED_STAAND = { t: 2762 / 4391, h: 520 / 4391 };
+// Vloer vóór de monitor: de voetplaat loopt tot y 1730, met daaronder een
+// donkere rand en schaduw tot 1751. De gloed begint op 1756 (staand 1022 + 1756),
+// zodat er geen licht op de voet of de schaduwlijn valt.
+const GLOED_LIGGEND = { t: 1756 / 2160, h: 400 / 2160 };
+const GLOED_STAAND = { t: 2778 / 4391, h: 520 / 4391 };
 const pct = (v: number) => `${(v * 100).toFixed(4)}%`;
 
 /** Wachttijd na het openen voordat de monitor aangaat. */
@@ -223,8 +224,12 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
         [data-gloed] {
           opacity: 0;
           mix-blend-mode: screen;
-          -webkit-mask-image: radial-gradient(ellipse 44% 88% at 50% 0%, #000 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.35) 62%, transparent 100%);
-          mask-image: radial-gradient(ellipse 44% 88% at 50% 0%, #000 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.35) 62%, transparent 100%);
+          /* Ellips voor het wegvloeien naar onder en opzij, gesneden met een zachte
+             inloop bovenaan zodat het licht pas na de rand van de voet begint. */
+          -webkit-mask-image: radial-gradient(ellipse 44% 88% at 50% 0%, #000 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.35) 62%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 14%);
+          -webkit-mask-composite: source-in;
+          mask-image: radial-gradient(ellipse 44% 88% at 50% 0%, #000 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.35) 62%, transparent 100%), linear-gradient(to bottom, transparent 0%, #000 14%);
+          mask-composite: intersect;
           transition: opacity 1.4s ease 0.5s;
         }
         [data-gloed][data-aan="ja"] { opacity: 0.95; }
