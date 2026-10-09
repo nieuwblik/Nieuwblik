@@ -23,6 +23,10 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
    - `--toestel monitor` (standaard) of `tablet`: bepaalt het venster van de hero-screenshot.
    - `--telefoon warm` (standaard) of `studio`: welke telefoonfoto.
    - `--alleen hero` of `--alleen telefoon` maakt er maar één.
+   - `--spiegel-desktop`: maakt ook `<slug>-telefoon-desktop.webp`, met de lege
+     basisfoto gespiegeld en daarna de site erin (dus gewoon leesbaar). Op desktop kijkt
+     het scherm dan naar de tekst rechts; mobiel houdt het origineel (`srcSetDesktop`
+     in `caseTelefoons`). Gebruikt bij Feigro.
    - De cookiemelding wordt altijd geweigerd, nooit geaccepteerd.
    - Vlak voor de opname staan alle CSS-overgangen op 0 s, zodat een slider of
      fade nooit half in beeld komt (feigro.nl heeft een overvloeiende hero-slider).

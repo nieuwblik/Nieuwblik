@@ -1,7 +1,7 @@
 // Maakt de mockup-beelden voor een portfolio-case.
 //
 //   node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet] [--telefoon warm|studio]
-//                                         [--verberg "<css-selectors>"] [--alleen hero|telefoon]
+//                                         [--verberg "<css-selectors>"] [--alleen hero|telefoon] [--spiegel-desktop]
 //
 // Voorbeeld:
 //   node scripts/mockups/nieuwe-case.mjs taxi-drechterland https://taxidrechterland.nl \
@@ -48,6 +48,10 @@ const verberg = optie("--verberg") ?? "";
 const alleen = optie("--alleen");
 const toestel = optie("--toestel") ?? "monitor";
 const telefoonSoort = optie("--telefoon") ?? "warm";
+// Desktop-variant met gespiegelde telefoonfoto (scherm naar de tekst rechts); de site zelf blijft leesbaar.
+const spiegelIndex = args.indexOf("--spiegel-desktop");
+const spiegelDesktop = spiegelIndex >= 0;
+if (spiegelDesktop) args.splice(spiegelIndex, 1);
 const HERO = HEROS[toestel], TELEFOON = TELEFOONS[telefoonSoort];
 if (!HERO) throw new Error(`Onbekend toestel: ${toestel} (monitor of tablet)`);
 if (!TELEFOON) throw new Error(`Onbekende telefoonfoto: ${telefoonSoort} (warm of studio)`);
@@ -83,6 +87,13 @@ if (alleen !== "hero") {
   const res = await sharp(foto).webp({ quality: MOBIEL.kwaliteit }).toFile(join(UIT, `${slug}-telefoon.webp`));
   telefoonMaat = [res.width, res.height];
   console.log(`  -> src/assets/cases/${slug}-telefoon.webp (${res.width}×${res.height}, ${Math.round(res.size / 1024)} kB)`);
+  if (spiegelDesktop) {
+    // Eerst de lege basisfoto spiegelen, dan pas de site erin zetten.
+    const gespiegeld = await sharp(TELEFOON.basis).flop().png().toBuffer();
+    const fotoDesktop = await inTelefoon(gespiegeld, scherm, TELEFOON.glans);
+    const resD = await sharp(fotoDesktop).webp({ quality: MOBIEL.kwaliteit }).toFile(join(UIT, `${slug}-telefoon-desktop.webp`));
+    console.log(`  -> src/assets/cases/${slug}-telefoon-desktop.webp (gespiegeld, ${Math.round(resD.size / 1024)} kB)`);
+  }
 }
 
 console.log("\nVoeg toe aan src/data/caseMockups.ts:\n");
@@ -95,7 +106,8 @@ import ${naam}Set from "@/assets/cases/${slug}-scherm.webp?w=720;1440;1800&forma
 if (telefoonMaat) {
   console.log(`import ${naam}Telefoon from "@/assets/cases/${slug}-telefoon.webp";
 import ${naam}TelefoonSet from "@/assets/cases/${slug}-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
-// in caseTelefoons:
-  "${slug}": { src: ${naam}Telefoon, srcSet: ${naam}TelefoonSet, breedte: ${telefoonMaat[0]}, hoogte: ${telefoonMaat[1]}, midden: ${TELEFOON.midden}, telefoonHoogte: ${TELEFOON.telefoonHoogte} },`);
+${spiegelDesktop ? `import ${naam}TelefoonDesktopSet from "@/assets/cases/${slug}-telefoon-desktop.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+` : ""}// in caseTelefoons:
+  "${slug}": { src: ${naam}Telefoon, srcSet: ${naam}TelefoonSet,${spiegelDesktop ? ` srcSetDesktop: ${naam}TelefoonDesktopSet,` : ""} breedte: ${telefoonMaat[0]}, hoogte: ${telefoonMaat[1]}, midden: ${TELEFOON.midden}, telefoonHoogte: ${TELEFOON.telefoonHoogte} },`);
 }
 console.log("\nDaarna: sitemap/lastmod bijwerken en de checks draaien (zie README.md).");

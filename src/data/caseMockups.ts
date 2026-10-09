@@ -7,6 +7,7 @@ import feigroDakwerken from "@/assets/cases/feigro-dakwerken-scherm.webp";
 import feigroDakwerkenSet from "@/assets/cases/feigro-dakwerken-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
 import feigroDakwerkenTelefoon from "@/assets/cases/feigro-dakwerken-telefoon.webp";
 import feigroDakwerkenTelefoonSet from "@/assets/cases/feigro-dakwerken-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+import feigroDakwerkenTelefoonDesktopSet from "@/assets/cases/feigro-dakwerken-telefoon-desktop.webp?w=800;1200;1600;2160&format=webp&as=srcset";
 
 /**
  * Full-page screenshots per case voor de mockup in de hero (sleutel = slug
@@ -34,6 +35,11 @@ export const caseMockups: Record<string, MockupScherm> = {
 export interface TelefoonFoto {
   src: string;
   srcSet: string;
+  /**
+   * Optioneel voor desktop: dezelfde foto gespiegeld (scherm naar de tekst rechts),
+   * met de site opnieuw in het scherm gezet zodat die gewoon leesbaar blijft.
+   */
+  srcSetDesktop?: string;
   breedte: number;
   hoogte: number;
   /** Verticaal midden van de telefoon in de foto (0-1); daar centreert het kader op. */
@@ -66,6 +72,8 @@ export const caseTelefoons: Record<string, TelefoonFoto> = {
   "feigro-dakwerken": {
     src: feigroDakwerkenTelefoon,
     srcSet: feigroDakwerkenTelefoonSet,
+    // Op desktop gespiegeld, zodat het scherm naar de tekst ernaast kijkt.
+    srcSetDesktop: feigroDakwerkenTelefoonDesktopSet,
     breedte: 2160,
     hoogte: 3840,
     midden: 0.47,

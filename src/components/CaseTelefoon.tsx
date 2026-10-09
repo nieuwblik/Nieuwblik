@@ -23,6 +23,9 @@ const STANDAARD = { zoom: 1.18, naarRechts: 6, zoomMobiel: 1.18, naarRechtsMobie
  * zodat hij op halve breedte hoog genoeg is voor 110vh; is het venster daarvoor
  * te smal, dan wordt het kader lager. De telefoon staat in het midden van het kader.
  *
+ * Met `srcSetDesktop` krijgt desktop een gespiegelde foto, zodat het scherm naar
+ * de tekst rechts kijkt (mobiel staat de tekst eronder en blijft het origineel).
+ *
  * Met `schaal` (desktop) is de foto smaller dan de kolom; de rest van de kolom
  * krijgt de kleur van de egale studio-achtergrond (`achtergrond`) en de foto loopt
  * er aan de zijkanten en bovenkant zacht in over. De onderkant (arm) loopt door.
@@ -50,7 +53,7 @@ const CaseTelefoon = ({ foto, alt }: { foto: TelefoonFoto; alt: string }) => {
         // Zoom zover als past: de telefoon (met wat lucht) blijft altijd in het kader,
         // ook bij een ultrabreed, laag venster. De verschuiving schaalt mee.
         const zoom = () => {
-          const kader = beeld.parentElement;
+          const kader = beeld.closest(".case-telefoon-kader");
           const telefoon = beeld.offsetHeight * foto.telefoonHoogte;
           if (!kader || !telefoon) return max();
           return Math.max(1, Math.min(max(), (kader.clientHeight * 0.94) / telefoon));
@@ -86,7 +89,9 @@ const CaseTelefoon = ({ foto, alt }: { foto: TelefoonFoto; alt: string }) => {
   return (
     <div ref={kolomRef} className="case-telefoon relative w-full lg:w-1/2 shrink-0" style={stijl}>
       <div className="case-telefoon-kader relative overflow-hidden lg:sticky lg:top-0">
-        <img
+        <picture>
+          {foto.srcSetDesktop && <source media="(min-width: 1024px)" srcSet={foto.srcSetDesktop} sizes="50vw" />}
+          <img
           ref={fotoRef}
           src={foto.src}
           srcSet={foto.srcSet}
@@ -98,7 +103,8 @@ const CaseTelefoon = ({ foto, alt }: { foto: TelefoonFoto; alt: string }) => {
           decoding="async"
           data-kleiner={foto.schaal && foto.schaal < 1 ? "ja" : undefined}
           className="case-telefoon-foto absolute h-auto max-w-none will-change-transform"
-        />
+          />
+        </picture>
       </div>
       <style>{`
         .case-telefoon { container-type: inline-size; --s: 1; }
