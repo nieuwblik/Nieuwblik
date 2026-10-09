@@ -21,7 +21,7 @@ const faqItems = [
   },
   {
     q: "Hoe snel is de site van Taxi Drechterland precies?",
-    a: "De site laadt op mobiel binnen 1 seconde en scoort 90+ op Google PageSpeed. Dat komt door een statische build, WebP-afbeeldingen, lazy loading en het volledig vermijden van zware trackers of externe systemen. Voor een taxi is dat cruciaal, want klanten boeken vaak snel op hun telefoon langs de weg.",
+    a: "Ons streven is een PageSpeed-score van 90 of hoger op mobiel en desktop. Daarvoor gebruiken we een statische build, WebP-afbeeldingen, lazy loading en het volledig vermijden van zware trackers of externe systemen. Voor een taxi is dat cruciaal, want klanten boeken vaak snel op hun telefoon langs de weg.",
   },
   {
     q: "Waarom een WhatsApp boekingsformulier in plaats van een agendasysteem?",
@@ -104,7 +104,7 @@ const speedPoints = [
   "WebP-afbeeldingen met lazy loading buiten de eerste viewport",
   "Geen zware trackers of third-party scripts die het laden vertragen",
   "Aggressieve edge caching en optimale headers voor herhaalbezoek",
-  "PageSpeed 90+ op zowel mobiel als desktop",
+  "Ons streven is een PageSpeed-score van 90 of hoger op mobiel en desktop",
 ];
 
 const airports = [
