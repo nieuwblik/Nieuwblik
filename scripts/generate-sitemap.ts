@@ -201,24 +201,54 @@ interface Item {
   bestand: string;
   /** Regel waar het data-blok van dit item begint. */
   startRegel: RegExp;
+  /**
+   * Handgeschreven lokale tekst in een ander bestand (cityLokaal.ts of
+   * werkgebiedLokaal.ts). Staat de pagina daar, dan telt ook dat blok mee; de
+   * jongste datum wint.
+   */
+  lokaal?: { bestand: string; startRegel: RegExp; alleStarts: RegExp };
+}
+
+/**
+ * Laatste inhoudelijke datum van één data-blok: van de startregel tot de
+ * volgende startregel. Met totKolomNul stopt het blok ook bij de eerste
+ * niet-ingesprongen regel (de afsluitende `};` van cityLokaal.ts). Niet voor
+ * bestanden met meerregelige teksten: daarin begint inhoud ook in kolom 0.
+ */
+function lastmodBlok(pad: string, bestand: string, startRegel: RegExp, alleStarts: RegExp, verplicht = true, totKolomNul = false): string | null {
+  const regels = fs.readFileSync(rel(bestand), "utf8").split(/\r?\n/);
+  const start = regels.findIndex((r) => startRegel.test(r)) + 1;
+  if (!start) {
+    if (!verplicht) return null;
+    throw new Error(`Data-blok niet gevonden voor ${pad} in ${bestand}`);
+  }
+  const einde = regels.findIndex((r, i) => i >= start && (alleStarts.test(r) || (totKolomNul && /^\S/.test(r))));
+  return laatsteCommitRegels(bestand, start, einde === -1 ? regels.length : einde);
 }
 
 function lastmodItem(item: Item, alleStarts: RegExp): string | null {
-  const regels = fs.readFileSync(rel(item.bestand), "utf8").split(/\r?\n/);
-  const starts = regels.map((r, i) => (alleStarts.test(r) ? i + 1 : 0)).filter(Boolean);
-  const start = regels.findIndex((r) => item.startRegel.test(r)) + 1;
-  if (!start) throw new Error(`Data-blok niet gevonden voor ${item.pad} in ${item.bestand}`);
-  const volgende = starts.find((s) => s > start) ?? regels.length + 1;
-  return laatsteCommitRegels(item.bestand, start, volgende - 1);
+  const datums = [lastmodBlok(item.pad, item.bestand, item.startRegel, alleStarts)];
+  if (item.lokaal) datums.push(lastmodBlok(item.pad, item.lokaal.bestand, item.lokaal.startRegel, item.lokaal.alleStarts, false, true));
+  const geldig = datums.filter((d): d is string => Boolean(d)).sort();
+  return geldig.length ? geldig[geldig.length - 1]! : null;
 }
 
 const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+/** Top-level sleutel in cityLokaal.ts / werkgebiedLokaal.ts: `  leiden: {` of `  "den-helder": {`. */
+const lokaalBlok = (bestand: string, slug: string) => ({
+  bestand,
+  startRegel: new RegExp(`^  (?:${esc(slug)}|"${esc(slug)}"): \\{$`),
+  alleStarts: /^  (?:[a-z]+|"[a-z-]+"): \{$/,
+});
 const slugsUit = (bestand: string, re: RegExp) => [...fs.readFileSync(rel(bestand), "utf8").matchAll(re)].map((m) => m[1]!);
 
 const DYNAMISCH: Record<string, () => { items: Item[]; alleStarts: RegExp }> = {
   "/$landingPath": () => ({
     items: [
-      ...cities.map((c) => ({ pad: `/website-laten-maken-${c.slug}`, bestand: "src/data/cities.ts", startRegel: new RegExp(`^\\s*"slug": "${esc(c.slug)}",`) })),
+      ...cities.map((c) => ({
+        pad: `/website-laten-maken-${c.slug}`, bestand: "src/data/cities.ts", startRegel: new RegExp(`^\\s*"slug": "${esc(c.slug)}",`),
+        lokaal: lokaalBlok("src/data/cityLokaal.ts", c.slug),
+      })),
       ...industries.map((i) => ({ pad: `/website-laten-maken-${i.slug}`, bestand: "src/data/industries.ts", startRegel: new RegExp(`^\\s*"slug": "${esc(i.slug)}",`) })),
     ],
     alleStarts: /^\s*"slug": "/,
@@ -246,6 +276,7 @@ const DYNAMISCH: Record<string, () => { items: Item[]; alleStarts: RegExp }> = {
     // Alleen lokale plaatsen hebben een eigen pagina (defect 2).
     items: getLocalRegions().map((r) => ({
       pad: `/werkgebied/${r.slug}`, bestand: "src/data/regions.ts", startRegel: new RegExp(`^\\s*slug: '${esc(r.slug)}',`),
+      lokaal: lokaalBlok("src/data/werkgebiedLokaal.ts", r.slug),
     })),
     alleStarts: /^\s*slug: '/,
   }),
