@@ -64,7 +64,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
     faq: [
       {
         q: "Werken jullie voor bedrijven in Leiden terwijl jullie in Enkhuizen zitten?",
-        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt.",
+        a: "Ja. We werken voor ondernemers door heel Nederland en doen dat grotendeels op afstand: kennismaken via videobellen, daarna contact via telefoon, mail en WhatsApp, steeds met hetzelfde aanspreekpunt. Spreek je elkaar liever in het echt, dan komen we bij je langs.",
       },
       {
         q: "Kunnen jullie een website in het Nederlands én Engels maken voor internationale klanten of studenten?",
