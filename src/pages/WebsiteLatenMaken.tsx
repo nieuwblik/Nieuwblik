@@ -4,6 +4,7 @@ import { Link } from "@/lib/router-compat";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import ContactBlock from "@/components/ContactBlock";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { DienstHero, INKT_65, Linkjes, Pakketten, Sectie, SectieKop, Stappen, Tekst, Vinkjes, Vragen } from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 import { industryLinks } from "@/data/industryLinks";
@@ -122,6 +123,11 @@ const WebsiteLatenMaken = () => {
               { naam: PAKKETTEN.opMaat.naam, prijs: "Op aanvraag", omschrijving: "Uitgebreide site of webshop, met integraties en meerdere talen." },
             ]}
           />
+          <div className="mt-10">
+            <AnimatedButton to="/prijzen" variant="outline">
+              Bekijk alle pakketten
+            </AnimatedButton>
+          </div>
         </Sectie>
 
         <Sectie>
