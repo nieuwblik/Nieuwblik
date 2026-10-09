@@ -6,6 +6,21 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
+ * Lettertypen, zelf gehost (voorheen Google Fonts): Cabin (tekst) en Epilogue
+ * (koppen), beide variabel 400-700, subsets latin en latin-ext (src/assets/fonts,
+ * SIL Open Font License 1.1). De webfonts zelf worden pas na het load-event
+ * geladen (FONT_SCRIPT in __root.tsx), zodat ze de eerste weergave niet
+ * vertragen. Tot dan toont de browser de "Fallback"-varianten hieronder: Arial
+ * met size-adjust en ascent/descent-overrides, berekend uit de metriek van de
+ * fonts zelf, zodat tekst nauwelijks verspringt als de webfont binnenkomt.
+ */
+@font-face { font-family: "Cabin Fallback"; src: local("Arial"); font-weight: 400; size-adjust: 94.57%; ascent-override: 102.05%; descent-override: 26.44%; line-gap-override: 0%; }
+@font-face { font-family: "Cabin Fallback"; src: local("Arial Bold"); font-weight: 700; size-adjust: 89.87%; ascent-override: 107.38%; descent-override: 27.82%; line-gap-override: 0%; }
+@font-face { font-family: "Epilogue Fallback"; src: local("Arial"); font-weight: 400; size-adjust: 111.83%; ascent-override: 70.64%; descent-override: 21.01%; line-gap-override: 0%; }
+@font-face { font-family: "Epilogue Fallback"; src: local("Arial Bold"); font-weight: 700; size-adjust: 108.28%; ascent-override: 72.96%; descent-override: 21.70%; line-gap-override: 0%; }
+
+
+/*
  * Nieuwblik Design System - Luxury Minimalism (Tailwind v4 port van index.css
  * + tailwind.config.ts). Alle kleuren blijven HSL-triplets in :root/.dark;
  * het @theme inline blok koppelt ze aan utilityklassen (bg-primary etc.).
@@ -20,8 +35,8 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  --font-sans: "Cabin", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-epilogue: "Epilogue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Cabin", "Cabin Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-epilogue: "Epilogue", "Epilogue Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -239,7 +254,7 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-weight: 400;
-    font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Cabin', 'Cabin Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
   h1,
@@ -530,7 +545,7 @@
    per-heading font-bold / font-black / font-extrabold utility classes
    across components. */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family: 'Epilogue', 'Epilogue Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-weight: 700 !important;
 }
 /* Wie in het systeem heeft aangegeven bewegingsgevoelig te zijn, krijgt de
