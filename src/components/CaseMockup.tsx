@@ -19,10 +19,16 @@ import staandSet from "@/assets/mockup/monitor-staand.webp?w=720;1080;1440;1932&
  */
 const LIGGEND = { ar: 3840 / 2160, l: 1083 / 3840, t: 494 / 2160, w: 1675 / 3840, h: 919 / 2160 };
 const STAAND = { ar: 1932 / 4391, l: 129 / 1932, t: 1517 / 4391, w: 1675 / 1932, h: 918 / 4391 };
+// Vloer vóór de monitor, net onder de voetplaat (liggend y 1740, staand 1022 + 1740):
+// daar valt de gloed van het scherm.
+const GLOED_LIGGEND = { t: 1740 / 2160, h: 400 / 2160 };
+const GLOED_STAAND = { t: 2762 / 4391, h: 520 / 4391 };
 const pct = (v: number) => `${(v * 100).toFixed(4)}%`;
 
-/** Wachttijd na het openen voordat het automatische scrollen begint. */
-const START_NA_MS = 1000;
+/** Wachttijd na het openen voordat de monitor aangaat. */
+const START_NA_MS = 400;
+/** Duur van de retro aan-animatie; daarna begint het scrollen. */
+const AAN_DUUR_MS = 1500;
 
 /** Automatisch scrollen: schermhoogtes per seconde, altijd dezelfde snelheid. */
 const SNELHEID = 0.25;
@@ -39,14 +45,19 @@ export interface MockupScherm {
  * Hero van een case: schermvullend (100vw × 100svh), met de site in het
  * scherm van de monitor.
  *
- * - Ongeveer een seconde na het openen schuift de volledige pagina met één
- *   constante, rustige snelheid naar beneden en blijft onderaan staan.
+ * - Kort na het openen gaat de monitor aan als een oude beeldbuis: een punt,
+ *   een felle lijn, opengeklapt tot een overbelicht beeld met scanlines dat
+ *   flikkert en tot rust komt (1,5 s). Daarna schuift de volledige pagina met
+ *   één constante, rustige snelheid naar beneden en blijft onderaan staan.
+ * - Het scherm geeft licht op de vloer: een vervaagd kopietje van wat er in
+ *   beeld staat, dat meebeweegt (lichte delen en kleuren zie je terug).
  * - Met de muis boven het scherm pauzeert dat, en scrollt het muiswiel de
  *   site in het scherm in plaats van de pagina. Bovenaan of onderaan de site
  *   gaat het wiel weer naar de pagina, zodat je nergens vast komt te zitten.
  * - De cursor wordt boven het scherm een groene blob met "Scroll" (alleen bij
  *   een muis; op touchschermen blijft het bij automatisch scrollen).
- * - Bij "animaties beperken": geen automatisch scrollen en geen naloop.
+ * - Bij "animaties beperken": monitor meteen aan, geen automatisch scrollen en
+ *   geen naloop.
  *
  * De foto staat op "cover"; een kader met dezelfde verhouding als de foto
  * rekent mee met hoe die wordt bijgesneden, zodat het scherm op elke
@@ -58,13 +69,19 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
   const siteRef = useRef<HTMLImageElement>(null);
   const blobRef = useRef<HTMLDivElement>(null);
   const blobBinnenRef = useRef<HTMLDivElement>(null);
+  const crtRef = useRef<HTMLDivElement>(null);
+  const gloedVakRef = useRef<HTMLDivElement>(null);
+  const gloedRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const vlak = schermRef.current;
     const site = siteRef.current;
     const blob = blobRef.current;
     const blobBinnen = blobBinnenRef.current;
-    if (!vlak || !site || !blob || !blobBinnen) return;
+    const crt = crtRef.current;
+    const gloedVak = gloedVakRef.current;
+    const gloed = gloedRef.current;
+    if (!vlak || !site || !blob || !blobBinnen || !crt || !gloedVak || !gloed) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const muis = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -74,6 +91,7 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     let positie = 0; // waar hij nu staat (px), volgt doel met een korte naloop
     let hover = false;
     let laatste = geopend;
+    let aanSinds: number | null = null; // moment waarop de monitor aangaat
     let muisX = 0, muisY = 0, blobX = 0, blobY = 0;
     let frame = 0;
 
@@ -82,8 +100,14 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
     const tik = (nu: number) => {
       const dt = Math.min(0.05, (nu - laatste) / 1000);
       laatste = nu;
-      // Eén constante snelheid; pauze zolang de muis boven het scherm is.
-      if (!reduced && !hover && nu - geopend >= START_NA_MS && site.complete) {
+      // Monitor aan zodra de screenshot er is (en de pagina even staat).
+      if (aanSinds === null && site.complete && nu - geopend >= START_NA_MS) {
+        aanSinds = nu;
+        crt.dataset["aan"] = "ja";
+        gloedVak.dataset["aan"] = "ja";
+      }
+      // Na het aangaan één constante snelheid; pauze zolang de muis boven het scherm is.
+      if (!reduced && !hover && aanSinds !== null && nu - aanSinds >= AAN_DUUR_MS) {
         doel = Math.min(max(), doel + vlak.clientHeight * SNELHEID * dt);
       }
       // Automatisch scrollen loopt vrijwel exact mee; het muiswiel krijgt een zachte naloop.
@@ -91,6 +115,8 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
       positie += (doel - positie) * naloop;
       if (Math.abs(doel - positie) < 0.1) positie = doel;
       site.style.transform = `translate3d(0, ${-positie}px, 0)`;
+      // De gloed op de vloer toont hetzelfde stuk van de site (kleiner kopietje).
+      if (site.offsetWidth) gloed.style.transform = `translate3d(0, ${(-positie * gloed.offsetWidth) / site.offsetWidth}px, 0)`;
 
       if (muis) {
         const volg = reduced ? 1 : 1 - Math.pow(0.000005, dt);
@@ -154,16 +180,59 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
           "--t": pct(LIGGEND.t),
           "--w": pct(LIGGEND.w),
           "--h": pct(LIGGEND.h),
+          "--gt": pct(GLOED_LIGGEND.t),
+          "--gh": pct(GLOED_LIGGEND.h),
         } as React.CSSProperties
       }
     >
       <style>{`
         @media (orientation: portrait) {
-          [data-case-mockup] { --ar: ${STAAND.ar}; --l: ${pct(STAAND.l)}; --t: ${pct(STAAND.t)}; --w: ${pct(STAAND.w)}; --h: ${pct(STAAND.h)}; }
+          [data-case-mockup] { --ar: ${STAAND.ar}; --l: ${pct(STAAND.l)}; --t: ${pct(STAAND.t)}; --w: ${pct(STAAND.w)}; --h: ${pct(STAAND.h)}; --gt: ${pct(GLOED_STAAND.t)}; --gh: ${pct(GLOED_STAAND.h)}; }
         }
         [data-scroll-blob] { opacity: 0; transform: translate(-50%, -50%) scale(0.2); transition: opacity .25s ease, transform .45s cubic-bezier(0.22, 1, 0.36, 1); }
         [data-scroll-blob][data-zichtbaar="ja"] { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         @media (prefers-reduced-motion: reduce) { [data-scroll-blob] { transition: opacity .15s linear; } }
+
+        /* Retro aan-animatie, zoals een oude beeldbuis: een punt wordt een felle lijn,
+           klapt open tot beeld, overbelicht met scanlines, flikkert en komt tot rust. */
+        [data-crt] { opacity: 0; transform-origin: 50% 50%; }
+        [data-crt][data-aan="ja"] { animation: crt-aan ${AAN_DUUR_MS}ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+        @keyframes crt-aan {
+          0%   { opacity: 1; transform: scale(0.015, 0.004); filter: brightness(9) saturate(0); }
+          16%  { opacity: 1; transform: scale(1, 0.006);    filter: brightness(9) saturate(0); }
+          34%  { opacity: 1; transform: scale(1, 1);        filter: brightness(2.6) saturate(0.2) contrast(1.3); }
+          44%  { filter: brightness(1.7) saturate(0.7) contrast(1.15); }
+          52%  { filter: brightness(0.75) saturate(0.9); }
+          58%  { filter: brightness(1.35) saturate(1); }
+          66%  { filter: brightness(0.92); }
+          100% { opacity: 1; transform: scale(1, 1);        filter: brightness(1) saturate(1); }
+        }
+        [data-crt-flits] { opacity: 0; background: radial-gradient(ellipse 60% 18% at 50% 50%, rgba(255,255,255,0.95), rgba(255,255,255,0) 70%); }
+        [data-crt][data-aan="ja"] ~ [data-crt-flits] { animation: crt-flits ${AAN_DUUR_MS}ms ease-out forwards; }
+        @keyframes crt-flits { 0% { opacity: 0; } 10% { opacity: 1; } 30% { opacity: 0.5; } 45%, 100% { opacity: 0; } }
+        [data-crt-lijnen] {
+          opacity: 0;
+          background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.45) 0 1px, rgba(0,0,0,0) 1px 3px);
+          box-shadow: inset 0 0 60px rgba(160,255,210,0.18);
+        }
+        [data-crt][data-aan="ja"] ~ [data-crt-lijnen] { animation: crt-lijnen ${AAN_DUUR_MS + 600}ms ease-out forwards; }
+        @keyframes crt-lijnen { 0%, 20% { opacity: 0; } 32% { opacity: 1; } 60% { opacity: 0.6; } 100% { opacity: 0; } }
+
+        /* Gloed op de vloer: gaat mee aan met de monitor. */
+        [data-gloed] {
+          opacity: 0;
+          mix-blend-mode: screen;
+          -webkit-mask-image: radial-gradient(ellipse 55% 120% at 50% 0%, #000 0%, rgba(0,0,0,0.75) 45%, transparent 100%);
+          mask-image: radial-gradient(ellipse 55% 120% at 50% 0%, #000 0%, rgba(0,0,0,0.75) 45%, transparent 100%);
+          transition: opacity 1.4s ease 0.5s;
+        }
+        [data-gloed][data-aan="ja"] { opacity: 0.95; }
+
+        @media (prefers-reduced-motion: reduce) {
+          [data-crt][data-aan="ja"] { animation: none; opacity: 1; }
+          [data-crt][data-aan="ja"] ~ [data-crt-flits], [data-crt][data-aan="ja"] ~ [data-crt-lijnen] { animation: none; }
+          [data-gloed] { transition: none; }
+        }
       `}</style>
       <div
         data-case-mockup=""
@@ -187,6 +256,38 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
           />
         </picture>
 
+        {/* Lichtweerspiegeling op de vloer: een klein kopietje van het scherm, vervaagd
+            en over de vloer uitgerekt (perspectief), opgeteld bij de foto (screen). */}
+        <div
+          ref={gloedVakRef}
+          data-gloed=""
+          data-aan="nee"
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{ left: "calc(var(--l) - var(--w) * 0.3)", top: "var(--gt)", width: "calc(var(--w) * 1.6)", height: "var(--gh)" }}
+        >
+          <div
+            className="absolute left-1/2 top-0 overflow-hidden"
+            style={{
+              width: "12.5%",
+              aspectRatio: "1.822",
+              transform: "translateX(-50%) scale(6.5, 3.2)",
+              transformOrigin: "top center",
+              filter: "blur(6px) saturate(2.2) brightness(1.5)",
+            }}
+          >
+            <img
+              ref={gloedRef}
+              src={scherm.src}
+              srcSet={scherm.srcSet}
+              sizes="10vw"
+              alt=""
+              draggable={false}
+              className="block h-auto w-full"
+            />
+          </div>
+        </div>
+
         {/* data-lenis-prevent: het muiswiel hoort hier bij het scherm, niet bij de smooth scroll van de pagina. */}
         <div
           ref={schermRef}
@@ -194,17 +295,22 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
           className="absolute overflow-hidden rounded-[0.2%] bg-black [@media(hover:hover)_and_(pointer:fine)]:cursor-none"
           style={{ left: "var(--l)", top: "var(--t)", width: "var(--w)", height: "var(--h)" }}
         >
-          <img
-            ref={siteRef}
-            src={scherm.src}
-            srcSet={scherm.srcSet}
-            sizes="(orientation: portrait) 88vw, 46vw"
-            width={scherm.breedte}
-            height={scherm.hoogte}
-            alt={alt}
-            draggable={false}
-            className="block h-auto w-full select-none will-change-transform"
-          />
+          {/* Het beeld van de monitor; gaat retro aan (zie data-crt in de styles). */}
+          <div ref={crtRef} data-crt="" data-aan="nee" className="absolute inset-0">
+            <img
+              ref={siteRef}
+              src={scherm.src}
+              srcSet={scherm.srcSet}
+              sizes="(orientation: portrait) 88vw, 46vw"
+              width={scherm.breedte}
+              height={scherm.hoogte}
+              alt={alt}
+              draggable={false}
+              className="block h-auto w-full select-none will-change-transform"
+            />
+          </div>
+          <div data-crt-flits="" aria-hidden="true" className="pointer-events-none absolute inset-0" />
+          <div data-crt-lijnen="" aria-hidden="true" className="pointer-events-none absolute inset-0" />
         </div>
       </div>
 
