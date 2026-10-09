@@ -2,14 +2,13 @@ import { ClientOnly, Outlet, createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import SmoothScroll from "@/components/SmoothScroll";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import ZwevendeKnoppen from "@/components/ZwevendeKnoppen";
 import UnderlayNav, { type UnderlayNavItem } from "@/components/UnderlayNav";
 import { companyInfo } from "@/config/company";
 
-// Twee overlays die pas na de eerste tekening iets doen; apart geladen
-// blijft framer-motion uit de hoofdbundel (zelfde opzet als voorheen).
+// De cookiemelding doet pas na de eerste tekening iets; apart geladen blijft
+// framer-motion uit de hoofdbundel. De analyse-pop-up zit nu in ZwevendeKnoppen.
 const CookieConsent = lazy(() => import("@/components/CookieConsent"));
-const FreeAnalysisPopup = lazy(() => import("@/components/FreeAnalysisPopup"));
 
 const NAV_LINKS: UnderlayNavItem[] = [
   { label: "Home", href: "/" },
@@ -45,11 +44,10 @@ function PublicLayout() {
   return (
     <>
       <SmoothScroll />
-      <WhatsAppButton />
+      <ZwevendeKnoppen />
       <ClientOnly fallback={null}>
         <Suspense fallback={null}>
           <CookieConsent />
-          <FreeAnalysisPopup />
         </Suspense>
       </ClientOnly>
       <UnderlayNav links={NAV_LINKS} socials={NAV_SOCIALS} quickLinks={NAV_QUICK_LINKS}>
