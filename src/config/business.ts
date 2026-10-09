@@ -22,6 +22,8 @@ export const REVIEWS = {
    * niet het bedrijf: wie op "Google-reviews" klikte, zag de reviews niet.
    */
   profielUrl: "https://www.google.com/maps?cid=3817182585058649266",
+  /** Deellink van het Bedrijfsprofiel (opent het profiel in Google, met "Review schrijven"). */
+  schrijfUrl: "https://share.google/VvooqtbIEOETdNs3J",
 } as const;
 
 export const PRIJZEN = {
