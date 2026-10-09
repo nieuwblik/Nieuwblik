@@ -475,6 +475,19 @@
 /* nowrap keeps each masked line on a single visual line. */
 .sw-mask > span { display: block; white-space: nowrap; will-change: transform; }
 
+/* Hero-entree op de homepage, zelfde bewegingen en timing als de oude GSAP-
+   tijdlijn, maar vanaf de eerste paint en alleen met transform. De server levert
+   de eindstaat; met reduced motion of zonder animaties staat alles direct goed.
+   power4.out ≈ cubic-bezier(0.22, 1, 0.36, 1), power3.out ≈ cubic-bezier(0.25, 1, 0.5, 1). */
+@keyframes sw-line-in { from { transform: translateY(118%); } }
+@keyframes sw-rise { from { transform: translateY(var(--sw-rise, 20px)); } }
+@media (prefers-reduced-motion: no-preference) {
+  .sw-hero-anim .sw-line-inner { animation: sw-line-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.15s backwards; }
+  .sw-hero-anim .sw-mask:nth-child(2) > .sw-line-inner { animation-delay: 0.25s; }
+  .sw-hero-anim .sw-lead { animation: sw-rise 0.7s cubic-bezier(0.25, 1, 0.5, 1) var(--sw-delay, 0s) backwards; }
+  .sw-hero-anim .sw-cta { --sw-rise: 16px; animation: sw-rise 0.55s cubic-bezier(0.25, 1, 0.5, 1) var(--sw-delay, 0s) backwards; }
+}
+
 /* Establishes a query container so .sw-display can size itself against the
    ACTUAL width of the h1's own box, not the viewport. */
 .sw-hero-textcol { container-type: inline-size; }

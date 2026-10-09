@@ -2,12 +2,6 @@ import { REVIEWS } from "@/config/business";
 import { faqPage } from "@/lib/structured-data";
 import { algemeneFaqParen } from "@/data/algemeneFaq";
 import { lazy, Suspense } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
-// gebruikt requestAnimationFrame. Op de server valt dat om.
-if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 import Footer from "@/components/Footer";
 import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
@@ -22,7 +16,7 @@ const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
 
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Star } from "lucide-react";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 import { gpuAcceleration } from "@/lib/optimized-motion";
@@ -76,21 +70,12 @@ const SwissHead = ({
 };
 
 const Index = () => {
-  const heroRef = useRef<HTMLElement>(null);
   // Dark testimonials band: invert the fixed header while it's under it.
   const darkNavRef = useDarkNavSection<HTMLElement>();
 
-  // Hero entrance — headline masks up, then the eyebrow/subtext/slider fade up
-  // and the CTAs settle in. Skipped for reduced motion.
-  useGSAP(() => {
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(".sw-line-inner", { yPercent: 118, duration: 0.95, stagger: 0.1, ease: "power4.out" }, 0.15)
-        .from(".sw-lead", { y: 20, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" }, 0.2)
-        .from(".sw-cta", { y: 16, opacity: 0, duration: 0.55, stagger: 0.1, ease: "power3.out" }, 0.5);
-    });
-  }, { scope: heroRef });
+  // Hero-entree: CSS in styles.css (.sw-hero-anim). De server levert de
+  // eindstaat; de animatie is alleen een korte beweging vanaf de eerste paint,
+  // zodat er na het laden van JavaScript niets meer verdwijnt en opnieuw inkomt.
 
   // Zelfde vragen als de zichtbare FAQ (src/data/algemeneFaq.ts).
   const faqJsonLd = faqPage(algemeneFaqParen());
@@ -118,8 +103,7 @@ const Index = () => {
         ~56px gap. From md up the grid is 2-col and the overlap grows far more
         slowly, so a flat value clears it. */}
     <section
-      ref={heroRef}
-      className="sw-ink sw-hero-fill relative flex flex-col justify-center pt-[calc(var(--header-height)_+_2.5rem)] sm:pt-[calc(var(--header-height)_+_3rem)] pb-[calc(25vw_+_86px)] md:pb-[16.1rem] lg:pb-[min(calc(27vw_-_9.3rem),14.5rem)]"
+      className="sw-ink sw-hero-fill sw-hero-anim relative flex flex-col justify-center pt-[calc(var(--header-height)_+_2.5rem)] sm:pt-[calc(var(--header-height)_+_3rem)] pb-[calc(25vw_+_86px)] md:pb-[16.1rem] lg:pb-[min(calc(27vw_-_9.3rem),14.5rem)]"
     >
       <div className="relative z-10 container mx-auto px-4 sm:px-6">
         {/* Centred intro */}
@@ -129,7 +113,7 @@ const Index = () => {
             no extra cap) instead of stopping at max-w-4xl, so the two
             sections read as one grid. Unchanged below lg per spec. */}
         <div className="max-w-4xl lg:max-w-none mx-auto text-center">
-          <p className="sw-lead sw-mono mb-6 text-balance" style={{ color: "hsl(var(--sw-ink) / 0.66)" }}>
+          <p className="sw-lead sw-mono mb-6 text-balance" style={{ color: "hsl(var(--sw-ink) / 0.66)", "--sw-delay": "0.2s" } as CSSProperties}>
             Vertrouwd door MKB ondernemers door heel Nederland
           </p>
 
@@ -138,7 +122,7 @@ const Index = () => {
             <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen</span></span></span>
           </h1>
 
-          <p className="sw-lead mx-auto mt-6 max-w-xl lg:max-w-2xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+          <p className="sw-lead mx-auto mt-6 max-w-xl lg:max-w-2xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)", "--sw-delay": "0.32s" } as CSSProperties}>
             Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn, van eerste schets tot livegang. Vanuit{" "}
             <Link
               to="/website-laten-maken-enkhuizen"
@@ -149,7 +133,7 @@ const Index = () => {
             voor ondernemers door heel Nederland.
           </p>
 
-          <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+          <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3" style={{ "--sw-delay": "0.5s" } as CSSProperties}>
             <AnimatedButton to="/contact" size="lg" className="h-14 w-full sm:w-auto">
               Start je project
             </AnimatedButton>
@@ -158,7 +142,7 @@ const Index = () => {
             </AnimatedButton>
           </div>
 
-          <div className="sw-cta mt-7 flex flex-wrap items-center justify-center gap-2.5">
+          <div className="sw-cta mt-7 flex flex-wrap items-center justify-center gap-2.5" style={{ "--sw-delay": "0.6s" } as CSSProperties}>
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4" style={{ fill: "hsl(var(--sw-green))", color: "hsl(var(--sw-green))" }} />
