@@ -218,12 +218,13 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
         [data-crt][data-aan="ja"] ~ [data-crt-lijnen] { animation: crt-lijnen ${AAN_DUUR_MS + 600}ms ease-out forwards; }
         @keyframes crt-lijnen { 0%, 20% { opacity: 0; } 32% { opacity: 1; } 60% { opacity: 0.6; } 100% { opacity: 0; } }
 
-        /* Gloed op de vloer: gaat mee aan met de monitor. */
+        /* Gloed op de vloer: gaat mee aan met de monitor. Het masker loopt binnen het vlak
+           helemaal naar nul, zodat er onder en opzij geen rand zichtbaar is. */
         [data-gloed] {
           opacity: 0;
           mix-blend-mode: screen;
-          -webkit-mask-image: radial-gradient(ellipse 55% 120% at 50% 0%, #000 0%, rgba(0,0,0,0.75) 45%, transparent 100%);
-          mask-image: radial-gradient(ellipse 55% 120% at 50% 0%, #000 0%, rgba(0,0,0,0.75) 45%, transparent 100%);
+          -webkit-mask-image: radial-gradient(ellipse 44% 88% at 50% 0%, #000 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.35) 62%, transparent 100%);
+          mask-image: radial-gradient(ellipse 44% 88% at 50% 0%, #000 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.35) 62%, transparent 100%);
           transition: opacity 1.4s ease 0.5s;
         }
         [data-gloed][data-aan="ja"] { opacity: 0.95; }
