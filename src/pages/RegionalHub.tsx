@@ -52,7 +52,7 @@ export const HUBS: RegionHubData[] = [
       { title: "Regio-SEO", text: "We optimaliseren op de zoektermen die in jouw plaats werken, niet op algemene termen." },
     ],
     faq: [
-      { q: "Werken jullie voor bedrijven in heel Noord-Holland?", a: "Ja. In de provincie bouwden we onder meer sites voor ondernemers in West-Friesland, zoals in Enkhuizen en Hoogkarspel, en in Amsterdam. Verder werken we grotendeels op afstand, voor ondernemers door heel Nederland." },
+      { q: "Werken jullie voor bedrijven in heel Noord-Holland?", a: "Ja. In de provincie bouwden we onder meer sites voor ondernemers in West-Friesland, zoals in Enkhuizen en Hoogkarspel. Verder werken we grotendeels op afstand, voor ondernemers door heel Nederland." },
       { q: "Hoe verloopt de kennismaking?", a: "Meestal via een videocall. Spreek je elkaar liever in het echt, dan komen we bij je langs. Daarna houd je hetzelfde vaste aanspreekpunt via telefoon, mail en WhatsApp." },
       { q: "Wat kost een website in Noord-Holland?", a: `Onze projecten starten vanaf ${PRIJZEN.starter} euro. Voor uitgebreide sites en webshops rekenen we tussen de ${PRIJZEN.uitgebreidVan} en ${PRIJZEN.uitgebreidTot} euro.` },
     ],
@@ -84,7 +84,7 @@ export const HUBS: RegionHubData[] = [
       { title: "Landelijke uitstraling", text: "Voor bedrijven die vanuit de Randstad heel Nederland bedienen." },
     ],
     faq: [
-      { q: "Zitten jullie zelf in de Randstad?", a: "Nee, wij zitten in Enkhuizen. In de Randstad bouwden we onder meer sites voor ondernemers in Amsterdam en Almere. We werken grotendeels op afstand, voor ondernemers door heel Nederland." },
+      { q: "Zitten jullie zelf in de Randstad?", a: "Nee, wij zitten in Enkhuizen. In de Randstad bouwden we onder meer een site voor een praktijk in Almere. We werken grotendeels op afstand, voor ondernemers door heel Nederland." },
       { q: "Kunnen jullie meerdere talen aan op één site?", a: "Ja. NL, EN en andere talen zetten we netjes op met correcte hreflang tags voor Google." },
       { q: "Hoe snel kunnen jullie starten?", a: "Meestal binnen twee weken na akkoord. Snelheid is een van de redenen dat ondernemers voor ons kiezen." },
     ],
