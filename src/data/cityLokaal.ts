@@ -558,24 +558,26 @@ export const cityLokaal: Record<string, CityLokaal> = {
     cases: ["vv-madjoe", "feigro-dakwerken", "kyodai-originals", "een-bundel-geluk"],
     headings: {
       reviews: REVIEWKOP,
-      portfolio: "Websites die we maakten, in de regio en daarbuiten",
+      portfolio: "Websites voor klanten uit Enkhuizen",
       contact: "Een website laten maken in Enkhuizen? Plan een kennismaking",
     },
     lokaal: {
       h2: "Website laten maken in Enkhuizen, onze thuisplaats",
       alineas: [
-        "Enkhuizen is de plek van waaruit wij werken. Van hieruit bouwen we websites voor ondernemers door heel Nederland, maar hier zit ons kantoor. Bij ons spreek je degene die ook daadwerkelijk aan je website bouwt, zonder accountmanager of tussenlaag.",
+        "Enkhuizen is onze thuisplaats. Nieuwblik, dat zijn wij: Justin en Job, twee ontwerpers en developers uit Enkhuizen. Justin Slok heeft het bureau opgericht. Bij ons spreek je degene die ook daadwerkelijk aan je website bouwt, zonder accountmanager of tussenlaag.",
+        "We werken voornamelijk online, via videocall, telefoon, mail en WhatsApp. Spreek je elkaar liever in het echt, dan komen we bij je langs.",
         "Een website voor een bedrijf in Enkhuizen begint bij de vraag wie je wilt bereiken: klanten uit de stad zelf, uit de dorpen eromheen of uit de rest van het land. Dat bepaalt welke pagina's er komen, welke woorden erin staan en welke knop een bezoeker als eerste ziet.",
       ],
     },
     secties: [
       {
-        h2: "Wat we bouwden voor clubs en bedrijven",
+        h2: "Wat we bouwden voor clubs en bedrijven uit Enkhuizen",
         alineas: [
           "Voor volleybalvereniging [Madjoe](/portfolio/vv-madjoe) uit Enkhuizen, sinds 1950 een van de grootste volleybalclubs van West-Friesland, maakten we een clubwebsite die het hele clubleven draagt. Elk team heeft een eigen pagina met klasse, trainer, trainingstijden en selectie. Nieuwe leden beginnen met een proefles en melden zich daarna online aan in vijf stappen, en voor evenementen schrijf je je in en betaal je direct met iDEAL. De site is ingericht op zoekopdrachten als 'volleybal Enkhuizen' en 'volleybalclub West-Friesland'.",
           "Achter de schermen ziet het bestuur van Madjoe in een afgeschermde beheeromgeving alle aanmeldingen, proeflessen, afmeldingen en inschrijvingen bij elkaar, met betaalstatus en een export naar Excel. Sponsors hebben een eigen route met de mogelijkheden als bord-, kleding- of evenementsponsor.",
-          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) ontstond uit de samenvoeging van twee dakdekkersbedrijven uit West-Friesland. De nieuwe website zet het bedrijf neer als één team voor platte en hellende daken, laat opgeleverde projecten zien en scheidt de offerteaanvraag voor een nieuw dak van een snelle route om een lekkage te melden.",
-          "Niet al ons werk is voor de regio. Voor [Kyodai Originals](/portfolio/kyodai-originals), een Amsterdamse galerie voor authentieke Japanse zwaarden en wapenrustingen, bouwden we een online galerie waarin certificering, de geschiedenis van elk stuk en persoonlijk contact het vertrouwen van verzamelaars moeten winnen. De NBTHK-, NBSK- en NTHK-certificeringen en de levenslange authenticiteitsgarantie staan prominent op de productpagina's.",
+          "We zijn zelf ook betrokken bij de club. Samen met Enza Zaden, Kreeft Autoservice en Toolstra Bouwbedrijf staan we als shirtsponsor op het shirt van Heren 1, dat in de Topdivisie speelt. Daarover schreven we [een blog](/blog/nieuwblik-sponsort-vv-madjoe-heren-1).",
+          "[Feigro Dakwerken](/portfolio/feigro-dakwerken) uit Enkhuizen ontstond uit de samenvoeging van twee dakdekkersbedrijven uit West-Friesland. De nieuwe website zet het bedrijf neer als één team voor platte en hellende daken, laat opgeleverde projecten zien en scheidt de offerteaanvraag voor een nieuw dak van een snelle route om een lekkage te melden.",
+          "Voor [Kyodai Originals](/portfolio/kyodai-originals), een klant uit Enkhuizen met een besloten showroom in Amsterdam, bouwden we een online galerie voor authentieke Japanse zwaarden en wapenrustingen, waarin certificering, de geschiedenis van elk stuk en persoonlijk contact het vertrouwen van verzamelaars moeten winnen. De NBTHK-, NBSK- en NTHK-certificeringen en de levenslange authenticiteitsgarantie staan prominent op de productpagina's.",
           "[Een Bundel Geluk](/portfolio/een-bundel-geluk) uit Enkhuizen maakt handgemengde theeblends en natuurlijke verzorgingsproducten. De webshop vertelt het verhaal van de oprichtster en houdt het contact persoonlijk: vragen en bestellingen lopen via WhatsApp.",
         ],
       },
@@ -615,7 +617,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Kunnen we elkaar spreken in Enkhuizen?",
-        a: "Kennismaken gaat meestal via een videocall. Bij grotere trajecten komen we bij je langs.",
+        a: "We werken voornamelijk online: kennismaken gaat via een videocall, daarna houd je contact via telefoon, mail en WhatsApp. Spreek je elkaar liever in het echt, dan komen we bij je langs.",
       },
       {
         q: "Mijn website is verouderd. Waar beginnen we?",
@@ -631,7 +633,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Werken jullie alleen voor bedrijven in Enkhuizen?",
-        a: "Nee. Enkhuizen is onze thuisplaats, maar we werken grotendeels op afstand, voor ondernemers door heel Nederland. Voor Kyodai Originals in Amsterdam bouwden we bijvoorbeeld een online galerie.",
+        a: "Nee. Enkhuizen is onze thuisplaats, maar we werken grotendeels op afstand, voor ondernemers door heel Nederland. Voor osteopaat Jord de Boer in Almere Poort bouwden we bijvoorbeeld een website waarop patiënten online een afspraak plannen.",
       },
       {
         q: "Wie regelt de hosting en het onderhoud?",
@@ -639,10 +641,6 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
     ],
     todo: [
-      "ADRES EN AFSPREKEN: kunnen klanten op kantoor in Enkhuizen langskomen, op welk adres en hoe (op afspraak)? Pas daarna kan het adres in de tekst en in een eigen LocalBusiness-blok.",
-      "NAAM EN ROL: wie zijn jullie (naam en rol), voor een korte alinea in de ik/wij-vorm over het kantoor.",
-      "KLANTEN UIT ENKHUIZEN: welke klanten uit Enkhuizen mogen we noemen, naast VV Madjoe en Een Bundel Geluk?",
-      "LOKALE BETROKKENHEID: sponsoring, netwerken of verenigingen. In de repo staat een blog over de sponsoring van VV Madjoe Heren 1; mag dat erin?",
       "REVIEW OF CITAAT: een review of citaat van een klant uit Enkhuizen.",
       "BRANCHES: voor welke branches in Enkhuizen werken jullie het meest?",
     ],
