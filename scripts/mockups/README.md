@@ -9,6 +9,7 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
 | Warm | monitor (zwart-wit studio, retro aan) | `warm`: hand in de zon, wazige achtergrond | Taxi Drechterland |
 | Studio | tablet (tegenlicht, grijze studio) | `studio`: lichte studio, schuin perspectief | Feigro Dakwerken |
 | Natuur | bureau (monitor voor raam met groen, warm zonlicht) | `bank`: plat op een groen bankje in de zon | Een Bundel Geluk |
+| Avond | werkplek (monitor, warme lamp erachter, GSAP-aanzet) | `schoot`: in twee handen op schoot, groene kleding (magenta sleutel) | VV Madjoe |
 
 ## Nieuwe case in drie stappen
 
@@ -21,8 +22,8 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
    - `<slug>` is de slug uit `src/data/projects.ts`.
    - `--verberg`: zwevende knoppen of pop-ups van de klantsite die niet in beeld
      mogen (bij Taxi Drechterland: `"button.fixed.right-5.bottom-6, div.fixed.bottom-3.left-3"`).
-   - `--toestel monitor` (standaard), `tablet` of `bureau`: bepaalt het venster van de hero-screenshot.
-   - `--telefoon warm` (standaard), `studio` of `bank`: welke telefoonfoto.
+   - `--toestel monitor` (standaard), `tablet`, `bureau` of `werkplek`: bepaalt het venster van de hero-screenshot.
+   - `--telefoon warm` (standaard), `studio`, `bank` of `schoot`: welke telefoonfoto.
    - `--alleen hero` of `--alleen telefoon` maakt er maar één.
    - `--spiegel-desktop`: maakt ook `<slug>-telefoon-desktop.webp`, met de lege
      basisfoto gespiegeld en daarna de site erin (dus gewoon leesbaar). Op desktop kijkt
@@ -72,6 +73,25 @@ toestel: foto's met groen scherm genereren, `schermUit()` draaien (geeft de zwar
 foto, het masker, de hoeken, de verhouding en de afronding), een entry in
 `toestellen.ts` en een venster in `HEROS` in `nieuwe-case.mjs` (zelfde verhouding
 als het scherm). `donker: true` maakt de vaste header boven de foto licht.
+
+### Werkplek (VV Madjoe)
+
+- **Foto's:** `src/assets/mockup/werkplek-liggend.webp` en `werkplek-staand.webp`: avondlijke
+  werkplek, monitor recht van voren op een houten bureau, warme lamp erachter, planten
+  en een plank erboven, donkere voorgrond. Groene originelen in `basis/werkplek-groen-*.webp`.
+- **Opgemeten:** liggend 0,3260/0,2986 · 0,6740/0,2986 · 0,6740/0,6139 · 0,3260/0,6139,
+  verhouding 1,96; staand 0,1675/0,3468 · 0,8324/0,3472 · 0,8324/0,5729 · 0,1677/0,5729,
+  verhouding 1,66. Screenshot: venster 1440×734.
+- **Licht** (gemeten): muur rond de monitor RGB ~240,165,57, verder weg 49,34,4, bureau
+  129,65,11, voorgrond 17,8,2. Het scherm is de koelste lichtbron in de kamer: geen
+  warme toon erover, alleen 8% vignettering. Header boven de foto wit.
+- **Aanzet met GSAP** (`aan: "gsap"` in `toestellen.ts`), 1,5 s:
+  1. het paneel licht op (zwart wordt #0f1012);
+  2. het beeld komt van 104%, blur 12px en brightness 1,6 scherp naar 100% (power3.out).
+
+  Bewust geen gloed om het scherm en geen glinstering over het glas (afgekeurd: de
+  gloed liet een waas om het scherm achter).
+  Bij reduced motion staat alles meteen in de eindstand.
 
 ### Bureau (Een Bundel Geluk)
 
@@ -125,15 +145,22 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
     wazige achtergrond. `midden` 0,44, `telefoonHoogte` 0,44.
   - `basis/telefoon-studio-9x16.webp` (studio): hand met een lichte iPhone 18 Pro,
     schuin in perspectief, lichte studio. `midden` 0,47, `telefoonHoogte` 0,52.
+  - `basis/telefoon-schoot-9x16.webp` (schoot): twee handen houden een iPhone in een
+    saliegroen hoesje op schoot, groene kleding. Het scherm is magenta (#FF00FF), omdat
+    een groen scherm in al dat groen zou wegvallen (`sleutel: "magenta"`). `midden`
+    0,455, `telefoonHoogte` 0,387, glans `studio`.
   - `basis/telefoon-bank-9x16.webp` (bank): iPhone plat en diagonaal op een groen
     metalen bankje in hard zonlicht. `midden` 0,5, `telefoonHoogte` 0,615. Glans `zon`:
     het scherm in de zon iets gedempt en warmer (gemeten in de referentie: beige
     ~171,157,144), met een zonneglans.
 - **Mobiele screenshot:** 402×820 pt @3x (iPhone-viewport zonder statusbalk), met
   een statusbalk van 54 pt erboven (9:41, bereik, wifi, batterij, in de kleur van
-  de bovenrand van de site). Samen 1206×2622.
+  de bovenrand van de site; tekst donker op een lichte balk en wit op een donkere,
+  zoals iOS). Samen 1206×2622.
 - **In de foto zetten** (`telefoon.mjs`):
-  - Groene pixels opsporen.
+  - Pixels in de sleutelkleur opsporen (groen of magenta, zie `SLEUTELS`); alleen het
+    grootste aaneengesloten vlak telt, en er wordt alleen binnen het schermvlak
+    vervangen. Groene stof of blaadjes elders in de foto blijven dus altijd onaangeroerd.
   - De rechte stukken van de vier schermranden fitten; de hoeken zijn hun snijpunten.
   - De screenshot met een homografie (perspectief) in het scherm leggen, met 4×
     supersampling.

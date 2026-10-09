@@ -12,6 +12,10 @@ import eenBundelGeluk from "@/assets/cases/een-bundel-geluk-scherm.webp";
 import eenBundelGelukSet from "@/assets/cases/een-bundel-geluk-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
 import eenBundelGelukTelefoon from "@/assets/cases/een-bundel-geluk-telefoon.webp";
 import eenBundelGelukTelefoonSet from "@/assets/cases/een-bundel-geluk-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+import vvMadjoe from "@/assets/cases/vv-madjoe-scherm.webp";
+import vvMadjoeSet from "@/assets/cases/vv-madjoe-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
+import vvMadjoeTelefoon from "@/assets/cases/vv-madjoe-telefoon.webp";
+import vvMadjoeTelefoonSet from "@/assets/cases/vv-madjoe-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
 
 /**
  * Full-page screenshots per case voor de mockup in de hero (sleutel = slug
@@ -40,6 +44,13 @@ export const caseMockups: Record<string, MockupScherm> = {
     breedte: 1800,
     hoogte: 11358,
     toestel: "bureau",
+  },
+  "vv-madjoe": {
+    src: vvMadjoe,
+    srcSet: vvMadjoeSet,
+    breedte: 1800,
+    hoogte: 10990,
+    toestel: "werkplek",
   },
 };
 
@@ -103,5 +114,13 @@ export const caseTelefoons: Record<string, TelefoonFoto> = {
     telefoonHoogte: 0.615,
     // Ook hier staat de telefoon groot in beeld (diagonaal): rustigere zoom.
     effect: { zoom: 1.1, naarRechts: 4, zoomMobiel: 1.05, naarRechtsMobiel: 2 },
+  },
+  "vv-madjoe": {
+    src: vvMadjoeTelefoon,
+    srcSet: vvMadjoeTelefoonSet,
+    breedte: 2160,
+    hoogte: 3840,
+    midden: 0.455,
+    telefoonHoogte: 0.387,
   },
 };

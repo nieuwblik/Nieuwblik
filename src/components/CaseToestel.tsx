@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { ScrollBlob, useSchermScroll } from "@/components/SchermScroll";
 import { useDarkNavSection } from "@/components/UnderlayNav";
 import type { MockupScherm } from "@/components/CaseMockup";
@@ -12,6 +13,8 @@ const SCHERM_BREEDTE = 1000;
 const START_NA_MS = 400;
 /** Duur van het aangaan (scherm licht op); daarna begint het scrollen. */
 const AAN_DUUR_MS = 900;
+/** Duur van de GSAP-aanzet (aan: "gsap"); daarna begint het scrollen. */
+const AAN_DUUR_GSAP_MS = 1500;
 
 /** Homografie die de vier hoeken van `bron` op die van `doel` legt, als CSS matrix3d. */
 function perspectief(bron: number[][], doel: number[][]): string {
@@ -54,7 +57,10 @@ const schermBreedte = (o: ToestelFoto) => Math.round(Math.max(o.hoeken[1]![0] - 
  *   het de echte schermrand volgt en alles wat in de foto vóór het scherm zit
  *   (een duim op de rand) daar ook blijft. Het vlak is daarom iets ruimer (RUIMTE).
  * - Licht en kleur per toestel (`licht`, `filter`), afgestemd op de foto.
- * - Aangaan: het beeld komt zacht en iets te helder op en zakt naar normaal.
+ * - Aangaan ("zacht"): het beeld komt zacht en iets te helder op en zakt naar normaal.
+ * - Aangaan ("gsap"), als een moderne monitor die wakker wordt: het paneel licht
+ *   op (zwart wordt net iets lichter) en het beeld komt van iets te groot, onscherp
+ *   en overbelicht scherp op zijn plek. Geen gloed om het scherm en geen glinstering.
  */
 const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: MockupScherm; alt: string }) => {
   const kaderRef = useRef<HTMLDivElement>(null);
@@ -64,6 +70,7 @@ const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: Mocku
   const blobRef = useRef<HTMLDivElement>(null);
   const blobBinnenRef = useRef<HTMLDivElement>(null);
   const { liggend, staand } = toestel;
+  const metGsap = toestel.aan === "gsap";
   // Bij een donkere foto wordt de vaste header erboven licht.
   const donkerRef = useDarkNavSection<HTMLElement>();
 
@@ -101,9 +108,31 @@ const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: Mocku
     blobRef,
     blobBinnenRef,
     startNaMs: START_NA_MS,
-    aanDuurMs: AAN_DUUR_MS,
+    aanDuurMs: metGsap ? AAN_DUUR_GSAP_MS : AAN_DUUR_MS,
     opAan: () => {
-      if (beeldRef.current) beeldRef.current.dataset["aan"] = "ja";
+      const beeld = beeldRef.current;
+      if (!beeld) return;
+      if (!metGsap) {
+        beeld.dataset["aan"] = "ja";
+        return;
+      }
+      const filter = toestel.filter ?? "contrast(1)";
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(beeld, { opacity: 1, filter });
+        gsap.set(schermRef.current, { backgroundColor: "#0f1012" });
+        return;
+      }
+      gsap
+        .timeline()
+        // Paneel licht op: de achtergrondverlichting gaat aan.
+        .fromTo(schermRef.current, { backgroundColor: "#000000" }, { backgroundColor: "#0f1012", duration: 0.35, ease: "power1.out" }, 0)
+        // Beeld komt van iets te groot, onscherp en overbelicht scherp op zijn plek.
+        .fromTo(
+          beeld,
+          { opacity: 0, scale: 1.04, filter: `blur(12px) brightness(1.6) ${filter}` },
+          { opacity: 1, scale: 1, filter: `blur(0px) brightness(1) ${filter}`, duration: 1.25, ease: "power3.out" },
+          0.2,
+        );
     },
   });
 
@@ -123,6 +152,7 @@ const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: Mocku
         [data-toestel-scherm][data-klaar="ja"] { visibility: visible; }
         /* Kleurcorrectie van het toestel; de aan-animatie neemt hem mee. */
         [data-toestel-beeld] { opacity: 0; filter: var(--toestel-filter); }
+        [data-toestel-beeld] { transform-origin: 50% 50%; }
         [data-toestel-beeld][data-aan="ja"] { animation: toestel-aan ${AAN_DUUR_MS}ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         @keyframes toestel-aan {
           0%   { opacity: 0; filter: brightness(1.35) var(--toestel-filter); }

@@ -8,6 +8,11 @@ import bureauLiggendSet from "@/assets/mockup/bureau-liggend.webp?w=1280;1920;28
 import bureauStaandSet from "@/assets/mockup/bureau-staand.webp?w=720;1080;1440;2160&format=webp&as=srcset";
 import bureauMaskerLiggend from "@/assets/mockup/bureau-liggend-masker.png";
 import bureauMaskerStaand from "@/assets/mockup/bureau-staand-masker.png";
+import werkplekLiggend from "@/assets/mockup/werkplek-liggend.webp";
+import werkplekLiggendSet from "@/assets/mockup/werkplek-liggend.webp?w=1280;1920;2880;3840&format=webp&as=srcset";
+import werkplekStaandSet from "@/assets/mockup/werkplek-staand.webp?w=720;1080;1440;2160&format=webp&as=srcset";
+import werkplekMaskerLiggend from "@/assets/mockup/werkplek-liggend-masker.png";
+import werkplekMaskerStaand from "@/assets/mockup/werkplek-staand-masker.png";
 
 /** Eén mockupfoto met een scherm in perspectief, opgemeten met schermUit() in scripts/mockups/telefoon.mjs. */
 export interface ToestelFoto {
@@ -42,6 +47,12 @@ export interface Toestel {
   filter?: string;
   /** Donkere foto: de vaste header wordt erboven licht (wit logo). */
   donker?: boolean;
+  /**
+   * Hoe het scherm aangaat: "zacht" (standaard, CSS: komt iets te helder op) of
+   * "gsap" (GSAP-timeline: paneel licht op, beeld komt van onscherp en overbelicht
+   * scherp op zijn plek).
+   */
+  aan?: "zacht" | "gsap";
 }
 
 export const toestellen = {
@@ -103,6 +114,38 @@ export const toestellen = {
     licht: "radial-gradient(ellipse 80% 76% at 50% 48%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.09) 100%), rgba(255,214,170,0.03)",
     filter: "contrast(0.97)",
     donker: true,
+  },
+  /*
+   * Avondlijke werkplek (VV Madjoe): monitor recht van voren op een houten bureau,
+   * een warme lamp erachter laat de muur amber gloeien, de rest van de kamer is donker.
+   * Gemeten: muur rond de monitor RGB ~240,165,57, muur ver links 49,34,4, bureau
+   * 129,65,11, voorgrond 17,8,2. Het scherm geeft zelf licht en is de koelste lichtbron
+   * in de kamer: geen warme toon erover, alleen lichte vignettering. Gaat aan met een
+   * GSAP-timeline.
+   */
+  werkplek: {
+    naam: "werkplek",
+    src: werkplekLiggend,
+    srcSet: werkplekLiggendSet,
+    srcSetStaand: werkplekStaandSet,
+    liggend: {
+      masker: werkplekMaskerLiggend,
+      ar: 3840 / 2160,
+      hoeken: [[0.32604, 0.29861], [0.67397, 0.29861], [0.67395, 0.61389], [0.32604, 0.61389]],
+      verhouding: 1.9618,
+      radius: 0,
+    },
+    staand: {
+      masker: werkplekMaskerStaand,
+      ar: 2160 / 3840,
+      hoeken: [[0.16753, 0.34683], [0.83241, 0.34723], [0.83241, 0.57292], [0.16769, 0.57292]],
+      verhouding: 1.6555,
+      radius: 0.0034,
+    },
+    achtergrond: "#1a1208",
+    licht: "radial-gradient(ellipse 82% 78% at 50% 50%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.08) 100%)",
+    donker: true,
+    aan: "gsap",
   },
 } satisfies Record<string, Toestel>;
 

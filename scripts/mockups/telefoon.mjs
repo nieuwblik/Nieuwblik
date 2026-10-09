@@ -17,22 +17,25 @@ export async function metStatusbalk(sitePng) {
   for (let i = 0; i < rij.length; i += 3) { r += rij[i]; g += rij[i + 1]; b += rij[i + 2]; }
   const n = rij.length / 3;
   const kleur = `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})`;
+  // Tekst en iconen zoals iOS: donker op een lichte balk, wit op een donkere.
+  const helderheid = (0.2126 * r + 0.7152 * g + 0.0722 * b) / n;
+  const inkt = helderheid > 150 ? "#111" : "#fff";
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${SB}">
   <rect width="100%" height="100%" fill="${kleur}"/>
-  <text x="168" y="102" font-family="Segoe UI, Arial, sans-serif" font-weight="600" font-size="52" fill="#fff" text-anchor="middle">9:41</text>
-  <g fill="#fff" transform="translate(842,64)">
+  <text x="168" y="102" font-family="Segoe UI, Arial, sans-serif" font-weight="600" font-size="52" fill="${inkt}" text-anchor="middle">9:41</text>
+  <g fill="${inkt}" transform="translate(842,64)">
     <rect x="0" y="27" width="9" height="12" rx="2"/><rect x="14" y="20" width="9" height="19" rx="2"/>
     <rect x="28" y="12" width="9" height="27" rx="2"/><rect x="42" y="4" width="9" height="35" rx="2"/>
   </g>
-  <g transform="translate(938,66)" fill="#fff">
+  <g transform="translate(938,66)" fill="${inkt}">
     <path d="M24 36 l-7-7 a10 10 0 0 1 14 0z"/>
     <path d="M10 22 a20 20 0 0 1 28 0 l-5 5 a13 13 0 0 0 -18 0z"/>
     <path d="M2 14 a31 31 0 0 1 44 0 l-5 5 a24 24 0 0 0 -34 0z"/>
   </g>
   <g transform="translate(1004,64)">
-    <rect x="1.5" y="1.5" width="70" height="35" rx="11" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="3"/>
-    <rect x="6" y="6" width="61" height="26" rx="7" fill="#fff"/>
-    <rect x="76" y="13" width="5" height="12" rx="2.5" fill="#fff" fill-opacity="0.45"/>
+    <rect x="1.5" y="1.5" width="70" height="35" rx="11" fill="none" stroke="${inkt}" stroke-opacity="0.45" stroke-width="3"/>
+    <rect x="6" y="6" width="61" height="26" rx="7" fill="${inkt}"/>
+    <rect x="76" y="13" width="5" height="12" rx="2.5" fill="${inkt}" fill-opacity="0.45"/>
   </g>
 </svg>`;
   const site = await sharp(sitePng).resize(W, H - SB, { fit: "cover", position: "top" }).toBuffer();
@@ -72,21 +75,62 @@ export const GLANS = {
 };
 
 /**
- * Zoekt het egale #00FF00 scherm in een foto (ook schuin of in perspectief): de
- * rechte middenstukken van de vier randen worden gefit, de hoeken zijn hun
- * snijpunten (dus zonder afronding). `radius` is de afronding van de schermhoeken
- * in fotopixels, gemeten langs de diagonaal van de linkerbovenhoek.
+ * Sleutelkleur van het scherm in de foto. Groen (#00FF00) standaard; magenta
+ * (#FF00FF) voor foto's waarin veel groen zit (groene kleding, planten).
+ * - mate: hoe sterk een pixel de sleutelkleur heeft (positief = sleutelkleur);
+ * - zweemWeg: haalt de sleutelkleur uit een pixel (voor randen die half scherm zijn).
  */
-export function vindScherm(F, W, H) {
+export const SLEUTELS = {
+  groen: {
+    mate: (r, g, b) => g - Math.max(r, b),
+    zweemWeg: (r, g, b, marge = 0) => [r, Math.min(g, Math.max(r, b) + marge), b],
+  },
+  magenta: {
+    mate: (r, g, b) => Math.min(r, b) - g,
+    zweemWeg: (r, g, b, marge = 0) => { const te = Math.max(0, Math.min(r, b) - g - marge); return [r - te, g, b - te]; },
+  },
+};
+
+/**
+ * Zoekt het egale scherm in de sleutelkleur in een foto (ook schuin of in
+ * perspectief). Alleen het grootste aaneengesloten vlak telt, zodat losse groene
+ * stof of blaadjes de meting niet verstoren. De rechte middenstukken van de vier
+ * randen worden gefit, de hoeken zijn hun snijpunten (dus zonder afronding).
+ * `groen` (de mate van sleutelkleur, 0-1) is daarna alleen nog niet-nul binnen het
+ * schermvlak (2% ruimer), zodat er elders in de foto nooit iets vervangen wordt.
+ * `radius` is de afronding van de schermhoeken in fotopixels, gemeten langs de
+ * diagonaal van de linkerbovenhoek.
+ */
+export function vindScherm(F, W, H, sleutel = "groen") {
+  const { mate } = SLEUTELS[sleutel];
   const groen = new Float32Array(W * H);
   for (let i = 0; i < W * H; i++) {
-    const d = F[i * 3 + 1] - Math.max(F[i * 3], F[i * 3 + 2]);
+    const d = mate(F[i * 3], F[i * 3 + 1], F[i * 3 + 2]);
     groen[i] = Math.max(0, Math.min(1, (d - 40) / 90));
   }
-  const isGroen = (x, y) => groen[y * W + x] > 0.5;
+  // Grootste aaneengesloten vlak (4-buren) met sterke sleutelkleur.
+  const vlak = new Int32Array(W * H);
+  const stapel = new Int32Array(W * H);
+  let grootste = 0, grootsteId = 0, id = 0;
+  for (let start = 0; start < W * H; start++) {
+    if (groen[start] <= 0.5 || vlak[start]) continue;
+    id++;
+    let n = 0, top = 0;
+    stapel[top++] = start; vlak[start] = id;
+    while (top) {
+      const i = stapel[--top]; n++;
+      const x = i % W, y = (i / W) | 0;
+      if (x > 0 && !vlak[i - 1] && groen[i - 1] > 0.5) { vlak[i - 1] = id; stapel[top++] = i - 1; }
+      if (x < W - 1 && !vlak[i + 1] && groen[i + 1] > 0.5) { vlak[i + 1] = id; stapel[top++] = i + 1; }
+      if (y > 0 && !vlak[i - W] && groen[i - W] > 0.5) { vlak[i - W] = id; stapel[top++] = i - W; }
+      if (y < H - 1 && !vlak[i + W] && groen[i + W] > 0.5) { vlak[i + W] = id; stapel[top++] = i + W; }
+    }
+    if (n > grootste) { grootste = n; grootsteId = id; }
+  }
+  if (!grootste) throw new Error(`Geen scherm in de sleutelkleur (${sleutel}) gevonden in de foto.`);
+  const isGroen = (x, y) => x >= 0 && y >= 0 && x < W && y < H && vlak[y * W + x] === grootsteId;
   let minY = H, maxY = 0, minX = W, maxX = 0;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (isGroen(x, y)) { minY = Math.min(minY, y); maxY = Math.max(maxY, y); minX = Math.min(minX, x); maxX = Math.max(maxX, x); }
-  if (minY > maxY) throw new Error("Geen groen scherm gevonden in de foto.");
 
   const rand = [];
   for (let y = minY; y <= maxY; y++) for (let x = minX; x <= maxX; x++)
@@ -128,6 +172,24 @@ export function vindScherm(F, W, H) {
   while (afstand < ll && !isGroen(Math.round(hx + (lx / ll) * afstand), Math.round(hy + (ly / ll) * afstand))) afstand += 0.25;
   const radius = afstand / (Math.SQRT2 - 1);
 
+  // Alleen binnen het schermvlak (2% ruimer dan de gefitte hoeken) mag iets vervangen worden.
+  const mx = hoeken.reduce((t, p) => t + p[0], 0) / 4, my = hoeken.reduce((t, p) => t + p[1], 0) / 4;
+  const ruim = hoeken.map(([x, y]) => [mx + (x - mx) * 1.02, my + (y - my) * 1.02]);
+  const binnen = (x, y) => {
+    let teken = 0;
+    for (let k = 0; k < 4; k++) {
+      const [ax, ay] = ruim[k], [bx, by] = ruim[(k + 1) % 4];
+      const c = Math.sign((bx - ax) * (y - ay) - (by - ay) * (x - ax));
+      if (c !== 0) { if (teken === 0) teken = c; else if (c !== teken) return false; }
+    }
+    return true;
+  };
+  const marge = 12;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = y * W + x;
+    if (groen[i] > 0 && (x < minX - marge || x > maxX + marge || y < minY - marge || y > maxY + marge || !binnen(x + 0.5, y + 0.5))) groen[i] = 0;
+  }
+
   return { groen, grens: { minX, maxX, minY, maxY }, hoeken, radius };
 }
 
@@ -137,10 +199,11 @@ export function vindScherm(F, W, H) {
  * staan omdat alleen groene pixels vervangen worden. Daarna glans op het glas
  * (zie GLANS) en de groene zweem van de randen. Geeft een PNG-buffer terug.
  */
-export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm) {
+export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm, sleutel = "groen") {
   const foto = await sharp(fotoPad).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const W = foto.info.width, H = foto.info.height, F = foto.data;
-  const { groen, grens: { minX, maxX, minY, maxY }, hoeken } = vindScherm(F, W, H);
+  const { groen, grens: { minX, maxX, minY, maxY }, hoeken } = vindScherm(F, W, H, sleutel);
+  const { zweemWeg } = SLEUTELS[sleutel];
   console.log("  schermhoeken in de foto:", hoeken.map(([x, y]) => `${Math.round(x)},${Math.round(y)}`).join("  "));
 
   const scherm = await sharp(schermPng).removeAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -165,21 +228,22 @@ export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm) {
       const [u, v] = naarScherm(x + 0.5, y + 0.5);
       const g = glans.sterkte * Math.exp(-((((u / SW) * 0.9 + (v / SH) * 0.55 - 0.42) / 0.2) ** 2)) + glans.onder * (1 - v / SH);
       for (let k = 0; k < 3; k++) kleur[k] = kleur[k] * glans.contrast * glans.tint[k] + glans.optillen + (glans.kleur[k] - kleur[k]) * g;
-      const onder = [F[i * 3], Math.min(F[i * 3 + 1], Math.max(F[i * 3], F[i * 3 + 2])), F[i * 3 + 2]];
+      const onder = zweemWeg(F[i * 3], F[i * 3 + 1], F[i * 3 + 2]);
       for (let k = 0; k < 3; k++) uit[i * 3 + k] = Math.round(Math.max(0, Math.min(255, kleur[k] * a + onder[k] * (1 - a))));
     }
   }
-  ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge);
+  ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge, sleutel);
   return sharp(uit, { raw: { width: W, height: H, channels: 3 } }).png().toBuffer();
 }
 
-/** Groene zweem op de rand net buiten het scherm (bezel) neutraliseren. */
-function ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge) {
+/** Zweem van de sleutelkleur op de rand net buiten het scherm (bezel) neutraliseren. */
+function ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge, sleutel = "groen") {
+  const { zweemWeg } = SLEUTELS[sleutel];
   for (let y = Math.max(1, minY - marge); y <= Math.min(H - 2, maxY + marge); y++) {
     for (let x = Math.max(1, minX - marge); x <= Math.min(W - 2, maxX + marge); x++) {
       const i = y * W + x; if (groen[i] > 0) continue;
-      const r = uit[i * 3], g = uit[i * 3 + 1], b = uit[i * 3 + 2];
-      if (g > Math.max(r, b) + 12) uit[i * 3 + 1] = Math.max(r, b) + 12;
+      const [r, g, b] = zweemWeg(uit[i * 3], uit[i * 3 + 1], uit[i * 3 + 2], 12);
+      uit[i * 3] = r; uit[i * 3 + 1] = g; uit[i * 3 + 2] = b;
     }
   }
 }
@@ -193,18 +257,19 @@ function ontgroenRand(uit, groen, W, H, { minX, maxX, minY, maxY }, marge) {
  * scherm zit (een duim op de rand) ook vóór de site.
  * Geeft { png, masker, hoeken, verhouding, radius, breedte, hoogte } terug.
  */
-export async function schermUit(fotoPad, zwart = [8, 8, 9]) {
+export async function schermUit(fotoPad, zwart = [8, 8, 9], sleutel = "groen") {
   const foto = await sharp(fotoPad).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const W = foto.info.width, H = foto.info.height, F = foto.data;
-  const { groen, grens, hoeken, radius } = vindScherm(F, W, H);
+  const { groen, grens, hoeken, radius } = vindScherm(F, W, H, sleutel);
+  const { zweemWeg } = SLEUTELS[sleutel];
   const uit = Buffer.from(F);
   for (let i = 0; i < W * H; i++) {
     const a = groen[i];
     if (a <= 0) continue;
-    const onder = [F[i * 3], Math.min(F[i * 3 + 1], Math.max(F[i * 3], F[i * 3 + 2])), F[i * 3 + 2]];
+    const onder = zweemWeg(F[i * 3], F[i * 3 + 1], F[i * 3 + 2]);
     for (let k = 0; k < 3; k++) uit[i * 3 + k] = Math.round(zwart[k] * a + onder[k] * (1 - a));
   }
-  ontgroenRand(uit, groen, W, H, grens, 8);
+  ontgroenRand(uit, groen, W, H, grens, 8, sleutel);
   const [lb, rb, ro, lo] = hoeken;
   const breedteScherm = (Math.hypot(rb[0] - lb[0], rb[1] - lb[1]) + Math.hypot(ro[0] - lo[0], ro[1] - lo[1])) / 2;
   const hoogteScherm = (Math.hypot(lo[0] - lb[0], lo[1] - lb[1]) + Math.hypot(ro[0] - rb[0], ro[1] - rb[1])) / 2;

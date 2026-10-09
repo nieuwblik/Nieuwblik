@@ -1,6 +1,6 @@
 // Maakt de mockup-beelden voor een portfolio-case.
 //
-//   node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet|bureau] [--telefoon warm|studio|bank]
+//   node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet|bureau|werkplek] [--telefoon warm|studio|bank|schoot]
 //                                         [--verberg "<css-selectors>"] [--alleen hero|telefoon] [--spiegel-desktop]
 //
 // Voorbeeld:
@@ -28,16 +28,19 @@ const TELEFOONS = {
   warm: { basis: join(HIER, "basis/telefoon-groen-9x16.webp"), midden: 0.44, telefoonHoogte: 0.44, glans: GLANS.warm },
   studio: { basis: join(HIER, "basis/telefoon-studio-9x16.webp"), midden: 0.47, telefoonHoogte: 0.52, glans: GLANS.studio },
   bank: { basis: join(HIER, "basis/telefoon-bank-9x16.webp"), midden: 0.5, telefoonHoogte: 0.615, glans: GLANS.zon },
+  // Magenta scherm: de foto zit vol groene stof, een groen scherm zou daarin wegvallen.
+  schoot: { basis: join(HIER, "basis/telefoon-schoot-9x16.webp"), midden: 0.455, telefoonHoogte: 0.387, glans: GLANS.studio, sleutel: "magenta" },
 };
 
 /**
  * Hero-screenshot: het venster heeft de verhouding van het scherm in het toestel
- * (monitor 1,82, tablet 1,50, bureau 1,75), wordt scherp gemaakt en daarna op 1800 breed gezet.
+ * (monitor 1,82, tablet 1,50, bureau 1,75, werkplek 1,96), wordt scherp gemaakt en daarna op 1800 breed gezet.
  */
 const HEROS = {
   monitor: { breedte: 1440, hoogte: 790, dpr: 1.5, uitBreedte: 1800, kwaliteit: 82 },
   tablet: { breedte: 1440, hoogte: 960, dpr: 1.25, uitBreedte: 1800, kwaliteit: 82 },
   bureau: { breedte: 1440, hoogte: 820, dpr: 1.25, uitBreedte: 1800, kwaliteit: 82 },
+  werkplek: { breedte: 1440, hoogte: 734, dpr: 1.25, uitBreedte: 1800, kwaliteit: 82 },
 };
 /** Mobiele screenshot: iPhone-viewport zonder statusbalk (402×820 pt @3x); de statusbalk komt er los bij. */
 const MOBIEL = { breedte: 402, hoogte: 820, dpr: 3, kwaliteit: 84 };
@@ -55,11 +58,11 @@ const spiegelIndex = args.indexOf("--spiegel-desktop");
 const spiegelDesktop = spiegelIndex >= 0;
 if (spiegelDesktop) args.splice(spiegelIndex, 1);
 const HERO = HEROS[toestel], TELEFOON = TELEFOONS[telefoonSoort];
-if (!HERO) throw new Error(`Onbekend toestel: ${toestel} (monitor, tablet of bureau)`);
-if (!TELEFOON) throw new Error(`Onbekende telefoonfoto: ${telefoonSoort} (warm, studio of bank)`);
+if (!HERO) throw new Error(`Onbekend toestel: ${toestel} (monitor, tablet, bureau of werkplek)`);
+if (!TELEFOON) throw new Error(`Onbekende telefoonfoto: ${telefoonSoort} (warm, studio, bank of schoot)`);
 const [slug, url] = args;
 if (!slug || !url) {
-  console.error('Gebruik: node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet|bureau] [--telefoon warm|studio|bank] [--verberg "<css>"] [--alleen hero|telefoon]');
+  console.error('Gebruik: node scripts/mockups/nieuwe-case.mjs <slug> <url> [--toestel monitor|tablet|bureau|werkplek] [--telefoon warm|studio|bank|schoot] [--verberg "<css>"] [--alleen hero|telefoon]');
   process.exit(1);
 }
 mkdirSync(UIT, { recursive: true });
@@ -85,14 +88,14 @@ if (alleen !== "hero") {
   console.log(`Telefoon: mobiele screenshot van ${url}`);
   const png = await maakScreenshot({ url, ...MOBIEL, mobiel: true, verberg });
   const scherm = await metStatusbalk(png);
-  const foto = await inTelefoon(TELEFOON.basis, scherm, TELEFOON.glans);
+  const foto = await inTelefoon(TELEFOON.basis, scherm, TELEFOON.glans, TELEFOON.sleutel ?? "groen");
   const res = await sharp(foto).webp({ quality: MOBIEL.kwaliteit }).toFile(join(UIT, `${slug}-telefoon.webp`));
   telefoonMaat = [res.width, res.height];
   console.log(`  -> src/assets/cases/${slug}-telefoon.webp (${res.width}×${res.height}, ${Math.round(res.size / 1024)} kB)`);
   if (spiegelDesktop) {
     // Eerst de lege basisfoto spiegelen, dan pas de site erin zetten.
     const gespiegeld = await sharp(TELEFOON.basis).flop().png().toBuffer();
-    const fotoDesktop = await inTelefoon(gespiegeld, scherm, TELEFOON.glans);
+    const fotoDesktop = await inTelefoon(gespiegeld, scherm, TELEFOON.glans, TELEFOON.sleutel ?? "groen");
     const resD = await sharp(fotoDesktop).webp({ quality: MOBIEL.kwaliteit }).toFile(join(UIT, `${slug}-telefoon-desktop.webp`));
     console.log(`  -> src/assets/cases/${slug}-telefoon-desktop.webp (gespiegeld, ${Math.round(resD.size / 1024)} kB)`);
   }

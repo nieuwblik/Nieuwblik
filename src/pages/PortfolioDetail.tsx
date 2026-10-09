@@ -81,7 +81,7 @@ const PortfolioDetail = () => {
 
             {/* Mockup-hero: de site in een monitor of ander toestel, schermvullend (alleen als er een screenshot is) */}
             {mockup?.toestel && mockup.toestel !== "monitor" ? (
-                <CaseToestel toestel={toestellen[mockup.toestel]} scherm={mockup} alt={`Website van ${project.title} op een ${mockup.toestel === "tablet" ? "tablet" : "monitor"}`} />
+                <CaseToestel toestel={toestellen[mockup.toestel]} scherm={mockup} alt={`Website van ${project.title} op een ${toestellen[mockup.toestel].naam === "tablet" ? "tablet" : "monitor"}`} />
             ) : (
                 mockup && <CaseMockup scherm={mockup} alt={`Website van ${project.title} op een monitor`} />
             )}
