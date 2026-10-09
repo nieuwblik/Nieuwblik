@@ -5,6 +5,7 @@ import PortfolioDetail from "@/pages/PortfolioDetail";
 import NotFound from "@/pages/NotFound";
 import { projects } from "@/data/projects";
 import { buildHead } from "@/lib/seo";
+import { caseAfbeelding, caseBeschrijving } from "@/lib/caseMeta";
 
 export const Route = createFileRoute("/_public/portfolio/$slug")({
   // Onbekende slug moet een echte HTTP 404 geven in plaats van 200.
@@ -25,11 +26,9 @@ export const Route = createFileRoute("/_public/portfolio/$slug")({
     }
     return buildHead({
       title: `${project.title} | Portfolio - Nieuwblik`,
-      // Alleen de eerste alinea: is die korter dan 155 tekens, dan kwam er
-      // anders een witregel plus het begin van de volgende alinea mee.
-      description: project.detail?.details
-        ? (project.detail.details.split("\n\n")[0] ?? "").substring(0, 155).trim()
-        : project.description,
+      // Hele zinnen uit de eerste alinea (max. 160 tekens), nooit midden in een woord afgebroken.
+      description: caseBeschrijving(project),
+      ogImage: caseAfbeelding(project),
       keywords: project.tags.join(", "),
       canonical: `${SITE_URL}/portfolio/${project.slug}`,
     });

@@ -13,6 +13,7 @@ import CaseToestel from "@/components/CaseToestel";
 import { toestellen } from "@/data/toestellen";
 import CaseTelefoon from "@/components/CaseTelefoon";
 import { caseMockups, caseTelefoons } from "@/data/caseMockups";
+import { caseAfbeelding, caseBeschrijving } from "@/lib/caseMeta";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
@@ -58,10 +59,10 @@ const PortfolioDetail = () => {
         <div className="min-h-screen bg-background">
             <SEOHead
                 title={`${project.title} | Portfolio - Nieuwblik`}
-                description={project.detail?.details ? (project.detail.details.split("\n\n")[0] ?? "").substring(0, 155).trim() : project.description}
+                description={caseBeschrijving(project)}
                 keywords={project.tags?.join(", ")}
                 canonicalUrl={`${SITE_URL}/portfolio/${project.slug}`}
-                ogImage={project.image}
+                ogImage={caseAfbeelding(project)}
                 structuredData={{
                     "@context": "https://schema.org",
                     "@type": "CreativeWork",
