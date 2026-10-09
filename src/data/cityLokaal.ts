@@ -640,10 +640,6 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: `${HOSTING_ZIN} Een apart onderhoudscontract is er niet. Aanpassingen en uitbreidingen doen we op aanvraag, met een aparte offerte.`,
       },
     ],
-    todo: [
-      "REVIEW OF CITAAT: een review of citaat van een klant uit Enkhuizen.",
-      "BRANCHES: voor welke branches in Enkhuizen werken jullie het meest?",
-    ],
   },
 };
 
