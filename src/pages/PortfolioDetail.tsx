@@ -23,8 +23,10 @@ const PortfolioDetail = () => {
     const project = projects.find((p) => p.slug === slug);
     const mockup = project ? caseMockups[project.slug] : undefined;
     const telefoon = project ? caseTelefoons[project.slug] : undefined;
-    // Bij de telefoonopzet staat de eerste alinea boven de foto en de rest ernaast.
-    const [eersteAlinea = "", ...overigeAlineas] = (project?.detail?.details ?? "").split("\n\n");
+    // Bij de telefoonopzet staan de eerste twee alinea's boven de foto en de rest ernaast.
+    const alineas = (project?.detail?.details ?? "").split("\n\n");
+    const alineasBoven = alineas.slice(0, 2);
+    const overigeAlineas = alineas.slice(2);
 
     useEffect(() => {
         if (!project) {
@@ -141,13 +143,17 @@ const PortfolioDetail = () => {
                     variants={staggerContainer}
                 >
                     <div className="container mx-auto px-6">
-                        <div className="max-w-4xl space-y-6">
+                        <div className="max-w-3xl space-y-6">
                             <motion.h2 variants={fadeUp} className="text-3xl md:text-5xl font-bold font-display leading-tight">
                                 Over {project.title}
                             </motion.h2>
-                            <motion.p variants={fadeUp} className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
-                                {eersteAlinea || "Gegevens volgen nog..."}
-                            </motion.p>
+                            <motion.div variants={fadeUp} className="space-y-6">
+                                {alineasBoven.map((alinea, i) => (
+                                    <p key={i} className="text-lg text-muted-foreground font-light leading-relaxed">
+                                        {alinea || "Gegevens volgen nog..."}
+                                    </p>
+                                ))}
+                            </motion.div>
                         </div>
                     </div>
                 </motion.section>
