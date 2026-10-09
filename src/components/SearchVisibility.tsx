@@ -246,6 +246,10 @@ const SearchVisibility = () => {
               style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
             >
               Ook dichtbij huis in Noord-Holland. Lees over{" "}
+              <Link to="/website-laten-maken-enkhuizen" className={REGIO_LINK}>
+                website laten maken in Enkhuizen
+              </Link>
+              ,{" "}
               <Link to="/werkgebied/hoorn" className={REGIO_LINK}>
                 een website laten maken in Hoorn
               </Link>
