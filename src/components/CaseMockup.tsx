@@ -194,30 +194,40 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
         [data-scroll-blob][data-zichtbaar="ja"] { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         @media (prefers-reduced-motion: reduce) { [data-scroll-blob] { transition: opacity .15s linear; } }
 
-        /* Retro aan-animatie, zoals een oude beeldbuis: een punt wordt een felle lijn,
-           klapt open tot beeld, overbelicht met scanlines, flikkert en komt tot rust. */
+        /* Retro aan-animatie, zoals een oude beeldbuis maar zacht: een dunne, gloeiende
+           lijn met de echte kleuren klapt vloeiend open tot beeld, licht overbelicht en
+           onscherp, met scanlines; één subtiele flikkering en dan tot rust. */
         [data-crt] { opacity: 0; transform-origin: 50% 50%; }
-        [data-crt][data-aan="ja"] { animation: crt-aan ${AAN_DUUR_MS}ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+        [data-crt][data-aan="ja"] { animation: crt-aan ${AAN_DUUR_MS}ms linear forwards; }
         @keyframes crt-aan {
-          0%   { opacity: 1; transform: scale(0.015, 0.004); filter: brightness(9) saturate(0); }
-          16%  { opacity: 1; transform: scale(1, 0.006);    filter: brightness(9) saturate(0); }
-          34%  { opacity: 1; transform: scale(1, 1);        filter: brightness(2.6) saturate(0.2) contrast(1.3); }
-          44%  { filter: brightness(1.7) saturate(0.7) contrast(1.15); }
-          52%  { filter: brightness(0.75) saturate(0.9); }
-          58%  { filter: brightness(1.35) saturate(1); }
-          66%  { filter: brightness(0.92); }
-          100% { opacity: 1; transform: scale(1, 1);        filter: brightness(1) saturate(1); }
+          0%   { opacity: 0; transform: scale(0.35, 0.012); filter: brightness(2) saturate(0.4) blur(1.5px); animation-timing-function: cubic-bezier(0.33, 0, 0.2, 1); }
+          14%  { opacity: 1; transform: scale(1, 0.012);    filter: brightness(2) saturate(0.4) blur(1.5px); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+          48%  { opacity: 1; transform: scale(1, 1);        filter: brightness(1.45) saturate(0.7) blur(0.4px); animation-timing-function: ease-in-out; }
+          64%  { filter: brightness(0.93) saturate(0.95) blur(0); animation-timing-function: ease-in-out; }
+          76%  { filter: brightness(1.06) saturate(1); animation-timing-function: ease-out; }
+          100% { opacity: 1; transform: scale(1, 1);        filter: brightness(1) saturate(1) blur(0); }
         }
-        [data-crt-flits] { opacity: 0; background: radial-gradient(ellipse 60% 18% at 50% 50%, rgba(255,255,255,0.95), rgba(255,255,255,0) 70%); }
-        [data-crt][data-aan="ja"] ~ [data-crt-flits] { animation: crt-flits ${AAN_DUUR_MS}ms ease-out forwards; }
-        @keyframes crt-flits { 0% { opacity: 0; } 10% { opacity: 1; } 30% { opacity: 0.5; } 45%, 100% { opacity: 0; } }
+        /* Zachte gloed rond de lijn (geen witte balk): klapt mee open en dooft uit. */
+        [data-crt-flits] {
+          opacity: 0;
+          background: radial-gradient(ellipse 52% 50% at 50% 50%, rgba(214,255,236,0.55), rgba(214,255,236,0) 70%);
+          transform: scaleY(0.05);
+          filter: blur(6px);
+        }
+        [data-crt][data-aan="ja"] ~ [data-crt-flits] { animation: crt-flits ${AAN_DUUR_MS}ms forwards; }
+        @keyframes crt-flits {
+          0%   { opacity: 0; transform: scaleY(0.05); animation-timing-function: ease-out; }
+          12%  { opacity: 0.9; transform: scaleY(0.05); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+          46%  { opacity: 0.35; transform: scaleY(1); animation-timing-function: ease-out; }
+          70%, 100% { opacity: 0; transform: scaleY(1); }
+        }
         [data-crt-lijnen] {
           opacity: 0;
-          background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.45) 0 1px, rgba(0,0,0,0) 1px 3px);
-          box-shadow: inset 0 0 60px rgba(160,255,210,0.18);
+          background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.35) 0 1px, rgba(0,0,0,0) 1px 3px);
+          box-shadow: inset 0 0 70px rgba(160,255,210,0.14);
         }
-        [data-crt][data-aan="ja"] ~ [data-crt-lijnen] { animation: crt-lijnen ${AAN_DUUR_MS + 600}ms ease-out forwards; }
-        @keyframes crt-lijnen { 0%, 20% { opacity: 0; } 32% { opacity: 1; } 60% { opacity: 0.6; } 100% { opacity: 0; } }
+        [data-crt][data-aan="ja"] ~ [data-crt-lijnen] { animation: crt-lijnen ${AAN_DUUR_MS + 900}ms ease-out forwards; }
+        @keyframes crt-lijnen { 0%, 22% { opacity: 0; } 38% { opacity: 0.85; } 100% { opacity: 0; } }
 
         /* Gloed op de vloer: gaat mee aan met de monitor. Het masker loopt binnen het vlak
            helemaal naar nul, zodat er onder en opzij geen rand zichtbaar is. */
@@ -302,7 +312,8 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
           style={{ left: "var(--l)", top: "var(--t)", width: "var(--w)", height: "var(--h)" }}
         >
           {/* Het beeld van de monitor; gaat retro aan (zie data-crt in de styles). */}
-          <div ref={crtRef} data-crt="" data-aan="nee" className="absolute inset-0">
+          {/* overflow-hidden: alleen wat in beeld is klapt open, niet de hele pagina eronder. */}
+          <div ref={crtRef} data-crt="" data-aan="nee" className="absolute inset-0 overflow-hidden">
             <img
               ref={siteRef}
               src={scherm.src}
