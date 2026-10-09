@@ -8,6 +8,8 @@ import SEOHead from "@/components/SEOHead";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
+import CaseMockup from "@/components/CaseMockup";
+import { caseMockups } from "@/data/caseMockups";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
@@ -19,6 +21,7 @@ const PortfolioDetail = () => {
     const navigate = useNavigate();
 
     const project = projects.find((p) => p.slug === slug);
+    const mockup = project ? caseMockups[project.slug] : undefined;
 
     useEffect(() => {
         if (!project) {
@@ -68,8 +71,11 @@ const PortfolioDetail = () => {
                 ]}
             />
 
+            {/* Mockup-hero: de site in een monitor, schermvullend (alleen als er een screenshot is) */}
+            {mockup && <CaseMockup scherm={mockup} alt={`Website van ${project.title} op een monitor`} />}
+
             {/* Breadcrumb */}
-            <section className="pt-32 pb-0">
+            <section className={mockup ? "pt-16 pb-0" : "pt-32 pb-0"}>
                 <div className="container mx-auto px-6">
                     <Breadcrumb
                         items={[
