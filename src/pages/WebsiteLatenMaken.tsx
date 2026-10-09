@@ -162,7 +162,7 @@ const WebsiteLatenMaken = () => {
                 "Uniek design op maat, geen template",
                 "Volledig responsive voor mobiel, tablet en desktop",
                 "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
-                "PageSpeed score van 90+ op mobiel",
+                "Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
                 "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
                 "WhatsApp, contactformulier en Google Maps integratie",
                 "Google Analytics en Search Console koppeling",

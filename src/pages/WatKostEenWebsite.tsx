@@ -215,7 +215,7 @@ const WatKostEenWebsite = () => {
                 "Uniek design op maat, geen template of bouwpakket",
                 "Alle teksten geschreven voor jouw doelgroep",
                 "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
-                "PageSpeed score van 90+ op mobiel",
+                "Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
                 "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
                 "Google Analytics en Search Console koppeling",
               ].map((f) => (
