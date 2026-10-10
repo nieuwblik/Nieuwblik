@@ -1,10 +1,9 @@
-import { REVIEWS } from "@/config/business";
 import { faqPage } from "@/lib/structured-data";
 import { algemeneFaqParen } from "@/data/algemeneFaq";
 import { lazy, Suspense } from "react";
 import Footer from "@/components/Footer";
-import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
+import GolfHero from "@/components/GolfHero";
 
 // Below-the-fold sections - lazy loaded for faster initial paint
 const FeaturedBlogPosts = lazy(() => import("@/components/FeaturedBlogPosts"));
@@ -14,9 +13,7 @@ const VoorNaSectie = lazy(() => import("@/components/VoorNaSectie"));
 const ScrollPortfolio = lazy(() => import("@/components/ScrollPortfolio"));
 const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
 
-import { AnimatedButton } from "@/components/ui/animated-button";
-import { Star } from "lucide-react";
-import { useRef, type CSSProperties } from "react";
+import { useRef } from "react";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 import { gpuAcceleration } from "@/lib/optimized-motion";
@@ -90,71 +87,10 @@ const Index = () => {
       structuredData={faqJsonLd} />
 
 
-    {/* Hero Section — plain white; centred intro (eyebrow, headline, subtext,
-        CTAs, star rating).
-        Top padding clears the fixed header and nothing more. It deliberately
-        does NOT use .pt-header: that adds up to 6rem on top of the header
-        height for regular pages, which here stacked into ~280px of dead space
-        and pushed the overlapping Projects cards below the fold on a laptop.
-        The bottom padding must clear the Projects section, which is pulled up
-        over this one. In the 1-col range that overlap grows with the viewport
-        (25vw + 30px), so a fixed padding gets swallowed and the cards collide
-        with the star row — hence the matching calc, which holds a constant
-        ~56px gap. From md up the grid is 2-col and the overlap grows far more
-        slowly, so a flat value clears it. */}
-    <section
-      className="sw-ink sw-hero-fill sw-hero-anim relative flex flex-col justify-center pt-[calc(var(--header-height)_+_2.5rem)] sm:pt-[calc(var(--header-height)_+_3rem)] pb-[calc(25vw_+_86px)] md:pb-[16.1rem] lg:pb-[min(calc(27vw_-_9.3rem),14.5rem)]"
-    >
-      <div className="relative z-10 container mx-auto px-4 sm:px-6">
-        {/* Centred intro */}
-        {/* No extra top padding here — the section's pt already clears the
-            header; stacking a second one is what buried the Projects cards. */}
-        {/* lg+: matches the cards container's width (same `container` class,
-            no extra cap) instead of stopping at max-w-4xl, so the two
-            sections read as one grid. Unchanged below lg per spec. */}
-        <div className="max-w-4xl lg:max-w-none mx-auto text-center">
-          <h1 className="sw-hero-textcol sw-display m-0 mx-auto text-center" style={{ color: "hsl(var(--sw-ink))" }}>
-            <span className="sw-mask"><span className="sw-line-inner">Webdesignbureau</span></span>{" "}
-            <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen</span></span></span>
-          </h1>
+    {/* Hero met de zijden golf: tekst rechts, golf links (src/components/GolfHero.tsx). */}
+    <GolfHero />
 
-          <p className="sw-lead mx-auto mt-6 max-w-xl lg:max-w-2xl text-base md:text-lg leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)", "--sw-delay": "0.32s" } as CSSProperties}>
-            Nieuwblik ontwerpt en bouwt websites en webshops die opvallen, razendsnel laden en goed vindbaar zijn, van eerste schets tot livegang. Vanuit{" "}
-            <Link
-              to="/website-laten-maken-enkhuizen"
-              className="underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]"
-            >
-              Enkhuizen
-            </Link>{" "}
-            voor ondernemers door heel Nederland.
-          </p>
-
-          <div className="sw-cta mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3" style={{ "--sw-delay": "0.5s" } as CSSProperties}>
-            <AnimatedButton to="/contact" size="lg" className="h-14 w-full sm:w-auto">
-              Start je project
-            </AnimatedButton>
-            <AnimatedButton to="/portfolio" size="lg" variant="outline" className="h-14 w-full sm:w-auto">
-              Ontdek portfolio
-            </AnimatedButton>
-          </div>
-
-          <div className="sw-cta mt-7 flex flex-wrap items-center justify-center gap-2.5" style={{ "--sw-delay": "0.6s" } as CSSProperties}>
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4" style={{ fill: "hsl(var(--sw-green))", color: "hsl(var(--sw-green))" }} />
-              ))}
-            </div>
-            <span className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.8)" }}>
-              {REVIEWS.scoreLabel} op Google,{" "}
-              <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>op basis van {REVIEWS.aantalLabel} reviews</span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Featured Projects — second section; pulled up so the top row of cards
-        overlaps the hero (see the negative margin in ScrollPortfolio). */}
+    {/* Featured Projects — tweede sectie, onder de hero. */}
     <Suspense fallback={<div className="min-h-[600px]" />}>
       <ScrollPortfolio />
     </Suspense>

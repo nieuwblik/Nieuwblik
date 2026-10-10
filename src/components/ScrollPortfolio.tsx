@@ -44,13 +44,11 @@ const EASE = [0.25, 0.1, 0.25, 1] as const;
 const ScrollPortfolio = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  /* Pulled up (negative margin) so the top row of cards overlaps the hero by
-     ~40% of a card's height. z-20 beats the hero's z-10 content layer, so the
-     cards paint over it. No background: the hero and page are both white, and a
-     solid one would cover the hero instead of letting the cards overlap. */
+  /* Staat onder de hero (niet meer eroverheen getrokken), zodat de golf-hero
+     vrij in beeld staat. */
   return (
     <section
-      className="sw-projects-overlap relative z-20 pb-24 md:pb-32"
+      className="relative z-20 pt-20 md:pt-28 pb-24 md:pb-32"
       style={{ overflow: "clip" }}
     >
       <div className="container mx-auto px-6">

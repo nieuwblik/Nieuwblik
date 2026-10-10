@@ -1,0 +1,177 @@
+import { useEffect, useRef, type CSSProperties } from "react";
+import { Star } from "lucide-react";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { Link } from "@/lib/router-compat";
+import { REVIEWS } from "@/config/business";
+import { golfHero } from "@/data/golfHero";
+import terugvalDesktop from "@/assets/hero/golf-desktop.webp";
+import terugvalMobiel from "@/assets/hero/golf-mobiel.webp";
+
+/**
+ * Homepage-hero met de zijden golf (WebGL, src/components/golf/golfMotor.ts).
+ *
+ * - De golf staat links (gespiegeld), de tekst rechts; op mobiel staat de tekst
+ *   bovenaan en loopt de golf eronder door.
+ * - Tot het eerste WebGL-beeld (en zonder WebGL) staat er een stilstaand
+ *   terugvalbeeld per breekpunt; dat vloeit weg zodra de golf er is.
+ * - De kop staat twee keer op elkaar: onder de golf in inkt (met "Enkhuizen" wit,
+ *   aria-hidden), boven de golf de echte h1 in groen met multiply. Op wit lees je
+ *   zo inkt met een groen "Enkhuizen", waar de golf erachter loopt kleurt de kop
+ *   diepgroen mee.
+ * - De engine wordt pas na de eerste paint geladen, zodat hij niet in de
+ *   hoofdbundel zit en de tekst (LCP) niet ophoudt.
+ */
+const GolfHero = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const vlakRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hero = heroRef.current,
+      vlak = vlakRef.current;
+    if (!hero || !vlak) return;
+    // Per keer een nieuw canvas: een canvas waarvan de context bij het opruimen is
+    // vrijgegeven, kan niet opnieuw worden gebruikt.
+    const canvas = document.createElement("canvas");
+    canvas.className = "golf-hero__canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    vlak.appendChild(canvas);
+    let stop: (() => void) | null = null,
+      weg = false;
+    import("@/components/golf/golfMotor")
+      .then(({ startGolf }) => {
+        if (weg) return;
+        stop = startGolf(canvas, golfHero, {
+          opEersteBeeld: () => hero.classList.add("golf-klaar"),
+          opVerloren: () => hero.classList.remove("golf-klaar"),
+        });
+      })
+      .catch(() => {
+        /* terugvalbeeld blijft staan */
+      });
+    return () => {
+      weg = true;
+      stop?.();
+      canvas.remove();
+      hero.classList.remove("golf-klaar");
+    };
+  }, []);
+
+  return (
+    <section
+      ref={heroRef}
+      className={`golf-hero${golfHero.opstelling.spiegel ? " golf-hero--gespiegeld" : ""} sw-ink sw-hero-anim relative isolate flex min-h-[100svh] flex-col justify-start md:justify-center overflow-hidden bg-background pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[calc(var(--header-height)_+_1rem)] pb-16`}
+    >
+      <picture className="golf-hero__terugval" aria-hidden="true">
+        <source
+          media="(max-width: 759px), (max-aspect-ratio: 9/10)"
+          srcSet={terugvalMobiel}
+        />
+        <img
+          src={terugvalDesktop}
+          alt=""
+          decoding="async"
+          fetchPriority="low"
+        />
+      </picture>
+      <div ref={vlakRef} className="golf-hero__vlak" />
+
+      <div className="relative container mx-auto px-4 sm:px-6">
+        <div className="golf-hero__blok">
+          <div className="golf-hero__stapel">
+            <div
+              className="golf-hero__titel golf-hero__titel--onder"
+              aria-hidden="true"
+            >
+              <span className="sw-mask">
+                <span className="sw-line-inner">Webdesignbureau</span>
+              </span>
+              <span className="sw-mask">
+                <span className="sw-line-inner">
+                  in <em>Enkhuizen</em>
+                </span>
+              </span>
+            </div>
+            <h1 className="golf-hero__titel golf-hero__titel--boven">
+              <span className="sw-mask">
+                <span className="sw-line-inner">Webdesignbureau</span>
+              </span>{" "}
+              <span className="sw-mask">
+                <span className="sw-line-inner">
+                  in <em>Enkhuizen</em>
+                </span>
+              </span>
+            </h1>
+          </div>
+
+          <div className="golf-hero__rest">
+            <p
+              className="sw-lead mt-5 max-w-[34rem] text-base md:text-lg leading-relaxed"
+              style={
+                {
+                  color: "hsl(var(--sw-ink) / 0.7)",
+                  "--sw-delay": "0.32s",
+                } as CSSProperties
+              }
+            >
+              Nieuwblik ontwerpt en bouwt websites en webshops die opvallen,
+              razendsnel laden en goed vindbaar zijn, van eerste schets tot
+              livegang. Vanuit{" "}
+              <Link
+                to="/website-laten-maken-enkhuizen"
+                className="underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]"
+              >
+                Enkhuizen
+              </Link>{" "}
+              voor ondernemers door heel Nederland.
+            </p>
+
+            <div
+              className="sw-cta mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+              style={{ "--sw-delay": "0.5s" } as CSSProperties}
+            >
+              <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
+                Start je project
+              </AnimatedButton>
+              <AnimatedButton
+                to="/portfolio"
+                variant="outline"
+                className="h-12 w-full sm:w-auto"
+              >
+                Ontdek portfolio
+              </AnimatedButton>
+            </div>
+
+            <div
+              className="sw-cta mt-6 flex flex-wrap items-center gap-2.5"
+              style={{ "--sw-delay": "0.6s" } as CSSProperties}
+            >
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4"
+                    style={{
+                      fill: "hsl(var(--sw-green))",
+                      color: "hsl(var(--sw-green))",
+                    }}
+                  />
+                ))}
+              </div>
+              <span
+                className="text-sm"
+                style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
+              >
+                {REVIEWS.scoreLabel} op Google,{" "}
+                <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>
+                  op basis van {REVIEWS.aantalLabel} reviews
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default GolfHero;
