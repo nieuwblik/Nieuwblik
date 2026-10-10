@@ -55,6 +55,18 @@ export type GolfInstellingen = {
     banen: number;
     vouwOvergang: number;
   };
+  /** Scrollanimatie: voortgang 0 tot 1 door de hero. */
+  scroll?: {
+    aan: boolean;
+    /** Extra draaiing in graden aan het eind. */
+    draaien: number;
+    /** 0 tot 1: hoeveel de twists afnemen (het vel strekt zich). */
+    ontvouwen: number;
+    /** Procent van de hoogte dat de golf achterblijft (parallax). */
+    verschuiven: number;
+    /** Extra grootte aan het eind (0.2 = 20% groter). */
+    inzoomen: number;
+  };
   /** Herkomst van de kleuren (sjabloon en stijl) voor het afstelpaneel; de golf zelf gebruikt het niet. */
   kleurBron?: unknown;
 };
@@ -580,22 +592,19 @@ export function startGolf(
   let klok = 0,
     tijd = 0,
     vorige = performance.now();
-  const muis = { x: 0, y: 0, dx: 0, dy: 0 },
-    scroll = { doel: 0, nu: 0 };
+  const muis = { x: 0, y: 0, dx: 0, dy: 0 };
+  // Scrollvoortgang door de hero: 0 bovenaan, 1 als de hero uit beeld is.
+  let voortgang = 0;
   const opMuis = (e: PointerEvent) => {
     muis.dx = e.clientX / innerWidth - 0.5;
     muis.dy = e.clientY / innerHeight - 0.5;
   };
-  const opScroll = () => {
-    scroll.doel = scrollY;
-  };
-  // Muis en scroll alleen volgen als de opstelling dat vraagt.
+  // De muis alleen volgen als de opstelling dat vraagt.
   let luistert = false;
   const luister = () => {
     if (luistert || !S.opstelling.muis || reduced) return;
     luistert = true;
     addEventListener("pointermove", opMuis, { passive: true });
-    addEventListener("scroll", opScroll, { passive: true });
   };
 
   function teken(nu: number) {
@@ -613,11 +622,18 @@ export function startGolf(
     // Muis en scroll volgen met een zachte naloop.
     const volg = 1 - Math.pow(0.004, dt),
       mee = S.opstelling.muis && !reduced;
-    const oud = muis.x + muis.y + scroll.nu;
+    const sc = S.scroll?.aan && !reduced ? S.scroll : null;
+    let doel = 0;
+    if (sc) {
+      const r = canvas.getBoundingClientRect();
+      doel = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height)));
+    }
+    const oud = muis.x + muis.y + voortgang;
     muis.x += ((mee ? muis.dx : 0) - muis.x) * volg;
     muis.y += ((mee ? muis.dy : 0) - muis.y) * volg;
-    scroll.nu += ((mee ? scroll.doel : 0) - scroll.nu) * volg;
-    const loopt = Math.abs(muis.x + muis.y + scroll.nu - oud) > 1e-4;
+    voortgang += (doel - voortgang) * Math.min(1, volg * 1.6);
+    if (Math.abs(doel - voortgang) < 1e-4) voortgang = doel;
+    const loopt = Math.abs(muis.x + muis.y + voortgang - oud) > 1e-5;
     if (maat()) vuil = true;
     if (!(vuil || beweegt || loopt) || !w || !h) return;
     vuil = false;
@@ -628,12 +644,17 @@ export function startGolf(
       H = canvas.clientHeight,
       kr = S.beweging.muisKracht;
     const pr = isMobielVlak(W, H) ? S.mobiel : S.desktop;
-    const k = ((0.8 * W) / REF_B) * pr.schaal,
+    // Scrollanimatie: draaien, ontvouwen, verschuiven en inzoomen naar rato van de voortgang.
+    const sp = sc ? voortgang : 0;
+    const zoom = 1 + (sc?.inzoomen ?? 0) * sp;
+    const rotatie = pr.rotatie + (sc?.draaien ?? 0) * sp;
+    const ontvouw = 1 - (sc?.ontvouwen ?? 0) * sp;
+    const k = ((0.8 * W) / REF_B) * pr.schaal * zoom,
       mv = MV.slice();
     for (let i = 0; i < 12; i++) if (i % 4 !== 3) mv[i] = mv[i]! * k;
     // Draaien in het schermvlak rond het midden van het vel; positief = met de klok mee.
-    if (pr.rotatie) {
-      const a = (-pr.rotatie * Math.PI) / 180,
+    if (rotatie) {
+      const a = (-rotatie * Math.PI) / 180,
         cs = Math.cos(a),
         sn = Math.sin(a);
       for (const o of [0, 4, 8]) {
@@ -652,7 +673,7 @@ export function startGolf(
       mv[13]! * k -
       (pr.posY / 100) * H -
       muis.y * 0.03 * H * kr -
-      scroll.nu * 0.18 * kr;
+      ((sc?.verschuiven ?? 0) / 100) * H * sp;
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, msFbo);
     gl.viewport(0, 0, w, h);
@@ -675,6 +696,8 @@ export function startGolf(
     );
     gl.uniform1f(UG("u_muisTwist"), muis.x * 0.08 * kr);
     for (const n of VORM_UNIFORMS) gl.uniform1f(UG("u_" + n), S.vorm[n]);
+    for (const n of ["twistX", "twistY", "twistZ"] as const)
+      gl.uniform1f(UG("u_" + n), S.vorm[n] * ontvouw);
     for (const n of KLEUR_UNIFORMS)
       gl.uniform1f(UG("u_" + n), S.kleurInstel[n]);
     gl.activeTexture(gl.TEXTURE0);
@@ -790,7 +813,6 @@ export function startGolf(
       cancelAnimationFrame(frame);
       kijker.disconnect();
       removeEventListener("pointermove", opMuis);
-      removeEventListener("scroll", opScroll);
       canvas.removeEventListener("webglcontextlost", opVerloren);
       canvas.removeEventListener("webglcontextrestored", opHersteld);
       // GPU-geheugen meteen vrijgeven bij het verlaten van de pagina.

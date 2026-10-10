@@ -426,6 +426,13 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
 
   // ---------------------------------------------------------------- instellingen
   const kloon = (o) => JSON.parse(JSON.stringify(o));
+  const SCROLL_STANDAARD = {
+    aan: false,
+    draaien: 18,
+    ontvouwen: 0.35,
+    verschuiven: 12,
+    inzoomen: 0.12,
+  };
   // De instellingen zoals ze in src/data/golfHero.ts staan zijn de basis; wat ontbreekt
   // (ook in vakjes uit het prototype) wordt daaruit aangevuld.
   function normaliseer(o) {
@@ -440,6 +447,12 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
       "kleurInstel",
     ])
       Object.assign(s[sectie], o[sectie] ?? {});
+    // Scrollanimatie bestaat in oudere vakjes nog niet: aanvullen met die van de site.
+    s.scroll = {
+      ...SCROLL_STANDAARD,
+      ...(site.scroll ?? {}),
+      ...(o.scroll ?? {}),
+    };
     if (s.vorm.vervaging < 1) {
       s.vorm.vervaging = site.vorm.vervaging;
       s.vorm.vervagingBereik = site.vorm.vervagingBereik;
@@ -1034,22 +1047,45 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
   schuif(gBew, () => S.beweging, "ademKracht", [0, 3, 0.05, "Sterkte ademen"]);
   schakelaar(
     gBew,
-    "Muis en scroll",
-    "Kantelt en verschuift licht mee",
+    "Muis",
+    "Kantelt en verschuift licht mee met de muis",
     () => S.opstelling.muis,
     (v) => (S.opstelling.muis = v),
   );
-  schuif(gBew, () => S.beweging, "muisKracht", [
-    0,
-    3,
-    0.05,
-    "Sterkte muis en scroll",
-  ]);
+  schuif(gBew, () => S.beweging, "muisKracht", [0, 3, 0.05, "Sterkte muis"]);
   if (reduced)
     hint(
       gBew,
-      "Je systeem vraagt om minder beweging; ademen en muis staan daarom stil.",
+      "Je systeem vraagt om minder beweging; ademen, muis en scrollanimatie staan daarom stil.",
     );
+
+  // Scrollanimatie: naar rato van hoe ver de hero uit beeld is gescrold.
+  const gScroll = groep(tabVorm, "Scrollanimatie");
+  schakelaar(
+    gScroll,
+    "Aan",
+    "De golf beweegt mee terwijl je de hero uit scrolt",
+    () => S.scroll.aan,
+    (v) => (S.scroll.aan = v),
+  );
+  schuif(gScroll, () => S.scroll, "draaien", [
+    -90,
+    90,
+    0.5,
+    "Draaien (graden)",
+  ]);
+  schuif(gScroll, () => S.scroll, "ontvouwen", [0, 1, 0.01, "Ontvouwen"]);
+  schuif(gScroll, () => S.scroll, "verschuiven", [
+    -60,
+    60,
+    0.5,
+    "Achterblijven (%)",
+  ]);
+  schuif(gScroll, () => S.scroll, "inzoomen", [-0.5, 1, 0.01, "Inzoomen"]);
+  hint(
+    gScroll,
+    "Scroll de pagina om het effect te zien; het paneel blijft staan. De waarden gelden voor het moment dat de hero helemaal uit beeld is.",
+  );
 
   for (const [titel, lijst] of Object.entries(META.vorm)) {
     const g = groep(tabVorm, titel);

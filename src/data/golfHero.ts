@@ -26,6 +26,13 @@ export const golfHero: GolfInstellingen = {
     vervagingBereik: 0.1,
     korrel: 0.95,
   },
+  scroll: {
+    aan: true,
+    draaien: 18,
+    ontvouwen: 0.35,
+    verschuiven: 12,
+    inzoomen: 0.12,
+  },
   desktop: { posX: 14.5, posY: 0, schaal: 0.94, rotatie: 12 },
   mobiel: { posX: -13, posY: 16.5, schaal: 2.45, rotatie: 27.5 },
   kleuren: {
