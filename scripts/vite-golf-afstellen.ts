@@ -71,7 +71,7 @@ export function golfAfstellen(): Plugin {
 
 // Instellingen van de golf in de homepage-hero, opgeslagen met het afstelpaneel
 // (toets p in de ontwikkelomgeving, knop "Opslaan in site"). Die knop maakt ook de
-// terugvalbeelden in src/assets/hero opnieuw (desktop 1600 x 900, mobiel 390 x 844).
+// terugvalbeelden in src/assets/hero opnieuw (hero op 1600 x 900 en 390 x 844).
 export const golfHero: GolfInstellingen = ${JSON.stringify(instellingen, null, 2)};
 `;
             const prettier = await import("prettier");

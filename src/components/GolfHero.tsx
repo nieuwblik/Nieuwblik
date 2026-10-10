@@ -21,6 +21,14 @@ import terugvalMobiel from "@/assets/hero/golf-mobiel.webp";
  * - De engine wordt pas na de eerste paint geladen, zodat hij niet in de
  *   hoofdbundel zit en de tekst (LCP) niet ophoudt.
  */
+// Diensten in de balk onderin de hero (bestaande pagina's, zie ook de footer).
+const DIENSTEN = [
+  { label: "Website op maat", to: "/diensten/website-op-maat" },
+  { label: "Webshops", to: "/diensten/webshops" },
+  { label: "E-commerce", to: "/diensten/e-commerce" },
+  { label: "SEO", to: "/seo-enkhuizen" },
+];
+
 const GolfHero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const vlakRef = useRef<HTMLDivElement>(null);
@@ -95,7 +103,7 @@ const GolfHero = () => {
   return (
     <section
       ref={heroRef}
-      className={`golf-hero${golfHero.opstelling.spiegel ? " golf-hero--gespiegeld" : ""} sw-ink sw-hero-anim relative isolate flex min-h-[100svh] flex-col justify-start md:justify-center overflow-hidden bg-background pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[calc(var(--header-height)_+_1rem)] pb-16`}
+      className={`golf-hero${golfHero.opstelling.spiegel ? " golf-hero--gespiegeld" : ""} sw-ink sw-hero-anim relative isolate flex min-h-[82svh] flex-col overflow-hidden bg-background`}
     >
       <picture className="golf-hero__terugval" aria-hidden="true">
         <source
@@ -111,99 +119,120 @@ const GolfHero = () => {
       </picture>
       <div ref={vlakRef} className="golf-hero__vlak" />
 
-      <div className="relative container mx-auto px-4 sm:px-6">
-        <div className="golf-hero__blok">
-          <div className="golf-hero__stapel">
-            <div
-              className="golf-hero__titel golf-hero__titel--onder"
-              aria-hidden="true"
-            >
-              <span className="sw-mask">
-                <span className="sw-line-inner">Webdesignbureau</span>
-              </span>
-              <span className="sw-mask">
-                <span className="sw-line-inner">
-                  in <em>Enkhuizen</em>
-                </span>
-              </span>
-            </div>
-            <h1 className="golf-hero__titel golf-hero__titel--boven">
-              <span className="sw-mask">
-                <span className="sw-line-inner">Webdesignbureau</span>
-              </span>{" "}
-              <span className="sw-mask">
-                <span className="sw-line-inner">
-                  in <em>Enkhuizen</em>
-                </span>
-              </span>
-            </h1>
-          </div>
-
-          <div className="golf-hero__rest">
-            <p
-              className="sw-lead mt-5 max-w-[34rem] text-base md:text-lg leading-relaxed"
-              style={
-                {
-                  color: "hsl(var(--sw-ink) / 0.7)",
-                  "--sw-delay": "0.32s",
-                } as CSSProperties
-              }
-            >
-              Nieuwblik ontwerpt en bouwt websites en webshops die opvallen,
-              razendsnel laden en goed vindbaar zijn, van eerste schets tot
-              livegang. Vanuit{" "}
-              <Link
-                to="/website-laten-maken-enkhuizen"
-                className="underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]"
+      <div className="golf-hero__inhoud relative flex flex-1 flex-col justify-start md:justify-center pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[var(--header-height)] pb-12 md:pb-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="golf-hero__blok">
+            <div className="golf-hero__stapel">
+              <div
+                className="golf-hero__titel golf-hero__titel--onder"
+                aria-hidden="true"
               >
-                Enkhuizen
-              </Link>{" "}
-              voor ondernemers door heel Nederland.
-            </p>
-
-            <div
-              className="sw-cta mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
-              style={{ "--sw-delay": "0.5s" } as CSSProperties}
-            >
-              <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
-                Start je project
-              </AnimatedButton>
-              <AnimatedButton
-                to="/portfolio"
-                variant="outline"
-                className="h-12 w-full sm:w-auto"
-              >
-                Ontdek portfolio
-              </AnimatedButton>
-            </div>
-
-            <div
-              className="sw-cta mt-6 flex flex-wrap items-center gap-2.5"
-              style={{ "--sw-delay": "0.6s" } as CSSProperties}
-            >
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4"
-                    style={{
-                      fill: "hsl(var(--sw-green))",
-                      color: "hsl(var(--sw-green))",
-                    }}
-                  />
-                ))}
+                <span className="sw-mask">
+                  <span className="sw-line-inner">Webdesignbureau</span>
+                </span>
+                <span className="sw-mask">
+                  <span className="sw-line-inner">
+                    in <em>Enkhuizen</em>
+                  </span>
+                </span>
               </div>
-              <span
-                className="text-sm"
-                style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
-              >
-                {REVIEWS.scoreLabel} op Google,{" "}
-                <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>
-                  op basis van {REVIEWS.aantalLabel} reviews
+              <h1 className="golf-hero__titel golf-hero__titel--boven">
+                <span className="sw-mask">
+                  <span className="sw-line-inner">Webdesignbureau</span>
+                </span>{" "}
+                <span className="sw-mask">
+                  <span className="sw-line-inner">
+                    in <em>Enkhuizen</em>
+                  </span>
                 </span>
-              </span>
+              </h1>
+            </div>
+
+            <div className="golf-hero__rest">
+              <p
+                className="sw-lead mt-5 max-w-[34rem] text-base md:text-lg leading-relaxed"
+                style={
+                  {
+                    color: "hsl(var(--sw-ink) / 0.7)",
+                    "--sw-delay": "0.32s",
+                  } as CSSProperties
+                }
+              >
+                Nieuwblik ontwerpt en bouwt websites en webshops die opvallen,
+                razendsnel laden en goed vindbaar zijn, van eerste schets tot
+                livegang. Vanuit{" "}
+                <Link
+                  to="/website-laten-maken-enkhuizen"
+                  className="underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]"
+                >
+                  Enkhuizen
+                </Link>{" "}
+                voor ondernemers door heel Nederland.
+              </p>
+
+              <div
+                className="sw-cta mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+                style={{ "--sw-delay": "0.5s" } as CSSProperties}
+              >
+                <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
+                  Start je project
+                </AnimatedButton>
+                <AnimatedButton
+                  to="/portfolio"
+                  variant="outline"
+                  className="h-12 w-full sm:w-auto"
+                >
+                  Ontdek portfolio
+                </AnimatedButton>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Balk onderin, zoals de logobalk bij Stripe: de golf loopt er (zacht
+          vervaagd) achter door en stopt strak aan de onderrand. Reviews links,
+          diensten rechts als echte links. */}
+      <div
+        className="golf-hero__balk sw-cta"
+        style={{ "--sw-delay": "0.6s" } as CSSProperties}
+      >
+        <div className="container mx-auto flex flex-col gap-3 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
+          <Link
+            to="/reviews"
+            className="group flex shrink-0 items-center gap-2.5"
+          >
+            <span className="flex items-center gap-1" aria-hidden="true">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-4 w-4"
+                  style={{
+                    fill: "hsl(var(--sw-green))",
+                    color: "hsl(var(--sw-green))",
+                  }}
+                />
+              ))}
+            </span>
+            <span
+              className="text-sm transition-colors group-hover:text-[hsl(var(--sw-green))]"
+              style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
+            >
+              {REVIEWS.scoreLabel} op Google,{" "}
+              <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>
+                op basis van {REVIEWS.aantalLabel} reviews
+              </span>
+            </span>
+          </Link>
+          <nav aria-label="Diensten" className="golf-hero__diensten">
+            <ul>
+              {DIENSTEN.map((d) => (
+                <li key={d.to}>
+                  <Link to={d.to}>{d.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
     </section>

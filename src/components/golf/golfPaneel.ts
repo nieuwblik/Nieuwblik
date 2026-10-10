@@ -1474,10 +1474,11 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
     knop.disabled = true;
     knop.textContent = "Bezig met opslaan";
     try {
-      // Terugvalbeelden op dezelfde maten als eerder: desktop 1600 x 900, mobiel 390 x 844 op 2x.
+      // Terugvalbeelden op de maat van de hero (82% van de schermhoogte): desktop 1600 x 738
+      // (scherm 1600 x 900), mobiel 390 x 692 (scherm 390 x 844) op 2x.
       const [desktop, mobiel] = await Promise.all([
-        terugvalbeeld(1600, 900, 1, 0.82),
-        terugvalbeeld(390, 844, 2, 0.8),
+        terugvalbeeld(1600, 738, 1, 0.82),
+        terugvalbeeld(390, 692, 2, 0.8),
       ]);
       const r = await fetch("/__golf/site", {
         method: "POST",

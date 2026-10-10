@@ -1,13 +1,18 @@
 import type { GolfInstellingen } from "@/components/golf/golfMotor";
 
-// Instellingen van de golf in de homepage-hero, afgesteld in het prototype
-// (_prototypes/hero-golf, vakje 1: Stripe-vorm, sjabloon Smaragd donker, gespiegeld).
-// Nieuwe instellingen: in het prototype "Kopieer instellingen" en hier plakken
-// (zonder kleurBron), en de terugvalbeelden in src/assets/hero opnieuw maken
-// (desktop 1600 x 900, mobiel 390 x 844 op 2x, via window.golf in het prototype).
+// Instellingen van de golf in de homepage-hero, opgeslagen met het afstelpaneel
+// (toets p in de ontwikkelomgeving, knop "Opslaan in site"). Die knop maakt ook de
+// terugvalbeelden in src/assets/hero opnieuw (hero op 1600 x 900 en 390 x 844).
 export const golfHero: GolfInstellingen = {
-  opstelling: { spiegel: true, adem: false, muis: false },
-  beweging: { ademKracht: 1, muisKracht: 1 },
+  opstelling: {
+    spiegel: true,
+    adem: false,
+    muis: false,
+  },
+  beweging: {
+    ademKracht: 1,
+    muisKracht: 1,
+  },
   vorm: {
     twistX: -0.65,
     twistKrachtX: 3.63,
@@ -33,8 +38,18 @@ export const golfHero: GolfInstellingen = {
     verschuiven: 12,
     inzoomen: 0.12,
   },
-  desktop: { posX: 14.5, posY: 0, schaal: 0.94, rotatie: 12 },
-  mobiel: { posX: -13, posY: 16.5, schaal: 2.45, rotatie: 27.5 },
+  desktop: {
+    posX: 14.5,
+    posY: 0,
+    schaal: 0.94,
+    rotatie: 12,
+  },
+  mobiel: {
+    posX: -13,
+    posY: 16.5,
+    schaal: 2.45,
+    rotatie: 27.5,
+  },
   kleuren: {
     voorRand: ["#9fd9bd", "#aadec0", "#b5e2c4"],
     voorVouw: ["#178f63", "#1d945f", "#23995a"],

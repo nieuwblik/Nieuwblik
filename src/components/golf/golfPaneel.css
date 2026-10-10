@@ -801,7 +801,8 @@
   outline: none;
   box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.22);
 }
-.golf-zonder-tekst .golf-hero > .container,
+.golf-zonder-tekst .golf-hero__inhoud,
+.golf-zonder-tekst .golf-hero__balk,
 .golf-zonder-tekst header {
   opacity: 0;
   transition: opacity 0.3s;
