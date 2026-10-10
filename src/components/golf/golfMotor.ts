@@ -55,6 +55,8 @@ export type GolfInstellingen = {
     banen: number;
     vouwOvergang: number;
   };
+  /** Herkomst van de kleuren (sjabloon en stijl) voor het afstelpaneel; de golf zelf gebruikt het niet. */
+  kleurBron?: unknown;
 };
 
 const DELEN: GolfDeel[] = ["voorRand", "voorVouw", "achterVouw", "achterRand"];
@@ -323,15 +325,44 @@ type Opties = {
   opVerloren?: () => void;
 };
 
+export type GolfMotor = {
+  /** Stoppen en het GPU-geheugen vrijgeven. */
+  stop: () => void;
+  /** Andere instellingen gebruiken (het afstelpaneel past het object ook zelf aan). */
+  zet: (instellingen: GolfInstellingen) => void;
+  /** Opnieuw tekenen na een aanpassing in de instellingen. */
+  markeer: () => void;
+  instellingen: () => GolfInstellingen;
+  /** Profiel dat nu geldt (mobiel bij een smal of staand vlak). */
+  profiel: () => GolfProfiel;
+  /**
+   * Teken de scene op een andere resolutie, per vorm uit de lijst (null = huidige
+   * vorm), en roep na elk beeld opBeeld aan. Daarna meteen weer op schermresolutie.
+   */
+  momentopnames: (
+    schaal: number,
+    vormen: (Partial<GolfInstellingen["vorm"]> | null)[],
+    opBeeld: (i: number) => void,
+  ) => void;
+  /** Kopie van het canvas, gespiegeld als de opstelling dat is. */
+  kopie: (
+    achtergrond: string | null,
+    doel?: HTMLCanvasElement,
+    breedte?: number,
+    hoogte?: number,
+  ) => HTMLCanvasElement;
+};
+
 /**
- * Start de golf op een canvas. Geeft een stopfunctie terug, of null als WebGL2
- * ontbreekt of de shaders niet bouwen (dan blijft het terugvalbeeld staan).
+ * Start de golf op een canvas. Geeft null als WebGL2 ontbreekt of de shaders
+ * niet bouwen (dan blijft het terugvalbeeld staan).
  */
 export function startGolf(
   canvas: HTMLCanvasElement,
-  S: GolfInstellingen,
+  start: GolfInstellingen,
   opties: Opties = {},
-): (() => void) | null {
+): GolfMotor | null {
+  let S = start;
   const context = canvas.getContext("webgl2", {
     antialias: false,
     premultipliedAlpha: true,
@@ -442,6 +473,18 @@ export function startGolf(
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    paletSleutel = "";
+    bouwPalet();
+    w = h = 0;
+  }
+
+  // Paletvlak alleen opnieuw opbouwen als de kleuren veranderen.
+  let paletSleutel = "";
+  function bouwPalet() {
+    const sleutel = JSON.stringify([S.kleuren, S.kleurInstel.vouwOvergang]);
+    if (sleutel === paletSleutel) return;
+    paletSleutel = sleutel;
+    gl.bindTexture(gl.TEXTURE_2D, paletTex);
     gl.texImage2D(
       gl.TEXTURE_2D,
       0,
@@ -453,7 +496,6 @@ export function startGolf(
       gl.UNSIGNED_BYTE,
       paletData(S),
     );
-    w = h = 0;
   }
 
   function buffers() {
@@ -518,8 +560,9 @@ export function startGolf(
       0,
     );
   }
+  let exportSchaal = 0;
   function maat() {
-    const dpr = Math.min(devicePixelRatio || 1, zwak ? 1.5 : 2);
+    const dpr = exportSchaal || Math.min(devicePixelRatio || 1, zwak ? 1.5 : 2);
     const nw = Math.round(canvas.clientWidth * dpr),
       nh = Math.round(canvas.clientHeight * dpr);
     if (!nw || !nh || (nw === w && nh === h)) return false;
@@ -546,10 +589,14 @@ export function startGolf(
   const opScroll = () => {
     scroll.doel = scrollY;
   };
-  if (S.opstelling.muis && !reduced) {
+  // Muis en scroll alleen volgen als de opstelling dat vraagt.
+  let luistert = false;
+  const luister = () => {
+    if (luistert || !S.opstelling.muis || reduced) return;
+    luistert = true;
     addEventListener("pointermove", opMuis, { passive: true });
     addEventListener("scroll", opScroll, { passive: true });
-  }
+  };
 
   function teken(nu: number) {
     const dt = Math.min(0.1, Math.max(0, (nu - vorige) / 1000));
@@ -574,6 +621,8 @@ export function startGolf(
     if (maat()) vuil = true;
     if (!(vuil || beweegt || loopt) || !w || !h) return;
     vuil = false;
+    luister();
+    bouwPalet();
 
     const W = canvas.clientWidth,
       H = canvas.clientHeight,
@@ -694,14 +743,72 @@ export function startGolf(
   }
   frame = requestAnimationFrame(lus);
 
-  return () => {
-    cancelAnimationFrame(frame);
-    kijker.disconnect();
-    removeEventListener("pointermove", opMuis);
-    removeEventListener("scroll", opScroll);
-    canvas.removeEventListener("webglcontextlost", opVerloren);
-    canvas.removeEventListener("webglcontextrestored", opHersteld);
-    // GPU-geheugen meteen vrijgeven bij het verlaten van de pagina.
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
+  const momentopnames: GolfMotor["momentopnames"] = (
+    schaal,
+    vormen,
+    opBeeld,
+  ) => {
+    const vormNu = S.vorm,
+      was = zichtbaar;
+    exportSchaal = schaal;
+    zichtbaar = true;
+    vormen.forEach((v, i) => {
+      S.vorm = v ? { ...vormNu, ...v } : vormNu;
+      vuil = true;
+      teken(performance.now());
+      opBeeld(i);
+    });
+    S.vorm = vormNu;
+    exportSchaal = 0;
+    vuil = true;
+    teken(performance.now());
+    zichtbaar = was;
+  };
+  const kopie: GolfMotor["kopie"] = (
+    achtergrond,
+    doel = document.createElement("canvas"),
+    breedte = w,
+    hoogte = h,
+  ) => {
+    doel.width = breedte;
+    doel.height = hoogte;
+    const ctx = doel.getContext("2d")!;
+    if (achtergrond) {
+      ctx.fillStyle = achtergrond;
+      ctx.fillRect(0, 0, breedte, hoogte);
+    }
+    if (S.opstelling.spiegel) {
+      ctx.translate(breedte, 0);
+      ctx.scale(-1, 1);
+    }
+    ctx.drawImage(canvas, 0, 0, breedte, hoogte);
+    return doel;
+  };
+
+  return {
+    stop: () => {
+      cancelAnimationFrame(frame);
+      kijker.disconnect();
+      removeEventListener("pointermove", opMuis);
+      removeEventListener("scroll", opScroll);
+      canvas.removeEventListener("webglcontextlost", opVerloren);
+      canvas.removeEventListener("webglcontextrestored", opHersteld);
+      // GPU-geheugen meteen vrijgeven bij het verlaten van de pagina.
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+    },
+    zet: (instellingen) => {
+      S = instellingen;
+      vuil = true;
+    },
+    markeer: () => {
+      vuil = true;
+    },
+    instellingen: () => S,
+    profiel: () =>
+      isMobielVlak(canvas.clientWidth, canvas.clientHeight)
+        ? S.mobiel
+        : S.desktop,
+    momentopnames,
+    kopie,
   };
 }

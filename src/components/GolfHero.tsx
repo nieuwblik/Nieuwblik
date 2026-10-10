@@ -35,24 +35,60 @@ const GolfHero = () => {
     canvas.className = "golf-hero__canvas";
     canvas.setAttribute("aria-hidden", "true");
     vlak.appendChild(canvas);
-    let stop: (() => void) | null = null,
-      weg = false;
+    const opruimen: (() => void)[] = [];
+    let weg = false;
+    const zoek = new URLSearchParams(location.search);
     import("@/components/golf/golfMotor")
       .then(({ startGolf }) => {
         if (weg) return;
-        stop = startGolf(canvas, golfHero, {
+        const motor = startGolf(canvas, golfHero, {
           opEersteBeeld: () => hero.classList.add("golf-klaar"),
           opVerloren: () => hero.classList.remove("golf-klaar"),
         });
+        if (!motor) return;
+        opruimen.push(motor.stop);
+
+        if (zoek.has("golfvoorbeeld")) {
+          // Mobiel voorbeeld in het afstelpaneel (iframe): instellingen komen van het paneel.
+          const opBericht = (e: MessageEvent) => {
+            if (
+              e.origin !== location.origin ||
+              e.data?.type !== "golf-instellingen"
+            )
+              return;
+            motor.zet(e.data.instellingen);
+            hero.classList.toggle(
+              "golf-hero--gespiegeld",
+              !!e.data.instellingen.opstelling?.spiegel,
+            );
+          };
+          addEventListener("message", opBericht);
+          opruimen.push(() => removeEventListener("message", opBericht));
+          parent.postMessage({ type: "golf-voorbeeld-klaar" }, location.origin);
+        } else if (import.meta.env.DEV || zoek.has("afstellen")) {
+          // Afstelpaneel (toets p): in de ontwikkelomgeving altijd, elders met ?afstellen.
+          import("@/components/golf/golfPaneel")
+            .then(({ startPaneel }) => {
+              if (!weg)
+                opruimen.push(startPaneel({ motor, hero, site: golfHero }));
+            })
+            .catch(() => {
+              /* zonder paneel */
+            });
+        }
       })
       .catch(() => {
         /* terugvalbeeld blijft staan */
       });
     return () => {
       weg = true;
-      stop?.();
+      opruimen.forEach((f) => f());
       canvas.remove();
       hero.classList.remove("golf-klaar");
+      hero.classList.toggle(
+        "golf-hero--gespiegeld",
+        golfHero.opstelling.spiegel,
+      );
     };
   }, []);
 

@@ -1,0 +1,904 @@
+/* Afstelpaneel voor de golf in de homepage-hero (src/components/golf/golfPaneel.ts), overgenomen
+   uit het prototype (_prototypes/hero-golf/paneel.css). Alleen geladen in de ontwikkelomgeving
+   of met ?afstellen. */
+/* Claude-stijlreferentie (DESIGN.md, VoltAgent awesome-design-md): papier #faf9f5, creme
+   kaarten #efe9de, haarlijnen #e6dfd8, koraal #cc785c als enige accent. */
+.golf-paneel,
+.golf-voorbeeld-pil,
+.golf-mobiel-voorbeeld {
+  --p-canvas: #faf9f5;
+  --p-soft: #f5f0e8;
+  --p-card: #efe9de;
+  --p-cream: #e8e0d2;
+  --p-hairline: #e6dfd8;
+  --p-hairline-soft: #ebe6df;
+  --p-ink: #141413;
+  --p-body: #3d3d3a;
+  --p-muted: #6c6a64;
+  --p-muted-soft: #8e8b82;
+  --p-primary: #cc785c;
+  --p-primary-active: #a9583e;
+}
+.golf-paneel {
+  position: fixed;
+  z-index: 1000;
+  width: 360px;
+  text-align: left;
+  max-height: calc(100vh - 32px);
+  display: none;
+  flex-direction: column;
+  background: var(--p-canvas);
+  color: var(--p-body);
+  border: 1px solid var(--p-hairline);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(20, 20, 19, 0.04),
+    0 12px 32px -12px rgba(20, 20, 19, 0.12);
+  font:
+    400 14px/1.43 Inter,
+    system-ui,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+.golf-paneel.open {
+  display: flex;
+}
+/* Hoeken: rechts boven (standaard), links boven, rechts onder, links onder */
+.golf-paneel.hoek-rb {
+  top: 16px;
+  right: 16px;
+}
+.golf-paneel.hoek-lb {
+  top: 16px;
+  left: 16px;
+}
+.golf-paneel.hoek-ro {
+  bottom: 16px;
+  right: 16px;
+}
+.golf-paneel.hoek-lo {
+  bottom: 16px;
+  left: 16px;
+}
+.golf-paneel.sleept {
+  right: auto !important;
+  bottom: auto !important;
+  box-shadow:
+    0 2px 4px rgba(20, 20, 19, 0.06),
+    0 24px 48px -16px rgba(20, 20, 19, 0.28);
+}
+.golf-paneel.sleept .p-kop {
+  cursor: grabbing;
+}
+
+/* Kop: sleepgreep, titel en pictogramknoppen */
+.golf-paneel .p-kop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 18px 16px 14px 20px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.golf-paneel .p-titel {
+  margin: 0;
+  font:
+    400 25px/1.15 "Cormorant Garamond",
+    "EB Garamond",
+    Georgia,
+    serif;
+  letter-spacing: -0.01em;
+  color: var(--p-ink);
+  white-space: nowrap;
+}
+.golf-paneel .p-kopknoppen {
+  display: flex;
+  gap: 2px;
+}
+.golf-paneel .p-ikoon {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p-body);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.golf-paneel .p-ikoon:hover:not(:disabled) {
+  background: var(--p-soft);
+  color: var(--p-ink);
+}
+.golf-paneel .p-ikoon:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+.golf-paneel .p-ikoon[aria-pressed="true"] {
+  background: var(--p-card);
+  color: var(--p-ink);
+}
+
+/* Tabbladen: transparant, actief in creme */
+.golf-paneel .tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 20px;
+  padding: 4px;
+  background: var(--p-canvas);
+  border: 1px solid var(--p-hairline);
+  border-radius: 12px;
+}
+.golf-paneel .tabs button {
+  flex: 1;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p-muted);
+  font:
+    500 14px/1 Inter,
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.golf-paneel .tabs button:hover {
+  color: var(--p-ink);
+}
+.golf-paneel .tabs button.actief {
+  background: var(--p-card);
+  color: var(--p-ink);
+}
+
+/* Inhoud scrolt, kop en knoppen blijven staan */
+.golf-paneel .p-inhoud {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 20px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--p-cream) transparent;
+}
+.golf-paneel .tab {
+  display: none;
+}
+.golf-paneel .tab.actief {
+  display: block;
+}
+.golf-paneel .groep {
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--p-hairline-soft);
+}
+.golf-paneel .groep:first-child {
+  border-top: 0;
+}
+.golf-paneel .groep-titel {
+  margin: 0 0 10px;
+  font:
+    500 13px/1.3 Inter,
+    system-ui,
+    sans-serif;
+  color: var(--p-ink);
+}
+.golf-paneel .veld-label {
+  display: block;
+  margin: 2px 0 2px;
+  font-size: 13px;
+  color: var(--p-body);
+}
+.golf-paneel .veld-hint {
+  margin: -4px 0 14px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--p-muted-soft);
+}
+
+/* Schuifjes: label en waarde op een regel, schuif eronder */
+.golf-paneel .veld {
+  display: block;
+  margin: 0 0 14px;
+}
+.golf-paneel .veld-kop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.golf-paneel .veld-naam {
+  font-size: 13px;
+  color: var(--p-body);
+}
+.golf-paneel .veld-waarde {
+  font:
+    400 12px/1 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+  color: var(--p-muted-soft);
+  font-variant-numeric: tabular-nums;
+}
+.golf-paneel input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  background: transparent;
+  margin: 0;
+  cursor: pointer;
+  --vul: 50%;
+}
+.golf-paneel input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--p-primary) 0 var(--vul),
+    var(--p-cream) var(--vul) 100%
+  );
+}
+.golf-paneel input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--p-cream);
+}
+.golf-paneel input[type="range"]::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--p-primary);
+}
+.golf-paneel input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 999px;
+  background: var(--p-canvas);
+  border: 1.5px solid var(--p-primary);
+  box-shadow: 0 1px 2px rgba(20, 20, 19, 0.12);
+  transition: transform 0.12s;
+}
+.golf-paneel input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--p-canvas);
+  border: 1.5px solid var(--p-primary);
+}
+.golf-paneel input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+  background: var(--p-primary);
+}
+.golf-paneel input[type="range"]:focus-visible {
+  outline: none;
+}
+.golf-paneel input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.22);
+}
+
+/* Sjablonen als kaartjes */
+.golf-paneel .sjablonen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.golf-paneel .sjablonen button {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--p-hairline);
+  border-radius: 12px;
+  background: var(--p-canvas);
+  color: var(--p-body);
+  font:
+    400 13px/1.25 Inter,
+    system-ui,
+    sans-serif;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.golf-paneel .sjablonen button:hover {
+  background: var(--p-soft);
+}
+.golf-paneel .sjablonen button.actief {
+  background: var(--p-card);
+  border-color: var(--p-primary);
+}
+.golf-paneel .sjablonen .staal {
+  display: block;
+  height: 28px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.06);
+}
+
+/* Vormen als kaartjes met een voorbeeldje */
+.golf-paneel .vormen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.golf-paneel .vormen button {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 6px 8px;
+  border: 1px solid var(--p-hairline);
+  border-radius: 12px;
+  background: var(--p-canvas);
+  color: var(--p-body);
+  font:
+    400 13px/1.25 Inter,
+    system-ui,
+    sans-serif;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.golf-paneel .vormen button span {
+  padding-left: 2px;
+}
+.golf-paneel .vormen button:hover {
+  background: var(--p-soft);
+}
+.golf-paneel .vormen button.actief {
+  background: var(--p-card);
+  border-color: var(--p-primary);
+}
+.golf-paneel .vorm-beeld {
+  position: static;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  opacity: 1;
+  transition: none;
+  border-radius: 7px;
+  background: #f4f2ed;
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.06);
+}
+.golf-paneel .knoppen-rij {
+  display: flex;
+  gap: 8px;
+}
+.golf-paneel .knoppen-rij .gen-knop {
+  flex: 1;
+}
+
+/* Kleurregels: rond staal, naam, hexcode */
+.golf-paneel .kleur {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+.golf-paneel input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--p-hairline);
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+}
+.golf-paneel input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+.golf-paneel input[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: 999px;
+}
+.golf-paneel input[type="color"]::-moz-color-swatch {
+  border: 0;
+  border-radius: 999px;
+}
+.golf-paneel input[type="color"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.22);
+  border-color: var(--p-primary);
+}
+.golf-paneel .kleur-naam {
+  font-size: 13px;
+  color: var(--p-body);
+}
+.golf-paneel .kleur-hex {
+  font:
+    400 12px/1 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+  color: var(--p-muted-soft);
+  text-transform: lowercase;
+}
+
+/* Delen van het vel: naam met slot, drie stops en het verloop ernaast */
+.golf-paneel .deel {
+  padding: 4px 0 12px;
+}
+.golf-paneel .deel-kop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.golf-paneel .deel-stops {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.golf-paneel .deel-strook {
+  flex: 1;
+  height: 28px;
+  margin-left: 4px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.06);
+}
+.golf-paneel .slot {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p-muted-soft);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+.golf-paneel .slot:hover {
+  background: var(--p-soft);
+  color: var(--p-ink);
+}
+.golf-paneel .slot.dicht {
+  background: var(--p-card);
+  border-color: var(--p-hairline);
+  color: var(--p-primary-active);
+}
+
+/* Knoppen onderaan: koraal hoofdknop, secundair papier met haarlijn, daaronder kleine knoppen */
+.golf-paneel .acties {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 20px 16px;
+  border-top: 1px solid var(--p-hairline);
+  background: var(--p-canvas);
+}
+.golf-paneel .acties-hoofd {
+  display: flex;
+  gap: 8px;
+}
+.golf-paneel .acties-hoofd button {
+  flex: 1;
+  height: 40px;
+  border-radius: 8px;
+  font:
+    500 14px/1 Inter,
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.golf-paneel .acties .primair {
+  border: 0;
+  background: var(--p-primary);
+  color: #fff;
+}
+.golf-paneel .acties .primair:hover {
+  background: #b9694f;
+}
+.golf-paneel .acties .primair:active {
+  background: var(--p-primary-active);
+}
+.golf-paneel .acties .secundair {
+  border: 1px solid var(--p-hairline);
+  background: var(--p-canvas);
+  color: var(--p-ink);
+}
+.golf-paneel .acties .secundair:hover {
+  background: var(--p-soft);
+}
+.golf-paneel .acties-meer {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 4px;
+}
+.golf-paneel .acties-meer button {
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p-muted);
+  font:
+    500 12px/1 Inter,
+    system-ui,
+    sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.golf-paneel .acties-meer button:hover {
+  background: var(--p-soft);
+  color: var(--p-ink);
+}
+.golf-paneel button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.22);
+}
+
+/* Schakelaar: papier met haarlijn, aan in koraal */
+.golf-paneel .schakel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0 12px;
+  cursor: pointer;
+  position: relative;
+}
+.golf-paneel .schakel-tekst {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.golf-paneel .schakel-uitleg {
+  font-size: 12px;
+  color: var(--p-muted-soft);
+}
+.golf-paneel .schakel input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.golf-paneel .schakel-baan {
+  flex: none;
+  position: relative;
+  width: 40px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--p-cream);
+  border: 1px solid var(--p-hairline);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.golf-paneel .schakel-baan::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--p-canvas);
+  box-shadow: 0 1px 2px rgba(20, 20, 19, 0.18);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.golf-paneel .schakel input:checked + .schakel-baan {
+  background: var(--p-primary);
+  border-color: var(--p-primary);
+}
+.golf-paneel .schakel input:checked + .schakel-baan::after {
+  transform: translateX(16px);
+}
+.golf-paneel .schakel input:focus-visible + .schakel-baan {
+  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.22);
+}
+
+/* Tien opslagvakjes onder de kop */
+.golf-paneel .vakjes {
+  margin: 0 20px 14px;
+}
+.golf-paneel .vakjes-rij {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+}
+.golf-paneel .vak {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 1px dashed var(--p-hairline);
+  background: var(--p-canvas);
+  color: var(--p-muted-soft);
+  font:
+    500 11px/1 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    transform 0.12s;
+}
+.golf-paneel .vak:hover {
+  border-color: var(--p-primary);
+  color: var(--p-primary);
+  background: var(--p-soft);
+}
+.golf-paneel .vak.gevuld {
+  border: 1px solid rgba(20, 20, 19, 0.08);
+  background: var(--staal);
+}
+.golf-paneel .vak.gevuld.gespiegeld {
+  transform: scaleX(-1);
+}
+.golf-paneel .vak.gevuld:hover {
+  box-shadow:
+    0 0 0 2px var(--p-canvas),
+    0 0 0 3px var(--p-hairline);
+}
+.golf-paneel .vak.actief {
+  box-shadow:
+    0 0 0 2px var(--p-canvas),
+    0 0 0 3.5px var(--p-primary);
+}
+.golf-paneel .vak:active {
+  transform: scale(0.94);
+}
+.golf-paneel .vak.gespiegeld:active {
+  transform: scaleX(-1) scale(0.94);
+}
+.golf-paneel .vak[data-melding]::after {
+  content: attr(data-melding);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 6px);
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--p-ink);
+  color: var(--p-canvas);
+  font:
+    500 11px/1 Inter,
+    system-ui,
+    sans-serif;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+}
+.golf-paneel .vak.gespiegeld[data-melding]::after {
+  transform: translateX(-50%) scaleX(-1);
+}
+.golf-paneel .vakjes-uitleg {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--p-muted-soft);
+}
+
+/* Keuzechips en paletgenerator */
+.golf-paneel .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 14px;
+}
+.golf-paneel .chips button {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--p-hairline);
+  background: var(--p-canvas);
+  color: var(--p-body);
+  font:
+    500 13px/1 Inter,
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+.golf-paneel .chips button:hover {
+  background: var(--p-soft);
+}
+.golf-paneel .chips button.actief {
+  background: var(--p-card);
+  border-color: var(--p-card);
+  color: var(--p-ink);
+}
+.golf-paneel .gen-voorbeeld {
+  height: 28px;
+  border-radius: 8px;
+  margin: 2px 0 10px;
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 19, 0.06);
+}
+.golf-paneel .gen-knop {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--p-hairline);
+  background: var(--p-canvas);
+  color: var(--p-ink);
+  font:
+    500 14px/1 Inter,
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.golf-paneel .gen-knop:hover {
+  background: var(--p-soft);
+}
+
+/* Voorbeeld schermvullend: alleen een pil onderin */
+.golf-voorbeeld-pil {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 1001;
+  transform: translateX(-50%);
+  display: none;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--p-hairline);
+  border-radius: 999px;
+  background: var(--p-canvas);
+  box-shadow: 0 12px 32px -12px rgba(20, 20, 19, 0.18);
+}
+.golf-voorbeeld-modus .golf-voorbeeld-pil {
+  display: flex;
+}
+.golf-voorbeeld-pil button {
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--p-ink);
+  font:
+    500 13px/1 Inter,
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.golf-voorbeeld-pil button:hover {
+  background: var(--p-soft);
+}
+.golf-voorbeeld-pil button.primair {
+  background: var(--p-primary);
+  color: #fff;
+}
+.golf-voorbeeld-pil button.primair:hover {
+  background: #b9694f;
+}
+.golf-voorbeeld-pil button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(204, 120, 92, 0.22);
+}
+.golf-zonder-tekst .golf-hero > .container,
+.golf-zonder-tekst header {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Mobiel voorbeeld: telefoon op halve grootte tegenover het paneel */
+.golf-mobiel-voorbeeld {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  border: 1px solid var(--p-hairline);
+  border-radius: 16px;
+  background: var(--p-canvas);
+  box-shadow: 0 12px 32px -12px rgba(20, 20, 19, 0.16);
+}
+.golf-mobiel-voorbeeld.links {
+  right: auto;
+  left: 16px;
+}
+.golf-mobiel-voorbeeld.open {
+  display: flex;
+}
+.golf-mobiel-scherm {
+  width: 195px;
+  height: 422px;
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 0 0 1px rgba(20, 20, 19, 0.1);
+  background: #f4f2ed;
+}
+.golf-mobiel-scherm iframe {
+  width: 390px;
+  height: 844px;
+  border: 0;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+.golf-mobiel-voorbeeld p {
+  margin: 0;
+  font:
+    400 12px/1 Inter,
+    system-ui,
+    sans-serif;
+  color: var(--p-muted-soft);
+}
+
+@media (max-width: 760px) {
+  .golf-paneel {
+    top: auto !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    width: auto;
+    max-height: 70vh;
+  }
+  .golf-paneel .p-kop {
+    cursor: default;
+  }
+  .golf-mobiel-voorbeeld {
+    display: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .golf-paneel,
+  .golf-paneel * {
+    transition: none !important;
+  }
+}
+
+/* De site zet Epilogue vet op alle koppen; het paneel heeft eigen koppen. */
+.golf-paneel .p-titel {
+  font-family: "Cormorant Garamond", "EB Garamond", Georgia, serif !important;
+  font-weight: 400 !important;
+}
+.golf-paneel .groep-titel {
+  font-family: Inter, system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0;
+}
+.golf-paneel .acties-meer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.golf-paneel button:disabled {
+  cursor: default;
+}
+.golf-paneel .acties .primair:disabled {
+  opacity: 0.45;
+}
+.golf-paneel .acties .secundair:disabled {
+  opacity: 0.5;
+}

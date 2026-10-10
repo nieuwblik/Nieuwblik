@@ -7,6 +7,7 @@ import { execFileSync } from "node:child_process";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { imagetools } from "vite-imagetools";
+import { golfAfstellen } from "./scripts/vite-golf-afstellen";
 
 // Sitemap en robots.txt opnieuw genereren bij elke build, uit de routeboom en
 // de data (scripts/generate-sitemap.ts). Eén keer per build-proces: de
@@ -37,6 +38,8 @@ export default defineConfig({
     },
     plugins: [
       sitemapPlugin,
+      // Opslaan vanuit het afstelpaneel van de golf in de homepage-hero (alleen dev).
+      golfAfstellen(),
       // Levert varianten per schermbreedte voor imports met ?w=...&as=srcset
       // (src/data/projects.ts, src/components/ScrollPortfolio.tsx).
       imagetools(),
