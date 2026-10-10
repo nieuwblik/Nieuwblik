@@ -114,7 +114,7 @@ const Index = () => {
             sections read as one grid. Unchanged below lg per spec. */}
         <div className="max-w-4xl lg:max-w-none mx-auto text-center">
           <h1 className="sw-hero-textcol sw-display m-0 mx-auto text-center" style={{ color: "hsl(var(--sw-ink))" }}>
-            <span className="sw-mask"><span className="sw-line-inner">Webdesignbureau</span></span>
+            <span className="sw-mask"><span className="sw-line-inner">Webdesignbureau</span></span>{" "}
             <span className="sw-mask"><span className="sw-line-inner">in <span style={{ color: "hsl(var(--sw-green))" }}>Enkhuizen</span></span></span>
           </h1>
 
