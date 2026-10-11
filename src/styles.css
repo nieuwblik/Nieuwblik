@@ -888,6 +888,12 @@ html.tn-vast { overflow: hidden; }
 /* Contact rechtsboven: gewone tekstlink, geen knop. */
 .tn-contact { display: flex; align-items: center; gap: 8px; flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
 .tn-contact:hover, .tn-contact[aria-current="page"] { opacity: 1; }
+/* Hover: de klep van de envelop klapt open (spiegelen om de bovenrand) terwijl de
+   envelop verend een tikje omhoog kantelt; bij weggaan sluit hij weer. */
+.tn-kop .tn-contact svg { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.tn-kop .tn-contact svg path { transform-box: fill-box; transform-origin: 50% 0; transition: transform .35s cubic-bezier(.34, 1.4, .64, 1); }
+.tn-kop .tn-contact:is(:hover, :focus-visible) svg { transform: translateY(-1.5px) rotate(-8deg); }
+.tn-kop .tn-contact:is(:hover, :focus-visible) svg path { transform: scaleY(-1); transition-delay: .06s; }
 .tn-contact:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; border-radius: 6px; }
 
 /* Boven een donkere sectie: lichte tekst, wit logo, donker glas. */
