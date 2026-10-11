@@ -883,7 +883,10 @@ html.tn-vast { overflow: hidden; }
 .tn-plus[aria-expanded="true"] { background: #fff; color: hsl(var(--sw-green)); }
 .tn-plus[aria-expanded="true"] svg { transform: rotate(135deg); }
 
-.tn-kop .tn-cta { margin-left: 16px; flex: none; }
+/* Contact rechtsboven: gewone tekstlink, geen knop. */
+.tn-contact { flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
+.tn-contact:hover, .tn-contact[aria-current="page"] { opacity: 1; }
+.tn-contact:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; border-radius: 6px; }
 
 /* Boven een donkere sectie: lichte tekst, wit logo, donker glas. */
 .tn-kop[data-donker] { color: #fff; border-bottom-color: hsl(0 0% 100% / .08); }
@@ -948,16 +951,15 @@ html.tn-vast { overflow: hidden; }
 @keyframes tn-zwaai { 25% { transform: rotate(-18deg); } 55% { transform: rotate(12deg); } 80% { transform: rotate(-5deg); } }
 @keyframes tn-pop { 45% { transform: scale(1.18); } }
 
-/* Smallere desktop: de CTA maakt plaats voor de tabbladen. */
+/* Smallere desktop: wat minder ruimte tussen logo en tabbladen. */
 @media (max-width: 1100px) {
-  .tn-kop .tn-cta { display: none; }
   .tn-logo { margin-right: 28px; }
   .tn-tabs { gap: 6px; }
 }
 
 @media (max-width: 767px) {
   .tn-kop { padding: 0 16px; }
-  .tn-tabs, .tn-kop .tn-cta, .tn-alles, .tn-voorbeeld { display: none; }
+  .tn-tabs, .tn-contact, .tn-alles, .tn-voorbeeld { display: none; }
   .tn-logo { margin-right: auto; }
   /* Menuknop rechtsboven: de vier vakjes. Bij openen wordt elk vakje een smal balkje
      dat schuin draait; twee balkjes samen vormen een arm van het kruisje. Bij sluiten

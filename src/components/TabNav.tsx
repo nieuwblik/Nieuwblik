@@ -34,7 +34,6 @@ import {
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "@/lib/router-compat";
 import { getLenis } from "@/components/SmoothScroll";
-import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
 import logoSrc from "@/assets/logo.webp";
@@ -790,13 +789,13 @@ export default function TabNav({ children }: { children: ReactNode }) {
           </button>
         </nav>
 
-        <AnimatedButton
+        <Link
           to="/contact"
-          className="tn-cta"
-          variant={licht ? "white" : "solid"}
+          className="tn-contact"
+          aria-current={pathname === "/contact" ? "page" : undefined}
         >
-          Start je project
-        </AnimatedButton>
+          Contact
+        </Link>
 
         <button
           type="button"
