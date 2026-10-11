@@ -18,7 +18,6 @@ import {
   Gauge,
   House,
   Layers,
-  Mail,
   MapPin,
   Monitor,
   PencilRuler,
@@ -68,6 +67,20 @@ function Raster(props: SVGProps<SVGSVGElement>) {
       <rect x="14" y="3" width="7" height="7" rx="1.5" />
       <rect x="3" y="14" width="7" height="7" rx="1.5" />
       <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </svg>
+  );
+}
+
+/**
+ * Envelop met een losse klep die aan de bovenrand scharniert. Dicht valt de klep
+ * samen met de binnenvouw; bij hover klapt hij omhoog en blijft de vouw staan.
+ */
+function Envelop(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <path className="tn-vouw" d="M2.6 6.2 12 12.6l9.4-6.4" />
+      <path className="tn-klep" d="M2.6 6.2 12 12.6l9.4-6.4" />
     </svg>
   );
 }
@@ -795,7 +808,7 @@ export default function TabNav({ children }: { children: ReactNode }) {
           className="tn-contact"
           aria-current={pathname === "/contact" ? "page" : undefined}
         >
-          <Mail className="tn-ic" strokeWidth={1.75} aria-hidden="true" />
+          <Envelop className="tn-ic" aria-hidden="true" />
           Contact
         </Link>
 
