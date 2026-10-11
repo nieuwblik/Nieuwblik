@@ -534,9 +534,9 @@
    bij binnenkomst; een verloop op de h1 zelf valt dan weg) en loopt over de
    twee regels door. Multiply: waar de golf achter de kop loopt, kleurt hij dieper. */
 .golf-hero__titel {
-  --golf-kop-1: hsl(159 62% 26%);
-  --golf-kop-2: hsl(160 72% 20%);
-  --golf-kop-3: hsl(160 84% 14%);
+  --golf-kop-1: hsl(160 70% 21%);
+  --golf-kop-2: hsl(160 76% 18%);
+  --golf-kop-3: hsl(160 84% 15%);
   position: relative;
   z-index: 3;
   margin: 0;
