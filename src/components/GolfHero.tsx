@@ -132,31 +132,14 @@ const GolfHero = () => {
       <div className="golf-hero__inhoud relative flex flex-1 flex-col justify-start md:justify-center pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[var(--header-height)] pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="golf-hero__blok">
-            <div className="golf-hero__stapel">
-              <div
-                className="golf-hero__titel golf-hero__titel--onder"
-                aria-hidden="true"
-              >
-                <span className="sw-mask">
-                  <span className="sw-line-inner">Webdesignbureau</span>
-                </span>
-                <span className="sw-mask">
-                  <span className="sw-line-inner">
-                    in <em>Enkhuizen</em>
-                  </span>
-                </span>
-              </div>
-              <h1 className="golf-hero__titel golf-hero__titel--boven">
-                <span className="sw-mask">
-                  <span className="sw-line-inner">Webdesignbureau</span>
-                </span>{" "}
-                <span className="sw-mask">
-                  <span className="sw-line-inner">
-                    in <em>Enkhuizen</em>
-                  </span>
-                </span>
-              </h1>
-            </div>
+            <h1 className="golf-hero__titel">
+              <span className="sw-mask">
+                <span className="sw-line-inner">Webdesignbureau</span>
+              </span>{" "}
+              <span className="sw-mask">
+                <span className="sw-line-inner">in Enkhuizen</span>
+              </span>
+            </h1>
 
             <div className="golf-hero__rest">
               <p

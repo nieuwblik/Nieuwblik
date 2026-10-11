@@ -527,22 +527,35 @@
 @media (min-width: 768px) {
   .golf-hero--gespiegeld .golf-hero__blok { margin-left: auto; }
 }
-.golf-hero__stapel { display: grid; }
-.golf-hero__stapel > * { grid-area: 1 / 1; }
-/* Zelfde letter als .sw-display, kleiner. line-height 1.3 geeft de gemaskeerde
-   regels ruimte voor de onderkant van de g. */
+/* Kop: Epilogue iets minder vet (variabel lettertype, 400 tot 700) met een
+   verticaal verloop in merkgroen, van boven lichter naar onder diep groen.
+   line-height 1.3 geeft de gemaskeerde regels ruimte voor de onderkant van de g.
+   Het verloop staat per regel op het element met de tekst (de regels bewegen
+   bij binnenkomst; een verloop op de h1 zelf valt dan weg) en loopt over de
+   twee regels door. Multiply: waar de golf achter de kop loopt, kleurt hij dieper. */
 .golf-hero__titel {
+  --golf-kop-1: hsl(158 50% 35%);
+  --golf-kop-2: hsl(160 68% 23%);
+  --golf-kop-3: hsl(160 84% 13%);
+  position: relative;
+  z-index: 3;
   margin: 0;
   font-family: 'Epilogue', 'Epilogue Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   line-height: 1.3;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   font-size: clamp(2.4rem, 4.7vw, 5.25rem);
+  color: hsl(var(--sw-green));
+  mix-blend-mode: multiply;
 }
-.golf-hero__titel em { font-style: normal; }
-.golf-hero__titel--onder { position: relative; z-index: 1; color: hsl(var(--sw-ink)); }
-.golf-hero__titel--onder em { color: #fff; }
-.golf-hero__titel--boven { position: relative; z-index: 3; color: hsl(var(--sw-green)); mix-blend-mode: multiply; }
+.golf-hero__titel .sw-line-inner {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.golf-hero__titel .sw-mask:first-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-1) 18%, var(--golf-kop-2) 92%); }
+.golf-hero__titel .sw-mask:last-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-2) 8%, var(--golf-kop-3) 82%); }
 .golf-hero__rest { position: relative; z-index: 3; }
 
 /* Balk onderin de hero: haarlijnen boven en onder, licht doorschijnend zodat de
