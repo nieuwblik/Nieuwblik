@@ -561,7 +561,7 @@
     z-index: 3;
     bottom: 0;
     right: 62%;
-    height: min(80%, 820px);
+    height: min(64%, 656px);
     aspect-ratio: 1400 / 1972;
     pointer-events: none;
   }
