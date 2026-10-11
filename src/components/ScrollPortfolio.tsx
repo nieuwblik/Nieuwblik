@@ -74,7 +74,7 @@ const ScrollPortfolio = () => {
                 <div
                   key={item.slug}
                   className="sw-cta"
-                  style={{ "--sw-delay": `${700 + i * 80}ms`, "--sw-rise": "28px" } as CSSProperties}
+                  style={{ "--sw-delay": `${950 + i * 100}ms`, "--sw-rise": "24px" } as CSSProperties}
                 >
                   {kaart}
                 </div>

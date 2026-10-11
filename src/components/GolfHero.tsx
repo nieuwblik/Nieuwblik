@@ -150,7 +150,7 @@ const GolfHero = () => {
                 style={
                   {
                     color: "hsl(var(--sw-ink) / 0.7)",
-                    "--sw-delay": "0.32s",
+                    "--sw-delay": "0.4s",
                   } as CSSProperties
                 }
               >
@@ -168,7 +168,7 @@ const GolfHero = () => {
 
               <div
                 className="sw-cta mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
-                style={{ "--sw-delay": "0.5s" } as CSSProperties}
+                style={{ "--sw-delay": "0.55s" } as CSSProperties}
               >
                 <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
                   Start je project
@@ -191,7 +191,7 @@ const GolfHero = () => {
           diensten rechts als echte links. */}
       <div
         className="golf-hero__balk sw-cta"
-        style={{ "--sw-delay": "0.6s" } as CSSProperties}
+        style={{ "--sw-delay": "0.8s" } as CSSProperties}
       >
         <div className="container mx-auto flex flex-col gap-3 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
           <Link

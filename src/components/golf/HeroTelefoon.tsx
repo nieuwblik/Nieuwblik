@@ -63,7 +63,7 @@ export default function HeroTelefoon() {
     <div
       ref={ref}
       className="golf-hero__telefoon sw-cta"
-      style={{ "--sw-delay": "0.35s", "--sw-rise": "90px" } as CSSProperties}
+      style={{ "--sw-delay": "0.5s", "--sw-rise": "56px" } as CSSProperties}
     >
       <Link
         to={`/portfolio/${site.slug}`}

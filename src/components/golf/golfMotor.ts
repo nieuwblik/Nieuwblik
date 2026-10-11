@@ -673,10 +673,12 @@ export function startGolf(
     const pr = isMobielVlak(W, H) ? S.mobiel : S.desktop;
     // Scrollanimatie: draaien, ontvouwen, verschuiven en inzoomen naar rato van de voortgang.
     const sp = sc ? voortgang : 0;
-    // Verschijnen: zacht uitlopend (ease-out); bewegingen vloeien sneller in dan ze bewegen.
+    // Verschijnen: zacht uitlopend (kubische ease-out, rustiger begin dan een
+    // kwartische); het beeld vloeit met een smoothstep in, iets sneller dan het beweegt.
     const effect = reduced ? "vervagen" : (intro?.type ?? "vervagen");
-    const ie = 1 - Math.pow(1 - ip, 4);
-    const zicht = Math.min(1, effect === "vervagen" ? ie : ie * 2);
+    const ie = 1 - Math.pow(1 - ip, 3);
+    const zt = Math.min(1, ip * 1.8);
+    const zicht = effect === "vervagen" ? ie : zt * zt * (3 - 2 * zt);
     const zoom =
       (1 + (sc?.inzoomen ?? 0) * sp) *
       (effect === "inzoomen" ? 0.82 + 0.18 * ie : 1);
