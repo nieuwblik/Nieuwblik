@@ -554,7 +554,6 @@
    en ligt er met zijn blur overheen). De nieuwe site vloeit over de vorige; de
    vorige blijft vol staan tot de overgang klaar is. */
 .golf-hero__telefoon { display: none; }
-@keyframes golf-telefoon-zweef { 50% { transform: translateY(-8px); } }
 @media (min-width: 1024px) {
   .golf-hero__telefoon {
     display: block;
@@ -563,7 +562,7 @@
     bottom: 0;
     right: 62%;
     height: min(80%, 820px);
-    aspect-ratio: 1400 / 3358;
+    aspect-ratio: 1400 / 1972;
     pointer-events: none;
   }
   /* Tot 1280px is het tekstblok relatief breder: de telefoon staat dan verder links. */
@@ -573,9 +572,6 @@
   .golf-hero__telefoon img.actief { z-index: 2; opacity: 1; }
   .golf-hero__telefoon img.vorige { z-index: 1; opacity: 1; transition: none; }
   .golf-hero__telefoon-link:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; border-radius: 12px; }
-}
-@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
-  .golf-hero__telefoon-link { animation: golf-telefoon-zweef 7s ease-in-out 1.6s infinite; }
 }
 
 /* Balk onderin de hero: haarlijnen boven en onder, licht doorschijnend zodat de

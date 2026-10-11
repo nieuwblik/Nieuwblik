@@ -11,7 +11,7 @@ import puurSet from "@/assets/hero/hero-telefoon-puur-in-harmonie.webp?w=420;700
  * - Alleen vanaf 1024px breed; daaronder is er naast de tekst geen ruimte. Een
  *   <picture> laadt de foto ook pas vanaf die breedte (display: none alleen zou
  *   hem op mobiel toch downloaden).
- * - Komt met de hero omhoog binnen (sw-cta) en zweeft daarna heel licht.
+ * - Komt met de hero omhoog binnen (sw-cta) en staat daarna stil.
  * - Elke paar seconden vloeit de volgende site over de vorige heen. De vorige
  *   blijft vol staan tot de nieuwe er helemaal is, anders wordt de hand halverwege
  *   de overgang doorschijnend (beide beelden hebben een alfakanaal).
@@ -80,7 +80,7 @@ export default function HeroTelefoon() {
             <img
               src={LEEG}
               width={1400}
-              height={3358}
+              height={1972}
               alt={
                 i === actief
                   ? `De mobiele website van ${s.naam} op een telefoon in een hand`
