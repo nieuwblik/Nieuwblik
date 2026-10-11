@@ -182,11 +182,8 @@
     --luxury-spacing: 6rem;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Dynamic header height - measured and set via JS in UnderlayNav */
-    --header-height: 120px;
-
-    /* Width of the underlay menu revealed behind the page (UnderlayNav) */
-    --menu-width: 30em;
+    /* Hoogte van de tabbalk (TabNav); .pt-header en de hero rekenen ermee. */
+    --header-height: 64px;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 0%;
@@ -243,9 +240,9 @@
     border-color: hsl(var(--border));
   }
 
-  /* Reserve the scrollbar gutter permanently. UnderlayNav locks body scroll
-     while the menu is open; without a stable gutter that lock removes the
-     scrollbar and the whole page jumps ~15px sideways mid-animation. */
+  /* Reserve the scrollbar gutter permanently. TabNav locks scrolling while
+     the menu is open; without a stable gutter that lock removes the scrollbar
+     and the whole page jumps ~15px sideways. */
   html {
     scrollbar-gutter: stable;
   }
@@ -387,15 +384,6 @@
   .animated-btn:focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 3px;
-  }
-
-  /* ── Underlay navigation ──────────────────────────────────────────────── */
-
-  /* Narrow screens: the fixed 30em panel would leave almost no page visible. */
-  @media (max-width: 767px) {
-    :root {
-      --menu-width: 80vw;
-    }
   }
 
   .mask-fade-x {
@@ -803,4 +791,211 @@ h1, h2, h3, h4, h5, h6 {
 .appje-stip:nth-child(3) { animation-delay: 0.3s; }
 @media (prefers-reduced-motion: reduce) {
   .appje-stip { animation: none; opacity: 0.7; }
+}
+
+/* ── Tabblad-navigatie (TabNav) ──────────────────────────────────────────
+   Bovenaan doorzichtig met alleen een haarlijn (de golf loopt eronder door); na
+   een paar pixels scrollen schuift er glas in. Boven een donkere sectie
+   ([data-donker]) wordt alles licht. */
+@media (max-width: 767px) {
+  :root { --header-height: 60px; }
+}
+html.tn-vast { overflow: hidden; }
+
+.tn-kop {
+  --tn-inkt: hsl(var(--sw-ink));
+  --tn-zacht: hsl(160 8% 38%);
+  --tn-groen: hsl(var(--sw-green));
+  --tn-groen-licht: hsl(160 40% 92%);
+  --tn-lijn: hsl(160 10% 86%);
+  position: fixed; inset: 0 0 auto; z-index: 100; height: var(--header-height);
+  display: flex; align-items: center; gap: 4px; padding: 0 20px 0 24px;
+  color: hsl(160 14% 12%);
+  background: hsl(0 0% 100% / 0);
+  border-bottom: 1px solid hsl(160 10% 25% / .08);
+  transition: background-color .3s ease, border-color .3s ease, color .25s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease;
+}
+.tn-kop.gescrold {
+  background: hsl(0 0% 100% / .72);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6);
+  border-bottom-color: hsl(160 10% 25% / .1);
+}
+.tn-kop svg, .tn-alles svg, .tn-overzicht svg { overflow: visible; }
+.tn-ic { width: 17px; height: 17px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+.tn-logo { display: flex; align-self: center; margin-right: 48px; flex: none; }
+.tn-logo img { height: 24px; width: auto; filter: brightness(0); transition: filter .25s ease; }
+
+.tn-tabs { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+/* Tabbladen als afgeronde vlakjes. Het actieve tabblad is een wit glazen vlakje met
+   een haarfijn randje aan de binnenkant: op de golf licht het wit op, op een witte
+   pagina tekent het randje het vlakje. */
+.tn-tab {
+  position: relative; display: flex; align-items: center; height: 38px; border-radius: 10px;
+  font-size: 15px; font-weight: 500; white-space: nowrap; user-select: none; flex: none;
+  transition: background .15s;
+}
+.tn-tab:hover { background: hsl(0 0% 100% / .45); }
+.tn-tab.actief {
+  background: hsl(0 0% 100% / .62);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px hsl(160 12% 18% / .12);
+  color: var(--tn-inkt); font-weight: 600;
+}
+.tn-tab.actief:hover { background: hsl(0 0% 100% / .75); }
+.tn-link { display: flex; align-items: center; gap: 8px; height: 100%; padding: 0 14px; border-radius: inherit; min-width: 0; color: inherit; }
+.tn-link:focus-visible, .tn-tab button:focus-visible, .tn-plus:focus-visible, .tn-mob-menu:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+.tn-label { overflow: hidden; text-overflow: ellipsis; }
+.tn-tab.extra { max-width: 200px; min-width: 128px; flex: 0 1 auto; }
+.tn-tab.extra .tn-link { padding-right: 4px; }
+.tn-duim { width: 18px; height: 18px; border-radius: 5px; object-fit: cover; flex: none; box-shadow: 0 0 0 1px rgb(0 0 0 / .08); }
+.tn-tab .tn-sluit {
+  display: grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 6px; flex: none;
+  color: var(--tn-zacht); opacity: 0; transition: opacity .15s, background .15s;
+}
+.tn-tab:hover .tn-sluit, .tn-tab.actief .tn-sluit, .tn-tab .tn-sluit:focus-visible { opacity: 1; }
+.tn-tab.actief .tn-sluit { color: var(--tn-inkt); }
+.tn-tab .tn-sluit:hover { background: hsl(160 12% 12% / .08); color: var(--tn-inkt); }
+.tn-tab .tn-sluit svg { width: 13px; height: 13px; }
+.tn-tab.sleept { z-index: 5; background: #fff; color: var(--tn-inkt); box-shadow: 0 8px 24px -10px rgb(0 0 0 / .25); transition: none; cursor: grabbing; }
+.tn-scheiding { width: 1px; height: 20px; margin: 0 10px; flex: none; background: currentColor; opacity: .18; }
+
+.tn-met-menu .tn-link { padding-right: 4px; }
+.tn-chevron { display: grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; border-radius: 6px; color: inherit; transition: transform .2s, background .15s; }
+.tn-chevron svg { width: 14px; height: 14px; }
+.tn-chevron:hover { background: hsl(160 12% 12% / .08); }
+.tn-met-menu.dd-open .tn-chevron { transform: rotate(180deg); }
+
+/* Uitklapmenu Diensten. De bovenrand (padding) overbrugt het gat met het tabblad,
+   zodat het menu open blijft als de muis erheen beweegt. */
+.tn-dropdown { position: absolute; left: 0; top: 100%; z-index: 101; padding-top: 8px; opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity .16s, transform .16s; }
+.tn-dropdown.open { opacity: 1; transform: none; pointer-events: auto; }
+.tn-dropdown-paneel { width: 270px; padding: 8px; border-radius: 14px; background: #fff; color: var(--tn-inkt); font-weight: 500; box-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 18px 40px -14px rgb(0 0 0 / .22); }
+.tn-dropdown a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 9px; font-size: 15px; font-weight: 500; }
+.tn-dropdown a:hover, .tn-dropdown a:focus-visible { background: var(--tn-groen-licht); outline: none; }
+.tn-dropdown a svg { color: var(--tn-groen); transition: transform .3s ease-out; }
+.tn-dropdown a:hover svg { transform: scale(1.07); }
+.tn-dropdown .tn-alle { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--tn-lijn); border-radius: 0 0 9px 9px; font-size: 14px; color: var(--tn-zacht); }
+
+/* Plusje na de tabbladen: draait naar een kruisje en opent het overzicht. */
+.tn-plus { display: grid; place-items: center; width: 36px; height: 36px; margin-left: 4px; border-radius: 10px; color: inherit; flex: none; transition: background .2s, color .2s; }
+.tn-plus:hover { background: hsl(0 0% 100% / .45); }
+.tn-plus svg { width: 18px; height: 18px; transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.tn-plus[aria-expanded="true"] { background: #fff; color: hsl(var(--sw-green)); }
+.tn-plus[aria-expanded="true"] svg { transform: rotate(135deg); }
+
+.tn-kop .tn-cta { margin-left: 16px; flex: none; }
+
+/* Boven een donkere sectie: lichte tekst, wit logo, donker glas. */
+.tn-kop[data-donker] { color: #fff; border-bottom-color: hsl(0 0% 100% / .08); }
+.tn-kop[data-donker].gescrold { background: hsl(160 60% 4% / .55); border-bottom-color: hsl(0 0% 100% / .08); }
+.tn-kop[data-donker] .tn-logo img { filter: brightness(0) invert(1); }
+.tn-kop[data-donker] .tn-tab:hover, .tn-kop[data-donker] .tn-plus:hover { background: hsl(0 0% 100% / .1); }
+.tn-kop[data-donker] .tn-tab.actief { background: hsl(0 0% 100% / .14); box-shadow: inset 0 0 0 1px hsl(0 0% 100% / .2); color: #fff; }
+.tn-kop[data-donker] .tn-tab .tn-sluit, .tn-kop[data-donker] .tn-tab.actief .tn-sluit { color: inherit; }
+.tn-kop[data-donker] .tn-tab .tn-sluit:hover, .tn-kop[data-donker] .tn-chevron:hover { background: hsl(0 0% 100% / .14); color: #fff; }
+
+/* Overzicht van alle pagina's (desktop). */
+.tn-alles {
+  position: fixed; z-index: 101; left: 0; right: 0; top: calc(var(--header-height) + 10px); width: min(920px, calc(100vw - 48px)); margin: 0 auto;
+  padding: 28px 32px 22px; border-radius: 18px; color: hsl(var(--sw-ink));
+  background: hsl(0 0% 100% / .9); -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 28px 60px -24px rgb(0 0 0 / .3);
+  opacity: 0; transform: translateY(-8px) scale(.985); transform-origin: top center; pointer-events: none;
+  transition: opacity .2s ease, transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+.tn-alles.open { opacity: 1; transform: none; pointer-events: auto; }
+.tn-alles-raster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
+.tn-categorie h2 { margin: 0 0 10px; font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0; line-height: 1.4; color: hsl(160 8% 38%); }
+.tn-categorie a {
+  display: flex; align-items: center; gap: 10px; padding: 7px 10px; margin: 0 -10px; border-radius: 9px; font-size: 16px; font-weight: 500;
+  opacity: 0; transform: translateY(6px);
+  transition: background .15s, color .15s, opacity .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: 0s, 0s, calc(var(--i) * 25ms), calc(var(--i) * 25ms);
+}
+.tn-alles.open .tn-categorie a { opacity: 1; transform: none; }
+.tn-categorie a:hover, .tn-categorie a:focus-visible { background: hsl(160 40% 92%); color: hsl(var(--sw-green)); outline: none; }
+.tn-categorie a[aria-current="page"] { color: hsl(var(--sw-green)); }
+.tn-categorie a svg { color: hsl(var(--sw-green)); }
+.tn-duim-groot { width: 22px; height: 22px; border-radius: 6px; object-fit: cover; flex: none; box-shadow: 0 0 0 1px rgb(0 0 0 / .08); }
+.tn-klein { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 24px; padding-top: 16px; border-top: 1px solid hsl(160 10% 86%); font-size: 14px; color: hsl(160 8% 38%); }
+.tn-klein a { transition: color .15s; }
+.tn-klein a:hover, .tn-klein a:focus-visible { color: hsl(var(--sw-green)); }
+
+/* Voorbeeldkaartje bij hover over een tabblad. */
+.tn-voorbeeld { position: fixed; z-index: 101; width: 240px; padding: 8px; border-radius: 12px; background: #fff; color: hsl(var(--sw-ink)); box-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 18px 40px -14px rgb(0 0 0 / .25); opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity .16s, transform .16s; }
+.tn-voorbeeld.open { opacity: 1; transform: none; }
+.tn-voorbeeld .tn-beeld { height: 132px; border-radius: 8px; background: hsl(160 40% 92%) center / cover no-repeat; }
+.tn-voorbeeld b { display: block; margin: 8px 4px 0; font-size: 14px; font-weight: 600; }
+.tn-voorbeeld span { display: block; margin: 2px 4px; font-size: 12px; color: hsl(160 8% 38%); }
+
+.tn-mob-menu, .tn-overzicht { display: none; }
+
+/* Icoonanimatie bij het openen van een tabblad: per icoon een eigen kleine beweging. */
+.tn-kop .tn-ic * { transform-box: fill-box; transform-origin: center; }
+.tn-tab .speel[data-ic="home"] { animation: tn-huis .6s cubic-bezier(.34, 1.56, .64, 1); }
+.tn-tab .speel[data-ic="portfolio"] rect { animation: tn-blok .5s cubic-bezier(.34, 1.56, .64, 1) backwards; }
+.tn-tab .speel[data-ic="portfolio"] rect:nth-child(2) { animation-delay: .06s; }
+.tn-tab .speel[data-ic="portfolio"] rect:nth-child(3) { animation-delay: .12s; }
+.tn-tab .speel[data-ic="portfolio"] rect:nth-child(4) { animation-delay: .18s; }
+.tn-tab .speel[data-ic="diensten"] path:first-child { animation: tn-laag-op .6s cubic-bezier(.34, 1.56, .64, 1); }
+.tn-tab .speel[data-ic="diensten"] path:last-child { animation: tn-laag-neer .6s cubic-bezier(.34, 1.56, .64, 1); }
+.tn-tab .speel[data-ic="prijzen"] { transform-origin: 31% 31%; animation: tn-zwaai .7s ease-out; }
+.tn-tab .speel:not([data-ic]) { animation: tn-pop .45s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes tn-huis { 35% { transform: translateY(-3px) scale(1.08); } 70% { transform: translateY(0) scale(.96); } }
+@keyframes tn-blok { from { transform: scale(.3); opacity: .2; } }
+@keyframes tn-laag-op { 40% { transform: translateY(-3px); } }
+@keyframes tn-laag-neer { 40% { transform: translateY(2.5px); } }
+@keyframes tn-zwaai { 25% { transform: rotate(-18deg); } 55% { transform: rotate(12deg); } 80% { transform: rotate(-5deg); } }
+@keyframes tn-pop { 45% { transform: scale(1.18); } }
+
+/* Smallere desktop: de CTA maakt plaats voor de tabbladen. */
+@media (max-width: 1100px) {
+  .tn-kop .tn-cta { display: none; }
+  .tn-logo { margin-right: 28px; }
+  .tn-tabs { gap: 6px; }
+}
+
+@media (max-width: 767px) {
+  .tn-kop { padding: 0 16px; }
+  .tn-tabs, .tn-kop .tn-cta, .tn-alles, .tn-voorbeeld { display: none; }
+  .tn-logo { margin-right: auto; }
+  /* Menuknop rechtsboven: de vier vakjes. Bij openen wordt elk vakje een smal balkje
+     dat schuin draait; twee balkjes samen vormen een arm van het kruisje. Bij sluiten
+     loopt dat in omgekeerde volgorde terug. */
+  .tn-mob-menu { display: grid; place-items: center; width: 42px; height: 42px; margin-right: -6px; border-radius: 11px; color: inherit; transition: background .2s; }
+  .tn-mob-menu svg { width: 22px; height: 22px; }
+  .tn-mob-menu[aria-expanded="true"] { background: hsl(160 12% 12% / .07); }
+  .tn-mob-menu svg rect { --v: 0; transform-box: fill-box; transform-origin: center; transition: translate .42s cubic-bezier(.34, 1.4, .64, 1), rotate .42s cubic-bezier(.34, 1.4, .64, 1), scale .42s cubic-bezier(.34, 1.4, .64, 1), fill .2s; transition-delay: calc(var(--v) * 45ms); }
+  .tn-mob-menu svg rect:nth-child(2) { --v: 1; }
+  .tn-mob-menu svg rect:nth-child(3) { --v: 2; }
+  .tn-mob-menu svg rect:nth-child(4) { --v: 3; }
+  .tn-mob-menu[aria-expanded="false"] svg rect { transition-delay: calc((3 - var(--v)) * 45ms); }
+  .tn-mob-menu[aria-expanded="true"] svg rect { fill: currentColor; scale: .2 1.45; }
+  .tn-mob-menu[aria-expanded="true"] svg rect:nth-child(1) { translate: 2px 2px; rotate: -45deg; }
+  .tn-mob-menu[aria-expanded="true"] svg rect:nth-child(2) { translate: -2px 2px; rotate: 45deg; }
+  .tn-mob-menu[aria-expanded="true"] svg rect:nth-child(3) { translate: 2px -2px; rotate: 45deg; }
+  .tn-mob-menu[aria-expanded="true"] svg rect:nth-child(4) { translate: -2px -2px; rotate: -45deg; }
+  .tn-kop.menu-open { background: hsl(150 12% 94%); border-bottom-color: hsl(160 10% 25% / .1); color: hsl(160 14% 12%); }
+
+  .tn-overzicht { position: fixed; inset: 0; z-index: 99; display: flex; flex-direction: column; padding-top: var(--header-height); background: hsl(150 12% 94%); color: hsl(var(--sw-ink)); opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .tn-overzicht.open { opacity: 1; pointer-events: auto; }
+  .tn-lijst { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 20px 16px calc(32px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-content: start; }
+  .tn-ov-kaart { position: relative; min-width: 0; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px hsl(160 10% 86%); transform: scale(.96); opacity: 0; transition: transform .25s ease, opacity .25s ease; }
+  .tn-overzicht.open .tn-ov-kaart { transform: none; opacity: 1; }
+  .tn-ov-kaart.actief { box-shadow: 0 0 0 2px hsl(var(--sw-green)); }
+  .tn-ov-link { display: block; padding: 8px; }
+  .tn-ov-kaart .tn-beeld { height: 110px; border-radius: 9px; background: hsl(160 40% 92%) center / cover no-repeat; display: grid; place-items: center; color: hsl(var(--sw-green)); }
+  .tn-ov-kaart .tn-beeld svg { width: 26px; height: 26px; }
+  .tn-ov-kaart b { display: block; margin: 8px 4px 2px; padding-right: 22px; font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tn-ov-kaart .tn-sluit { position: absolute; right: 8px; bottom: 8px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px; color: hsl(160 8% 38%); }
+  .tn-ov-kaart .tn-sluit svg { width: 14px; height: 14px; }
+  .tn-alle-paginas { grid-column: 1 / -1; margin-top: 18px; display: grid; gap: 20px; }
+  .tn-alle-paginas:first-child { margin-top: 0; }
+  .tn-overzicht .tn-categorie a { opacity: 1; transform: none; font-size: 16px; }
+  .tn-overzicht .tn-klein { margin-top: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tn-kop *, .tn-alles, .tn-alles *, .tn-overzicht, .tn-overzicht *, .tn-voorbeeld { transition: none !important; animation: none !important; }
 }

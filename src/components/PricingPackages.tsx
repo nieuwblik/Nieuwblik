@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "@/lib/router-compat";
 import { Check } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 
 // ── Brand tokens (Nieuwblik) ───────────────────────────────────
 const WHITE        = "#ffffff";

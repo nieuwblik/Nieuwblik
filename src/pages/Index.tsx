@@ -22,7 +22,7 @@ import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 import { useReveal } from "@/lib/reveal";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 
 // Scroll-reveal voor secties. Zelfde beweging als eerst, nu met CSS in plaats
 // van framer-motion; die stond hiervoor alleen hierom in de hoofdbundel.

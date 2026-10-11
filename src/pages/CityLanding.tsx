@@ -20,7 +20,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { getCityBySlug } from "@/data/cities";
 import { getCityExtra } from "@/data/cityExtras";
 import { companyInfo } from "@/config/company";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 
 // Zes cases, nieuwste eerst, in het raster van de portfoliopagina.
 const standaardCases = kiesCases();

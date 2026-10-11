@@ -13,7 +13,7 @@ import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 import { cn } from "@/lib/utils";
 
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));

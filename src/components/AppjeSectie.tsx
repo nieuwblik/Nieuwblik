@@ -18,7 +18,7 @@ import {
 } from "framer-motion";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 import desktop1600 from "@/assets/contact/appje-desktop-1600.webp";
 import desktop2560 from "@/assets/contact/appje-desktop-2560.webp";
 import mobiel750 from "@/assets/contact/appje-mobiel-750.webp";

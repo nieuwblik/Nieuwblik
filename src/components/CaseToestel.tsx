@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollBlob, useSchermScroll } from "@/components/SchermScroll";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 import type { MockupScherm } from "@/components/CaseMockup";
 import type { Toestel, ToestelFoto } from "@/data/toestellen";
 

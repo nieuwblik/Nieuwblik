@@ -17,7 +17,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { getIndustryBySlug } from "@/data/industries";
 import { getIndustryExtra, getRelatedIndustrySlugs } from "@/data/industryExtras";
 import { companyInfo } from "@/config/company";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 
 
 const IndustryLanding = ({ slug }: { slug: string }) => {

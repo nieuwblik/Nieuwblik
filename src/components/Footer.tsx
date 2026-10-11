@@ -2,7 +2,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 import { useReducedMotion } from "@/lib/reduced-motion";
 import logo from "@/assets/logo.webp";
 import studio960 from "@/assets/footer/footer-studio-960.webp";

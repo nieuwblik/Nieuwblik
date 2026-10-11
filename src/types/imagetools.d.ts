@@ -6,3 +6,9 @@ declare module "*&as=srcset" {
   const srcset: string;
   export default srcset;
 }
+
+/** Imports met ?w=…&format=webp leveren de URL van een verkleinde kopie op. */
+declare module "*&format=webp" {
+  const url: string;
+  export default url;
+}

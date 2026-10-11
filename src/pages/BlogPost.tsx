@@ -567,10 +567,8 @@ const BlogPost = () => {
         </div>
       </section>
 
-      {/* Reading Progress Bar — portalled to <body>. UnderlayNav tweens `x` on
-          the <main> that wraps this page, and a transformed ancestor becomes the
-          containing block for its position:fixed descendants: left in place this
-          bar would stop tracking the viewport and slide with the page.
+      {/* Reading Progress Bar — portalled to <body>, zodat geen getransformeerde
+          voorouder het containing block voor position:fixed wordt.
           Alleen in de browser: op de server bestaat document niet, en portals
           doen niet mee aan hydration, dus dit is veilig. */}
       {mounted &&

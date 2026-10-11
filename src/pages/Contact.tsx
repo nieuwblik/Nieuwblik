@@ -11,7 +11,7 @@ import ContactForm from "@/components/ContactForm";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer, slideInRight, easings } from "@/lib/motion";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 
 // Animation component for scroll-triggered reveals
 const AnimatedSection = ({

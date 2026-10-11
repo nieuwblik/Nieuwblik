@@ -8,7 +8,7 @@ import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import { useDarkNavSection } from "@/components/UnderlayNav";
+import { useDarkNavSection } from "@/components/TabNav";
 import { companyInfo } from "@/config/company";
 import taxiImg from "@/assets/taxidrechterland.webp";
 import { laatstGewijzigd } from "@/lib/lastmod";
