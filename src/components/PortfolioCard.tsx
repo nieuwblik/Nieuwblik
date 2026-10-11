@@ -72,7 +72,9 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
             fetchPriority={priority ? "high" : "auto"}
             decoding="async"
             onLoad={() => setLoaded(true)}
-            className={`w-full h-full object-cover object-top transition-[opacity,filter,transform] duration-500 ease-out will-change-transform group-hover:grayscale group-hover:blur-[6px] group-hover:scale-[1.04] ${loaded ? "opacity-100" : "opacity-0"}`}
+            // Priority-kaarten (boven de vouw) tonen meteen: ze komen mee met
+            // de hero binnen en mogen niet wachten op hydration en onLoad.
+            className={`w-full h-full object-cover object-top transition-[opacity,filter,transform] duration-500 ease-out will-change-transform group-hover:grayscale group-hover:blur-[6px] group-hover:scale-[1.04] ${priority || loaded ? "opacity-100" : "opacity-0"}`}
           />
 
           {/* Category pill — hides on hover */}
