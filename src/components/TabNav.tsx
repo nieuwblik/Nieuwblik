@@ -176,7 +176,7 @@ const OVERIG: Pagina[] = [
     titel: "Wat kost een website",
     Icoon: Calculator,
   },
-  { pad: "/contact", titel: "Start je project", Icoon: Send },
+  { pad: "/contact", titel: "Contact", Icoon: Send },
   {
     pad: "/gratis-website-analyse",
     titel: "Gratis website-analyse",
