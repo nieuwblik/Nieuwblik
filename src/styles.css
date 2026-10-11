@@ -886,12 +886,13 @@ html.tn-vast { overflow: hidden; }
 .tn-plus[aria-expanded="true"] svg { transform: rotate(135deg); }
 
 /* Contact rechtsboven: gewone tekstlink, geen knop. */
-.tn-contact { display: flex; align-items: center; gap: 8px; flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
+.tn-contact { display: flex; align-items: center; gap: 9.6px; flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
 .tn-contact:hover, .tn-contact[aria-current="page"] { opacity: 1; }
 /* Hover: de klep klapt aan de bovenrand omhoog tot een dak, de bovenrand verdwijnt
    en de binnenvouw zakt iets, zodat je één open envelop ziet. De envelop groeit een
    tikje; bij weggaan valt de klep weer dicht. */
-.tn-kop .tn-contact svg { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+/* Icoon en tussenruimte 20% groter dan bij de tabbladen (17px en 8px). */
+.tn-kop .tn-contact svg { width: 20.4px; height: 20.4px; transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
 .tn-kop .tn-contact .tn-klep { transform-box: view-box; transform-origin: 12px 6.2px; transition: transform .4s cubic-bezier(.34, 1.4, .64, 1); }
 .tn-kop .tn-contact:is(:hover, :focus-visible) svg { transform: scale(1.1); }
 .tn-kop .tn-contact .tn-vouw { transform-box: view-box; transition: transform .4s cubic-bezier(.34, 1.4, .64, 1); }
