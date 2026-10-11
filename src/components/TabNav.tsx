@@ -10,7 +10,6 @@ import {
   type RefObject,
   type SVGProps,
 } from "react";
-import { flushSync } from "react-dom";
 import {
   BookOpen,
   Calculator,
@@ -49,10 +48,10 @@ import puurDuim from "@/assets/puurinharmonie.webp?w=96&format=webp";
 
 /**
  * Tabblad-navigatie. Links het logo, daarnaast vaste tabbladen (Home, Portfolio,
- * Diensten met uitklapmenu, Prijzen). Elke andere pagina die je opent komt er als
- * eigen tabblad bij: sluitbaar, versleepbaar en onthouden tussen bezoeken. Het
- * plusje opent een overzicht van alle pagina's per categorie; op mobiel doet de
- * knop met de vier vakjes rechtsboven dat.
+ * Diensten met uitklapmenu, Prijzen). Ben je op een andere pagina, dan staat die
+ * als tijdelijk tabblad ernaast; ga je weg, dan verdwijnt het weer. Het plusje
+ * opent een overzicht van alle pagina's per categorie; op mobiel doet de knop
+ * met de vier vakjes rechtsboven dat.
  *
  * Bovenaan is de balk doorzichtig (de golf in de hero loopt eronder door); na een
  * paar pixels scrollen schuift er glas in. Boven een donkere sectie (zie
@@ -212,35 +211,19 @@ function icoonVoor(pad: string): Icoon {
   return FileText;
 }
 
-// ── Opgeslagen tabbladen ───────────────────────────────────────────────────
+// ── Tijdelijk tabblad ─────────────────────────────────────────────────────
+/** De huidige pagina, als die niet bij de vaste vier hoort. Er wordt niets onthouden. */
 interface Extra {
   pad: string;
   titel: string;
-  /** Niet opgeslagen: beeld-URL's veranderen per deploy en worden bij het tekenen opgezocht. */
   beeld?: string | undefined;
 }
-const OPSLAG = "nb-tabbladen";
-const MAX_EXTRA = 6;
-/** Minimale breedte van een extra tabblad (gelijk aan min-width in de CSS). */
-const TAB_MIN = 128;
 
-function leesOpslag(): Extra[] {
-  try {
-    const v = JSON.parse(localStorage.getItem(OPSLAG) ?? "[]");
-    return Array.isArray(v)
-      ? v
-          .filter(
-            (x) =>
-              x &&
-              typeof x.pad === "string" &&
-              typeof x.titel === "string" &&
-              !VAST_PADEN.has(x.pad),
-          )
-          .map((x) => ({ pad: x.pad, titel: x.titel }))
-      : [];
-  } catch {
-    return [];
-  }
+/** Waar je heen gaat als je het tijdelijke tabblad sluit. */
+function ouderVan(pad: string): string {
+  if (pad.startsWith("/portfolio/")) return "/portfolio";
+  if (pad.startsWith("/diensten/")) return "/diensten";
+  return "/";
 }
 
 /** Titel uit de <title>: het deel voor de eerste " | " of " - Nieuwblik". */
@@ -309,8 +292,7 @@ export default function TabNav({ children }: { children: ReactNode }) {
   const tabsRef = useRef<HTMLElement>(null);
   const allesRef = useRef<HTMLDivElement>(null);
 
-  const [extra, setExtra] = useState<Extra[]>([]);
-  const [geladen, setGeladen] = useState(false);
+  const [huidig, setHuidig] = useState<Extra | null>(null);
   const [gescrold, setGescrold] = useState(false);
   const [donker, setDonker] = useState(false);
   const [allesOpen, setAllesOpen] = useState(false);
@@ -322,24 +304,9 @@ export default function TabNav({ children }: { children: ReactNode }) {
     top: number;
   } | null>(null);
   const [speel, setSpeel] = useState<string | null>(null);
-  const [sleept, setSleept] = useState<string | null>(null);
   const dienstTimer = useRef(0);
   const vbTimer = useRef(0);
   const vorigPad = useRef<string | null>(null);
-
-  // Opgeslagen tabbladen pas na de eerste tekening: de server kent ze niet.
-  useEffect(() => {
-    setExtra(leesOpslag());
-    setGeladen(true);
-  }, []);
-  useEffect(() => {
-    if (!geladen) return;
-    try {
-      localStorage.setItem(OPSLAG, JSON.stringify(extra));
-    } catch {
-      /* geen opslag */
-    }
-  }, [extra, geladen]);
 
   const verbergVoorbeeld = useCallback(() => {
     window.clearTimeout(vbTimer.current);
@@ -357,6 +324,8 @@ export default function TabNav({ children }: { children: ReactNode }) {
     // Bij de eerste weergave staat de <head> al goed (server-side gerenderd).
     const eerste = vorigPad.current === null;
     vorigPad.current = pathname;
+    // Het tabblad van de vorige pagina verdwijnt meteen.
+    setHuidig(null);
     if (VAST_PADEN.has(pathname)) return;
 
     // De <title> en robots-meta van de nieuwe pagina staan er pas als de route
@@ -365,29 +334,15 @@ export default function TabNav({ children }: { children: ReactNode }) {
     const beginTitel = document.title;
     const bekend = BEKEND.get(pathname);
     const zet = () => {
-      // Een 404 of bedankpagina (noindex) wordt geen tabblad.
+      // Een 404 of bedankpagina (noindex) krijgt geen tabblad.
       if (document.querySelector('meta[name="robots"][content*="noindex"]')) {
-        setExtra((v) => v.filter((x) => x.pad !== pathname));
+        setHuidig(null);
         return;
       }
       const titel = bekend?.titel ?? titelUitDocument();
-      setExtra((v) => {
-        const i = v.findIndex((x) => x.pad === pathname);
-        if (i >= 0) {
-          if (v[i]!.titel === titel) return v;
-          const kopie = v.slice();
-          kopie[i] = { pad: pathname, titel };
-          return kopie;
-        }
-        const nieuw = [...v, { pad: pathname, titel }];
-        // Te veel tabbladen: het oudste (niet het actieve) valt weg.
-        while (nieuw.length > MAX_EXTRA)
-          nieuw.splice(
-            nieuw.findIndex((x) => x.pad !== pathname),
-            1,
-          );
-        return nieuw;
-      });
+      setHuidig((h) =>
+        h?.pad === pathname && h.titel === titel ? h : { pad: pathname, titel },
+      );
     };
     const klaar = () => document.title !== beginTitel;
     if (bekend || eerste || klaar()) zet();
@@ -409,9 +364,8 @@ export default function TabNav({ children }: { children: ReactNode }) {
 
   // Beelden van cases komen uit de projectdata; die laadt de casepagina toch al.
   const [caseBeelden, setCaseBeelden] = useState<Record<string, string>>({});
-  const heeftCase = extra.some(
-    (x) => x.pad.startsWith("/portfolio/") && !BEKEND.has(x.pad),
-  );
+  const heeftCase =
+    !!huidig && huidig.pad.startsWith("/portfolio/") && !BEKEND.has(huidig.pad);
   useEffect(() => {
     if (!heeftCase) return;
     let weg = false;
@@ -427,75 +381,10 @@ export default function TabNav({ children }: { children: ReactNode }) {
       weg = true;
     };
   }, [heeftCase]);
-  const tabbladen: Extra[] = extra.map((x) => ({
-    ...x,
-    beeld: BEKEND.get(x.pad)?.beeld ?? caseBeelden[x.pad],
-  }));
-
-  // Zoveel extra tabbladen als er in de balk passen (minimaal TAB_MIN breed); de
-  // rest blijft bewaard en komt terug als er ruimte is. Het actieve blijft zichtbaar.
-  const [past, setPast] = useState(MAX_EXTRA);
-  useEffect(() => {
-    const nav = tabsRef.current;
-    if (!nav) return;
-    const meet = () => {
-      const stijl = getComputedStyle(nav);
-      const gap = parseFloat(stijl.columnGap) || 0;
-      let vast = 0;
-      let n = 0;
-      for (const el of nav.children) {
-        if (el.classList.contains("extra")) continue;
-        vast += (el as HTMLElement).offsetWidth;
-        n++;
-      }
-      // Ook de scheidingslijn rekenen, ook als die er nog niet staat.
-      if (!nav.querySelector(".tn-scheiding")) {
-        vast += 21;
-        n++;
-      }
-      const vrij = nav.clientWidth - vast - n * gap;
-      setPast(
-        Math.max(1, Math.min(MAX_EXTRA, Math.floor(vrij / (TAB_MIN + gap)))),
-      );
-    };
-    meet();
-    const ro = new ResizeObserver(meet);
-    ro.observe(nav);
-    return () => ro.disconnect();
-  }, []);
-  const zichtbaar = (() => {
-    if (tabbladen.length <= past) return tabbladen;
-    const laatste = tabbladen.slice(-past);
-    const actief = tabbladen.find((x) => x.pad === pathname);
-    if (!actief || laatste.includes(actief)) return laatste;
-    return tabbladen.filter(
-      (x) => x === actief || laatste.slice(1).includes(x),
-    );
-  })();
-
-  const sluit = useCallback(
-    (pad: string) => {
-      setExtra((v) => {
-        const i = v.findIndex((x) => x.pad === pad);
-        if (i < 0) return v;
-        const rest = v.filter((x) => x.pad !== pad);
-        if (pad === pathname) {
-          // Naar het tabblad ernaast, of terug naar Portfolio, Diensten of Home.
-          const volgende =
-            rest[i]?.pad ??
-            rest[i - 1]?.pad ??
-            (pad.startsWith("/portfolio/")
-              ? "/portfolio"
-              : pad.startsWith("/diensten/")
-                ? "/diensten"
-                : "/");
-          window.setTimeout(() => navigate(volgende), 0);
-        }
-        return rest;
-      });
-    },
-    [pathname, navigate],
-  );
+  const tabblad: Extra | null = huidig && {
+    ...huidig,
+    beeld: BEKEND.get(huidig.pad)?.beeld ?? caseBeelden[huidig.pad],
+  };
 
   // Glas in de balk zodra de pagina eronder schuift.
   useEffect(() => {
@@ -644,7 +533,7 @@ export default function TabNav({ children }: { children: ReactNode }) {
     e: React.PointerEvent<HTMLElement>,
     pagina: Pagina | Extra,
   ) => {
-    if (e.pointerType !== "mouse" || pagina.pad === pathname || sleept) return;
+    if (e.pointerType !== "mouse" || pagina.pad === pathname) return;
     const el = e.currentTarget;
     window.clearTimeout(vbTimer.current);
     vbTimer.current = window.setTimeout(() => {
@@ -655,69 +544,6 @@ export default function TabNav({ children }: { children: ReactNode }) {
         top: r.bottom + 8,
       });
     }, 450);
-  };
-
-  // ── Tabbladen verslepen ─────────────────────────────────────────────────
-  const sleepRef = useRef<string | null>(null);
-  const startSlepen = (e: React.PointerEvent<HTMLDivElement>, pad: string) => {
-    if (e.button !== 0 || (e.target as Element).closest(".tn-sluit")) return;
-    const t = e.currentTarget;
-    let startX = e.clientX;
-    let bezig = false;
-    const beweeg = (ev: PointerEvent) => {
-      const dx = ev.clientX - startX;
-      if (!bezig && Math.abs(dx) < 6) return;
-      if (!bezig) {
-        bezig = true;
-        sleepRef.current = pad;
-        setSleept(pad);
-        verbergVoorbeeld();
-      }
-      t.style.transform = `translateX(${dx}px)`;
-      // Wisselen met de buur zodra je over zijn midden gaat; het startpunt schuift
-      // mee zodat het tabblad onder de muis blijft.
-      const alle = [
-        ...(tabsRef.current?.querySelectorAll<HTMLElement>(".tn-tab.extra") ??
-          []),
-      ];
-      const i = alle.indexOf(t);
-      const buur = dx > 0 ? alle[i + 1] : alle[i - 1];
-      if (!buur) return;
-      const r = t.getBoundingClientRect();
-      const br = buur.getBoundingClientRect();
-      const mid = r.left + r.width / 2;
-      const bmid = br.left + br.width / 2;
-      if ((dx > 0 && mid > bmid) || (dx < 0 && mid < bmid)) {
-        const voor = r.left - dx;
-        t.style.transform = "";
-        flushSync(() =>
-          setExtra((v) => {
-            const kopie = v.slice();
-            const j = kopie.findIndex((x) => x.pad === pad);
-            const k = kopie.findIndex((x) => x.pad === buur.dataset["pad"]);
-            [kopie[j], kopie[k]] = [kopie[k]!, kopie[j]!];
-            return kopie;
-          }),
-        );
-        startX += t.getBoundingClientRect().left - voor;
-        t.style.transform = `translateX(${ev.clientX - startX}px)`;
-      }
-    };
-    const los = () => {
-      window.removeEventListener("pointermove", beweeg);
-      window.removeEventListener("pointerup", los);
-      if (bezig) {
-        t.style.transform = "";
-        setSleept(null);
-        window.setTimeout(() => (sleepRef.current = null), 0);
-      }
-    };
-    window.addEventListener("pointermove", beweeg);
-    window.addEventListener("pointerup", los);
-  };
-  // Na slepen niet ook nog navigeren.
-  const negeerNaSlepen = (e: React.MouseEvent) => {
-    if (sleepRef.current) e.preventDefault();
   };
 
   const categorie = (naam: string, paginas: Pagina[]) => (
@@ -899,71 +725,54 @@ export default function TabNav({ children }: { children: ReactNode }) {
             );
           })}
 
-          {extra.length > 0 && (
-            <span className="tn-scheiding" aria-hidden="true" />
-          )}
-
-          {zichtbaar.map((x) => {
-            const actief = x.pad === pathname;
-            return (
-              <div
-                key={x.pad}
-                data-pad={x.pad}
-                className={cx(
-                  "tn-tab extra",
-                  actief && "actief",
-                  sleept === x.pad && "sleept",
-                )}
-                onPointerDown={(e) => startSlepen(e, x.pad)}
-                onPointerEnter={(e) => toonVoorbeeld(e, x)}
-                onPointerLeave={verbergVoorbeeld}
-                onAuxClick={(e) => {
-                  // Middelste muisknop sluit een tabblad, zoals in een browser.
-                  if (e.button === 1) {
-                    e.preventDefault();
-                    sluit(x.pad);
-                  }
-                }}
-              >
+          {tabblad && (
+            <>
+              <span className="tn-scheiding" aria-hidden="true" />
+              <div className="tn-tab extra actief">
                 <Link
-                  to={x.pad}
+                  to={tabblad.pad}
                   className="tn-link"
                   draggable={false}
-                  aria-current={actief ? "page" : undefined}
-                  onClick={negeerNaSlepen}
+                  aria-current="page"
                 >
-                  {x.beeld ? (
+                  {tabblad.beeld && tabblad.pad.startsWith("/portfolio/") ? (
                     <img
-                      className={cx("tn-duim", speel === x.pad && "speel")}
-                      src={x.beeld}
+                      className={cx(
+                        "tn-duim",
+                        speel === tabblad.pad && "speel",
+                      )}
+                      src={tabblad.beeld}
                       alt=""
                       draggable={false}
                     />
                   ) : (
                     (() => {
-                      const I = icoonVoor(x.pad);
+                      const I = icoonVoor(tabblad.pad);
                       return (
                         <I
-                          className={cx("tn-ic", speel === x.pad && "speel")}
+                          className={cx(
+                            "tn-ic",
+                            speel === tabblad.pad && "speel",
+                          )}
                           strokeWidth={1.75}
                           aria-hidden="true"
                         />
                       );
                     })()
                   )}
-                  <span className="tn-label">{x.titel}</span>
+                  <span className="tn-label">{tabblad.titel}</span>
                 </Link>
                 <button
                   type="button"
                   className="tn-sluit"
-                  aria-label={`Sluit ${x.titel}`}
-                  onClick={() => sluit(x.pad)}
+                  aria-label={`Sluit ${tabblad.titel}`}
+                  onClick={() => navigate(ouderVan(tabblad.pad))}
                 >
                   <X aria-hidden="true" strokeWidth={1.75} />
                 </button>
               </div>
-            );
-          })}
+            </>
+          )}
 
           <button
             type="button"
@@ -1017,7 +826,7 @@ export default function TabNav({ children }: { children: ReactNode }) {
         {kleineLinks}
       </div>
 
-      {/* Mobiel menu: bovenin de zelf geopende pagina's, daaronder alles per categorie. */}
+      {/* Mobiel menu: alle pagina's per categorie. */}
       <div
         id="tn-overzicht"
         className={cx("tn-overzicht", mobielOpen && "open")}
@@ -1027,34 +836,6 @@ export default function TabNav({ children }: { children: ReactNode }) {
         inert={!mobielOpen}
       >
         <div className="tn-lijst">
-          {tabbladen.map((x) => (
-            <div
-              key={x.pad}
-              className={cx("tn-ov-kaart", x.pad === pathname && "actief")}
-            >
-              <Link to={x.pad} className="tn-ov-link">
-                {x.beeld ? (
-                  <div
-                    className="tn-beeld"
-                    style={{ backgroundImage: `url('${x.beeld}')` }}
-                  />
-                ) : (
-                  <div className="tn-beeld">
-                    <Duim pagina={x} />
-                  </div>
-                )}
-                <b>{x.titel}</b>
-              </Link>
-              <button
-                type="button"
-                className="tn-sluit"
-                aria-label={`Sluit ${x.titel}`}
-                onClick={() => sluit(x.pad)}
-              >
-                <X aria-hidden="true" strokeWidth={1.75} />
-              </button>
-            </div>
-          ))}
           <div className="tn-alle-paginas">
             {/* Zonder de losse cases: die maken de lijst lang en Portfolio staat al onder Algemeen. */}
             {CATEGORIEEN.filter(([naam]) => naam !== "Portfolio").map(

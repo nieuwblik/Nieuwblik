@@ -846,7 +846,7 @@ html.tn-vast { overflow: hidden; }
 .tn-link { display: flex; align-items: center; gap: 8px; height: 100%; padding: 0 14px; border-radius: inherit; min-width: 0; color: inherit; }
 .tn-link:focus-visible, .tn-tab button:focus-visible, .tn-plus:focus-visible, .tn-mob-menu:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
 .tn-label { overflow: hidden; text-overflow: ellipsis; }
-.tn-tab.extra { max-width: 200px; min-width: 128px; flex: 0 1 auto; }
+.tn-tab.extra { max-width: 240px; min-width: 0; flex: 0 1 auto; }
 .tn-tab.extra .tn-link { padding-right: 4px; }
 .tn-duim { width: 18px; height: 18px; border-radius: 5px; object-fit: cover; flex: none; box-shadow: 0 0 0 1px rgb(0 0 0 / .08); }
 .tn-tab .tn-sluit {
@@ -857,7 +857,6 @@ html.tn-vast { overflow: hidden; }
 .tn-tab.actief .tn-sluit { color: var(--tn-inkt); }
 .tn-tab .tn-sluit:hover { background: hsl(160 12% 12% / .08); color: var(--tn-inkt); }
 .tn-tab .tn-sluit svg { width: 13px; height: 13px; }
-.tn-tab.sleept { z-index: 5; background: #fff; color: var(--tn-inkt); box-shadow: 0 8px 24px -10px rgb(0 0 0 / .25); transition: none; cursor: grabbing; }
 .tn-scheiding { width: 1px; height: 20px; margin: 0 10px; flex: none; background: currentColor; opacity: .18; }
 
 .tn-met-menu .tn-link { padding-right: 4px; }
@@ -980,18 +979,8 @@ html.tn-vast { overflow: hidden; }
 
   .tn-overzicht { position: fixed; inset: 0; z-index: 99; display: flex; flex-direction: column; padding-top: var(--header-height); background: hsl(150 12% 94%); color: hsl(var(--sw-ink)); opacity: 0; pointer-events: none; transition: opacity .2s; }
   .tn-overzicht.open { opacity: 1; pointer-events: auto; }
-  .tn-lijst { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 20px 16px calc(32px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-content: start; }
-  .tn-ov-kaart { position: relative; min-width: 0; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px hsl(160 10% 86%); transform: scale(.96); opacity: 0; transition: transform .25s ease, opacity .25s ease; }
-  .tn-overzicht.open .tn-ov-kaart { transform: none; opacity: 1; }
-  .tn-ov-kaart.actief { box-shadow: 0 0 0 2px hsl(var(--sw-green)); }
-  .tn-ov-link { display: block; padding: 8px; }
-  .tn-ov-kaart .tn-beeld { height: 110px; border-radius: 9px; background: hsl(160 40% 92%) center / cover no-repeat; display: grid; place-items: center; color: hsl(var(--sw-green)); }
-  .tn-ov-kaart .tn-beeld svg { width: 26px; height: 26px; }
-  .tn-ov-kaart b { display: block; margin: 8px 4px 2px; padding-right: 22px; font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .tn-ov-kaart .tn-sluit { position: absolute; right: 8px; bottom: 8px; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px; color: hsl(160 8% 38%); }
-  .tn-ov-kaart .tn-sluit svg { width: 14px; height: 14px; }
-  .tn-alle-paginas { grid-column: 1 / -1; margin-top: 18px; display: grid; gap: 20px; }
-  .tn-alle-paginas:first-child { margin-top: 0; }
+  .tn-lijst { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 20px 16px calc(32px + env(safe-area-inset-bottom)); }
+  .tn-alle-paginas { display: grid; gap: 20px; }
   .tn-overzicht .tn-categorie a { opacity: 1; transform: none; font-size: 16px; }
   .tn-overzicht .tn-klein { margin-top: 4px; }
 }
