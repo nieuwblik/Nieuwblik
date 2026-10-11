@@ -528,17 +528,17 @@
   .golf-hero--gespiegeld .golf-hero__blok { margin-left: auto; }
 }
 /* Kop: Epilogue medium (variabel lettertype, 400 tot 700) met een
-   verticaal verloop in merkgroen: de bovenste regel licht en lichtgevend, de
-   onderste diep donker, met een zachte groene gloed rond de letters.
+   verticaal verloop: de bovenste regel in het merkgroen (--sw-green), de
+   onderste donkerder, met een zachte groene gloed rond de letters.
    line-height 1.3 geeft de gemaskeerde regels ruimte voor de onderkant van de g.
    Het verloop staat per regel op het element met de tekst (de regels bewegen
    bij binnenkomst; een verloop op de h1 zelf valt dan weg) en loopt over de
    twee regels door. Multiply: waar de golf achter de kop loopt, kleurt hij dieper. */
 .golf-hero__titel {
-  --golf-kop-1: hsl(155 60% 38%);
-  --golf-kop-2: hsl(159 68% 27%);
-  --golf-kop-3: hsl(160 78% 19%);
-  --golf-kop-4: hsl(162 86% 10%);
+  --golf-kop-1: hsl(160 80% 20%);
+  --golf-kop-2: hsl(160 84% 15%);
+  --golf-kop-3: hsl(160 86% 11%);
+  --golf-kop-4: hsl(162 90% 6%);
   position: relative;
   z-index: 3;
   margin: 0;
@@ -555,10 +555,10 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 0 14px hsl(155 70% 40% / 0.22));
+  filter: drop-shadow(0 0 14px hsl(160 84% 24% / 0.2));
 }
 .golf-hero__titel .sw-mask:first-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-1) 20%, var(--golf-kop-2) 90%); }
-.golf-hero__titel .sw-mask:last-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-3) 15%, var(--golf-kop-4) 85%); filter: drop-shadow(0 0 14px hsl(160 70% 30% / 0.14)); }
+.golf-hero__titel .sw-mask:last-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-3) 15%, var(--golf-kop-4) 85%); filter: drop-shadow(0 0 14px hsl(160 84% 16% / 0.12)); }
 .golf-hero__rest { position: relative; z-index: 3; }
 
 /* Balk onderin de hero: haarlijnen boven en onder, licht doorschijnend zodat de
