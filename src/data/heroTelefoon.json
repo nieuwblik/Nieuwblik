@@ -1,0 +1,17 @@
+{
+  "breedte": 1400,
+  "hoogte": 1972,
+  "scherm": {
+    "links": 42.191,
+    "boven": 1.478,
+    "breedte": 45.866,
+    "hoogte": 70.823,
+    "radius": 14.059
+  },
+  "statusbalk": 6.178,
+  "sites": [
+    "danique-kwakman",
+    "kyodai-originals",
+    "puur-in-harmonie"
+  ]
+}

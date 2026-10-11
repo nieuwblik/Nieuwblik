@@ -207,13 +207,21 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
   rand), alleen het grootste vlak blijft staan, gaten gaan dicht en het krimpt 1 px. De
   Higgsfield-achtergrondverwijderaar is niet gebruikt: die liet huid half doorschijnend.
 - **Maken:** `node scripts/mockups/hero-telefoon.mjs` maakt per site een mobiele
-  screenshot (zelfde instellingen als de cases) en zet die in het scherm. Uit:
-  `src/assets/hero/hero-telefoon-<slug>.webp` met transparante achtergrond, 1400 breed.
+  screenshot (zelfde instellingen als de cases) en daarna:
+  - `src/assets/hero/hero-hand.webp`: hand en telefoon met een doorzichtig scherm (halfgroene
+    randpixels teruggerekend naar de zwarte rand), 1400 breed;
+  - `src/assets/hero/hero-scherm-<slug>.webp`: de screenshot met statusbalk, 720 breed;
+  - `src/data/heroTelefoon.json`: plaats, maat en afronding van het scherm in hero-hand.webp
+    (in procenten) en de hoogte van de statusbalk.
   `--alleen-samenstellen` gebruikt de bewaarde screenshots (`basis/hero-scherm-*.png`, niet in git).
 - **Sites:** Danique Kwakman, Kyodai Originals, Puur in Harmonie (`SITES` in het script
   én in `HeroTelefoon.tsx`).
 - **Weergave:** alleen vanaf 1024px; de arm loopt onder de balk van de hero door, geen
-  zweefanimatie. Om de 4,2 s vloeit de volgende site over de vorige; klikken opent de case.
+  zweefanimatie. Achter het gat schuiven de sites als één strook voorbij, alsof je met de
+  duim doorscrolt: om de 4,2 s een veeg van 1,1 s (cubic-bezier(0.55, 0, 0.1, 1)). De
+  statusbalk blijft staan (bovenste strook van de huidige screenshot) en wisselt halverwege
+  de veeg; de strook begint eronder. Na de laatste site volgt een kopie van de eerste en
+  springt de strook ongemerkt terug. Klikken opent de case die in beeld is.
 
 ## Opnieuw genereren in Higgsfield
 
