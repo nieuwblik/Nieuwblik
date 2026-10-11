@@ -794,6 +794,7 @@ export default function TabNav({ children }: { children: ReactNode }) {
           className="tn-contact"
           aria-current={pathname === "/contact" ? "page" : undefined}
         >
+          <Send className="tn-ic" strokeWidth={1.75} aria-hidden="true" />
           Contact
         </Link>
 

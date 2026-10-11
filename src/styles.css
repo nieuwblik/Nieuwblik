@@ -886,7 +886,7 @@ html.tn-vast { overflow: hidden; }
 .tn-plus[aria-expanded="true"] svg { transform: rotate(135deg); }
 
 /* Contact rechtsboven: gewone tekstlink, geen knop. */
-.tn-contact { flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
+.tn-contact { display: flex; align-items: center; gap: 8px; flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
 .tn-contact:hover, .tn-contact[aria-current="page"] { opacity: 1; }
 .tn-contact:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; border-radius: 6px; }
 
