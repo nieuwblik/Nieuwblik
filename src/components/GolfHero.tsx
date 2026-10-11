@@ -1,5 +1,11 @@
 import { useEffect, useRef, type CSSProperties } from "react";
-import { Star } from "lucide-react";
+import {
+  PencilRuler,
+  Search,
+  ShoppingBag,
+  Star,
+  TrendingUp,
+} from "lucide-react";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "@/lib/router-compat";
 import { REVIEWS } from "@/config/business";
@@ -23,10 +29,14 @@ import terugvalMobiel from "@/assets/hero/golf-mobiel.webp";
  */
 // Diensten in de balk onderin de hero (bestaande pagina's, zie ook de footer).
 const DIENSTEN = [
-  { label: "Website op maat", to: "/diensten/website-op-maat" },
-  { label: "Webshops", to: "/diensten/webshops" },
-  { label: "E-commerce", to: "/diensten/e-commerce" },
-  { label: "SEO", to: "/seo-enkhuizen" },
+  {
+    label: "Website op maat",
+    to: "/diensten/website-op-maat",
+    Icoon: PencilRuler,
+  },
+  { label: "Webshops", to: "/diensten/webshops", Icoon: ShoppingBag },
+  { label: "E-commerce", to: "/diensten/e-commerce", Icoon: TrendingUp },
+  { label: "SEO", to: "/seo-enkhuizen", Icoon: Search },
 ];
 
 const GolfHero = () => {
@@ -228,7 +238,14 @@ const GolfHero = () => {
             <ul>
               {DIENSTEN.map((d) => (
                 <li key={d.to}>
-                  <Link to={d.to}>{d.label}</Link>
+                  <Link to={d.to}>
+                    <d.Icoon
+                      className="golf-hero__icoon"
+                      strokeWidth={1.75}
+                      aria-hidden="true"
+                    />
+                    {d.label}
+                  </Link>
                 </li>
               ))}
             </ul>
