@@ -173,7 +173,7 @@ const GolfHero = () => {
                 livegang. Vanuit{" "}
                 <Link
                   to="/website-laten-maken-enkhuizen"
-                  className="underline decoration-[hsl(var(--sw-ink)/0.3)] underline-offset-4 transition-colors hover:text-[hsl(var(--sw-green))] hover:decoration-[hsl(var(--sw-green))]"
+                  className="transition-colors hover:text-[hsl(var(--sw-green))]"
                 >
                   Enkhuizen
                 </Link>{" "}
