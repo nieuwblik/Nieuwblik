@@ -512,10 +512,14 @@
    echte kop met multiply en de rest van de tekst (3). */
 .golf-hero__vlak,
 .golf-hero__terugval { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-.golf-hero__terugval img { display: block; width: 100%; height: 100%; object-fit: cover; transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
-.golf-hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
+/* Het verschijnen van de golf zit in de engine (instelling intro). Het terugvalbeeld
+   komt pas na 1,2 s in beeld, als WebGL dan nog niet tekent of ontbreekt; anders
+   zou het de verschijnanimatie voor zijn. */
+@keyframes golf-terugval-in { from { opacity: 0; } }
+.golf-hero__terugval img { display: block; width: 100%; height: 100%; object-fit: cover; animation: golf-terugval-in 0.8s ease 1.2s backwards; }
+.golf-hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
 .golf-hero.golf-klaar .golf-hero__canvas { opacity: 1; }
-.golf-hero.golf-klaar .golf-hero__terugval img { opacity: 0; }
+.golf-hero.golf-klaar .golf-hero__terugval img { animation: none; opacity: 0; transition: opacity 0.6s ease; }
 /* Het terugvalbeeld is al gespiegeld opgeslagen; alleen het canvas spiegelen. */
 .golf-hero--gespiegeld .golf-hero__canvas { transform: scaleX(-1); }
 

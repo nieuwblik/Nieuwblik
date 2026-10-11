@@ -31,6 +31,7 @@ export const golfHero: GolfInstellingen = {
     vervagingBereik: 0.1,
     korrel: 0.95,
   },
+  intro: { type: "ontvouwen", duur: 2.2, vertraging: 0.1 },
   scroll: {
     aan: true,
     draaien: 18,

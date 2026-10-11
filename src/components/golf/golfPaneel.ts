@@ -433,6 +433,7 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
     verschuiven: 12,
     inzoomen: 0.12,
   };
+  const INTRO_STANDAARD = { type: "vervagen", duur: 1.6, vertraging: 0 };
   // De instellingen zoals ze in src/data/golfHero.ts staan zijn de basis; wat ontbreekt
   // (ook in vakjes uit het prototype) wordt daaruit aangevuld.
   function normaliseer(o) {
@@ -452,6 +453,11 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
       ...SCROLL_STANDAARD,
       ...(site.scroll ?? {}),
       ...(o.scroll ?? {}),
+    };
+    s.intro = {
+      ...INTRO_STANDAARD,
+      ...(site.intro ?? {}),
+      ...(o.intro ?? {}),
     };
     if (s.vorm.vervaging < 1) {
       s.vorm.vervaging = site.vorm.vervaging;
@@ -1085,6 +1091,42 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
   hint(
     gScroll,
     "Scroll de pagina om het effect te zien; het paneel blijft staan. De waarden gelden voor het moment dat de hero helemaal uit beeld is.",
+  );
+
+  // Verschijnen: animatie bij het laden van de pagina.
+  const INTRO = {
+    Vervagen: "vervagen",
+    Ontvouwen: "ontvouwen",
+    Indraaien: "indraaien",
+    Inschuiven: "inschuiven",
+    Inzoomen: "inzoomen",
+  };
+  const gIntro = groep(tabVorm, "Verschijnen");
+  chips(
+    gIntro,
+    "Animatie bij het laden",
+    Object.keys(INTRO),
+    () => Object.keys(INTRO).find((n) => INTRO[n] === S.intro.type) ?? "",
+    (o) => {
+      S.intro.type = INTRO[o];
+      bewaar();
+      motor.speelIntro();
+    },
+  );
+  schuif(gIntro, () => S.intro, "duur", [0.3, 4, 0.05, "Duur (s)"]);
+  schuif(gIntro, () => S.intro, "vertraging", [0, 2, 0.05, "Vertraging (s)"]);
+  const introKnop = document.createElement("button");
+  introKnop.type = "button";
+  introKnop.className = "gen-knop";
+  introKnop.textContent = "Opnieuw afspelen";
+  introKnop.addEventListener("click", () => {
+    scrollTo({ top: 0 });
+    motor.speelIntro();
+  });
+  gIntro.appendChild(introKnop);
+  hint(
+    gIntro,
+    "Vervagen, ontvouwen uit een vlak vel, indraaien, van onderen inschuiven of inzoomen. Bij minder beweging vloeit de golf alleen kort in.",
   );
 
   for (const [titel, lijst] of Object.entries(META.vorm)) {

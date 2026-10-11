@@ -17,6 +17,8 @@
 // zwakke toestellen krijgen een grover raster zonder multisampling.
 
 export type GolfDeel = "voorRand" | "voorVouw" | "achterVouw" | "achterRand";
+export type GolfIntro =
+  "vervagen" | "ontvouwen" | "indraaien" | "inschuiven" | "inzoomen";
 export type GolfProfiel = {
   posX: number;
   posY: number;
@@ -54,6 +56,14 @@ export type GolfInstellingen = {
     vezelBasis: number;
     banen: number;
     vouwOvergang: number;
+  };
+  /** Hoe de golf verschijnt bij het laden. */
+  intro?: {
+    type: GolfIntro;
+    /** Duur in seconden. */
+    duur: number;
+    /** Wachttijd in seconden voor de animatie begint. */
+    vertraging: number;
   };
   /** Scrollanimatie: voortgang 0 tot 1 door de hero. */
   scroll?: {
@@ -278,7 +288,7 @@ void main() { v_uv = a_p * 0.5 + 0.5; gl_Position = vec4(a_p, 0.0, 1.0); }`;
 
 const FS_NA = `#version 300 es
 precision highp float;
-in vec2 v_uv; uniform sampler2D u_scene; uniform float u_vervaging, u_bereik, u_dpr, u_korrel, u_zaad;
+in vec2 v_uv; uniform sampler2D u_scene; uniform float u_vervaging, u_bereik, u_dpr, u_korrel, u_zaad, u_zicht;
 out vec4 kleur;
 float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
 void main() {
@@ -299,7 +309,8 @@ void main() {
     c = som / ws;
   }
   c.rgb += (hash(gl_FragCoord.xy + u_zaad) - 0.5) * 0.045 * u_korrel * c.a;
-  kleur = vec4(clamp(c.rgb, 0.0, c.a), c.a);
+  // Voorvermenigvuldigd: kleur en dekking samen vervagen bij het verschijnen.
+  kleur = vec4(clamp(c.rgb, 0.0, c.a), c.a) * u_zicht;
 }`;
 
 // Beeldmatrix van de camera (kolomsgewijs), gemeten op een canvas van 1393 CSS-pixels breed.
@@ -342,6 +353,8 @@ export type GolfMotor = {
   stop: () => void;
   /** Andere instellingen gebruiken (het afstelpaneel past het object ook zelf aan). */
   zet: (instellingen: GolfInstellingen) => void;
+  /** De verschijnanimatie opnieuw afspelen. */
+  speelIntro: () => void;
   /** Opnieuw tekenen na een aanpassing in de instellingen. */
   markeer: () => void;
   instellingen: () => GolfInstellingen;
@@ -573,6 +586,8 @@ export function startGolf(
     );
   }
   let exportSchaal = 0;
+  let introStart = -1,
+    vorigeIntro = -1;
   function maat() {
     const dpr = exportSchaal || Math.min(devicePixelRatio || 1, zwak ? 1.5 : 2);
     const nw = Math.round(canvas.clientWidth * dpr),
@@ -612,6 +627,18 @@ export function startGolf(
     vorige = nu;
     const beweegt = !reduced && (S.vorm.snelheid > 0 || S.opstelling.adem);
     if (!zichtbaar || verloren) return;
+    // Verschijnen: voortgang 0 tot 1 vanaf het eerste beeld (momentopnames meteen af).
+    // Bij minder beweging alleen kort invloeien.
+    if (introStart < 0) introStart = nu;
+    const intro = S.intro;
+    let ip = 1;
+    if (intro && !exportSchaal) {
+      const duur = reduced ? 0.4 : Math.max(0.05, intro.duur);
+      const wacht = reduced ? 0 : intro.vertraging;
+      ip = Math.min(1, Math.max(0, ((nu - introStart) / 1000 - wacht) / duur));
+    }
+    const introVeranderd = ip !== vorigeIntro;
+    vorigeIntro = ip;
     if (beweegt) {
       klok += dt;
       tijd +=
@@ -635,7 +662,7 @@ export function startGolf(
     if (Math.abs(doel - voortgang) < 1e-4) voortgang = doel;
     const loopt = Math.abs(muis.x + muis.y + voortgang - oud) > 1e-5;
     if (maat()) vuil = true;
-    if (!(vuil || beweegt || loopt) || !w || !h) return;
+    if (!(vuil || beweegt || loopt || introVeranderd) || !w || !h) return;
     vuil = false;
     luister();
     bouwPalet();
@@ -646,9 +673,20 @@ export function startGolf(
     const pr = isMobielVlak(W, H) ? S.mobiel : S.desktop;
     // Scrollanimatie: draaien, ontvouwen, verschuiven en inzoomen naar rato van de voortgang.
     const sp = sc ? voortgang : 0;
-    const zoom = 1 + (sc?.inzoomen ?? 0) * sp;
-    const rotatie = pr.rotatie + (sc?.draaien ?? 0) * sp;
-    const ontvouw = 1 - (sc?.ontvouwen ?? 0) * sp;
+    // Verschijnen: zacht uitlopend (ease-out); bewegingen vloeien sneller in dan ze bewegen.
+    const effect = reduced ? "vervagen" : (intro?.type ?? "vervagen");
+    const ie = 1 - Math.pow(1 - ip, 4);
+    const zicht = Math.min(1, effect === "vervagen" ? ie : ie * 2);
+    const zoom =
+      (1 + (sc?.inzoomen ?? 0) * sp) *
+      (effect === "inzoomen" ? 0.82 + 0.18 * ie : 1);
+    const rotatie =
+      pr.rotatie +
+      (sc?.draaien ?? 0) * sp +
+      (effect === "indraaien" ? -40 * (1 - ie) : 0);
+    const ontvouw =
+      (1 - (sc?.ontvouwen ?? 0) * sp) * (effect === "ontvouwen" ? ie : 1);
+    const inschuif = effect === "inschuiven" ? (1 - ie) * 0.3 * H : 0;
     const k = ((0.8 * W) / REF_B) * pr.schaal * zoom,
       mv = MV.slice();
     for (let i = 0; i < 12; i++) if (i % 4 !== 3) mv[i] = mv[i]! * k;
@@ -673,7 +711,8 @@ export function startGolf(
       mv[13]! * k -
       (pr.posY / 100) * H -
       muis.y * 0.03 * H * kr -
-      ((sc?.verschuiven ?? 0) / 100) * H * sp;
+      ((sc?.verschuiven ?? 0) / 100) * H * sp -
+      inschuif;
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, msFbo);
     gl.viewport(0, 0, w, h);
@@ -723,6 +762,7 @@ export function startGolf(
     gl.uniform1f(UN("u_dpr"), w / W);
     gl.uniform1f(UN("u_korrel"), S.vorm.korrel);
     gl.uniform1f(UN("u_zaad"), beweegt ? (nu % 1000) * 0.017 : 0);
+    gl.uniform1f(UN("u_zicht"), zicht);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     if (!eersteBeeld) {
       eersteBeeld = true;
@@ -820,6 +860,10 @@ export function startGolf(
     },
     zet: (instellingen) => {
       S = instellingen;
+      vuil = true;
+    },
+    speelIntro: () => {
+      introStart = -1;
       vuil = true;
     },
     markeer: () => {
