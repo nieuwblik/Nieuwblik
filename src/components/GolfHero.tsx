@@ -12,6 +12,7 @@ import { REVIEWS } from "@/config/business";
 import { golfHero } from "@/data/golfHero";
 import terugvalDesktop from "@/assets/hero/golf-desktop.webp";
 import terugvalMobiel from "@/assets/hero/golf-mobiel.webp";
+import HeroTelefoon from "@/components/golf/HeroTelefoon";
 
 /**
  * Homepage-hero met de zijden golf (WebGL, src/components/golf/golfMotor.ts).
@@ -128,6 +129,8 @@ const GolfHero = () => {
         />
       </picture>
       <div ref={vlakRef} className="golf-hero__vlak" />
+      {/* Hand met telefoon tussen golf en tekst; de arm loopt onder de balk door. */}
+      <HeroTelefoon />
 
       <div className="golf-hero__inhoud relative flex flex-1 flex-col justify-start md:justify-center pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[var(--header-height)] pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6">

@@ -195,6 +195,24 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
   - Na de intro de kop "Over …" met de eerste twee alinea's van `detail.details`.
   - Daarnaast de rest van de alinea's, "Het doel", "Het idee" en "Opgeleverd in …".
 
+## Telefoon in de hand in de homepage-hero (`src/components/golf/HeroTelefoon.tsx`)
+
+- **Foto:** `basis/hero-hand-groen.webp` (2160×3840): één hand met een lichte iPhone,
+  arm recht van onderen, egaal lichtgrijze studio, groen scherm. Higgsfield job
+  `17b6db7f-7ffb-4c0f-9d83-8fb28d43be74` (gpt_image_2_5, 4k, high, 9:16).
+- **Masker:** `basis/hero-hand-alfa.png` (wit = hand en telefoon). De Higgsfield-
+  achtergrondverwijderaar liet de lichte huid half doorschijnend (alfa ~196); het masker
+  is daarom gecombineerd met de afstand tot de egale achtergrond, 1 px ingekrompen, en de
+  randkleuren zijn teruggerekend zonder het grijs van de studio.
+- **Maken:** `node scripts/mockups/hero-telefoon.mjs` maakt per site een mobiele
+  screenshot (zelfde instellingen als de cases) en zet die in het scherm. Uit:
+  `src/assets/hero/hero-telefoon-<slug>.webp` met transparante achtergrond, 1400 breed.
+  `--alleen-samenstellen` gebruikt de bewaarde screenshots (`basis/hero-scherm-*.png`, niet in git).
+- **Sites:** Danique Kwakman, Kyodai Originals, Puur in Harmonie (`SITES` in het script
+  én in `HeroTelefoon.tsx`).
+- **Weergave:** alleen vanaf 1024px; de arm loopt onder de balk van de hero door. Om de
+  4,2 s vloeit de volgende site over de vorige; klikken opent de case.
+
 ## Opnieuw genereren in Higgsfield
 
 Alleen nodig voor een andere foto. Model `gpt_image_2_5`, 4k, quality high.

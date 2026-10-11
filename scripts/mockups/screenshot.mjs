@@ -40,7 +40,7 @@ export async function maakScreenshot({ url, breedte, hoogte, dpr, mobiel = false
     await wacht(1500);
     const geweigerd = await page.evaluate(() => {
       const knop = [...document.querySelectorAll("button, a")].find((b) =>
-        /^(weiger|alles weigeren|alleen noodzakelijk|reject|decline)/i.test(b.textContent.trim()));
+        /^(weiger|alles weigeren|alleen noodzakelijk|essential only|necessary only|reject|decline)/i.test(b.textContent.trim()));
       if (knop) { knop.click(); return knop.textContent.trim(); }
       return null;
     });
