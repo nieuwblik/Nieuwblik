@@ -580,16 +580,16 @@
   white-space: nowrap;
   color: hsl(var(--sw-ink) / 0.78);
   text-decoration: none;
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* Alleen een subtiele groei bij hover, geen onderstreping. */
-.golf-hero__diensten a:hover { transform: scale(1.04); }
 .golf-hero__icoon {
   width: 18px;
   height: 18px;
   flex: none;
   color: hsl(var(--sw-green));
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* Bij hover groeit alleen het icoon, subtiel; geen onderstreping. */
+.golf-hero__diensten a:hover .golf-hero__icoon { transform: scale(1.15); }
 @media (max-width: 767px) {
   .golf-hero__diensten ul { gap: 1.75rem; }
 }
