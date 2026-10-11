@@ -809,7 +809,9 @@ html.tn-vast { overflow: hidden; }
   --tn-groen-licht: hsl(160 40% 92%);
   --tn-lijn: hsl(160 10% 86%);
   position: fixed; inset: 0 0 auto; z-index: 100; height: var(--header-height);
-  display: flex; align-items: center; gap: 4px; padding: 0 20px 0 24px;
+  /* Inhoud 15% smaller dan de schermbreedte (7,5% aan elke kant); de achtergrond
+     en de haarlijn lopen wel over de volle breedte door. */
+  display: flex; align-items: center; gap: 4px; padding: 0 max(20px, 7.5%);
   color: hsl(160 14% 12%);
   background: hsl(0 0% 100% / 0);
   border-bottom: 1px solid hsl(160 10% 25% / .08);
