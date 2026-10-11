@@ -75,7 +75,7 @@ export default function HeroTelefoon() {
             <source
               media="(min-width: 1024px)"
               srcSet={s.srcSet}
-              sizes="(min-width: 1536px) 360px, 24vw"
+              sizes="(min-width: 1640px) 410px, 25vw"
             />
             <img
               src={LEEG}
