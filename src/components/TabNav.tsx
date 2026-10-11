@@ -611,219 +611,222 @@ export default function TabNav({ children }: { children: ReactNode }) {
         )}
         data-donker={licht ? "" : undefined}
       >
-        <Link
-          to="/"
-          className="tn-logo"
-          aria-label="Nieuwblik, naar de homepage"
-        >
-          <img
-            src={logoSrc}
-            alt="Nieuwblik"
-            width={400}
-            height={113}
-            draggable={false}
-          />
-        </Link>
+        {/* Zelfde breedte als de meeste secties. */}
+        <div className="tn-binnen container mx-auto px-4 sm:px-6">
+          <Link
+            to="/"
+            className="tn-logo"
+            aria-label="Nieuwblik, naar de homepage"
+          >
+            <img
+              src={logoSrc}
+              alt="Nieuwblik"
+              width={400}
+              height={113}
+              draggable={false}
+            />
+          </Link>
 
-        <nav ref={tabsRef} className="tn-tabs" aria-label="Hoofdnavigatie">
-          {VAST.map((v) => {
-            const actief = v.pad === pathname;
-            const kern = (
-              <Link
-                to={v.pad}
-                className="tn-link"
-                draggable={false}
-                aria-current={actief ? "page" : undefined}
-              >
-                <v.Icoon
-                  className={cx("tn-ic", speel === v.pad && "speel")}
-                  data-ic={v.ic}
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                />
-                <span className="tn-label">{v.titel}</span>
-              </Link>
-            );
-            if (!v.menu) {
+          <nav ref={tabsRef} className="tn-tabs" aria-label="Hoofdnavigatie">
+            {VAST.map((v) => {
+              const actief = v.pad === pathname;
+              const kern = (
+                <Link
+                  to={v.pad}
+                  className="tn-link"
+                  draggable={false}
+                  aria-current={actief ? "page" : undefined}
+                >
+                  <v.Icoon
+                    className={cx("tn-ic", speel === v.pad && "speel")}
+                    data-ic={v.ic}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  <span className="tn-label">{v.titel}</span>
+                </Link>
+              );
+              if (!v.menu) {
+                return (
+                  <div
+                    key={v.pad}
+                    className={cx("tn-tab", actief && "actief")}
+                    onPointerEnter={(e) => toonVoorbeeld(e, v)}
+                    onPointerLeave={verbergVoorbeeld}
+                  >
+                    {kern}
+                  </div>
+                );
+              }
               return (
                 <div
                   key={v.pad}
-                  className={cx("tn-tab", actief && "actief")}
-                  onPointerEnter={(e) => toonVoorbeeld(e, v)}
-                  onPointerLeave={verbergVoorbeeld}
-                >
-                  {kern}
-                </div>
-              );
-            }
-            return (
-              <div
-                key={v.pad}
-                className={cx(
-                  "tn-tab tn-met-menu",
-                  actief && "actief",
-                  dienstenOpen && "dd-open",
-                )}
-                onPointerEnter={(e) => {
-                  if (e.pointerType !== "mouse") return;
-                  window.clearTimeout(dienstTimer.current);
-                  dienstTimer.current = window.setTimeout(
-                    () => openDiensten(),
-                    140,
-                  );
-                }}
-                onPointerLeave={() => {
-                  window.clearTimeout(dienstTimer.current);
-                  dienstTimer.current = window.setTimeout(
-                    () => setDienstenOpen(false),
-                    200,
-                  );
-                }}
-              >
-                {kern}
-                <button
-                  type="button"
-                  className="tn-chevron"
-                  aria-label="Diensten uitklappen"
-                  aria-haspopup="menu"
-                  aria-expanded={dienstenOpen}
-                  onClick={() =>
-                    dienstenOpen ? setDienstenOpen(false) : openDiensten()
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "ArrowDown") {
-                      e.preventDefault();
-                      openDiensten(true);
-                    }
+                  className={cx(
+                    "tn-tab tn-met-menu",
+                    actief && "actief",
+                    dienstenOpen && "dd-open",
+                  )}
+                  onPointerEnter={(e) => {
+                    if (e.pointerType !== "mouse") return;
+                    window.clearTimeout(dienstTimer.current);
+                    dienstTimer.current = window.setTimeout(
+                      () => openDiensten(),
+                      140,
+                    );
+                  }}
+                  onPointerLeave={() => {
+                    window.clearTimeout(dienstTimer.current);
+                    dienstTimer.current = window.setTimeout(
+                      () => setDienstenOpen(false),
+                      200,
+                    );
                   }}
                 >
-                  <ChevronDown aria-hidden="true" strokeWidth={1.75} />
-                </button>
-                <div
-                  className={cx("tn-dropdown", dienstenOpen && "open")}
-                  role="menu"
-                  aria-label="Diensten"
-                  onKeyDown={dienstenToetsen}
-                >
-                  <div className="tn-dropdown-paneel">
-                    {DIENSTEN.map((d) => (
+                  {kern}
+                  <button
+                    type="button"
+                    className="tn-chevron"
+                    aria-label="Diensten uitklappen"
+                    aria-haspopup="menu"
+                    aria-expanded={dienstenOpen}
+                    onClick={() =>
+                      dienstenOpen ? setDienstenOpen(false) : openDiensten()
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "ArrowDown") {
+                        e.preventDefault();
+                        openDiensten(true);
+                      }
+                    }}
+                  >
+                    <ChevronDown aria-hidden="true" strokeWidth={1.75} />
+                  </button>
+                  <div
+                    className={cx("tn-dropdown", dienstenOpen && "open")}
+                    role="menu"
+                    aria-label="Diensten"
+                    onKeyDown={dienstenToetsen}
+                  >
+                    <div className="tn-dropdown-paneel">
+                      {DIENSTEN.map((d) => (
+                        <Link
+                          key={d.pad}
+                          to={d.pad}
+                          role="menuitem"
+                          tabIndex={dienstenOpen ? 0 : -1}
+                        >
+                          <d.Icoon
+                            className="tn-ic"
+                            strokeWidth={1.75}
+                            aria-hidden="true"
+                          />
+                          {d.titel}
+                        </Link>
+                      ))}
                       <Link
-                        key={d.pad}
-                        to={d.pad}
+                        to="/diensten"
                         role="menuitem"
+                        className="tn-alle"
                         tabIndex={dienstenOpen ? 0 : -1}
                       >
-                        <d.Icoon
+                        Alle diensten{" "}
+                        <ArrowRight
                           className="tn-ic"
                           strokeWidth={1.75}
                           aria-hidden="true"
                         />
-                        {d.titel}
                       </Link>
-                    ))}
-                    <Link
-                      to="/diensten"
-                      role="menuitem"
-                      className="tn-alle"
-                      tabIndex={dienstenOpen ? 0 : -1}
-                    >
-                      Alle diensten{" "}
-                      <ArrowRight
-                        className="tn-ic"
-                        strokeWidth={1.75}
-                        aria-hidden="true"
-                      />
-                    </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
 
-          {tabblad && (
-            <>
-              <span className="tn-scheiding" aria-hidden="true" />
-              <div className="tn-tab extra actief">
-                <Link
-                  to={tabblad.pad}
-                  className="tn-link"
-                  draggable={false}
-                  aria-current="page"
-                >
-                  {tabblad.beeld && tabblad.pad.startsWith("/portfolio/") ? (
-                    <img
-                      className={cx(
-                        "tn-duim",
-                        speel === tabblad.pad && "speel",
-                      )}
-                      src={tabblad.beeld}
-                      alt=""
-                      draggable={false}
-                    />
-                  ) : (
-                    (() => {
-                      const I = icoonVoor(tabblad.pad);
-                      return (
-                        <I
-                          className={cx(
-                            "tn-ic",
-                            speel === tabblad.pad && "speel",
-                          )}
-                          strokeWidth={1.75}
-                          aria-hidden="true"
-                        />
-                      );
-                    })()
-                  )}
-                  <span className="tn-label">{tabblad.titel}</span>
-                </Link>
-                <button
-                  type="button"
-                  className="tn-sluit"
-                  aria-label={`Sluit ${tabblad.titel}`}
-                  onClick={() => navigate(ouderVan(tabblad.pad))}
-                >
-                  <X aria-hidden="true" strokeWidth={1.75} />
-                </button>
-              </div>
-            </>
-          )}
+            {tabblad && (
+              <>
+                <span className="tn-scheiding" aria-hidden="true" />
+                <div className="tn-tab extra actief">
+                  <Link
+                    to={tabblad.pad}
+                    className="tn-link"
+                    draggable={false}
+                    aria-current="page"
+                  >
+                    {tabblad.beeld && tabblad.pad.startsWith("/portfolio/") ? (
+                      <img
+                        className={cx(
+                          "tn-duim",
+                          speel === tabblad.pad && "speel",
+                        )}
+                        src={tabblad.beeld}
+                        alt=""
+                        draggable={false}
+                      />
+                    ) : (
+                      (() => {
+                        const I = icoonVoor(tabblad.pad);
+                        return (
+                          <I
+                            className={cx(
+                              "tn-ic",
+                              speel === tabblad.pad && "speel",
+                            )}
+                            strokeWidth={1.75}
+                            aria-hidden="true"
+                          />
+                        );
+                      })()
+                    )}
+                    <span className="tn-label">{tabblad.titel}</span>
+                  </Link>
+                  <button
+                    type="button"
+                    className="tn-sluit"
+                    aria-label={`Sluit ${tabblad.titel}`}
+                    onClick={() => navigate(ouderVan(tabblad.pad))}
+                  >
+                    <X aria-hidden="true" strokeWidth={1.75} />
+                  </button>
+                </div>
+              </>
+            )}
+
+            <button
+              type="button"
+              className="tn-plus"
+              aria-label="Alle pagina's"
+              aria-controls="tn-alle-paginas"
+              aria-expanded={allesOpen}
+              onClick={() => {
+                setDienstenOpen(false);
+                verbergVoorbeeld();
+                setAllesOpen((o) => !o);
+              }}
+            >
+              <Plus aria-hidden="true" strokeWidth={1.75} />
+            </button>
+          </nav>
+
+          <Link
+            to="/contact"
+            className="tn-contact"
+            aria-current={pathname === "/contact" ? "page" : undefined}
+          >
+            <Envelop className="tn-ic" aria-hidden="true" />
+            Contact
+          </Link>
 
           <button
             type="button"
-            className="tn-plus"
-            aria-label="Alle pagina's"
-            aria-controls="tn-alle-paginas"
-            aria-expanded={allesOpen}
-            onClick={() => {
-              setDienstenOpen(false);
-              verbergVoorbeeld();
-              setAllesOpen((o) => !o);
-            }}
+            className="tn-mob-menu"
+            aria-label={mobielOpen ? "Sluit menu" : "Menu"}
+            aria-expanded={mobielOpen}
+            aria-controls="tn-overzicht"
+            onClick={() => setMobielOpen((o) => !o)}
           >
-            <Plus aria-hidden="true" strokeWidth={1.75} />
+            <Raster className="tn-ic" aria-hidden="true" />
           </button>
-        </nav>
-
-        <Link
-          to="/contact"
-          className="tn-contact"
-          aria-current={pathname === "/contact" ? "page" : undefined}
-        >
-          <Envelop className="tn-ic" aria-hidden="true" />
-          Contact
-        </Link>
-
-        <button
-          type="button"
-          className="tn-mob-menu"
-          aria-label={mobielOpen ? "Sluit menu" : "Menu"}
-          aria-expanded={mobielOpen}
-          aria-controls="tn-overzicht"
-          onClick={() => setMobielOpen((o) => !o)}
-        >
-          <Raster className="tn-ic" aria-hidden="true" />
-        </button>
+        </div>
       </header>
 
       {/* Overzicht van alle pagina's onder het plusje (desktop). */}

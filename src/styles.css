@@ -809,14 +809,14 @@ html.tn-vast { overflow: hidden; }
   --tn-groen-licht: hsl(160 40% 92%);
   --tn-lijn: hsl(160 10% 86%);
   position: fixed; inset: 0 0 auto; z-index: 100; height: var(--header-height);
-  /* Inhoud 15% smaller dan de schermbreedte (7,5% aan elke kant); de achtergrond
-     en de haarlijn lopen wel over de volle breedte door. */
-  display: flex; align-items: center; gap: 4px; padding: 0 max(20px, 7.5%);
   color: hsl(160 14% 12%);
   background: hsl(0 0% 100% / 0);
   border-bottom: 1px solid hsl(160 10% 25% / .08);
   transition: background-color .3s ease, border-color .3s ease, color .25s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease;
 }
+/* De inhoud zit in .tn-binnen met dezelfde container-classes als de secties; achtergrond
+   en haarlijn van .tn-kop lopen over de volle breedte. */
+.tn-binnen { height: 100%; display: flex; align-items: center; gap: 4px; }
 .tn-kop.gescrold {
   background: hsl(0 0% 100% / .72);
   -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6);
@@ -972,7 +972,6 @@ html.tn-vast { overflow: hidden; }
 }
 
 @media (max-width: 767px) {
-  .tn-kop { padding: 0 16px; }
   .tn-tabs, .tn-contact, .tn-alles, .tn-voorbeeld { display: none; }
   .tn-logo { margin-right: auto; }
   /* Menuknop rechtsboven: de vier vakjes. Bij openen wordt elk vakje een smal balkje
