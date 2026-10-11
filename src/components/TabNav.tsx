@@ -73,12 +73,14 @@ function Raster(props: SVGProps<SVGSVGElement>) {
 
 /**
  * Envelop met een losse klep die aan de bovenrand scharniert. Dicht valt de klep
- * samen met de binnenvouw; bij hover klapt hij omhoog en blijft de vouw staan.
+ * samen met de binnenvouw; bij hover klapt hij omhoog tot een dak, verdwijnt de
+ * bovenrand en zakt de vouw iets: het bekende beeld van een geopende envelop.
  */
 function Envelop(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
-      <rect x="2" y="5" width="20" height="14" rx="2" />
+      <path d="M2 7v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7" />
+      <path className="tn-rand" d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2" />
       <path className="tn-vouw" d="M2.6 6.2 12 12.6l9.4-6.4" />
       <path className="tn-klep" d="M2.6 6.2 12 12.6l9.4-6.4" />
     </svg>

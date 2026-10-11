@@ -888,11 +888,16 @@ html.tn-vast { overflow: hidden; }
 /* Contact rechtsboven: gewone tekstlink, geen knop. */
 .tn-contact { display: flex; align-items: center; gap: 8px; flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
 .tn-contact:hover, .tn-contact[aria-current="page"] { opacity: 1; }
-/* Hover: de klep van de envelop klapt aan de bovenrand omhoog open (de binnenvouw
-   blijft staan) en de envelop wipt een tikje; bij weggaan valt de klep weer dicht. */
+/* Hover: de klep klapt aan de bovenrand omhoog tot een dak, de bovenrand verdwijnt
+   en de binnenvouw zakt iets, zodat je één open envelop ziet. De envelop wipt een
+   tikje; bij weggaan valt de klep weer dicht. */
 .tn-kop .tn-contact svg { transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
 .tn-kop .tn-contact .tn-klep { transform-box: view-box; transform-origin: 12px 6.2px; transition: transform .4s cubic-bezier(.34, 1.4, .64, 1); }
 .tn-kop .tn-contact:is(:hover, :focus-visible) svg { transform: translateY(-1px) rotate(-4deg); }
+.tn-kop .tn-contact .tn-vouw { transform-box: view-box; transition: transform .4s cubic-bezier(.34, 1.4, .64, 1); }
+.tn-kop .tn-contact .tn-rand { transition: opacity .15s; }
+.tn-kop .tn-contact:is(:hover, :focus-visible) .tn-vouw { transform: translateY(3px); }
+.tn-kop .tn-contact:is(:hover, :focus-visible) .tn-rand { opacity: 0; }
 .tn-kop .tn-contact:is(:hover, :focus-visible) .tn-klep { transform: scaleY(-1); transition-delay: .05s; }
 .tn-contact:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; border-radius: 6px; }
 
