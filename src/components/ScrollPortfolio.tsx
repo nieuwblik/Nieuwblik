@@ -53,12 +53,32 @@ const ScrollPortfolio = () => {
       style={{ overflow: "clip" }}
     >
       <div className="container mx-auto px-6">
-        {/* Card grid. De bovenste twee komen mee met de hero binnen: dezelfde
-            CSS-entree als de hero (sw-hero-anim/sw-cta, vanaf de eerste paint,
-            alleen transform), net na de balk. De rest verschijnt bij het scrollen. */}
-        <div className="sw-hero-anim grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20">
-          {ITEMS.map((item, i) => {
-            const kaart = (
+        {/* Inleiding zoals bij Stripe: één doorlopende zin, het eerste deel donker en
+            stellig, de rest grijs als toelichting. Komt mee binnen met de hero
+            (sw-hero-anim/sw-cta, vanaf de eerste paint), net na de balk. */}
+        <div className="sw-hero-anim">
+          <h2
+            className="pf-inleiding sw-cta"
+            style={{ "--sw-delay": "0.95s", "--sw-rise": "20px" } as CSSProperties}
+          >
+            Recent werk voor ondernemers in heel Nederland.{" "}
+            <span>
+              Van dakdekker tot volleybalclub en van therapiepraktijk tot webshop in
+              Japanse kunst: elke site op maat ontworpen, snel en goed vindbaar.
+            </span>
+          </h2>
+        </div>
+
+        {/* Card grid: verschijnt bij het scrollen. */}
+        <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20">
+          {ITEMS.map((item, i) => (
+            <motion.div
+              key={item.slug}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, delay: (i % 2) * 0.08, ease: EASE }}
+            >
               <PortfolioCard
                 title={item.title}
                 category={item.category}
@@ -66,32 +86,9 @@ const ScrollPortfolio = () => {
                 imageSet={item.imageSet}
                 slug={item.slug}
                 meta={item.meta}
-                priority={i < 2}
               />
-            );
-            if (i < 2) {
-              return (
-                <div
-                  key={item.slug}
-                  className="sw-cta"
-                  style={{ "--sw-delay": `${950 + i * 100}ms`, "--sw-rise": "24px" } as CSSProperties}
-                >
-                  {kaart}
-                </div>
-              );
-            }
-            return (
-              <motion.div
-                key={item.slug}
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay: (i % 2) * 0.08, ease: EASE }}
-              >
-                {kaart}
-              </motion.div>
-            );
-          })}
+            </motion.div>
+          ))}
         </div>
 
         {/* CTA to full portfolio */}

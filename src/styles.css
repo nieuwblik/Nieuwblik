@@ -591,6 +591,22 @@
   .golf-hero__telefoon-link:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; border-radius: 12px; }
 }
 
+/* Inleiding boven de cases op de homepage (ScrollPortfolio): één zin, het eerste
+   deel in inkt, de rest grijs. Epilogue zoals de kop van de hero. */
+.pf-inleiding {
+  max-width: 34ch;
+  margin: 0;
+  font-family: 'Epilogue', 'Epilogue Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* !important: de globale kopregel zet h1-h6 op 700 !important. */
+  font-weight: 500 !important;
+  font-size: clamp(1.5rem, 3.1vw, 2.9rem);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  color: hsl(var(--sw-ink));
+  text-wrap: pretty;
+}
+.pf-inleiding span { color: hsl(var(--sw-ink) / 0.48); }
+
 /* Balk onderin de hero: haarlijnen boven en onder, licht doorschijnend zodat de
    golf er zacht achter doorloopt en tekst op het donkere deel leesbaar blijft. */
 .golf-hero__balk {
@@ -964,7 +980,7 @@ html.tn-vast { overflow: hidden; }
 }
 .tn-alles.open { opacity: 1; transform: none; pointer-events: auto; }
 .tn-alles-raster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
-.tn-categorie h2 { margin: 0 0 10px; font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0; line-height: 1.4; color: hsl(160 8% 38%); }
+.tn-categorie h2 { margin: 0 0 10px; font-family: inherit; font-size: 13px; font-weight: 600 !important; letter-spacing: 0; line-height: 1.4; color: hsl(160 8% 38%); }
 .tn-categorie a {
   display: flex; align-items: center; gap: 10px; padding: 7px 10px; margin: 0 -10px; border-radius: 9px; font-size: 16px; font-weight: 500;
   opacity: 0; transform: translateY(6px);
