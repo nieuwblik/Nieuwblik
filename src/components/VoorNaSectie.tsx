@@ -19,11 +19,13 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
  * de verouderde en de nieuwe website van een (fictieve) yogastudio. Display en
  * sites zijn losse lagen, zodat alleen het scherm verandert.
  *
- * Animatie (GSAP, één keer zodra het display goed in beeld is, niet
- * vastgezet en niet gekoppeld aan de scroll):
+ * Animatie (GSAP, zodra het display goed in beeld is, niet vastgezet en niet
+ * gekoppeld aan de scroll):
  *  1. De nieuwe site valt in tien verticale lamellen van links naar rechts
- *     over de oude heen, als een jaloezie.
- *  2. Tijdens die overgang poppen drie feitenkaarten op (zie voorna/Feiten).
+ *     over de oude heen, als een jaloezie. Wie weer terug omhoog scrolt, ziet
+ *     de lamellen teruggaan naar de oude site; naar beneden speelt het opnieuw.
+ *  2. Tijdens de eerste overgang poppen drie feitenkaarten op (zie
+ *     voorna/Feiten). Die blijven daarna staan en spelen niet opnieuw.
  * Met prefers-reduced-motion: geen lamellen, meteen de nieuwe site en de
  * kaarten.
  */
@@ -64,16 +66,15 @@ const VoorNaSectie = () => {
       const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
 
-      // Eén keer afspelen, op een vast tempo, zodra het display goed in beeld
-      // is (zijn midden op 70% van het venster). Geen vastzetten: het scrollen
-      // loopt gewoon door. Wie de pagina al voorbij die plek opent, krijgt de
-      // animatie meteen.
+      // Afspelen op een vast tempo zodra het display goed in beeld is (zijn
+      // midden op 70% van het venster), terugspelen naar de oude site als je
+      // weer boven dat punt scrolt. Geen vastzetten: het scrollen loopt gewoon
+      // door. Wie de pagina al voorbij die plek opent, krijgt de animatie meteen.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: display,
           start: "center 70%",
-          toggleActions: "play none none none",
-          once: true,
+          toggleActions: "play none none reverse",
         },
       });
       tl.fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
@@ -98,10 +99,19 @@ const VoorNaSectie = () => {
         .set(oudRef.current, { autoAlpha: 0 })
         .to(nieuwLabelRef.current, { autoAlpha: 1, duration: 0.3 });
 
-      // De kaarten poppen op terwijl de lamellen vallen (ongeveer bij de
-      // derde lamel), elk op hun eigen manier.
+      // De kaarten poppen op terwijl de lamellen voor het eerst vallen (ongeveer
+      // bij de derde lamel), elk op hun eigen manier. Eigen trigger met once,
+      // zodat ze bij terug- en weer heen scrollen gewoon blijven staan.
       if (kaartenRef.current) {
-        tl.add(maakFeitenTijdlijn(kaartenRef.current).paused(false), 0.35);
+        const kaarten = gsap.timeline({
+          scrollTrigger: {
+            trigger: display,
+            start: "center 70%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        });
+        kaarten.add(maakFeitenTijdlijn(kaartenRef.current).paused(false), 0.35);
       }
 
       // De sectie laadt lazy en de secties erboven ook: als de pagina daarna
