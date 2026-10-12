@@ -562,7 +562,8 @@ export default function TabNav({ children }: { children: ReactNode }) {
 
   const categorie = (naam: string, paginas: Pagina[]) => (
     <section key={naam} className="tn-categorie">
-      <h2>{naam}</h2>
+      {/* Geen kop: navigatielabels horen niet in de kopstructuur van de pagina. */}
+      <p className="tn-cat-kop">{naam}</p>
       {paginas.map((pg, i) => (
         <Link
           key={pg.pad}

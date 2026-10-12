@@ -981,7 +981,7 @@ html.tn-vast { overflow: hidden; }
 }
 .tn-alles.open { opacity: 1; transform: none; pointer-events: auto; }
 .tn-alles-raster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
-.tn-categorie h2 { margin: 0 0 10px; font-family: inherit; font-size: 13px; font-weight: 600 !important; letter-spacing: 0; line-height: 1.4; color: hsl(160 8% 38%); }
+.tn-cat-kop { margin: 0 0 10px; font-size: 13px; font-weight: 600; line-height: 1.4; color: hsl(160 8% 38%); }
 .tn-categorie a {
   display: flex; align-items: center; gap: 10px; padding: 7px 10px; margin: 0 -10px; border-radius: 9px; font-size: 16px; font-weight: 500;
   opacity: 0; transform: translateY(6px);
