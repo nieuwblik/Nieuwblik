@@ -22,8 +22,9 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
  * Animatie (GSAP, zodra het display goed in beeld is, niet vastgezet en niet
  * gekoppeld aan de scroll):
  *  1. De nieuwe site valt in tien verticale lamellen van links naar rechts
- *     over de oude heen, als een jaloezie. Wie weer terug omhoog scrolt, ziet
- *     de lamellen teruggaan naar de oude site; naar beneden speelt het opnieuw.
+ *     over de oude heen, als een jaloezie. Wie weer omhoog scrolt, ziet de
+ *     lamellen teruggaan naar de oude site (al bij het midden op 45% van het
+ *     venster); naar beneden speelt het opnieuw.
  *  2. Tijdens de eerste overgang poppen drie feitenkaarten op (zie
  *     voorna/Feiten). Die blijven daarna staan en spelen niet opnieuw.
  * Met prefers-reduced-motion: geen lamellen, meteen de nieuwe site en de
@@ -67,15 +68,19 @@ const VoorNaSectie = () => {
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
 
       // Afspelen op een vast tempo zodra het display goed in beeld is (zijn
-      // midden op 70% van het venster), terugspelen naar de oude site als je
-      // weer boven dat punt scrolt. Geen vastzetten: het scrollen loopt gewoon
-      // door. Wie de pagina al voorbij die plek opent, krijgt de animatie meteen.
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: display,
-          start: "center 70%",
-          toggleActions: "play none none reverse",
-        },
+      // midden op 70% van het venster). Terug naar de oude site gaat eerder: al
+      // als je omhoog scrolt en het midden weer onder 45% zakt, niet pas bij 70%.
+      // Geen vastzetten: het scrollen loopt gewoon door. Wie de pagina al voorbij
+      // die plek opent, krijgt de animatie meteen.
+      const tl = gsap.timeline({ paused: true });
+      ScrollTrigger.create({
+        trigger: display,
+        start: "center 70%",
+        end: "center 45%",
+        onEnter: () => tl.play(),
+        onLeave: () => tl.play(),
+        onEnterBack: () => tl.reverse(),
+        onLeaveBack: () => tl.reverse(),
       });
       tl.fromTo(laag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0)
         .fromTo(nieuwLabelRef.current, { autoAlpha: 0 }, { autoAlpha: 0 }, 0)
