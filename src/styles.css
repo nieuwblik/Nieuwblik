@@ -904,7 +904,7 @@ html.tn-vast { overflow: hidden; }
 }
 .tn-tab.actief:hover { background: hsl(0 0% 100% / .75); }
 .tn-link { display: flex; align-items: center; gap: 8px; height: 100%; padding: 0 14px; border-radius: inherit; min-width: 0; color: inherit; }
-.tn-link:focus-visible, .tn-tab button:focus-visible, .tn-plus:focus-visible, .tn-mob-menu:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+.tn-link:focus-visible, .tn-tab button:focus-visible, .tn-meer:focus-visible, .tn-mob-menu:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
 .tn-label { overflow: hidden; text-overflow: ellipsis; }
 .tn-tab.extra { max-width: 240px; min-width: 0; flex: 0 1 auto; }
 .tn-tab.extra .tn-link { padding-right: 4px; }
@@ -936,12 +936,13 @@ html.tn-vast { overflow: hidden; }
 .tn-dropdown a:hover svg { transform: scale(1.07); }
 .tn-dropdown .tn-alle { margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--tn-lijn); border-radius: 0 0 9px 9px; font-size: 14px; color: var(--tn-zacht); }
 
-/* Plusje na de tabbladen: draait naar een kruisje en opent het overzicht. */
-.tn-plus { display: grid; place-items: center; width: 36px; height: 36px; margin-left: 4px; border-radius: 10px; color: inherit; flex: none; transition: background .2s, color .2s; }
-.tn-plus:hover { background: hsl(0 0% 100% / .45); }
-.tn-plus svg { width: 18px; height: 18px; transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
-.tn-plus[aria-expanded="true"] { background: #fff; color: hsl(var(--sw-green)); }
-.tn-plus[aria-expanded="true"] svg { transform: rotate(135deg); }
+/* "Meer" na de tabbladen: opent het overzicht van alle pagina's. Zelfde vorm als een
+   tabblad; open krijgt hij het witte vlakje van het actieve tabblad en draait het pijltje. */
+.tn-meer { display: flex; align-items: center; gap: 4px; height: 38px; padding: 0 10px 0 14px; margin-left: 4px; border-radius: 10px; font-size: 15px; font-weight: 500; color: inherit; flex: none; transition: background .2s; }
+.tn-meer:hover { background: hsl(0 0% 100% / .45); }
+.tn-meer svg { width: 14px; height: 14px; transition: transform .2s; }
+.tn-meer[aria-expanded="true"] { background: hsl(0 0% 100% / .62); box-shadow: inset 0 0 0 1px hsl(160 12% 18% / .12); }
+.tn-meer[aria-expanded="true"] svg { transform: rotate(180deg); }
 
 /* Contact rechtsboven: gewone tekstlink, geen knop. */
 .tn-contact { display: flex; align-items: center; gap: 9.6px; flex: none; margin-left: 16px; padding: 8px 4px; font-size: 15px; font-weight: 500; color: inherit; opacity: .85; transition: opacity .15s; }
@@ -964,7 +965,7 @@ html.tn-vast { overflow: hidden; }
 .tn-kop[data-donker] { color: #fff; border-bottom-color: hsl(0 0% 100% / .08); }
 .tn-kop[data-donker].gescrold { background: hsl(160 60% 4% / .55); border-bottom-color: hsl(0 0% 100% / .08); }
 .tn-kop[data-donker] .tn-logo img { filter: brightness(0) invert(1); }
-.tn-kop[data-donker] .tn-tab:hover, .tn-kop[data-donker] .tn-plus:hover { background: hsl(0 0% 100% / .1); }
+.tn-kop[data-donker] .tn-tab:hover, .tn-kop[data-donker] .tn-meer:hover { background: hsl(0 0% 100% / .1); }
 .tn-kop[data-donker] .tn-tab.actief { background: hsl(0 0% 100% / .14); box-shadow: inset 0 0 0 1px hsl(0 0% 100% / .2); color: #fff; }
 .tn-kop[data-donker] .tn-tab .tn-sluit, .tn-kop[data-donker] .tn-tab.actief .tn-sluit { color: inherit; }
 .tn-kop[data-donker] .tn-tab .tn-sluit:hover, .tn-kop[data-donker] .tn-chevron:hover { background: hsl(0 0% 100% / .14); color: #fff; }

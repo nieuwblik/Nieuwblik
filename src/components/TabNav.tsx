@@ -21,7 +21,6 @@ import {
   MapPin,
   Monitor,
   PencilRuler,
-  Plus,
   Search,
   Send,
   ShoppingBag,
@@ -431,13 +430,13 @@ export default function TabNav({ children }: { children: ReactNode }) {
       setMobielOpen(false);
       setAllesOpen((open) => {
         if (open)
-          kopRef.current?.querySelector<HTMLElement>(".tn-plus")?.focus();
+          kopRef.current?.querySelector<HTMLElement>(".tn-meer")?.focus();
         return false;
       });
     };
     const opDruk = (e: PointerEvent) => {
       const doel = e.target as Element;
-      if (!doel.closest?.(".tn-alles, .tn-plus")) setAllesOpen(false);
+      if (!doel.closest?.(".tn-alles, .tn-meer")) setAllesOpen(false);
       if (!doel.closest?.(".tn-met-menu")) setDienstenOpen(false);
     };
     window.addEventListener("keydown", opToets);
@@ -793,8 +792,7 @@ export default function TabNav({ children }: { children: ReactNode }) {
 
             <button
               type="button"
-              className="tn-plus"
-              aria-label="Alle pagina's"
+              className="tn-meer"
               aria-controls="tn-alle-paginas"
               aria-expanded={allesOpen}
               onClick={() => {
@@ -803,7 +801,8 @@ export default function TabNav({ children }: { children: ReactNode }) {
                 setAllesOpen((o) => !o);
               }}
             >
-              <Plus aria-hidden="true" strokeWidth={1.75} />
+              Meer
+              <ChevronDown aria-hidden="true" strokeWidth={1.75} />
             </button>
           </nav>
 
