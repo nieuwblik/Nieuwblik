@@ -1062,3 +1062,7 @@ html.tn-vast { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .tn-kop *, .tn-alles, .tn-alles *, .tn-overzicht, .tn-overzicht *, .tn-voorbeeld { transition: none !important; animation: none !important; }
 }
+
+/* Link naar de gids onder de prijspakketten (PricingPackages, groene sectie). */
+.pakket-gids-link { color: #fff; font-weight: 600; transition: color 0.2s ease; }
+.pakket-gids-link:hover, .pakket-gids-link:focus-visible { color: hsl(160 70% 60%); }

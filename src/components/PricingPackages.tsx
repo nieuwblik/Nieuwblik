@@ -302,6 +302,16 @@ const PricingPackages = () => {
         <p style={{ textAlign: "center", marginTop: 36, fontSize: 13, fontWeight: 300, color: "rgba(255,255,255,0.45)" }}>
           Alle prijzen exclusief btw · Hosting en domein optioneel
         </p>
+
+        {/* Doorverwijzing naar de gids: hier in de groene sectie, niet als losse
+            witte strook tussen twee donkere secties. */}
+        <p style={{ textAlign: "center", marginTop: 14, fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.7)" }}>
+          Wil je weten wat de prijs van een website bepaalt? Lees{" "}
+          <Link to="/wat-kost-een-website" className="pakket-gids-link">
+            wat een website kost in 2026
+          </Link>
+          .
+        </p>
       </div>
     </section>
   );
