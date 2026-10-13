@@ -191,15 +191,6 @@ const WerkgebiedDetail = () => {
               ]}
             />
 
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, ease: easings.softBounce }}
-              className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium"
-            >
-              <MapPin className="w-4 h-4" />
-              {region.name}, {region.province}
-            </motion.div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
               Website laten maken in <span className="text-accent">{region.name}</span>

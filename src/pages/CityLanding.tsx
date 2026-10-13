@@ -79,11 +79,6 @@ const CityLanding = ({ slug }: { slug: string }) => {
         <div
           className={`container mx-auto px-4 sm:px-6 max-w-3xl ${lokaal ? "" : "text-center"}`}
         >
-          {extra && (
-            <p className="text-xs font-semibold uppercase tracking-wide text-accent mb-3">
-              Regio {extra.region}
-            </p>
-          )}
           {lokaal ? (
             <>
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">

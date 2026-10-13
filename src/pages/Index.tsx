@@ -36,24 +36,19 @@ const AnimatedSection = ({
   </Reveal>
 );
 
-// Swiss section header: hairline rule + mono spec label + oversized heading.
+// Swiss section header: oversized heading with an optional intro.
 // Used to thread the grid language through the page's sections.
 const SwissHead = ({
-  label,
   title,
   intro,
   dark = false,
   centered = false,
-}: { label: string; title: string; intro?: string; dark?: boolean; centered?: boolean; }) => {
+}: { title: string; intro?: string; dark?: boolean; centered?: boolean; }) => {
   const ink   = dark ? "rgba(255,255,255,1)" : "hsl(var(--sw-ink))";
-  const accentC = dark ? "hsl(160, 70%, 58%)" : "hsl(var(--sw-green))";
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
   return (
     <div ref={ref} className={`mb-12 md:mb-16${centered ? " text-center" : ""}`}>
-      <div className="mb-6">
-        <span className="sw-reveal sw-mono inline-block" style={{ color: accentC }}>{label}</span>
-      </div>
       <h2 className={`sw-reveal text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl${centered ? " mx-auto" : ""}`} style={{ color: ink, lineHeight: 1.02 }}>
         {title}
       </h2>
@@ -125,7 +120,6 @@ const Index = () => {
       <div className="container relative z-10 mx-auto px-6">
         <SwissHead
           dark
-          label="Referenties"
           title="Wat onze klanten zeggen"
           intro="Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik."
           centered

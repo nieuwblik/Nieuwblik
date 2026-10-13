@@ -131,12 +131,6 @@ const Portfolio = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.p
-            className="text-accent mb-6"
-            variants={fadeUp}
-          >
-            ONS PORTFOLIO
-          </motion.p>
           <motion.h1
             className="text-display mb-6"
             variants={fadeUp}

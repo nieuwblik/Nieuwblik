@@ -38,12 +38,6 @@ export const ProblemSolutionSection = () => {
     return (
         <section className="py-20 md:py-32 bg-secondary overflow-hidden">
             <div className="container mx-auto px-6">
-                {/* Badge */}
-                <AnimatedSection className="text-center mb-6">
-                    <p className="text-accent text-sm font-medium tracking-[0.2em] uppercase">
-                        ONZE OPLOSSING
-                    </p>
-                </AnimatedSection>
 
                 {/* Main Title */}
                 <AnimatedSection delay={0.1} className="text-center mb-4">

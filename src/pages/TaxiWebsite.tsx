@@ -1,7 +1,7 @@
 import { PRIJZEN } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
-import { Zap, Smartphone, MessageCircle, MapPin, Plane, Gauge, Search, CheckCircle2 } from "lucide-react";
+import { Zap, Smartphone, MessageCircle, MapPin, Plane, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
@@ -147,10 +147,6 @@ const TaxiWebsite = () => {
         {/* Hero */}
         <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium">
-              <Plane className="w-4 h-4" />
-              Case: Taxi Drechterland, juli 2026
-            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
               Taxi website laten maken die ritten oplevert
             </h1>
@@ -217,10 +213,6 @@ const TaxiWebsite = () => {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium">
-                <Gauge className="w-4 h-4" />
-                Snelheid als conversiefactor
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                 Waarom deze taxi website zo snel is
               </h2>
@@ -243,10 +235,6 @@ const TaxiWebsite = () => {
         <section className="py-16 md:py-24 bg-secondary">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium">
-                <Plane className="w-4 h-4" />
-                Luchthaven-SEO integratie
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                 Gevonden worden op elke luchthavenrit
               </h2>
@@ -277,10 +265,6 @@ const TaxiWebsite = () => {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium">
-                <Search className="w-4 h-4" />
-                Lokale zoekwoorden
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                 Sterk in elke kern van West-Friesland
               </h2>

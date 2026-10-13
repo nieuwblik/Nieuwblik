@@ -94,10 +94,6 @@ const SeoEnkhuizen = () => {
         {/* Hero */}
         <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6 text-sm font-medium">
-              <MapPin className="w-4 h-4" />
-              Lokale SEO specialist in Enkhuizen
-            </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
               SEO Enkhuizen door een lokale specialist
             </h1>

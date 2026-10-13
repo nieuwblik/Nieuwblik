@@ -885,12 +885,6 @@ const AppjeSectie = () => {
 
           <div className="appje-tekst pointer-events-none">
             <div className="pointer-events-auto">
-              <motion.p
-                className="mb-4 text-xs font-semibold uppercase tracking-[0.22em]"
-                style={{ color: GROEN_LICHT, opacity: tekstOpacity }}
-              >
-                Contact
-              </motion.p>
               <h2
                 id="appje-kop"
                 className="font-bold tracking-tight text-white"

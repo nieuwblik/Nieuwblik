@@ -50,13 +50,6 @@ const Blog = () => {
         variants={staggerContainer}
       >
         <div className="container mx-auto px-6">
-          <motion.p
-            className="sw-mono mb-6"
-            style={{ color: "hsl(var(--sw-green))" }}
-            variants={fadeUp}
-          >
-            BLOG
-          </motion.p>
           <motion.h1
             className="text-display mb-6"
             variants={fadeUp}

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import FAQSection from "@/components/FAQSection";
 import SEOHead from "@/components/SEOHead";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { MapPin, Linkedin } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion, useInView } from "framer-motion";
@@ -164,17 +164,6 @@ const About = () => {
 
             {/* Left: text */}
             <div className="lg:col-span-6 flex flex-col justify-center py-16 lg:py-24 text-center lg:text-left">
-              <motion.div
-                className="flex items-center gap-2 mb-6 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <MapPin className="w-3.5 h-3.5 text-accent" />
-                <span className="text-xs font-medium tracking-tight text-muted-foreground">
-                  Enkhuizen, Noord-Holland
-                </span>
-              </motion.div>
 
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black leading-[1.05] tracking-tight mb-6"
@@ -274,9 +263,6 @@ const About = () => {
 
             {/* Text */}
             <div className="order-1 lg:order-2 text-center lg:text-left">
-              <AnimatedText as="p" className="text-accent text-xs font-semibold tracking-widest uppercase mb-4">
-                Het team
-              </AnimatedText>
               <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight mb-6" delay={0.05}>
                 Justin & Job
               </AnimatedText>
@@ -308,9 +294,6 @@ const About = () => {
       <section className="py-20 md:py-32 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <AnimatedText as="p" className="text-accent text-xs font-semibold tracking-widest uppercase mb-4">
-              Hoe we werken
-            </AnimatedText>
             <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4" delay={0.05}>
               Van eerste gesprek<br />tot live website
             </AnimatedText>
@@ -345,9 +328,6 @@ const About = () => {
 
             {/* Sticky header left */}
             <div className="lg:col-span-4 text-center lg:text-left">
-              <AnimatedText as="p" className="text-accent text-xs font-semibold tracking-widest uppercase mb-4">
-                Onze kernwaarden
-              </AnimatedText>
               <AnimatedText as="h2" className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight" delay={0.05}>
                 Waar we<br />voor staan
               </AnimatedText>

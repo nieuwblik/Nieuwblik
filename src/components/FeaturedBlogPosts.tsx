@@ -31,9 +31,6 @@ const FeaturedBlogPosts = () => {
       <div className="container mx-auto px-4 sm:px-6">
         {/* Swiss header */}
         <div className="mb-14 md:mb-16">
-          <div className="mb-6">
-            <span className="sw-reveal sw-mono inline-block" style={{ color: GREEN }}>Insights</span>
-          </div>
           <h2 className="sw-reveal text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl" style={{ color: INK, lineHeight: 1.02 }}>
             Ontdek onze nieuwste artikelen
           </h2>
@@ -55,9 +52,8 @@ const FeaturedBlogPosts = () => {
           >
             {/* Text */}
             <div className="lg:col-span-7 flex flex-col">
-              <span className="sw-mono" style={{ color: GREEN }}>Uitgelicht</span>
               <h3
-                className="mt-6 text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight transition-colors"
+                className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight transition-colors"
                 style={{ color: INK, lineHeight: 1.05 }}
               >
                 {featuredPost.title.nl}

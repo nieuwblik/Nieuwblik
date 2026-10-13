@@ -16,7 +16,7 @@ import { caseMockups, caseTelefoons } from "@/data/caseMockups";
 import { caseAfbeelding, caseBeschrijving } from "@/lib/caseMeta";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
-import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb, Info, Handshake } from "lucide-react";
+import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const PortfolioDetail = () => {
@@ -108,14 +108,6 @@ const PortfolioDetail = () => {
             >
                 <div className="container mx-auto px-6">
                     <div className="max-w-4xl">
-                        {!telefoon && (
-                            <motion.p
-                                className="text-accent mb-6 font-medium"
-                                variants={fadeUp}
-                            >
-                                PROJECT CASE
-                            </motion.p>
-                        )}
                         <motion.h1
                             className="text-display mb-6"
                             variants={fadeUp}
@@ -239,13 +231,9 @@ const PortfolioDetail = () => {
                         {/* Scrolling Right Column: Details */}
                         <div className="w-full md:w-1/2 lg:w-2/5 space-y-16">
                             <div className="space-y-6">
-                                <div className="flex items-center gap-3 text-accent">
-                                    <Info className="w-5 h-5" />
-                                    <h2 className="text-sm font-bold tracking-wider uppercase">De Case</h2>
-                                </div>
-                                <h3 className="text-3xl font-bold font-display leading-tight">
+                                <h2 className="text-3xl font-bold font-display leading-tight">
                                     Over {project.title}
-                                </h3>
+                                </h2>
                                 <p className="text-lg text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">
                                     {project.detail?.details || "Gegevens volgen nog..."}
                                 </p>
@@ -402,13 +390,6 @@ const PortfolioDetail = () => {
                 >
                     <div className="container mx-auto px-6">
                         <div className="max-w-3xl mx-auto text-center">
-                            <motion.div
-                                variants={fadeUp}
-                                className="inline-flex items-center gap-3 text-accent mb-6"
-                            >
-                                <Handshake className="w-5 h-5" />
-                                <span className="text-sm font-bold tracking-wider uppercase">Met dank aan</span>
-                            </motion.div>
                             <motion.h2
                                 className="text-3xl md:text-4xl font-bold font-display leading-tight mb-4"
                                 variants={fadeUp}
