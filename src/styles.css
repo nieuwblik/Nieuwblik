@@ -607,6 +607,55 @@
 }
 .pf-inleiding span { color: hsl(var(--sw-ink) / 0.48); }
 
+/* Vindbaarheid op de homepage (VindbaarSectie): een sticky kop met zwevende beelden
+   erachter, daarna één alinea. */
+.vb { position: relative; height: 190vh; }
+.vb-buhne { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+/* De kop rekent zijn lettergrootte uit de breedte van deze container (cqi). */
+.vb-podium { position: relative; z-index: 1; height: 100%; display: flex; align-items: center; container-type: inline-size; }
+
+/* Vier zwevende beelden buiten het raster, elk met een eigen snelheid (parallax). */
+.vb-fotos { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.vb-foto { position: absolute; left: var(--x); top: var(--y); width: var(--b); margin: 0; will-change: transform; }
+.vb-foto > img { display: block; width: 100%; height: auto; box-shadow: 0 30px 60px -30px hsl(160 30% 10% / .35); }
+/* Logotegels op de boog. Buitenlaag: plek en meeschuiven; binnenlaag: vorm, kleur en oppoppen. */
+.vb-tegel { position: absolute; left: var(--tx); top: var(--ty); width: var(--tb); aspect-ratio: 1; }
+.vb-vlak { width: 100%; height: 100%; display: grid; place-items: center; border-radius: 11%; background: var(--tk); box-shadow: inset 0 0 0 1px hsl(160 30% 10% / .1); }
+.vb-vlak svg { width: 54%; height: 54%; display: block; }
+
+/* Kop: bovenste regel in het midden, de tweede begint net links van het midden en
+   steekt rechts voorbij de bovenste uit. Past altijd: de tweede regel is 8em breed. */
+.vb-kop {
+  width: 100%;
+  margin: 0;
+  font-family: 'Epilogue', 'Epilogue Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* !important: de globale kopregel zet h1-h6 op 700 !important. */
+  font-weight: 500 !important;
+  font-size: min(6.4rem, 7.1cqi);
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: hsl(var(--sw-ink));
+}
+.vb-regel { display: block; white-space: nowrap; }
+.vb-regel:first-child { width: fit-content; margin-inline: auto; }
+.vb-regel + .vb-regel { padding-left: calc(50% - 1.2em); }
+/* Foto tussen "Overal" en "vindbaar": begint zonder breedte en duwt de woorden uit
+   elkaar. Geen spatie erna: de marge rechts is de spatie. */
+.vb-pil { position: relative; display: inline-block; width: 0; height: .8em; margin-right: 0; vertical-align: -0.07em; border-radius: 999px; overflow: hidden; }
+.vb-pil img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Alinea na de kop: rechts in de container, Epilogue in één kleur. */
+.vb-tekst { display: flex; justify-content: flex-end; padding-top: 2rem; padding-bottom: 9rem; }
+.vb-tekst p { margin: 0; max-width: 34ch; font-family: 'Epilogue', 'Epilogue Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 500; font-size: clamp(1.4rem, 2.48vw, 2.32rem); line-height: 1.18; letter-spacing: -0.03em; color: hsl(var(--sw-ink)); text-wrap: pretty; }
+
+/* Mobiel: beelden kleiner en tegen of over de zijkanten, de kop groter zodat hij de
+   breedte vult (de tweede regel begint dan 3em voor het midden). */
+@media (max-width: 760px) {
+  .vb-foto { left: var(--mx); top: var(--my); width: var(--mb); }
+  .vb-kop { font-size: 9.8cqi; }
+  .vb-regel + .vb-regel { padding-left: calc(50% - 3em); }
+}
+
 /* Balk onderin de hero: haarlijnen boven en onder, licht doorschijnend zodat de
    golf er zacht achter doorloopt en tekst op het donkere deel leesbaar blijft. */
 .golf-hero__balk {

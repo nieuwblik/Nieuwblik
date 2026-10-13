@@ -11,7 +11,7 @@ const FAQSection = lazy(() => import("@/components/FAQSection"));
 const AppjeSectie = lazy(() => import("@/components/AppjeSectie"));
 const VoorNaSectie = lazy(() => import("@/components/VoorNaSectie"));
 const ScrollPortfolio = lazy(() => import("@/components/ScrollPortfolio"));
-const SearchVisibility = lazy(() => import("@/components/SearchVisibility"));
+const VindbaarSectie = lazy(() => import("@/components/VindbaarSectie"));
 
 import { useRef } from "react";
 const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
@@ -95,9 +95,9 @@ const Index = () => {
       <ScrollPortfolio />
     </Suspense>
 
-    {/* SEO / AI search-engine visibility — instrument-panel redesign */}
+    {/* Vindbaarheid: sticky kop met zwevende beelden (src/components/VindbaarSectie.tsx) */}
     <Suspense fallback={<div className="min-h-[600px]" />}>
-      <SearchVisibility />
+      <VindbaarSectie />
     </Suspense>
     {/* Voor en na: oude en nieuwe website op hetzelfde beeldscherm (prijzen staan op /prijzen) */}
     <Suspense fallback={<div className="min-h-[600px]" style={{ background: "#f5f5f5" }} />}>
