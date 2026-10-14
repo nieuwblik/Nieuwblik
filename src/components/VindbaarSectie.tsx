@@ -114,24 +114,27 @@ const VindbaarSectie = () => {
       }
 
       const bereik = { trigger: vb, start: "top bottom", end: "bottom top" };
+      // Vanaf het moment dat de kop vaststaat tot de sectie uit beeld is.
+      const vast = { trigger: vb, start: "top top", end: "bottom top" };
 
-      // Beelden zweven op eigen snelheid van onder naar boven door het beeld;
-      // sneller = dichterbij. Ze gaan achter de kop langs.
+      // Beelden komen pas binnen als de kop vaststaat: tot dat moment staan ze net
+      // onder het (afgesneden) podium. Daarna zweven ze op eigen snelheid omhoog
+      // door het beeld en achter de kop langs; sneller = dichterbij.
       gsap.utils.toArray<HTMLElement>(".vb-foto", sectie).forEach((f, i) => {
         const foto = FOTOS[i];
         if (!foto) return;
         const v = foto.snelheid;
         gsap.fromTo(
           f,
-          { y: () => innerHeight * 0.45 * v },
-          { y: () => -innerHeight * 0.55 * v, ease: "none", scrollTrigger: { ...bereik, scrub: true, invalidateOnRefresh: true } },
+          { y: () => innerHeight * 1.05 },
+          { y: () => -innerHeight * (0.35 + 0.6 * v), ease: "none", scrollTrigger: { ...vast, scrub: true, invalidateOnRefresh: true } },
         );
         if (foto.draai) {
           const [s0, s1] = foto.schaal ?? [1, 1];
           gsap.fromTo(
             f,
             { rotation: foto.draai[0], scale: s0 },
-            { rotation: foto.draai[1], scale: s1, ease: "none", scrollTrigger: { ...bereik, scrub: 0.8 } },
+            { rotation: foto.draai[1], scale: s1, ease: "none", scrollTrigger: { ...vast, scrub: 0.8 } },
           );
         }
       });
@@ -171,9 +174,9 @@ const VindbaarSectie = () => {
         check();
       }
 
-      // Zodra de kop helemaal in beeld is, propt de foto zich tussen "Overal" en
-      // "vindbaar": eerst als rondje (de woorden wijken al), dan duwt hij zich in
-      // de breedte en veert even na.
+      // Zodra de kop vaststaat, propt de foto zich tussen "Overal" en "vindbaar":
+      // eerst als rondje (de woorden wijken al), dan duwt hij zich in de breedte
+      // en veert even na.
       if (pilEl) {
         const tl = gsap.timeline({ paused: true });
         tl.fromTo(
@@ -184,7 +187,7 @@ const VindbaarSectie = () => {
         )
           .to(pilEl, { ...PIL, duration: 0.7, ease: "elastic.out(1, 0.75)" }, 0.27)
           .fromTo(pilEl.querySelector("img"), { scale: 1.5 }, { scale: 1, duration: 0.8, ease: "power3.out" }, 0.15);
-        ScrollTrigger.create({ trigger: kop, start: "bottom 92%", once: true, onEnter: () => tl.play() });
+        ScrollTrigger.create({ trigger: vb, start: "top top", once: true, onEnter: () => tl.play() });
       }
 
       // De secties erboven laden lazy: als de pagina daarna langer wordt, moeten

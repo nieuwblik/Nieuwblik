@@ -609,7 +609,8 @@
 
 /* Vindbaarheid op de homepage (VindbaarSectie): een sticky kop met zwevende beelden
    erachter, daarna één alinea. */
-.vb { position: relative; height: 190vh; }
+/* Lang genoeg om de kop een tijd vast te houden terwijl de beelden voorbijkomen. */
+.vb { position: relative; height: 260vh; }
 .vb-buhne { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 /* De kop rekent zijn lettergrootte uit de breedte van deze container (cqi). */
 .vb-podium { position: relative; z-index: 1; height: 100%; display: flex; align-items: center; container-type: inline-size; }
