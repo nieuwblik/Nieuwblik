@@ -114,11 +114,12 @@ const VindbaarSectie = () => {
       }
 
       const bereik = { trigger: vb, start: "top bottom", end: "bottom top" };
-      // Vanaf het moment dat de kop vaststaat tot de sectie uit beeld is.
-      const vast = { trigger: vb, start: "top top", end: "bottom top" };
+      // Beelden: vanaf net voordat de kop vaststaat (bovenkant sectie op 60% van
+      // het venster) tot de sectie uit beeld is.
+      const vast = { trigger: vb, start: "top 60%", end: "bottom top" };
 
-      // Beelden komen pas binnen als de kop vaststaat: tot dat moment staan ze net
-      // onder het (afgesneden) podium. Daarna zweven ze op eigen snelheid omhoog
+      // Beelden komen binnen rond het moment dat de kop vaststaat: daarvoor staan ze
+      // net onder het (afgesneden) podium. Daarna zweven ze op eigen snelheid omhoog
       // door het beeld en achter de kop langs; sneller = dichterbij.
       gsap.utils.toArray<HTMLElement>(".vb-foto", sectie).forEach((f, i) => {
         const foto = FOTOS[i];
