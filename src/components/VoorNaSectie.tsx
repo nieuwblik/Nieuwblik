@@ -67,16 +67,16 @@ const VoorNaSectie = () => {
       const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
 
-      // Afspelen op een vast tempo zodra het display helemaal in beeld is: de
-      // onderkant van de monitor raakt de onderkant van het venster, op elk
-      // scherm. Terug naar de oude site gaat eerder: al als je omhoog scrolt en
+      // Afspelen op een vast tempo zodra het scherm van de monitor helemaal in
+      // beeld is: de onderkant van het scherm (niet van de voet) raakt de
+      // onderkant van het venster, op elk scherm. Terug naar de oude site gaat eerder: al als je omhoog scrolt en
       // het midden van het display weer onder 45% van het venster zakt.
       // Geen vastzetten: het scrollen loopt gewoon door. Wie de pagina al voorbij
       // die plek opent, krijgt de animatie meteen.
       const tl = gsap.timeline({ paused: true });
       ScrollTrigger.create({
         trigger: display,
-        start: "bottom bottom",
+        start: `${SCHERM.onder}% bottom`,
         end: "center 45%",
         onEnter: () => tl.play(),
         onLeave: () => tl.play(),
@@ -112,7 +112,7 @@ const VoorNaSectie = () => {
         const kaarten = gsap.timeline({
           scrollTrigger: {
             trigger: display,
-            start: "bottom bottom",
+            start: `${SCHERM.onder}% bottom`,
             toggleActions: "play none none none",
             once: true,
           },
