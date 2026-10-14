@@ -33,6 +33,9 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Het scherm in het displaybeeld, in procenten (2900×2100 bron).
 const SCHERM = { links: 6.83, rechts: 93.14, boven: 7.05, onder: 73.71 };
+// Startpunt van de animatie: 15% (van de displayhoogte) boven de onderkant van
+// het scherm. Zodra dat punt de onderkant van het venster raakt, start hij.
+const START = SCHERM.onder - 15;
 const ACHTERGROND = "#f5f5f5";
 const DISPLAY_SIZES = "(min-width: 1280px) 1100px, 92vw";
 const SCHERM_SIZES = "(min-width: 1280px) 950px, 80vw";
@@ -67,16 +70,16 @@ const VoorNaSectie = () => {
       const lamellen = gsap.utils.toArray<HTMLElement>("[data-lamel]", laag);
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
 
-      // Afspelen op een vast tempo zodra het scherm van de monitor helemaal in
-      // beeld is: de onderkant van het scherm (niet van de voet) raakt de
-      // onderkant van het venster, op elk scherm. Terug naar de oude site gaat eerder: al als je omhoog scrolt en
+      // Afspelen op een vast tempo zodra het scherm van de monitor bijna helemaal
+      // in beeld is: het punt START (net boven de onderkant van het scherm) raakt
+      // de onderkant van het venster, op elk scherm. Terug naar de oude site gaat eerder: al als je omhoog scrolt en
       // het midden van het display weer onder 45% van het venster zakt.
       // Geen vastzetten: het scrollen loopt gewoon door. Wie de pagina al voorbij
       // die plek opent, krijgt de animatie meteen.
       const tl = gsap.timeline({ paused: true });
       ScrollTrigger.create({
         trigger: display,
-        start: `${SCHERM.onder}% bottom`,
+        start: `${START}% bottom`,
         end: "center 45%",
         onEnter: () => tl.play(),
         onLeave: () => tl.play(),
@@ -112,7 +115,7 @@ const VoorNaSectie = () => {
         const kaarten = gsap.timeline({
           scrollTrigger: {
             trigger: display,
-            start: `${SCHERM.onder}% bottom`,
+            start: `${START}% bottom`,
             toggleActions: "play none none none",
             once: true,
           },
