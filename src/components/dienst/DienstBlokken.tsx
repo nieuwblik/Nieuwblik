@@ -58,7 +58,7 @@ export function DienstHero({
             {accent && (
               <>
                 {" "}
-                <span style={{ color: GROEN }}>{accent}</span>
+                <span>{accent}</span>
               </>
             )}
           </h1>

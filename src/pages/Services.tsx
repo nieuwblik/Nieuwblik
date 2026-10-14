@@ -220,7 +220,7 @@ const Services = () => {
               style={{ lineHeight: 1.02 }}
             >
               Complete digitale oplossingen{" "}
-              <span style={{ color: "hsl(var(--sw-green))" }}>die groeien met jouw ambities</span>
+              <span>die groeien met jouw ambities</span>
             </h1>
           </div>
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-backwards motion-reduce:animate-none">

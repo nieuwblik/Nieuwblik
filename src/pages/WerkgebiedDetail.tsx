@@ -193,7 +193,7 @@ const WerkgebiedDetail = () => {
 
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              Website laten maken in <span className="text-accent">{region.name}</span>
+              Website laten maken in {region.name}
               {` vanaf €${PRIJZEN.starter}`}
             </h1>
 

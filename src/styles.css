@@ -591,8 +591,8 @@
   .golf-hero__telefoon-link:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; border-radius: 12px; }
 }
 
-/* Inleiding boven de cases op de homepage (ScrollPortfolio): één zin, het eerste
-   deel in inkt, de rest grijs. Epilogue zoals de kop van de hero. */
+/* Inleiding boven de cases op de homepage (ScrollPortfolio): Epilogue zoals de kop
+   van de hero, in één kleur. */
 .pf-inleiding {
   max-width: 34ch;
   margin: 0;
@@ -605,7 +605,6 @@
   color: hsl(var(--sw-ink));
   text-wrap: pretty;
 }
-.pf-inleiding span { color: hsl(var(--sw-ink) / 0.48); }
 
 /* Vindbaarheid op de homepage (VindbaarSectie): een sticky kop met zwevende beelden
    erachter, daarna één alinea. */

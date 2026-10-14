@@ -83,7 +83,7 @@ const Werkgebied = () => {
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-foreground leading-tight">
                 Landelijke dekking,
-                <span className="text-accent block mt-1 sm:mt-2">lokale service</span>
+                <span className="block mt-1 sm:mt-2">lokale service</span>
               </h1>
 
               <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto">

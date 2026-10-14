@@ -24,7 +24,6 @@ import { LEVERTIJD, PRIJZEN, REVIEWS, euroTeken } from "@/config/business";
  */
 
 const GROEN = "hsl(160 84% 12%)";
-const GROEN_LICHT = "hsl(160 70% 58%)";
 const TELEFOON = `tel:${companyInfo.phone.replace(/\s/g, "")}`;
 
 const NAVIGATIE = [
@@ -200,8 +199,7 @@ function FooterCta() {
               lineHeight: 1.02,
             }}
           >
-            Klaar om <span style={{ color: GROEN_LICHT }}>gevonden</span> te
-            worden?
+            Klaar om gevonden te worden?
           </h2>
         </Reveal>
         <Reveal delay={0.08}>

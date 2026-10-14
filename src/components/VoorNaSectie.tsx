@@ -144,7 +144,7 @@ const VoorNaSectie = () => {
             style={{ lineHeight: 1.02 }}
           >
             Van verouderd naar{" "}
-            <span style={{ color: "hsl(var(--sw-green))" }}>vindbaar</span>
+            vindbaar
           </h2>
           <p
             className="mx-auto mt-5 max-w-2xl text-balance text-lg font-light leading-relaxed md:text-xl"

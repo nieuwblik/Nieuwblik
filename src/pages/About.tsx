@@ -172,7 +172,7 @@ const About = () => {
                 transition={{ duration: 0.8, ease: easings.easeOutExpo }}
               >
                 Het bureau<br />
-                <span className="text-accent">achter jouw</span><br />
+                <span>achter jouw</span><br />
                 digitale groei
               </motion.h1>
 
