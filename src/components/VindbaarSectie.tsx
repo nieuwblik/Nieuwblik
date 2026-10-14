@@ -51,20 +51,20 @@ const FOTOS: Foto[] = [
   {
     src: zoeklicht, srcSet: zoeklichtSet, breed: 1000, hoog: 1339, snelheid: 1.25,
     draai: [-7, 5], schaal: [0.9, 1.06],
-    stijl: { "--x": "6%", "--y": "18%", "--b": "clamp(150px, 17vw, 300px)", "--mx": "-7%", "--my": "6%", "--mb": "33vw" },
+    stijl: { "--x": "6%", "--y": "18%", "--b": "clamp(150px, 17vw, 300px)", "--mx": "-7%", "--my": "13%", "--mb": "33vw" },
   },
   {
     src: website, srcSet: websiteSet, breed: 1000, hoog: 1250, snelheid: 1,
-    stijl: { "--x": "74%", "--y": "6%", "--b": "clamp(130px, 14vw, 250px)", "--mx": "75%", "--my": "22%", "--mb": "30vw" },
+    stijl: { "--x": "74%", "--y": "6%", "--b": "clamp(130px, 14vw, 250px)", "--mx": "75%", "--my": "26%", "--mb": "30vw" },
   },
   {
     src: boog, srcSet: boogSet, breed: 1000, hoog: 1339, snelheid: 0.75,
-    stijl: { "--x": "28%", "--y": "70%", "--b": "clamp(150px, 16vw, 290px)", "--mx": "8%", "--my": "68%", "--mb": "31vw" },
+    stijl: { "--x": "28%", "--y": "70%", "--b": "clamp(150px, 16vw, 290px)", "--mx": "8%", "--my": "63%", "--mb": "31vw" },
   },
   {
     src: straal, srcSet: straalSet, breed: 1000, hoog: 1506, snelheid: 0.55,
     draai: [8, -6], schaal: [0.88, 1.08],
-    stijl: { "--x": "83%", "--y": "60%", "--b": "clamp(100px, 10vw, 180px)", "--mx": "79%", "--my": "76%", "--mb": "24vw" },
+    stijl: { "--x": "83%", "--y": "60%", "--b": "clamp(100px, 10vw, 180px)", "--mx": "79%", "--my": "69%", "--mb": "24vw" },
   },
 ];
 const FOTO_SIZES = "(max-width: 760px) 33vw, 300px";
