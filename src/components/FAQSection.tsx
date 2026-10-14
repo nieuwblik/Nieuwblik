@@ -227,9 +227,8 @@ const FAQSection = () => {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Links: kop en tekst */}
           <div className="lg:col-span-4">
-            <h2 className="sw-reveal text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-5 leading-[1.05]" style={{ color: "hsl(var(--sw-ink))" }}>
-              Nog vragen?{" "}
-              Wij hebben antwoorden
+            <h2 className="sw-reveal text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight mb-5 leading-[1.05]" style={{ color: "hsl(var(--sw-ink))" }}>
+              Veelgestelde vragen
             </h2>
             <p className="sw-reveal text-base md:text-lg font-light leading-relaxed max-w-sm" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
               Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.

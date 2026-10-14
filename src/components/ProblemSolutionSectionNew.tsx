@@ -42,14 +42,14 @@ export const ProblemSolutionSection = () => {
                 {/* Main Title */}
                 <AnimatedSection delay={0.1} className="text-center mb-4">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.15] tracking-tight max-w-4xl mx-auto">
-                        Waarom de meeste ondernemers een zwakke online présence hebben
+                        Waar de meeste websites klanten laten liggen
                     </h2>
                 </AnimatedSection>
 
                 {/* Subtitle */}
                 <AnimatedSection delay={0.15} className="text-center mb-12 md:mb-16">
                     <p className="text-lg md:text-xl text-muted-foreground font-light max-w-3xl mx-auto leading-relaxed">
-                        Een snelle vergelijking van de problemen die je niet zou moeten hebben… en hoe Nieuwblik ervoor zorgt dat je ze voorkomt.
+                        De bekende fouten naast elkaar, en hoe Nieuwblik ze voorkomt.
                     </p>
                 </AnimatedSection>
 
