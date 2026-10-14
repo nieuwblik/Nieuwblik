@@ -143,15 +143,14 @@ const VoorNaSectie = () => {
             className="mx-auto max-w-4xl text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl"
             style={{ lineHeight: 1.02 }}
           >
-            Van verouderd naar{" "}
-            vindbaar
+            Van verouderd naar vertrouwd
           </h2>
           <p
             className="mx-auto mt-5 max-w-2xl text-balance text-lg font-light leading-relaxed md:text-xl"
             style={{ color: "hsl(var(--sw-ink) / 0.65)" }}
           >
-            Hetzelfde bedrijf, maar een website die vertrouwen wekt en bezoekers
-            omzet in aanvragen.
+            Hetzelfde bedrijf, maar een website die bezoekers omzet in
+            aanvragen.
           </p>
         </Reveal>
 
