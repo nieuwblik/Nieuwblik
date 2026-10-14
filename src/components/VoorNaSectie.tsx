@@ -68,14 +68,14 @@ const VoorNaSectie = () => {
       const binnen = gsap.utils.toArray<HTMLElement>("[data-binnen]", laag);
 
       // Afspelen op een vast tempo zodra het display goed in beeld is (zijn
-      // midden op 70% van het venster). Terug naar de oude site gaat eerder: al
-      // als je omhoog scrolt en het midden weer onder 45% zakt, niet pas bij 70%.
+      // midden op 85% van het venster). Terug naar de oude site gaat eerder: al
+      // als je omhoog scrolt en het midden weer onder 45% zakt, niet pas bij 85%.
       // Geen vastzetten: het scrollen loopt gewoon door. Wie de pagina al voorbij
       // die plek opent, krijgt de animatie meteen.
       const tl = gsap.timeline({ paused: true });
       ScrollTrigger.create({
         trigger: display,
-        start: "center 70%",
+        start: "center 85%",
         end: "center 45%",
         onEnter: () => tl.play(),
         onLeave: () => tl.play(),
@@ -111,7 +111,7 @@ const VoorNaSectie = () => {
         const kaarten = gsap.timeline({
           scrollTrigger: {
             trigger: display,
-            start: "center 70%",
+            start: "center 85%",
             toggleActions: "play none none none",
             once: true,
           },
