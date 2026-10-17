@@ -113,6 +113,12 @@ const VindbaarSectie = () => {
         return;
       }
 
+      // Op telefoons en tablets loopt het scrollen buiten JavaScript om, waardoor
+      // beelden die direct aan de scroll hangen een frame achterlopen en haperen.
+      // Daar volgen ze de scroll met een korte demping (vloeiend in plaats van
+      // schokkerig) en vallen het draaien/groeien en het meeschuiven van de
+      // logotegels weg: minder werk per frame.
+      const touch = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
       const bereik = { trigger: vb, start: "top bottom", end: "bottom top" };
       // Beelden: vanaf net voordat de kop vaststaat (bovenkant sectie op 60% van
       // het venster) tot de sectie uit beeld is.
@@ -128,9 +134,9 @@ const VindbaarSectie = () => {
         gsap.fromTo(
           f,
           { y: () => innerHeight * 1.05 },
-          { y: () => -innerHeight * (0.35 + 0.6 * v), ease: "none", scrollTrigger: { ...vast, scrub: true, invalidateOnRefresh: true } },
+          { y: () => -innerHeight * (0.35 + 0.6 * v), ease: "none", scrollTrigger: { ...vast, scrub: touch ? 0.4 : true, invalidateOnRefresh: true } },
         );
-        if (foto.draai) {
+        if (foto.draai && !touch) {
           const [s0, s1] = foto.schaal ?? [1, 1];
           gsap.fromTo(
             f,
@@ -143,7 +149,7 @@ const VindbaarSectie = () => {
       // De tegels schuiven iets sneller of trager mee dan de boog (diepte). De
       // buitenlaag beweegt, de binnenlaag (.vb-vlak) poppt op: een refresh van
       // ScrollTrigger zet de transform van de buitenlaag terug.
-      gsap.utils.toArray<HTMLElement>(".vb-tegel", sectie).forEach((t, i) => {
+      if (!touch) gsap.utils.toArray<HTMLElement>(".vb-tegel", sectie).forEach((t, i) => {
         const d = TEGELS[i]?.diepte ?? 1;
         gsap.fromTo(
           t,

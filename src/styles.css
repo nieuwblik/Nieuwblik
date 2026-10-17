@@ -652,6 +652,8 @@
    breedte vult (de tweede regel begint dan 3em voor het midden). */
 @media (max-width: 760px) {
   .vb-foto { left: var(--mx); top: var(--my); width: var(--mb); }
+  /* Kleinere, lichtere schaduw: een grote vervaging op bewegende beelden is zwaar voor een telefoon. */
+  .vb-foto > img { box-shadow: 0 12px 24px -14px hsl(160 30% 10% / .3); }
   .vb-kop { font-size: 9.8cqi; }
   .vb-regel + .vb-regel { padding-left: calc(50% - 3em); }
 }
