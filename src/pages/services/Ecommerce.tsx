@@ -82,7 +82,7 @@ const Ecommerce = () => {
     description: "Eerste concepten voor listings, verpakkingen of e-books ter beoordeling."
   }, {
     title: "Revisierondes",
-    description: "Feedback verwerken tot je 100% tevreden bent met het eindresultaat."
+    description: "Drie revisierondes om je feedback te verwerken, tot het eindresultaat klopt."
   }, {
     title: "Oplevering",
     description: "Alle bestanden in de juiste formaten, klaar voor upload of productie."

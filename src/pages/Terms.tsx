@@ -62,7 +62,15 @@ const Terms = () => {
       )
     },
     {
-      title: "6. Verplichtingen opdrachtgever",
+      title: "6. Revisierondes",
+      content: (
+        <p className="text-muted-foreground">
+          Bij elke opdracht zijn drie revisierondes inbegrepen, tenzij in de offerte anders is afgesproken. Een revisieronde is één verzameling feedback die de opdrachtgever in één keer aanlevert en die {companyInfo.name} daarna in één keer verwerkt. Revisies gaan over het afgesproken werk; nieuwe onderdelen of functies die niet in de offerte staan, gelden als meerwerk. Extra revisierondes en meerwerk voert {companyInfo.name} alleen uit na akkoord van de opdrachtgever op een vooraf afgesproken prijs.
+        </p>
+      )
+    },
+    {
+      title: "7. Verplichtingen opdrachtgever",
       content: (
         <p className="text-muted-foreground">
           De opdrachtgever draagt er zorg voor dat alle gegevens, waarvan {companyInfo.name} aangeeft dat deze noodzakelijk zijn of waarvan de opdrachtgever redelijkerwijs behoort te begrijpen dat deze noodzakelijk zijn voor het uitvoeren van de overeenkomst, tijdig aan {companyInfo.name} worden verstrekt.
@@ -70,7 +78,7 @@ const Terms = () => {
       )
     },
     {
-      title: "7. Beheer van de website",
+      title: "8. Beheer van de website",
       content: (
         <p className="text-muted-foreground">
           Het zelf beheren van de website door de opdrachtgever is uitsluitend mogelijk op aanvraag. Op verzoek kan {companyInfo.name} hiervoor een custom CMS ontwikkelen, waarvoor een aanvullende offerte wordt opgesteld. Wordt dit niet expliciet aangevraagd, dan verzorgt {companyInfo.name} het volledige beheer van de website. Dit doen wij met het oog op de veiligheid, stabiliteit en continuïteit van de site. Wijzigingen kunnen in dat geval door de opdrachtgever bij ons worden aangevraagd.
@@ -78,7 +86,7 @@ const Terms = () => {
       )
     },
     {
-      title: "8. Tarieven en betaling",
+      title: "9. Tarieven en betaling",
       content: (
         <p className="text-muted-foreground">
           Alle prijzen zijn exclusief BTW, tenzij anders vermeld. Betaling dient te geschieden binnen 14 dagen na factuurdatum, tenzij anders overeengekomen. Bij niet tijdige betaling is de opdrachtgever van rechtswege in verzuim en is {companyInfo.name} gerechtigd wettelijke rente in rekening te brengen.
@@ -86,7 +94,7 @@ const Terms = () => {
       )
     },
     {
-      title: "9. Intellectueel eigendom",
+      title: "10. Intellectueel eigendom",
       content: (
         <p className="text-muted-foreground">
           Alle rechten van intellectuele eigendom op de door {companyInfo.name} ontwikkelde of ter beschikking gestelde materialen berusten uitsluitend bij {companyInfo.name} of haar licentiegevers. De opdrachtgever verkrijgt alleen de gebruiksrechten die uitdrukkelijk zijn toegekend.
@@ -94,7 +102,7 @@ const Terms = () => {
       )
     },
     {
-      title: "10. Aansprakelijkheid",
+      title: "11. Aansprakelijkheid",
       content: (
         <p className="text-muted-foreground">
           {companyInfo.name} is uitsluitend aansprakelijk voor directe schade. De aansprakelijkheid is beperkt tot het factuurbedrag, althans tot dat gedeelte van de opdracht waarop de aansprakelijkheid betrekking heeft. {companyInfo.name} is niet aansprakelijk voor indirecte schade, waaronder gevolgschade, gederfde winst, gemiste besparingen en schade door bedrijfsstagnatie.
@@ -102,7 +110,7 @@ const Terms = () => {
       )
     },
     {
-      title: "11. Geschillen",
+      title: "12. Geschillen",
       content: (
         <p className="text-muted-foreground">
           Op alle overeenkomsten tussen {companyInfo.name} en de opdrachtgever is Nederlands recht van toepassing. Geschillen zullen uitsluitend worden voorgelegd aan de bevoegde rechter in het arrondissement waar {companyInfo.name} is gevestigd.
