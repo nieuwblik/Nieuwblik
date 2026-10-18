@@ -19,6 +19,12 @@ import kevinMosPortrait from "@/assets/blog/kevin-mos-nieuwblik-portrait.webp";
 import kevinMosCornering from "@/assets/blog/kevin-mos-cornering.webp";
 import kevinMosRainRace from "@/assets/blog/kevin-mos-rain-race.webp";
 import kevinMosTeamNelon from "@/assets/blog/kevin-mos-team-nelon-racing.webp";
+import websiteKostenImg from "@/assets/blog/website-kosten.webp";
+import websiteChecklistImg from "@/assets/blog/website-checklist.webp";
+import websiteDoorlooptijdImg from "@/assets/blog/website-doorlooptijd.webp";
+import websiteVernieuwenImg from "@/assets/blog/website-vernieuwen.webp";
+import wordpressSnelheidImg from "@/assets/blog/wordpress-snelheid.webp";
+import websiteZzpImg from "@/assets/blog/website-zzp.webp";
 export interface BlogPost {
   slug: string;
   title: {
@@ -48,6 +54,10 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "wat-kost-een-website-laten-maken-prijzen-2026",
+    image: websiteKostenImg,
+    imageAlt: "Pictogram van een website met een euromunt voor websitekosten",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Wat kost een website laten maken in 2026?",
     seoKeywords: "wat kost een website, website laten maken kosten, prijs website, website prijzen 2026, vaste prijs website, uurtarief webdesigner, Nieuwblik",
     title: {
@@ -106,6 +116,10 @@ Wil je alles op een rij? Lees onze uitgebreide pagina over [wat een website kost
   },
   {
     slug: "nieuwe-website-laten-maken-checklist-2026",
+    image: websiteChecklistImg,
+    imageAlt: "Pictogram van een checklist met vinkjes voor een nieuwe website",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Nieuwe website laten maken: checklist 2026",
     seoKeywords: "nieuwe website laten maken, website laten maken checklist, waar op letten website, webbouwer kiezen, website offerte, Nieuwblik",
     title: {
@@ -159,6 +173,10 @@ Benieuwd hoe wij dit aanpakken? Bekijk ons [portfolio](/portfolio) of [neem cont
   },
   {
     slug: "hoe-lang-duurt-website-laten-maken",
+    image: websiteDoorlooptijdImg,
+    imageAlt: "Pictogram van een klok naast een website voor de doorlooptijd",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Hoe lang duurt een website laten maken?",
     seoKeywords: "hoe lang duurt website laten maken, doorlooptijd website, website snel live, planning website, webdesign traject, Nieuwblik",
     title: {
@@ -211,6 +229,10 @@ Opent je zaak binnenkort of start het seizoen? Laat het ons weten. Bekijk [onze 
   },
   {
     slug: "website-vernieuwen-wanneer-tijd-voor-redesign",
+    image: websiteVernieuwenImg,
+    imageAlt: "Pictogram van een website met vernieuwingspijlen",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Website vernieuwen: 5 signalen voor een redesign",
     seoKeywords: "website vernieuwen, bestaande website vernieuwen, redesign website, website verouderd, nieuwe website, 301 redirect, Nieuwblik",
     title: {
@@ -258,6 +280,10 @@ Twijfel je of jouw website toe is aan vernieuwing? [Vraag een gratis website-ana
   },
   {
     slug: "waarom-wordpress-website-traag-is",
+    image: wordpressSnelheidImg,
+    imageAlt: "Pictogram van een snelheidsmeter naast een website",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Waarom is mijn WordPress website traag?",
     seoKeywords: "wordpress website traag, wordpress traag, wordpress plugins, elementor traag, wordpress onderhoud, snelle website, Nieuwblik",
     title: {
@@ -310,6 +336,10 @@ Wil je de afweging rustig lezen? Bekijk ons artikel over [WordPress of maatwerk]
   },
   {
     slug: "website-laten-maken-zzp",
+    image: websiteZzpImg,
+    imageAlt: "Pictogram van een aktetas naast een website voor zzp'ers",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Website laten maken als zzp'er: wat heb je nodig?",
     seoKeywords: "website laten maken zzp, zzp website, website zzp'er, website zelfstandige, goedkope website zzp, Starter website, Nieuwblik",
     title: {
