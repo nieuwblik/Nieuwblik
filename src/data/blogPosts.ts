@@ -988,18 +988,16 @@ Eén van de grootste voordelen van Stripe is het **dashboard**. Zodra je een acc
 - **Terugbetalingen beheren**: met één klik een refund verwerken
 - **Abonnementen**: beheer recurring payments eenvoudig
 
-### Meldingen & Notificaties
+### Meldingen en notificaties
 
 Stripe stuurt je **real-time meldingen** bij elke verkoop. Je kunt instellen dat je een e-mail of push-notificatie ontvangt wanneer:
 
-- Een klant een bestelling plaatst ✅
-- Een betaling mislukt ❌
-- Een abonnement wordt verlengd 🔄
+- Een klant een bestelling plaatst - Een betaling mislukt - Een abonnement wordt verlengd 🔄
 - Een terugbetaling wordt aangevraagd 💸
 
 Dit betekent dat je **altijd op de hoogte** bent van wat er in je webshop gebeurt, zonder continu in te hoeven loggen.
 
-## Stripe Kosten
+## Stripe kosten
 
 Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel en transparant.
 
@@ -1016,10 +1014,10 @@ Een veelgestelde vraag: **wat kost Stripe?** Het antwoord is verrassend simpel e
 
 ### Geen verborgen kosten
 
-- ✅ **Geen maandelijkse abonnementskosten**
-- ✅ **Geen setup-kosten**
-- ✅ **Geen minimale contractduur**
-- ✅ **Gratis dashboard en analytics**
+- **Geen maandelijkse abonnementskosten**
+- **Geen setup-kosten**
+- **Geen minimale contractduur**
+- **Gratis dashboard en analytics**
 
 Je betaalt dus **alleen wanneer je daadwerkelijk geld ontvangt**. Dit maakt Stripe bijzonder aantrekkelijk voor startende ondernemers die niet direct hoge vaste lasten willen.
 
@@ -1031,13 +1029,13 @@ In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlan
 |---|---|---|
 | **iDEAL kosten** | €0,29 | €0,29 |
 | **Creditcard kosten** | 1,5% + €0,25 | 1,8% + €0,25 |
-| **Abonnementen** | ✅ Ingebouwd | ✅ Via add-on |
-| **Dashboard** | ✅ Uitgebreid | ✅ Goed |
-| **API kwaliteit** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Abonnementen** | Ingebouwd | Via add-on |
+| **Dashboard** | Uitgebreid | Goed |
+| **API kwaliteit** | | |
 | **Wereldwijde dekking** | 135+ landen | 35+ landen |
-| **Fraud protection** | ✅ Radar (ingebouwd) | ⚠️ Beperkt |
-| **No-code integraties** | ✅ Veel | ✅ Veel |
-| **Facturatie** | ✅ Stripe Invoicing | ✅ Basis |
+| **Fraudebescherming** | Radar (ingebouwd) | Beperkt |
+| **No-code integraties** | Veel | Veel |
+| **Facturatie** | Stripe Invoicing | Basis |
 
 ### Wanneer kies je Stripe?
 
@@ -1055,7 +1053,7 @@ In Nederland wordt Stripe vaak vergeleken met **Mollie**, een populaire Nederlan
 
 > Bij Nieuwblik kiezen wij voor Stripe wanneer klanten een **schaalbare, internationale betaaloplossing** nodig hebben.
 
-## Case Study: Puur in Harmonie
+## Case study: Puur in Harmonie
 
 Een perfect voorbeeld van Stripe in actie is de webshop die wij hebben gebouwd voor **[Puur in Harmonie](/portfolio/puur-in-harmonie)**, een groeiend merk in natuurlijke gezondheidsproducten.
 
@@ -1105,13 +1103,13 @@ Wil jij ook een **webshop met Stripe-integratie** laten bouwen? Of ben je benieu
     content: {
       nl: `Bij Nieuwblik geloven we dat een website meer is dan alleen een online visitekaartje; het is de motor van je groei. Toen Teun Nijenhuis van [BeNoted](https://benoted.nl) bij ons aanklopte voor een compleet nieuw platform, wisten we direct: dit moet net zo krachtig en viraal worden als de content die hij voor zijn klanten maakt. Het resultaat? Een razendsnelle, high-performance website die klaar is om de financiële sector te domineren.
 
-## De Strategie: Eerst de diepte in
+## De strategie: eerst de diepte in
 
 Een goede samenwerking begint niet bij de code, maar aan de tafel. Samen met Teun Nijenhuis hebben we uitgebreid stilgestaan bij de visie van [BeNoted](https://benoted.nl). Teun is de expert in het viraal laten gaan van financiële specialisten, van vastgoed tot fintech. Die autoriteit moest de website ook uitstralen.
 
 Tijdens onze strategische sessies hebben we gekeken naar wat er écht nodig was. Geen overbodige poespas, maar een focus op wat telt: autoriteit, conversie en een feilloze gebruikerservaring. Door samen de juiste koers te bepalen, konden we een platform bouwen dat niet alleen mooi is, maar ook technisch superieur.
 
-## Maximale Zichtbaarheid en Snelheid via HadoSEO
+## Maximale zichtbaarheid en snelheid via HadoSEO
 
 In de wereld van social media marketing telt elke milliseconde. Als een bezoeker vanaf een viraal filmpje naar de website klikt, moet deze direct laden. Daarom hebben we voor de technische basis de krachten gebundeld met [HadoSEO](https://hadoseo.com/).
 
@@ -1119,7 +1117,7 @@ Dankzij de expertise van [HadoSEO](https://hadoseo.com/) hebben we gekozen voor 
 
 ![BeNoted website op MacBook - desktop weergave](${nieuwblikBenotedMacbook})
 
-## Responsiviteit: Perfect op elk scherm
+## Responsiviteit: perfect op elk scherm
 
 Omdat de doelgroep van [BeNoted](https://benoted.nl) zich hoofdzakelijk op mobiele platformen bevindt (Instagram, TikTok, LinkedIn), was een 100% responsive design een absolute vereiste. Of je de site nu bekijkt op een high-end desktop in een kantoorpand of op een smartphone in de trein: de ervaring is naadloos. Het 'Clean Corporate' design komt op elk apparaat tot zijn recht, met een focus op leesbaarheid en snelle interactie.
 
@@ -1215,7 +1213,7 @@ Tegenwoordig is 'groen' geen extraatje meer, maar de standaard. Een merk dat in 
 
 **Herbruikbaarheid:** Ontwerp je verzenddoos zo mooi dat mensen hem niet willen weggooien, maar gebruiken om iets anders in te bewaren. Elke keer dat ze die doos zien, denken ze weer even aan jouw merk.
 
-## Conclusie: Maak het tastbaar
+## Conclusie: maak het tastbaar
 
 Goede branding is een belofte die je doet op je website. De fysieke bezorging is het moment waarop je die belofte waarmaakt. Door je grafische identiteit door te trekken naar het tastbare pakketje, verander je een simpele aankoop in een echte ervaring.
 
@@ -1331,7 +1329,7 @@ Lovable's AI analyseert je design en bouwt automatisch:
 **Stap 4: Publiceer direct**
 Met één klik is je website live, inclusief hosting en SSL.
 
-### Waarom Lovable game-changing is
+### Waarom Lovable baanbrekend is
 
 - **Van weken naar minuten** - Geen lange development trajecten
 - **Pixel-perfect resultaten** - Je design wordt exact gerepliceerd
@@ -1345,7 +1343,7 @@ Met één klik is je website live, inclusief hosting en SSL.
 
 **Een mooie, goed gebouwde website is waardeloos als niemand hem vindt.** Hier komt [HadoSEO](https://hadoseo.com/) in beeld - de SEO-experts die ervoor zorgen dat je website hoog scoort in Google.
 
-### De HadoSEO aanpak
+### De aanpak van HadoSEO
 
 **1. Technische SEO audit**
 - Core Web Vitals optimalisatie
@@ -1374,18 +1372,18 @@ Met één klik is je website live, inclusief hosting en SSL.
 ### Waarom HadoSEO + Lovable perfect matchen
 
 Lovable websites zijn **out-of-the-box SEO-ready**:
-- ✅ Snelle laadtijden (< 2 seconden)
-- ✅ Clean, semantic HTML
-- ✅ Mobile-first responsive
-- ✅ Geoptimaliseerde images
-- ✅ Proper heading structuur
+- Snelle laadtijden (< 2 seconden)
+- Clean, semantic HTML
+- Mobile-first responsive
+- Geoptimaliseerde images
+- Proper heading structuur
 
 [HadoSEO](https://hadoseo.com/) bouwt hierop verder met:
-- ✅ Strategische keyword targeting
-- ✅ Content optimalisatie
-- ✅ Link building
-- ✅ Lokale SEO
-- ✅ Continue verbeteringen
+- Strategische keyword targeting
+- Content optimalisatie
+- Link building
+- Lokale SEO
+- Continue verbeteringen
 
 **Hulp nodig? Join de [HadoSEO Discord community](https://discord.gg/fu5ApxrX)!** 👇
 
@@ -1407,7 +1405,7 @@ Lovable websites zijn **out-of-the-box SEO-ready**:
 
 ## De perfecte workflow in de praktijk
 
-### Stap 1: Design fase in Figma
+### Stap 1: ontwerpfase in Figma
 
 1. **Briefing en onderzoek** - Begrijp de doelgroep en doelen
 2. **Wireframes** - Schets de pagina-structuur
@@ -1415,7 +1413,7 @@ Lovable websites zijn **out-of-the-box SEO-ready**:
 4. **Prototyping** - Maak interactieve mockups
 5. **Client feedback** - Itereer tot perfectie
 
-### Stap 2: Development in Lovable
+### Stap 2: ontwikkeling in Lovable
 
 1. **Import Figma design** - Koppel je Figma bestand
 2. **AI conversie** - Lovable bouwt de code
@@ -1541,7 +1539,7 @@ De toekomst van webontwikkeling is hier. Ben jij klaar om mee te doen?
 2. [Probeer Lovable](https://lovable.dev)
 3. [Neem contact op met HadoSEO](https://hadoseo.com/)
 
-*De perfecte website is slechts een paar klikken verwijderd.* 🚀`,
+*De perfecte website is slechts een paar klikken verwijderd.* `,
       en: `Building a perfect website requires three essential elements: **beautiful design**, **flawless technical execution** and **optimal visibility in Google**. With the combination of **Figma**, **[HadoSEO](https://hadoseo.com/)** and **Lovable** you have everything you need to build websites that are not only beautiful, but also perform well.
 
 ## What is Figma and why is it essential?
@@ -1673,7 +1671,7 @@ Together they form a workflow that's **8x faster** than traditional methods, at 
 2. [Try Lovable](https://lovable.dev)
 3. [Contact HadoSEO](https://hadoseo.com/)
 
-*The perfect website is just a few clicks away.* 🚀`
+*The perfect website is just a few clicks away.* `
     },
     date: "2026-01-02",
     readingTime: 10
@@ -1795,7 +1793,7 @@ Klanten van [HadoSEO.com](https://hadoseo.com/) zien gemiddeld:
 
 **VibeCode + [HadoSEO](https://hadoseo.com/)** vormen samen het perfecte ecosysteem voor moderne bedrijven die willen domineren in Google:
 
-### 1. Snelheid ontmoet SEO strategie
+### 1. Snelheid ontmoet SEO-strategie
 
 **VibeCode** bouwt razendsnelle websites, **[HadoSEO](https://hadoseo.com/)** zorgt ervoor dat ze gevonden worden in Google en andere zoekmachines.
 
@@ -1812,21 +1810,21 @@ Met VibeCode + HadoSEO:
 
 VibeCode websites zijn **out-of-the-box geoptimaliseerd** voor zoekmachines:
 
-✅ Razendsnel (target < 2 seconden laadtijd voor betere rankings)
-✅ Mobile-first responsive design
-✅ SEO-ready structuur en semantische HTML
-✅ Clean, semantic code voor crawlers
-✅ Core Web Vitals optimized voor Google Page Experience
+Razendsnel (target < 2 seconden laadtijd voor betere rankings)
+Mobile-first responsive design
+SEO-ready structuur en semantische HTML
+Clean, semantic code voor crawlers
+Core Web Vitals optimized voor Google Page Experience
 
 [HadoSEO](https://hadoseo.com/) bouwt hierop verder met:
 
-✅ Geavanceerde schema markup en structured data
-✅ Strategische keyword targeting en zoekwoordenonderzoek
-✅ Content optimalisatie en SEO copywriting
-✅ Backlink strategie en authority building
-✅ Continue monitoring, ranking tracking en tweaking
+Geavanceerde schema markup en structured data
+Strategische keyword targeting en zoekwoordenonderzoek
+Content optimalisatie en SEO copywriting
+Backlink strategie en authority building
+Continue monitoring, ranking tracking en tweaking
 
-### 3. Schaalbare groei en SEO autoriteit
+### 3. Schaalbare groei en SEO-autoriteit
 
 **Start klein, groei onbeperkt in de rankings.**
 
@@ -1942,8 +1940,7 @@ Terwijl de concurrentie nog aan het wachten is op hun developer of SEO bureau, h
 - Krijg een strategisch SEO plan en keyword research
 - Ontdek je concurrentie en marktpositie
 
-**3. Join de Discord community voor snellere hulp** 🚀
-
+**3. Join de Discord community voor snellere hulp** 
 <div style="text-align: center; margin: 2rem 0;">
   <a href="https://discord.gg/fu5ApxrX" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 12px; background: #5865F2; color: white; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: all 0.3s;">
     <svg width="24" height="24" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1972,7 +1969,7 @@ Terwijl de concurrentie nog aan het wachten is op hun developer of SEO bureau, h
 
 De keuze is aan jou: blijf vasthouden aan verouderde methodes en lage rankings, of omarm de moderne tools zoals VibeCode en strategische SEO zoals [HadoSEO.com](https://hadoseo.com/) die je een oneerlijk voordeel geven in Google.
 
-**Start vandaag nog en zie je in de Discord!** 🚀`,
+**Start vandaag nog en zie je in de Discord!** `,
       en: "The digital world is changing rapidly. Traditional web development is slow, expensive and complex. But what if you could launch a fully functional, SEO-optimized website within hours?"
     },
     date: "2025-01-25",
@@ -2065,7 +2062,7 @@ De Replit editor biedt:
 - Geen extra hosting setup nodig
 - Custom domains voor Pro gebruikers
 
-## Replit AI Agent: Bouwen met prompts
+## Replit AI Agent: bouwen met prompts
 
 **Dit is waar Replit echt interessant wordt.** De Replit AI Agent kan complete applicaties bouwen vanuit natuurlijke taal prompts.
 
@@ -2148,8 +2145,7 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 
 ## Voor- en nadelen van Replit
 
-### Voordelen ✅
-
+### Voordelen 
 **1. Zero setup**
 - Direct beginnen met coderen
 - Geen installaties of configuratie
@@ -2175,8 +2171,7 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 - Geen hosting gedoe
 - SSL inbegrepen
 
-### Nadelen ❌
-
+### Nadelen 
 **1. Performance limitaties**
 - Beperkte resources op gratis plan
 - Kan traag zijn voor grote projecten
@@ -2274,7 +2269,7 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 - **Offline development** (internet vereist)
 - **Teams met eigen infrastructure** (vendor lock-in)
 
-## Tips voor effectief Replit gebruik
+## Tips voor effectief gebruik van Replit
 
 ### 1. Optimaliseer je Repls
 
@@ -2305,10 +2300,10 @@ Replit hanteert een **credit-based systeem** naast maandelijkse abonnementen.
 **Replit heeft de manier waarop we coderen fundamenteel veranderd.**
 
 Het platform biedt:
-- ✅ **Instant setup** voor direct beginnen
-- ✅ **Krachtige AI** met Replit Agent
-- ✅ **Collaboration** voor teamwerk
-- ✅ **Deployment** zonder gedoe
+- **Instant setup** voor direct beginnen
+- **Krachtige AI** met Replit Agent
+- **Collaboration** voor teamwerk
+- **Deployment** zonder gedoe
 
 **Is Replit de juiste keuze voor jou?**
 
@@ -2378,7 +2373,7 @@ Waar tools zoals GitHub Copilot een **add-on** zijn voor bestaande editors, is C
 
 Cursor werkt als een **intelligente coding partner** die meekijkt terwijl je codeert:
 
-### 1. Tab Autocomplete
+### 1. Tab-autocomplete
 
 De **Tab completion** van Cursor is veel slimmer dan traditionele autocomplete:
 
@@ -2403,7 +2398,7 @@ De **Composer** is Cursor's krachtigste feature:
 - **Project-wide changes** - implementeer features across je codebase
 - **Agentic mode** - laat AI zelfstandig complexe taken uitvoeren
 
-### 4. Codebase Indexing
+### 4. Codebase-indexering
 
 Cursor **indexeert je hele codebase** zodat AI:
 
@@ -2419,40 +2414,40 @@ Cursor biedt **drie abonnementen** met verschillende limieten:
 
 **€0/maand** - Perfect om te proberen
 
-- ✅ 1 week Pro trial
-- ✅ Beperkte Agent requests
-- ✅ Beperkte Tab completions
-- ❌ Geen Background Agents
+- 1 week Pro trial
+- Beperkte Agent requests
+- Beperkte Tab completions
+- Geen Background Agents
 
 ### Pro
 
 **$20/maand** ($192/jaar bij jaarabonnement)
 
-- ✅ Extended Agent limits
-- ✅ **Onbeperkte Tab completions**
-- ✅ Background Agents
-- ✅ Maximum context windows
-- ✅ Alle premium models
+- Extended Agent limits
+- **Onbeperkte Tab completions**
+- Background Agents
+- Maximum context windows
+- Alle premium models
 
 ### Ultra
 
 **$200/maand** - Voor heavy users
 
-- ✅ Alles van Pro
-- ✅ **10x meer Agent requests**
-- ✅ Onbeperkt gebruik van premium models
-- ✅ Priority support
+- Alles van Pro
+- **10x meer Agent requests**
+- Onbeperkt gebruik van premium models
+- Priority support
 
 ### Business
 
 **$40/gebruiker/maand** - Voor teams
 
-- ✅ Alles van Pro
-- ✅ Centralized billing
-- ✅ Admin dashboard
-- ✅ Team analytics
-- ✅ SSO/SAML support
-- ✅ Enforce privacy mode
+- Alles van Pro
+- Centralized billing
+- Admin dashboard
+- Team analytics
+- SSO/SAML support
+- Enforce privacy mode
 
 ### Credits systeem (nieuw in 2025)
 
@@ -2462,7 +2457,7 @@ Cursor is overgestapt naar een **credit-based systeem**:
 - Premium models (GPT-4, Claude) kosten meer credits
 - Snelle models (GPT-4o mini) kosten minder
 
-## Belangrijkste Cursor features
+## Belangrijkste functies van Cursor
 
 ### Feature 1: AI Agent
 
@@ -2513,12 +2508,12 @@ Reference specifieke context met **@ mentions**:
 | Feature | Cursor | VS Code + Copilot | VS Code |
 |---------|--------|-------------------|---------|
 | **Prijs** | $0-200/mo | $10-19/mo | Gratis |
-| **AI Chat** | ✅ Native | ✅ Via Copilot | ❌ |
-| **Multi-file edit** | ✅ Composer | ⚠️ Beperkt | ❌ |
-| **Codebase aware** | ✅ Ja | ⚠️ Beperkt | ❌ |
-| **Agent mode** | ✅ Ja | ⚠️ Preview | ❌ |
-| **Model keuze** | ✅ Veel | ❌ Alleen OpenAI | N/A |
-| **VS Code extensies** | ✅ Ja | ✅ Ja | ✅ Ja |
+| **AI Chat** | Native | Via Copilot | Nee |
+| **Multi-file edit** | Composer | Beperkt | Nee |
+| **Codebase aware** | Ja | Beperkt | Nee |
+| **Agent mode** | Ja | Preview | Nee |
+| **Model keuze** | Veel | Alleen OpenAI | N/A |
+| **VS Code extensies** | Ja | Ja | Ja |
 
 ### Wanneer Cursor kiezen?
 
@@ -2536,29 +2531,29 @@ Reference specifieke context met **@ mentions**:
 
 ### Voordelen
 
-✅ **Beste AI integratie** - native, niet als plugin
+**Beste AI integratie** - native, niet als plugin
 
-✅ **Codebase-aware** - begrijpt je hele project
+**Codebase-aware** - begrijpt je hele project
 
-✅ **Multi-model** - kies je favoriete AI
+**Multi-model** - kies je favoriete AI
 
-✅ **VS Code compatible** - easy switch
+**VS Code compatible** - easy switch
 
-✅ **Composer** - multi-file editing is game-changing
+**Composer** - multi-file editing is baanbrekend
 
-✅ **Active development** - constant nieuwe features
+**Active development** - constant nieuwe features
 
 ### Nadelen
 
-❌ **Prijs** - $20/mo is duurder dan sommige alternatieven
+**Prijs** - $20/mo is duurder dan sommige alternatieven
 
-❌ **Credit systeem** - kan verwarrend zijn
+**Credit systeem** - kan verwarrend zijn
 
-❌ **Internet vereist** - geen offline modus
+**Internet vereist** - geen offline modus
 
-❌ **Learning curve** - maximaal profiteren kost tijd
+**Learning curve** - maximaal profiteren kost tijd
 
-❌ **Resource heavy** - kan traag zijn op oudere machines
+**Resource heavy** - kan traag zijn op oudere machines
 
 ## Populaire zoekvragen over Cursor
 
@@ -2603,10 +2598,10 @@ Cursor **is gebaseerd op VS Code** maar met native AI features. Je kunt dezelfde
 **Cursor heeft de manier waarop we coderen veranderd.**
 
 Het platform biedt:
-- ✅ **Native AI** die écht begrijpt wat je doet
-- ✅ **Multi-file editing** via Composer
-- ✅ **Model keuze** voor verschillende use cases
-- ✅ **VS Code compatibility** voor easy switching
+- **Native AI** die écht begrijpt wat je doet
+- **Multi-file editing** via Composer
+- **Model keuze** voor verschillende use cases
+- **VS Code compatibility** voor easy switching
 
 **Is Cursor de juiste keuze voor jou?**
 
@@ -2896,11 +2891,11 @@ Custom pricing voor:
 | Feature | Supabase | Firebase |
 |---------|----------|----------|
 | **Database** | PostgreSQL (SQL) | Firestore (NoSQL) |
-| **Open-source** | ✅ Ja | ❌ Nee |
-| **Self-hosting** | ✅ Ja | ❌ Nee |
-| **Realtime** | ✅ Ja | ✅ Ja |
-| **Authentication** | ✅ Ja | ✅ Ja |
-| **Storage** | ✅ Ja | ✅ Ja |
+| **Open-source** | Ja | Nee |
+| **Self-hosting** | Ja | Nee |
+| **Realtime** | Ja | Ja |
+| **Authentication** | Ja | Ja |
+| **Storage** | Ja | Ja |
 | **Functions** | Edge Functions | Cloud Functions |
 | **Gratis tier** | Genereus | Genereus |
 | **Pricing model** | Voorspelbaar | Usage-based |
@@ -3045,9 +3040,9 @@ Claude heeft een enorm geheugen van **200.000 tokens** - equivalent aan 150.000+
 
 ### Multimodal
 
-✅ **Afbeeldingen analyseren**
-✅ **Documenten lezen** (PDF's, spreadsheets)
-✅ **Code begrijpen** in 50+ talen
+**Afbeeldingen analyseren**
+**Documenten lezen** (PDF's, spreadsheets)
+**Code begrijpen** in 50+ talen
 
 ## De belangrijkste mogelijkheden
 
