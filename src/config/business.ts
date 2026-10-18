@@ -15,7 +15,7 @@ export const REVIEWS = {
   score: 5,
   scoreLabel: "5,0",
   /** Aantal Google-reviews, gecontroleerd op het profiel op 05-10-2026. */
-  aantalLabel: "19",
+  aantalLabel: "30+ ",
   /**
    * Google Bedrijfsprofiel van Nieuwblik (place 0x47c8a310c36365c7:0x34f95b56393a64b2,
    * CID decimaal). De oude CID 17053451632150536956 was het gebouw De Trompet 18H,
