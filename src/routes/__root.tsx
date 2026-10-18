@@ -16,36 +16,13 @@ import ScrollToTop from "@/components/ScrollToTop";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import appCss from "../styles.css?url";
+// Webfonts: @font-face staat in styles.css met font-display: optional. De
+// latin-bestanden (de tekens die we echt gebruiken) worden hieronder vooraf
+// geladen, zodat ze er bij de eerste weergave al zijn. Zijn ze dat op een
+// trage verbinding toch niet, dan blijft de pagina bij de metriek-gelijke
+// fallback in plaats van halverwege van lettertype te wisselen.
 import cabinLatin from "../assets/fonts/cabin-latin.woff2?url";
-import cabinLatinExt from "../assets/fonts/cabin-latin-ext.woff2?url";
 import epilogueLatin from "../assets/fonts/epilogue-latin.woff2?url";
-import epilogueLatinExt from "../assets/fonts/epilogue-latin-ext.woff2?url";
-
-// Webfonts (Cabin, Epilogue) pas na de eerste paint toevoegen via de
-// FontFace-API, zodat ze niet concurreren met de bestanden voor de eerste
-// weergave. Tot ze binnen zijn tonen we de metriek-gelijke fallback uit
-// styles.css. Unicode-ranges zijn die van Google Fonts (latin, latin-ext).
-const FONTS: [string, string, string][] = [
-  ["Cabin", cabinLatin, "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"],
-  ["Cabin", cabinLatinExt, "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"],
-  ["Epilogue", epilogueLatin, "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"],
-  ["Epilogue", epilogueLatinExt, "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"],
-];
-const FONT_SCRIPT = `
-(function () {
-  if (!("fonts" in document) || typeof FontFace === "undefined") return;
-  var fonts = ${JSON.stringify(FONTS)};
-  var laad = function () {
-    fonts.forEach(function (f) {
-      var face = new FontFace(f[0], "url(" + f[1] + ") format('woff2')", { weight: "400 700", style: "normal", display: "swap", unicodeRange: f[2] });
-      document.fonts.add(face);
-    });
-  };
-  // Na het load-event, dus ruim na de eerste paint.
-  if (document.readyState === "complete") laad();
-  else window.addEventListener("load", laad, { once: true });
-})();
-`;
 
 // Google Analytics, uitgesteld tot de browser niets te doen heeft — verbatim
 // overgenomen uit de oude index.html zodat metingen identiek blijven.
@@ -99,6 +76,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:creator", content: "@justin_slok" },
     ],
     links: [
+      { rel: "preload", href: epilogueLatin, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "preload", href: cabinLatin, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
       { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon.png" },
@@ -108,7 +87,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "dns-prefetch", href: "https://i.ytimg.com" },
     ],
     scripts: [
-      { children: FONT_SCRIPT },
       { children: GA_SCRIPT },
     ],
   }),
