@@ -57,7 +57,7 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
         <DienstHero
           kruimels={[{ label: data.dienst, path: `/${data.slug}` }]}
           titel={data.titel}
-          accent={data.accent}
+          {...(data.accent ? { accent: data.accent } : {})}
           intro={data.intro}
           knop={{ label: "Gratis website-analyse", to: "/gratis-website-analyse" }}
           tweedeKnop={{ label: "Bereken je prijs", to: "/wat-kost-een-website" }}
@@ -65,7 +65,7 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
 
         {data.secties.map((s, i) => (
           <Sectie key={s.titel} papier={i % 2 === 0}>
-            <SectieKop titel={s.titel} intro={s.intro} />
+            <SectieKop titel={s.titel} {...(s.intro ? { intro: s.intro } : {})} />
             {s.alineas && (
               <Tekst>
                 {s.alineas.map((a) => (
@@ -79,7 +79,7 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
 
         {data.pakketten && (
           <Sectie papier={data.secties.length % 2 === 0}>
-            <SectieKop titel={data.pakketten.titel} intro={data.pakketten.intro} />
+            <SectieKop titel={data.pakketten.titel} {...(data.pakketten.intro ? { intro: data.pakketten.intro } : {})} />
             <Pakketten items={data.pakketten.items} />
           </Sectie>
         )}
