@@ -2459,7 +2459,7 @@ Cursor is overgestapt naar een **credit-based systeem**:
 
 ## Belangrijkste functies van Cursor
 
-### Feature 1: AI Agent
+### Functie 1: AI-agent
 
 De **AI Agent** kan zelfstandig complexe taken uitvoeren:
 
@@ -2468,7 +2468,7 @@ De **AI Agent** kan zelfstandig complexe taken uitvoeren:
 - Fix bugs automatisch
 - Implementeer hele user stories
 
-### Feature 2: Background Agents
+### Functie 2: achtergrondagents
 
 **Background Agents** werken door terwijl jij andere dingen doet:
 
@@ -2477,7 +2477,7 @@ De **AI Agent** kan zelfstandig complexe taken uitvoeren:
 - Krijg een notificatie als het klaar is
 - Review en merge de wijzigingen
 
-### Feature 3: Multi-model support
+### Functie 3: meerdere AI-modellen
 
 Kies uit **meerdere AI models**:
 
@@ -2486,7 +2486,7 @@ Kies uit **meerdere AI models**:
 - **Gemini Pro** - Google's snelle model
 - **cursor-small** - Cursor's eigen snelle model
 
-### Feature 4: Privacy Mode
+### Functie 4: privacymodus
 
 Voor gevoelige projecten:
 
@@ -2494,7 +2494,7 @@ Voor gevoelige projecten:
 - **SOC 2 certified** - enterprise security
 - **GDPR compliant** - voldoet aan EU regelgeving
 
-### Feature 5: @ Mentions
+### Functie 5: @-vermeldingen
 
 Reference specifieke context met **@ mentions**:
 
