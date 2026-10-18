@@ -680,6 +680,7 @@ const BlogPost = () => {
                 )}
 
                 {/* Title */}
+                <p className="mb-4 text-sm font-semibold text-accent">{post.category}</p>
                 <motion.h1
                   className="text-3xl md:text-4xl lg:text-[2.625rem] font-bold mb-6 leading-[1.15] text-balance"
                   initial={{ opacity: 0, y: 20 }}
