@@ -91,6 +91,20 @@ const TEGELS = [
   },
 ];
 
+// CSS-variabelen per beeld: plek en maat (desktop en mobiel), snelheid (--v) en
+// eventueel draaien en groeien (--r0/--r1, --s0/--s1).
+const fotoStijl = (f: Foto) =>
+  ({
+    ...f.stijl,
+    "--v": String(f.snelheid),
+    ...(f.draai && {
+      "--r0": `${f.draai[0]}deg`,
+      "--r1": `${f.draai[1]}deg`,
+      "--s0": String(f.schaal?.[0] ?? 1),
+      "--s1": String(f.schaal?.[1] ?? 1),
+    }),
+  }) as CSSProperties;
+
 // Eindmaat van de foto in de kop (verhouding 2,3:1, de marge rechts is de spatie).
 const PIL = { width: "1.84em", marginRight: "0.24em" };
 
@@ -113,11 +127,13 @@ const VindbaarSectie = () => {
         return;
       }
 
-      // Op telefoons en tablets loopt het scrollen buiten JavaScript om, waardoor
-      // beelden die direct aan de scroll hangen een frame achterlopen en haperen.
-      // Daar volgen ze de scroll met een korte demping (vloeiend in plaats van
-      // schokkerig) en vallen het draaien/groeien en het meeschuiven van de
-      // logotegels weg: minder werk per frame.
+      // Kan de browser scrollanimaties zelf (animation-timeline, zie styles.css),
+      // dan zweven de beelden en tegels via CSS: dat loopt gelijk met het scrollen,
+      // ook op telefoons. Alleen in oudere browsers doet GSAP het hieronder.
+      const cssScroll = typeof CSS !== "undefined" && CSS.supports("animation-timeline: view()");
+      // Zonder CSS-scrollanimaties loopt het scrollen op telefoons buiten
+      // JavaScript om en zouden beelden een frame achterlopen. Daar volgen ze de
+      // scroll met een korte demping en vallen draaien en meeschuiven weg.
       const touch = window.matchMedia("(pointer: coarse), (max-width: 760px)").matches;
       const bereik = { trigger: vb, start: "top bottom", end: "bottom top" };
       // Beelden: vanaf net voordat de kop vaststaat (bovenkant sectie op 60% van
@@ -127,7 +143,7 @@ const VindbaarSectie = () => {
       // Beelden komen binnen rond het moment dat de kop vaststaat: daarvoor staan ze
       // net onder het (afgesneden) podium. Daarna zweven ze op eigen snelheid omhoog
       // door het beeld en achter de kop langs; sneller = dichterbij.
-      gsap.utils.toArray<HTMLElement>(".vb-foto", sectie).forEach((f, i) => {
+      if (!cssScroll) gsap.utils.toArray<HTMLElement>(".vb-foto", sectie).forEach((f, i) => {
         const foto = FOTOS[i];
         if (!foto) return;
         const v = foto.snelheid;
@@ -149,7 +165,7 @@ const VindbaarSectie = () => {
       // De tegels schuiven iets sneller of trager mee dan de boog (diepte). De
       // buitenlaag beweegt, de binnenlaag (.vb-vlak) poppt op: een refresh van
       // ScrollTrigger zet de transform van de buitenlaag terug.
-      if (!touch) gsap.utils.toArray<HTMLElement>(".vb-tegel", sectie).forEach((t, i) => {
+      if (!touch && !cssScroll) gsap.utils.toArray<HTMLElement>(".vb-tegel", sectie).forEach((t, i) => {
         const d = TEGELS[i]?.diepte ?? 1;
         gsap.fromTo(
           t,
@@ -219,7 +235,7 @@ const VindbaarSectie = () => {
         <div className="vb-buhne">
           <div className="vb-fotos" aria-hidden="true">
             {FOTOS.map((f, i) => (
-              <figure key={f.src} className="vb-foto" style={f.stijl as CSSProperties}>
+              <figure key={f.src} className="vb-foto" data-draai={f.draai ? "" : undefined} style={fotoStijl(f)}>
                 <img
                   src={f.src}
                   srcSet={f.srcSet}
@@ -243,7 +259,7 @@ const VindbaarSectie = () => {
                       </defs>
                     </svg>
                     {TEGELS.map((t) => (
-                      <span key={t.naam} className="vb-tegel" style={t.stijl as CSSProperties}>
+                      <span key={t.naam} className="vb-tegel" style={{ ...t.stijl, "--d": String(t.diepte) } as CSSProperties}>
                         <span className="vb-vlak">
                           <svg viewBox="0 0 24 24">
                             <path fill={t.vulling} d={t.pad} />

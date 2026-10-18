@@ -623,6 +623,64 @@
 .vb-vlak { width: 100%; height: 100%; display: grid; place-items: center; border-radius: 11%; background: var(--tk); box-shadow: inset 0 0 0 1px hsl(160 30% 10% / .1); }
 .vb-vlak svg { width: 54%; height: 54%; display: block; }
 
+/* Parallax via CSS-scrollanimaties: de browser verschuift de beelden zelf, gelijk
+   met het scrollen (ook op telefoons, waar JavaScript een frame achterloopt).
+   De tijdlijn is de sectie (.vb) die door het venster schuift. Beelden: vanaf
+   het moment dat de bovenkant van de sectie op 60% van het venster staat
+   (40vh na binnenkomst) tot de sectie boven uit beeld is. Zonder ondersteuning
+   doet GSAP dit (VindbaarSectie.tsx). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .vb { view-timeline-name: --vb; view-timeline-axis: block; }
+    .vb-foto {
+      animation-name: vb-zweef;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --vb;
+      animation-range-start: cover 40vh;
+      animation-range-end: cover 100%;
+    }
+    /* Zoeklicht en zonnestraal draaien en groeien mee (op de foto zelf, zodat het
+       niet botst met het verschuiven van de figuur). */
+    .vb-foto[data-draai] > img {
+      animation-name: vb-draai;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --vb;
+      animation-range-start: cover 40vh;
+      animation-range-end: cover 100%;
+    }
+    /* Logotegels schuiven iets sneller of trager mee dan de boog. */
+    .vb-tegel {
+      animation-name: vb-diepte;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --vb;
+      animation-range-start: cover 0%;
+      animation-range-end: cover 100%;
+    }
+    /* Telefoons en tablets: alleen het zweven, de rest blijft stil. */
+    @media (pointer: coarse), (max-width: 760px) {
+      .vb-foto[data-draai] > img, .vb-tegel { animation-name: none; }
+    }
+  }
+}
+@keyframes vb-zweef {
+  from { transform: translate3d(0, 105vh, 0); }
+  to { transform: translate3d(0, calc(-35vh - 60vh * var(--v, 1)), 0); }
+}
+@keyframes vb-draai {
+  from { transform: rotate(var(--r0, 0deg)) scale(var(--s0, 1)); }
+  to { transform: rotate(var(--r1, 0deg)) scale(var(--s1, 1)); }
+}
+@keyframes vb-diepte {
+  from { transform: translate3d(0, calc(6vh * var(--d, 1)), 0); }
+  to { transform: translate3d(0, calc(-6vh * var(--d, 1)), 0); }
+}
+
 /* Kop: bovenste regel in het midden, de tweede begint net links van het midden en
    steekt rechts voorbij de bovenste uit. Past altijd: de tweede regel is 8em breed. */
 .vb-kop {
