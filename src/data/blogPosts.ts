@@ -241,7 +241,7 @@ Vraag dit altijd vooraf. Dan kom je later niet voor verrassingen te staan.
 
 ## Hoe wij het regelen
 
-Bij Nieuwblik regelen we hosting, beveiliging en updates voor je. Je hoeft zelf niets met de techniek te doen. Hosting met onderhoud start vanaf ongeveer **€25 per maand**.
+Bij Nieuwblik regelen we hosting, beveiliging en updates voor je. Je hoeft zelf niets met de techniek te doen. Hosting met onderhoud start vanaf **€30 per maand** (excl. btw).
 
 Wil je weten wat dat voor jouw site betekent? Bekijk [onze prijzen](/prijzen) of [neem contact op](/contact).`,
       en: `Hosting, maintenance and updates explained.`
@@ -358,7 +358,7 @@ Bij een vaste prijs weet je vooraf waar je aan toe bent. Dat is waarom wij met v
 ## Kosten waar je op moet letten
 
 - **Domeinnaam:** rond de 10 euro per jaar.
-- **Hosting:** vanaf ongeveer 25 euro per maand voor snelle, veilige hosting met onderhoud.
+- **Hosting:** vanaf 30 euro per maand (excl. btw) voor snelle, veilige hosting met onderhoud.
 - **Plugins en licenties:** bij WordPress betaal je vaak los voor premium plugins.
 - **Aanpassingen achteraf:** vraag vooraf wat een kleine wijziging kost.
 

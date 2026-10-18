@@ -53,10 +53,10 @@ export const LEVERTIJD = {
   complex: "4 tot 6 weken",
 } as const;
 
-/** Hosting bij Nieuwblik is optioneel: vanafprijs per maand, exclusief btw. Meer kan, afhankelijk van wat de site nodig heeft. Basisonderhoud zit erbij. */
-export const HOSTING_PER_MAAND = 29.95;
+/** Hosting bij Nieuwblik is optioneel: basisprijs per maand, exclusief btw. Meer kan, afhankelijk van wat de site nodig heeft. Basisonderhoud zit erbij. */
+export const HOSTING_PER_MAAND = 30;
 
-/** Bedrag met centen, zoals "€29,95". */
+/** Bedrag met centen, zoals "€30,00". */
 export const euroMetCenten = (bedrag: number): string => `€${bedrag.toFixed(2).replace(".", ",")}`;
 
 /** Eén formulering voor hosting en basisonderhoud, overal op de site gelijk. */
