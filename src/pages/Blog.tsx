@@ -10,7 +10,7 @@ import { blogCategories, type BlogCategory } from "@/data/blogCategories";
 import { Button } from "@/components/ui/button";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { motion, useReducedMotion } from "framer-motion";
-import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
+import { fadeUp, staggerContainer, scaleUp, easings } from "@/lib/motion";
 
 const Blog = () => {
   const shouldReduceMotion = useReducedMotion();
