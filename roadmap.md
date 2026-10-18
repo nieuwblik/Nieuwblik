@@ -1,5 +1,7 @@
-# Blogindeling
+# Vindbaarheid uitbreiden
 
-- [x] Geef de overige blogomslagen passende pictogrammen van maximaal 50 kB.
-- [x] Deel alle blogs in Nederlandse categorieën in en maak het overzicht filterbaar.
-- [x] Controleer afbeeldingen, filters en artikelweergave.
+- [x] SEO Purmerend pagina
+- [x] Branchepagina's: bouwbedrijven, installateurs, hoveniers, fysiotherapeuten
+- [x] WordPress, Shopify en WooCommerce pagina's
+- [x] Kosten calculator op /wat-kost-een-website
+- [x] Footer, sitemap, llms.txt bijwerken en controleren

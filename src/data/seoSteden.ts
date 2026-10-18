@@ -53,3 +53,30 @@ export const seoAlkmaar: SeoStadData = {
     { label: "website laten maken in Heerhugowaard", to: "/website-laten-maken-heerhugowaard" },
   ],
 };
+
+export const seoPurmerend: SeoStadData = {
+  slug: "seo-purmerend",
+  stad: "Purmerend",
+  regio: "Noord-Holland",
+  title: "SEO Purmerend | Meer aanvragen via Google - Nieuwblik",
+  description: "SEO in Purmerend voor ondernemers die meer klanten willen. Hoger in Google en de kaart, vanaf 750 euro, maandelijks opzegbaar.",
+  keywords: "seo purmerend, seo bureau purmerend, lokale seo purmerend, zoekmachineoptimalisatie purmerend",
+  h1: "SEO in Purmerend: meer klanten uit je eigen stad",
+  intro: "Een persoonlijk SEO-bureau uit Noord-Holland. Wij zorgen dat klanten uit Purmerend en omgeving jouw bedrijf vinden in Google, in plaats van een concurrent uit Amsterdam.",
+  waaromH2: "Waarom lokale SEO in Purmerend loont",
+  waaromTekst: "Purmerend groeit snel en ligt dicht bij Amsterdam. Daardoor concurreer je in Google niet alleen met lokale bedrijven, maar ook met grote partijen uit de stad. Lokale SEO zorgt dat jij bovenaan staat voor klanten die dichtbij zoeken.",
+  voorbeelden: "Denk aan zoekopdrachten als 'kapper Purmerend', 'installateur Purmerend' of 'fysiotherapeut Purmerend'. Wij maken je site en Google Bedrijfsprofiel sterk op precies die termen.",
+  faq: [
+    { q: "Wat kost SEO in Purmerend bij Nieuwblik?", a: "Een eenmalige lokale SEO-aanpak start vanaf 750 euro. Doorlopend groeien kan met maandpakketten vanaf 350 euro per maand, maandelijks opzegbaar." },
+    { q: "Hoe snel zie ik resultaat?", a: "Op lokale zoektermen zien we vaak binnen 4 tot 8 weken beweging. Drukke termen vragen meestal 3 tot 6 maanden." },
+    { q: "Moet ik concurreren met bureaus uit Amsterdam?", a: "Voor lokale zoekopdrachten niet direct. Google laat bij 'Purmerend' vooral bedrijven uit de buurt zien. Daar zit je voordeel." },
+    { q: "Doen jullie ook Google Bedrijfsprofiel?", a: "Ja, dat is een vast onderdeel: categorieën, foto's, posts en een plan voor meer reviews." },
+    { q: "Kan ik eerst zien wat er beter kan?", a: "Ja. Vraag een gratis SEO-scan aan en je krijgt een helder overzicht van de snelle winst." },
+  ],
+  stadspagina: { label: "website laten maken in Purmerend", to: "/website-laten-maken-purmerend" },
+  buren: [
+    { label: "SEO Alkmaar", to: "/seo-alkmaar" },
+    { label: "SEO Hoorn", to: "/seo-hoorn" },
+    { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
+  ],
+};

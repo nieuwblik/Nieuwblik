@@ -19,16 +19,21 @@ import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicCookiesRouteImport } from './routes/_public/cookies'
 import { Route as PublicGratisWebsiteAnalyseRouteImport } from './routes/_public/gratis-website-analyse'
 import { Route as PublicOverOnsRouteImport } from './routes/_public/over-ons'
+import { Route as PublicOverstappenVanWordpressRouteImport } from './routes/_public/overstappen-van-wordpress'
 import { Route as PublicPrijzenRouteImport } from './routes/_public/prijzen'
 import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoAlkmaarRouteImport } from './routes/_public/seo-alkmaar'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
 import { Route as PublicSeoHoornRouteImport } from './routes/_public/seo-hoorn'
+import { Route as PublicSeoPurmerendRouteImport } from './routes/_public/seo-purmerend'
+import { Route as PublicShopifyWebshopLatenMakenRouteImport } from './routes/_public/shopify-webshop-laten-maken'
 import { Route as PublicTaxiWebsiteLatenMakenRouteImport } from './routes/_public/taxi-website-laten-maken'
 import { Route as PublicWatKostEenWebsiteRouteImport } from './routes/_public/wat-kost-een-website'
 import { Route as PublicWebdesignBureauRouteImport } from './routes/_public/webdesign-bureau'
 import { Route as PublicWebsiteLatenMakenRouteImport } from './routes/_public/website-laten-maken'
+import { Route as PublicWebsiteLatenMakenInstallateurRouteImport } from './routes/_public/website-laten-maken-installateur'
+import { Route as PublicWoocommerceWebshopLatenMakenRouteImport } from './routes/_public/woocommerce-webshop-laten-maken'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminSplatRouteImport } from './routes/admin/$'
 import { Route as PublicBlogIndexRouteImport } from './routes/_public/blog/index'
@@ -94,6 +99,12 @@ const PublicOverOnsRoute = PublicOverOnsRouteImport.update({
   path: '/over-ons',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicOverstappenVanWordpressRoute =
+  PublicOverstappenVanWordpressRouteImport.update({
+    id: '/overstappen-van-wordpress',
+    path: '/overstappen-van-wordpress',
+    getParentRoute: () => PublicRoute,
+  } as any)
 const PublicPrijzenRoute = PublicPrijzenRouteImport.update({
   id: '/prijzen',
   path: '/prijzen',
@@ -124,6 +135,17 @@ const PublicSeoHoornRoute = PublicSeoHoornRouteImport.update({
   path: '/seo-hoorn',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicSeoPurmerendRoute = PublicSeoPurmerendRouteImport.update({
+  id: '/seo-purmerend',
+  path: '/seo-purmerend',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicShopifyWebshopLatenMakenRoute =
+  PublicShopifyWebshopLatenMakenRouteImport.update({
+    id: '/shopify-webshop-laten-maken',
+    path: '/shopify-webshop-laten-maken',
+    getParentRoute: () => PublicRoute,
+  } as any)
 const PublicTaxiWebsiteLatenMakenRoute =
   PublicTaxiWebsiteLatenMakenRouteImport.update({
     id: '/taxi-website-laten-maken',
@@ -145,6 +167,18 @@ const PublicWebsiteLatenMakenRoute = PublicWebsiteLatenMakenRouteImport.update({
   path: '/website-laten-maken',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicWebsiteLatenMakenInstallateurRoute =
+  PublicWebsiteLatenMakenInstallateurRouteImport.update({
+    id: '/website-laten-maken-installateur',
+    path: '/website-laten-maken-installateur',
+    getParentRoute: () => PublicRoute,
+  } as any)
+const PublicWoocommerceWebshopLatenMakenRoute =
+  PublicWoocommerceWebshopLatenMakenRouteImport.update({
+    id: '/woocommerce-webshop-laten-maken',
+    path: '/woocommerce-webshop-laten-maken',
+    getParentRoute: () => PublicRoute,
+  } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -222,16 +256,21 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof PublicCookiesRoute
   '/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
   '/over-ons': typeof PublicOverOnsRoute
+  '/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
   '/seo-hoorn': typeof PublicSeoHoornRoute
+  '/seo-purmerend': typeof PublicSeoPurmerendRoute
+  '/shopify-webshop-laten-maken': typeof PublicShopifyWebshopLatenMakenRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
+  '/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
+  '/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
@@ -255,16 +294,21 @@ export interface FileRoutesByTo {
   '/cookies': typeof PublicCookiesRoute
   '/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
   '/over-ons': typeof PublicOverOnsRoute
+  '/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
   '/seo-hoorn': typeof PublicSeoHoornRoute
+  '/seo-purmerend': typeof PublicSeoPurmerendRoute
+  '/shopify-webshop-laten-maken': typeof PublicShopifyWebshopLatenMakenRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
+  '/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
+  '/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminIndexRoute
@@ -291,16 +335,21 @@ export interface FileRoutesById {
   '/_public/cookies': typeof PublicCookiesRoute
   '/_public/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
   '/_public/over-ons': typeof PublicOverOnsRoute
+  '/_public/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/_public/prijzen': typeof PublicPrijzenRoute
   '/_public/privacy': typeof PublicPrivacyRoute
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
   '/_public/seo-hoorn': typeof PublicSeoHoornRoute
+  '/_public/seo-purmerend': typeof PublicSeoPurmerendRoute
+  '/_public/shopify-webshop-laten-maken': typeof PublicShopifyWebshopLatenMakenRoute
   '/_public/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/_public/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/_public/webdesign-bureau': typeof PublicWebdesignBureauRoute
   '/_public/website-laten-maken': typeof PublicWebsiteLatenMakenRoute
+  '/_public/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
+  '/_public/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
@@ -328,16 +377,21 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/gratis-website-analyse'
     | '/over-ons'
+    | '/overstappen-van-wordpress'
     | '/prijzen'
     | '/privacy'
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
     | '/seo-hoorn'
+    | '/seo-purmerend'
+    | '/shopify-webshop-laten-maken'
     | '/taxi-website-laten-maken'
     | '/wat-kost-een-website'
     | '/webdesign-bureau'
     | '/website-laten-maken'
+    | '/website-laten-maken-installateur'
+    | '/woocommerce-webshop-laten-maken'
     | '/admin/$'
     | '/admin/'
     | '/blog/$slug'
@@ -361,16 +415,21 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/gratis-website-analyse'
     | '/over-ons'
+    | '/overstappen-van-wordpress'
     | '/prijzen'
     | '/privacy'
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
     | '/seo-hoorn'
+    | '/seo-purmerend'
+    | '/shopify-webshop-laten-maken'
     | '/taxi-website-laten-maken'
     | '/wat-kost-een-website'
     | '/webdesign-bureau'
     | '/website-laten-maken'
+    | '/website-laten-maken-installateur'
+    | '/woocommerce-webshop-laten-maken'
     | '/admin/$'
     | '/'
     | '/admin'
@@ -396,16 +455,21 @@ export interface FileRouteTypes {
     | '/_public/cookies'
     | '/_public/gratis-website-analyse'
     | '/_public/over-ons'
+    | '/_public/overstappen-van-wordpress'
     | '/_public/prijzen'
     | '/_public/privacy'
     | '/_public/reviews'
     | '/_public/seo-alkmaar'
     | '/_public/seo-enkhuizen'
     | '/_public/seo-hoorn'
+    | '/_public/seo-purmerend'
+    | '/_public/shopify-webshop-laten-maken'
     | '/_public/taxi-website-laten-maken'
     | '/_public/wat-kost-een-website'
     | '/_public/webdesign-bureau'
     | '/_public/website-laten-maken'
+    | '/_public/website-laten-maken-installateur'
+    | '/_public/woocommerce-webshop-laten-maken'
     | '/admin/$'
     | '/_public/'
     | '/admin/'
@@ -500,6 +564,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicOverOnsRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/overstappen-van-wordpress': {
+      id: '/_public/overstappen-van-wordpress'
+      path: '/overstappen-van-wordpress'
+      fullPath: '/overstappen-van-wordpress'
+      preLoaderRoute: typeof PublicOverstappenVanWordpressRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/prijzen': {
       id: '/_public/prijzen'
       path: '/prijzen'
@@ -542,6 +613,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicSeoHoornRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/seo-purmerend': {
+      id: '/_public/seo-purmerend'
+      path: '/seo-purmerend'
+      fullPath: '/seo-purmerend'
+      preLoaderRoute: typeof PublicSeoPurmerendRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/shopify-webshop-laten-maken': {
+      id: '/_public/shopify-webshop-laten-maken'
+      path: '/shopify-webshop-laten-maken'
+      fullPath: '/shopify-webshop-laten-maken'
+      preLoaderRoute: typeof PublicShopifyWebshopLatenMakenRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/taxi-website-laten-maken': {
       id: '/_public/taxi-website-laten-maken'
       path: '/taxi-website-laten-maken'
@@ -568,6 +653,20 @@ declare module '@tanstack/react-router' {
       path: '/website-laten-maken'
       fullPath: '/website-laten-maken'
       preLoaderRoute: typeof PublicWebsiteLatenMakenRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/website-laten-maken-installateur': {
+      id: '/_public/website-laten-maken-installateur'
+      path: '/website-laten-maken-installateur'
+      fullPath: '/website-laten-maken-installateur'
+      preLoaderRoute: typeof PublicWebsiteLatenMakenInstallateurRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/woocommerce-webshop-laten-maken': {
+      id: '/_public/woocommerce-webshop-laten-maken'
+      path: '/woocommerce-webshop-laten-maken'
+      fullPath: '/woocommerce-webshop-laten-maken'
+      preLoaderRoute: typeof PublicWoocommerceWebshopLatenMakenRouteImport
       parentRoute: typeof PublicRoute
     }
     '/admin/': {
@@ -673,16 +772,21 @@ interface PublicRouteChildren {
   PublicCookiesRoute: typeof PublicCookiesRoute
   PublicGratisWebsiteAnalyseRoute: typeof PublicGratisWebsiteAnalyseRoute
   PublicOverOnsRoute: typeof PublicOverOnsRoute
+  PublicOverstappenVanWordpressRoute: typeof PublicOverstappenVanWordpressRoute
   PublicPrijzenRoute: typeof PublicPrijzenRoute
   PublicPrivacyRoute: typeof PublicPrivacyRoute
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoAlkmaarRoute: typeof PublicSeoAlkmaarRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
   PublicSeoHoornRoute: typeof PublicSeoHoornRoute
+  PublicSeoPurmerendRoute: typeof PublicSeoPurmerendRoute
+  PublicShopifyWebshopLatenMakenRoute: typeof PublicShopifyWebshopLatenMakenRoute
   PublicTaxiWebsiteLatenMakenRoute: typeof PublicTaxiWebsiteLatenMakenRoute
   PublicWatKostEenWebsiteRoute: typeof PublicWatKostEenWebsiteRoute
   PublicWebdesignBureauRoute: typeof PublicWebdesignBureauRoute
   PublicWebsiteLatenMakenRoute: typeof PublicWebsiteLatenMakenRoute
+  PublicWebsiteLatenMakenInstallateurRoute: typeof PublicWebsiteLatenMakenInstallateurRoute
+  PublicWoocommerceWebshopLatenMakenRoute: typeof PublicWoocommerceWebshopLatenMakenRoute
   PublicIndexRoute: typeof PublicIndexRoute
   PublicBlogSlugRoute: typeof PublicBlogSlugRoute
   PublicDienstenECommerceRoute: typeof PublicDienstenECommerceRoute
@@ -706,16 +810,23 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicCookiesRoute: PublicCookiesRoute,
   PublicGratisWebsiteAnalyseRoute: PublicGratisWebsiteAnalyseRoute,
   PublicOverOnsRoute: PublicOverOnsRoute,
+  PublicOverstappenVanWordpressRoute: PublicOverstappenVanWordpressRoute,
   PublicPrijzenRoute: PublicPrijzenRoute,
   PublicPrivacyRoute: PublicPrivacyRoute,
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoAlkmaarRoute: PublicSeoAlkmaarRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
   PublicSeoHoornRoute: PublicSeoHoornRoute,
+  PublicSeoPurmerendRoute: PublicSeoPurmerendRoute,
+  PublicShopifyWebshopLatenMakenRoute: PublicShopifyWebshopLatenMakenRoute,
   PublicTaxiWebsiteLatenMakenRoute: PublicTaxiWebsiteLatenMakenRoute,
   PublicWatKostEenWebsiteRoute: PublicWatKostEenWebsiteRoute,
   PublicWebdesignBureauRoute: PublicWebdesignBureauRoute,
   PublicWebsiteLatenMakenRoute: PublicWebsiteLatenMakenRoute,
+  PublicWebsiteLatenMakenInstallateurRoute:
+    PublicWebsiteLatenMakenInstallateurRoute,
+  PublicWoocommerceWebshopLatenMakenRoute:
+    PublicWoocommerceWebshopLatenMakenRoute,
   PublicIndexRoute: PublicIndexRoute,
   PublicBlogSlugRoute: PublicBlogSlugRoute,
   PublicDienstenECommerceRoute: PublicDienstenECommerceRoute,

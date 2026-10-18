@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/Reveal";
 import ContactBlock from "@/components/ContactBlock";
+import KostenCalculator from "@/components/KostenCalculator";
 import { DienstHero, GROEN, INKT_65, Pakketten, Pijlers, RAND, Sectie, SectieKop, Tekst, Vinkjes, Vragen } from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 
@@ -126,6 +127,14 @@ const WatKostEenWebsite = () => {
         </Sectie>
 
         <Sectie papier>
+          <SectieKop
+            titel="Bereken je prijsindicatie in 30 seconden"
+            intro="Kies wat je nodig hebt en zie direct een indicatie. Stuur hem door via WhatsApp of mail en je krijgt binnen 24 uur een vaste prijs."
+          />
+          <KostenCalculator />
+        </Sectie>
+
+        <Sectie>
           <SectieKop
             titel="Wat bepaalt de prijs van een website?"
             intro="Drie factoren wegen het zwaarst mee bij de prijsvorming."

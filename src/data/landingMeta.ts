@@ -52,6 +52,18 @@ export const landingMeta: Record<string, LandingMeta> = {
     title: "Website laten maken voor interieurontwerpers | Nieuwblik",
     metaDescription: `Website laten maken als interieurontwerper? Je projecten groot in beeld en goed vindbaar in je regio. Vanaf €${PRIJZEN.starter} en binnen 2 tot 4 weken live.`,
   },
+  bouwbedrijf: {
+    title: "Website laten maken voor bouwbedrijven | Nieuwblik",
+    metaDescription: `Website laten maken als bouwbedrijf of aannemer? Projecten in beeld, meer offerteaanvragen en lokaal vindbaar. Vanaf €${PRIJZEN.starter}, in 2 tot 4 weken live.`,
+  },
+  fysiotherapeut: {
+    title: "Website laten maken voor fysiotherapeuten | Nieuwblik",
+    metaDescription: `Website laten maken als fysiotherapeut of zorgpraktijk? Online afspraken, vertrouwen en goed vindbaar. Vanaf €${PRIJZEN.starter}, in 2 tot 4 weken live.`,
+  },
+  elektricien: {
+    title: "Website laten maken voor elektriciens | Nieuwblik",
+    metaDescription: `Website laten maken als elektricien of installateur? Meer offertes, spoedknop en lokaal vindbaar. Vanaf €${PRIJZEN.starter}, in 2 tot 4 weken live.`,
+  },
   tuinman: {
     title: "Website laten maken voor hoveniers en tuinmannen | Nieuwblik",
     metaDescription: `Website laten maken als hovenier of tuinman? Je tuinen in beeld, eenvoudig een offerte aanvragen en goed vindbaar. Vanaf €${PRIJZEN.starter}, in 2 tot 4 weken live.`,

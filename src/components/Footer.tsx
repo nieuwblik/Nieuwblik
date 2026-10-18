@@ -44,6 +44,8 @@ const DIENSTEN = [
   { label: "Webdesign bureau", to: "/webdesign-bureau" },
   { label: "Webshops", to: "/diensten/webshops" },
   { label: "E-commerce", to: "/diensten/e-commerce" },
+  { label: "Shopify of maatwerk", to: "/shopify-webshop-laten-maken" },
+  { label: "Overstappen van WordPress", to: "/overstappen-van-wordpress" },
   { label: "Website laten maken Enkhuizen", to: "/website-laten-maken-enkhuizen" },
 ];
 
@@ -54,6 +56,7 @@ const SEO = [
   { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
   { label: "SEO Hoorn", to: "/seo-hoorn" },
   { label: "SEO Alkmaar", to: "/seo-alkmaar" },
+  { label: "SEO Purmerend", to: "/seo-purmerend" },
 ];
 
 const VOLG = [
@@ -80,6 +83,8 @@ const BRANCHES = [
   { label: "Restaurant", to: "/website-laten-maken-restaurant" },
   { label: "Bouwbedrijf", to: "/website-laten-maken-bouwbedrijf" },
   { label: "Fysiotherapeut", to: "/website-laten-maken-fysiotherapeut" },
+  { label: "Installateur", to: "/website-laten-maken-installateur" },
+  { label: "Hovenier", to: "/website-laten-maken-tuinman" },
   { label: "Advocaat", to: "/website-laten-maken-advocaat" },
   { label: "Alle branches →", to: "/website-laten-maken#branches" },
 ];
