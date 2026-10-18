@@ -46,6 +46,8 @@ const DIENSTEN = [
   { label: "E-commerce", to: "/diensten/e-commerce" },
   { label: "Website laten maken Enkhuizen", to: "/website-laten-maken-enkhuizen" },
   { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
+  { label: "SEO Hoorn", to: "/seo-hoorn" },
+  { label: "SEO Alkmaar", to: "/seo-alkmaar" },
 ];
 
 const VOLG = [

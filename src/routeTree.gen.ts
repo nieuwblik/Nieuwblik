@@ -22,7 +22,9 @@ import { Route as PublicOverOnsRouteImport } from './routes/_public/over-ons'
 import { Route as PublicPrijzenRouteImport } from './routes/_public/prijzen'
 import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
+import { Route as PublicSeoAlkmaarRouteImport } from './routes/_public/seo-alkmaar'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
+import { Route as PublicSeoHoornRouteImport } from './routes/_public/seo-hoorn'
 import { Route as PublicTaxiWebsiteLatenMakenRouteImport } from './routes/_public/taxi-website-laten-maken'
 import { Route as PublicWatKostEenWebsiteRouteImport } from './routes/_public/wat-kost-een-website'
 import { Route as PublicWebdesignBureauRouteImport } from './routes/_public/webdesign-bureau'
@@ -107,9 +109,19 @@ const PublicReviewsRoute = PublicReviewsRouteImport.update({
   path: '/reviews',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicSeoAlkmaarRoute = PublicSeoAlkmaarRouteImport.update({
+  id: '/seo-alkmaar',
+  path: '/seo-alkmaar',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicSeoEnkhuizenRoute = PublicSeoEnkhuizenRouteImport.update({
   id: '/seo-enkhuizen',
   path: '/seo-enkhuizen',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSeoHoornRoute = PublicSeoHoornRouteImport.update({
+  id: '/seo-hoorn',
+  path: '/seo-hoorn',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicTaxiWebsiteLatenMakenRoute =
@@ -213,7 +225,9 @@ export interface FileRoutesByFullPath {
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
+  '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
+  '/seo-hoorn': typeof PublicSeoHoornRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
@@ -244,7 +258,9 @@ export interface FileRoutesByTo {
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
   '/reviews': typeof PublicReviewsRoute
+  '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
+  '/seo-hoorn': typeof PublicSeoHoornRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/webdesign-bureau': typeof PublicWebdesignBureauRoute
@@ -278,7 +294,9 @@ export interface FileRoutesById {
   '/_public/prijzen': typeof PublicPrijzenRoute
   '/_public/privacy': typeof PublicPrivacyRoute
   '/_public/reviews': typeof PublicReviewsRoute
+  '/_public/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
+  '/_public/seo-hoorn': typeof PublicSeoHoornRoute
   '/_public/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/_public/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
   '/_public/webdesign-bureau': typeof PublicWebdesignBureauRoute
@@ -313,7 +331,9 @@ export interface FileRouteTypes {
     | '/prijzen'
     | '/privacy'
     | '/reviews'
+    | '/seo-alkmaar'
     | '/seo-enkhuizen'
+    | '/seo-hoorn'
     | '/taxi-website-laten-maken'
     | '/wat-kost-een-website'
     | '/webdesign-bureau'
@@ -344,7 +364,9 @@ export interface FileRouteTypes {
     | '/prijzen'
     | '/privacy'
     | '/reviews'
+    | '/seo-alkmaar'
     | '/seo-enkhuizen'
+    | '/seo-hoorn'
     | '/taxi-website-laten-maken'
     | '/wat-kost-een-website'
     | '/webdesign-bureau'
@@ -377,7 +399,9 @@ export interface FileRouteTypes {
     | '/_public/prijzen'
     | '/_public/privacy'
     | '/_public/reviews'
+    | '/_public/seo-alkmaar'
     | '/_public/seo-enkhuizen'
+    | '/_public/seo-hoorn'
     | '/_public/taxi-website-laten-maken'
     | '/_public/wat-kost-een-website'
     | '/_public/webdesign-bureau'
@@ -497,11 +521,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicReviewsRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/seo-alkmaar': {
+      id: '/_public/seo-alkmaar'
+      path: '/seo-alkmaar'
+      fullPath: '/seo-alkmaar'
+      preLoaderRoute: typeof PublicSeoAlkmaarRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/seo-enkhuizen': {
       id: '/_public/seo-enkhuizen'
       path: '/seo-enkhuizen'
       fullPath: '/seo-enkhuizen'
       preLoaderRoute: typeof PublicSeoEnkhuizenRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/seo-hoorn': {
+      id: '/_public/seo-hoorn'
+      path: '/seo-hoorn'
+      fullPath: '/seo-hoorn'
+      preLoaderRoute: typeof PublicSeoHoornRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/taxi-website-laten-maken': {
@@ -638,7 +676,9 @@ interface PublicRouteChildren {
   PublicPrijzenRoute: typeof PublicPrijzenRoute
   PublicPrivacyRoute: typeof PublicPrivacyRoute
   PublicReviewsRoute: typeof PublicReviewsRoute
+  PublicSeoAlkmaarRoute: typeof PublicSeoAlkmaarRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
+  PublicSeoHoornRoute: typeof PublicSeoHoornRoute
   PublicTaxiWebsiteLatenMakenRoute: typeof PublicTaxiWebsiteLatenMakenRoute
   PublicWatKostEenWebsiteRoute: typeof PublicWatKostEenWebsiteRoute
   PublicWebdesignBureauRoute: typeof PublicWebdesignBureauRoute
@@ -669,7 +709,9 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicPrijzenRoute: PublicPrijzenRoute,
   PublicPrivacyRoute: PublicPrivacyRoute,
   PublicReviewsRoute: PublicReviewsRoute,
+  PublicSeoAlkmaarRoute: PublicSeoAlkmaarRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
+  PublicSeoHoornRoute: PublicSeoHoornRoute,
   PublicTaxiWebsiteLatenMakenRoute: PublicTaxiWebsiteLatenMakenRoute,
   PublicWatKostEenWebsiteRoute: PublicWatKostEenWebsiteRoute,
   PublicWebdesignBureauRoute: PublicWebdesignBureauRoute,
