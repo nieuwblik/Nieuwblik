@@ -1,18 +1,21 @@
-import bedrijfsprofielImg from "@/assets/blog/SEO-Blog-bedrijfsprofiel.webp";
-import vindbaarInChatgptImg from "@/assets/blog/SEO-Blog-nieuwblik.webp";
-import toegankelijkeWebsiteImg from "@/assets/blog/SEO-Blog-toegankelijkheid.webp";
+import type { BlogCategory } from "@/data/blogCategories";
+import blogIcon0 from "@/assets/blog/pictogram-bedrijfsprofiel.webp";
+import blogIcon1 from "@/assets/blog/pictogram-ai-vindbaarheid.webp";
+import blogIcon2 from "@/assets/blog/pictogram-toegankelijkheid.webp";
+import blogIcon3 from "@/assets/blog/pictogram-motorsport.webp";
+import blogIcon4 from "@/assets/blog/pictogram-voetbal.webp";
+import blogIcon5 from "@/assets/blog/pictogram-betalingen.webp";
+import blogIcon6 from "@/assets/blog/pictogram-website-case.webp";
+import blogIcon7 from "@/assets/blog/pictogram-merkverhaal.webp";
+import blogIcon8 from "@/assets/blog/pictogram-webontwerp.webp";
+import blogIcon9 from "@/assets/blog/pictogram-ai-code.webp";
+import blogIcon10 from "@/assets/blog/pictogram-cloud-editor.webp";
+import blogIcon11 from "@/assets/blog/pictogram-code-cursor.webp";
+import blogIcon12 from "@/assets/blog/pictogram-database.webp";
+import blogIcon13 from "@/assets/blog/pictogram-ai-assistent.webp";
 import madjoeSponsorsImg from "@/assets/blog/nieuwblik-sponsor-madjoe.webp";
-import nieuwblikBenotedCover from "@/assets/blog/nieuwblik-x-benoted-cover.webp";
 import nieuwblikBenotedPhone from "@/assets/blog/nieuwblik-x-benoted-phone.webp";
 import nieuwblikBenotedMacbook from "@/assets/blog/nieuwblik-x-benoted-macbook.webp";
-import vibeCodeHadoSeoImg from "@/assets/blog/vibecode-hadoseo.webp";
-import figmaLogoImg from "@/assets/blog/figma-logo.webp";
-import replitLogoImg from "@/assets/blog/replit-logo.webp";
-import cursorLogoImg from "@/assets/blog/cursor-logo.webp";
-import supabaseLogoImg from "@/assets/blog/supabase-logo.webp";
-import claudeLogoImg from "@/assets/blog/claude-logo.webp";
-import brandStorytellingImg from "@/assets/blog/brand-storytelling.jpg";
-import stripeLogoImg from "@/assets/blog/stripe-logo.webp";
 import kevinMosBikeFront from "@/assets/blog/kevin-mos-nieuwblik-bike-front.webp";
 import kevinMosBikeRear from "@/assets/blog/kevin-mos-nieuwblik-bike-rear.webp";
 import kevinMosPortrait from "@/assets/blog/kevin-mos-nieuwblik-portrait.webp";
@@ -27,6 +30,7 @@ import wordpressSnelheidImg from "@/assets/blog/wordpress-snelheid.webp";
 import websiteZzpImg from "@/assets/blog/website-zzp.webp";
 export interface BlogPost {
   slug: string;
+  category: BlogCategory;
   title: {
     nl: string;
     en: string;
@@ -54,6 +58,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "wat-kost-een-website-laten-maken-prijzen-2026",
+    category: "Website laten maken",
     image: websiteKostenImg,
     imageAlt: "Pictogram van een website met een euromunt voor websitekosten",
     imageWidth: 768,
@@ -116,6 +121,7 @@ Wil je alles op een rij? Lees onze uitgebreide pagina over [wat een website kost
   },
   {
     slug: "nieuwe-website-laten-maken-checklist-2026",
+    category: "Website laten maken",
     image: websiteChecklistImg,
     imageAlt: "Pictogram van een checklist met vinkjes voor een nieuwe website",
     imageWidth: 768,
@@ -173,6 +179,7 @@ Benieuwd hoe wij dit aanpakken? Bekijk ons [portfolio](/portfolio) of [neem cont
   },
   {
     slug: "hoe-lang-duurt-website-laten-maken",
+    category: "Website laten maken",
     image: websiteDoorlooptijdImg,
     imageAlt: "Pictogram van een klok naast een website voor de doorlooptijd",
     imageWidth: 768,
@@ -229,6 +236,7 @@ Opent je zaak binnenkort of start het seizoen? Laat het ons weten. Bekijk [onze 
   },
   {
     slug: "website-vernieuwen-wanneer-tijd-voor-redesign",
+    category: "Website laten maken",
     image: websiteVernieuwenImg,
     imageAlt: "Pictogram van een website met vernieuwingspijlen",
     imageWidth: 768,
@@ -280,6 +288,7 @@ Twijfel je of jouw website toe is aan vernieuwing? [Vraag een gratis website-ana
   },
   {
     slug: "waarom-wordpress-website-traag-is",
+    category: "Techniek en AI",
     image: wordpressSnelheidImg,
     imageAlt: "Pictogram van een snelheidsmeter naast een website",
     imageWidth: 768,
@@ -336,6 +345,7 @@ Wil je de afweging rustig lezen? Bekijk ons artikel over [WordPress of maatwerk]
   },
   {
     slug: "website-laten-maken-zzp",
+    category: "Website laten maken",
     image: websiteZzpImg,
     imageAlt: "Pictogram van een aktetas naast een website voor zzp'ers",
     imageWidth: 768,
@@ -388,10 +398,11 @@ Bekijk [onze pakketten](/prijzen) of [stuur ons een bericht](/contact). Dan denk
   },
   {
     slug: "google-bedrijfsprofiel-instellingen-2026",
-    image: bedrijfsprofielImg,
-    imageWidth: 1920,
-    imageHeight: 1086,
-    imageAlt: "Hand met een smartphone in een winkelstraat, met op het scherm het bedrijfsprofiel van de bakkerij op de achtergrond: 4,8 sterren, nu open, knoppen voor route en bellen",
+    category: "Vindbaarheid",
+    image: blogIcon0,
+    imageAlt: "Pictogram: een winkel met een locatiepin",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Google Bedrijfsprofiel 2026: 7 instellingen",
     seoKeywords: "Google Bedrijfsprofiel, Google Bedrijfsprofiel optimaliseren, Google Maps, lokale SEO, lokaal gevonden worden, openingstijden Google, Google reviews, servicegebied, bedrijfscategorie, West-Friesland, Nieuwblik",
     title: {
@@ -495,10 +506,11 @@ Wil je dat we even naar jouw profiel kijken? [Stuur ons een appje](https://wa.me
   },
   {
     slug: "vindbaar-in-chatgpt-geo-west-friesland",
-    image: vindbaarInChatgptImg,
-    imageWidth: 1920,
-    imageHeight: 1086,
-    imageAlt: "Hand met een smartphone waarop iemand in ChatGPT vraagt naar een goede loodgieter in West-Friesland",
+    category: "Vindbaarheid",
+    image: blogIcon1,
+    imageAlt: "Pictogram: een zoekende gesprekswolk voor vindbaarheid in ai",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Vindbaar worden in ChatGPT: GEO voor MKB'ers",
     seoKeywords: "vindbaar in ChatGPT, GEO, generative engine optimization, AEO, answer engine optimization, vindbaar in AI, AI zoekmachines, lokale SEO West-Friesland, gevonden worden in Gemini, Nieuwblik",
     title: {
@@ -582,10 +594,11 @@ Benieuwd of jouw bedrijf nu genoemd wordt? [Stuur ons een appje](https://wa.me/3
   },
   {
     slug: "toegankelijke-website-european-accessibility-act",
-    image: toegankelijkeWebsiteImg,
-    imageWidth: 1920,
-    imageHeight: 1086,
-    imageAlt: "Vinger op de Tab-toets van een toetsenbord, met op het scherm een formulier waarvan het actieve veld blauw is omlijnd",
+    category: "Website laten maken",
+    image: blogIcon2,
+    imageAlt: "Pictogram: een website met een toegankelijkheidssymbool",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "European Accessibility Act: geldt die wet ook voor jouw website?",
     seoKeywords: "European Accessibility Act, EAA, toegankelijke website, digitale toegankelijkheid, WCAG 2.1 AA, toegankelijkheid webshop, ACM toegankelijkheid, website toegankelijk maken, micro-onderneming uitzondering",
     title: {
@@ -681,7 +694,11 @@ Twijfel je hoe jouw site ervoor staat? [Stuur je URL door](/gratis-website-analy
   },
   {
     slug: "kevin-mos-nieuwblik-hengelo-roadrace-2026",
-    image: kevinMosBikeFront,
+    category: "Nieuwblik en projecten",
+    image: blogIcon3,
+    imageAlt: "Pictogram: een racehelm met een finishvlag",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Sponsoring Kevin Mos, Hengelo Roadrace 2026",
     seoKeywords: "Kevin Mos, Hengelo Roadrace, Nelon Racing, Mobu Tuning, Nieuwblik sponsoring, motorracen Hengelo, straatrace, MKB sponsoring, West-Friesland",
     title: {
@@ -821,7 +838,11 @@ Kevin, from everyone at Nieuwblik: thanks for the weekend. We'll be there again 
   },
   {
     slug: "nieuwblik-sponsort-vv-madjoe-heren-1",
-    image: madjoeSponsorsImg,
+    category: "Nieuwblik en projecten",
+    image: blogIcon4,
+    imageAlt: "Pictogram: een voetbal met een vlag",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Nieuwblik Sponsort VV Madjoe Heren 1 | Volleybal Enkhuizen",
     seoKeywords: "VV Madjoe, sponsoring, volleybal Enkhuizen, Topdivisie, lokaal ondernemen, shirtsponsor, Enza Zaden, Kreeft Autoservice, Toolstra, MKB sponsoring",
     title: {
@@ -919,7 +940,11 @@ To the entire VV Madjoe Men's 1st team: **good luck this season!** 🏐💪`
   },
   {
     slug: "stripe-betalingen-webshop-handleiding",
-    image: stripeLogoImg,
+    category: "Webshops",
+    image: blogIcon5,
+    imageAlt: "Pictogram: een betaalkaart met een slot",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "Stripe Betalingen | De Beste Betaaltool voor Webshops",
     seoKeywords: "stripe, stripe betalen, stripe kosten, online betalen, betaalplatform, webshop betalingen, stripe nederland, stripe vs mollie, stripe dashboard, stripe integratie",
     title: {
@@ -1064,7 +1089,11 @@ Wil jij ook een **webshop met Stripe-integratie** laten bouwen? Of ben je benieu
   },
   {
     slug: "case-study-benoted-snelheid-zichtbaarheid",
-    image: nieuwblikBenotedCover,
+    category: "Nieuwblik en projecten",
+    image: blogIcon6,
+    imageAlt: "Pictogram: een beeldscherm met een stijgende grafiek",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Case Study: Hoe BeNoted.nl de nieuwe standaard zet in snelheid en zichtbaarheid",
       en: "Case Study: How BeNoted.nl sets the new standard in speed and visibility"
@@ -1142,7 +1171,11 @@ At Nieuwblik, we don't just build websites; we build your success. Just like wit
   },
   {
     slug: "brand-storytelling-van-pixel-tot-voordeur",
-    image: brandStorytellingImg,
+    category: "Merk en ontwerp",
+    image: blogIcon7,
+    imageAlt: "Pictogram: een open boek met een hart",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Brand Storytelling: Van je eerste pixel tot hun voordeur",
       en: "Brand Storytelling: From your first pixel to their front door"
@@ -1228,7 +1261,11 @@ Because let's be honest: we all get a little happy from a package that's designe
   },
   {
     slug: "figma-hadoseo-lovable-perfecte-website",
-    image: figmaLogoImg,
+    category: "Merk en ontwerp",
+    image: blogIcon8,
+    imageAlt: "Pictogram: een website met een tekenpen",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Figma + HadoSEO + Lovable: De Ultieme Combinatie voor een Perfecte Website",
       en: "Figma + HadoSEO + Lovable: The Ultimate Combination for a Perfect Website"
@@ -1643,7 +1680,11 @@ Together they form a workflow that's **8x faster** than traditional methods, at 
   },
   {
     slug: "vibecode-hadoseo-toekomst-websites",
-    image: vibeCodeHadoSeoImg,
+    category: "Techniek en AI",
+    image: blogIcon9,
+    imageAlt: "Pictogram: codehaakjes met een bliksemschicht",
+    imageWidth: 768,
+    imageHeight: 432,
     seoTitle: "VibeCode + HadoSEO: Toekomst van Webdesign",
     seoKeywords: "vibecode, HadoSEO, webdesign, SEO, website bouwen, online vindbaarheid, Google ranking, moderne webontwikkeling",
     title: {
@@ -1939,7 +1980,11 @@ De keuze is aan jou: blijf vasthouden aan verouderde methodes en lage rankings, 
   },
   {
     slug: "replit-online-code-editor-ai",
-    image: replitLogoImg,
+    category: "Techniek en AI",
+    image: blogIcon10,
+    imageAlt: "Pictogram: een laptop met code in de cloud",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Replit: De Complete Gids voor Online Coderen met AI",
       en: "Replit: The Complete Guide to Online Coding with AI"
@@ -2296,7 +2341,11 @@ Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om web
   },
   {
     slug: "cursor-ai-code-editor",
-    image: cursorLogoImg,
+    category: "Techniek en AI",
+    image: blogIcon11,
+    imageAlt: "Pictogram: een aanwijzer tussen codehaakjes",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Cursor AI: De Slimste Code Editor van 2025",
       en: "Cursor AI: The Smartest Code Editor of 2025"
@@ -2590,7 +2639,11 @@ Bij Nieuwblik combineren we de nieuwste AI-tools met jarenlange expertise om web
   },
   {
     slug: "supabase",
-    image: supabaseLogoImg,
+    category: "Techniek en AI",
+    image: blogIcon12,
+    imageAlt: "Pictogram: een database met een bliksemschicht",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Supabase: de open-source Firebase alternatief die developers verkiezen",
       en: "Supabase: the open-source Firebase alternative developers prefer"
@@ -2950,7 +3003,11 @@ Bij Nieuwblik hebben we uitgebreide ervaring met Supabase en bouwen we schaalbar
   },
   {
     slug: "claude-ai-anthropic-complete-gids",
-    image: claudeLogoImg,
+    category: "Techniek en AI",
+    image: blogIcon13,
+    imageAlt: "Pictogram: een ai-assistent met een gesprekswolk",
+    imageWidth: 768,
+    imageHeight: 432,
     title: {
       nl: "Claude AI: De complete gids voor Anthropic's AI-assistent",
       en: "Claude AI: The Complete Guide to Anthropic's AI Assistant"
