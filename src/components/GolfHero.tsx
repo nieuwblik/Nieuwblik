@@ -132,7 +132,7 @@ const GolfHero = () => {
       {/* Hand met telefoon tussen golf en tekst; de arm loopt onder de balk door. */}
       <HeroTelefoon />
 
-      <div className="golf-hero__inhoud relative flex flex-1 flex-col justify-start md:justify-center pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[var(--header-height)] pb-12 md:pb-16">
+      <div className="golf-hero__inhoud relative flex flex-1 flex-col justify-center pt-[calc(var(--header-height)_+_1.5rem)] md:pt-[var(--header-height)] pb-12 md:pb-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="golf-hero__blok">
             <h1 className="golf-hero__titel">
