@@ -28,6 +28,10 @@ import websiteDoorlooptijdImg from "@/assets/blog/website-doorlooptijd.webp";
 import websiteVernieuwenImg from "@/assets/blog/website-vernieuwen.webp";
 import wordpressSnelheidImg from "@/assets/blog/wordpress-snelheid.webp";
 import websiteZzpImg from "@/assets/blog/website-zzp.webp";
+import zelfBouwenImg from "@/assets/blog/pictogram-zelf.webp";
+import conversieImg from "@/assets/blog/pictogram-conversie.webp";
+import onderhoudImg from "@/assets/blog/pictogram-onderhoud.webp";
+import mailImg from "@/assets/blog/pictogram-mail.webp";
 export interface BlogPost {
   slug: string;
   category: BlogCategory;
@@ -56,6 +60,257 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "zelf-website-bouwen-of-laten-maken",
+    category: "Website laten maken",
+    image: zelfBouwenImg,
+    imageAlt: "Pictogram van een hand met moersleutel naast een website, kiezen tussen zelf bouwen en laten maken",
+    imageWidth: 768,
+    imageHeight: 432,
+    seoTitle: "Zelf een website bouwen of laten maken?",
+    seoKeywords: "zelf website bouwen, website laten maken, wix of webdesigner, wordpress zelf bouwen, website bouwer, Nieuwblik",
+    title: {
+      nl: "Zelf een website bouwen of laten maken? Een eerlijke afweging",
+      en: "Build your own website or have it made?"
+    },
+    excerpt: {
+      nl: "Wix, Squarespace en WordPress maken zelf bouwen makkelijk. Maar wanneer is het slim, en wanneer kost het je meer dan het oplevert?",
+      en: "An honest comparison between building it yourself and hiring a web builder."
+    },
+    date: "2026-10-18",
+    readingTime: 5,
+    content: {
+      nl: `Met een websitebouwer als Wix of Squarespace heb je in een weekend iets online. Dat klinkt aantrekkelijk. Waarom zou je dan nog iemand inhuren?
+
+Het eerlijke antwoord: soms hoeft dat ook niet. In dit artikel lees je wanneer zelf bouwen prima werkt, en wanneer het je klanten kost.
+
+## Wanneer zelf bouwen prima is
+
+- **Je begint net** en wilt eerst testen of er vraag is naar je product.
+- **Je budget is nul** en een simpele visitekaartje-site is genoeg.
+- **Het is een hobby** of een tijdelijk project.
+- **Je vindt het leuk** om er zelf uren in te steken.
+
+In die gevallen is een websitebouwer een prima startpunt. Niets mis mee.
+
+## De verborgen kosten van zelf bouwen
+
+**Tijd.** Een fatsoenlijke site bouwen kost al snel 30 tot 60 uur. Reken uit wat die uren je waard zijn als ondernemer.
+
+**Abonnementen.** Websitebouwers rekenen maandelijks. Met een eigen domein, geen advertenties en een webshop-functie loopt dat over een paar jaar flink op.
+
+**Vindbaarheid.** Een template ziet er netjes uit, maar is zelden goed ingericht voor Google. Denk aan snelheid, koppen, beschrijvingen en lokale zoektermen.
+
+**Uitstraling.** Duizenden ondernemers gebruiken hetzelfde template. Bezoekers zien het verschil vaak niet bewust, maar voelen het wel.
+
+## Wanneer laten maken zich terugverdient
+
+- **Je website moet klanten opleveren**, niet alleen bestaan.
+- **Je wilt gevonden worden** op zoektermen in je regio.
+- **Je hebt geen tijd** om je te verdiepen in techniek en ontwerp.
+- **Je merk moet opvallen** tussen concurrenten.
+
+Eén extra opdracht per maand betaalt een professionele website vaak binnen een paar maanden terug.
+
+## Wat kost laten maken?
+
+Bij Nieuwblik werken we met vaste prijzen. Een complete website start vanaf **€990**, zonder uurtje-factuurtje en zonder verrassingen achteraf. Bekijk [onze pakketten](/prijzen) of lees [wat een website kost in 2026](/blog/wat-kost-een-website-laten-maken-prijzen-2026).
+
+## Onze tip
+
+Begin gerust zelf als je wilt testen. Merk je dat de site geen aanvragen oplevert of dat je er te veel tijd in steekt? Dan is het moment om over te stappen.
+
+Twijfel je? [Laat je huidige website gratis analyseren](/gratis-website-analyse), dan vertellen we eerlijk wat we zouden doen.`,
+      en: `An honest comparison between building it yourself and hiring a web builder.`
+    }
+  },
+  {
+    slug: "website-levert-geen-aanvragen-op",
+    category: "Website laten maken",
+    image: conversieImg,
+    imageAlt: "Pictogram van een website met een leeg postvak, een website zonder aanvragen",
+    imageWidth: 768,
+    imageHeight: 432,
+    seoTitle: "Website levert geen aanvragen op? 5 fouten",
+    seoKeywords: "website levert niets op, geen aanvragen via website, conversie website verbeteren, meer klanten via website, Nieuwblik",
+    title: {
+      nl: "Waarom levert je website geen aanvragen op? 5 veelgemaakte fouten",
+      en: "Why your website doesn't generate leads"
+    },
+    excerpt: {
+      nl: "Bezoekers genoeg, maar de telefoon blijft stil? Dit zijn de vijf fouten die we het vaakst zien, en hoe je ze oplost.",
+      en: "Five common conversion mistakes and how to fix them."
+    },
+    date: "2026-09-15",
+    readingTime: 5,
+    content: {
+      nl: `Je hebt een website. Er komen bezoekers. Maar aanvragen? Die blijven uit.
+
+Dat ligt zelden aan je dienst. Meestal zit het in een paar kleine dingen die bezoekers net laten afhaken. Dit zijn de vijf fouten die we het vaakst tegenkomen.
+
+## 1. Bezoekers snappen niet direct wat je doet
+
+Je hebt ongeveer vijf seconden. Staat er bovenaan een vage zin als "Welkom op onze website"? Dan ben je ze al kwijt.
+
+**Oplossing:** zeg in één zin wat je doet, voor wie en waar. Bijvoorbeeld: "Elektricien in Hoorn, binnen 24 uur bij je."
+
+## 2. Geen duidelijke volgende stap
+
+Veel sites laten bezoekers zelf zoeken naar een telefoonnummer of formulier. Dat doen ze niet.
+
+**Oplossing:** zet op elke pagina één opvallende knop. Bellen, WhatsApp of een offerte aanvragen. Kies er één als hoofdactie.
+
+## 3. Geen prijsindicatie
+
+Mensen willen weten of je binnen hun budget valt. Zien ze geen enkel bedrag, dan gaan ze naar een concurrent die dat wel laat zien.
+
+**Oplossing:** geef een vanaf-prijs of een paar voorbeeldbedragen. Je hoeft niet alles vast te leggen.
+
+## 4. Geen bewijs dat je goed bent
+
+Een bezoeker kent je niet. Waarom zou hij je vertrouwen?
+
+**Oplossing:** laat reviews, foto's van echt werk en bekende klanten zien. Vooral bovenaan de pagina, niet alleen onderin.
+
+## 5. De site werkt slecht op mobiel
+
+De meeste bezoekers komen via hun telefoon. Kleine knoppen, trage foto's of een formulier dat niet goed werkt kosten je direct aanvragen.
+
+**Oplossing:** test je site zelf op je telefoon. Laad hij binnen twee seconden? Kun je met je duim makkelijk op de knoppen tikken?
+
+## Snel checken waar het bij jou misgaat
+
+Vaak zijn het kleine aanpassingen met veel effect. Benieuwd waar jouw site aanvragen laat liggen? [Vraag een gratis website-analyse aan](/gratis-website-analyse). We kijken mee en sturen je concrete verbeterpunten.
+
+Liever meteen een nieuwe site die wel aanvragen oplevert? Bekijk [onze vaste prijzen](/prijzen), vanaf **€990**.`,
+      en: `Five common conversion mistakes and how to fix them.`
+    }
+  },
+  {
+    slug: "website-onderhoud-hosting-na-oplevering",
+    category: "Website laten maken",
+    image: onderhoudImg,
+    imageAlt: "Pictogram van een server met schild en vernieuwingsteken voor hosting en onderhoud",
+    imageWidth: 768,
+    imageHeight: 432,
+    seoTitle: "Website onderhoud en hosting na oplevering",
+    seoKeywords: "website onderhoud, hosting website, website updates, wat na oplevering website, website beheer, Nieuwblik",
+    title: {
+      nl: "Wat gebeurt er na de oplevering? Hosting, onderhoud en updates uitgelegd",
+      en: "What happens after your website goes live?"
+    },
+    excerpt: {
+      nl: "Je website staat online. En nu? Wat hosting en onderhoud inhouden, wat het kost en waar je op moet letten.",
+      en: "Hosting, maintenance and updates explained."
+    },
+    date: "2026-09-01",
+    readingTime: 4,
+    content: {
+      nl: `De website is klaar en staat online. Een mooi moment. Maar daarna begint het echte werk: zorgen dat hij snel, veilig en up-to-date blijft.
+
+Veel ondernemers weten niet goed wat er na de oplevering gebeurt. Dat lossen we hier op.
+
+## Wat is hosting?
+
+Hosting is de plek waar je website op internet staat. Zonder hosting is je site niet bereikbaar.
+
+**Goede hosting zorgt voor:**
+
+- **Snelheid:** je pagina's laden vlot, ook bij veel bezoekers.
+- **Veiligheid:** een beveiligde verbinding (het slotje in de browser).
+- **Betrouwbaarheid:** je site is vrijwel altijd online.
+
+## Wat houdt onderhoud in?
+
+**Updates.** Software verandert steeds. Zonder updates ontstaan beveiligingslekken.
+
+**Back-ups.** Gaat er iets mis, dan zet je een eerdere versie terug.
+
+**Controle.** Werken het contactformulier en de links nog? Is de site nog snel?
+
+**Kleine aanpassingen.** Een nieuwe foto, een openingstijd of een extra dienst.
+
+## Waar moet je op letten?
+
+- **Wie is eigenaar** van de website en de domeinnaam? Dat moet jij zijn.
+- **Wat kost een wijziging** als je die later wilt laten doen?
+- **Zit je vast aan een contract** of kun je maandelijks opzeggen?
+- **Hoe snel krijg je hulp** als er iets misgaat?
+
+Vraag dit altijd vooraf. Dan kom je later niet voor verrassingen te staan.
+
+## Hoe wij het regelen
+
+Bij Nieuwblik regelen we hosting, beveiliging en updates voor je. Je hoeft zelf niets met de techniek te doen. Hosting met onderhoud start vanaf ongeveer **€25 per maand**.
+
+Wil je weten wat dat voor jouw site betekent? Bekijk [onze prijzen](/prijzen) of [neem contact op](/contact).`,
+      en: `Hosting, maintenance and updates explained.`
+    }
+  },
+  {
+    slug: "zakelijk-emailadres-aanmaken-eigen-domein",
+    category: "Techniek en AI",
+    image: mailImg,
+    imageAlt: "Pictogram van een envelop met apenstaartje en wereldbol voor een zakelijk e-mailadres",
+    imageWidth: 768,
+    imageHeight: 432,
+    seoTitle: "Zakelijk e-mailadres aanmaken met eigen domein",
+    seoKeywords: "zakelijk mailadres aanmaken, zakelijk e-mailadres, e-mail eigen domein, google workspace, microsoft 365, Nieuwblik",
+    title: {
+      nl: "Zakelijk e-mailadres aanmaken met je eigen domeinnaam: stap voor stap",
+      en: "Create a business email address with your own domain"
+    },
+    excerpt: {
+      nl: "Nog steeds mailen vanaf een Gmail- of Hotmail-adres? Zo maak je in een paar stappen een professioneel e-mailadres met je eigen domein.",
+      en: "Step by step guide to a professional email address."
+    },
+    date: "2026-08-25",
+    readingTime: 4,
+    content: {
+      nl: `Een offerte van "klusbedrijf123@hotmail.com" voelt anders dan een van "info@jouwbedrijf.nl". Een zakelijk e-mailadres wekt direct meer vertrouwen.
+
+Het goede nieuws: het is makkelijker dan je denkt. Zo pak je het aan.
+
+## Stap 1: regel een domeinnaam
+
+Je hebt een eigen domeinnaam nodig, zoals jouwbedrijf.nl. Een .nl-domein kost meestal rond de 10 euro per jaar.
+
+**Tip:** kies een korte naam die makkelijk te spellen is.
+
+## Stap 2: kies een e-mailpakket
+
+De bekendste opties:
+
+- **Google Workspace:** werkt met Gmail, agenda en Drive. Betaling per gebruiker per maand.
+- **Microsoft 365:** werkt met Outlook, Word en Excel. Ook per gebruiker per maand.
+- **E-mail via je hoster:** vaak goedkoper, maar met minder extra functies.
+
+Gebruik je al Gmail of Outlook? Kies dan het pakket dat daarbij past. Dan hoef je weinig te wennen.
+
+## Stap 3: koppel je domein
+
+Je e-mailpakket geeft een paar instellingen (zogenaamde DNS-records) die je bij je domeinnaam invult. Daarmee weet het internet waar je mail naartoe moet.
+
+Dit klinkt technisch, maar het zijn vaak een paar regels kopiëren en plakken.
+
+## Stap 4: zorg dat je mail niet in de spam belandt
+
+Stel ook de beveiligingsinstellingen in die je e-mailpakket aangeeft. Zo weten andere mailservers dat jouw mail echt van jou komt.
+
+**Zonder deze instellingen** belanden je offertes sneller in de spammap van je klant.
+
+## Stap 5: kies slimme adressen
+
+- **info@** voor algemene vragen.
+- **voornaam@** voor persoonlijk contact.
+- **offerte@** of **factuur@** als je het overzichtelijk wilt houden.
+
+## Hulp nodig?
+
+Laat je een website bij ons maken? Dan helpen we je ook met je domeinnaam en het koppelen van je zakelijke mail. [Neem contact op](/contact) of bekijk [onze pakketten](/prijzen), vanaf **€990**.`,
+      en: `Step by step guide to a professional email address.`
+    }
+  },
   {
     slug: "wat-kost-een-website-laten-maken-prijzen-2026",
     category: "Website laten maken",
