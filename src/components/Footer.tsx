@@ -45,6 +45,12 @@ const DIENSTEN = [
   { label: "Webshops", to: "/diensten/webshops" },
   { label: "E-commerce", to: "/diensten/e-commerce" },
   { label: "Website laten maken Enkhuizen", to: "/website-laten-maken-enkhuizen" },
+];
+
+// SEO is een eigen dienst naast websitebouw: eigen kolom, zodat de stadspagina's
+// niet tussen de dienstenlinks verdwijnen en de korte kolommen contact en volg
+// visueel in balans blijven.
+const SEO = [
   { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
   { label: "SEO Hoorn", to: "/seo-hoorn" },
   { label: "SEO Alkmaar", to: "/seo-alkmaar" },
@@ -243,9 +249,9 @@ const Footer = ({ cta = true }: { cta?: boolean }) => {
 
       <div className="container mx-auto px-6 md:px-12">
         <div
-          className={`grid grid-cols-2 gap-x-6 gap-y-12 py-16 md:py-20 lg:grid-cols-12 lg:gap-8 ${cta ? "" : "border-t border-white/10"}`}
+          className={`grid grid-cols-2 gap-x-6 gap-y-12 py-16 md:py-20 lg:grid-cols-13 lg:gap-6 ${cta ? "" : "border-t border-white/10"}`}
         >
-          <div className="col-span-2 lg:col-span-4">
+          <div className="col-span-2 lg:col-span-3">
             <Link
               to="/"
               aria-label="Nieuwblik, naar de homepage"
@@ -278,6 +284,15 @@ const Footer = ({ cta = true }: { cta?: boolean }) => {
             </Kolom>
             <Kolom titel="Diensten" className="lg:col-span-2">
               {DIENSTEN.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className={LINK}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </Kolom>
+            <Kolom titel="SEO" className="lg:col-span-2">
+              {SEO.map((l) => (
                 <li key={l.to}>
                   <Link to={l.to} className={LINK}>
                     {l.label}
