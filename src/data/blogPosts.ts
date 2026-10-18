@@ -47,6 +47,316 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "wat-kost-een-website-laten-maken-prijzen-2026",
+    seoTitle: "Wat kost een website laten maken in 2026?",
+    seoKeywords: "wat kost een website, website laten maken kosten, prijs website, website prijzen 2026, vaste prijs website, uurtarief webdesigner, Nieuwblik",
+    title: {
+      nl: "Wat kost een website laten maken in 2026? Eerlijke prijzen en verborgen kosten",
+      en: "What does a website cost in 2026?"
+    },
+    excerpt: {
+      nl: "Van 500 euro tot 15.000 euro: de prijzen lopen ver uiteen. Wat bepaalt de prijs, waar zitten de verborgen kosten en wat is een eerlijk bedrag?",
+      en: "What determines the price of a website in 2026."
+    },
+    date: "2026-10-15",
+    readingTime: 6,
+    content: {
+      nl: `Vraag drie webbouwers om een offerte en je krijgt drie totaal verschillende bedragen. De een zegt 600 euro, de ander 4.500 euro. Hoe kan dat?
+
+Het antwoord zit meestal niet in de website zelf, maar in wat er wel en niet is inbegrepen. In dit artikel leggen we uit waar je op moet letten.
+
+## Wat bepaalt de prijs?
+
+**Omvang.** Een site met vijf pagina's is sneller klaar dan een site met dertig pagina's en een blog.
+
+**Content.** Lever je zelf teksten en foto's aan, of moet alles nog geschreven en gefotografeerd worden?
+
+**Techniek.** Een contactformulier is simpel. Een boekingssysteem, klantportaal of webshop vraagt meer werk.
+
+**Ontwerp.** Een kant-en-klaar thema is goedkoop, een eigen ontwerp dat bij je merk past kost meer tijd.
+
+## Vaste prijs of uurtarief?
+
+Veel bureaus rekenen per uur, vaak tussen de 75 en 125 euro. Dat klinkt overzichtelijk, maar elke extra feedbackronde tikt door. Aan het begin weet je daardoor niet wat je uiteindelijk betaalt.
+
+Bij een vaste prijs weet je vooraf waar je aan toe bent. Dat is waarom wij met vaste pakketten werken:
+
+- **Starter, €990:** een complete, snelle website voor zzp'ers en kleine ondernemers.
+- **Professional, €1.990:** meer pagina's, uitgebreidere vindbaarheid en extra functies.
+- **Op maat, vanaf €2.990:** voor webshops, portalen en speciale wensen.
+
+## Kosten waar je op moet letten
+
+- **Domeinnaam:** rond de 10 euro per jaar.
+- **Hosting:** vanaf ongeveer 25 euro per maand voor snelle, veilige hosting met onderhoud.
+- **Plugins en licenties:** bij WordPress betaal je vaak los voor premium plugins.
+- **Aanpassingen achteraf:** vraag vooraf wat een kleine wijziging kost.
+
+## Waar goedkoop duur wordt
+
+Een website van een paar honderd euro is vaak een standaard thema met jouw logo erop. Hij laadt traag, scoort slecht in Google en levert weinig aanvragen op. Dan betaal je de prijs alsnog, alleen in gemiste klanten.
+
+## Ons advies
+
+Vraag bij elke offerte: wat zit erin, wat kost hosting, wie is eigenaar van de website en wat kost een aanpassing later?
+
+Wil je alles op een rij? Lees onze uitgebreide pagina over [wat een website kost](/wat-kost-een-website) of [vraag direct een vrijblijvende offerte aan](/contact).`,
+      en: "What determines the price of a website in 2026."
+    },
+  },
+  {
+    slug: "nieuwe-website-laten-maken-checklist-2026",
+    seoTitle: "Nieuwe website laten maken: checklist 2026",
+    seoKeywords: "nieuwe website laten maken, website laten maken checklist, waar op letten website, webbouwer kiezen, website offerte, Nieuwblik",
+    title: {
+      nl: "Nieuwe website laten maken: waar moet je op letten in 2026?",
+      en: "New website: what to look out for in 2026"
+    },
+    excerpt: {
+      nl: "Een nieuwe website laten maken is een flinke stap. Met deze checklist voorkom je dure fouten en kies je de juiste partij.",
+      en: "A checklist for getting a new website built."
+    },
+    date: "2026-10-08",
+    readingTime: 5,
+    content: {
+      nl: `Je hebt besloten: er moet een nieuwe website komen. Maar hoe kies je een partij die je niet laat zitten? Deze checklist helpt je om offertes eerlijk te vergelijken.
+
+## 1. Wie is eigenaar van de website?
+
+Klinkt vanzelfsprekend, maar is het niet. Sommige partijen houden het domein of de code in eigen beheer. Wil je later overstappen, dan begin je opnieuw. Vraag altijd: staat het domein op mijn naam?
+
+## 2. Hoe snel laadt de site op mobiel?
+
+Het grootste deel van je bezoekers komt via de telefoon. Een site die langer dan drie seconden laadt, verliest bezoekers voordat ze iets gezien hebben. Vraag naar voorbeelden en test ze zelf.
+
+## 3. Is de prijs vast of open?
+
+Een uurtarief zonder maximum is een open eind. Kies liever een vaste prijs met een duidelijke omschrijving van wat erin zit. Bij ons begint dat bij [€990 voor een complete website](/prijzen).
+
+## 4. Hoe lang duurt het traject?
+
+Sommige bureaus doen er maanden over. Vraag naar een concrete planning. Wij leveren meestal binnen 10 tot 14 werkdagen op.
+
+## 5. Wordt er aan vindbaarheid gedacht?
+
+Een mooie website die niemand vindt, levert niets op. Let op nette paginatitels, snelle laadtijd, goede koppen en een Google Bedrijfsprofiel.
+
+## 6. Zit je vast aan een abonnement?
+
+Let op contracten van twee of drie jaar met hoge maandbedragen. Vraag wat er gebeurt als je wilt stoppen.
+
+## 7. Kun je bestaand werk bekijken?
+
+Kijk in het portfolio naar echte klanten, niet alleen naar ontwerpen. Bel eventueel een klant en vraag hoe de samenwerking was.
+
+## Kort samengevat
+
+Eigenaarschap, snelheid, vaste prijs, heldere planning, vindbaarheid, geen wurgcontract en echte cases. Scoort een partij op alle zeven punten goed, dan zit je meestal goed.
+
+Benieuwd hoe wij dit aanpakken? Bekijk ons [portfolio](/portfolio) of [neem contact op](/contact) voor een vrijblijvend gesprek.`,
+      en: "A checklist for getting a new website built."
+    },
+  },
+  {
+    slug: "hoe-lang-duurt-website-laten-maken",
+    seoTitle: "Hoe lang duurt een website laten maken?",
+    seoKeywords: "hoe lang duurt website laten maken, doorlooptijd website, website snel live, planning website, webdesign traject, Nieuwblik",
+    title: {
+      nl: "Hoe lang duurt een website laten maken? Van idee tot livegang",
+      en: "How long does it take to build a website?"
+    },
+    excerpt: {
+      nl: "Bij veel bureaus duurt een website maanden. Waar zit die tijd in, en hoe kun je binnen twee weken live staan?",
+      en: "From idea to launch."
+    },
+    date: "2026-10-01",
+    readingTime: 5,
+    content: {
+      nl: `"Over drie maanden staat hij live." Dat horen veel ondernemers als ze een website laten maken. En vaak wordt het zelfs nog later. Waar gaat al die tijd naartoe?
+
+## Waarom het vaak zo lang duurt
+
+**Lange wachttijden.** Veel bureaus hebben een wachtlijst voordat ze überhaupt beginnen.
+
+**Eindeloze rondes.** Ontwerp, feedback, nieuw ontwerp, weer feedback. Zonder duidelijke afspraken blijft dat doorgaan.
+
+**Wachten op content.** Teksten en foto's die nog niet klaar zijn, zijn de grootste vertrager.
+
+**Te veel schakels.** Een accountmanager, een ontwerper, een ontwikkelaar. Elke overdracht kost dagen.
+
+## Hoe het sneller kan
+
+Bij Nieuwblik werk je direct met de mensen die je website bouwen. Daardoor staan de meeste websites binnen 10 tot 14 werkdagen live. Zo ziet dat eruit:
+
+**Dag 1 tot 2: kennismaking.** We bespreken je doelen, je klanten en wat de website moet opleveren.
+
+**Dag 3 tot 7: ontwerp en bouw.** We maken de eerste versie die je direct online kunt bekijken.
+
+**Dag 8 tot 11: feedback.** Je geeft je opmerkingen en wij passen ze snel aan.
+
+**Dag 12 tot 14: livegang.** We zetten alles live, koppelen je domein en zorgen dat Google de site kan vinden.
+
+## Wat jij kunt doen om sneller live te gaan
+
+- Zet je teksten of in elk geval de belangrijkste punten alvast op papier.
+- Verzamel goede foto's van je bedrijf, team of werk.
+- Kies één persoon die de knopen doorhakt.
+- Geef je feedback in één keer, niet verspreid over tien mailtjes.
+
+## Haast?
+
+Opent je zaak binnenkort of start het seizoen? Laat het ons weten. Bekijk [onze pakketten en levertijden](/prijzen) of [plan direct een gesprek](/contact).`,
+      en: "From idea to launch."
+    },
+  },
+  {
+    slug: "website-vernieuwen-wanneer-tijd-voor-redesign",
+    seoTitle: "Website vernieuwen: 5 signalen voor een redesign",
+    seoKeywords: "website vernieuwen, bestaande website vernieuwen, redesign website, website verouderd, nieuwe website, 301 redirect, Nieuwblik",
+    title: {
+      nl: "Bestaande website vernieuwen: wanneer is het tijd voor een redesign?",
+      en: "When is it time to redesign your website?"
+    },
+    excerpt: {
+      nl: "Je website doet het nog, maar levert hij ook nog iets op? Vijf signalen dat het tijd is om je website te vernieuwen.",
+      en: "Five signs it is time for a redesign."
+    },
+    date: "2026-09-24",
+    readingTime: 5,
+    content: {
+      nl: `Je website staat er al een paar jaar. Hij werkt, er staat je telefoonnummer op en af en toe komt er een mailtje binnen. Maar is dat genoeg?
+
+Een verouderde website kost je vaak meer dan je denkt. Niet in geld op je rekening, maar in klanten die je nooit ziet.
+
+## 5 signalen dat je website toe is aan vernieuwing
+
+**1. Op mobiel is hij lastig te gebruiken.** Moet je inzoomen om te lezen, of zijn knoppen te klein? Dan haken bezoekers af.
+
+**2. Hij laadt traag.** Elke seconde extra laadtijd kost bezoekers. Test je site gratis met Google PageSpeed Insights.
+
+**3. Er komen nauwelijks aanvragen binnen.** Krijg je wel bezoekers maar geen contact, dan klopt de opbouw of de boodschap niet.
+
+**4. De uitstraling past niet meer bij je bedrijf.** Je bent gegroeid, je tarieven zijn hoger, maar je website ziet eruit als vijf jaar geleden.
+
+**5. Je durft hem niet zelf aan te passen.** Elke wijziging is gedoe, of je bent afhankelijk van iemand die nooit tijd heeft.
+
+## Raak ik mijn plek in Google kwijt?
+
+Dat is de grootste zorg bij vernieuwen, en terecht. Als het slordig gebeurt, verdwijnen pagina's uit Google. Daarom zetten wij oude adressen netjes door naar de nieuwe pagina's, met zogeheten 301-doorverwijzingen. Zo neemt je nieuwe site de opgebouwde waarde mee.
+
+## Vernieuwen of opnieuw beginnen?
+
+Vaak is opnieuw bouwen sneller en goedkoper dan een oude site oplappen. Zeker als die op een zwaar WordPress-thema draait. Je teksten en goede pagina's nemen we gewoon mee.
+
+## Wat levert het op?
+
+Een snellere site, een duidelijkere boodschap en meer aanvragen. Bij onze klanten zien we vaak dat dezelfde bezoekers ineens wel contact opnemen.
+
+Twijfel je of jouw website toe is aan vernieuwing? [Vraag een gratis website-analyse aan](/gratis-website-analyse) of bekijk [onze vaste prijzen](/prijzen).`,
+      en: "Five signs it is time for a redesign."
+    },
+  },
+  {
+    slug: "waarom-wordpress-website-traag-is",
+    seoTitle: "Waarom is mijn WordPress website traag?",
+    seoKeywords: "wordpress website traag, wordpress traag, wordpress plugins, elementor traag, wordpress onderhoud, snelle website, Nieuwblik",
+    title: {
+      nl: "Waarom je WordPress website traag is (en waarom ondernemers overstappen)",
+      en: "Why your WordPress website is slow"
+    },
+    excerpt: {
+      nl: "Plugins, zware thema's en eindeloze updates. Waarom zoveel WordPress-sites traag zijn en wat je eraan kunt doen.",
+      en: "Why so many WordPress sites are slow."
+    },
+    date: "2026-09-17",
+    readingTime: 5,
+    content: {
+      nl: `WordPress is het bekendste websitesysteem ter wereld. Toch horen we van veel ondernemers hetzelfde: "Mijn site is traag, en elke update maakt iets kapot."
+
+Hoe komt dat, en wat kun je eraan doen?
+
+## 1. Zware pagebuilders
+
+Elementor, Divi en vergelijkbare bouwers zijn handig om zelf pagina's in elkaar te slepen. Maar ze laden ook heel veel code die je niet gebruikt. Het resultaat: een pagina die op mobiel seconden nodig heeft.
+
+## 2. Te veel plugins
+
+Een formulier, een slider, een cookiebanner, een SEO-plugin, een beveiligingsplugin. Elke plugin voegt code toe en vertraagt je site. En plugins van verschillende makers bijten elkaar regelmatig.
+
+## 3. Goedkope hosting
+
+Veel WordPress-sites draaien op hosting van een paar euro per maand, gedeeld met honderden andere sites. Als die het druk hebben, wordt jouw site trager.
+
+## 4. Achterstallig onderhoud
+
+WordPress en plugins moeten steeds bijgewerkt worden. Doe je dat niet, dan ontstaan beveiligingslekken. Doe je het wel, dan loop je het risico dat iets niet meer werkt.
+
+## Wat kun je zelf doen?
+
+- Verwijder plugins die je niet gebruikt.
+- Comprimeer je afbeeldingen.
+- Gebruik een cachingplugin.
+- Kies betere hosting.
+
+Dat helpt, maar lost het onderliggende probleem vaak niet op.
+
+## Waarom ondernemers overstappen
+
+Wij bouwen websites met moderne techniek, zonder pagebuilders en zonder stapel plugins. De site wordt vooraf klaargezet, waardoor hij direct laadt. Geen wekelijkse updates, geen plugin-conflicten en veel minder kwetsbaar voor hackers.
+
+Wil je de afweging rustig lezen? Bekijk ons artikel over [WordPress of maatwerk](/blog). Of [laat je huidige website gratis analyseren](/gratis-website-analyse) en ontdek hoeveel sneller hij kan.`,
+      en: "Why so many WordPress sites are slow."
+    },
+  },
+  {
+    slug: "website-laten-maken-zzp",
+    seoTitle: "Website laten maken als zzp'er: wat heb je nodig?",
+    seoKeywords: "website laten maken zzp, zzp website, website zzp'er, website zelfstandige, goedkope website zzp, Starter website, Nieuwblik",
+    title: {
+      nl: "Website laten maken als zzp'er: wat heb je echt nodig (en wat is zonde van je geld)?",
+      en: "Website for freelancers: what you really need"
+    },
+    excerpt: {
+      nl: "Als zzp'er wil je een website die klanten oplevert, zonder duizenden euro's uit te geven. Dit heb je echt nodig, en dit kun je overslaan.",
+      en: "What a freelancer website really needs."
+    },
+    date: "2026-09-10",
+    readingTime: 5,
+    content: {
+      nl: `Als zzp'er doe je alles zelf. Je werk, je administratie, je marketing. Een website staat al maanden op je lijstje, maar je weet niet goed waar je moet beginnen. Zelf bouwen kost avonden, en een bureau lijkt duur.
+
+Goed nieuws: een zzp-website hoeft niet groot te zijn om klanten op te leveren.
+
+## Wat je echt nodig hebt
+
+**Een heldere boodschap.** Binnen vijf seconden moet een bezoeker snappen wat je doet en voor wie. "Fysiotherapeut voor sporters in Hoorn" werkt beter dan "Welkom op mijn website".
+
+**Reviews en voorbeelden.** Mensen kopen van mensen die ze vertrouwen. Laat zien wat klanten over je zeggen en wat je gemaakt hebt.
+
+**Een snelle mobiele site.** De meeste bezoekers komen via de telefoon. Is je site traag, dan zijn ze weg.
+
+**Laagdrempelig contact.** Een duidelijke knop om te bellen, te appen of een formulier in te vullen. Hoe makkelijker, hoe meer aanvragen.
+
+**Vindbaarheid in je regio.** Nette paginatitels en een Google Bedrijfsprofiel zorgen dat mensen in de buurt je vinden.
+
+## Wat zonde van je geld is
+
+- **Twintig pagina's.** Vijf goede pagina's zijn beter dan twintig halve.
+- **Een webshop als je niets verkoopt online.**
+- **Dure maandabonnementen** voor functies die je nooit gebruikt.
+- **Maandenlang zelf prutsen** in een websitebouwer, terwijl je die tijd ook aan klanten kunt besteden.
+
+## Wat kost het?
+
+Ons Starter-pakket is gemaakt voor zzp'ers en kleine ondernemers: een complete, snelle website voor €990, meestal binnen 10 werkdagen live. Lees meer over [wat een website kost](/wat-kost-een-website).
+
+## Klaar om te starten?
+
+Bekijk [onze pakketten](/prijzen) of [stuur ons een bericht](/contact). Dan denken we vrijblijvend met je mee.`,
+      en: "What a freelancer website really needs."
+    },
+  },
+  {
     slug: "google-bedrijfsprofiel-instellingen-2026",
     image: bedrijfsprofielImg,
     imageWidth: 1920,
