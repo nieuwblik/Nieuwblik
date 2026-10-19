@@ -6,7 +6,7 @@ export const LASTMOD: Record<string, string> = {
   "/algemene-voorwaarden": "2026-10-17",
   "/blog": "2026-10-18",
   "/blog/brand-storytelling-van-pixel-tot-voordeur": "2026-10-18",
-  "/blog/case-study-benoted-snelheid-zichtbaarheid": "2026-10-18",
+  "/blog/case-study-benoted-snelheid-zichtbaarheid": "2026-10-19",
   "/blog/claude-ai-anthropic-complete-gids": "2026-10-18",
   "/blog/cursor-ai-code-editor": "2026-10-18",
   "/blog/google-bedrijfsprofiel-instellingen-2026": "2026-10-18",

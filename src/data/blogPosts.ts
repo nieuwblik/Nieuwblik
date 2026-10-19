@@ -1362,11 +1362,11 @@ Een goede samenwerking begint niet bij de code, maar aan de tafel. Samen met Teu
 
 Tijdens onze strategische sessies hebben we gekeken naar wat er écht nodig was. Geen overbodige poespas, maar een focus op wat telt: autoriteit, conversie en een feilloze gebruikerservaring. Door samen de juiste koers te bepalen, konden we een platform bouwen dat niet alleen mooi is, maar ook technisch superieur.
 
-## Maximale zichtbaarheid en snelheid via HadoSEO
+## Maximale zichtbaarheid en snelheid
 
-In de wereld van social media marketing telt elke milliseconde. Als een bezoeker vanaf een viraal filmpje naar de website klikt, moet deze direct laden. Daarom hebben we voor de technische basis de krachten gebundeld met [HadoSEO](https://hadoseo.com/).
+In de wereld van social media marketing telt elke milliseconde. Als een bezoeker vanaf een viraal filmpje naar de website klikt, moet deze direct laden. Daarom hebben we de technische basis volledig op snelheid ingericht.
 
-Dankzij de expertise van [HadoSEO](https://hadoseo.com/) hebben we gekozen voor een architectuur die gericht is op maximale organische vindbaarheid en ongekende laadsnelheden. In een tijd waarin Google snelheid zwaarder weegt dan ooit, geeft dit [BeNoted](https://benoted.nl) een enorme voorsprong op de concurrentie. De site is technisch geoptimaliseerd om direct hoog te scoren in de zoekresultaten, zodat Teun en zijn team de aandacht krijgt die het verdient.
+We hebben gekozen voor een architectuur die gericht is op maximale organische vindbaarheid en ongekende laadsnelheden. In een tijd waarin Google snelheid zwaarder weegt dan ooit, geeft dit [BeNoted](https://benoted.nl) een enorme voorsprong op de concurrentie. De site is technisch geoptimaliseerd om direct hoog te scoren in de zoekresultaten, zodat Teun en zijn team de aandacht krijgt die het verdient.
 
 ![BeNoted website op MacBook - desktop weergave](${nieuwblikBenotedMacbook})
 
@@ -1393,11 +1393,11 @@ A great collaboration doesn't start with code, but at the table. Together with T
 
 During our strategic sessions, we looked at what was truly needed. No unnecessary frills, but a focus on what counts: authority, conversion, and a flawless user experience. By setting the right course together, we could build a platform that's not only beautiful but also technically superior.
 
-## Maximum Visibility and Speed via HadoSEO
+## Maximum Visibility and Speed
 
-In the world of social media marketing, every millisecond counts. When a visitor clicks from a viral video to the website, it needs to load instantly. That's why we joined forces with [HadoSEO](https://hadoseo.com/) for the technical foundation.
+In the world of social media marketing, every millisecond counts. When a visitor clicks from a viral video to the website, it needs to load instantly. That's why we built the technical foundation entirely around speed.
 
-Thanks to [HadoSEO](https://hadoseo.com/)'s expertise, we chose an architecture focused on maximum organic visibility and unprecedented loading speeds. In a time when Google weighs speed more heavily than ever, this gives [BeNoted](https://benoted.nl) a huge advantage over the competition. The site is technically optimized to rank high in search results immediately.
+We chose an architecture focused on maximum organic visibility and unprecedented loading speeds. In a time when Google weighs speed more heavily than ever, this gives [BeNoted](https://benoted.nl) a huge advantage over the competition. The site is technically optimized to rank high in search results immediately.
 
 ![BeNoted website on MacBook - desktop view](${nieuwblikBenotedMacbook})
 
