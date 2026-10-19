@@ -7,8 +7,6 @@ import blogIcon4 from "@/assets/blog/pictogram-voetbal.webp";
 import blogIcon5 from "@/assets/blog/pictogram-betalingen.webp";
 import blogIcon6 from "@/assets/blog/pictogram-website-case.webp";
 import blogIcon7 from "@/assets/blog/pictogram-merkverhaal.webp";
-import blogIcon8 from "@/assets/blog/pictogram-webontwerp.webp";
-import blogIcon9 from "@/assets/blog/pictogram-ai-code.webp";
 import blogIcon10 from "@/assets/blog/pictogram-cloud-editor.webp";
 import blogIcon11 from "@/assets/blog/pictogram-code-cursor.webp";
 import blogIcon12 from "@/assets/blog/pictogram-database.webp";
