@@ -36,6 +36,7 @@ import { Route as PublicWebsiteLatenMakenInstallateurRouteImport } from './route
 import { Route as PublicWoocommerceWebshopLatenMakenRouteImport } from './routes/_public/woocommerce-webshop-laten-maken'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminSplatRouteImport } from './routes/admin/$'
+import { Route as ApiBriefingRouteImport } from './routes/api/briefing'
 import { Route as PublicBlogIndexRouteImport } from './routes/_public/blog/index'
 import { Route as PublicBlogSlugRouteImport } from './routes/_public/blog/$slug'
 import { Route as PublicDienstenIndexRouteImport } from './routes/_public/diensten/index'
@@ -189,6 +190,11 @@ const AdminSplatRoute = AdminSplatRouteImport.update({
   path: '/admin/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBriefingRoute = ApiBriefingRouteImport.update({
+  id: '/api/briefing',
+  path: '/api/briefing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PublicBlogIndexRoute = PublicBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -272,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
   '/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
+  '/api/briefing': typeof ApiBriefingRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
   '/diensten/e-commerce': typeof PublicDienstenECommerceRoute
@@ -310,6 +317,7 @@ export interface FileRoutesByTo {
   '/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
   '/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
+  '/api/briefing': typeof ApiBriefingRoute
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminIndexRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
@@ -351,6 +359,7 @@ export interface FileRoutesById {
   '/_public/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
   '/_public/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
+  '/api/briefing': typeof ApiBriefingRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_public/blog/$slug': typeof PublicBlogSlugRoute
@@ -393,6 +402,7 @@ export interface FileRouteTypes {
     | '/website-laten-maken-installateur'
     | '/woocommerce-webshop-laten-maken'
     | '/admin/$'
+    | '/api/briefing'
     | '/admin/'
     | '/blog/$slug'
     | '/diensten/e-commerce'
@@ -431,6 +441,7 @@ export interface FileRouteTypes {
     | '/website-laten-maken-installateur'
     | '/woocommerce-webshop-laten-maken'
     | '/admin/$'
+    | '/api/briefing'
     | '/'
     | '/admin'
     | '/blog/$slug'
@@ -471,6 +482,7 @@ export interface FileRouteTypes {
     | '/_public/website-laten-maken-installateur'
     | '/_public/woocommerce-webshop-laten-maken'
     | '/admin/$'
+    | '/api/briefing'
     | '/_public/'
     | '/admin/'
     | '/_public/blog/$slug'
@@ -489,6 +501,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   PublicRoute: typeof PublicRouteWithChildren
   AdminSplatRoute: typeof AdminSplatRoute
+  ApiBriefingRoute: typeof ApiBriefingRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -683,6 +696,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/briefing': {
+      id: '/api/briefing'
+      path: '/api/briefing'
+      fullPath: '/api/briefing'
+      preLoaderRoute: typeof ApiBriefingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_public/blog/': {
       id: '/_public/blog/'
       path: '/blog'
@@ -847,6 +867,7 @@ const PublicRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   PublicRoute: PublicRouteWithChildren,
   AdminSplatRoute: AdminSplatRoute,
+  ApiBriefingRoute: ApiBriefingRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
