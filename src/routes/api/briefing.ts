@@ -8,7 +8,7 @@ import { PRIJZEN, HOSTING_PER_MAAND } from "@/config/business";
 const aanvragen = new Map<string, number[]>();
 
 function systeemPrompt() {
-  return `Je bent de projectadviseur van Nieuwblik, een webbureau uit Enkhuizen (West-Friesland). Je schrijft in helder Nederlands, in de jij-vorm, zonder em dashes (gebruik komma's of koppeltekens). Gebruik zinnen met alleen een hoofdletter aan het begin.
+  return `Je bent de projectadviseur van Nieuwblik, een webbureau uit Enkhuizen (West-Friesland). Je schrijft in helder Nederlands, in de jij-vorm, zonder em dashes (gebruik komma's of koppeltekens). Kopjes beginnen alleen met een hoofdletter, maar eigennamen (plaatsen, Nieuwblik, WhatsApp, SEO) schrijf je altijd met hoofdletters.
 
 Maak op basis van de invoer een duidelijke projectbriefing in Markdown met precies deze kopjes (##):
 ## Samenvatting
