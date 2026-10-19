@@ -26,8 +26,14 @@ import { Route as PublicProjectbriefingRouteImport } from './routes/_public/proj
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoAlkmaarRouteImport } from './routes/_public/seo-alkmaar'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
+import { Route as PublicSeoHaarlemRouteImport } from './routes/_public/seo-haarlem'
+import { Route as PublicSeoHeerhugowaardRouteImport } from './routes/_public/seo-heerhugowaard'
 import { Route as PublicSeoHoornRouteImport } from './routes/_public/seo-hoorn'
+import { Route as PublicSeoNoordHollandRouteImport } from './routes/_public/seo-noord-holland'
 import { Route as PublicSeoPurmerendRouteImport } from './routes/_public/seo-purmerend'
+import { Route as PublicSeoSchagenRouteImport } from './routes/_public/seo-schagen'
+import { Route as PublicSeoWestFrieslandRouteImport } from './routes/_public/seo-west-friesland'
+import { Route as PublicSeoZaandamRouteImport } from './routes/_public/seo-zaandam'
 import { Route as PublicShopifyWebshopLatenMakenRouteImport } from './routes/_public/shopify-webshop-laten-maken'
 import { Route as PublicTaxiWebsiteLatenMakenRouteImport } from './routes/_public/taxi-website-laten-maken'
 import { Route as PublicWatKostEenWebsiteRouteImport } from './routes/_public/wat-kost-een-website'
@@ -137,14 +143,44 @@ const PublicSeoEnkhuizenRoute = PublicSeoEnkhuizenRouteImport.update({
   path: '/seo-enkhuizen',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicSeoHaarlemRoute = PublicSeoHaarlemRouteImport.update({
+  id: '/seo-haarlem',
+  path: '/seo-haarlem',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSeoHeerhugowaardRoute = PublicSeoHeerhugowaardRouteImport.update({
+  id: '/seo-heerhugowaard',
+  path: '/seo-heerhugowaard',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicSeoHoornRoute = PublicSeoHoornRouteImport.update({
   id: '/seo-hoorn',
   path: '/seo-hoorn',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicSeoNoordHollandRoute = PublicSeoNoordHollandRouteImport.update({
+  id: '/seo-noord-holland',
+  path: '/seo-noord-holland',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicSeoPurmerendRoute = PublicSeoPurmerendRouteImport.update({
   id: '/seo-purmerend',
   path: '/seo-purmerend',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSeoSchagenRoute = PublicSeoSchagenRouteImport.update({
+  id: '/seo-schagen',
+  path: '/seo-schagen',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSeoWestFrieslandRoute = PublicSeoWestFrieslandRouteImport.update({
+  id: '/seo-west-friesland',
+  path: '/seo-west-friesland',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSeoZaandamRoute = PublicSeoZaandamRouteImport.update({
+  id: '/seo-zaandam',
+  path: '/seo-zaandam',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicShopifyWebshopLatenMakenRoute =
@@ -275,8 +311,14 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
+  '/seo-haarlem': typeof PublicSeoHaarlemRoute
+  '/seo-heerhugowaard': typeof PublicSeoHeerhugowaardRoute
   '/seo-hoorn': typeof PublicSeoHoornRoute
+  '/seo-noord-holland': typeof PublicSeoNoordHollandRoute
   '/seo-purmerend': typeof PublicSeoPurmerendRoute
+  '/seo-schagen': typeof PublicSeoSchagenRoute
+  '/seo-west-friesland': typeof PublicSeoWestFrieslandRoute
+  '/seo-zaandam': typeof PublicSeoZaandamRoute
   '/shopify-webshop-laten-maken': typeof PublicShopifyWebshopLatenMakenRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
@@ -315,8 +357,14 @@ export interface FileRoutesByTo {
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
+  '/seo-haarlem': typeof PublicSeoHaarlemRoute
+  '/seo-heerhugowaard': typeof PublicSeoHeerhugowaardRoute
   '/seo-hoorn': typeof PublicSeoHoornRoute
+  '/seo-noord-holland': typeof PublicSeoNoordHollandRoute
   '/seo-purmerend': typeof PublicSeoPurmerendRoute
+  '/seo-schagen': typeof PublicSeoSchagenRoute
+  '/seo-west-friesland': typeof PublicSeoWestFrieslandRoute
+  '/seo-zaandam': typeof PublicSeoZaandamRoute
   '/shopify-webshop-laten-maken': typeof PublicShopifyWebshopLatenMakenRoute
   '/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
@@ -358,8 +406,14 @@ export interface FileRoutesById {
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
+  '/_public/seo-haarlem': typeof PublicSeoHaarlemRoute
+  '/_public/seo-heerhugowaard': typeof PublicSeoHeerhugowaardRoute
   '/_public/seo-hoorn': typeof PublicSeoHoornRoute
+  '/_public/seo-noord-holland': typeof PublicSeoNoordHollandRoute
   '/_public/seo-purmerend': typeof PublicSeoPurmerendRoute
+  '/_public/seo-schagen': typeof PublicSeoSchagenRoute
+  '/_public/seo-west-friesland': typeof PublicSeoWestFrieslandRoute
+  '/_public/seo-zaandam': typeof PublicSeoZaandamRoute
   '/_public/shopify-webshop-laten-maken': typeof PublicShopifyWebshopLatenMakenRoute
   '/_public/taxi-website-laten-maken': typeof PublicTaxiWebsiteLatenMakenRoute
   '/_public/wat-kost-een-website': typeof PublicWatKostEenWebsiteRoute
@@ -402,8 +456,14 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
+    | '/seo-haarlem'
+    | '/seo-heerhugowaard'
     | '/seo-hoorn'
+    | '/seo-noord-holland'
     | '/seo-purmerend'
+    | '/seo-schagen'
+    | '/seo-west-friesland'
+    | '/seo-zaandam'
     | '/shopify-webshop-laten-maken'
     | '/taxi-website-laten-maken'
     | '/wat-kost-een-website'
@@ -442,8 +502,14 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
+    | '/seo-haarlem'
+    | '/seo-heerhugowaard'
     | '/seo-hoorn'
+    | '/seo-noord-holland'
     | '/seo-purmerend'
+    | '/seo-schagen'
+    | '/seo-west-friesland'
+    | '/seo-zaandam'
     | '/shopify-webshop-laten-maken'
     | '/taxi-website-laten-maken'
     | '/wat-kost-een-website'
@@ -484,8 +550,14 @@ export interface FileRouteTypes {
     | '/_public/reviews'
     | '/_public/seo-alkmaar'
     | '/_public/seo-enkhuizen'
+    | '/_public/seo-haarlem'
+    | '/_public/seo-heerhugowaard'
     | '/_public/seo-hoorn'
+    | '/_public/seo-noord-holland'
     | '/_public/seo-purmerend'
+    | '/_public/seo-schagen'
+    | '/_public/seo-west-friesland'
+    | '/_public/seo-zaandam'
     | '/_public/shopify-webshop-laten-maken'
     | '/_public/taxi-website-laten-maken'
     | '/_public/wat-kost-een-website'
@@ -638,6 +710,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicSeoEnkhuizenRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/seo-haarlem': {
+      id: '/_public/seo-haarlem'
+      path: '/seo-haarlem'
+      fullPath: '/seo-haarlem'
+      preLoaderRoute: typeof PublicSeoHaarlemRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/seo-heerhugowaard': {
+      id: '/_public/seo-heerhugowaard'
+      path: '/seo-heerhugowaard'
+      fullPath: '/seo-heerhugowaard'
+      preLoaderRoute: typeof PublicSeoHeerhugowaardRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/seo-hoorn': {
       id: '/_public/seo-hoorn'
       path: '/seo-hoorn'
@@ -645,11 +731,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicSeoHoornRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/seo-noord-holland': {
+      id: '/_public/seo-noord-holland'
+      path: '/seo-noord-holland'
+      fullPath: '/seo-noord-holland'
+      preLoaderRoute: typeof PublicSeoNoordHollandRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/seo-purmerend': {
       id: '/_public/seo-purmerend'
       path: '/seo-purmerend'
       fullPath: '/seo-purmerend'
       preLoaderRoute: typeof PublicSeoPurmerendRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/seo-schagen': {
+      id: '/_public/seo-schagen'
+      path: '/seo-schagen'
+      fullPath: '/seo-schagen'
+      preLoaderRoute: typeof PublicSeoSchagenRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/seo-west-friesland': {
+      id: '/_public/seo-west-friesland'
+      path: '/seo-west-friesland'
+      fullPath: '/seo-west-friesland'
+      preLoaderRoute: typeof PublicSeoWestFrieslandRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/seo-zaandam': {
+      id: '/_public/seo-zaandam'
+      path: '/seo-zaandam'
+      fullPath: '/seo-zaandam'
+      preLoaderRoute: typeof PublicSeoZaandamRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/shopify-webshop-laten-maken': {
@@ -818,8 +932,14 @@ interface PublicRouteChildren {
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoAlkmaarRoute: typeof PublicSeoAlkmaarRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
+  PublicSeoHaarlemRoute: typeof PublicSeoHaarlemRoute
+  PublicSeoHeerhugowaardRoute: typeof PublicSeoHeerhugowaardRoute
   PublicSeoHoornRoute: typeof PublicSeoHoornRoute
+  PublicSeoNoordHollandRoute: typeof PublicSeoNoordHollandRoute
   PublicSeoPurmerendRoute: typeof PublicSeoPurmerendRoute
+  PublicSeoSchagenRoute: typeof PublicSeoSchagenRoute
+  PublicSeoWestFrieslandRoute: typeof PublicSeoWestFrieslandRoute
+  PublicSeoZaandamRoute: typeof PublicSeoZaandamRoute
   PublicShopifyWebshopLatenMakenRoute: typeof PublicShopifyWebshopLatenMakenRoute
   PublicTaxiWebsiteLatenMakenRoute: typeof PublicTaxiWebsiteLatenMakenRoute
   PublicWatKostEenWebsiteRoute: typeof PublicWatKostEenWebsiteRoute
@@ -857,8 +977,14 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoAlkmaarRoute: PublicSeoAlkmaarRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
+  PublicSeoHaarlemRoute: PublicSeoHaarlemRoute,
+  PublicSeoHeerhugowaardRoute: PublicSeoHeerhugowaardRoute,
   PublicSeoHoornRoute: PublicSeoHoornRoute,
+  PublicSeoNoordHollandRoute: PublicSeoNoordHollandRoute,
   PublicSeoPurmerendRoute: PublicSeoPurmerendRoute,
+  PublicSeoSchagenRoute: PublicSeoSchagenRoute,
+  PublicSeoWestFrieslandRoute: PublicSeoWestFrieslandRoute,
+  PublicSeoZaandamRoute: PublicSeoZaandamRoute,
   PublicShopifyWebshopLatenMakenRoute: PublicShopifyWebshopLatenMakenRoute,
   PublicTaxiWebsiteLatenMakenRoute: PublicTaxiWebsiteLatenMakenRoute,
   PublicWatKostEenWebsiteRoute: PublicWatKostEenWebsiteRoute,
