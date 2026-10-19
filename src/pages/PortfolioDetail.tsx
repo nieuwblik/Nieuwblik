@@ -326,7 +326,7 @@ const PortfolioDetail = () => {
                         variants={staggerContainer}
                     >
                         <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-4">
-                            {["Clean Code", "Webshop via Stripe", "HadoSEO"].map((tag) => (
+                            {["Clean Code", "Webshop via Stripe"].map((tag) => (
                                 <Badge key={tag} variant="outline" className="text-xs font-medium tracking-wide px-3 py-1 border-foreground/20">
                                     {tag}
                                 </Badge>
@@ -359,7 +359,7 @@ const PortfolioDetail = () => {
                             <div className="container mx-auto px-6">
                                 <div className="max-w-[40%]">
                                     <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mb-6">
-                                        {["Clean Code", "Webshop via Stripe", "HadoSEO"].map((tag) => (
+                                        {["Clean Code", "Webshop via Stripe"].map((tag) => (
                                             <Badge key={tag} variant="outline" className="text-xs font-medium tracking-wide px-3 py-1 border-foreground/20">
                                                 {tag}
                                             </Badge>
