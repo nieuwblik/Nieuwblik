@@ -54,10 +54,16 @@ const DIENSTEN = [
 // niet tussen de dienstenlinks verdwijnen en de korte kolommen contact en volg
 // visueel in balans blijven.
 const SEO = [
+  { label: "SEO West-Friesland", to: "/seo-west-friesland" },
+  { label: "SEO Noord-Holland", to: "/seo-noord-holland" },
   { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
   { label: "SEO Hoorn", to: "/seo-hoorn" },
   { label: "SEO Alkmaar", to: "/seo-alkmaar" },
   { label: "SEO Purmerend", to: "/seo-purmerend" },
+  { label: "SEO Heerhugowaard", to: "/seo-heerhugowaard" },
+  { label: "SEO Schagen", to: "/seo-schagen" },
+  { label: "SEO Zaandam", to: "/seo-zaandam" },
+  { label: "SEO Haarlem", to: "/seo-haarlem" },
 ];
 
 const VOLG = [
