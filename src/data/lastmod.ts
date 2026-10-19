@@ -56,7 +56,7 @@ export const LASTMOD: Record<string, string> = {
   "/portfolio/kyodai-originals": "2026-10-09",
   "/portfolio/mhb-techniek": "2026-08-28",
   "/portfolio/pride-mobility-europe": "2026-08-28",
-  "/portfolio/puur-in-harmonie": "2026-10-19",
+  "/portfolio/puur-in-harmonie": "2026-08-28",
   "/portfolio/quantum-rehab-europe": "2026-08-28",
   "/portfolio/rrs-royal": "2026-08-28",
   "/portfolio/taxi-drechterland": "2026-09-01",
