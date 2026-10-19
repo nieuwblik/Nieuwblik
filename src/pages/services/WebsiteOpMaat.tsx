@@ -27,7 +27,6 @@ const cases = kiesCases(["puur-in-harmonie", "benoted", "danique-kwakman", "eric
 import lovableLogo from "@/assets/tools/lovable-logo.webp";
 import figmaLogo from "@/assets/tools/figma-logo.webp";
 import geminiLogo from "@/assets/tools/gemini-logo.webp";
-import hadoseoLogo from "@/assets/tools/hadoseo-logo.webp";
 import wordpressLogo from "@/assets/tools/wordpress.svg";
 import elementorLogo from "@/assets/tools/elementor.svg";
 import woocommerceLogo from "@/assets/tools/woocommerce.svg";
@@ -47,7 +46,7 @@ const WebsiteOpMaat = () => {
     icon: Bot,
     title: "AI & automatisering",
     subtitle: "Efficiëntie en funneling",
-    description: "Slimme integraties via HadoSEO zorgen voor optimale vindbaarheid en automatische lead-generatie."
+    description: "Slimme integraties zorgen voor optimale vindbaarheid en automatische leadgeneratie."
   }];
 
   const steps = [{
@@ -64,14 +63,13 @@ const WebsiteOpMaat = () => {
     description: "Na de lancering optimaliseren we continu voor prestaties en koppelen we Google Business voor reviews."
   }];
 
-  const includedStandard = ["Responsive & mobile-first design", "SEO-fundament met HadoSEO koppeling", "Google Analytics 4 integratie", "Google Business koppeling voor reviews", "SSL-certificaat & beveiliging", "Laadtijd onder 2 seconden", "Contactformulieren met automatisering", "3 revisierondes inbegrepen"];
+  const includedStandard = ["Responsive & mobile-first design", "Sterk SEO-fundament", "Google Analytics 4 integratie", "Google Business koppeling voor reviews", "SSL-certificaat & beveiliging", "Laadtijd onder 2 seconden", "Contactformulieren met automatisering", "3 revisierondes inbegrepen"];
   const optionalModules = ["Custom AI chatbot integratie", "E-commerce functionaliteit", "Meertalige website opties", "Premium CMS licenties", "Geavanceerde animaties", "Lead generation funnels"];
 
   const tools = [
   { name: "Lovable", logo: lovableLogo },
   { name: "Figma", logo: figmaLogo },
   { name: "Gemini AI", logo: geminiLogo },
-  { name: "HadoSEO", logo: hadoseoLogo, link: "https://www.hadoseo.com" },
   { name: "WordPress", logo: wordpressLogo },
   { name: "Elementor Pro", logo: elementorLogo },
   { name: "WooCommerce", logo: woocommerceLogo }];
@@ -87,7 +85,7 @@ const WebsiteOpMaat = () => {
       "url": SITE_URL
     },
     "serviceType": "Custom Website Development",
-    "description": "Luxe websites en digitale architectuur op maat. Ultra-snelle, SEO-geoptimaliseerde websites met HadoSEO koppeling.",
+    "description": "Luxe websites en digitale architectuur op maat. Ultra-snelle, SEO-geoptimaliseerde websites.",
     "areaServed": "Nederland",
     "offers": {
       "@type": "Offer",
@@ -184,9 +182,7 @@ const WebsiteOpMaat = () => {
             );
             return (
               <Reveal key={tool.name} afstand={16} delay={index * 0.04} className="group text-center">
-                {tool.link ? (
-                  <a href={tool.link} target="_blank" rel="noopener noreferrer">{tegel}</a>
-                ) : tegel}
+                {tegel}
               </Reveal>
             );
           })}

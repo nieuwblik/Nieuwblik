@@ -7,7 +7,6 @@ import woocommerceLogo from "@/assets/tools/woocommerce.svg";
 import canvaLogo from "@/assets/tools/canva.svg";
 import lovableLogo from "@/assets/tools/lovable.svg";
 import boltLogo from "@/assets/tools/bolt.svg";
-import hadoseoLogo from "@/assets/tools/hadoseo.svg";
 import shopifyLogo from "@/assets/tools/shopify.svg";
 import replitLogo from "@/assets/tools/replit.svg";
 import framerLogo from "@/assets/tools/framer.svg";
@@ -23,7 +22,6 @@ const ToolsSlider = () => {
     { name: "Canva", logo: canvaLogo, alt: "Canva design tool - grafisch ontwerp en visuele content creatie" },
     { name: "Lovable", logo: lovableLogo, alt: "Lovable development platform - snelle website en app ontwikkeling" },
     { name: "Bolt", logo: boltLogo, alt: "Bolt development tool - moderne web applicatie ontwikkeling" },
-    { name: "HadoSEO", logo: hadoseoLogo, alt: "HadoSEO tool - zoekmachine optimalisatie en SEO analyse" },
     { name: "Shopify", logo: shopifyLogo, alt: "Shopify e-commerce platform - professionele webshop en online verkoop" },
     { name: "Replit", logo: replitLogo, alt: "Replit development environment - collaborative coding en web development" },
     { name: "Framer", logo: framerLogo, alt: "Framer design tool - interactieve website prototypes en design" },
