@@ -1,3 +1,4 @@
+import SeoPortfolio from "@/components/SeoPortfolio";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import { MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
@@ -184,6 +185,7 @@ const SeoEnkhuizen = () => {
         <LandingFaq h2="Veelgestelde vragen over SEO in Enkhuizen" items={faqItems} />
 
         {/* Contact */}
+        <SeoPortfolio stad="Enkhuizen" />
         <ContactBlock
           h2="Klaar om bovenaan Google te staan in Enkhuizen?"
           body="Vraag een gratis SEO scan aan van jouw huidige site. We laten zien waar de quick wins liggen en hoe we jouw bedrijf zichtbaarder maken voor klanten in Enkhuizen en West-Friesland."

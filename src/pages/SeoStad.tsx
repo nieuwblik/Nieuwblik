@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import ContactBlock from "@/components/ContactBlock";
+import SeoPortfolio from "@/components/SeoPortfolio";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
@@ -108,6 +109,8 @@ const SeoStad = ({ data }: { data: SeoStadData }) => {
             <AnimatedButton to="/contact" size="lg">Vraag een offerte op maat</AnimatedButton>
           </div>
         </section>
+
+        <SeoPortfolio stad={data.stad} />
 
         <LandingFaq h2={`Veelgestelde vragen over SEO in ${data.stad}`} items={data.faq} />
 
