@@ -84,8 +84,6 @@ Nieuwblik bouwt branchespecifieke websites. Elk pad volgt het patroon /website-l
 - [Claude AI complete gids](https://nieuwblik.com/blog/claude-ai-anthropic-complete-gids): Wat Claude van Anthropic kan en wanneer je het inzet.
 - [Cursor AI code editor](https://nieuwblik.com/blog/cursor-ai-code-editor): AI-gedreven programmeren in de praktijk.
 - [Replit online code editor](https://nieuwblik.com/blog/replit-online-code-editor-ai): Snel bouwen met AI-ondersteuning in de browser.
-- [Figma, HadoSEO en Lovable](https://nieuwblik.com/blog/figma-hadoseo-lovable-perfecte-website): De toolkit achter een goede website.
-- [Vibecode en HadoSEO](https://nieuwblik.com/blog/vibecode-hadoseo-toekomst-websites): De toekomst van websites bouwen.
 - [Stripe betaalhandleiding](https://nieuwblik.com/blog/stripe-betalingen-webshop-handleiding): Betalingen instellen in je webshop.
 - [Supabase](https://nieuwblik.com/blog/supabase): Moderne backend voor webapplicaties.
 - [Nieuwblik sponsort VV Madjoe](https://nieuwblik.com/blog/nieuwblik-sponsort-vv-madjoe-heren-1): Samenwerking met de Heren 1.

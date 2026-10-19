@@ -82,13 +82,15 @@ export const REDIRECTS: Redirect[] = [
 
   // Verwijderde blogs, elk naar de inhoudelijk dichtstbijzijnde opvolger
   { from: "/blog/seo-fundamentals-gevonden-worden", to: "/blog/vindbaar-in-chatgpt-geo-west-friesland", reden: "Gevonden worden: GEO bouwt voort op dezelfde SEO-basis" },
-  { from: "/blog/lovable-websites-bouwen", to: "/blog/figma-hadoseo-lovable-perfecte-website", reden: "Websites bouwen met Lovable" },
-  { from: "/blog/lovable-websites-bouwen-met-ai", to: "/blog/figma-hadoseo-lovable-perfecte-website", reden: "Websites bouwen met Lovable (variant van dezelfde slug)" },
+  { from: "/blog/lovable-websites-bouwen", to: "/blog/replit-online-code-editor-ai", reden: "Websites bouwen met AI; opvolger verwijderd 19-10-2026" },
+  { from: "/blog/lovable-websites-bouwen-met-ai", to: "/blog/replit-online-code-editor-ai", reden: "Variant van dezelfde slug" },
   { from: "/blog/bolt-new-ai-website-builder", to: "/blog/replit-online-code-editor-ai", reden: "AI-bouwer in de browser; Replit is ook browsergebaseerd, Cursor is een desktopeditor" },
   { from: "/blog/waarom-snelle-websites-meer-verkopen", to: "/blog/case-study-benoted-snelheid-zichtbaarheid", reden: "Laadtijd en resultaat; de BeNoted-case gaat over snelheid" },
   { from: "/blog/van-bezoeker-naar-klant-conversie-optimalisatie", to: "/gratis-website-analyse", reden: "Geen blog over conversie meer; de website-analyse behandelt conversie en snelheid het uitgebreidst" },
   { from: "/blog/wordpress-vs-maatwerk-website", to: "/diensten/website-op-maat", reden: "Keuze voor maatwerk, verwijderd 14-09-2026" },
   { from: "/blog/wat-kost-website-laten-maken-2026", to: "/wat-kost-een-website", reden: "Kostenartikel (verwijderd 14-09-2026); de gids /wat-kost-een-website dekt dezelfde informatieve zoekvraag, /prijzen is de pakketpagina" },
+  { from: "/blog/figma-hadoseo-lovable-perfecte-website", to: "/blog/replit-online-code-editor-ai", reden: "Verwijderd 19-10-2026, AI-bouwen in de browser" },
+  { from: "/blog/vibecode-hadoseo-toekomst-websites", to: "/blog/replit-online-code-editor-ai", reden: "Verwijderd 19-10-2026, AI-bouwen in de browser" },
 ];
 
 const BY_PATH = new Map(REDIRECTS.map((r) => [r.from, r.to]));
