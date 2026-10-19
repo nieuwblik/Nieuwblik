@@ -94,6 +94,7 @@ Nieuwblik bouwt branchespecifieke websites. Elk pad volgt het patroon /website-l
 - [Over ons](https://nieuwblik.com/over-ons): Het verhaal en team achter Nieuwblik, opgericht in 2023 in Enkhuizen.
 - [Reviews](https://nieuwblik.com/reviews): Wat klanten zeggen over de samenwerking, op basis van 19+ vijfsterrenreviews.
 - [Gratis website analyse](https://nieuwblik.com/gratis-website-analyse): Vraag een gratis analyse van je huidige website aan.
+- [Projectbriefing maken](https://nieuwblik.com/projectbriefing): Beschrijf je project en doelen en krijg direct een briefing met passende diensten en een prijsindicatie.
 - [Contact](https://nieuwblik.com/contact): Plan een gratis kennismaking via het formulier, mail (info@nieuwblik.com), telefoon (+31 6 46253607) of WhatsApp.
 
 ## Werkwijze

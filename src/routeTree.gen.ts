@@ -22,6 +22,7 @@ import { Route as PublicOverOnsRouteImport } from './routes/_public/over-ons'
 import { Route as PublicOverstappenVanWordpressRouteImport } from './routes/_public/overstappen-van-wordpress'
 import { Route as PublicPrijzenRouteImport } from './routes/_public/prijzen'
 import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
+import { Route as PublicProjectbriefingRouteImport } from './routes/_public/projectbriefing'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoAlkmaarRouteImport } from './routes/_public/seo-alkmaar'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
@@ -36,6 +37,7 @@ import { Route as PublicWebsiteLatenMakenInstallateurRouteImport } from './route
 import { Route as PublicWoocommerceWebshopLatenMakenRouteImport } from './routes/_public/woocommerce-webshop-laten-maken'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminSplatRouteImport } from './routes/admin/$'
+import { Route as ApiBriefingRouteImport } from './routes/api/briefing'
 import { Route as PublicBlogIndexRouteImport } from './routes/_public/blog/index'
 import { Route as PublicBlogSlugRouteImport } from './routes/_public/blog/$slug'
 import { Route as PublicDienstenIndexRouteImport } from './routes/_public/diensten/index'
@@ -115,6 +117,11 @@ const PublicPrivacyRoute = PublicPrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicProjectbriefingRoute = PublicProjectbriefingRouteImport.update({
+  id: '/projectbriefing',
+  path: '/projectbriefing',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicReviewsRoute = PublicReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
@@ -189,6 +196,11 @@ const AdminSplatRoute = AdminSplatRouteImport.update({
   path: '/admin/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBriefingRoute = ApiBriefingRouteImport.update({
+  id: '/api/briefing',
+  path: '/api/briefing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PublicBlogIndexRoute = PublicBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -259,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
+  '/projectbriefing': typeof PublicProjectbriefingRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -272,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
   '/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
+  '/api/briefing': typeof ApiBriefingRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
   '/diensten/e-commerce': typeof PublicDienstenECommerceRoute
@@ -297,6 +311,7 @@ export interface FileRoutesByTo {
   '/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
+  '/projectbriefing': typeof PublicProjectbriefingRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -310,6 +325,7 @@ export interface FileRoutesByTo {
   '/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
   '/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
+  '/api/briefing': typeof ApiBriefingRoute
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminIndexRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
@@ -338,6 +354,7 @@ export interface FileRoutesById {
   '/_public/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/_public/prijzen': typeof PublicPrijzenRoute
   '/_public/privacy': typeof PublicPrivacyRoute
+  '/_public/projectbriefing': typeof PublicProjectbriefingRoute
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -351,6 +368,7 @@ export interface FileRoutesById {
   '/_public/website-laten-maken-installateur': typeof PublicWebsiteLatenMakenInstallateurRoute
   '/_public/woocommerce-webshop-laten-maken': typeof PublicWoocommerceWebshopLatenMakenRoute
   '/admin/$': typeof AdminSplatRoute
+  '/api/briefing': typeof ApiBriefingRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_public/blog/$slug': typeof PublicBlogSlugRoute
@@ -380,6 +398,7 @@ export interface FileRouteTypes {
     | '/overstappen-van-wordpress'
     | '/prijzen'
     | '/privacy'
+    | '/projectbriefing'
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
@@ -393,6 +412,7 @@ export interface FileRouteTypes {
     | '/website-laten-maken-installateur'
     | '/woocommerce-webshop-laten-maken'
     | '/admin/$'
+    | '/api/briefing'
     | '/admin/'
     | '/blog/$slug'
     | '/diensten/e-commerce'
@@ -418,6 +438,7 @@ export interface FileRouteTypes {
     | '/overstappen-van-wordpress'
     | '/prijzen'
     | '/privacy'
+    | '/projectbriefing'
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
@@ -431,6 +452,7 @@ export interface FileRouteTypes {
     | '/website-laten-maken-installateur'
     | '/woocommerce-webshop-laten-maken'
     | '/admin/$'
+    | '/api/briefing'
     | '/'
     | '/admin'
     | '/blog/$slug'
@@ -458,6 +480,7 @@ export interface FileRouteTypes {
     | '/_public/overstappen-van-wordpress'
     | '/_public/prijzen'
     | '/_public/privacy'
+    | '/_public/projectbriefing'
     | '/_public/reviews'
     | '/_public/seo-alkmaar'
     | '/_public/seo-enkhuizen'
@@ -471,6 +494,7 @@ export interface FileRouteTypes {
     | '/_public/website-laten-maken-installateur'
     | '/_public/woocommerce-webshop-laten-maken'
     | '/admin/$'
+    | '/api/briefing'
     | '/_public/'
     | '/admin/'
     | '/_public/blog/$slug'
@@ -489,6 +513,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   PublicRoute: typeof PublicRouteWithChildren
   AdminSplatRoute: typeof AdminSplatRoute
+  ApiBriefingRoute: typeof ApiBriefingRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -583,6 +608,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PublicPrivacyRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/projectbriefing': {
+      id: '/_public/projectbriefing'
+      path: '/projectbriefing'
+      fullPath: '/projectbriefing'
+      preLoaderRoute: typeof PublicProjectbriefingRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/reviews': {
@@ -683,6 +715,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/briefing': {
+      id: '/api/briefing'
+      path: '/api/briefing'
+      fullPath: '/api/briefing'
+      preLoaderRoute: typeof ApiBriefingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_public/blog/': {
       id: '/_public/blog/'
       path: '/blog'
@@ -775,6 +814,7 @@ interface PublicRouteChildren {
   PublicOverstappenVanWordpressRoute: typeof PublicOverstappenVanWordpressRoute
   PublicPrijzenRoute: typeof PublicPrijzenRoute
   PublicPrivacyRoute: typeof PublicPrivacyRoute
+  PublicProjectbriefingRoute: typeof PublicProjectbriefingRoute
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoAlkmaarRoute: typeof PublicSeoAlkmaarRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
@@ -813,6 +853,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicOverstappenVanWordpressRoute: PublicOverstappenVanWordpressRoute,
   PublicPrijzenRoute: PublicPrijzenRoute,
   PublicPrivacyRoute: PublicPrivacyRoute,
+  PublicProjectbriefingRoute: PublicProjectbriefingRoute,
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoAlkmaarRoute: PublicSeoAlkmaarRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
@@ -847,6 +888,7 @@ const PublicRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   PublicRoute: PublicRouteWithChildren,
   AdminSplatRoute: AdminSplatRoute,
+  ApiBriefingRoute: ApiBriefingRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
