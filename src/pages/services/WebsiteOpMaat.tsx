@@ -182,9 +182,7 @@ const WebsiteOpMaat = () => {
             );
             return (
               <Reveal key={tool.name} afstand={16} delay={index * 0.04} className="group text-center">
-                {tool.link ? (
-                  <a href={tool.link} target="_blank" rel="noopener noreferrer">{tegel}</a>
-                ) : tegel}
+                {tegel}
               </Reveal>
             );
           })}
