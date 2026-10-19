@@ -254,6 +254,7 @@ const Contact = () => {
         </div>
       </section>
 
+      <section className="py-10"><div className="container mx-auto px-6 max-w-3xl text-center"><p className="text-lg text-muted-foreground">Weet je nog niet precies wat je nodig hebt? <a href="/projectbriefing" className="text-accent underline underline-offset-2">Maak gratis je projectbriefing</a> en zie direct welke diensten en prijzen bij jou passen.</p></div></section>
       <Footer />
     </div>
   );

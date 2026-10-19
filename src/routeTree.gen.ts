@@ -22,6 +22,7 @@ import { Route as PublicOverOnsRouteImport } from './routes/_public/over-ons'
 import { Route as PublicOverstappenVanWordpressRouteImport } from './routes/_public/overstappen-van-wordpress'
 import { Route as PublicPrijzenRouteImport } from './routes/_public/prijzen'
 import { Route as PublicPrivacyRouteImport } from './routes/_public/privacy'
+import { Route as PublicProjectbriefingRouteImport } from './routes/_public/projectbriefing'
 import { Route as PublicReviewsRouteImport } from './routes/_public/reviews'
 import { Route as PublicSeoAlkmaarRouteImport } from './routes/_public/seo-alkmaar'
 import { Route as PublicSeoEnkhuizenRouteImport } from './routes/_public/seo-enkhuizen'
@@ -114,6 +115,11 @@ const PublicPrijzenRoute = PublicPrijzenRouteImport.update({
 const PublicPrivacyRoute = PublicPrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicProjectbriefingRoute = PublicProjectbriefingRouteImport.update({
+  id: '/projectbriefing',
+  path: '/projectbriefing',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicReviewsRoute = PublicReviewsRouteImport.update({
@@ -265,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
+  '/projectbriefing': typeof PublicProjectbriefingRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -304,6 +311,7 @@ export interface FileRoutesByTo {
   '/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/prijzen': typeof PublicPrijzenRoute
   '/privacy': typeof PublicPrivacyRoute
+  '/projectbriefing': typeof PublicProjectbriefingRoute
   '/reviews': typeof PublicReviewsRoute
   '/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -346,6 +354,7 @@ export interface FileRoutesById {
   '/_public/overstappen-van-wordpress': typeof PublicOverstappenVanWordpressRoute
   '/_public/prijzen': typeof PublicPrijzenRoute
   '/_public/privacy': typeof PublicPrivacyRoute
+  '/_public/projectbriefing': typeof PublicProjectbriefingRoute
   '/_public/reviews': typeof PublicReviewsRoute
   '/_public/seo-alkmaar': typeof PublicSeoAlkmaarRoute
   '/_public/seo-enkhuizen': typeof PublicSeoEnkhuizenRoute
@@ -389,6 +398,7 @@ export interface FileRouteTypes {
     | '/overstappen-van-wordpress'
     | '/prijzen'
     | '/privacy'
+    | '/projectbriefing'
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
@@ -428,6 +438,7 @@ export interface FileRouteTypes {
     | '/overstappen-van-wordpress'
     | '/prijzen'
     | '/privacy'
+    | '/projectbriefing'
     | '/reviews'
     | '/seo-alkmaar'
     | '/seo-enkhuizen'
@@ -469,6 +480,7 @@ export interface FileRouteTypes {
     | '/_public/overstappen-van-wordpress'
     | '/_public/prijzen'
     | '/_public/privacy'
+    | '/_public/projectbriefing'
     | '/_public/reviews'
     | '/_public/seo-alkmaar'
     | '/_public/seo-enkhuizen'
@@ -596,6 +608,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PublicPrivacyRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/projectbriefing': {
+      id: '/_public/projectbriefing'
+      path: '/projectbriefing'
+      fullPath: '/projectbriefing'
+      preLoaderRoute: typeof PublicProjectbriefingRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/reviews': {
@@ -795,6 +814,7 @@ interface PublicRouteChildren {
   PublicOverstappenVanWordpressRoute: typeof PublicOverstappenVanWordpressRoute
   PublicPrijzenRoute: typeof PublicPrijzenRoute
   PublicPrivacyRoute: typeof PublicPrivacyRoute
+  PublicProjectbriefingRoute: typeof PublicProjectbriefingRoute
   PublicReviewsRoute: typeof PublicReviewsRoute
   PublicSeoAlkmaarRoute: typeof PublicSeoAlkmaarRoute
   PublicSeoEnkhuizenRoute: typeof PublicSeoEnkhuizenRoute
@@ -833,6 +853,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicOverstappenVanWordpressRoute: PublicOverstappenVanWordpressRoute,
   PublicPrijzenRoute: PublicPrijzenRoute,
   PublicPrivacyRoute: PublicPrivacyRoute,
+  PublicProjectbriefingRoute: PublicProjectbriefingRoute,
   PublicReviewsRoute: PublicReviewsRoute,
   PublicSeoAlkmaarRoute: PublicSeoAlkmaarRoute,
   PublicSeoEnkhuizenRoute: PublicSeoEnkhuizenRoute,
