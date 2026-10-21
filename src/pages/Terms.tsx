@@ -94,7 +94,15 @@ const Terms = () => {
       )
     },
     {
-      title: "10. Intellectueel eigendom",
+      title: "10. Geen terugbetaling",
+      content: (
+        <p className="text-muted-foreground">
+          Betaalde bedragen worden niet terugbetaald. Dat geldt ook voor een aanbetaling of een betaling vooraf, wanneer de opdrachtgever de opdracht tussentijds stopt of annuleert, of de opgeleverde website niet (meer) gebruikt. Met de betaling vergoedt de opdrachtgever de tijd die {companyInfo.name} voor de opdracht heeft gereserveerd en het werk dat al is verricht. Dit laat de rechten onverlet die de opdrachtgever op grond van dwingend recht heeft, bijvoorbeeld als consument of wanneer {companyInfo.name} haar verplichtingen niet nakomt.
+        </p>
+      )
+    },
+    {
+      title: "11. Intellectueel eigendom",
       content: (
         <p className="text-muted-foreground">
           Alle rechten van intellectuele eigendom op de door {companyInfo.name} ontwikkelde of ter beschikking gestelde materialen berusten uitsluitend bij {companyInfo.name} of haar licentiegevers. De opdrachtgever verkrijgt alleen de gebruiksrechten die uitdrukkelijk zijn toegekend.
@@ -102,7 +110,7 @@ const Terms = () => {
       )
     },
     {
-      title: "11. Aansprakelijkheid",
+      title: "12. Aansprakelijkheid",
       content: (
         <p className="text-muted-foreground">
           {companyInfo.name} is uitsluitend aansprakelijk voor directe schade. De aansprakelijkheid is beperkt tot het factuurbedrag, althans tot dat gedeelte van de opdracht waarop de aansprakelijkheid betrekking heeft. {companyInfo.name} is niet aansprakelijk voor indirecte schade, waaronder gevolgschade, gederfde winst, gemiste besparingen en schade door bedrijfsstagnatie.
@@ -110,7 +118,7 @@ const Terms = () => {
       )
     },
     {
-      title: "12. Geschillen",
+      title: "13. Geschillen",
       content: (
         <p className="text-muted-foreground">
           Op alle overeenkomsten tussen {companyInfo.name} en de opdrachtgever is Nederlands recht van toepassing. Geschillen zullen uitsluitend worden voorgelegd aan de bevoegde rechter in het arrondissement waar {companyInfo.name} is gevestigd.
