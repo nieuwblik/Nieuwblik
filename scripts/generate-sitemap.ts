@@ -294,7 +294,7 @@ function gewicht(pad: string): { changefreq: string; priority: string } {
   return { changefreq: "monthly", priority: "0.7" };
 }
 
-const UITGESLOTEN = new Set(["/$", "/bedankt"]);
+const UITGESLOTEN = new Set(["/$", "/bedankt", "/afmelden"]);
 
 // ── opbouwen ────────────────────────────────────────────────────────
 // Eerst alle URL's met hun git-datum; pas daarna, als bekend is of git te

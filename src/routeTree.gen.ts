@@ -13,6 +13,7 @@ import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicSplatRouteImport } from './routes/_public/$'
 import { Route as PublicLandingPathRouteImport } from './routes/_public/$landingPath'
+import { Route as PublicAfmeldenRouteImport } from './routes/_public/afmelden'
 import { Route as PublicAlgemeneVoorwaardenRouteImport } from './routes/_public/algemene-voorwaarden'
 import { Route as PublicBedanktRouteImport } from './routes/_public/bedankt'
 import { Route as PublicContactRouteImport } from './routes/_public/contact'
@@ -73,6 +74,11 @@ const PublicSplatRoute = PublicSplatRouteImport.update({
 const PublicLandingPathRoute = PublicLandingPathRouteImport.update({
   id: '/$landingPath',
   path: '/$landingPath',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAfmeldenRoute = PublicAfmeldenRouteImport.update({
+  id: '/afmelden',
+  path: '/afmelden',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicAlgemeneVoorwaardenRoute =
@@ -298,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/$': typeof PublicSplatRoute
   '/$landingPath': typeof PublicLandingPathRoute
+  '/afmelden': typeof PublicAfmeldenRoute
   '/algemene-voorwaarden': typeof PublicAlgemeneVoorwaardenRoute
   '/bedankt': typeof PublicBedanktRoute
   '/contact': typeof PublicContactRoute
@@ -344,6 +351,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/$': typeof PublicSplatRoute
   '/$landingPath': typeof PublicLandingPathRoute
+  '/afmelden': typeof PublicAfmeldenRoute
   '/algemene-voorwaarden': typeof PublicAlgemeneVoorwaardenRoute
   '/bedankt': typeof PublicBedanktRoute
   '/contact': typeof PublicContactRoute
@@ -393,6 +401,7 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteWithChildren
   '/_public/$': typeof PublicSplatRoute
   '/_public/$landingPath': typeof PublicLandingPathRoute
+  '/_public/afmelden': typeof PublicAfmeldenRoute
   '/_public/algemene-voorwaarden': typeof PublicAlgemeneVoorwaardenRoute
   '/_public/bedankt': typeof PublicBedanktRoute
   '/_public/contact': typeof PublicContactRoute
@@ -443,6 +452,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/$landingPath'
+    | '/afmelden'
     | '/algemene-voorwaarden'
     | '/bedankt'
     | '/contact'
@@ -489,6 +499,7 @@ export interface FileRouteTypes {
   to:
     | '/$'
     | '/$landingPath'
+    | '/afmelden'
     | '/algemene-voorwaarden'
     | '/bedankt'
     | '/contact'
@@ -537,6 +548,7 @@ export interface FileRouteTypes {
     | '/_public'
     | '/_public/$'
     | '/_public/$landingPath'
+    | '/_public/afmelden'
     | '/_public/algemene-voorwaarden'
     | '/_public/bedankt'
     | '/_public/contact'
@@ -617,6 +629,13 @@ declare module '@tanstack/react-router' {
       path: '/$landingPath'
       fullPath: '/$landingPath'
       preLoaderRoute: typeof PublicLandingPathRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/afmelden': {
+      id: '/_public/afmelden'
+      path: '/afmelden'
+      fullPath: '/afmelden'
+      preLoaderRoute: typeof PublicAfmeldenRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/algemene-voorwaarden': {
@@ -919,6 +938,7 @@ declare module '@tanstack/react-router' {
 interface PublicRouteChildren {
   PublicSplatRoute: typeof PublicSplatRoute
   PublicLandingPathRoute: typeof PublicLandingPathRoute
+  PublicAfmeldenRoute: typeof PublicAfmeldenRoute
   PublicAlgemeneVoorwaardenRoute: typeof PublicAlgemeneVoorwaardenRoute
   PublicBedanktRoute: typeof PublicBedanktRoute
   PublicContactRoute: typeof PublicContactRoute
@@ -964,6 +984,7 @@ interface PublicRouteChildren {
 const PublicRouteChildren: PublicRouteChildren = {
   PublicSplatRoute: PublicSplatRoute,
   PublicLandingPathRoute: PublicLandingPathRoute,
+  PublicAfmeldenRoute: PublicAfmeldenRoute,
   PublicAlgemeneVoorwaardenRoute: PublicAlgemeneVoorwaardenRoute,
   PublicBedanktRoute: PublicBedanktRoute,
   PublicContactRoute: PublicContactRoute,

@@ -141,6 +141,8 @@ export function useCombinedRows(): CombinedRows {
         billing_amount_cents: null,
         billing_start: null,
         billing_note: null,
+        mail_afgemeld_op: null,
+        mail_afmeld_token: "",
         created_by: null,
         created_at: project.created_at,
         updated_at: project.updated_at,

@@ -9,6 +9,7 @@ import {
   ChevronRight,
   LayoutDashboard,
   LogOut,
+  Mail,
   Menu,
   Moon,
   Receipt,
@@ -99,6 +100,7 @@ const RailContent = ({
     { to: "/admin/taken", label: "Taken", icon: CheckSquare, end: false, count: openTasks },
     { to: "/admin/kalender", label: "Kalender", icon: CalendarDays, end: false },
     { to: "/admin/hosting", label: "Hosting", icon: Receipt, end: false },
+    { to: "/admin/mailen", label: "Mailen", icon: Mail, end: false },
   ];
 
   return (
