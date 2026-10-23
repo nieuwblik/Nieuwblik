@@ -68,8 +68,9 @@ const WhatsAppIcoon = () => (
  * omhoog open. Rechtsonder terug naar boven en WhatsApp naast elkaar.
  *
  * Terug naar boven schuift pas in beeld na wat scrollen. Alles is fixed, dus
- * geen verschuiving van de pagina. Op smalle schermen houdt de analysekaart
- * ruimte vrij voor de knoppen rechts.
+ * geen verschuiving van de pagina. Op smalle schermen houdt de dichte
+ * analysekaart ruimte vrij voor de knoppen rechts; opengeklapt wordt hij zo
+ * breed als het scherm en ligt hij over die knoppen heen.
  */
 const ZwevendeKnoppen = () => {
   const { pathname } = useLocation();
@@ -101,7 +102,7 @@ const ZwevendeKnoppen = () => {
     <>
       {metAnalyse && (
         <div
-          className={`fixed bottom-4 left-4 z-50 w-[calc(100vw-2rem-112px-0.5rem)] max-w-[340px] overflow-hidden rounded-2xl border bg-white transition-shadow duration-500 md:bottom-6 md:left-6 md:w-[340px] ${open ? "shadow-[0_24px_60px_-18px_rgba(0,0,0,0.38)]" : "shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)]"}`}
+          className={`fixed bottom-4 left-4 max-w-[400px] overflow-hidden rounded-2xl border bg-white transition-[width,box-shadow] duration-500 motion-reduce:transition-none md:bottom-6 md:left-6 md:w-[340px] ${open ? "z-[60] w-[calc(100vw-2rem)] shadow-[0_24px_60px_-18px_rgba(0,0,0,0.38)]" : "z-50 w-[calc(100vw-2rem-112px-0.5rem)] shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)]"}`}
           style={{ borderColor: RAND, transitionTimingFunction: VLOEIEND }}
         >
           <div
