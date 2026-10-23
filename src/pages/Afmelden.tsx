@@ -2,7 +2,7 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "@/lib/router-compat";
-import { supabase } from "@/integrations/supabase/client";
+import { mailingClient as supabase } from "@/lib/mailingClient";
 
 type Stand = "klaar" | "bezig" | "afgemeld" | "onbekend" | "fout";
 
