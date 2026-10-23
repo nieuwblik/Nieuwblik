@@ -9,9 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import EmptyState from "@/admin/components/EmptyState";
-import { useClients } from "@/admin/queries";
 import { useConfirm } from "@/admin/useConfirm";
-import { supabase } from "@/integrations/supabase/client";
+import { mailingClient as supabase } from "@/lib/mailingClient";
 
 type Status = "actief" | "prospect" | "inactief";
 
@@ -33,7 +32,14 @@ const datum = (iso: string) =>
  */
 const Mailen = () => {
   const queryClient = useQueryClient();
-  const { data: klanten = [], isLoading } = useClients();
+  const { data: klanten = [], isLoading } = useQuery({
+    queryKey: ["admin", "mailing-klanten"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("clients").select("*").order("name");
+      if (error) throw new Error(error.message);
+      return data;
+    },
+  });
   const { vraagBevestiging, dialoog } = useConfirm();
   const [groepen, setGroepen] = useState<Status[]>(["actief"]);
   const [onderwerp, setOnderwerp] = useState("");
@@ -55,7 +61,7 @@ const Mailen = () => {
     const zonderEmail = inGroep.filter((k) => !k.email?.includes("@")).length;
     const afgemeld = inGroep.filter((k) => k.email?.includes("@") && k.mail_afgemeld_op).length;
     const adressen = new Set(
-      inGroep.filter((k) => k.email?.includes("@") && !k.mail_afgemeld_op).map((k) => k.email!.trim().toLowerCase()),
+      inGroep.filter((k) => k.email?.includes("@") && !k.mail_afgemeld_op).map((k) => k.email?.trim().toLowerCase()),
     );
     const eerste = inGroep.find((k) => k.email?.includes("@") && !k.mail_afgemeld_op);
     return {
