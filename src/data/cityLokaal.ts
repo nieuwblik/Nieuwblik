@@ -44,8 +44,8 @@ export interface CityLokaal extends LokaleUitbreiding {
 
 export const cityLokaal: Record<string, CityLokaal> = {
   leiden: {
-    title: `Website laten maken Leiden vanaf €${PRIJZEN.starter} | Nieuwblik`,
-    metaDescription: `Meer klanten met een snelle website op maat in Leiden. Vanaf €${PRIJZEN.starter} en binnen 2 tot 4 weken live. Vraag vrijblijvend een offerte aan.`,
+    title: `Website laten maken in Leiden | Vanaf €${PRIJZEN.starter} | Nieuwblik`,
+    metaDescription: `Snelle website op maat voor je bedrijf in Leiden. Vaste prijs vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live en ${REVIEWS.scoreLabel} op Google. Vraag een vrijblijvende offerte aan.`,
     h1: `Website laten maken in Leiden vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom Leidse ondernemers kiezen voor Nieuwblik",
