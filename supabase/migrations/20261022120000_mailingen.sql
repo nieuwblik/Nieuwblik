@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.mailings (
   statussen text[] NOT NULL DEFAULT '{}',
   aantal_ontvangers integer NOT NULL DEFAULT 0,
   aantal_mislukt integer NOT NULL DEFAULT 0,
-  verstuurd_door uuid REFERENCES auth.users (id) ON DELETE SET NULL,
+  verstuurd_door uuid,
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
@@ -37,6 +37,11 @@ CREATE TABLE IF NOT EXISTS public.mailing_ontvangers (
 
 CREATE INDEX IF NOT EXISTS mailing_ontvangers_mailing_idx
   ON public.mailing_ontvangers (mailing_id);
+
+-- Expliciete tabelrechten. Ingelogde gebruikers mogen lezen (de RLS-policies
+-- hieronder beperken dat tot admins); de edge function schrijft als service_role.
+GRANT SELECT ON public.mailings, public.mailing_ontvangers TO authenticated;
+GRANT ALL ON public.mailings, public.mailing_ontvangers TO service_role;
 
 ALTER TABLE public.mailings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.mailing_ontvangers ENABLE ROW LEVEL SECURITY;
