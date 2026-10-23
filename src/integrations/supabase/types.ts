@@ -26,8 +26,6 @@ export type Database = {
           created_by: string | null
           email: string | null
           id: string
-          mail_afgemeld_op: string | null
-          mail_afmeld_token: string
           name: string
           notes: string | null
           phone: string | null
@@ -46,8 +44,6 @@ export type Database = {
           created_by?: string | null
           email?: string | null
           id?: string
-          mail_afgemeld_op?: string | null
-          mail_afmeld_token?: string
           name: string
           notes?: string | null
           phone?: string | null
@@ -66,83 +62,12 @@ export type Database = {
           created_by?: string | null
           email?: string | null
           id?: string
-          mail_afgemeld_op?: string | null
-          mail_afmeld_token?: string
           name?: string
           notes?: string | null
           phone?: string | null
           status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
           website?: string | null
-        }
-        Relationships: []
-      }
-      mailing_ontvangers: {
-        Row: {
-          client_id: string | null
-          created_at: string
-          email: string
-          fout: string | null
-          id: string
-          mailing_id: string
-          naam: string | null
-          resend_id: string | null
-          status: string
-        }
-        Insert: {
-          client_id?: string | null
-          created_at?: string
-          email: string
-          fout?: string | null
-          id?: string
-          mailing_id: string
-          naam?: string | null
-          resend_id?: string | null
-          status?: string
-        }
-        Update: {
-          client_id?: string | null
-          created_at?: string
-          email?: string
-          fout?: string | null
-          id?: string
-          mailing_id?: string
-          naam?: string | null
-          resend_id?: string | null
-          status?: string
-        }
-        Relationships: []
-      }
-      mailings: {
-        Row: {
-          aantal_mislukt: number
-          aantal_ontvangers: number
-          created_at: string
-          id: string
-          onderwerp: string
-          statussen: string[]
-          tekst: string
-          verstuurd_door: string | null
-        }
-        Insert: {
-          aantal_mislukt?: number
-          aantal_ontvangers?: number
-          created_at?: string
-          id?: string
-          onderwerp: string
-          statussen?: string[]
-          tekst: string
-          verstuurd_door?: string | null
-        }
-        Update: {
-          aantal_mislukt?: number
-          aantal_ontvangers?: number
-          created_at?: string
-          id?: string
-          onderwerp?: string
-          statussen?: string[]
-          tekst?: string
-          verstuurd_door?: string | null
         }
         Relationships: []
       }
@@ -575,7 +500,6 @@ export type Database = {
           user_id: string
         }[]
       }
-      mail_afmelden: { Args: { _token: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
