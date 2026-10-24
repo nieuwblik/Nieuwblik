@@ -123,7 +123,7 @@ const AandachtKaart = ({ className }: { className?: string }) => {
         titel="Vraagt aandacht"
         subtitel="Waar werk openstaat, te laat en urgent eerst"
       />
-      <PanelBody className="px-2 pb-2">
+      <PanelBody className="px-1 pb-1 pt-2">
         {isLoading ? (
           <div className="space-y-2 px-3 pb-3">
             {[0, 1, 2].map((i) => (

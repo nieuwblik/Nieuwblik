@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PROJECT_STATUS } from "@/admin/constants";
 import { leesbareUpdate, momentLabel } from "@/admin/format";
 import { useRecentUpdates, useTeam } from "@/admin/queries";
-import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
+import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
 import StatusPill from "@/admin/ui/StatusPill";
 
 const MAX = 5;
@@ -43,7 +43,7 @@ const ActiviteitKaart = ({ className }: { className?: string }) => {
   }, [updates]);
 
   return (
-    <Panel className={className}>
+    <Panel className={className} footer={<PanelFooter to="/admin/klanten">Bekijk alle projecten</PanelFooter>}>
       <PanelHeader icon={History} titel="Recente activiteit" subtitel="Updates en mijlpalen over alle projecten" />
       <PanelBody className="px-2 pb-2 pt-2">
         {isLoading ? (

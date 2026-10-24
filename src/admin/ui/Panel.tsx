@@ -64,7 +64,9 @@ export const PanelHeader = ({
       )}
       <div className="min-w-0 flex-1">
         <h2 className="p-kaarttitel truncate">{titel}</h2>
-        {subtitel && <p className="truncate text-[13px] leading-snug text-muted-foreground">{subtitel}</p>}
+        {/* Op een telefoon mag de subtitel naar een tweede regel; afkappen
+            naast een filterknop liet daar maar een halve zin over. */}
+        {subtitel && <p className="text-[13px] leading-snug text-muted-foreground sm:truncate">{subtitel}</p>}
       </div>
     </div>
     {actie && <div className="flex shrink-0 items-center gap-2">{actie}</div>}
@@ -88,7 +90,7 @@ export const PanelFooter = ({
 }) => (
   <Link
     to={to}
-    className="group flex items-center gap-2 rounded-b-[12px] px-3 pb-1 pt-2 text-[13px] text-muted-foreground transition-colors duration-150 hover:text-foreground"
+    className="group flex items-center gap-2 rounded-b-[12px] px-4 pb-1.5 pt-2 text-[13px] text-muted-foreground transition-colors duration-150 hover:text-foreground"
   >
     <span>{children}</span>
     {extra && <span className="text-muted-foreground/70">· {extra}</span>}

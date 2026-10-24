@@ -53,7 +53,7 @@ const MijnTakenKaart = ({ className }: { className?: string }) => {
       <PanelHeader
         icon={ListTodo}
         titel={wie === "ik" ? "Mijn taken" : "Alle open taken"}
-        subtitel={`${open.length} open, urgent en vroegste deadline eerst`}
+        subtitel={`${open.length} open, urgentste eerst`}
         actie={
           <SegmentedControl
             label="Wiens taken"

@@ -42,7 +42,7 @@ const TaakoverzichtKaart = ({ className }: { className?: string }) => {
       <PanelHeader
         icon={ListChecks}
         titel="Taakoverzicht"
-        subtitel="Open werk en wat er is afgerond"
+        subtitel="Open en afgerond werk"
         actie={
           <SegmentedControl
             label="Periode voor afgerond"

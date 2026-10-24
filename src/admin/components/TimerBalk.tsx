@@ -123,7 +123,7 @@ const TimerBalk = () => {
             <ChevronDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
           </button>
         </PopoverTrigger>
-        <PopoverContent align="start" className="w-80 space-y-3">
+        <PopoverContent align="start" className="w-80 space-y-3 p-4">
           <div className="space-y-1.5">
             <Label className="text-xs font-normal text-muted-foreground">Project</Label>
             <Select
