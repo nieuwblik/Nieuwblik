@@ -92,6 +92,7 @@ const UrenKaart = ({ className }: { className?: string }) => {
   const vandaagIndex = dagen.findIndex((d) => isToday(d.datum));
   const gekozen = aangewezen ?? vandaagIndex;
   const dag = dagen[gekozen];
+  const bijnaLeeg = dezeWeek < 15;
   const procent = vorigeWeek > 0 ? Math.round(((dezeWeek - vorigeWeek) / vorigeWeek) * 100) : null;
 
   return (
@@ -114,7 +115,7 @@ const UrenKaart = ({ className }: { className?: string }) => {
       />
       <PanelBody>
         {isLoading ? (
-          <Skeleton className="h-60" />
+          <Skeleton className="h-48" />
         ) : (
           <>
             <p className="flex flex-wrap items-baseline gap-x-1 gap-y-1">
@@ -140,92 +141,94 @@ const UrenKaart = ({ className }: { className?: string }) => {
               )}
             </p>
 
-            <div className="mt-5 grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2">
-              <div className="relative h-52 text-right text-xs tabular-nums text-muted-foreground" aria-hidden="true">
-                {[max, max / 2, 0].map((waarde, i) => (
-                  <span key={i} className="absolute right-0 -translate-y-1/2" style={{ top: `${i * 50}%` }}>
-                    {waarde}u
-                  </span>
-                ))}
-              </div>
-
-              <div className="relative h-52" onMouseLeave={() => setAangewezen(null)}>
-                {[0, 50, 100].map((top) => (
-                  <span key={top} className="absolute inset-x-0 border-t border-dashed border-border" style={{ top: `${top}%` }} aria-hidden="true" />
-                ))}
-
-                <ol className="absolute inset-0 flex items-end justify-between gap-2 sm:gap-4">
-                  {dagen.map((d, i) => {
-                    const actief = i === gekozen;
-                    return (
-                      <li key={d.sleutel} className="flex h-full flex-1 items-end justify-center">
-                        <button
-                          type="button"
-                          onMouseEnter={() => setAangewezen(i)}
-                          onFocus={() => setAangewezen(i)}
-                          onClick={() => setAangewezen(i)}
-                          aria-label={`${format(d.datum, "EEEE", { locale: nl })}: ${formatDuur(d.minuten)}`}
-                          className="flex h-full w-full max-w-12 flex-col justify-end"
-                        >
-                          <span
-                            className={cn(
-                              "flex w-full flex-col-reverse overflow-hidden rounded-md transition-colors duration-150",
-                              !actief && "bg-muted hover:bg-muted-foreground/25",
-                            )}
-                            style={{ height: `${(d.minuten / 60 / max) * 100}%`, minHeight: d.minuten > 0 ? 4 : 0 }}
-                          >
-                            {actief &&
-                              d.delen.map((deel) => (
-                                <span
-                                  key={deel.id ?? "geen"}
-                                  className={projectKleur(deel.id).vlak}
-                                  style={{ height: `${(deel.minuten / d.minuten) * 100}%` }}
-                                />
-                              ))}
-                          </span>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ol>
-
-                {dag && dag.minuten > 0 && (
-                  <div
-                    className="pointer-events-none absolute top-2 z-10 w-max min-w-36 max-w-56 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
-                    style={
-                      gekozen >= dagen.length / 2
-                        ? { right: `${((dagen.length - gekozen) / dagen.length) * 100}%` }
-                        : { left: `${((gekozen + 1) / dagen.length) * 100}%` }
-                    }
-                  >
-                    <p className="text-xs opacity-70 first-letter:uppercase">{format(dag.datum, "EEEE d MMM", { locale: nl })}</p>
-                    <ul className="mt-1 space-y-1">
-                      {dag.delen.slice(0, 4).map((deel) => (
-                        <li key={deel.id ?? "geen"} className="flex items-center gap-2 text-[13px]">
-                          <span className={cn("h-3.5 w-1 shrink-0 rounded-full", projectKleur(deel.id).vlak)} />
-                          <span className="font-medium tabular-nums">{formatDuur(deel.minuten)}</span>
-                          <span className="truncate opacity-70">{deel.naam}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              <span />
-              <ol className="mt-2 flex justify-between gap-2 text-center text-xs text-muted-foreground sm:gap-4" aria-hidden="true">
-                {dagen.map((d, i) => (
-                  <li key={d.sleutel} className={cn("flex-1", i === gekozen && "font-medium text-foreground")}>
-                    {format(d.datum, "EEEEEE", { locale: nl })}
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {dezeWeek === 0 && (
+            {/* Onder een kwartier is een grafiek alleen lege as; dan een regel tekst. */}
+            {bijnaLeeg ? (
               <p className="mt-3 text-[13px] text-muted-foreground">
-                Nog geen uren deze week. Start de timer bovenin om bij te houden waar je aan werkt.
+                {dezeWeek === 0 ? "Nog geen uren deze week." : "Nog bijna geen uren deze week."} Start de timer bovenin om bij
+                te houden waar je aan werkt.
               </p>
+            ) : (
+              <div className="mt-4 grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2">
+                <div className="relative h-40 text-right text-xs tabular-nums text-muted-foreground" aria-hidden="true">
+                  {[max, max / 2, 0].map((waarde, i) => (
+                    <span key={i} className="absolute right-0 -translate-y-1/2" style={{ top: `${i * 50}%` }}>
+                      {waarde}u
+                    </span>
+                  ))}
+                </div>
+
+                <div className="relative h-40" onMouseLeave={() => setAangewezen(null)}>
+                  {[0, 50, 100].map((top) => (
+                    <span key={top} className="absolute inset-x-0 border-t border-dashed border-border" style={{ top: `${top}%` }} aria-hidden="true" />
+                  ))}
+
+                  <ol className="absolute inset-0 flex items-end justify-between gap-2 sm:gap-4">
+                    {dagen.map((d, i) => {
+                      const actief = i === gekozen;
+                      return (
+                        <li key={d.sleutel} className="flex h-full flex-1 items-end justify-center">
+                          <button
+                            type="button"
+                            onMouseEnter={() => setAangewezen(i)}
+                            onFocus={() => setAangewezen(i)}
+                            onClick={() => setAangewezen(i)}
+                            aria-label={`${format(d.datum, "EEEE", { locale: nl })}: ${formatDuur(d.minuten)}`}
+                            className="flex h-full w-full max-w-12 flex-col justify-end"
+                          >
+                            <span
+                              className={cn(
+                                "flex w-full flex-col-reverse overflow-hidden rounded-md transition-colors duration-150",
+                                !actief && "bg-muted hover:bg-muted-foreground/25",
+                              )}
+                              style={{ height: `${(d.minuten / 60 / max) * 100}%`, minHeight: d.minuten > 0 ? 4 : 0 }}
+                            >
+                              {actief &&
+                                d.delen.map((deel) => (
+                                  <span
+                                    key={deel.id ?? "geen"}
+                                    className={projectKleur(deel.id).vlak}
+                                    style={{ height: `${(deel.minuten / d.minuten) * 100}%` }}
+                                  />
+                                ))}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ol>
+
+                  {dag && dag.minuten > 0 && (
+                    <div
+                      className="pointer-events-none absolute top-2 z-10 w-max min-w-36 max-w-56 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
+                      style={
+                        gekozen >= dagen.length / 2
+                          ? { right: `${((dagen.length - gekozen) / dagen.length) * 100}%` }
+                          : { left: `${((gekozen + 1) / dagen.length) * 100}%` }
+                      }
+                    >
+                      <p className="text-xs opacity-70 first-letter:uppercase">{format(dag.datum, "EEEE d MMM", { locale: nl })}</p>
+                      <ul className="mt-1 space-y-1">
+                        {dag.delen.slice(0, 4).map((deel) => (
+                          <li key={deel.id ?? "geen"} className="flex items-center gap-2 text-[13px]">
+                            <span className={cn("h-3.5 w-1 shrink-0 rounded-full", projectKleur(deel.id).vlak)} />
+                            <span className="font-medium tabular-nums">{formatDuur(deel.minuten)}</span>
+                            <span className="truncate opacity-70">{deel.naam}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <span />
+                <ol className="mt-2 flex justify-between gap-2 text-center text-xs text-muted-foreground sm:gap-4" aria-hidden="true">
+                  {dagen.map((d, i) => (
+                    <li key={d.sleutel} className={cn("flex-1", i === gekozen && "font-medium text-foreground")}>
+                      {format(d.datum, "EEEEEE", { locale: nl })}
+                    </li>
+                  ))}
+                </ol>
+              </div>
             )}
           </>
         )}

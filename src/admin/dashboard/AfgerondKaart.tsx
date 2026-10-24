@@ -123,8 +123,8 @@ const AfgerondKaart = ({ className }: { className?: string }) => {
         </p>
 
         {/* De grafiek: as links met drie streepjes, balken per week. */}
-        <div className="mt-5 grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2">
-          <div className="relative h-52 text-right text-xs tabular-nums text-muted-foreground" aria-hidden="true">
+        <div className="mt-4 grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2">
+          <div className="relative h-40 text-right text-xs tabular-nums text-muted-foreground" aria-hidden="true">
             {[max, max / 2, 0].map((waarde, i) => (
               <span key={waarde} className="absolute right-0 -translate-y-1/2" style={{ top: `${i * 50}%` }}>
                 {Number.isInteger(waarde) ? waarde : waarde.toFixed(1)}
@@ -132,7 +132,7 @@ const AfgerondKaart = ({ className }: { className?: string }) => {
             ))}
           </div>
 
-          <div className="relative h-52" onMouseLeave={() => setAangewezen(null)}>
+          <div className="relative h-40" onMouseLeave={() => setAangewezen(null)}>
             {[0, 50, 100].map((top) => (
               <span
                 key={top}

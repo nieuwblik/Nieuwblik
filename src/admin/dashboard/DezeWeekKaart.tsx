@@ -5,7 +5,7 @@ import { nl } from "date-fns/locale";
 import { CalendarDays, FolderKanban } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { ACCENT, ACTIVE_PROJECT_STATUSES, TOON, hoofdtaken, isTeLaat } from "@/admin/constants";
+import { ACCENT, ACTIVE_PROJECT_STATUSES, hoofdtaken } from "@/admin/constants";
 import { useProjects, useTasks } from "@/admin/queries";
 import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
 
@@ -22,15 +22,14 @@ const MAX_ITEMS = 6;
 
 /**
  * De week van maandag tot en met zondag: taken met een deadline en
- * opleverdata van lopende projecten. Werk dat al over de datum is staat er
- * vast bovenaan; het blijft anders op een dag in het verleden staan waar je
- * niet meer kijkt.
+ * opleverdata van lopende projecten. Werk dat al over de datum is staat in
+ * Vraagt aandacht en in de begroeting, niet nog een keer hier.
  */
 const DezeWeekKaart = ({ className }: { className?: string }) => {
   const { data: tasks = [] } = useTasks();
   const { data: projects = [] } = useProjects();
 
-  const { dagen, teLaat } = useMemo(() => {
+  const { dagen } = useMemo(() => {
     const maandag = startOfWeek(new Date(), { weekStartsOn: 1 });
     const open = hoofdtaken(tasks).filter((t) => t.status !== "klaar");
 
@@ -59,7 +58,7 @@ const DezeWeekKaart = ({ className }: { className?: string }) => {
       return { datum, sleutel, items };
     });
 
-    return { dagen, teLaat: open.filter((t) => isTeLaat(t)) };
+    return { dagen };
   }, [tasks, projects]);
 
   // Alleen dagen met iets erop in de lijst; de strook erboven laat de hele week zien.
@@ -112,21 +111,6 @@ const DezeWeekKaart = ({ className }: { className?: string }) => {
             );
           })}
         </ol>
-
-        {teLaat.length > 0 && (
-          <Link
-            to="/admin/taken?filter=te-laat"
-            className={cn(
-              "flex items-center justify-between gap-3 rounded-lg border px-3 py-2 text-sm transition-colors duration-150 hover:bg-danger/15",
-              TOON.danger.cel,
-            )}
-          >
-            <span className={cn("font-medium", TOON.danger.tekst)}>
-              {teLaat.length} {teLaat.length === 1 ? "taak" : "taken"} te laat
-            </span>
-            <span className="truncate text-[13px] text-muted-foreground">{teLaat[0]?.title}</span>
-          </Link>
-        )}
 
         {lijst.length === 0 ? (
           <p className="py-2 text-sm text-muted-foreground">Geen deadlines deze week.</p>

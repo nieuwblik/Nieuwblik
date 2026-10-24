@@ -29,7 +29,7 @@ export const Panel = ({
   id?: string;
 }) =>
   footer ? (
-    <section id={id} className={cn("flex min-w-0 flex-col rounded-[16px] border border-border bg-muted/50 p-1", className)}>
+    <section id={id} className={cn("flex min-w-0 flex-col rounded-[16px] bg-muted/50 p-1", className)}>
       <div className="flex min-w-0 flex-1 flex-col rounded-[12px] border border-border bg-card shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
         {children}
       </div>
@@ -88,7 +88,7 @@ export const PanelFooter = ({
 }) => (
   <Link
     to={to}
-    className="group flex items-center gap-2 rounded-b-[12px] px-3 pb-1.5 pt-2.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+    className="group flex items-center gap-2 rounded-b-[12px] px-3 pb-1 pt-2 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
   >
     <span>{children}</span>
     {extra && <span className="text-muted-foreground/70">· {extra}</span>}
