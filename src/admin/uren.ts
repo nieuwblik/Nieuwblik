@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { urenClient, type TimeEntry } from "@/lib/urenClient";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-export type { TimeEntry };
+export type TimeEntry = Tables<"time_entries">;
 
 /** Een urenregel met het project (en de klant) en de taak erbij. */
 export type UrenRegel = TimeEntry & {
@@ -82,7 +83,7 @@ export function useUrenInPeriode(van: Date, tot: Date) {
     retry: false,
     queryFn: async (): Promise<UrenRegel[]> =>
       unwrap(
-        await urenClient
+        await supabase
           .from("time_entries")
           .select(SELECTIE)
           .gte("started_at", van.toISOString())
@@ -100,7 +101,7 @@ export function useUrenVan(soort: "taak" | "project", id: string | undefined) {
     retry: false,
     queryFn: async (): Promise<TimeEntry[]> =>
       unwrap(
-        await urenClient
+        await supabase
           .from("time_entries")
           .select("*")
           .eq(soort === "taak" ? "task_id" : "project_id", id!),
@@ -117,7 +118,7 @@ export function useLopendeTimer() {
     retry: false,
     queryFn: async (): Promise<UrenRegel | null> =>
       unwrap(
-        await urenClient
+        await supabase
           .from("time_entries")
           .select(SELECTIE)
           .eq("user_id", user!.id)
@@ -145,14 +146,14 @@ export function useStartTimer() {
     mutationFn: async (waarden: { project_id: string | null; task_id: string | null; description: string | null }) => {
       if (!user) throw new Error("Niet ingelogd");
       const nu = new Date().toISOString();
-      const { error: stopFout } = await urenClient
+      const { error: stopFout } = await supabase
         .from("time_entries")
         .update({ ended_at: nu })
         .eq("user_id", user.id)
         .is("ended_at", null);
       if (stopFout) throw new Error(stopFout.message);
       return unwrap(
-        await urenClient
+        await supabase
           .from("time_entries")
           .insert({ ...waarden, user_id: user.id, started_at: nu })
           .select()
@@ -169,7 +170,7 @@ export function useStopTimer() {
     mutationFn: async (regel: Pick<TimeEntry, "id" | "started_at">) => {
       // Minstens een minuut, anders weigert de database een eind gelijk aan het begin.
       const eind = Math.max(Date.now(), new Date(regel.started_at).getTime() + 60_000);
-      const { error } = await urenClient
+      const { error } = await supabase
         .from("time_entries")
         .update({ ended_at: new Date(eind).toISOString() })
         .eq("id", regel.id);
@@ -185,11 +186,11 @@ export function useSaveUren() {
   return useMutation({
     mutationFn: async ({ id, values }: { id?: string; values: Partial<TimeEntry> }) => {
       if (id) {
-        const { error } = await urenClient.from("time_entries").update(values).eq("id", id);
+        const { error } = await supabase.from("time_entries").update(values).eq("id", id);
         if (error) throw new Error(error.message);
         return;
       }
-      const { error } = await urenClient
+      const { error } = await supabase
         .from("time_entries")
         .insert({ ...values, user_id: values.user_id ?? user!.id });
       if (error) throw new Error(error.message);
@@ -202,7 +203,7 @@ export function useDeleteUren() {
   const vernieuw = useVernieuw();
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await urenClient.from("time_entries").delete().eq("id", id);
+      const { error } = await supabase.from("time_entries").delete().eq("id", id);
       if (error) throw new Error(error.message);
     },
     onSuccess: vernieuw,
