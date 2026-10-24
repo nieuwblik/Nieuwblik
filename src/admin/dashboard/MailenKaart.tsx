@@ -54,7 +54,7 @@ const MailenKaart = ({ className }: { className?: string }) => {
           {zonderEmail > 0 && (
             <li>
               <Link
-                to="/admin/klanten?filter=zonder-email"
+                to="/admin/mailen?ontvangers=zonder-email"
                 className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 p-rij"
               >
                 <span className={cn("h-2 w-2 shrink-0 rounded-full", TOON.warning.stip)} />

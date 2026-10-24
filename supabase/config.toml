@@ -1,1 +1,5 @@
 project_id = "rkpfgiaxumwdidpfkqpp"
+
+# Afmelden met één klik vanuit een mailprogramma: die stuurt geen inlog mee.
+[functions.mail-afmelden]
+verify_jwt = false

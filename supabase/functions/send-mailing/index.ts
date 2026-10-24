@@ -43,6 +43,10 @@ const verzoekSchema = z.object({
   onderwerp: z.string().trim().min(1, "Onderwerp ontbreekt").max(200, "Onderwerp te lang"),
   tekst: z.string().trim().min(1, "Tekst ontbreekt").max(20000, "Tekst te lang"),
   statussen: z.array(z.enum(["prospect", "actief", "inactief"])).default(["actief"]),
+  // De klanten die je op de mailpagina hebt aangevinkt. Zonder deze lijst
+  // gaat de mail naar iedereen in de gekozen groepen. Afgemelden en klanten
+  // zonder adres vallen hier hoe dan ook uit; dat controleert de server.
+  klantIds: z.array(z.string().uuid()).max(2000).optional(),
   test: z.boolean().default(false),
 });
 
@@ -114,6 +118,10 @@ interface Ontvanger {
 
 function mailVoor(o: Ontvanger, onderwerp: string, tekst: string, afzender: Afzender, handtekening: Afzender, test: boolean) {
   const afmeldUrl = o.token ? `${SITE_URL}/afmelden?t=${o.token}` : `${SITE_URL}/afmelden`;
+  // Afmelden met één klik (RFC 8058): het mailprogramma stuurt zelf een POST
+  // naar de functie mail-afmelden. In de mail zelf blijft de link naar de
+  // afmeldpagina op de site staan, die eerst om bevestiging vraagt.
+  const eenKlikUrl = o.token ? `${SUPABASE_URL}/functions/v1/mail-afmelden?t=${o.token}` : null;
   const ow = vulIn(onderwerp, o.naam);
   const tk = vulIn(tekst, o.naam);
   return {
@@ -123,9 +131,12 @@ function mailVoor(o: Ontvanger, onderwerp: string, tekst: string, afzender: Afze
     subject: test ? `[Test] ${ow}` : ow,
     html: htmlMail(ow, tk, afmeldUrl, handtekening),
     text: tekstMail(tk, afmeldUrl, handtekening),
-    headers: {
-      "List-Unsubscribe": `<${afmeldUrl}>, <mailto:contact@nieuwblik.com?subject=Afmelden>`,
-    },
+    headers: eenKlikUrl
+      ? {
+          "List-Unsubscribe": `<${eenKlikUrl}>, <mailto:contact@nieuwblik.com?subject=Afmelden>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        }
+      : { "List-Unsubscribe": `<${afmeldUrl}>, <mailto:contact@nieuwblik.com?subject=Afmelden>` },
   };
 }
 
@@ -154,9 +165,15 @@ serve(async (req: Request): Promise<Response> => {
     const { data: isAdmin } = await admin.rpc("has_role", { _user_id: gebruiker.user.id, _role: "admin" });
     if (!isAdmin) return antwoord({ error: "Geen toegang" }, 403);
 
-    const parsed = verzoekSchema.safeParse(await req.json());
+    const verzoek = await req.json();
+    // Versiecontrole van de mailpagina: die verstuurt alleen met een eigen
+    // ontvangerslijst als deze functie die lijst ook echt gebruikt. Een
+    // oudere versie negeerde hem en mailde de hele groep.
+    if (verzoek?.controle === true) return antwoord({ versie: 2 });
+
+    const parsed = verzoekSchema.safeParse(verzoek);
     if (!parsed.success) return antwoord({ error: parsed.error.errors[0]?.message ?? "Ongeldig verzoek" }, 400);
-    const { onderwerp, tekst, statussen, test } = parsed.data;
+    const { onderwerp, tekst, statussen, klantIds, test } = parsed.data;
     // Afzender: de admin zelf (naam uit het profiel), mits het een
     // @nieuwblik.com-adres is; anders het algemene adres.
     const eigenAdres = (gebruiker.user.email ?? "").toLowerCase();
@@ -180,14 +197,17 @@ serve(async (req: Request): Promise<Response> => {
       return antwoord({ verstuurd: 1, mislukt: 0, test: true });
     }
 
-    if (statussen.length === 0) return antwoord({ error: "Kies minstens één groep klanten" }, 400);
+    if (klantIds ? klantIds.length === 0 : statussen.length === 0) {
+      return antwoord({ error: "Kies minstens één ontvanger" }, 400);
+    }
 
-    const { data: klanten, error: klantFout } = await admin
+    let vraag = admin
       .from("clients")
       .select("id, name, contact_name, email, mail_afmeld_token")
-      .in("status", statussen)
       .is("mail_afgemeld_op", null)
       .not("email", "is", null);
+    vraag = klantIds ? vraag.in("id", klantIds) : vraag.in("status", statussen);
+    const { data: klanten, error: klantFout } = await vraag;
     if (klantFout) throw new Error(klantFout.message);
 
     // Eén mail per adres, ook als twee klanten hetzelfde adres hebben.
