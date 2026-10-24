@@ -1,3 +1,5 @@
+import { format, parseISO } from "date-fns";
+import { nl } from "date-fns/locale";
 import { Wallet } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -20,6 +22,8 @@ const FinancienKaart = ({ className }: { className?: string }) => {
   const open = facturen?.reduce((som, f) => som + f.open, 0) ?? null;
   const teLaat = facturen?.filter(isTeLaatFactuur) ?? [];
   const bank = heeftData(data.bank) ? data.bank.data.totaal : null;
+  // Alleen in de maand dat de aangifte van het vorige kwartaal loopt.
+  const aangifte = heeftData(data.btw) ? data.btw.data.find((q) => !q.lopend && q.afdragen > 0) : undefined;
 
   const regels = [
     { label: "Omzet deze maand", waarde: omzet === null ? "–" : formatBedrag(omzet, 0) },
@@ -29,6 +33,16 @@ const FinancienKaart = ({ className }: { className?: string }) => {
       extra: teLaat.length > 0 ? `${teLaat.length} te laat` : null,
     },
     { label: "Banksaldo", waarde: bank === null ? "–" : formatBedrag(bank, 0) },
+    ...(aangifte
+      ? [
+          {
+            label: `Btw ${aangifte.label.split(" ")[0]}`,
+            waarde: formatBedrag(aangifte.afdragen, 0),
+            extra: `uiterlijk ${format(parseISO(aangifte.deadline), "d MMM", { locale: nl }).replace(".", "")}`,
+            toon: "warning" as const,
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -41,7 +55,9 @@ const FinancienKaart = ({ className }: { className?: string }) => {
               <dt className="text-muted-foreground">{r.label}</dt>
               <dd className="text-right">
                 <span className="font-medium tabular-nums">{r.waarde}</span>
-                {r.extra && <span className={cn("ml-2 text-[13px] font-medium", TOON.danger.tekst)}>{r.extra}</span>}
+                {r.extra && (
+                  <span className={cn("ml-2 text-[13px] font-medium", TOON["toon" in r ? r.toon : "danger"].tekst)}>{r.extra}</span>
+                )}
               </dd>
             </div>
           ))}

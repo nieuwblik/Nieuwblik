@@ -1,13 +1,14 @@
 import { useMemo, useState } from "react";
 import { format, parseISO } from "date-fns";
 import { nl } from "date-fns/locale";
-import { ArrowDown, ArrowUp, ExternalLink, FileText, Landmark, RotateCw, TrendingUp, Wallet } from "lucide-react";
+import { ArrowDown, ArrowUp, ExternalLink, FileText, Landmark, Percent, RotateCw, TrendingUp, Wallet } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import { TOON } from "@/admin/constants";
+import { daysUntil } from "@/admin/format";
 import { formatBedrag, heeftData, isTeLaatFactuur, useFinancien, type MaandCijfers } from "@/admin/financien";
 import { useOpenFacturen } from "@/admin/useOpenFacturen";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
@@ -339,6 +340,43 @@ const Financien = () => {
               )}
             </PanelBody>
           </Panel>
+
+          {data.btw && (
+            <Panel>
+              <PanelHeader icon={Percent} titel="Btw" subtitel="Af te dragen volgens Moneybird" />
+              <PanelBody>
+                {!heeftData(data.btw) ? (
+                  <p className={cn("text-sm", TOON.danger.tekst)}>{data.btw.fout}</p>
+                ) : (
+                  <ul className="space-y-3 text-sm">
+                    {data.btw.data.map((q) => {
+                      const dagen = daysUntil(q.deadline);
+                      const dringend = !q.lopend && dagen !== null && dagen >= 0 && dagen <= 14;
+                      return (
+                        <li key={q.label} className="flex items-baseline justify-between gap-3">
+                          <span className="min-w-0">
+                            <span className="block font-medium">
+                              {q.label}
+                              {q.lopend && <span className="font-normal text-muted-foreground"> tot nu toe</span>}
+                            </span>
+                            <span className={cn("block text-[13px] text-muted-foreground", dringend && TOON.warning.tekst)}>
+                              {q.lopend
+                                ? `Aangifte uiterlijk ${format(parseISO(q.deadline), "d MMMM", { locale: nl })}`
+                                : `Aangeven en betalen uiterlijk ${format(parseISO(q.deadline), "d MMMM", { locale: nl })}`}
+                            </span>
+                          </span>
+                          <span className="text-right font-medium tabular-nums">
+                            {formatBedrag(Math.abs(q.afdragen))}
+                            {q.afdragen < 0 && <span className="block text-[13px] font-normal text-muted-foreground">terug</span>}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </PanelBody>
+            </Panel>
+          )}
 
           <Panel>
             <PanelHeader icon={Wallet} titel="Nog te betalen" subtitel="Openstaand bij leveranciers" />

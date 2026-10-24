@@ -12,7 +12,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  * - winst en verlies per maand over de laatste 12 maanden;
  * - banksaldo per rekening;
  * - openstaande verkoopfacturen (open, herinnerd, te laat);
- * - wat er aan leveranciers nog betaald moet worden (crediteuren).
+ * - wat er aan leveranciers nog betaald moet worden (crediteuren);
+ * - de btw van het lopende kwartaal, en van het vorige zolang die aangifte loopt.
  *
  * Elk onderdeel mag los mislukken (bijvoorbeeld als de sleutel een recht mist);
  * dan krijgt alleen dat onderdeel een foutmelding en de rest werkt gewoon.
@@ -21,7 +22,13 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  * - "herinnering": herinneringen per e-mail naar de klant (ids);
  * - "betaling": een betaling registreren (id, bedrag, datum);
  * - "afboeken": een kleine rest afboeken als betalingsverschil (id);
- * - "pdf": een downloadlink voor de pdf (id), 30 seconden geldig.
+ * - "pdf": een downloadlink voor de pdf (id), 30 seconden geldig;
+ * - "klant": de facturen en betaalcijfers van een klant uit het portaal (clientId);
+ * - "uren-factureren": uren van een project als conceptfactuur (projectId,
+ *   urenIds, uurtarief, eventueel contactId); de uren worden daarna als
+ *   gefactureerd gemarkeerd. Er wordt niets naar de klant verstuurd;
+ * - "uren-vrijgeven": uren weer vrijgeven als hun concept in Moneybird is
+ *   weggegooid (factuurId).
  * De pagina vraagt altijd eerst om bevestiging; hier wordt alles nog eens
  * gecontroleerd tegen de facturen zoals Moneybird ze nu kent.
  */
@@ -148,7 +155,273 @@ const vandaag = () => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Amste
 /** Bedragen als tekst met twee decimalen, zoals Moneybird ze verwacht. */
 const bedragTekst = (n: number) => (Math.round(n * 100) / 100).toFixed(2);
 
+interface MoneybirdContact {
+  id: string;
+  company_name?: string | null;
+  firstname?: string | null;
+  lastname?: string | null;
+  email?: string | null;
+  send_invoices_to_email?: string | null;
+}
+
+const contactNaam = (c: MoneybirdContact) =>
+  c.company_name || [c.firstname, c.lastname].filter(Boolean).join(" ") || "Naamloos contact";
+
+/** "Toptas Consultancy B.V." en "toptas consultancy" zijn dezelfde klant. */
+const naamSleutel = (naam: string) =>
+  naam
+    .toLowerCase()
+    .replace(/\b(b\.?v\.?|v\.?o\.?f\.?|n\.?v\.?|holding)\b/g, "")
+    .replace(/[^a-z0-9]/g, "");
+
+interface PortaalKlant {
+  id: string;
+  name: string;
+  email: string | null;
+  moneybird_contact_id?: string | null;
+  uurtarief_cents?: number | null;
+}
+
+/**
+ * Het Moneybird-contact bij een klant uit het portaal: het opgeslagen contact,
+ * anders een unieke treffer op e-mailadres of naam. Zijn er meerdere of geen
+ * treffers, dan komen de kandidaten terug en kiest de gebruiker.
+ */
+async function zoekContact(
+  klant: PortaalKlant,
+  gekozen?: unknown,
+): Promise<{ contact: MoneybirdContact } | { kandidaten: MoneybirdContact[] }> {
+  const vast = isId(gekozen) ? gekozen : klant.moneybird_contact_id;
+  if (isId(vast)) {
+    try {
+      return { contact: (await moneybird(`contacts/${vast}.json`)) as MoneybirdContact };
+    } catch (fout) {
+      // Contact verwijderd in Moneybird: opnieuw zoeken. Andere fouten gewoon doorgeven.
+      if (!(fout instanceof Error && fout.message.includes("(404)"))) throw fout;
+    }
+  }
+  const zoek = async (q: string) =>
+    (await moneybird(`contacts.json?per_page=20&query=${encodeURIComponent(q)}`)) as MoneybirdContact[];
+
+  const email = klant.email?.trim().toLowerCase();
+  if (email) {
+    const opMail = (await zoek(email)).filter(
+      (c) => c.email?.toLowerCase() === email || c.send_invoices_to_email?.toLowerCase() === email,
+    );
+    if (opMail.length === 1) return { contact: opMail[0]! };
+  }
+  const opNaam = await zoek(klant.name);
+  const exact = opNaam.filter((c) => naamSleutel(contactNaam(c)) === naamSleutel(klant.name));
+  if (exact.length === 1) return { contact: exact[0]! };
+  return { kandidaten: (exact.length > 1 ? exact : opNaam).slice(0, 8) };
+}
+
+const contactUit = (c: MoneybirdContact) => ({
+  id: c.id,
+  naam: contactNaam(c),
+  email: c.send_invoices_to_email || c.email || null,
+  url: `https://moneybird.com/${ADMINISTRATIE}/contacts/${c.id}`,
+});
+
+async function portaalKlant(id: unknown): Promise<PortaalKlant> {
+  if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id)) throw new Melding("Onbekende klant.");
+  const { data, error } = await admin.from("clients").select("*").eq("id", id).maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!data) throw new Melding("Deze klant bestaat niet (meer).");
+  return data as PortaalKlant;
+}
+
+/** Een urenregel zoals de serverfunctie hem leest. */
+interface Urenregel {
+  id: string;
+  project_id: string | null;
+  started_at: string;
+  ended_at: string | null;
+  billable: boolean;
+  description: string | null;
+  gefactureerd_op: string | null;
+  task: { title: string } | null;
+}
+
+/**
+ * Factuurregels uit uren: één regel per taak (of per omschrijving), met de
+ * uren in twee decimalen. Het portaal toont vooraf precies dezelfde indeling.
+ */
+function factuurRegels(regels: Urenregel[]) {
+  const groepen = new Map<string, { omschrijving: string; minuten: number; van: string; tot: string }>();
+  for (const r of regels) {
+    const omschrijving = r.task?.title?.trim() || r.description?.trim() || "Werkzaamheden";
+    // Hele minuten per regel, net als de duur die het portaal toont.
+    const minuten = Math.max(0, Math.round((new Date(r.ended_at!).getTime() - new Date(r.started_at).getTime()) / 60000));
+    const dag = r.started_at.slice(0, 10);
+    const groep = groepen.get(omschrijving) ?? { omschrijving, minuten: 0, van: dag, tot: dag };
+    groep.minuten += minuten;
+    if (dag < groep.van) groep.van = dag;
+    if (dag > groep.tot) groep.tot = dag;
+    groepen.set(omschrijving, groep);
+  }
+  return [...groepen.values()];
+}
+
 async function voerUit(actie: string, body: Record<string, unknown>): Promise<unknown> {
+  if (actie === "klant") {
+    const klant = await portaalKlant(body.clientId);
+    const gevonden = await zoekContact(klant);
+    if (!("contact" in gevonden)) return { ok: true, contact: null };
+    const contact = gevonden.contact;
+
+    // Het laatste jaar aan facturen van deze klant, zonder concepten.
+    const nu = new Date();
+    const jaarGeleden = new Date(Date.UTC(nu.getUTCFullYear() - 1, nu.getUTCMonth(), nu.getUTCDate()));
+    const dag = (d: Date) => d.toISOString().slice(0, 10).replaceAll("-", "");
+    const filter = encodeURIComponent(
+      `contact_id:${contact.id},period:${dag(jaarGeleden)}..${dag(nu)},state:open|late|reminded|pending_payment|paid|uncollectible`,
+    );
+    const facturen = (await moneybird(`sales_invoices.json?per_page=100&filter=${filter}`)) as (MoneybirdFactuur & {
+      total_price_excl_tax: unknown;
+      paid_at: string | null;
+    })[];
+
+    const ditJaar = String(nu.getUTCFullYear());
+    const open = facturen.filter((f) => f.state !== "paid" && f.state !== "uncollectible");
+    const betaald = facturen.filter((f) => f.state === "paid" && f.paid_at && f.invoice_date);
+    const betaaldagen = betaald.map((f) =>
+      Math.max(0, Math.round((new Date(f.paid_at!).getTime() - new Date(f.invoice_date!).getTime()) / 86400000)),
+    );
+
+    // Als het contact nog niet vastlag, nu wel: dan hoeft er niet meer gezocht te worden.
+    if (klant.moneybird_contact_id !== contact.id) {
+      await admin.from("clients").update({ moneybird_contact_id: contact.id }).eq("id", klant.id);
+    }
+
+    return {
+      ok: true,
+      contact: contactUit(contact),
+      omzetDitJaar: facturen
+        .filter((f) => (f.invoice_date ?? "").startsWith(ditJaar))
+        .reduce((som, f) => som + getal(f.total_price_excl_tax), 0),
+      open: open.reduce((som, f) => som + getal(f.total_unpaid), 0),
+      openAantal: open.filter((f) => getal(f.total_unpaid) > 0).length,
+      teLaat: open.filter((f) => getal(f.total_unpaid) > 0 && (f.state === "late" || f.state === "reminded")).length,
+      betaaldagen: betaaldagen.length > 0 ? Math.round(betaaldagen.reduce((a, b) => a + b, 0) / betaaldagen.length) : null,
+      facturen: [...facturen]
+        .sort((a, b) => (b.invoice_date ?? "").localeCompare(a.invoice_date ?? ""))
+        .slice(0, 5)
+        .map((f) => ({
+          id: f.id,
+          nummer: f.invoice_id,
+          status: f.state,
+          datum: f.invoice_date,
+          totaal: getal(f.total_price_incl_tax),
+          open: getal(f.total_unpaid),
+          url: `https://moneybird.com/${ADMINISTRATIE}/sales_invoices/${f.id}`,
+        })),
+    };
+  }
+
+  if (actie === "uren-factureren") {
+    const projectId = body.projectId;
+    if (typeof projectId !== "string" || !/^[0-9a-f-]{36}$/i.test(projectId)) throw new Melding("Onbekend project.");
+    const ids = Array.isArray(body.urenIds) ? body.urenIds.filter((x): x is string => typeof x === "string") : [];
+    if (ids.length === 0) throw new Melding("Geen uren gekozen.");
+    const tarief = typeof body.uurtarief === "number" ? Math.round(body.uurtarief * 100) / 100 : NaN;
+    if (!Number.isFinite(tarief) || tarief <= 0) throw new Melding("Vul een uurtarief in.");
+
+    const { data: project, error: projectFout } = await admin
+      .from("projects")
+      .select("id, name, client_id")
+      .eq("id", projectId)
+      .maybeSingle();
+    if (projectFout) throw new Error(projectFout.message);
+    if (!project?.client_id) throw new Melding("Dit project hoort niet bij een klant.");
+    const klant = await portaalKlant(project.client_id);
+
+    // Eerst de uren controleren, pas daarna iets in Moneybird aanmaken.
+    const { data: regels, error: urenFout } = await admin
+      .from("time_entries")
+      .select("id, project_id, started_at, ended_at, billable, description, gefactureerd_op, task:tasks(title)")
+      .in("id", ids);
+    if (urenFout) {
+      if (/gefactureerd_op|column/i.test(urenFout.message)) {
+        throw new Melding("De database mist nog de kolommen voor facturatie. Voer eerst de migratie uit in Lovable.");
+      }
+      throw new Error(urenFout.message);
+    }
+    const lijst = (regels ?? []) as unknown as Urenregel[];
+    if (lijst.length !== ids.length) throw new Melding("Een deel van deze uren bestaat niet meer. Vernieuw de pagina.");
+    for (const r of lijst) {
+      if (r.project_id !== projectId) throw new Melding("Er zitten uren van een ander project tussen.");
+      if (!r.billable) throw new Melding("Er zitten interne uren tussen; die worden niet gefactureerd.");
+      if (!r.ended_at) throw new Melding("Er loopt nog een timer op deze uren. Stop die eerst.");
+      if (r.gefactureerd_op) throw new Melding("Een deel van deze uren is al gefactureerd. Vernieuw de pagina.");
+    }
+
+    const gevonden = await zoekContact(klant, body.contactId);
+    if (!("contact" in gevonden)) {
+      return { ok: false, kiesContact: gevonden.kandidaten.map(contactUit) };
+    }
+    const contact = gevonden.contact;
+
+    const regelsOpFactuur = factuurRegels(lijst);
+    const periode = (van: string, tot: string) => `${van.replaceAll("-", "")}..${tot.replaceAll("-", "")}`;
+    const factuur = (await moneybird("sales_invoices.json", {
+      method: "POST",
+      body: {
+        sales_invoice: {
+          contact_id: contact.id,
+          reference: `Uren ${project.name}`.slice(0, 100),
+          prices_are_incl_tax: false,
+          details_attributes: regelsOpFactuur.map((g, i) => ({
+            description: g.omschrijving,
+            amount: (Math.round((g.minuten / 60) * 100) / 100).toFixed(2),
+            price: tarief.toFixed(2),
+            period: periode(g.van, g.tot),
+            row_order: i,
+          })),
+        },
+      },
+    })) as { id: string };
+
+    // De uren vastzetten op deze factuur; alleen regels die nog vrij waren.
+    const { error: markeerFout } = await admin
+      .from("time_entries")
+      .update({ gefactureerd_op: new Date().toISOString(), moneybird_factuur_id: factuur.id })
+      .in("id", ids)
+      .is("gefactureerd_op", null);
+    if (markeerFout) console.error("uren markeren mislukt:", markeerFout.message);
+
+    await admin
+      .from("clients")
+      .update({ moneybird_contact_id: contact.id, uurtarief_cents: Math.round(tarief * 100) })
+      .eq("id", klant.id);
+
+    return {
+      ok: true,
+      factuurUrl: `https://moneybird.com/${ADMINISTRATIE}/sales_invoices/${factuur.id}`,
+      ...(markeerFout ? { waarschuwing: "De factuur staat in Moneybird, maar de uren konden niet als gefactureerd worden gemarkeerd." } : {}),
+    };
+  }
+
+  if (actie === "uren-vrijgeven") {
+    // Als een conceptfactuur in Moneybird is weggegooid: de uren weer vrijgeven.
+    const factuurId = body.factuurId;
+    if (!isId(factuurId)) throw new Melding("Onbekende factuur.");
+    let bestaat = true;
+    try {
+      await moneybird(`sales_invoices/${factuurId}.json`);
+    } catch (fout) {
+      if (fout instanceof Error && fout.message.includes("(404)")) bestaat = false;
+      else throw fout;
+    }
+    if (bestaat) throw new Melding("Deze factuur bestaat nog in Moneybird. Verwijder hem daar eerst als de uren opnieuw gefactureerd moeten worden.");
+    const { error } = await admin
+      .from("time_entries")
+      .update({ gefactureerd_op: null, moneybird_factuur_id: null })
+      .eq("moneybird_factuur_id", factuurId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  }
+
   if (actie === "pdf") {
     if (!isId(body.id)) throw new Melding("Onbekende factuur.");
     // Moneybird stuurt door naar een tijdelijke link; die link is wat het portaal opent.
@@ -268,7 +541,29 @@ serve(async (req: Request): Promise<Response> => {
     const eerste = new Date(Date.UTC(nu.getUTCFullYear(), nu.getUTCMonth() - 11, 1));
     const periode = `${maandCode(eerste)}..${maandCode(nu)}`;
 
-    const [winstVerlies, bank, facturen, crediteuren] = await Promise.all([
+    // Btw: het lopende kwartaal en, tot de aangifte ervan uiterlijk binnen
+    // moet zijn (de laatste dag van de maand na het kwartaal), het vorige.
+    const kwartaalStart = (jaar: number, k: number) => new Date(Date.UTC(jaar, k * 3, 1));
+    const kwartalen = (() => {
+      const k = Math.floor(nu.getUTCMonth() / 3);
+      const lijst = [{ jaar: nu.getUTCFullYear(), k }];
+      // In de eerste maand van een kwartaal loopt de aangifte van het vorige nog.
+      if (nu.getUTCMonth() % 3 === 0) lijst.unshift(k === 0 ? { jaar: nu.getUTCFullYear() - 1, k: 3 } : { jaar: nu.getUTCFullYear(), k: k - 1 });
+      return lijst.map(({ jaar, k: q }) => {
+        const van = kwartaalStart(jaar, q);
+        const tot = new Date(Date.UTC(jaar, q * 3 + 2, 1));
+        // Laatste dag van de maand na het kwartaal.
+        const deadline = new Date(Date.UTC(jaar, q * 3 + 4, 0));
+        return {
+          label: `Q${q + 1} ${jaar}`,
+          periode: `${maandCode(van)}..${maandCode(tot)}`,
+          lopend: nu < new Date(Date.UTC(jaar, q * 3 + 3, 1)),
+          deadline: deadline.toISOString().slice(0, 10),
+        };
+      });
+    })();
+
+    const [winstVerlies, bank, facturen, crediteuren, btw] = await Promise.all([
       onderdeel(async () => {
         const r = (await moneybird(`reports/profit_loss.json?period=${periode}&granularity=month`)) as {
           periods?: Record<string, unknown>[];
@@ -318,6 +613,31 @@ serve(async (req: Request): Promise<Response> => {
         };
         return { totaal: (r.creditors ?? []).reduce((som, c) => som + getal(c.amount), 0) };
       }),
+      onderdeel(async () =>
+        Promise.all(
+          kwartalen.map(async (q) => {
+            const r = (await moneybird(`reports/tax.json?period=${q.periode}`)) as {
+              tax_rates?: { report_reference?: string; type?: string; tax?: unknown }[];
+            };
+            // Rubriek 5b is voorbelasting (wat je terugkrijgt); de rest is wat je verschuldigd bent.
+            let verschuldigd = 0;
+            let voorbelasting = 0;
+            for (const t of r.tax_rates ?? []) {
+              const terug = t.report_reference ? /^NL\/5/i.test(t.report_reference) : t.type !== "sales_invoice";
+              if (terug) voorbelasting += getal(t.tax);
+              else verschuldigd += getal(t.tax);
+            }
+            return {
+              label: q.label,
+              lopend: q.lopend,
+              deadline: q.deadline,
+              verschuldigd,
+              voorbelasting,
+              afdragen: verschuldigd - voorbelasting,
+            };
+          }),
+        ),
+      ),
     ]);
 
     return antwoord({
@@ -328,6 +648,7 @@ serve(async (req: Request): Promise<Response> => {
       bank,
       facturen,
       crediteuren,
+      btw,
     });
   } catch (fout) {
     console.error("moneybird-financien:", fout);

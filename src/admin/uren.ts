@@ -41,6 +41,9 @@ function unwrap<T>({ data, error }: { data: T | null; error: { message: string }
 // ------------------------------------------------------------------ duur
 
 /** Minuten tussen begin en eind; een lopende timer telt tot nu. */
+/** Factureerbaar, afgerond en nog niet op een factuur in Moneybird. */
+export const nogTeFactureren = (r: TimeEntry) => r.billable && Boolean(r.ended_at) && !r.gefactureerd_op;
+
 export function duurMinuten(regel: Pick<TimeEntry, "started_at" | "ended_at">, nu = Date.now()): number {
   const begin = new Date(regel.started_at).getTime();
   const eind = regel.ended_at ? new Date(regel.ended_at).getTime() : nu;

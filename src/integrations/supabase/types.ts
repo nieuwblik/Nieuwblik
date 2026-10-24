@@ -20,6 +20,8 @@ export type Database = {
           billing_cycle: Database["public"]["Enums"]["billing_cycle"] | null
           billing_note: string | null
           billing_start: string | null
+          moneybird_contact_id: string | null
+          uurtarief_cents: number | null
           city: string | null
           contact_name: string | null
           created_at: string
@@ -40,6 +42,8 @@ export type Database = {
           billing_cycle?: Database["public"]["Enums"]["billing_cycle"] | null
           billing_note?: string | null
           billing_start?: string | null
+          moneybird_contact_id?: string | null
+          uurtarief_cents?: number | null
           city?: string | null
           contact_name?: string | null
           created_at?: string
@@ -60,6 +64,8 @@ export type Database = {
           billing_cycle?: Database["public"]["Enums"]["billing_cycle"] | null
           billing_note?: string | null
           billing_start?: string | null
+          moneybird_contact_id?: string | null
+          uurtarief_cents?: number | null
           city?: string | null
           contact_name?: string | null
           created_at?: string
@@ -534,6 +540,8 @@ export type Database = {
       time_entries: {
         Row: {
           billable: boolean
+          gefactureerd_op: string | null
+          moneybird_factuur_id: string | null
           created_at: string
           description: string | null
           ended_at: string | null
@@ -546,6 +554,8 @@ export type Database = {
         }
         Insert: {
           billable?: boolean
+          gefactureerd_op?: string | null
+          moneybird_factuur_id?: string | null
           created_at?: string
           description?: string | null
           ended_at?: string | null
@@ -558,6 +568,8 @@ export type Database = {
         }
         Update: {
           billable?: boolean
+          gefactureerd_op?: string | null
+          moneybird_factuur_id?: string | null
           created_at?: string
           description?: string | null
           ended_at?: string | null

@@ -150,6 +150,8 @@ export function useCombinedRows(): CombinedRows {
         billing_note: null,
         mail_afgemeld_op: null,
         mail_afmeld_token: "",
+        moneybird_contact_id: null,
+        uurtarief_cents: null,
         created_by: null,
         created_at: project.created_at,
         updated_at: project.updated_at,

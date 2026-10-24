@@ -13,6 +13,8 @@ import {
   Phone,
   Receipt,
   Rocket,
+  Timer,
+  TrendingUp,
   User,
   type LucideIcon,
 } from "lucide-react";
@@ -25,6 +27,7 @@ import { BILLING_CYCLE, formatEuro, volgendeTermijn } from "@/admin/billing";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import type { Client, ProjectWithClient, TeamMember } from "@/admin/queries";
 import ProjectTimer from "@/admin/components/ProjectTimer";
+import { formatBedrag, useKlantFinancien } from "@/admin/financien";
 
 interface ProjectRailProps {
   project: ProjectWithClient;
@@ -61,6 +64,53 @@ const Rij = ({
 const Kopje = ({ children }: { children: React.ReactNode }) => (
   <p className="text-[13px] text-muted-foreground">{children}</p>
 );
+
+/**
+ * Wat de klant in Moneybird heeft lopen: omzet dit jaar, wat er openstaat en
+ * hoe snel hij gemiddeld betaalt. Verschijnt alleen als Moneybird gekoppeld
+ * is en er een contact bij deze klant is gevonden.
+ */
+const Facturen = ({ clientId }: { clientId: string }) => {
+  const { data, isLoading } = useKlantFinancien(clientId);
+  if (isLoading || !data?.contact) return null;
+
+  return (
+    <div className="space-y-4 border-t border-border pt-6">
+      <div className="flex items-baseline justify-between gap-3">
+        <Kopje>Facturen</Kopje>
+        <a
+          href={data.contact.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-[13px] text-muted-foreground hover:text-foreground hover:underline"
+        >
+          Moneybird
+          <ExternalLink className="h-3 w-3" />
+        </a>
+      </div>
+      <Rij icon={TrendingUp} label={`Omzet ${new Date().getFullYear()}, excl. btw`}>
+        {formatBedrag(data.omzetDitJaar ?? 0)}
+      </Rij>
+      <Rij icon={Receipt} label="Openstaand">
+        {(data.openAantal ?? 0) === 0 ? (
+          "Niets"
+        ) : (
+          <>
+            {formatBedrag(data.open ?? 0)}
+            <span className="font-normal text-muted-foreground">
+              {" "}
+              · {data.openAantal} {data.openAantal === 1 ? "factuur" : "facturen"}
+            </span>
+            {(data.teLaat ?? 0) > 0 && <span className="text-danger-ink">, {data.teLaat} te laat</span>}
+          </>
+        )}
+      </Rij>
+      <Rij icon={Timer} label="Betaalt gemiddeld na">
+        {data.betaaldagen == null ? "Nog geen betalingen" : `${data.betaaldagen} ${data.betaaldagen === 1 ? "dag" : "dagen"}`}
+      </Rij>
+    </div>
+  );
+};
 
 /**
  * De vaste kolom naast het werk: wat er speelt en waar de klant staat.
@@ -129,6 +179,8 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
             {project.built_with_tanstack ? "TanStack" : "React"}
           </Rij>
         </div>
+
+        {client && <Facturen clientId={client.id} />}
       </TabsContent>
 
       <TabsContent value="gegevens" className="mt-6 space-y-6">

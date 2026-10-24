@@ -2,20 +2,29 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { format, isToday, isYesterday, startOfMonth, startOfWeek } from "date-fns";
 import { nl } from "date-fns/locale";
-import { Pencil, Plus, Timer, Trash2 } from "lucide-react";
+import { Pencil, Plus, Receipt, Timer, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import UrenDialoog from "@/admin/components/UrenDialoog";
 import UrenExport from "@/admin/components/UrenExport";
-import { useTeam } from "@/admin/queries";
+import UrenFactureren from "@/admin/components/UrenFactureren";
+import { useFinancien, useUrenVrijgeven } from "@/admin/financien";
+import { useTeam, type Client } from "@/admin/queries";
 import {
   duurMinuten,
   formatDuur,
   isNietGeactiveerd,
+  nogTeFactureren,
   useDeleteUren,
   useNu,
   useUrenVan,
@@ -37,12 +46,18 @@ const dagLabel = (datum: Date) =>
  * nieuwste eerst. Toevoegen staat het project al ingevuld; de timer zelf staat
  * links in de urenbalk.
  */
-const ProjectUren = ({ projectId, naam }: { projectId: string; naam: string }) => {
+const ProjectUren = ({ projectId, naam, client = null }: { projectId: string; naam: string; client?: Client | null }) => {
   const { data: regels = [], isLoading, isError, error } = useUrenVan("project", projectId);
   const { data: team = [] } = useTeam();
   const verwijder = useDeleteUren();
   const { vraagBevestiging, dialoog: bevestiging } = useConfirm();
   const [dialoog, setDialoog] = useState<{ regel?: UrenRegel } | null>(null);
+  const [factureren, setFactureren] = useState(false);
+  const { data: financien } = useFinancien();
+  const vrijgeven = useUrenVrijgeven();
+  // Factureren kan alleen als Moneybird gekoppeld en de functie live is.
+  const moneybirdUrl = financien && "bijgewerkt" in financien ? financien.moneybirdUrl : null;
+  const teFactureren = regels.filter(nogTeFactureren);
   const [zichtbaar, setZichtbaar] = useState(STAP);
   const nu = useNu(regels.some((r) => !r.ended_at), 30_000);
 
@@ -54,7 +69,7 @@ const ProjectUren = ({ projectId, naam }: { projectId: string; naam: string }) =
       { label: "Deze week", minuten: som(regels.filter((r) => new Date(r.started_at) >= maandag)) },
       { label: "Deze maand", minuten: som(regels.filter((r) => new Date(r.started_at) >= eersteVanMaand)) },
       { label: "Totaal", minuten: som(regels) },
-      { label: "Factureerbaar", minuten: som(regels.filter((r) => r.billable)) },
+      { label: "Nog te factureren", minuten: som(regels.filter(nogTeFactureren)) },
     ];
   }, [regels, nu]);
 
@@ -91,6 +106,43 @@ const ProjectUren = ({ projectId, naam }: { projectId: string; naam: string }) =
     }
   };
 
+  /** Het label op gefactureerde uren, met de factuur en het vrijgeven erachter. */
+  const gefactureerd = (r: UrenRegel) => {
+    const factuurId = r.moneybird_factuur_id;
+    if (!factuurId || !moneybirdUrl) return <StatusPill toon="info">Gefactureerd</StatusPill>;
+    const vrij = async () => {
+      const ja = await vraagBevestiging({
+        titel: "Uren weer vrijgeven?",
+        beschrijving:
+          "Alleen als de conceptfactuur in Moneybird is verwijderd. Alle uren van die factuur komen dan weer bij Nog te factureren.",
+        bevestigLabel: "Vrijgeven",
+        gevaarlijk: false,
+      });
+      if (!ja) return;
+      try {
+        await vrijgeven.mutateAsync(factuurId);
+        toast.success("Uren vrijgegeven");
+      } catch (fout) {
+        toast.error(fout instanceof Error ? fout.message : "Vrijgeven mislukt");
+      }
+    };
+    return (
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger className="rounded-full transition-transform active:scale-95" aria-label="Factuur bij deze uren">
+          <StatusPill toon="info">Gefactureerd</StatusPill>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem asChild>
+            <a href={`${moneybirdUrl}/sales_invoices/${factuurId}`} target="_blank" rel="noopener noreferrer">
+              Factuur openen in Moneybird
+            </a>
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => void vrij()}>Weer vrijgeven</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  };
+
   if (isError && isNietGeactiveerd(error)) {
     return <EmptyState compact icon={Timer} title="De urenregistratie is nog niet geactiveerd" />;
   }
@@ -101,6 +153,12 @@ const ProjectUren = ({ projectId, naam }: { projectId: string; naam: string }) =
         <h2 className="text-lg tracking-tight">Uren</h2>
         <div className="flex flex-wrap gap-2">
           <UrenExport projectId={projectId} naam={naam} variant="klein" />
+          {moneybirdUrl && client && teFactureren.length > 0 && (
+            <Button variant="outline" size="sm" className="h-8" onClick={() => setFactureren(true)}>
+              <Receipt className="h-4 w-4" />
+              Factureren
+            </Button>
+          )}
           <Button variant="outline" size="sm" className="h-8" onClick={() => setDialoog({})}>
             <Plus className="h-4 w-4" />
             Uren toevoegen
@@ -167,6 +225,7 @@ const ProjectUren = ({ projectId, naam }: { projectId: string; naam: string }) =
                       <Avatar naam={naamVan(r.user_id)} maat="xs" vorm="rond" />
                     </span>
                     {!r.billable && <StatusPill toon="neutral">Intern</StatusPill>}
+                    {r.gefactureerd_op && gefactureerd(r)}
                     {!r.ended_at && <StatusPill toon="success">Loopt</StatusPill>}
                     <span className="w-16 text-right font-medium tabular-nums">{formatDuur(duurMinuten(r, nu))}</span>
                     <span className="flex shrink-0 gap-0.5">
@@ -208,6 +267,13 @@ const ProjectUren = ({ projectId, naam }: { projectId: string; naam: string }) =
         onOpenChange={(open) => !open && setDialoog(null)}
         regel={dialoog?.regel ?? null}
         projectId={projectId}
+      />
+      <UrenFactureren
+        open={factureren}
+        onOpenChange={setFactureren}
+        projectId={projectId}
+        client={client}
+        regels={regels}
       />
       {bevestiging}
     </div>

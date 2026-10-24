@@ -43,6 +43,21 @@ export interface Financien {
   bank: Onderdeel<{ totaal: number; rekeningen: { naam: string; soort: string; saldo: number }[] }>;
   facturen: Onderdeel<OpenFactuur[]>;
   crediteuren: Onderdeel<{ totaal: number }>;
+  /** Ontbreekt bij een oudere versie van de serverfunctie. */
+  btw?: Onderdeel<BtwKwartaal[]>;
+}
+
+export interface BtwKwartaal {
+  /** "Q3 2026" */
+  label: string;
+  /** Het kwartaal loopt nog; de bedragen groeien mee. */
+  lopend: boolean;
+  /** Uiterlijke datum voor aangifte en betaling (YYYY-MM-DD). */
+  deadline: string;
+  verschuldigd: number;
+  voorbelasting: number;
+  /** Verschuldigd min voorbelasting; negatief is terugkrijgen. */
+  afdragen: number;
 }
 
 /** Wat de pagina kan tonen: de cijfers, of waarom ze er (nog) niet zijn. */
@@ -96,29 +111,99 @@ export type FactuurActie =
   | { actie: "pdf"; id: string };
 
 /**
+ * Een actie van de serverfunctie aanroepen. Een oudere versie van de functie
+ * kent geen acties en geeft dan gewoon het overzicht terug; dat mag niet als
+ * "gelukt" doorgaan.
+ */
+async function roepAan<T>(body: Record<string, unknown>): Promise<T> {
+  const { data, error } = await supabase.functions.invoke("moneybird-financien", { body });
+  if (error) {
+    const bericht = await (error as { context?: Response }).context?.json?.().catch(() => null);
+    throw new Error(bericht?.error ?? error.message);
+  }
+  if (!data || typeof data !== "object" || "bijgewerkt" in data || "ingesteld" in data) {
+    throw new Error("De serverfunctie kent deze actie nog niet. Publiceer de nieuwste versie in Lovable.");
+  }
+  return data as T;
+}
+
+/**
  * Iets doen met een openstaande factuur in Moneybird. Na een herinnering,
  * betaling of afboeking wordt het overzicht opnieuw opgehaald.
  */
 export function useFactuurActie() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (body: FactuurActie): Promise<{ ok?: boolean; url?: string }> => {
-      const { data, error } = await supabase.functions.invoke("moneybird-financien", { body });
-      if (error) {
-        const bericht = await (error as { context?: Response }).context?.json?.().catch(() => null);
-        throw new Error(bericht?.error ?? error.message);
-      }
-      // Een oudere versie van de functie kent geen acties en geeft dan gewoon
-      // het overzicht terug; dat mag niet als "gelukt" doorgaan.
-      const resultaat = data as { ok?: boolean; url?: string };
-      if (!resultaat?.ok && !resultaat?.url) {
-        throw new Error("De serverfunctie kent deze actie nog niet. Publiceer de nieuwste versie in Lovable.");
-      }
-      return resultaat;
-    },
+    mutationFn: (body: FactuurActie) => roepAan<{ ok?: boolean; url?: string }>(body),
     onSuccess: (_data, body) => {
       if (body.actie !== "pdf") void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
     },
+  });
+}
+
+export interface MoneybirdContact {
+  id: string;
+  naam: string;
+  email: string | null;
+  url: string;
+}
+
+export interface KlantFinancien {
+  /** null: geen (uniek) contact gevonden in Moneybird. */
+  contact: MoneybirdContact | null;
+  omzetDitJaar?: number;
+  open?: number;
+  openAantal?: number;
+  teLaat?: number;
+  /** Gemiddeld aantal dagen tussen factuurdatum en betaling, het laatste jaar. */
+  betaaldagen?: number | null;
+  facturen?: { id: string; nummer: string | null; status: string; datum: string | null; totaal: number; open: number; url: string }[];
+}
+
+/**
+ * Facturen en betaalgedrag van één klant, voor de klantpagina. Alleen als
+ * Moneybird gekoppeld en de functie live is; anders blijft het stil.
+ */
+export function useKlantFinancien(clientId: string | undefined) {
+  const { data: stand } = useFinancien();
+  const live = Boolean(stand && "bijgewerkt" in stand);
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "klant", clientId ?? ""],
+    enabled: Boolean(clientId) && live,
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<KlantFinancien>({ actie: "klant", clientId }),
+  });
+}
+
+export type UrenFactuurResultaat =
+  | { ok: true; factuurUrl: string; waarschuwing?: string }
+  | { ok: false; kiesContact: MoneybirdContact[] };
+
+/**
+ * Uren van een project als conceptfactuur in Moneybird. Komt er geen uniek
+ * contact uit, dan krijg je de kandidaten terug om uit te kiezen.
+ */
+export function useUrenFactureren() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { projectId: string; urenIds: string[]; uurtarief: number; contactId?: string }) =>
+      roepAan<UrenFactuurResultaat>({ actie: "uren-factureren", ...body }),
+    onSuccess: (resultaat) => {
+      if (!resultaat.ok) return;
+      void qc.invalidateQueries({ queryKey: ["admin", "uren"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "clients"] });
+      void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
+    },
+  });
+}
+
+/** Uren weer vrijgeven als hun conceptfactuur in Moneybird is weggegooid. */
+export function useUrenVrijgeven() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (factuurId: string) => roepAan<{ ok: true }>({ actie: "uren-vrijgeven", factuurId }),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ["admin", "uren"] }),
   });
 }
 

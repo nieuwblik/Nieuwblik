@@ -314,7 +314,7 @@ const ProjectDetail = () => {
             </TabsContent>
 
             <TabsContent value="uren" className="mt-6">
-              <ProjectUren projectId={project.id} naam={naam} />
+              <ProjectUren projectId={project.id} naam={naam} client={client ?? null} />
             </TabsContent>
 
             <TabsContent value="tijdlijn" className="mt-6">
