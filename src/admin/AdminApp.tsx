@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AdminAuthProvider } from "@/admin/AdminAuthContext";
 import AdminLayout from "@/admin/AdminLayout";
 import CalendarPage from "@/admin/pages/CalendarPage";
+import Financien from "@/admin/pages/Financien";
 import Hosting from "@/admin/pages/Hosting";
 import Mailen from "@/admin/pages/Mailen";
 import ClientDetail from "@/admin/pages/ClientDetail";
@@ -39,6 +40,7 @@ const AdminApp = () => (
         <Route path="projecten/:id" element={<ProjectDetail />} />
         <Route path="kalender" element={<CalendarPage />} />
         <Route path="hosting" element={<Hosting />} />
+        <Route path="financien" element={<Financien />} />
         <Route path="mailen" element={<Mailen />} />
         <Route path="taken" element={<Tasks />} />
         <Route path="taken/:id" element={<TaskDetail />} />

@@ -12,6 +12,7 @@ import {
   Timer,
   UserPen,
   Users,
+  Wallet,
 } from "lucide-react";
 
 import {
@@ -45,6 +46,7 @@ const PAGINAS = [
   { to: "/admin/uren", label: "Uren", zoek: "uren urenregistratie timer tijd timesheet", icon: Timer },
   { to: "/admin/hosting", label: "Hosting", zoek: "hosting facturatie facturen", icon: Receipt },
   { to: "/admin/mailen", label: "Mailen", zoek: "mailen mailing nieuwsbrief", icon: Mail },
+  { to: "/admin/financien", label: "Financiën", zoek: "financien omzet winst bank facturen moneybird", icon: Wallet },
 ] as const;
 
 /**

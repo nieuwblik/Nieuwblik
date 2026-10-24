@@ -6,6 +6,7 @@ import AandachtKaart from "@/admin/dashboard/AandachtKaart";
 import ActiviteitKaart from "@/admin/dashboard/ActiviteitKaart";
 import AfgerondKaart from "@/admin/dashboard/AfgerondKaart";
 import DezeWeekKaart from "@/admin/dashboard/DezeWeekKaart";
+import FinancienKaart from "@/admin/dashboard/FinancienKaart";
 import HostingKaart from "@/admin/dashboard/HostingKaart";
 import MailenKaart from "@/admin/dashboard/MailenKaart";
 import Meldingen from "@/admin/dashboard/Meldingen";
@@ -99,6 +100,7 @@ const Dashboard = () => {
         <div className="contents xl:flex xl:flex-col xl:gap-4">
           <DezeWeekKaart className="order-2 xl:order-none" />
           <TaakoverzichtKaart className="order-5 xl:order-none" />
+          <FinancienKaart className="order-7 xl:order-none" />
           <ProjectvoortgangKaart className="order-7 xl:order-none" />
           {toonHosting && <HostingKaart className="order-8 xl:order-none" />}
           {toonMailen && <MailenKaart className="order-8 xl:order-none" />}

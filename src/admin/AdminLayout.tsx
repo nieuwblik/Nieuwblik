@@ -19,6 +19,7 @@ import {
   UserPen,
   UserPlus,
   Users,
+  Wallet,
   Zap,
 } from "lucide-react";
 
@@ -146,6 +147,7 @@ const RailNav = ({
           badge: { aantal: facturen.open.length, titel: "te factureren" },
         },
         { to: "/admin/mailen", label: "Mailen", icon: Mail, end: false },
+        { to: "/admin/financien", label: "Financiën", icon: Wallet, end: false },
       ],
     },
   ];
