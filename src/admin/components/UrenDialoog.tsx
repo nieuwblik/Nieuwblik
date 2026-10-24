@@ -23,6 +23,8 @@ interface UrenDialoogProps {
   regel?: UrenRegel | null;
   /** Begindatum bij nieuwe uren (yyyy-MM-dd), standaard vandaag. */
   datum?: string;
+  /** Project dat bij nieuwe uren al gekozen staat, zoals op de klantpagina. */
+  projectId?: string | null;
 }
 
 const LEEG = {
@@ -48,7 +50,7 @@ function opDag(datum: string, tijd: string): Date {
  * liep, of als je vergat hem te stoppen. Een lopende timer bewerk je hier ook;
  * leeg je de eindtijd niet, dan stopt hij op de ingevulde tijd.
  */
-const UrenDialoog = ({ open, onOpenChange, regel, datum }: UrenDialoogProps) => {
+const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: UrenDialoogProps) => {
   const { user } = useAdminAuth();
   const { data: projects = [] } = useProjects();
   const { data: tasks = [] } = useTasks();
@@ -72,9 +74,9 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum }: UrenDialoogProps) => 
         userId: regel.user_id,
       });
     } else {
-      setForm({ ...LEEG, datum: datum ?? format(new Date(), "yyyy-MM-dd"), userId: user?.id ?? "" });
+      setForm({ ...LEEG, datum: datum ?? format(new Date(), "yyyy-MM-dd"), userId: user?.id ?? "", projectId });
     }
-  }, [open, regel, datum, user?.id]);
+  }, [open, regel, datum, projectId, user?.id]);
 
   const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
     setForm((prev) => ({ ...prev, [key]: value }));

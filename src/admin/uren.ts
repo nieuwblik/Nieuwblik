@@ -126,13 +126,14 @@ export function useUrenVan(soort: "taak" | "project", id: string | undefined) {
     queryKey: soort === "taak" ? urenKeys.taak(id ?? "") : urenKeys.project(id ?? ""),
     enabled: Boolean(id),
     retry: false,
-    queryFn: async (): Promise<TimeEntry[]> =>
+    queryFn: async (): Promise<UrenRegel[]> =>
       unwrap(
         await supabase
           .from("time_entries")
-          .select("*")
-          .eq(soort === "taak" ? "task_id" : "project_id", id!),
-      ),
+          .select(SELECTIE)
+          .eq(soort === "taak" ? "task_id" : "project_id", id!)
+          .order("started_at", { ascending: false }),
+      ) as unknown as UrenRegel[],
   });
 }
 

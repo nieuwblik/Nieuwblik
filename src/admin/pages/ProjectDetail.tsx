@@ -16,6 +16,7 @@ import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
 import ProjectRail from "@/admin/components/ProjectRail";
+import ProjectUren from "@/admin/components/ProjectUren";
 import TaskList from "@/admin/components/TaskList";
 import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
@@ -70,7 +71,7 @@ const ProjectDetail = () => {
   // Het tabblad staat in de URL, zodat een link van het dashboard (een
   // update in de activiteit) meteen op de tijdlijn opent.
   const [searchParams, setSearchParams] = useSearchParams();
-  const tab = ["taken", "bestanden", "tijdlijn"].includes(searchParams.get("tab") ?? "")
+  const tab = ["taken", "bestanden", "uren", "tijdlijn"].includes(searchParams.get("tab") ?? "")
     ? searchParams.get("tab")!
     : "taken";
 
@@ -272,6 +273,7 @@ const ProjectDetail = () => {
               <Tab value="bestanden" count={files.length}>
                 Bestanden
               </Tab>
+              <Tab value="uren">Uren</Tab>
               <Tab value="tijdlijn">Tijdlijn</Tab>
             </TabsList>
 
@@ -309,6 +311,10 @@ const ProjectDetail = () => {
 
             <TabsContent value="bestanden" className="mt-6">
               <ProjectFiles projectId={project.id} userId={user?.id ?? null} team={team} />
+            </TabsContent>
+
+            <TabsContent value="uren" className="mt-6">
+              <ProjectUren projectId={project.id} naam={naam} />
             </TabsContent>
 
             <TabsContent value="tijdlijn" className="mt-6">
