@@ -28,7 +28,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
-import StatusBadge from "@/admin/components/StatusBadge";
+import StatusPill from "@/admin/ui/StatusPill";
 import DatePicker from "@/admin/components/DatePicker";
 import TaskImages from "@/admin/components/TaskImages";
 import { useAdminAuth } from "@/admin/AdminAuthContext";

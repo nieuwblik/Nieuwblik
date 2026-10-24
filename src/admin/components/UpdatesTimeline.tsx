@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import EmptyState from "@/admin/components/EmptyState";
-import StatusBadge from "@/admin/components/StatusBadge";
+import StatusPill from "@/admin/ui/StatusPill";
 import { formatDateTime } from "@/admin/format";
 import { useAddUpdate, useDeleteUpdate, useProjectUpdates, type TeamMember } from "@/admin/queries";
 import type { UpdateKind } from "@/admin/constants";
@@ -94,7 +94,7 @@ const UpdatesTimeline = ({ projectId, userId, team }: UpdatesTimelineProps) => {
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <StatusBadge kind="update" value={update.kind} />
+                    <StatusPill kind="update" value={update.kind} />
                     <span className="text-xs text-muted-foreground">
                       {authorName(update.author_id)} · {formatDateTime(update.created_at)}
                     </span>

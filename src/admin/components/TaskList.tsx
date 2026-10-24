@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import StatusBadge from "@/admin/components/StatusBadge";
+import StatusPill from "@/admin/ui/StatusPill";
 import { PRIORITY_WEIGHT } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatDate, initials, tintFor } from "@/admin/format";
 import { useDeleteTask, useTasks, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
@@ -184,8 +184,8 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
         </div>
 
         <div className="flex shrink-0 items-center gap-1">
-          {!done && task.priority !== "normaal" && <StatusBadge kind="priority" value={task.priority} />}
-          {!done && task.status !== "todo" && <StatusBadge kind="task" value={task.status} />}
+          {!done && task.priority !== "normaal" && <StatusPill kind="priority" value={task.priority} />}
+          {!done && task.status !== "todo" && <StatusPill kind="task" value={task.status} />}
           <Button
             variant="ghost"
             size="icon"
@@ -290,8 +290,8 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
               </div>
 
               <div className="flex shrink-0 items-center gap-1.5">
-                {!done && task.priority !== "normaal" && <StatusBadge kind="priority" value={task.priority} />}
-                {!done && task.status !== "todo" && <StatusBadge kind="task" value={task.status} />}
+                {!done && task.priority !== "normaal" && <StatusPill kind="priority" value={task.priority} />}
+                {!done && task.status !== "todo" && <StatusPill kind="task" value={task.status} />}
                 <Button
                   variant="ghost"
                   size="icon"

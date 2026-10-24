@@ -76,6 +76,19 @@
   --color-rail-border: hsl(var(--rail-border));
   --color-rail-accent: hsl(var(--rail-accent));
 
+  /* Portaal: paginavlak en statuskleuren (zie de uitleg bij --s-danger). */
+  --color-canvas: hsl(var(--canvas));
+  --color-danger: hsl(var(--s-danger));
+  --color-danger-ink: hsl(var(--s-danger-ink));
+  --color-warning: hsl(var(--s-warning));
+  --color-warning-ink: hsl(var(--s-warning-ink));
+  --color-info: hsl(var(--s-info));
+  --color-info-ink: hsl(var(--s-info-ink));
+  --color-success: hsl(var(--s-success));
+  --color-success-ink: hsl(var(--s-success-ink));
+  --color-neutral: hsl(var(--s-neutral));
+  --color-neutral-ink: hsl(var(--s-neutral-ink));
+
   --color-sidebar: hsl(var(--sidebar-background));
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-primary: hsl(var(--sidebar-primary));
@@ -431,6 +444,39 @@
   --rail-active: 160 12% 18%;
   --rail-border: 160 10% 17%;
   --rail-accent: 160 60% 55%;         /* helder genoeg om op zwart te leven */
+}
+
+/* Portaal: paginavlak en statuskleuren met een vaste betekenis.
+   danger = te laat, urgent, mislukt · warning = hoog, wacht, te factureren ·
+   info = bezig, in productie · success = klaar, live, verstuurd ·
+   neutral = todo, normaal, gepauzeerd. Elke kleur heeft een volle tint (stip,
+   balk) en een inkt voor tekst op een lichte vulling van dezelfde kleur. */
+:root {
+  --canvas: 150 10% 97%;
+  --s-danger: 0 72% 51%;
+  --s-danger-ink: 0 70% 38%;
+  --s-warning: 30 92% 48%;
+  --s-warning-ink: 26 85% 33%;
+  --s-info: 212 76% 52%;
+  --s-info-ink: 214 70% 38%;
+  --s-success: 154 62% 34%;
+  --s-success-ink: 156 70% 24%;
+  --s-neutral: 160 5% 52%;
+  --s-neutral-ink: 160 6% 32%;
+}
+
+.dark {
+  --canvas: 160 12% 6%;
+  --s-danger: 0 72% 60%;
+  --s-danger-ink: 0 85% 76%;
+  --s-warning: 32 90% 56%;
+  --s-warning-ink: 34 92% 70%;
+  --s-info: 212 80% 62%;
+  --s-info-ink: 212 90% 78%;
+  --s-success: 154 50% 48%;
+  --s-success-ink: 152 55% 68%;
+  --s-neutral: 160 5% 55%;
+  --s-neutral-ink: 150 6% 72%;
 }
 
 
@@ -819,6 +865,22 @@ h1, h2, h3, h4, h5, h6 {
 .portaal ::-webkit-scrollbar-track,
 .portaal::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* Knoppen in het portaal in Cabin, net als de rest van de interface. De
+   gedeelde knopcomponent zet Epilogue; de publieke site houdt dat. */
+.portaal :where(button, a).font-epilogue {
+  font-family: var(--font-sans);
+}
+
+/* Kaarttitels in het portaal: Cabin 15/600. De globale kopregel zet elke h1-h6
+   met !important op Epilogue 700, dus deze klasse moet dat ook. */
+.portaal .p-kaarttitel {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 15px;
+  line-height: 1.35;
+  letter-spacing: 0;
 }
 
 .portaal ::-webkit-scrollbar-thumb,

@@ -6,15 +6,68 @@ export type ClientStatus = Database["public"]["Enums"]["client_status"];
 export type Priority = Database["public"]["Enums"]["priority_level"];
 export type UpdateKind = Database["public"]["Enums"]["update_kind"];
 
+/**
+ * Statuskleuren met een vaste betekenis, overal in het portaal dezelfde:
+ *
+ * - danger: te laat, urgent, mislukt
+ * - warning: hoog, wacht op klant, te factureren
+ * - info: bezig, in productie
+ * - success: klaar, live, gefactureerd, verstuurd
+ * - neutral: te doen, normaal, laag, gepauzeerd
+ *
+ * Kleur staat nooit alleen: elke pil heeft een tekstlabel. De tinten zelf
+ * staan als tokens in styles.css (--s-*), met een lichte en een donkere
+ * variant; hier staan alleen de klassen, bewust statisch zodat de JIT ze
+ * meepakt.
+ */
+export type Toon = "danger" | "warning" | "info" | "success" | "neutral";
+
+export const TOON: Record<Toon, { pil: string; stip: string; tekst: string; cel: string }> = {
+  danger: {
+    pil: "bg-danger/10 text-danger-ink border-danger/20",
+    stip: "bg-danger",
+    tekst: "text-danger-ink",
+    cel: "bg-danger/10 border-danger/30",
+  },
+  warning: {
+    pil: "bg-warning/10 text-warning-ink border-warning/25",
+    stip: "bg-warning",
+    tekst: "text-warning-ink",
+    cel: "bg-warning/10 border-warning/30",
+  },
+  info: {
+    pil: "bg-info/10 text-info-ink border-info/20",
+    stip: "bg-info",
+    tekst: "text-info-ink",
+    cel: "bg-info/10 border-info/30",
+  },
+  success: {
+    pil: "bg-success/10 text-success-ink border-success/20",
+    stip: "bg-success",
+    tekst: "text-success-ink",
+    cel: "bg-success/10 border-success/30",
+  },
+  neutral: {
+    pil: "bg-neutral/10 text-neutral-ink border-neutral/20",
+    stip: "bg-neutral",
+    tekst: "text-neutral-ink",
+    cel: "bg-neutral/10 border-neutral/25",
+  },
+};
+
 interface Meta {
   label: string;
-  /** Tailwind-klassen voor de badge; bewust statisch zodat de JIT ze meepakt. */
-  className: string;
+  toon: Toon;
 }
 
-/** Statusmeta plus een vlakke stipkleur voor de donkere zijbalk. */
-interface DotMeta extends Meta {
-  dot: string;
+/** Statusmeta plus een eigen tint per fase, voor grafieken en stippen. */
+interface FaseMeta extends Meta {
+  /**
+   * Fases zijn categorieën in de volgorde van het werk, dus ze krijgen één
+   * palet in plaats van negen losse kleuren: de pijplijn grijs, productie
+   * drie tinten blauw, opgeleverd groen, stilgelegd gedempt.
+   */
+  tint: string;
 }
 
 /**
@@ -22,72 +75,21 @@ interface DotMeta extends Meta {
  * Het dashboard en de statusfilters lezen die volgorde uit, dus een nieuwe
  * fase toevoegen hoeft alleen hier te gebeuren.
  */
-/*
- * Elke status heeft een lichte en een donkere variant. In donkere modus wordt
- * de lichte chip een doorschijnende getinte vulling met lichte tekst: een
- * volvlakke pastelkleur op een bijna-zwarte kaart leest als een sticker die
- * los van de interface zweeft.
- */
-export const PROJECT_STATUS: Record<ProjectStatus, DotMeta> = {
-  lead: {
-    label: "Lead",
-    className:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-400/15 dark:text-slate-300 dark:border-slate-400/25",
-    dot: "bg-slate-400",
-  },
-  offerte: {
-    label: "Offerte",
-    className:
-      "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/25",
-    dot: "bg-amber-400",
-  },
-  in_ontwerp: {
-    label: "In ontwerp",
-    className:
-      "bg-violet-100 text-violet-800 border-violet-200 dark:bg-violet-400/15 dark:text-violet-300 dark:border-violet-400/25",
-    dot: "bg-violet-400",
-  },
-  in_bouw: {
-    label: "In bouw",
-    className:
-      "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-400/15 dark:text-blue-300 dark:border-blue-400/25",
-    dot: "bg-blue-400",
-  },
-  review: {
-    label: "Review",
-    className:
-      "bg-cyan-100 text-cyan-800 border-cyan-200 dark:bg-cyan-400/15 dark:text-cyan-300 dark:border-cyan-400/25",
-    dot: "bg-cyan-400",
-  },
-  live: {
-    label: "Live",
-    className:
-      "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/25",
-    dot: "bg-emerald-400",
-  },
-  onderhoud: {
-    label: "Onderhoud",
-    className:
-      "bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-400/15 dark:text-teal-300 dark:border-teal-400/25",
-    dot: "bg-teal-400",
-  },
-  gepauzeerd: {
-    label: "Gepauzeerd",
-    className:
-      "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-400/15 dark:text-orange-300 dark:border-orange-400/25",
-    dot: "bg-orange-400",
-  },
-  geannuleerd: {
-    label: "Geannuleerd",
-    className:
-      "bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-400/15 dark:text-rose-300 dark:border-rose-400/25",
-    dot: "bg-rose-400",
-  },
+export const PROJECT_STATUS: Record<ProjectStatus, FaseMeta> = {
+  lead: { label: "Lead", toon: "neutral", tint: "bg-neutral/45" },
+  offerte: { label: "Offerte", toon: "neutral", tint: "bg-neutral/80" },
+  in_ontwerp: { label: "In ontwerp", toon: "info", tint: "bg-info/45" },
+  in_bouw: { label: "In bouw", toon: "info", tint: "bg-info/75" },
+  review: { label: "Review", toon: "info", tint: "bg-info" },
+  live: { label: "Live", toon: "success", tint: "bg-success" },
+  onderhoud: { label: "Onderhoud", toon: "success", tint: "bg-success/55" },
+  gepauzeerd: { label: "Gepauzeerd", toon: "neutral", tint: "bg-neutral/30" },
+  geannuleerd: { label: "Geannuleerd", toon: "neutral", tint: "bg-neutral/15" },
 };
 
 export const PROJECT_STATUS_ORDER = Object.keys(PROJECT_STATUS) as ProjectStatus[];
 
-/** Fases die nog werk vragen — gebruikt voor "actieve projecten" op het dashboard. */
+/** Fases die nog werk vragen: "lopend werk" op het dashboard en in de filters. */
 export const ACTIVE_PROJECT_STATUSES: ProjectStatus[] = [
   "lead",
   "offerte",
@@ -97,71 +99,27 @@ export const ACTIVE_PROJECT_STATUSES: ProjectStatus[] = [
 ];
 
 export const TASK_STATUS: Record<TaskStatus, Meta> = {
-  todo: {
-    label: "Te doen",
-    className:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-400/15 dark:text-slate-300 dark:border-slate-400/25",
-  },
-  bezig: {
-    label: "Bezig",
-    className:
-      "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-400/15 dark:text-blue-300 dark:border-blue-400/25",
-  },
-  wacht: {
-    label: "Wacht op klant",
-    className:
-      "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/25",
-  },
-  klaar: {
-    label: "Klaar",
-    className:
-      "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/25",
-  },
+  todo: { label: "Te doen", toon: "neutral" },
+  bezig: { label: "Bezig", toon: "info" },
+  wacht: { label: "Wacht op klant", toon: "warning" },
+  klaar: { label: "Klaar", toon: "success" },
 };
 
 export const TASK_STATUS_ORDER = Object.keys(TASK_STATUS) as TaskStatus[];
 
 export const CLIENT_STATUS: Record<ClientStatus, Meta> = {
-  prospect: {
-    label: "Prospect",
-    className:
-      "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-400/15 dark:text-amber-300 dark:border-amber-400/25",
-  },
-  actief: {
-    label: "Actief",
-    className:
-      "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/25",
-  },
-  inactief: {
-    label: "Inactief",
-    className:
-      "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-400/15 dark:text-slate-400 dark:border-slate-400/25",
-  },
+  prospect: { label: "Prospect", toon: "info" },
+  actief: { label: "Actief", toon: "success" },
+  inactief: { label: "Inactief", toon: "neutral" },
 };
 
 export const CLIENT_STATUS_ORDER = Object.keys(CLIENT_STATUS) as ClientStatus[];
 
 export const PRIORITY: Record<Priority, Meta> = {
-  laag: {
-    label: "Laag",
-    className:
-      "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-400/15 dark:text-slate-400 dark:border-slate-400/25",
-  },
-  normaal: {
-    label: "Normaal",
-    className:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-400/15 dark:text-slate-300 dark:border-slate-400/25",
-  },
-  hoog: {
-    label: "Hoog",
-    className:
-      "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-400/15 dark:text-orange-300 dark:border-orange-400/25",
-  },
-  urgent: {
-    label: "Urgent",
-    className:
-      "bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-400/15 dark:text-rose-300 dark:border-rose-400/25",
-  },
+  laag: { label: "Laag", toon: "neutral" },
+  normaal: { label: "Normaal", toon: "neutral" },
+  hoog: { label: "Hoog", toon: "warning" },
+  urgent: { label: "Urgent", toon: "danger" },
 };
 
 export const PRIORITY_ORDER = Object.keys(PRIORITY) as Priority[];
@@ -175,30 +133,42 @@ export const PRIORITY_WEIGHT: Record<Priority, number> = {
 };
 
 export const UPDATE_KIND: Record<UpdateKind, Meta> = {
-  update: {
-    label: "Update",
-    className:
-      "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-400/15 dark:text-blue-300 dark:border-blue-400/25",
-  },
-  notitie: {
-    label: "Notitie",
-    className:
-      "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-400/15 dark:text-slate-300 dark:border-slate-400/25",
-  },
-  mijlpaal: {
-    label: "Mijlpaal",
-    className:
-      "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/25",
-  },
+  update: { label: "Update", toon: "info" },
+  notitie: { label: "Notitie", toon: "neutral" },
+  mijlpaal: { label: "Mijlpaal", toon: "success" },
 };
 
 /**
  * Accentkleur per prioriteit in de kalender: streepje voor de taak, stip in
- * de compacte cel, tint achter de dag.
+ * de compacte cel, tint achter de dag. Volgt de statuskleuren hierboven;
+ * "laag" is lichter dan "normaal", zodat je ze in een volle cel uit elkaar
+ * houdt.
  */
 export const ACCENT: Record<Priority, { balk: string; stip: string; cel: string }> = {
-  urgent: { balk: "bg-rose-500", stip: "bg-rose-500", cel: "bg-rose-500/10 border-rose-500/30" },
-  hoog: { balk: "bg-orange-500", stip: "bg-orange-500", cel: "bg-orange-500/10 border-orange-500/30" },
-  normaal: { balk: "bg-sky-500", stip: "bg-sky-500", cel: "bg-sky-500/10 border-sky-500/30" },
-  laag: { balk: "bg-slate-400", stip: "bg-slate-400", cel: "bg-slate-400/10 border-slate-400/30" },
+  urgent: { balk: TOON.danger.stip, stip: TOON.danger.stip, cel: TOON.danger.cel },
+  hoog: { balk: TOON.warning.stip, stip: TOON.warning.stip, cel: TOON.warning.cel },
+  normaal: { balk: TOON.neutral.stip, stip: TOON.neutral.stip, cel: TOON.neutral.cel },
+  laag: { balk: "bg-neutral/45", stip: "bg-neutral/45", cel: "bg-neutral/5 border-neutral/20" },
 };
+
+/**
+ * Is deze openstaande taak over zijn deadline? De ene plek voor die check;
+ * hij stond eerder negen keer los in de code. Rekent in kalenderdagen, dus
+ * een deadline van vandaag is nog niet te laat.
+ */
+export function isTeLaat(task: { status: TaskStatus; due_date: string | null }): boolean {
+  if (task.status === "klaar" || !task.due_date) return false;
+  const [jaar, maand, dag] = task.due_date.slice(0, 10).split("-").map(Number);
+  const deadline = new Date(jaar ?? 0, (maand ?? 1) - 1, dag ?? 1);
+  const nu = new Date();
+  return deadline < new Date(nu.getFullYear(), nu.getMonth(), nu.getDate());
+}
+
+/**
+ * Taken zoals je ze telt: alleen hoofdtaken. Stappen horen bij hun taak en
+ * staan daar als "2/5 stappen"; ze apart meetellen gaf getallen die niet
+ * klopten met de lijsten eronder.
+ */
+export function hoofdtaken<T extends { parent_task_id: string | null }>(tasks: T[]): T[] {
+  return tasks.filter((t) => !t.parent_task_id);
+}

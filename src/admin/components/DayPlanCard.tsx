@@ -5,7 +5,7 @@ import { CheckSquare, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import StatusBadge from "@/admin/components/StatusBadge";
+import StatusPill from "@/admin/ui/StatusPill";
 import { ACCENT } from "@/admin/constants";
 import { useTasks, useTeam, type TaskWithProject } from "@/admin/queries";
 
@@ -101,8 +101,8 @@ const DayPlanCard = ({ dag, taken, onAdd, onNavigate }: DayPlanCardProps) => {
                   </div>
 
                   <div className="flex shrink-0 flex-col items-end gap-1">
-                    {taak.priority !== "normaal" && <StatusBadge kind="priority" value={taak.priority} />}
-                    {taak.status !== "todo" && <StatusBadge kind="task" value={taak.status} />}
+                    {taak.priority !== "normaal" && <StatusPill kind="priority" value={taak.priority} />}
+                    {taak.status !== "todo" && <StatusPill kind="task" value={taak.status} />}
                   </div>
                 </div>
               </li>

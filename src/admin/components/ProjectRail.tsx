@@ -20,7 +20,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import ActivityFeed from "@/admin/components/ActivityFeed";
-import StatusBadge from "@/admin/components/StatusBadge";
+import StatusPill from "@/admin/ui/StatusPill";
 import { BILLING_CYCLE, formatEuro, volgendeTermijn } from "@/admin/billing";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import type { Client, ProjectWithClient, TeamMember } from "@/admin/queries";
@@ -102,7 +102,7 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
         <div className="space-y-4 border-t border-border pt-6">
           <Kopje>Projectinfo</Kopje>
           <Rij icon={Flag} label="Fase">
-            <StatusBadge kind="project" value={project.status} />
+            <StatusPill kind="project" value={project.status} />
           </Rij>
           <Rij icon={CalendarClock} label="Deadline">
             <span className={cn(late && "text-rose-600 dark:text-rose-400")}>{deadlineLabel(project.deadline)}</span>
@@ -162,7 +162,7 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
         <div className="space-y-4 border-t border-border pt-6">
           <Kopje>Het werk</Kopje>
           <Rij icon={Flag} label="Prioriteit">
-            <StatusBadge kind="priority" value={project.priority} />
+            <StatusPill kind="priority" value={project.priority} />
           </Rij>
           <Rij icon={CalendarDays} label="Gestart">
             {formatDate(project.start_date)}
