@@ -145,3 +145,14 @@ export function tintFor(name: string): string {
   for (let i = 0; i < name.length; i += 1) hash = (hash * 31 + name.charCodeAt(i)) % 9973;
   return TINTS[hash % TINTS.length] ?? "bg-emerald-100 text-emerald-800 dark:bg-emerald-400/15 dark:text-emerald-300";
 }
+
+/**
+ * De database schrijft bij een fasewissel zelf een mijlpaal weg, met de
+ * technische namen erin ("van lead naar in_ontwerp"). Voor op het scherm
+ * vervangen we die door de labels die overal in het portaal staan.
+ */
+export function leesbareUpdate(tekst: string, labels: Record<string, { label: string }>): string {
+  return tekst.replace(/\b(van|naar) ([a-z_]+)\b/g, (geheel, voorzetsel: string, sleutel: string) =>
+    labels[sleutel] ? `${voorzetsel} ${labels[sleutel].label.toLowerCase()}` : geheel,
+  );
+}

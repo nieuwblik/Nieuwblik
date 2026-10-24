@@ -16,6 +16,8 @@ interface AdminAuthValue {
   user: User | null;
   /** Weergavenaam uit profiles, met het e-mailadres als terugval. */
   displayName: string;
+  /** Alleen de ingevulde profielnaam; leeg als die er niet is. */
+  profielNaam: string;
   /** Leest het profiel opnieuw, na het wijzigen van je naam. */
   refreshProfile: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -35,6 +37,7 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
   const [status, setStatus] = useState<AdminAuthStatus>("loading");
   const [user, setUser] = useState<User | null>(null);
   const [displayName, setDisplayName] = useState("");
+  const [profielNaam, setProfielNaam] = useState("");
   const activeRef = useRef(true);
 
   useEffect(() => {
@@ -74,6 +77,7 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (!activeRef.current) return;
       setDisplayName(profile?.display_name || profile?.email || session.user.email || "");
+      setProfielNaam(profile?.display_name?.trim() ?? "");
     };
 
     const {
@@ -109,10 +113,11 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
       .maybeSingle();
     if (!activeRef.current) return;
     setDisplayName(profile?.display_name || profile?.email || user.email || "");
+    setProfielNaam(profile?.display_name?.trim() ?? "");
   }, [user]);
 
   return (
-    <AdminAuthContext.Provider value={{ status, user, displayName, signOut, refreshProfile }}>
+    <AdminAuthContext.Provider value={{ status, user, displayName, profielNaam, signOut, refreshProfile }}>
       {children}
     </AdminAuthContext.Provider>
   );

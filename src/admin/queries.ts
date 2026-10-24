@@ -38,6 +38,7 @@ export const adminKeys = {
   taskFiles: (taskId: string) => ["admin", "taakfotos", taskId] as const,
   invoiced: ["admin", "gefactureerd"] as const,
   team: ["admin", "team"] as const,
+  mailings: ["admin", "mailings"] as const,
 };
 
 /** Gooit de Supabase-fout door zodat react-query hem als error-state oppakt. */
@@ -580,5 +581,18 @@ export function useDeleteTaskImage(taskId: string) {
       if (error) throw new Error(error.message);
     },
     onSuccess: () => void qc.invalidateQueries({ queryKey: ["admin", "taakfotos"] }),
+  });
+}
+
+// ---------------------------------------------------------------- mailingen
+
+export type Mailing = Tables<"mailings">;
+
+/** De laatste verzonden mailingen, nieuwste eerst. */
+export function useMailings(limit = 20) {
+  return useQuery({
+    queryKey: [...adminKeys.mailings, limit] as const,
+    queryFn: async (): Promise<Mailing[]> =>
+      unwrap(await supabase.from("mailings").select("*").order("created_at", { ascending: false }).limit(limit)),
   });
 }

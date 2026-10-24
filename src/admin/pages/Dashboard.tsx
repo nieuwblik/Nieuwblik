@@ -1,200 +1,162 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { CheckSquare, Search, Users } from "lucide-react";
+import { useMemo } from "react";
+import { format, startOfWeek, subWeeks } from "date-fns";
+import { nl } from "date-fns/locale";
+import { CheckCheck, FolderKanban, ListTodo, Receipt } from "lucide-react";
 
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import ClientGrid from "@/admin/components/ClientGrid";
-import EmptyState from "@/admin/components/EmptyState";
-import TaskCalendar from "@/admin/components/TaskCalendar";
-import TaskList from "@/admin/components/TaskList";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { PROJECT_STATUS } from "@/admin/constants";
-import { daysUntil, initials, tintFor } from "@/admin/format";
+import { formatEuro } from "@/admin/billing";
+import { ACTIVE_PROJECT_STATUSES, hoofdtaken } from "@/admin/constants";
+import AandachtKaart from "@/admin/dashboard/AandachtKaart";
+import ActiviteitKaart from "@/admin/dashboard/ActiviteitKaart";
+import DezeWeekKaart from "@/admin/dashboard/DezeWeekKaart";
+import FaseKaart from "@/admin/dashboard/FaseKaart";
+import HostingKaart from "@/admin/dashboard/HostingKaart";
+import MailenKaart from "@/admin/dashboard/MailenKaart";
+import MijnTakenKaart from "@/admin/dashboard/MijnTakenKaart";
+import OntbrekendKaart from "@/admin/dashboard/OntbrekendKaart";
+import TakenStatusKaart from "@/admin/dashboard/TakenStatusKaart";
 import { useCombinedRows } from "@/admin/rows";
-import { useTasks, useTeam } from "@/admin/queries";
+import { useTasks } from "@/admin/queries";
+import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
+import StatCard from "@/admin/ui/StatCard";
 
+const groet = () => {
+  const uur = new Date().getHours();
+  if (uur < 12) return "Goedemorgen";
+  if (uur < 18) return "Goedemiddag";
+  return "Goedenavond";
+};
+
+const meervoud = (aantal: number, een: string, meer: string) => `${aantal} ${aantal === 1 ? een : meer}`;
+
+/**
+ * Het beginscherm: eerst wat er speelt in één zin en vier cijfers, dan wat
+ * aandacht vraagt en wat er deze week moet, dan je eigen taken, en daaronder
+ * de stand van klanten, hosting en mailen.
+ *
+ * Elk cijfer en elke regel is een link naar de lijst erachter. Er staat hier
+ * niets wat je niet kunt openen.
+ */
 const Dashboard = () => {
-  const { displayName } = useAdminAuth();
-  const { rows, isLoading } = useCombinedRows();
+  const { profielNaam } = useAdminAuth();
+  const { rows, isLoading: rijenLaden } = useCombinedRows();
   const { data: tasks = [] } = useTasks();
-  const { data: team = [] } = useTeam();
-  const [search, setSearch] = useState("");
-  const zoekRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const taken = useTaakTellingen();
+  const facturen = useTeFactureren();
 
-  const treffers = useMemo(() => {
-    const term = search.trim().toLowerCase();
-    if (!term) return [];
-    return rows
-      .filter((row) =>
-        [row.client.name, row.client.contact_name, row.client.city, row.project?.name].some((value) =>
-          (value ?? "").toLowerCase().includes(term),
-        ),
-      )
-      .slice(0, 8);
-  }, [rows, search]);
-
-  // Buiten het zoekveld klikken sluit de lijst; anders blijft hij over de
-  // pagina hangen zodra je ergens anders verder werkt.
-  useEffect(() => {
-    if (!search.trim()) return;
-
-    const onPointerDown = (event: MouseEvent) => {
-      if (zoekRef.current?.contains(event.target as Node)) return;
-      setSearch("");
+  const afgerond = useMemo(() => {
+    const dezeWeek = startOfWeek(new Date(), { weekStartsOn: 1 }).toISOString();
+    const vorigeWeek = subWeeks(startOfWeek(new Date(), { weekStartsOn: 1 }), 1).toISOString();
+    const klaar = hoofdtaken(tasks).filter((t) => t.status === "klaar" && t.completed_at);
+    return {
+      dezeWeek: klaar.filter((t) => t.completed_at! >= dezeWeek).length,
+      vorigeWeek: klaar.filter((t) => t.completed_at! >= vorigeWeek && t.completed_at! < dezeWeek).length,
     };
+  }, [tasks]);
 
-    document.addEventListener("mousedown", onPointerDown);
-    return () => document.removeEventListener("mousedown", onPointerDown);
-  }, [search]);
+  const lopend = rows.filter((row) => row.status && ACTIVE_PROJECT_STATUSES.includes(row.status));
+  const inProductie = lopend.filter((row) => ["in_ontwerp", "in_bouw", "review"].includes(row.status!)).length;
 
-  /*
-   * Alles wat openstaat, niet alleen wat op jouw naam staat. Met z'n tweeën
-   * werk je door dezelfde stapel: een taak die bij je collega ligt wil je hier
-   * ook zien. Bij wie hij ligt staat per regel vermeld.
-   */
-  const openTasks = useMemo(() => tasks.filter((t) => t.status !== "klaar"), [tasks]);
+  // Eén zin over wat er vandaag speelt, alleen met wat er echt is.
+  const samenvatting = [
+    taken.teLaat.length > 0 && `${meervoud(taken.teLaat.length, "taak", "taken")} te laat`,
+    taken.vandaag.length > 0 && `${meervoud(taken.vandaag.length, "deadline", "deadlines")} vandaag`,
+    facturen.achterstallig.length > 0 && `${meervoud(facturen.achterstallig.length, "factuur", "facturen")} achterstallig`,
+  ].filter(Boolean);
 
-  const openTotal = tasks.filter((t) => t.status !== "klaar").length;
-  const overdue = tasks.filter((t) => t.status !== "klaar" && (daysUntil(t.due_date) ?? 1) < 0).length;
+  const verschil = afgerond.dezeWeek - afgerond.vorigeWeek;
+  const voornaam = profielNaam.split(/\s+/)[0];
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Hallo{displayName ? `, ${displayName.split(/[\s@]/)[0]}` : ""}
+    <div className="mx-auto max-w-[1400px] space-y-4 lg:space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+        <div className="min-w-0">
+          <h1 className="text-2xl tracking-tight sm:text-[28px]">
+            {groet()}
+            {voornaam ? `, ${voornaam}` : ""}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {rows.length} klanten · {openTotal} openstaande {openTotal === 1 ? "taak" : "taken"}
-            {overdue > 0 && <span className="text-rose-600 dark:text-rose-400"> · {overdue} te laat</span>}
+          <p className="mt-1 text-sm text-muted-foreground first-letter:uppercase">
+            {format(new Date(), "EEEE d MMMM", { locale: nl })}
+            {" · "}
+            {samenvatting.length > 0 ? samenvatting.join(", ") : "niets te laat"}
           </p>
         </div>
 
-        {/* Treffers verschijnen direct onder het veld. De volledige lijst staat
-            verderop op de pagina; die daar filteren zou betekenen dat je na het
-            typen alsnog moet scrollen om je resultaat te zien. */}
-        <div ref={zoekRef} className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            className="pl-9"
-            placeholder="Zoek een klant"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Escape") {
-                setSearch("");
-                return;
-              }
-              if (event.key === "Enter" && treffers[0]) {
-                event.preventDefault();
-                navigate(treffers[0].to);
-                setSearch("");
-              }
-            }}
-            aria-label="Zoek een klant"
-          />
-
-          {search.trim() && (
-            <div className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-lg border border-border bg-popover shadow-lg">
-              {treffers.length === 0 ? (
-                <p className="px-3 py-3 text-sm text-muted-foreground">Geen klant gevonden.</p>
-              ) : (
-                <ul className="max-h-80 overflow-y-auto py-1">
-                  {treffers.map((row) => (
-                    <li key={row.key}>
-                      <Link
-                        to={row.to}
-                        onClick={() => setSearch("")}
-                        className="flex items-center gap-2.5 px-2 py-2 transition-colors hover:bg-muted"
-                      >
-                        <span
-                          className={cn(
-                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold",
-                            tintFor(row.client.name),
-                          )}
-                        >
-                          {initials(row.client.name)}
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-sm">{row.client.name}</span>
-                          {row.client.contact_name && (
-                            <span className="block truncate text-xs text-muted-foreground">
-                              {row.client.contact_name}
-                            </span>
-                          )}
-                        </span>
-                        {row.status && (
-                          <span className="shrink-0 text-xs text-muted-foreground">
-                            {PROJECT_STATUS[row.status].label}
-                          </span>
-                        )}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
+        {/* Zonder profielnaam stond hier het begin van je e-mailadres. Een
+            kleine vraag om je naam is vriendelijker en lost het echt op. */}
+        {!profielNaam && (
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("portaal:naam-instellen"))}
+            className="text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            Stel je naam in
+          </button>
+        )}
       </div>
 
-      {/* Bovenaan wie aandacht vraagt: klanten waar werk ligt, zwaarste
-          urgentie eerst. Dat is de vraag waarmee je het portaal opent. */}
-      {!isLoading && rows.some((r) => r.openTasks > 0) && (
-        <section>
-          <div className="mb-3 flex items-baseline justify-between">
-            <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Vraagt aandacht</h2>
-            <span className="text-xs text-muted-foreground">Urgentste bovenaan</span>
-          </div>
-          <ClientGrid rows={rows} groep="werk" />
-        </section>
-      )}
+      <div className="grid grid-cols-2 gap-3 lg:gap-4 xl:grid-cols-4">
+        <StatCard
+          icon={ListTodo}
+          label="Open taken"
+          waarde={taken.open.length}
+          context={taken.teLaat.length > 0 ? `${taken.teLaat.length} te laat` : "Niets te laat"}
+          contextToon={taken.teLaat.length > 0 ? "danger" : undefined}
+          to={taken.teLaat.length > 0 ? "/admin/taken?filter=te-laat" : "/admin/taken?status=open"}
+          laden={taken.isLoading}
+        />
+        <StatCard
+          icon={CheckCheck}
+          label="Afgerond deze week"
+          waarde={afgerond.dezeWeek}
+          context={
+            verschil === 0
+              ? "Gelijk aan vorige week"
+              : `${verschil > 0 ? "+" : ""}${verschil} t.o.v. vorige week`
+          }
+          contextToon={verschil > 0 ? "success" : undefined}
+          to="/admin/taken?status=klaar"
+          laden={taken.isLoading}
+        />
+        <StatCard
+          icon={FolderKanban}
+          label="Lopende projecten"
+          waarde={lopend.length}
+          context={inProductie > 0 ? `${inProductie} in productie` : "Geen in productie"}
+          to="/admin/klanten?status=actief"
+          laden={rijenLaden}
+        />
+        <StatCard
+          icon={Receipt}
+          label="Te factureren"
+          waarde={facturen.contracten === 0 ? "–" : (formatEuro(facturen.bedragCenten) ?? "€ 0")}
+          context={
+            facturen.contracten === 0
+              ? "Nog geen hostingcontracten"
+              : `${meervoud(facturen.open.length, "factuur", "facturen")}${
+                  facturen.achterstallig.length > 0 ? `, ${facturen.achterstallig.length} achterstallig` : ""
+                }`
+          }
+          contextToon={facturen.achterstallig.length > 0 ? "warning" : undefined}
+          to="/admin/hosting"
+          laden={facturen.isLoading}
+        />
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Openstaande taken</CardTitle>
-          <CardDescription>Al het werk dat nog loopt, over alle klanten en beide van jullie heen.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TaskList
-            tasks={openTasks}
-            team={team}
-            empty={
-              <EmptyState icon={CheckSquare} title="Niets openstaand" description="Er staat geen werk meer open." />
-            }
-          />
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Planning</CardTitle>
-          <CardDescription>
-            Deadlines per dag, gekleurd naar prioriteit. Klik een dag om er werk op te zetten.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TaskCalendar />
-        </CardContent>
-      </Card>
-
-      <section>
-        <div className="mb-3 flex items-baseline justify-between">
-          <h2 className="text-xs uppercase tracking-wide text-muted-foreground">Overige klanten</h2>
-          <span className="text-xs text-muted-foreground">Niets openstaand</span>
-        </div>
-
-        {isLoading ? (
-          <p className="text-sm text-muted-foreground">Laden…</p>
-        ) : rows.length === 0 ? (
-          <EmptyState icon={Users} title="Nog geen klanten" description="Voeg een klant toe om te beginnen." />
-        ) : (
-          <ClientGrid rows={rows} groep="rest" />
-        )}
-      </section>
+      {/* Twaalf kolommen op een breed scherm, zes op een tablet, één op een
+          telefoon. De volgorde in de code is ook de volgorde op mobiel: wat
+          vandaag aandacht vraagt eerst, de stand van zaken daarna. */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-6 lg:gap-4 xl:grid-cols-12">
+        <AandachtKaart />
+        <DezeWeekKaart />
+        <MijnTakenKaart />
+        <MailenKaart />
+        <TakenStatusKaart />
+        <FaseKaart />
+        <HostingKaart />
+        <ActiviteitKaart />
+        <OntbrekendKaart />
+      </div>
     </div>
   );
 };

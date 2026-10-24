@@ -452,7 +452,7 @@
    neutral = todo, normaal, gepauzeerd. Elke kleur heeft een volle tint (stip,
    balk) en een inkt voor tekst op een lichte vulling van dezelfde kleur. */
 :root {
-  --canvas: 150 10% 97%;
+  --canvas: 150 9% 95.5%;
   --s-danger: 0 72% 51%;
   --s-danger-ink: 0 70% 38%;
   --s-warning: 30 92% 48%;

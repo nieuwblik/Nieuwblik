@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { PRIORITY_WEIGHT, type Priority, type ProjectStatus } from "@/admin/constants";
+import { PRIORITY_WEIGHT, isTeLaat, type Priority, type ProjectStatus } from "@/admin/constants";
 import { mostRecent } from "@/admin/format";
 import {
   useClients,
@@ -30,6 +30,8 @@ export interface ClientRow {
   status: ProjectStatus | null;
   deadline: string | null;
   openTasks: number;
+  /** Hoeveel van die open taken over hun deadline zijn. */
+  teLaat: number;
   /** Zwaarste prioriteit onder het openstaande werk; null als er niets ligt. */
   urgentie: Priority | null;
   /** Draait de site van deze klant op TanStack? */
@@ -58,13 +60,17 @@ export function useCombinedRows(): CombinedRows {
 
   const rows = useMemo<ClientRow[]>(() => {
     const openPerProject = new Map<string, number>();
+    const teLaatPerProject = new Map<string, number>();
     const zwaarstePerProject = new Map<string, Priority>();
     const latestTask = new Map<string, string>();
 
     for (const task of tasks) {
       if (!task.project_id) continue;
-      if (task.status !== "klaar") {
+      // Alleen hoofdtaken tellen: stappen staan bij hun taak, en meetellen
+      // gaf een getal dat niet klopte met de lijst op de klantpagina.
+      if (task.status !== "klaar" && !task.parent_task_id) {
         openPerProject.set(task.project_id, (openPerProject.get(task.project_id) ?? 0) + 1);
+        if (isTeLaat(task)) teLaatPerProject.set(task.project_id, (teLaatPerProject.get(task.project_id) ?? 0) + 1);
 
         const huidig = zwaarstePerProject.get(task.project_id);
         if (!huidig || PRIORITY_WEIGHT[task.priority] < PRIORITY_WEIGHT[huidig]) {
@@ -111,6 +117,7 @@ export function useCombinedRows(): CombinedRows {
         tanstack: primary?.built_with_tanstack ?? false,
         deadline: primary?.deadline ?? null,
         openTasks: sorted.reduce((total, p) => total + (openPerProject.get(p.id) ?? 0), 0),
+        teLaat: sorted.reduce((total, p) => total + (teLaatPerProject.get(p.id) ?? 0), 0),
         urgentie: sorted.reduce<Priority | null>((zwaarste, p) => {
           const eigen = zwaarstePerProject.get(p.id);
           if (!eigen) return zwaarste;
@@ -153,6 +160,7 @@ export function useCombinedRows(): CombinedRows {
       tanstack: project.built_with_tanstack,
       deadline: project.deadline,
       openTasks: openPerProject.get(project.id) ?? 0,
+      teLaat: teLaatPerProject.get(project.id) ?? 0,
       urgentie: zwaarstePerProject.get(project.id) ?? null,
       activeAt: activityOf(project),
     }));

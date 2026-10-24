@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { useConfirm } from "@/admin/useConfirm";
-import { mailingClient as supabase } from "@/lib/mailingClient";
+import { supabase } from "@/integrations/supabase/client";
 
 type Status = "actief" | "prospect" | "inactief";
 

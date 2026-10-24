@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import StatusPill from "@/admin/ui/StatusPill";
-import { PRIORITY_WEIGHT } from "@/admin/constants";
-import { daysUntil, deadlineLabel, formatDate, initials, tintFor } from "@/admin/format";
+import { PRIORITY_WEIGHT, TOON } from "@/admin/constants";
+import { daysUntil, deadlineLabel, formatDate } from "@/admin/format";
+import Avatar from "@/admin/ui/Avatar";
 import { useDeleteTask, useTasks, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
 import { useConfirm } from "@/admin/useConfirm";
 
@@ -101,7 +102,15 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
   };
 
   const handleDelete = async (task: TaskWithProject) => {
-    if (!(await vraagBevestiging({ titel: `Taak "${task.title}" verwijderen?` }))) return;
+    const eigenStappen = allTasks.filter((t) => t.parent_task_id === task.id).length;
+    const ja = await vraagBevestiging({
+      titel: `Taak "${task.title}" verwijderen?`,
+      beschrijving:
+        eigenStappen > 0
+          ? `De ${eigenStappen} ${eigenStappen === 1 ? "stap" : "stappen"} en foto's gaan mee. Dit kun je niet terugdraaien.`
+          : "Dit kun je niet terugdraaien.",
+    });
+    if (!ja) return;
     try {
       await remove.mutateAsync(task.id);
       toast.success("Taak verwijderd");
@@ -163,8 +172,9 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
             </span>
           </Link>
 
+          {/* Eén regel in een lijst; de hele omschrijving staat op de taakpagina. */}
           {task.description && !done && (
-            <p className="mt-0.5 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
+            <p className="mt-0.5 truncate text-[13px] text-muted-foreground">{task.description}</p>
           )}
 
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
@@ -176,7 +186,7 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
             {assignee && <span>{assignee}</span>}
             {steps(task.id) && <span>{steps(task.id)}</span>}
             {task.due_date && !done && (
-              <span className={cn(overdue && "font-medium text-rose-600 dark:text-rose-400")}>
+              <span className={cn(overdue && cn("font-medium", TOON.danger.tekst))}>
                 {deadlineLabel(task.due_date)}
               </span>
             )}
@@ -184,8 +194,10 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
         </div>
 
         <div className="flex shrink-0 items-center gap-1">
-          {!done && task.priority !== "normaal" && <StatusPill kind="priority" value={task.priority} />}
-          {!done && task.status !== "todo" && <StatusPill kind="task" value={task.status} />}
+          {/* Prioriteit altijd zichtbaar, ook "normaal": anders weet je bij een
+              regel zonder pil niet of hij normaal is of nooit is ingesteld. */}
+          {!done && <StatusPill kind="priority" value={task.priority} />}
+          {!done && task.status !== "todo" && <StatusPill kind="task" value={task.status} className="hidden sm:inline-flex" />}
           <Button
             variant="ghost"
             size="icon"
@@ -252,7 +264,7 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
               {task.due_date && (
                 <span className="shrink-0 text-xs text-muted-foreground">
                   Deadline:{" "}
-                  <span className={cn("font-medium text-foreground", overdue && "text-rose-600 dark:text-rose-400")}>
+                  <span className={cn("font-medium text-foreground", overdue && TOON.danger.tekst)}>
                     {deadlineLabel(task.due_date)}
                   </span>
                 </span>
@@ -269,15 +281,7 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
               <div className="flex min-w-0 items-center gap-2 text-xs text-muted-foreground">
                 {uitvoerder || maker ? (
                   <>
-                    <span
-                      className={cn(
-                        "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[9px] font-semibold",
-                        tintFor(uitvoerder ?? maker ?? ""),
-                      )}
-                      aria-hidden="true"
-                    >
-                      {initials(uitvoerder ?? maker ?? "")}
-                    </span>
+                    <Avatar naam={uitvoerder ?? maker ?? ""} maat="xs" vorm="rond" />
                     <span className="truncate">
                       {uitvoerder ? "Ligt bij " : "Aangemaakt door "}
                       <span className="font-medium text-foreground">{uitvoerder ?? maker}</span>
@@ -290,7 +294,7 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
               </div>
 
               <div className="flex shrink-0 items-center gap-1.5">
-                {!done && task.priority !== "normaal" && <StatusPill kind="priority" value={task.priority} />}
+                {!done && <StatusPill kind="priority" value={task.priority} />}
                 {!done && task.status !== "todo" && <StatusPill kind="task" value={task.status} />}
                 <Button
                   variant="ghost"
