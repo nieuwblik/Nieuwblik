@@ -26,6 +26,7 @@ import {
 import { useClients, type Client } from "@/admin/queries";
 import BetalingDialoog from "@/admin/components/BetalingDialoog";
 import StatusPill from "@/admin/ui/StatusPill";
+import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 import { useConfirm } from "@/admin/useConfirm";
 
 const FACTUURSTATUS: Record<string, { label: string; toon: Toon }> = {
@@ -75,6 +76,7 @@ const ontvanger = (f: OpenFactuur) => f.email ?? "het adres dat in Moneybird sta
 export function useOpenFacturen(facturen: OpenFactuur[]) {
   const { data: clients = [] } = useClients();
   const actie = useFactuurActie();
+  const { bedrag } = useBedragenVerborgen();
   const { vraagBevestiging, dialoog } = useConfirm();
   const [betaling, setBetaling] = useState<OpenFactuur | null>(null);
 
@@ -194,7 +196,7 @@ export function useOpenFacturen(facturen: OpenFactuur[]) {
               </span>
             </span>
             <StatusPill toon={status.toon}>{status.label}</StatusPill>
-            <span className="w-24 text-right font-medium tabular-nums">{formatBedrag(f.open)}</span>
+            <span className="w-24 text-right font-medium tabular-nums">{bedrag(f.open)}</span>
             {/* Niet modaal: de menu-items openen zelf een dialoog, en twee modale lagen na elkaar laten de pagina soms onklikbaar achter. */}
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>

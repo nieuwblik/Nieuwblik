@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import { TOON } from "@/admin/constants";
 import { daysUntil } from "@/admin/format";
-import { formatBedrag, heeftData, isTeLaatFactuur, useFinancien, type MaandCijfers } from "@/admin/financien";
+import { heeftData, isTeLaatFactuur, useFinancien, type MaandCijfers } from "@/admin/financien";
 import { useOpenFacturen } from "@/admin/useOpenFacturen";
 import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
-import { useSaldoVerborgen, VERBORGEN } from "@/admin/useSaldoVerborgen";
+import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
 const maandLabel = (maand: string, lang = false) =>
   format(parseISO(`${maand}-01`), lang ? "LLLL yyyy" : "LLL", { locale: nl }).replace(".", "");
@@ -69,6 +69,7 @@ const Cijfer = ({
 
 /** Omzet en kosten per maand naast elkaar; de gekozen maand toont ook de winst. */
 const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
+  const { bedrag, verborgen } = useBedragenVerborgen();
   const [aangewezen, setAangewezen] = useState<number | null>(null);
   const max = asMaximum(Math.max(...maanden.flatMap((m) => [m.omzet, m.kosten])));
   const gekozen = aangewezen ?? maanden.length - 1;
@@ -80,7 +81,7 @@ const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
         <div className="relative h-52 text-right text-xs tabular-nums text-muted-foreground" aria-hidden="true">
           {[max, max / 2, 0].map((waarde, i) => (
             <span key={i} className="absolute right-0 -translate-y-1/2" style={{ top: `${i * 50}%` }}>
-              {formatBedrag(waarde, 0)}
+              {verborgen ? "" : bedrag(waarde, 0)}
             </span>
           ))}
         </div>
@@ -96,7 +97,7 @@ const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
                   onMouseEnter={() => setAangewezen(i)}
                   onFocus={() => setAangewezen(i)}
                   onClick={() => setAangewezen(i)}
-                  aria-label={`${maandLabel(m.maand, true)}: omzet ${formatBedrag(m.omzet)}, kosten ${formatBedrag(m.kosten)}`}
+                  aria-label={`${maandLabel(m.maand, true)}: omzet ${bedrag(m.omzet)}, kosten ${bedrag(m.kosten)}`}
                   className="flex h-full w-full max-w-12 items-end justify-center gap-0.5"
                 >
                   {[
@@ -128,9 +129,9 @@ const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
               }
             >
               <p className="text-xs opacity-70 first-letter:uppercase">{maandLabel(maand.maand, true)}</p>
-              <p className="mt-1 tabular-nums">Omzet {formatBedrag(maand.omzet)}</p>
-              <p className="tabular-nums opacity-80">Kosten {formatBedrag(maand.kosten)}</p>
-              <p className="mt-1 font-medium tabular-nums">Winst {formatBedrag(maand.winst)}</p>
+              <p className="mt-1 tabular-nums">Omzet {bedrag(maand.omzet)}</p>
+              <p className="tabular-nums opacity-80">Kosten {bedrag(maand.kosten)}</p>
+              <p className="mt-1 font-medium tabular-nums">Winst {bedrag(maand.winst)}</p>
             </div>
           )}
         </div>
@@ -178,7 +179,7 @@ const rekeningNaam = (r: { naam: string; soort: string }) => {
  */
 const Financien = () => {
   const { data, isLoading, isError, error, refetch, isFetching } = useFinancien();
-  const { verborgen: saldoVerborgen } = useSaldoVerborgen();
+  const { bedrag, verborgen } = useBedragenVerborgen();
 
   const cijfers = useMemo(() => {
     if (!data || !("bijgewerkt" in data) || !heeftData(data.winstVerlies)) return null;
@@ -216,6 +217,7 @@ const Financien = () => {
       </div>
       {data && "bijgewerkt" in data && (
         <div className="flex gap-2">
+          <OogKnop className="h-9 w-9 border border-border bg-background" />
           <Button variant="outline" size="sm" className="h-9" disabled={isFetching} onClick={() => void refetch()}>
             <RotateCw className={cn("h-4 w-4", isFetching && "animate-spin")} />
             Vernieuwen
@@ -295,14 +297,10 @@ const Financien = () => {
       {kop}
 
       <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Cijfer label="Omzet deze maand" waarde={cijfers ? formatBedrag(cijfers.omzet, 0) : "–"} verschil={cijfers?.omzetVerschil ?? null} />
-        <Cijfer label="Kosten deze maand" waarde={cijfers ? formatBedrag(cijfers.kosten, 0) : "–"} />
-        <Cijfer label={`Winst ${new Date().getFullYear()}`} waarde={cijfers ? formatBedrag(cijfers.winstJaar, 0) : "–"} />
-        <Cijfer
-          label="Banksaldo"
-          waarde={!heeftData(data.bank) ? "–" : saldoVerborgen ? VERBORGEN : formatBedrag(data.bank.data.totaal, 0)}
-          knop={<OogKnop className="-mr-1.5" />}
-        />
+        <Cijfer label="Omzet deze maand" waarde={cijfers ? bedrag(cijfers.omzet, 0) : "–"} verschil={verborgen ? null : (cijfers?.omzetVerschil ?? null)} />
+        <Cijfer label="Kosten deze maand" waarde={cijfers ? bedrag(cijfers.kosten, 0) : "–"} />
+        <Cijfer label={`Winst ${new Date().getFullYear()}`} waarde={cijfers ? bedrag(cijfers.winstJaar, 0) : "–"} />
+        <Cijfer label="Banksaldo" waarde={heeftData(data.bank) ? bedrag(data.bank.data.totaal, 0) : "–"} />
       </dl>
 
       <Panel>
@@ -327,7 +325,7 @@ const Financien = () => {
             titel="Openstaande facturen"
             subtitel={
               heeftData(data.facturen)
-                ? `${formatBedrag(openTotaal)} open${teLaat.length > 0 ? `, ${teLaat.length} te laat` : ""}`
+                ? `${bedrag(openTotaal)} open${teLaat.length > 0 ? `, ${teLaat.length} te laat` : ""}`
                 : "Wat klanten nog moeten betalen"
             }
             actie={factuurLijst.herinnerAlles}
@@ -345,7 +343,7 @@ const Financien = () => {
 
         <div className="space-y-4">
           <Panel>
-            <PanelHeader icon={Landmark} titel="Bank" subtitel="Saldo per rekening" actie={<OogKnop />} />
+            <PanelHeader icon={Landmark} titel="Bank" subtitel="Saldo per rekening" />
             <PanelBody>
               {!heeftData(data.bank) ? (
                 <p className={cn("text-sm", TOON.danger.tekst)}>{data.bank.fout}</p>
@@ -356,7 +354,7 @@ const Financien = () => {
                   {data.bank.data.rekeningen.map((r, i) => (
                     <li key={i} className="flex items-center justify-between gap-3">
                       <span className="truncate">{rekeningNaam(r)}</span>
-                      <span className="font-medium tabular-nums">{saldoVerborgen ? VERBORGEN : formatBedrag(r.saldo)}</span>
+                      <span className="font-medium tabular-nums">{bedrag(r.saldo)}</span>
                     </li>
                   ))}
                 </ul>
@@ -389,7 +387,7 @@ const Financien = () => {
                             </span>
                           </span>
                           <span className="text-right font-medium tabular-nums">
-                            {formatBedrag(Math.abs(q.afdragen))}
+                            {bedrag(Math.abs(q.afdragen))}
                             {q.afdragen < 0 && <span className="block text-[13px] font-normal text-muted-foreground">terug</span>}
                           </span>
                         </li>
@@ -407,7 +405,7 @@ const Financien = () => {
               {!heeftData(data.crediteuren) ? (
                 <p className={cn("text-sm", TOON.danger.tekst)}>{data.crediteuren.fout}</p>
               ) : (
-                <p className="font-epilogue text-2xl font-medium tabular-nums">{formatBedrag(data.crediteuren.data.totaal)}</p>
+                <p className="font-epilogue text-2xl font-medium tabular-nums">{bedrag(data.crediteuren.data.totaal)}</p>
               )}
             </PanelBody>
           </Panel>

@@ -27,7 +27,9 @@ import { BILLING_CYCLE, formatEuro, volgendeTermijn } from "@/admin/billing";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import type { Client, ProjectWithClient, TeamMember } from "@/admin/queries";
 import ProjectTimer from "@/admin/components/ProjectTimer";
-import { formatBedrag, useKlantFinancien } from "@/admin/financien";
+import { useKlantFinancien } from "@/admin/financien";
+import OogKnop from "@/admin/ui/OogKnop";
+import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
 interface ProjectRailProps {
   project: ProjectWithClient;
@@ -72,13 +74,16 @@ const Kopje = ({ children }: { children: React.ReactNode }) => (
  */
 const Facturen = ({ clientId }: { clientId: string }) => {
   const { data, isLoading } = useKlantFinancien(clientId);
+  const { bedrag } = useBedragenVerborgen();
   if (isLoading || !data?.contact) return null;
 
   return (
     <div className="space-y-4 border-t border-border pt-6">
       <div className="flex items-baseline justify-between gap-3">
         <Kopje>Facturen</Kopje>
-        <a
+        <span className="flex items-center gap-1">
+          <OogKnop className="-my-1 h-6 w-6" />
+          <a
           href={data.contact.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -86,17 +91,18 @@ const Facturen = ({ clientId }: { clientId: string }) => {
         >
           Moneybird
           <ExternalLink className="h-3 w-3" />
-        </a>
+          </a>
+        </span>
       </div>
       <Rij icon={TrendingUp} label={`Omzet ${new Date().getFullYear()}, excl. btw`}>
-        {formatBedrag(data.omzetDitJaar ?? 0)}
+        {bedrag(data.omzetDitJaar ?? 0)}
       </Rij>
       <Rij icon={Receipt} label="Openstaand">
         {(data.openAantal ?? 0) === 0 ? (
           "Niets"
         ) : (
           <>
-            {formatBedrag(data.open ?? 0)}
+            {bedrag(data.open ?? 0)}
             <span className="font-normal text-muted-foreground">
               {" "}
               · {data.openAantal} {data.openAantal === 1 ? "factuur" : "facturen"}

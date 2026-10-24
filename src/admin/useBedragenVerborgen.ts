@@ -1,7 +1,9 @@
 import { useCallback, useSyncExternalStore } from "react";
 
-const SLEUTEL = "nieuwblik:portaal:banksaldo-verborgen";
-const EVENT = "portaal:banksaldo-verborgen";
+import { formatBedrag } from "@/admin/financien";
+
+const SLEUTEL = "nieuwblik:portaal:bedragen-verborgen";
+const EVENT = "portaal:bedragen-verborgen";
 
 /** Zo staat een verborgen bedrag in beeld. */
 export const VERBORGEN = "€ ••••";
@@ -30,10 +32,12 @@ function abonneer(melding: () => void) {
 }
 
 /**
- * Het banksaldo verbergen, bijvoorbeeld als iemand meekijkt. De keuze wordt
- * per browser onthouden en geldt op het dashboard en op Financiën tegelijk.
+ * Alle financiële bedragen verbergen, bijvoorbeeld als iemand meekijkt. De
+ * keuze wordt per browser onthouden en geldt overal tegelijk: Financiën, het
+ * dashboard en de facturen op de klantpagina. Aantallen (zoals "3 te laat")
+ * blijven staan; bedragen en percentages niet.
  */
-export function useSaldoVerborgen() {
+export function useBedragenVerborgen() {
   const verborgen = useSyncExternalStore(abonneer, lees, () => false);
   const wissel = useCallback(() => {
     geheugen = !lees();
@@ -44,5 +48,10 @@ export function useSaldoVerborgen() {
     }
     window.dispatchEvent(new Event(EVENT));
   }, []);
-  return { verborgen, wissel };
+  /** formatBedrag, of de puntjes als de bedragen verborgen zijn. */
+  const bedrag = useCallback(
+    (waarde: number, decimalen: "auto" | 0 = "auto") => (verborgen ? VERBORGEN : formatBedrag(waarde, decimalen)),
+    [verborgen],
+  );
+  return { verborgen, wissel, bedrag };
 }
