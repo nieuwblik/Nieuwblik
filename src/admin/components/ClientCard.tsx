@@ -2,18 +2,11 @@ import { Link } from "react-router-dom";
 import { Code2, Plus } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { projects as portfolio } from "@/data/projects";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, type Priority } from "@/admin/constants";
-import { daysUntil, deadlineLabel, initials, tintFor } from "@/admin/format";
+import { daysUntil, deadlineLabel, initials } from "@/admin/format";
+import { portfolioBeeld } from "@/admin/portfolio";
 import type { ClientRow } from "@/admin/rows";
 import { useCreateTask } from "@/admin/useCreateTask";
-
-/**
- * Hetzelfde beeld als op de publieke portfoliopagina, opgezocht via de slug
- * die al op het project staat. Zo blijft er één bron: vervang je de foto op de
- * site, dan verandert hij hier mee.
- */
-const beeldPerSlug = new Map(portfolio.map((p) => [p.slug, p.image]));
 
 /**
  * Tint onder de kaart per urgentie. Zonder werk blijft het de neutrale
@@ -21,16 +14,15 @@ const beeldPerSlug = new Map(portfolio.map((p) => [p.slug, p.image]));
  * ligt. Zo zie je van een afstand welke klant aandacht vraagt, zonder dat de
  * kaart van hoogte verandert.
  *
- * Warm oplopend in plaats van vier losse kleuren: blauw voor "normaal" week
- * terug in de kaart in plaats van op te vallen, terwijl juist dat de meest
- * voorkomende stand is. Rood blijft apart, want alarm hoort niet op een
- * schaal te staan.
+ * Dezelfde statuskleuren als overal: rood voor urgent, oranje voor hoog,
+ * grijs voor normaal en laag. Een vulling, geen vol vlak, zodat de naam
+ * leesbaar blijft.
  */
 const VOET: Record<Priority, { vlak: string; stip: string }> = {
-  urgent: { vlak: "bg-rose-500/30", stip: "bg-rose-500" },
-  hoog: { vlak: "bg-orange-500/30", stip: "bg-orange-500" },
-  normaal: { vlak: "bg-amber-400/30", stip: "bg-amber-500" },
-  laag: { vlak: "bg-slate-400/20", stip: "bg-slate-400" },
+  urgent: { vlak: "bg-danger/10", stip: "bg-danger" },
+  hoog: { vlak: "bg-warning/10", stip: "bg-warning" },
+  normaal: { vlak: "bg-neutral/10", stip: "bg-neutral" },
+  laag: { vlak: "bg-neutral/5", stip: "bg-neutral/50" },
 };
 
 /**
@@ -42,7 +34,7 @@ const VOET: Record<Priority, { vlak: string; stip: string }> = {
  */
 const ClientCard = ({ row }: { row: ClientRow }) => {
   const { createTask, isPending } = useCreateTask();
-  const beeld = row.project?.portfolio_slug ? beeldPerSlug.get(row.project.portfolio_slug) : undefined;
+  const beeld = portfolioBeeld(row.project?.portfolio_slug);
   const voet = row.urgentie ? VOET[row.urgentie] : null;
 
   const meta = [row.client.contact_name, row.client.city].filter(Boolean);
@@ -54,7 +46,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
     ACTIVE_PROJECT_STATUSES.includes(row.status);
 
   return (
-    <li className="group relative flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors duration-200 hover:border-foreground/20">
+    <li className="group relative flex flex-col overflow-hidden rounded-[14px] border border-border bg-card transition-colors duration-200 hover:border-foreground/20">
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         {beeld ? (
           <img
@@ -64,13 +56,10 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
             className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : (
-          // Geen case op de site: dan het monogram in de vaste kleur van deze
-          // klant, zodat het raster niet uit elkaar valt bij een gat.
+          // Geen case op de site: dan het monogram, zodat het raster niet uit
+          // elkaar valt bij een gat.
           <span
-            className={cn(
-              "flex h-full w-full items-center justify-center text-2xl font-semibold",
-              tintFor(row.client.name),
-            )}
+            className="flex h-full w-full items-center justify-center text-2xl font-semibold text-foreground/50"
             aria-hidden="true"
           >
             {initials(row.client.name)}
@@ -80,7 +69,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         {/* Alleen bij werk dat nog loopt: bij een portfolio waar bijna alles
             live is, zou een badge op elke kaart niets zeggen. */}
         {row.status && row.status !== "live" && (
-          <span className="absolute left-2 top-2 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium backdrop-blur-sm">
+          <span className="absolute left-2 top-2 rounded-full bg-background/90 px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
             {PROJECT_STATUS[row.status].label}
           </span>
         )}
@@ -90,7 +79,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         {row.openTasks > 0 && (
           <span
             title={`${row.openTasks} open ${row.openTasks === 1 ? "taak" : "taken"}`}
-            className="absolute right-2 top-2 flex items-center gap-1.5 rounded bg-background/90 px-2 py-0.5 text-[11px] font-medium tabular-nums backdrop-blur-sm"
+            className="absolute right-2 top-2 flex items-center gap-1.5 rounded-full bg-background/90 px-2 py-0.5 text-xs font-medium tabular-nums backdrop-blur-sm"
           >
             <span className={cn("h-1.5 w-1.5 rounded-full", voet?.stip)} />
             {row.openTasks}
@@ -98,7 +87,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
         )}
 
         {late && (
-          <span className="absolute bottom-2 left-2 rounded bg-rose-600/90 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
+          <span className="absolute bottom-2 left-2 rounded-full bg-danger px-2 py-0.5 text-xs font-medium text-white">
             {deadlineLabel(row.deadline)}
           </span>
         )}
@@ -139,7 +128,7 @@ const ClientCard = ({ row }: { row: ClientRow }) => {
             onClick={() => void createTask(row.project!.id)}
             title={`Nieuwe taak voor ${row.client.name}`}
             aria-label={`Nieuwe taak voor ${row.client.name}`}
-            className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground disabled:opacity-50"
+            className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground disabled:opacity-50"
           >
             <Plus className="h-4 w-4" />
           </button>

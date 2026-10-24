@@ -47,6 +47,46 @@ function unwrap<T>({ data, error }: { data: T | null; error: { message: string }
   return data as T;
 }
 
+/**
+ * Opslagpaden van alles wat onder deze projecten of taken hangt:
+ * projectbestanden en taakfoto's, ook die van stappen.
+ *
+ * De database ruimt rijen vanzelf op (ON DELETE CASCADE), maar de bestanden
+ * in de bucket niet. Zonder deze ronde bleven ze na het verwijderen van een
+ * klant, project of taak onvindbaar in de opslag staan.
+ */
+async function opslagPaden({ projectIds = [], taskIds = [] }: { projectIds?: string[]; taskIds?: string[] }) {
+  const paden: string[] = [];
+
+  if (projectIds.length > 0) {
+    const bestanden = unwrap(await supabase.from("project_files").select("storage_path").in("project_id", projectIds));
+    paden.push(...bestanden.map((b) => b.storage_path));
+    const taken = unwrap(await supabase.from("tasks").select("id").in("project_id", projectIds));
+    taskIds = [...taskIds, ...taken.map((t) => t.id)];
+  }
+
+  if (taskIds.length > 0) {
+    const stappen = unwrap(await supabase.from("tasks").select("id").in("parent_task_id", taskIds));
+    const alle = [...new Set([...taskIds, ...stappen.map((t) => t.id)])];
+    const fotos = unwrap(await supabase.from("task_files").select("storage_path").in("task_id", alle));
+    paden.push(...fotos.map((f) => f.storage_path));
+  }
+
+  return paden;
+}
+
+/**
+ * Na het wissen van de rijen de bestanden zelf weghalen. Bewust daarna: gaat
+ * dit mis, dan blijft er hooguit een wees in de bucket staan, in plaats van
+ * een rij die naar een verdwenen bestand wijst.
+ */
+async function wisOpslag(paden: string[]) {
+  for (let i = 0; i < paden.length; i += 100) {
+    const { error } = await supabase.storage.from(STORAGE_BUCKET).remove(paden.slice(i, i + 100));
+    if (error) console.warn("Bestanden konden niet uit de opslag worden gehaald:", error.message);
+  }
+}
+
 
 // ------------------------------------------------------- hostingfacturatie
 
@@ -166,8 +206,11 @@ export function useDeleteClient() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      const projecten = unwrap(await supabase.from("projects").select("id").eq("client_id", id));
+      const paden = await opslagPaden({ projectIds: projecten.map((p) => p.id) });
       const { error } = await supabase.from("clients").delete().eq("id", id);
       if (error) throw new Error(error.message);
+      await wisOpslag(paden);
     },
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: adminKeys.clients });
@@ -243,8 +286,10 @@ export function useDeleteProject() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      const paden = await opslagPaden({ projectIds: [id] });
       const { error } = await supabase.from("projects").delete().eq("id", id);
       if (error) throw new Error(error.message);
+      await wisOpslag(paden);
     },
     onSuccess: () => {
       invalidateProject(qc);
@@ -301,8 +346,10 @@ export function useDeleteTask() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      const paden = await opslagPaden({ taskIds: [id] });
       const { error } = await supabase.from("tasks").delete().eq("id", id);
       if (error) throw new Error(error.message);
+      await wisOpslag(paden);
     },
     onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.tasks }),
   });

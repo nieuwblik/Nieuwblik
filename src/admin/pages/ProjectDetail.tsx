@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ArrowLeft, CheckSquare, ChevronRight, Mail, MoreHorizontal, Pencil, Phone, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -12,8 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
-import { projects as portfolio } from "@/data/projects";
 import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
@@ -22,7 +20,8 @@ import TaskList from "@/admin/components/TaskList";
 import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import BillingButton from "@/admin/components/BillingButton";
-import { formatDate, initials, momentLabel, mostRecent, tintFor } from "@/admin/format";
+import { formatDate, momentLabel, mostRecent } from "@/admin/format";
+import Avatar from "@/admin/ui/Avatar";
 import { forgetRecentProject, recordRecentProject } from "@/admin/recent";
 import { useConfirm } from "@/admin/useConfirm";
 import { useCreateTask } from "@/admin/useCreateTask";
@@ -36,8 +35,6 @@ import {
   useTasks,
   useTeam,
 } from "@/admin/queries";
-
-const beeldPerSlug = new Map(portfolio.map((p) => [p.slug, p.image]));
 
 /** Eén tabblad in de rechterkolom, met het aantal als donkere pil erachter. */
 const Tab = ({ value, children, count }: { value: string; children: React.ReactNode; count?: number }) => (
@@ -70,6 +67,12 @@ const ProjectDetail = () => {
   const { vraagBevestiging, dialoog } = useConfirm();
 
   const [editOpen, setEditOpen] = useState(false);
+  // Het tabblad staat in de URL, zodat een link van het dashboard (een
+  // update in de activiteit) meteen op de tijdlijn opent.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = ["taken", "bestanden", "tijdlijn"].includes(searchParams.get("tab") ?? "")
+    ? searchParams.get("tab")!
+    : "taken";
 
   const tasks = useMemo(() => allTasks.filter((t) => t.project_id === id), [allTasks, id]);
   const openTasks = tasks.filter((t) => t.status !== "klaar" && !t.parent_task_id).length;
@@ -84,28 +87,49 @@ const ProjectDetail = () => {
   if (isError || !project) return <p className="text-sm text-muted-foreground">Dit project bestaat niet (meer).</p>;
 
   /**
-   * Klant en project zijn één geheel, dus verwijderen haalt allebei weg.
-   * De klant wissen is genoeg: het project hangt eraan met ON DELETE CASCADE,
-   * en daarmee gaan taken, updates en bestanden vanzelf mee. Alleen het
-   * project wissen zou een lege klantregel achterlaten.
+   * Twee aparte acties met elk een eigen uitleg. Eerder wiste "Verwijderen"
+   * altijd de hele klant, ook als je alleen dit project kwijt wilde.
+   *
+   * Project verwijderen laat de klant staan (met zijn contactgegevens en
+   * facturatie). Klant verwijderen haalt de klant met al zijn projecten weg.
+   * Taken, updates en bestanden gaan in beide gevallen mee, ook uit de opslag.
    */
-  const handleDelete = async () => {
-    const label = project.client?.name ?? project.name;
+  const verwijderProject = async () => {
     const door = await vraagBevestiging({
-      titel: `"${label}" verwijderen?`,
-      beschrijving: "Het project, de taken, updates en bestanden gaan mee.",
+      titel: `Project "${project.name}" verwijderen?`,
+      beschrijving: project.client
+        ? `De taken, updates en bestanden van dit project gaan mee. De klant ${project.client.name} blijft staan. Dit kun je niet terugdraaien.`
+        : "De taken, updates en bestanden van dit project gaan mee. Dit kun je niet terugdraaien.",
+      bevestigLabel: "Project verwijderen",
     });
     if (!door) return;
 
     try {
-      if (project.client_id) {
-        await removeClient.mutateAsync(project.client_id);
-      } else {
-        await removeProject.mutateAsync(project.id);
-      }
+      await removeProject.mutateAsync(project.id);
       // Anders blijft er een dode snelkoppeling in "recent bekeken" staan.
       forgetRecentProject(project.id);
-      toast.success(`"${label}" verwijderd`);
+      toast.success(`Project "${project.name}" verwijderd`);
+      navigate(project.client_id ? `/admin/klanten/${project.client_id}` : "/admin/klanten");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Verwijderen mislukt");
+    }
+  };
+
+  const verwijderKlant = async () => {
+    if (!project.client_id || !project.client) return;
+    const naam = project.client.name;
+    const door = await vraagBevestiging({
+      titel: `Klant "${naam}" verwijderen?`,
+      beschrijving:
+        "De klant met al zijn projecten, taken, updates en bestanden. Ook de facturatie verdwijnt. Dit kun je niet terugdraaien.",
+      bevestigLabel: "Klant verwijderen",
+    });
+    if (!door) return;
+
+    try {
+      await removeClient.mutateAsync(project.client_id);
+      forgetRecentProject(project.id);
+      toast.success(`Klant "${naam}" verwijderd`);
       navigate("/admin/klanten");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Verwijderen mislukt");
@@ -113,7 +137,6 @@ const ProjectDetail = () => {
   };
 
   const naam = project.client?.name ?? project.name;
-  const beeld = project.portfolio_slug ? beeldPerSlug.get(project.portfolio_slug) : undefined;
 
   // Alles wat aan deze klant is aangeraakt, in één stempel. Dat is de vraag
   // waarmee je een klantpagina opent: is hier recent nog iets gebeurd?
@@ -141,7 +164,7 @@ const ProjectDetail = () => {
 
         {laatsteActiviteit && (
           <p className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+            <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden="true" />
             Laatste activiteit
             <span className="font-medium text-foreground">{momentLabel(laatsteActiviteit)}</span>
           </p>
@@ -150,19 +173,7 @@ const ProjectDetail = () => {
 
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border py-5">
         <div className="flex min-w-0 items-center gap-4">
-          {beeld ? (
-            <img src={beeld} alt="" className="h-14 w-14 shrink-0 rounded-full object-cover object-top" />
-          ) : (
-            <span
-              className={cn(
-                "flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-semibold",
-                tintFor(naam),
-              )}
-              aria-hidden="true"
-            >
-              {initials(naam)}
-            </span>
-          )}
+          <Avatar naam={naam} slug={project.portfolio_slug} maat="lg" vorm="rond" />
 
           <div className="min-w-0">
             <h1 className="truncate text-2xl font-semibold tracking-tight">{naam}</h1>
@@ -221,11 +232,20 @@ const ProjectDetail = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-destructive focus:bg-destructive/10 focus:text-destructive"
-                onSelect={() => void handleDelete()}
+                onSelect={() => void verwijderProject()}
               >
                 <Trash2 className="h-4 w-4" />
-                Verwijderen
+                Project verwijderen
               </DropdownMenuItem>
+              {project.client && (
+                <DropdownMenuItem
+                  className="text-destructive focus:bg-destructive/10 focus:text-destructive"
+                  onSelect={() => void verwijderKlant()}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Klant verwijderen
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -239,7 +259,12 @@ const ProjectDetail = () => {
         </div>
 
         <div className="lg:pl-8">
-          <Tabs defaultValue="taken">
+          <Tabs
+            value={tab}
+            onValueChange={(waarde) =>
+              setSearchParams(waarde === "taken" ? {} : { tab: waarde }, { replace: true })
+            }
+          >
             <TabsList className="h-auto w-full justify-start gap-6 rounded-none border-b border-border bg-transparent p-0">
               <Tab value="taken" count={openTasks}>
                 Taken

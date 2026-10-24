@@ -7,9 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import EmptyState from "@/admin/components/EmptyState";
 import StatusPill from "@/admin/ui/StatusPill";
-import { formatDateTime } from "@/admin/format";
+import { formatDateTime, leesbareUpdate } from "@/admin/format";
 import { useAddUpdate, useDeleteUpdate, useProjectUpdates, type TeamMember } from "@/admin/queries";
-import type { UpdateKind } from "@/admin/constants";
+import { PROJECT_STATUS, type UpdateKind } from "@/admin/constants";
 import { useConfirm } from "@/admin/useConfirm";
 
 interface UpdatesTimelineProps {
@@ -99,7 +99,7 @@ const UpdatesTimeline = ({ projectId, userId, team }: UpdatesTimelineProps) => {
                       {authorName(update.author_id)} · {formatDateTime(update.created_at)}
                     </span>
                   </div>
-                  <p className="mt-1.5 whitespace-pre-wrap text-sm">{update.body}</p>
+                  <p className="mt-1.5 whitespace-pre-wrap text-sm">{leesbareUpdate(update.body, PROJECT_STATUS)}</p>
                 </div>
                 <Button
                   variant="ghost"

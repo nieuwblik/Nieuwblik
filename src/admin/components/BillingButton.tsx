@@ -10,8 +10,16 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import DatePicker from "@/admin/components/DatePicker";
-import { BILLING_CYCLE, BILLING_CYCLE_ORDER, formatEuro, volgendeTermijn, type BillingCycle } from "@/admin/billing";
+import {
+  BILLING_CYCLE,
+  BILLING_CYCLE_ORDER,
+  formatEuro,
+  leesBedrag,
+  volgendeTermijn,
+  type BillingCycle,
+} from "@/admin/billing";
 import { useSaveClient, type Client } from "@/admin/queries";
+import { useConfirm } from "@/admin/useConfirm";
 
 /** Radix Select verdraagt geen lege waarde als item. */
 const GEEN = "__geen__";
@@ -26,6 +34,7 @@ const GEEN = "__geen__";
 const BillingButton = ({ client }: { client: Client }) => {
   const save = useSaveClient();
   const [open, setOpen] = useState(false);
+  const { vraagBevestiging, dialoog } = useConfirm();
 
   const [cyclus, setCyclus] = useState<BillingCycle | "">("");
   const [start, setStart] = useState("");
@@ -37,7 +46,7 @@ const BillingButton = ({ client }: { client: Client }) => {
     if (!open) return;
     setCyclus(client.billing_cycle ?? "");
     setStart(client.billing_start ?? "");
-    setBedrag(client.billing_amount_cents == null ? "" : String(client.billing_amount_cents / 100));
+    setBedrag(client.billing_amount_cents == null ? "" : String(client.billing_amount_cents / 100).replace(".", ","));
   }, [open, client]);
 
   const volgende = volgendeTermijn(client.billing_start, client.billing_cycle);
@@ -48,9 +57,21 @@ const BillingButton = ({ client }: { client: Client }) => {
       return;
     }
 
-    const schoon = bedrag.trim().replace(",", ".");
-    if (schoon && !Number.isFinite(Number(schoon))) {
-      toast.error("Bedrag moet een getal zijn");
+    // Een bestaand contract op "Geen" zetten wist ook datum en bedrag; dat
+    // vraagt een bevestiging, net als elke andere wissende actie.
+    if (!cyclus && client.billing_cycle) {
+      const ja = await vraagBevestiging({
+        titel: `Facturatie van ${client.name} verwijderen?`,
+        beschrijving: "Cyclus, ingangsdatum en bedrag worden gewist. Wat al als gefactureerd is afgevinkt, blijft bewaard.",
+        bevestigLabel: "Facturatie verwijderen",
+      });
+      if (!ja) return;
+    }
+
+    const tekst = bedrag.trim();
+    const waarde = leesBedrag(tekst);
+    if (tekst && waarde === null) {
+      toast.error("Bedrag moet een getal zijn, bijvoorbeeld 45 of 1.250,50");
       return;
     }
 
@@ -62,7 +83,7 @@ const BillingButton = ({ client }: { client: Client }) => {
           // Zonder cyclus gaan datum en bedrag mee: ze horen bij het contract.
           billing_cycle: cyclus || null,
           billing_start: cyclus ? start || null : null,
-          billing_amount_cents: cyclus && schoon ? Math.round(Number(schoon) * 100) : null,
+          billing_amount_cents: cyclus && waarde !== null ? Math.round(waarde * 100) : null,
         },
       });
       toast.success(cyclus ? "Facturatie bijgewerkt" : "Facturatie verwijderd");
@@ -78,7 +99,7 @@ const BillingButton = ({ client }: { client: Client }) => {
         <button
           type="button"
           title="Facturatie instellen"
-          className="inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm transition-colors duration-150 hover:bg-muted"
+          className="inline-flex h-10 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm transition-colors duration-150 hover:bg-muted"
         >
           <Receipt className="h-4 w-4 shrink-0 text-muted-foreground" />
           {client.billing_cycle ? (
@@ -172,6 +193,7 @@ const BillingButton = ({ client }: { client: Client }) => {
           </Button>
         </div>
       </PopoverContent>
+      {dialoog}
     </Popover>
   );
 };

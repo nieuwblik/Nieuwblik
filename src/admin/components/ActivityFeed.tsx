@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { Check, Flag, MessageSquare, Paperclip, Plus, type LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { momentLabel } from "@/admin/format";
+import { PROJECT_STATUS } from "@/admin/constants";
+import { leesbareUpdate, momentLabel } from "@/admin/format";
 import { useProjectFiles, useProjectUpdates, useTasks, type TeamMember } from "@/admin/queries";
 
 interface ActivityFeedProps {
@@ -29,10 +30,11 @@ interface Gebeurtenis {
 }
 
 const SOORT = {
-  af: { icoon: Check, kleur: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" },
+  af: { icoon: Check, kleur: "bg-success/10 text-success-ink" },
   nieuw: { icoon: Plus, kleur: "bg-muted text-muted-foreground" },
-  bericht: { icoon: MessageSquare, kleur: "bg-sky-500/15 text-sky-600 dark:text-sky-400" },
-  mijlpaal: { icoon: Flag, kleur: "bg-amber-500/15 text-amber-600 dark:text-amber-400" },
+  bericht: { icoon: MessageSquare, kleur: "bg-info/10 text-info-ink" },
+  // Zelfde kleur als de mijlpaal-pil in de tijdlijn: een mijlpaal is iets dat af is.
+  mijlpaal: { icoon: Flag, kleur: "bg-success/10 text-success-ink" },
   bestand: { icoon: Paperclip, kleur: "bg-muted text-muted-foreground" },
 };
 
@@ -65,7 +67,7 @@ const ActivityFeed = ({ projectId, team, userId, limit = 6 }: ActivityFeedProps)
       const soort = update.kind === "mijlpaal" ? SOORT.mijlpaal : SOORT.bericht;
       alles.push({
         id: `update-${update.id}`,
-        onderwerp: update.body,
+        onderwerp: leesbareUpdate(update.body, PROJECT_STATUS),
         actie: update.kind === "mijlpaal" ? "Mijlpaal" : update.kind === "notitie" ? "Notitie" : "Update",
         wie: naam(update.author_id),
         wanneer: update.created_at,

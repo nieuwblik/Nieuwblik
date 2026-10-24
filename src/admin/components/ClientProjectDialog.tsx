@@ -28,6 +28,7 @@ import {
   type ProjectStatus,
 } from "@/admin/constants";
 import DatePicker from "@/admin/components/DatePicker";
+import { leesBedrag } from "@/admin/billing";
 import { useSaveClient, useSaveProject, type Client, type Project } from "@/admin/queries";
 
 interface ClientProjectDialogProps {
@@ -79,7 +80,19 @@ const ClientProjectDialog = ({
   const [form, setForm] = useState(EMPTY);
   const saveClient = useSaveClient();
   const saveProject = useSaveProject();
-  const isEdit = Boolean(client);
+  // Vier situaties, elk met een eigen titel: eerder heette "Project toevoegen"
+  // bij een bestaande klant ook "Klant bewerken".
+  const kop =
+    client && project
+      ? { titel: "Klant bewerken", uitleg: "Contactgegevens en de stand van het werk." }
+      : client
+        ? { titel: "Project toevoegen", uitleg: `Nieuw werk voor ${client.name}. De contactgegevens staan al ingevuld.` }
+        : project
+          ? {
+              titel: "Project bewerken",
+              uitleg: "Dit project hangt nog aan geen klant. Bij opslaan wordt de klant hieronder aangemaakt en gekoppeld.",
+            }
+          : { titel: "Nieuwe klant", uitleg: "Contactgegevens en het werk dat je voor ze gaat doen." };
 
   useEffect(() => {
     if (!open) return;
@@ -99,7 +112,7 @@ const ClientProjectDialog = ({
             start_date: project?.start_date ?? "",
             deadline: project?.deadline ?? "",
             live_url: project?.live_url ?? "",
-            budget: project?.budget_cents == null ? "" : String(project.budget_cents / 100),
+            budget: project?.budget_cents == null ? "" : String(project.budget_cents / 100).replace(".", ","),
             description: project?.description ?? "",
             built_with_tanstack: project?.built_with_tanstack ?? false,
           }
@@ -119,9 +132,10 @@ const ClientProjectDialog = ({
       return;
     }
 
-    const budget = form.budget.trim();
-    if (budget && !Number.isFinite(Number(budget))) {
-      toast.error("Budget moet een bedrag zijn");
+    const budgetTekst = form.budget.trim();
+    const budget = leesBedrag(budgetTekst);
+    if (budgetTekst && budget === null) {
+      toast.error("Budget moet een bedrag zijn, bijvoorbeeld 2500 of 2.499,50");
       return;
     }
 
@@ -143,7 +157,7 @@ const ClientProjectDialog = ({
       start_date: form.start_date || null,
       deadline: form.deadline || null,
       live_url: form.live_url.trim() || null,
-      budget_cents: budget ? Math.round(Number(budget) * 100) : null,
+      budget_cents: budget === null ? null : Math.round(budget * 100),
       description: form.description.trim() || null,
       built_with_tanstack: form.built_with_tanstack,
     };
@@ -163,7 +177,7 @@ const ClientProjectDialog = ({
         },
       });
 
-      toast.success(isEdit ? "Bijgewerkt" : "Klant aangemaakt");
+      toast.success(project ? "Bijgewerkt" : client ? "Project toegevoegd" : "Klant aangemaakt");
       onOpenChange(false);
       if (!project) onCreated?.(savedProject.id);
     } catch (error) {
@@ -177,12 +191,8 @@ const ClientProjectDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Klant bewerken" : "Nieuwe klant"}</DialogTitle>
-          <DialogDescription>
-            {isEdit
-              ? "Contactgegevens en de stand van het werk."
-              : "Contactgegevens en het werk dat je voor ze gaat doen."}
-          </DialogDescription>
+          <DialogTitle>{kop.titel}</DialogTitle>
+          <DialogDescription>{kop.uitleg}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-5">

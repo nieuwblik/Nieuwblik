@@ -1,19 +1,23 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { addMonths, addYears, endOfMonth, format, isBefore, startOfDay, startOfMonth, subMonths } from "date-fns";
+import { addYears, endOfMonth, format, startOfDay, startOfMonth } from "date-fns";
 import { nl } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, Receipt } from "lucide-react";
+import { AlertCircle, CalendarRange, FileText, Receipt } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import BillingCalendar, { type BillingMoment } from "@/admin/components/BillingCalendar";
-import { BILLING_CYCLE, formatEuro, termijnen } from "@/admin/billing";
+import { BILLING_CYCLE, formatEuro, leesDatum, termijnen } from "@/admin/billing";
+import { TOON } from "@/admin/constants";
 import { useClients, useInvoicedPeriods, useMarkInvoiced, type Client } from "@/admin/queries";
+import { useTeFactureren } from "@/admin/stats";
+import MonthNav from "@/admin/ui/MonthNav";
+import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 
 interface Regel {
   client: Client;
@@ -34,6 +38,9 @@ const Hosting = () => {
   const { data: clients = [], isLoading } = useClients();
   const { data: gefactureerd = [], isError } = useInvoicedPeriods();
   const markeer = useMarkInvoiced();
+  // Achterstallig komt uit dezelfde berekening als de teller in de zijbalk
+  // en de kaart op het dashboard, zodat die getallen altijd gelijk zijn.
+  const { achterstallig } = useTeFactureren();
 
   const [maand, setMaand] = useState(() => startOfMonth(new Date()));
 
@@ -93,20 +100,6 @@ const Hosting = () => {
     return map;
   }, [regels]);
 
-  // Achterstallig: de datum is geweest en er staat geen vinkje. Dat is waar je
-  // deze pagina voor opent.
-  const achterstallig = useMemo(() => {
-    const van = subMonths(startOfMonth(vandaag), 24);
-    return metContract
-      .flatMap((client) =>
-        termijnen(client.billing_start!, client.billing_cycle!, van, vandaag)
-          .filter((t) => isBefore(t.datum, vandaag) && !afgevinkt.has(`${client.id}|${t.sleutel}`))
-          .map((t) => ({ client, sleutel: t.sleutel, datum: t.datum, gefactureerd: false })),
-      )
-      .sort((a, b) => a.sleutel.localeCompare(b.sleutel));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [metContract, afgevinkt]);
-
   const zet = async (regel: Regel, waarde: boolean) => {
     try {
       await markeer.mutateAsync({
@@ -115,6 +108,13 @@ const Hosting = () => {
         userId: user?.id ?? null,
         gefactureerd: waarde,
       });
+      // Een vinkje weghalen wist wie en wanneer er gefactureerd is. Geen
+      // dialoog ervoor (dat remt het gewone afvinken), wel een weg terug.
+      if (!waarde) {
+        toast(`${regel.client.name}: niet meer gefactureerd`, {
+          action: { label: "Ongedaan maken", onClick: () => void zet(regel, true) },
+        });
+      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Bijwerken mislukt");
     }
@@ -124,27 +124,27 @@ const Hosting = () => {
     <li
       key={`${regel.client.id}|${regel.sleutel}`}
       className={cn(
-        "-mx-2 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-[background-color,opacity] duration-200 hover:bg-muted/40",
+        "-mx-2 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-[background-color,opacity] duration-200 hover:bg-muted/50",
         regel.gefactureerd && "opacity-60",
       )}
     >
       <Checkbox
         checked={regel.gefactureerd}
         onCheckedChange={(v) => void zet(regel, v === true)}
-        aria-label={`${regel.client.name} — ${format(regel.datum, "d MMMM yyyy", { locale: nl })} gefactureerd`}
+        aria-label={`${regel.client.name}, ${format(regel.datum, "d MMMM yyyy", { locale: nl })} gefactureerd`}
       />
 
       {/* Op een telefoon passen vier kolommen niet naast elkaar: de naam werd
           er volledig uitgedrukt. Datum en cyclus zakken daar onder de naam. */}
-      <span className="hidden w-24 shrink-0 text-xs tabular-nums text-muted-foreground sm:block">
+      <span className="hidden w-24 shrink-0 text-[13px] tabular-nums text-muted-foreground sm:block">
         {format(regel.datum, toonMaand ? "d MMM yyyy" : "d MMMM", { locale: nl })}
       </span>
 
       <div className="min-w-0 flex-1">
-        <Link to="/admin/klanten" className="block truncate text-sm font-medium hover:underline">
+        <Link to={`/admin/klanten/${regel.client.id}`} className="block truncate text-sm font-medium hover:underline">
           {regel.client.name}
         </Link>
-        <span className="text-xs text-muted-foreground sm:hidden">
+        <span className="text-[13px] text-muted-foreground sm:hidden">
           {format(regel.datum, "d MMM yyyy", { locale: nl })} · {BILLING_CYCLE[regel.client.billing_cycle!].label}
         </span>
       </div>
@@ -155,88 +155,76 @@ const Hosting = () => {
         </span>
       )}
 
-      <span className="hidden w-24 shrink-0 text-right text-xs text-muted-foreground sm:block">
+      <span className="hidden w-24 shrink-0 text-right text-[13px] text-muted-foreground sm:block">
         {BILLING_CYCLE[regel.client.billing_cycle!].label}
       </span>
     </li>
   );
 
+  const achterstalligeRegels: Regel[] = achterstallig.map((t) => ({ ...t, gefactureerd: false }));
+
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-[1100px] space-y-4 lg:space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Hosting</h1>
+        <h1 className="text-2xl tracking-tight">Hosting</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {metContract.length} {metContract.length === 1 ? "klant" : "klanten"} met een terugkerend contract
           {achterstallig.length > 0 && (
-            <span className="text-rose-600 dark:text-rose-400"> · {achterstallig.length} nog niet gefactureerd</span>
+            <span className={TOON.danger.tekst}> · {achterstallig.length} nog niet gefactureerd</span>
           )}
         </p>
       </div>
 
       {isError && (
-        <p className="text-sm text-muted-foreground">
-          De facturatiegegevens konden niet geladen worden. Draait de migratie al?
+        <p className={cn("rounded-lg border px-3 py-2 text-sm", TOON.danger.cel)}>
+          De facturatiegegevens konden niet geladen worden.
         </p>
       )}
 
       {/* Wat je vergeten bent staat bovenaan; de maand eronder is voor
           vooruitkijken. */}
-      {achterstallig.length > 0 && (
-        <Card className="border-rose-500/30">
-          <CardHeader>
-            <CardTitle className="text-base">Nog te factureren</CardTitle>
-            <CardDescription>Deze datums zijn geweest en staan nog open.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-1">{achterstallig.map((r) => rij(r, true))}</ul>
-          </CardContent>
-        </Card>
+      {achterstalligeRegels.length > 0 && (
+        <Panel className="border-danger/30">
+          <PanelHeader icon={AlertCircle} titel="Nog te factureren" subtitel="Deze datums zijn geweest en staan nog open." />
+          <PanelBody>
+            <ul className="space-y-1">{achterstalligeRegels.map((r) => rij(r, true))}</ul>
+          </PanelBody>
+        </Panel>
       )}
 
-      <Card>
-        {/* Naast elkaar zodra het past; op een telefoon zou de maandtitel
-            anders in drie regels naast de knoppen breken. */}
-        <CardHeader className="flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <CardTitle className="text-base first-letter:uppercase">
-              {format(maand, "LLLL yyyy", { locale: nl })}
-            </CardTitle>
-            <CardDescription>
-              {regels.length === 0 ? (
-                "Deze maand valt er niets te factureren."
-              ) : (
-                <>
-                  {regels.length} {regels.length === 1 ? "moment" : "momenten"}, waarvan {open.length} open
-                  {maandTotaal > 0 && <> · {formatEuro(maandTotaal)}</>}
-                  {zonderBedrag > 0 && (
-                    <> · {zonderBedrag} zonder bedrag</>
-                  )}
-                </>
-              )}
-            </CardDescription>
-          </div>
+      <Panel>
+        <PanelHeader
+          icon={CalendarRange}
+          titel={<span className="inline-block first-letter:uppercase">{format(maand, "LLLL yyyy", { locale: nl })}</span>}
+          // Zonder contracten valt er niets te bladeren: dan alleen de lege staat.
+          subtitel={
+            metContract.length === 0 ? undefined : regels.length === 0 ? (
+              "Deze maand valt er niets te factureren."
+            ) : (
+              <>
+                {regels.length} {regels.length === 1 ? "moment" : "momenten"}, waarvan {open.length} open
+                {maandTotaal > 0 && <> · {formatEuro(maandTotaal)}</>}
+                {zonderBedrag > 0 && <> · {zonderBedrag} zonder bedrag</>}
+              </>
+            )
+          }
+          actie={metContract.length > 0 ? <MonthNav maand={maand} onChange={setMaand} /> : undefined}
+        />
 
-          <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setMaand(subMonths(maand, 1))} aria-label="Vorige maand">
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => setMaand(startOfMonth(new Date()))}>
-              Deze maand
-            </Button>
-            <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setMaand(addMonths(maand, 1))} aria-label="Volgende maand">
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardHeader>
-
-        <CardContent>
+        <PanelBody>
           {isLoading ? (
-            <p className="text-sm text-muted-foreground">Laden…</p>
+            <Skeleton className="h-64" />
           ) : metContract.length === 0 ? (
             <EmptyState
+              compact
               icon={Receipt}
               title="Nog geen contracten"
-              description="Zet bij een klant de facturatie en de ingangsdatum, dan verschijnen de momenten hier."
+              description="Open een klant en kies Facturatie: cyclus, ingangsdatum en bedrag. Dan verschijnen de factuurmomenten hier."
+              action={
+                <Button asChild variant="outline" size="sm">
+                  <Link to="/admin/klanten">Naar de klanten</Link>
+                </Button>
+              }
             />
           ) : (
             <div className="space-y-5">
@@ -252,17 +240,14 @@ const Hosting = () => {
               )}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </PanelBody>
+      </Panel>
 
       {/* Het jaar in één blik: wie er wanneer aan de beurt is. */}
       {metContract.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Contracten</CardTitle>
-            <CardDescription>Cyclus, ingangsdatum en het eerstvolgende moment.</CardDescription>
-          </CardHeader>
-          <CardContent>
+        <Panel>
+          <PanelHeader icon={FileText} titel="Contracten" subtitel="Cyclus, ingangsdatum en het eerstvolgende moment." />
+          <PanelBody>
             <ul className="space-y-1">
               {metContract.map((client) => {
                 const volgende = termijnen(
@@ -273,28 +258,34 @@ const Hosting = () => {
                 )[0];
 
                 return (
-                  <li
-                    key={client.id}
-                    className="-mx-2 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors duration-200 hover:bg-muted/40"
-                  >
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium">{client.name}</span>
-                    <span className="shrink-0 text-xs text-muted-foreground">
-                      {BILLING_CYCLE[client.billing_cycle!].label}
-                    </span>
-                    <span className="w-28 shrink-0 text-right text-xs text-muted-foreground">
-                      sinds {format(new Date(client.billing_start!), "MMM yyyy", { locale: nl })}
-                    </span>
-                    <span className="w-28 shrink-0 text-right text-xs tabular-nums">
-                      {volgende
-                        ? format(volgende.datum, "d MMM yyyy", { locale: nl })
-                        : <span className="text-muted-foreground">—</span>}
-                    </span>
+                  <li key={client.id}>
+                    <Link
+                      to={`/admin/klanten/${client.id}`}
+                      className="-mx-2 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors duration-200 hover:bg-muted/50"
+                    >
+                      <span className="min-w-0 flex-1 truncate text-sm font-medium">{client.name}</span>
+                      <span className="shrink-0 text-[13px] text-muted-foreground">
+                        {BILLING_CYCLE[client.billing_cycle!].label}
+                      </span>
+                      {/* leesDatum: new Date("2026-08-01") is UTC-middernacht en
+                          kan in een andere tijdzone de vorige maand opleveren. */}
+                      <span className="hidden w-28 shrink-0 text-right text-[13px] text-muted-foreground sm:block">
+                        sinds {format(leesDatum(client.billing_start!), "MMM yyyy", { locale: nl })}
+                      </span>
+                      <span className="w-24 shrink-0 text-right text-[13px] tabular-nums">
+                        {volgende ? (
+                          format(volgende.datum, "d MMM yyyy", { locale: nl })
+                        ) : (
+                          <span className="text-muted-foreground">Geen</span>
+                        )}
+                      </span>
+                    </Link>
                   </li>
                 );
               })}
             </ul>
-          </CardContent>
-        </Card>
+          </PanelBody>
+        </Panel>
       )}
     </div>
   );

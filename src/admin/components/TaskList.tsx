@@ -335,7 +335,9 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
   // blijft. Bij een klant met tientallen afgeronde taken zou dat de pagina
   // onbruikbaar lang maken, dus daarboven blijft hij dicht tot je hem opent.
   const kaarten = variant === "kaarten";
-  const afgerondZichtbaar = afgerondOpen ?? (kaarten && afgerond.length <= 5);
+  // Staat er niets meer open (of filter je op "klaar"), dan is de geschiedenis
+  // juist wat je komt bekijken: dan staat hij meteen open.
+  const afgerondZichtbaar = afgerondOpen ?? ((kaarten && afgerond.length <= 5) || open.length === 0);
 
   // Per dag gegroepeerd, zoals de referentie: een datum boven het blok leest
   // sneller dan een datum achter elke regel.

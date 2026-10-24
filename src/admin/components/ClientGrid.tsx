@@ -18,8 +18,8 @@ interface ClientGridProps {
   groep?: Groep;
 }
 
-const RASTER = "grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4";
-const KOPJE = "text-xs uppercase tracking-wide text-muted-foreground";
+const RASTER = "grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4";
+const KOPJE = "text-[13px] text-muted-foreground";
 
 /**
  * Het klantenraster, met het werk bovenaan.

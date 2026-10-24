@@ -13,6 +13,7 @@ import { nl } from "date-fns/locale";
 
 import { cn } from "@/lib/utils";
 import type { BillingCycle } from "@/admin/billing";
+import { TOON } from "@/admin/constants";
 
 export interface BillingMoment {
   clientId: string;
@@ -27,7 +28,7 @@ const DAGEN = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 /**
  * De maand met de factuurmomenten in de dagcellen.
  *
- * Jaarcontracten krijgen een opvallender kleur dan maandcontracten: een
+ * Jaarcontracten krijgen de waarschuwingskleur, maandcontracten blauw: een
  * maandelijkse factuur komt vanzelf weer langs, een jaarlijkse zie je één keer
  * en moet je niet missen. Wat al gefactureerd is vervaagt.
  */
@@ -51,7 +52,7 @@ const BillingCalendar = ({
     <div>
       <div className="grid grid-cols-7 gap-1.5 pb-1.5">
         {DAGEN.map((dag) => (
-          <div key={dag} className="text-center text-[11px] uppercase tracking-wide text-muted-foreground">
+          <div key={dag} className="text-center text-xs text-muted-foreground">
             {dag}
           </div>
         ))}
@@ -70,11 +71,7 @@ const BillingCalendar = ({
               key={sleutel}
               className={cn(
                 "flex h-12 flex-col gap-1 rounded-lg border p-1.5 text-left sm:aspect-[4/3] sm:h-auto",
-                heeftJaarlijks
-                  ? "border-amber-500/40 bg-amber-500/10"
-                  : heeftOpen
-                    ? "border-sky-500/30 bg-sky-500/10"
-                    : "border-border bg-background",
+                heeftJaarlijks ? TOON.warning.cel : heeftOpen ? TOON.info.cel : "border-border bg-background",
                 buitenMaand && "opacity-40",
               )}
             >
@@ -91,13 +88,13 @@ const BillingCalendar = ({
                 {momenten.slice(0, 3).map((m) => (
                   <span
                     key={`${m.clientId}|${m.sleutel}`}
-                    title={`${m.clientNaam} — ${m.cyclus}${m.gefactureerd ? " (gefactureerd)" : ""}`}
+                    title={`${m.clientNaam}, ${m.cyclus}${m.gefactureerd ? " (gefactureerd)" : ""}`}
                     className={cn("flex items-center gap-1", m.gefactureerd && "opacity-50")}
                   >
                     <span
                       className={cn(
                         "h-3 w-0.5 shrink-0 rounded-full",
-                        m.cyclus === "jaarlijks" ? "bg-amber-500" : "bg-sky-500",
+                        m.cyclus === "jaarlijks" ? TOON.warning.stip : TOON.info.stip,
                       )}
                     />
                     <span className={cn("truncate text-[11px] leading-tight", m.gefactureerd && "line-through")}>
@@ -116,11 +113,11 @@ const BillingCalendar = ({
 
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-amber-500" />
+          <span className={cn("h-2 w-2 rounded-full", TOON.warning.stip)} />
           Jaarlijks
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full bg-sky-500" />
+          <span className={cn("h-2 w-2 rounded-full", TOON.info.stip)} />
           Maandelijks
         </span>
       </div>

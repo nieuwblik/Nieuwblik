@@ -1,18 +1,39 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { Plus, Search, Users } from "lucide-react";
+import { Plus, Search, Users, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ClientGrid from "@/admin/components/ClientGrid";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, type ProjectStatus } from "@/admin/constants";
-import { useCombinedRows } from "@/admin/rows";
+import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, TOON, type ProjectStatus } from "@/admin/constants";
+import { useCombinedRows, type ClientRow } from "@/admin/rows";
+import { cn } from "@/lib/utils";
 
 type Filter = ProjectStatus | "alle" | "actief";
+
+/** Fases waarin een project gebouwd wordt; daar hoort een opleverdatum bij. */
+const IN_PRODUCTIE: ProjectStatus[] = ["in_ontwerp", "in_bouw", "review"];
+
+/**
+ * Filters op ontbrekende gegevens, vanaf de dashboardkaarten "Mailen" en
+ * "Ontbrekende gegevens". Losse projecten zonder klant hebben geen
+ * contactgegevens om aan te vullen en vallen erbuiten.
+ */
+const ONTBREKEND: Record<string, { label: string; test: (row: ClientRow) => boolean }> = {
+  "zonder-email": { label: "Zonder e-mailadres", test: (r) => Boolean(r.client.id) && !r.client.email?.includes("@") },
+  "zonder-telefoon": { label: "Zonder telefoonnummer", test: (r) => Boolean(r.client.id) && !r.client.phone?.trim() },
+  "zonder-contact": { label: "Zonder contactpersoon", test: (r) => Boolean(r.client.id) && !r.client.contact_name?.trim() },
+  "zonder-deadline": {
+    label: "In productie zonder deadline",
+    test: (r) =>
+      [r.project, ...r.otherProjects].some((p) => p && IN_PRODUCTIE.includes(p.status) && !p.deadline),
+  },
+};
 
 /**
  * De gecombineerde lijst: klant en werk in één regel. Vervangt de losse
@@ -28,43 +49,61 @@ const Clients = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const location = useLocation();
 
-  // Het command-palet stuurt hierheen met { nieuw: true } om meteen het
-  // formulier te openen. De state wordt daarna gewist, anders springt de
+  // Het palet en de bovenbalk sturen hierheen met { nieuw: true } om meteen
+  // het formulier te openen. De state wordt daarna gewist, anders springt de
   // dialoog bij een refresh opnieuw open.
   useEffect(() => {
     if (!(location.state as { nieuw?: boolean } | null)?.nieuw) return;
     setDialogOpen(true);
-    window.history.replaceState({}, "");
-  }, [location.state]);
+    navigate(location.pathname + location.search, { replace: true, state: null });
+  }, [location.state, location.pathname, location.search, navigate]);
 
-  // Het filter leeft in de URL, zodat de fases in de zijbalk hierheen linken
-  // en een gefilterde weergave deelbaar is.
+  // De filters leven in de URL, zodat het dashboard hierheen linkt en een
+  // gefilterde weergave deelbaar is. "actief" (lopend werk) hoort bij de
+  // bekende waarden; dat ontbrak, waardoor die link op "alle" terugviel.
   const statusParam = searchParams.get("status");
-  const known = statusParam === "alle" || PROJECT_STATUS_ORDER.includes(statusParam as ProjectStatus);
+  const known =
+    statusParam === "alle" || statusParam === "actief" || PROJECT_STATUS_ORDER.includes(statusParam as ProjectStatus);
   const filter: Filter = statusParam && known ? (statusParam as Filter) : "alle";
+  const ontbrekendParam = searchParams.get("filter");
+  const ontbrekend = ontbrekendParam && ONTBREKEND[ontbrekendParam] ? ontbrekendParam : null;
 
-  const setFilter = (next: Filter) =>
-    setSearchParams(next === "alle" ? {} : { status: next }, { replace: true });
+  const setFilter = (next: Filter) => {
+    const volgende = new URLSearchParams(searchParams);
+    if (next === "alle") volgende.delete("status");
+    else volgende.set("status", next);
+    setSearchParams(volgende, { replace: true });
+  };
+
+  const wisOntbrekend = () => {
+    const volgende = new URLSearchParams(searchParams);
+    volgende.delete("filter");
+    setSearchParams(volgende, { replace: true });
+  };
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
     return rows.filter((row) => {
       if (filter === "actief" && !(row.status && ACTIVE_PROJECT_STATUSES.includes(row.status))) return false;
       if (filter !== "alle" && filter !== "actief" && row.status !== filter) return false;
+      if (ontbrekend && !ONTBREKEND[ontbrekend]!.test(row)) return false;
       if (!term) return true;
       return [row.client.name, row.client.contact_name, row.client.email, row.client.city, row.project?.name].some(
         (value) => (value ?? "").toLowerCase().includes(term),
       );
     });
-  }, [rows, filter, search]);
+  }, [rows, filter, ontbrekend, search]);
+
+  const gefilterd = filter !== "alle" || ontbrekend !== null || search.trim() !== "";
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-[1400px] space-y-4 lg:space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Klanten</h1>
+          <h1 className="text-2xl tracking-tight">Klanten</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {rows.length} {rows.length === 1 ? "klant" : "klanten"} · openstaand werk bovenaan
+            {gefilterd ? `${visible.length} van ${rows.length}` : rows.length} {rows.length === 1 ? "klant" : "klanten"}
+            {" · "}open werk bovenaan
           </p>
         </div>
         <Button onClick={() => setDialogOpen(true)}>
@@ -77,14 +116,14 @@ const Clients = () => {
         <div className="relative min-w-[200px] flex-1">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            className="pl-9"
+            className="bg-card pl-9"
             placeholder="Zoek op naam, contactpersoon, e-mail of plaats"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <Select value={filter} onValueChange={(v) => setFilter(v as Filter)}>
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-[200px] bg-card">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -99,8 +138,29 @@ const Clients = () => {
         </Select>
       </div>
 
+      {ontbrekend && (
+        <div>
+          <button
+            type="button"
+            onClick={wisOntbrekend}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[13px] font-medium transition-colors hover:opacity-80",
+              TOON.warning.pil,
+            )}
+          >
+            {ONTBREKEND[ontbrekend]!.label}
+            <X className="h-3.5 w-3.5" />
+            <span className="sr-only">Filter weghalen</span>
+          </button>
+        </div>
+      )}
+
       {isLoading ? (
-        <p className="text-sm text-muted-foreground">Laden…</p>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4">
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+            <Skeleton key={i} className="aspect-[4/3] rounded-[14px]" />
+          ))}
+        </div>
       ) : visible.length === 0 ? (
         <EmptyState
           icon={Users}
@@ -112,12 +172,21 @@ const Clients = () => {
                 <Plus className="h-4 w-4" />
                 Nieuwe klant
               </Button>
-            ) : undefined
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setSearch("");
+                  setSearchParams({}, { replace: true });
+                }}
+              >
+                Filters wissen
+              </Button>
+            )
           }
         />
       ) : (
-        // Zelfde raster als op het beginscherm: één manier om naar je klanten
-        // te kijken, of je nu binnenkomt of gericht zoekt.
         <ClientGrid rows={visible} />
       )}
 

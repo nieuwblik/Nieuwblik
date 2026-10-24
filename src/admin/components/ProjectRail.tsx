@@ -58,7 +58,7 @@ const Rij = ({
 );
 
 const Kopje = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-xs uppercase tracking-wide text-muted-foreground">{children}</p>
+  <p className="text-[13px] text-muted-foreground">{children}</p>
 );
 
 /**
@@ -105,7 +105,7 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
             <StatusPill kind="project" value={project.status} />
           </Rij>
           <Rij icon={CalendarClock} label="Deadline">
-            <span className={cn(late && "text-rose-600 dark:text-rose-400")}>{deadlineLabel(project.deadline)}</span>
+            <span className={cn(late && "text-danger-ink")}>{deadlineLabel(project.deadline)}</span>
           </Rij>
           <Rij icon={CircleDollarSign} label="Budget">
             {formatBudget(project.budget_cents)}

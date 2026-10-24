@@ -88,7 +88,7 @@ const MonthGrid = ({
     <div>
       <div className="grid grid-cols-7 gap-1.5 pb-1.5">
         {DAGEN.map((dag) => (
-          <div key={dag} className="text-center text-[11px] uppercase tracking-wide text-muted-foreground">
+          <div key={dag} className="text-center text-xs text-muted-foreground">
             {dag}
           </div>
         ))}

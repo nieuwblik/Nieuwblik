@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { addMonths, format, startOfMonth, subMonths } from "date-fns";
+import { Link, useSearchParams } from "react-router-dom";
+import { format, isToday, isValid, parseISO, startOfMonth } from "date-fns";
 import { nl } from "date-fns/locale";
-import { ArrowUpRight, ChevronLeft, ChevronRight, Plus, X } from "lucide-react";
+import { AlertCircle, ArrowUpRight, CalendarDays, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,9 +16,10 @@ import EmptyState from "@/admin/components/EmptyState";
 import MonthGrid, { groepeerPerDag } from "@/admin/components/MonthGrid";
 import QuickCapture from "@/admin/components/QuickCapture";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { ACCENT, PRIORITY, PRIORITY_ORDER, type Priority } from "@/admin/constants";
+import { ACCENT, PRIORITY, PRIORITY_ORDER, TOON, hoofdtaken, isTeLaat, type Priority } from "@/admin/constants";
 import { useSaveTask, useTasks, useTeam, useUpdateTask, type TaskWithProject } from "@/admin/queries";
-import { CalendarDays } from "lucide-react";
+import MonthNav from "@/admin/ui/MonthNav";
+import { Panel } from "@/admin/ui/Panel";
 
 const NONE = "__none__";
 
@@ -37,8 +37,16 @@ const CalendarPage = () => {
   const save = useSaveTask();
   const update = useUpdateTask();
 
-  const [maand, setMaand] = useState(() => startOfMonth(new Date()));
-  const [gekozenDag, setGekozenDag] = useState<Date>(() => new Date());
+  // ?dag=2026-10-24 opent die dag, zodat de weekstrook op het dashboard
+  // meteen naar de juiste dag in de kalender springt.
+  const [searchParams] = useSearchParams();
+  const startDag = (() => {
+    const waarde = searchParams.get("dag");
+    const datum = waarde ? parseISO(waarde) : null;
+    return datum && isValid(datum) ? datum : new Date();
+  })();
+  const [maand, setMaand] = useState(() => startOfMonth(startDag));
+  const [gekozenDag, setGekozenDag] = useState<Date>(() => startDag);
   const [open, setOpen] = useState<TaskWithProject | null>(null);
   const [titel, setTitel] = useState("");
   // Datum waarvoor het invoerscherm openstaat; null als het dicht is.
@@ -47,6 +55,9 @@ const CalendarPage = () => {
   const perDag = useMemo(() => groepeerPerDag(tasks), [tasks]);
   const dagSleutel = format(gekozenDag, "yyyy-MM-dd");
   const takenVandaag = perDag.get(dagSleutel) ?? [];
+  // Werk over de datum staat in het rooster op zijn oude dag. Op vandaag
+  // staat het daarom apart bovenaan, anders kijk je er langs.
+  const teLaat = useMemo(() => hoofdtaken(tasks).filter((t) => isTeLaat(t)), [tasks]);
 
   const patch = async (id: string, values: Parameters<typeof update.mutateAsync>[0]["values"]) => {
     try {
@@ -79,35 +90,19 @@ const CalendarPage = () => {
   const actief = open ? (tasks.find((t) => t.id === open.id) ?? null) : null;
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-[1400px] space-y-4 lg:space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Kalender</h1>
+        <h1 className="text-2xl tracking-tight">Kalender</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Alle deadlines op een rij, gekleurd naar prioriteit. Klik een taak om hem bij te stellen.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-        <Card>
-          <CardContent className="p-4">
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              <Button variant="ghost" size="icon" onClick={() => setMaand(subMonths(maand, 1))} aria-label="Vorige maand">
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <span className="min-w-[9rem] text-sm font-semibold">{format(maand, "LLLL yyyy", { locale: nl })}</span>
-              <Button variant="ghost" size="icon" onClick={() => setMaand(addMonths(maand, 1))} aria-label="Volgende maand">
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setMaand(startOfMonth(new Date()));
-                  setGekozenDag(new Date());
-                }}
-              >
-                Deze maand
-              </Button>
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
+        <Panel className="p-4">
+          <div>
+            <div className="mb-4">
+              <MonthNav maand={maand} onChange={setMaand} onVandaag={() => setGekozenDag(new Date())} />
             </div>
 
             {/* De detailkaart legt zich over het rooster: je blijft in de maand
@@ -198,7 +193,11 @@ const CalendarPage = () => {
 
                       <div className="flex items-start gap-3">
                         <Label className="w-24 shrink-0 pt-2 text-muted-foreground">Notitie</Label>
+                        {/* De key hoort bij de taak: zonder key hield het veld de
+                            tekst van de vorige taak vast en kon die bij het
+                            verlaten in deze taak worden opgeslagen. */}
                         <Textarea
+                          key={actief.id}
                           rows={2}
                           defaultValue={actief.description ?? ""}
                           onBlur={(e) => {
@@ -229,19 +228,37 @@ const CalendarPage = () => {
                 </div>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </Panel>
 
-        <Card className="xl:sticky xl:top-4 xl:self-start">
-          <CardContent className="p-4">
-            <p className="text-sm font-semibold">Gepland</p>
-            <p className="mt-0.5 text-xs text-muted-foreground">
+        <Panel className="p-4 xl:sticky xl:top-20 xl:self-start">
+          <div>
+            <h2 className="p-kaarttitel">Gepland</h2>
+            <p className="mt-0.5 text-[13px] text-muted-foreground first-letter:uppercase">
               {format(gekozenDag, "EEEE d MMMM yyyy", { locale: nl })}
             </p>
 
+            {isToday(gekozenDag) && teLaat.length > 0 && (
+              <Link
+                to="/admin/taken?filter=te-laat"
+                className={cn(
+                  "mt-4 flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors hover:bg-danger/15",
+                  TOON.danger.cel,
+                )}
+              >
+                <AlertCircle className={cn("h-4 w-4 shrink-0", TOON.danger.tekst)} />
+                <span className={cn("font-medium", TOON.danger.tekst)}>
+                  Te laat ({teLaat.length})
+                </span>
+                <span className="truncate text-[13px] text-muted-foreground">
+                  {teLaat.map((t) => t.title).join(", ")}
+                </span>
+              </Link>
+            )}
+
             {takenVandaag.length === 0 ? (
               <div className="mt-4">
-                <EmptyState icon={CalendarDays} title="Niets gepland" description="Voeg hieronder werk toe." />
+                <EmptyState compact icon={CalendarDays} title="Niets gepland" description="Voeg hieronder werk toe." />
               </div>
             ) : (
               <ul className="mt-4 space-y-3">
@@ -284,8 +301,8 @@ const CalendarPage = () => {
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </Panel>
       </div>
 
       {/* Hetzelfde invoerscherm als elders, met de aangeklikte dag al ingevuld:

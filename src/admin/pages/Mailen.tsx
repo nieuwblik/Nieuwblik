@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Mail, Send } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { History, Mail, PenLine, RotateCw, Send } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,9 @@ import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { useConfirm } from "@/admin/useConfirm";
 import { supabase } from "@/integrations/supabase/client";
+import { adminKeys, useClients, useMailings } from "@/admin/queries";
+import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
+import StatusPill from "@/admin/ui/StatusPill";
 
 type Status = "actief" | "prospect" | "inactief";
 
@@ -20,8 +24,6 @@ const GROEPEN: { status: Status; label: string }[] = [
   { status: "prospect", label: "Prospects" },
   { status: "inactief", label: "Oud-klanten" },
 ];
-
-const MAILINGS_KEY = ["admin", "mailings"] as const;
 
 const datum = (iso: string) =>
   new Date(iso).toLocaleString("nl-NL", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -41,28 +43,14 @@ const Mailen = () => {
   const afzender = persoonlijk
     ? `${volledigeNaam ? `${volledigeNaam.split(/\s+/)[0]} van Nieuwblik` : "Nieuwblik"} <${eigenAdres}>`
     : "Nieuwblik <contact@nieuwblik.com>";
-  const { data: klanten = [], isLoading } = useQuery({
-    queryKey: ["admin", "mailing-klanten"],
-    queryFn: async () => {
-      const { data, error } = await supabase.from("clients").select("*").order("name");
-      if (error) throw new Error(error.message);
-      return data;
-    },
-  });
+  const { data: klanten = [], isLoading } = useClients();
   const { vraagBevestiging, dialoog } = useConfirm();
   const [groepen, setGroepen] = useState<Status[]>(["actief"]);
   const [onderwerp, setOnderwerp] = useState("");
   const [tekst, setTekst] = useState("Hoi {naam},\n\n");
   const [bezig, setBezig] = useState<"test" | "echt" | null>(null);
 
-  const { data: mailings = [] } = useQuery({
-    queryKey: MAILINGS_KEY,
-    queryFn: async () => {
-      const { data, error } = await supabase.from("mailings").select("*").order("created_at", { ascending: false }).limit(20);
-      if (error) throw new Error(error.message);
-      return data;
-    },
-  });
+  const { data: mailings = [], isError: mailingsFout, refetch: mailingsOpnieuw, isFetching: mailingsLaden } = useMailings(20);
 
   // Wie krijgt de mail: gekozen groepen, met e-mailadres, niet afgemeld, elk adres één keer.
   const telling = useMemo(() => {
@@ -113,7 +101,7 @@ const Mailen = () => {
         if (data.mislukt) toast.error(`${data.mislukt} mails konden niet worden verstuurd`);
         setOnderwerp("");
         setTekst("Hoi {naam},\n\n");
-        queryClient.invalidateQueries({ queryKey: MAILINGS_KEY });
+        void queryClient.invalidateQueries({ queryKey: adminKeys.mailings });
       }
     } catch (fout) {
       toast.error(fout instanceof Error ? fout.message : "Versturen mislukt");
@@ -125,130 +113,159 @@ const Mailen = () => {
   const voorbeeld = (s: string) => s.replace(/\{naam\}/g, telling.voorbeeldNaam);
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto max-w-[1100px] space-y-4 lg:space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Mailen</h1>
+        <h1 className="text-2xl tracking-tight">Mailen</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Stuur je klanten in één keer een mail, bijvoorbeeld over nieuwe functies. Elke klant krijgt een
           eigen mail, met een afmeldlink onderaan.
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-6">
-          <div className="space-y-3">
-            <Label>Naar wie</Label>
-            <div className="flex flex-wrap gap-x-6 gap-y-3">
-              {GROEPEN.map((g) => (
-                <label key={g.status} className="flex cursor-pointer items-center gap-2 text-sm">
-                  <Checkbox checked={groepen.includes(g.status)} onCheckedChange={(v) => zetGroep(g.status, v === true)} />
-                  {g.label}
-                </label>
-              ))}
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {isLoading ? (
-                "Klanten laden…"
-              ) : (
-                <>
-                  <span className="font-medium text-foreground">
-                    {telling.ontvangers} {telling.ontvangers === 1 ? "ontvanger" : "ontvangers"}
-                  </span>
-                  {telling.zonderEmail > 0 && ` · ${telling.zonderEmail} zonder e-mailadres`}
-                  {telling.afgemeld > 0 && ` · ${telling.afgemeld} afgemeld`}
-                </>
-              )}
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="mail-onderwerp">Onderwerp</Label>
-            <Input
-              id="mail-onderwerp"
-              value={onderwerp}
-              onChange={(e) => setOnderwerp(e.target.value)}
-              placeholder="Nieuw in je website: …"
-              maxLength={200}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="mail-tekst">Tekst</Label>
-            <Textarea
-              id="mail-tekst"
-              value={tekst}
-              onChange={(e) => setTekst(e.target.value)}
-              rows={14}
-              className="font-[inherit] leading-relaxed"
-            />
-            <p className="text-xs text-muted-foreground">
-              {"{naam}"} wordt de naam van de contactpersoon. Een lege regel begint een nieuwe alinea, links
-              worden vanzelf klikbaar.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" disabled={!klaar || bezig !== null} onClick={() => verstuur(true)}>
-              <Mail className="h-4 w-4" />
-              {bezig === "test" ? "Bezig…" : "Testmail naar mij"}
-            </Button>
-            <Button disabled={!klaar || telling.ontvangers === 0 || bezig !== null} onClick={() => verstuur(false)}>
-              <Send className="h-4 w-4" />
-              {bezig === "echt"
-                ? "Versturen…"
-                : `Verstuur naar ${telling.ontvangers} ${telling.ontvangers === 1 ? "klant" : "klanten"}`}
-            </Button>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <Label>Voorbeeld</Label>
-          <div className="rounded-xl border bg-muted/40 p-6">
-            <p className="text-xs text-muted-foreground">Van: {afzender}</p>
-            <p className="mt-1 font-medium">{voorbeeld(onderwerp) || "Onderwerp"}</p>
-            {/* Gewone mail, geen sjabloon: tekst, handtekening met logo, kleine afmeldregel. */}
-            <div className="mt-5 rounded-lg bg-white p-6 font-[Arial,Helvetica,sans-serif] text-[#1a1a1a]">
-              <div className="space-y-4 whitespace-pre-line text-sm leading-relaxed">
-                {voorbeeld(tekst)
-                  .split(/\n{2,}/)
-                  .filter((a) => a.trim())
-                  .map((alinea, i) => (
-                    <p key={i}>{alinea}</p>
-                  ))}
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Panel>
+          <PanelHeader icon={PenLine} titel="Nieuwe mailing" subtitel="Kies de ontvangers en schrijf je bericht" />
+          <PanelBody className="space-y-6">
+            <div className="space-y-3">
+              <Label>Naar wie</Label>
+              <div className="flex flex-wrap gap-x-6 gap-y-3">
+                {GROEPEN.map((g) => (
+                  <label key={g.status} className="flex cursor-pointer items-center gap-2 text-sm">
+                    <Checkbox checked={groepen.includes(g.status)} onCheckedChange={(v) => zetGroep(g.status, v === true)} />
+                    {g.label}
+                  </label>
+                ))}
               </div>
-              <p className="mt-6 text-sm font-bold">{volledigeNaam || "Nieuwblik"}</p>
-              <p className="text-[13px] leading-relaxed text-[#555]">
-                Nieuwblik, webdesign uit Enkhuizen
-                <br />
-                +31 6 46253607 · <span className="text-[#0f4c3a] underline">nieuwblik.com</span>
-              </p>
-              <img src="/mail/nieuwblik-logo.png" alt="Nieuwblik" width={120} height={34} className="mt-3 h-auto w-[120px]" />
-              <p className="mt-6 text-xs text-[#8a8f8c]">
-                Je ontvangt deze mail omdat je klant bent van Nieuwblik. <span className="underline">Afmelden</span>
+              <p className="text-sm text-muted-foreground">
+                {isLoading ? (
+                  "Klanten laden…"
+                ) : (
+                  <>
+                    <span className="font-medium text-foreground">
+                      {telling.ontvangers} {telling.ontvangers === 1 ? "ontvanger" : "ontvangers"}
+                    </span>
+                    {telling.zonderEmail > 0 && (
+                      <>
+                        {" · "}
+                        <Link to="/admin/klanten?filter=zonder-email" className="underline underline-offset-2 hover:text-foreground">
+                          {telling.zonderEmail} zonder e-mailadres
+                        </Link>
+                      </>
+                    )}
+                    {telling.afgemeld > 0 && ` · ${telling.afgemeld} afgemeld`}
+                  </>
+                )}
               </p>
             </div>
-          </div>
-        </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="mail-onderwerp">Onderwerp</Label>
+              <Input
+                id="mail-onderwerp"
+                value={onderwerp}
+                onChange={(e) => setOnderwerp(e.target.value)}
+                placeholder="Nieuw in je website: …"
+                maxLength={200}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="mail-tekst">Tekst</Label>
+              <Textarea
+                id="mail-tekst"
+                value={tekst}
+                onChange={(e) => setTekst(e.target.value)}
+                rows={14}
+                className="font-[inherit] leading-relaxed"
+              />
+              <p className="text-xs text-muted-foreground">
+                {"{naam}"} wordt de naam van de contactpersoon. Een lege regel begint een nieuwe alinea, links
+                worden vanzelf klikbaar.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Button variant="outline" disabled={!klaar || bezig !== null} onClick={() => verstuur(true)}>
+                <Mail className="h-4 w-4" />
+                {bezig === "test" ? "Bezig…" : "Testmail naar mij"}
+              </Button>
+              <Button disabled={!klaar || telling.ontvangers === 0 || bezig !== null} onClick={() => verstuur(false)}>
+                <Send className="h-4 w-4" />
+                {bezig === "echt"
+                  ? "Versturen…"
+                  : `Verstuur naar ${telling.ontvangers} ${telling.ontvangers === 1 ? "klant" : "klanten"}`}
+              </Button>
+            </div>
+          </PanelBody>
+        </Panel>
+
+        <Panel>
+          <PanelHeader icon={Mail} titel="Voorbeeld" subtitel="Zo ziet de eerste ontvanger de mail" />
+          <PanelBody>
+            <div className="rounded-lg border bg-muted/40 p-4 sm:p-6">
+              <p className="text-xs text-muted-foreground">Van: {afzender}</p>
+              <p className="mt-1 font-medium">{voorbeeld(onderwerp) || "Onderwerp"}</p>
+              {/* Gewone mail, geen sjabloon: tekst, handtekening met logo, kleine afmeldregel. */}
+              <div className="mt-5 rounded-lg bg-white p-6 font-[Arial,Helvetica,sans-serif] text-[#1a1a1a]">
+                <div className="space-y-4 whitespace-pre-line text-sm leading-relaxed">
+                  {voorbeeld(tekst)
+                    .split(/\n{2,}/)
+                    .filter((a) => a.trim())
+                    .map((alinea, i) => (
+                      <p key={i}>{alinea}</p>
+                    ))}
+                </div>
+                <p className="mt-6 text-sm font-bold">{volledigeNaam || "Nieuwblik"}</p>
+                <p className="text-[13px] leading-relaxed text-[#555]">
+                  Nieuwblik, webdesign uit Enkhuizen
+                  <br />
+                  +31 6 46253607 · <span className="text-[#0f4c3a] underline">nieuwblik.com</span>
+                </p>
+                <img src="/mail/nieuwblik-logo.png" alt="Nieuwblik" width={120} height={34} className="mt-3 h-auto w-[120px]" />
+                <p className="mt-6 text-xs text-[#8a8f8c]">
+                  Je ontvangt deze mail omdat je klant bent van Nieuwblik. <span className="underline">Afmelden</span>
+                </p>
+              </div>
+            </div>
+          </PanelBody>
+        </Panel>
       </div>
 
-      <div className="space-y-3">
-        <h2 className="text-lg font-semibold tracking-tight">Eerder verstuurd</h2>
-        {mailings.length === 0 ? (
-          <EmptyState icon={Mail} title="Nog niets verstuurd" description="Je verzonden mailingen verschijnen hier." />
-        ) : (
-          <ul className="divide-y rounded-xl border">
-            {mailings.map((m) => (
-              <li key={m.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
-                <span className="font-medium">{m.onderwerp}</span>
-                <span className="text-muted-foreground">
-                  {datum(m.created_at)} · {m.aantal_ontvangers} verstuurd
-                  {m.aantal_mislukt > 0 && ` · ${m.aantal_mislukt} mislukt`}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <Panel>
+        <PanelHeader icon={History} titel="Eerder verstuurd" subtitel="De laatste twintig mailingen" />
+        <PanelBody>
+          {/* Een laadfout is geen lege lijst: eerder stond hier dan "Nog
+              niets verstuurd", terwijl er misschien wel mailingen waren. */}
+          {mailingsFout ? (
+            <EmptyState
+              compact
+              icon={RotateCw}
+              title="De mailingen konden niet geladen worden"
+              action={
+                <Button variant="outline" size="sm" disabled={mailingsLaden} onClick={() => void mailingsOpnieuw()}>
+                  <RotateCw className="h-4 w-4" />
+                  Opnieuw
+                </Button>
+              }
+            />
+          ) : mailings.length === 0 ? (
+            <EmptyState compact icon={Mail} title="Nog niets verstuurd" description="Je verzonden mailingen verschijnen hier." />
+          ) : (
+            <ul className="divide-y rounded-lg border">
+              {mailings.map((m) => (
+                <li key={m.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm">
+                  <span className="font-medium">{m.onderwerp}</span>
+                  <span className="flex flex-wrap items-center gap-2 text-muted-foreground">
+                    {datum(m.created_at)}
+                    <StatusPill toon="success">{m.aantal_ontvangers} verstuurd</StatusPill>
+                    {m.aantal_mislukt > 0 && <StatusPill toon="danger">{m.aantal_mislukt} mislukt</StatusPill>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </PanelBody>
+      </Panel>
 
       {dialoog}
     </div>

@@ -3,13 +3,13 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ChevronRight, FolderKanban, Mail, Phone, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import BillingButton from "@/admin/components/BillingButton";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
-import { formatDate, initials, tintFor } from "@/admin/format";
+import { formatDate } from "@/admin/format";
+import Avatar from "@/admin/ui/Avatar";
 import { useClient, useProjects } from "@/admin/queries";
 
 /**
@@ -31,7 +31,7 @@ const ClientDetail = () => {
 
   const own = useMemo(() => projects.filter((p) => p.client_id === id), [projects, id]);
 
-  if (isLoading || projectsLoading) return <p className="text-sm text-muted-foreground">Laden…</p>;
+  if (isLoading || projectsLoading) return <Skeleton className="h-40 rounded-[14px]" />;
   if (isError || !client) return <p className="text-sm text-muted-foreground">Deze klant bestaat niet (meer).</p>;
 
   const eerste = own[0];
@@ -53,18 +53,10 @@ const ClientDetail = () => {
 
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border py-5">
         <div className="flex min-w-0 items-center gap-4">
-          <span
-            className={cn(
-              "flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-semibold",
-              tintFor(client.name),
-            )}
-            aria-hidden="true"
-          >
-            {initials(client.name)}
-          </span>
+          <Avatar naam={client.name} maat="lg" vorm="rond" />
 
           <div className="min-w-0">
-            <h1 className="truncate text-2xl font-semibold tracking-tight">{client.name}</h1>
+            <h1 className="truncate text-2xl tracking-tight">{client.name}</h1>
             <p className="mt-0.5 text-sm text-muted-foreground">
               Klant sinds <span className="font-medium text-foreground">{formatDate(client.created_at)}</span>
               {client.city ? ` · ${client.city}` : ""}
@@ -105,8 +97,7 @@ const ClientDetail = () => {
         </div>
       </div>
 
-      <Card className="mt-6">
-        <CardContent className="p-4">
+      <div className="mt-6">
           <EmptyState
             icon={FolderKanban}
             title="Nog geen project"
@@ -118,8 +109,7 @@ const ClientDetail = () => {
               </Button>
             }
           />
-        </CardContent>
-      </Card>
+      </div>
 
       <ClientProjectDialog
         open={dialogOpen}

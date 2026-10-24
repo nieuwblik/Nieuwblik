@@ -108,7 +108,7 @@ const SubtaskRow = ({
         <span
           className={cn(
             "shrink-0 text-xs",
-            overdue ? "font-medium text-rose-600 dark:text-rose-400" : "text-muted-foreground",
+            overdue ? "font-medium text-danger-ink" : "text-muted-foreground",
           )}
         >
           {deadlineLabel(task.due_date)}

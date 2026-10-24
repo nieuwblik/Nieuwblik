@@ -22,6 +22,24 @@ export function formatEuro(centen: number | null | undefined): string | null {
   })}`;
 }
 
+/**
+ * Een bedrag zoals je het typt: "2500", "2500,50", "2.500" of "2.499,50".
+ * Met een komma is de punt een duizendtal-scheiding; zonder komma telt een
+ * punt alleen als scheiding als er precies drie cijfers achter staan, zodat
+ * "24.50" gewoon 24,50 blijft. Geeft null bij iets wat geen bedrag is.
+ */
+export function leesBedrag(tekst: string): number | null {
+  if (!tekst) return null;
+  const schoon = tekst.replace(/[€\s]/g, "");
+  const genormaliseerd = schoon.includes(",")
+    ? schoon.replace(/\./g, "").replace(",", ".")
+    : /^\d{1,3}(\.\d{3})+$/.test(schoon)
+      ? schoon.replace(/\./g, "")
+      : schoon;
+  const getal = Number(genormaliseerd);
+  return genormaliseerd !== "" && Number.isFinite(getal) && getal >= 0 ? getal : null;
+}
+
 export const BILLING_CYCLE_ORDER = Object.keys(BILLING_CYCLE) as BillingCycle[];
 
 export interface Termijn {
