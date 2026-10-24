@@ -342,7 +342,7 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
         const { jaar, kwartaal, label } = kwartaalUit(p.period);
         const rubrieken = new Map<string, { rubriek: string; naam: string; grondslag: number; btw: number; voorbelasting: boolean }>();
         for (const t of p.tax_rates ?? []) {
-          const rubriek = (t.report_reference ?? "").replace(/^NL\//i, "") || "?";
+          const rubriek = (t.report_reference ?? "").replace(/NL\//gi, "") || "?";
           const sleutel = `${rubriek}|${t.name ?? ""}`;
           const r = rubrieken.get(sleutel) ?? {
             rubriek,

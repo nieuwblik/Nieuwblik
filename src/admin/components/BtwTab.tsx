@@ -67,7 +67,8 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
     return <p className={cn("text-sm", TOON.danger.tekst)}>{error instanceof Error ? error.message : "Laden mislukt"}</p>;
   }
 
-  const kwartalen = data.kwartalen;
+  // Kwartalen zonder enige boeking (van voor de administratie) weglaten, behalve het lopende.
+  const kwartalen = data.kwartalen.filter((k) => k.lopend || k.rubrieken.length > 0);
   // Standaard het kwartaal waarvan de aangifte nu openstaat, anders het lopende.
   const standaard = kwartalen.find((q) => !q.lopend && (daysUntil(q.deadline) ?? -1) >= 0) ?? kwartalen[0];
   const q = kwartalen.find((k) => k.label === gekozen) ?? standaard;
@@ -76,17 +77,21 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
   const verschuldigd = q.rubrieken.filter((r) => !r.voorbelasting);
   const voorbelasting = q.rubrieken.filter((r) => r.voorbelasting);
 
-  const rij = (r: (typeof q.rubrieken)[number]) => (
+  const rij = (r: (typeof q.rubrieken)[number]) => {
+    // Verlegde btw staat in twee rubrieken tegelijk ("NL/4b, NL/5b"): verschuldigd én terug te vragen.
+    const codes = r.rubriek.replace(/NL\//gi, "").split(/\s*,\s*/).filter(Boolean);
+    return (
     <tr key={`${r.rubriek}|${r.naam}`}>
-      <td className="w-12 px-4 py-2.5 align-top font-medium tabular-nums">{r.rubriek}</td>
+      <td className="w-16 whitespace-nowrap px-4 py-2.5 align-top font-medium tabular-nums">{codes.join(" en ")}</td>
       <td className="px-4 py-2.5 align-top">
-        <span className="block">{RUBRIEK[r.rubriek.toLowerCase()] ?? r.naam}</span>
+        <span className="block">{RUBRIEK[codes[0]?.toLowerCase() ?? ""] ?? r.naam}</span>
         {r.naam && <span className="block text-[13px] text-muted-foreground">{r.naam}</span>}
       </td>
       <td className="px-4 py-2.5 text-right align-top tabular-nums text-muted-foreground">{bedrag(r.grondslag)}</td>
       <td className="px-4 py-2.5 text-right align-top font-medium tabular-nums">{bedrag(r.btw)}</td>
     </tr>
-  );
+    );
+  };
 
   return (
     <div className="grid gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
