@@ -146,6 +146,18 @@ const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
   );
 };
 
+/**
+ * Moneybird geeft bij sommige rekeningen een lege naam terug. Dan het soort
+ * rekening, zodat er niet alleen een los bedrag staat.
+ */
+const rekeningNaam = (r: { naam: string; soort: string }) => {
+  if (r.naam.trim()) return r.naam;
+  if (/bank/i.test(r.soort)) return "Bankrekening";
+  if (/cash|kas/i.test(r.soort)) return "Kas";
+  if (/credit/i.test(r.soort)) return "Creditcard";
+  return "Rekening";
+};
+
 /** Hoe lang een factuur nog heeft, of hoe lang hij al over de datum is. */
 const vervalLabel = (f: OpenFactuur) => {
   const dagen = daysUntil(f.vervaldatum);
@@ -353,7 +365,7 @@ const Financien = () => {
                 <ul className="space-y-2 text-sm">
                   {data.bank.data.rekeningen.map((r, i) => (
                     <li key={i} className="flex items-center justify-between gap-3">
-                      <span className="truncate">{r.naam}</span>
+                      <span className="truncate">{rekeningNaam(r)}</span>
                       <span className="font-medium tabular-nums">{formatBedrag(r.saldo)}</span>
                     </li>
                   ))}

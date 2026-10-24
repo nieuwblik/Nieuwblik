@@ -113,7 +113,7 @@ serve(async (req: Request): Promise<Response> => {
         return {
           totaal: getal(r.total),
           rekeningen: (r.financial_accounts ?? []).map((a) => ({
-            naam: a.name ?? "Rekening",
+            naam: a.name?.trim() || "",
             soort: a.type ?? "",
             saldo: getal(a.balance),
           })),
