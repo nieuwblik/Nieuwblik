@@ -11,6 +11,7 @@ import Dashboard from "@/admin/pages/Dashboard";
 import ProjectDetail from "@/admin/pages/ProjectDetail";
 import TaskDetail from "@/admin/pages/TaskDetail";
 import Tasks from "@/admin/pages/Tasks";
+import Uren from "@/admin/pages/Uren";
 
 /** Houdt een eventueel ?status=-filter vast bij het doorsturen. */
 const ToClients = () => {
@@ -41,6 +42,7 @@ const AdminApp = () => (
         <Route path="mailen" element={<Mailen />} />
         <Route path="taken" element={<Tasks />} />
         <Route path="taken/:id" element={<TaskDetail />} />
+        <Route path="uren" element={<Uren />} />
         {/* Oude adressen uit eerdere versies van het portaal. */}
         <Route path="projecten" element={<ToClients />} />
         <Route path="dashboard" element={<Navigate to="/admin" replace />} />

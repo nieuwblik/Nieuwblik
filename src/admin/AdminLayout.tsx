@@ -15,6 +15,7 @@ import {
   Search,
   ShieldAlert,
   Sun,
+  Timer,
   UserPen,
   UserPlus,
   Users,
@@ -39,6 +40,7 @@ import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
 import ProfileNameDialog from "@/admin/components/ProfileNameDialog";
 import QuickCapture from "@/admin/components/QuickCapture";
+import TimerBalk from "@/admin/components/TimerBalk";
 import { initials } from "@/admin/format";
 import { usePortalPwa } from "@/admin/pwa";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
@@ -130,6 +132,7 @@ const RailNav = ({
               ? { aantal: taken.teLaat.length, alarm: true, titel: "te laat" }
               : { aantal: taken.open.length, titel: "open" },
         },
+        { to: "/admin/uren", label: "Uren", icon: Timer, end: false },
       ],
     },
     {
@@ -506,6 +509,10 @@ const AdminLayout = () => {
                 {sneltoetsLabel()}
               </kbd>
             </button>
+
+            {/* De timer, zoals de werkbalk in een urenapp: waaraan, hoe lang,
+                start of stop. */}
+            <TimerBalk />
 
             <div className="ml-auto flex shrink-0 items-center gap-1">
               {/* Een taak vastleggen blijft ook op de telefoon bereikbaar: daar

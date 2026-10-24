@@ -13,6 +13,7 @@ import {
   Phone,
   Receipt,
   Rocket,
+  Timer,
   User,
   type LucideIcon,
 } from "lucide-react";
@@ -24,6 +25,7 @@ import StatusPill from "@/admin/ui/StatusPill";
 import { BILLING_CYCLE, formatEuro, volgendeTermijn } from "@/admin/billing";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import type { Client, ProjectWithClient, TeamMember } from "@/admin/queries";
+import { duurMinuten, formatDuur, isNietGeactiveerd, useUrenVan } from "@/admin/uren";
 
 interface ProjectRailProps {
   project: ProjectWithClient;
@@ -71,6 +73,9 @@ const Kopje = ({ children }: { children: React.ReactNode }) => (
 const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
   const late = (daysUntil(project.deadline) ?? 1) < 0 && project.status !== "live";
   const volgende = volgendeTermijn(client?.billing_start ?? null, client?.billing_cycle ?? null);
+  const { data: uren = [], isError: urenFout, error: urenError } = useUrenVan("project", project.id);
+  const urenTotaal = uren.reduce((som, r) => som + duurMinuten(r), 0);
+  const urenFactureerbaar = uren.filter((r) => r.billable).reduce((som, r) => som + duurMinuten(r), 0);
 
   return (
     <Tabs defaultValue="activiteit">
@@ -121,6 +126,14 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
                   .join(" · ")
               : "Geen afspraak"}
           </Rij>
+          {/* Zonder urentabel (migratie nog niet uitgevoerd) valt de regel weg. */}
+          {!(urenFout && isNietGeactiveerd(urenError)) && (
+            <Rij icon={Timer} label="Gewerkte uren">
+              {urenTotaal === 0
+                ? "Nog geen uren"
+                : `${formatDuur(urenTotaal)}${urenFactureerbaar < urenTotaal ? ` · ${formatDuur(urenFactureerbaar)} factureerbaar` : ""}`}
+            </Rij>
+          )}
           <Rij icon={Code2} label="Gebouwd op">
             {project.built_with_tanstack ? "TanStack" : "React"}
           </Rij>

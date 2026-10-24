@@ -13,6 +13,7 @@ import Meldingen from "@/admin/dashboard/Meldingen";
 import MijnTakenKaart from "@/admin/dashboard/MijnTakenKaart";
 import ProjectvoortgangKaart from "@/admin/dashboard/ProjectvoortgangKaart";
 import TaakoverzichtKaart from "@/admin/dashboard/TaakoverzichtKaart";
+import UrenKaart from "@/admin/dashboard/UrenKaart";
 import WerkactiviteitKaart from "@/admin/dashboard/WerkactiviteitKaart";
 import { useClients, useMailings } from "@/admin/queries";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
@@ -27,8 +28,8 @@ const groet = () => {
 const meervoud = (aantal: number, een: string, meer: string) => `${aantal} ${aantal === 1 ? een : meer}`;
 
 /**
- * Het beginscherm, in twee kolommen: links breed wat er gedaan is en wat er
- * moet, rechts smal de stand van projecten en taken.
+ * Het beginscherm, in twee kolommen: links breed de gewerkte uren, wat er
+ * aandacht vraagt en wat er moet; rechts smal de stand van projecten en taken.
  *
  * Op een telefoon vallen de kolommen weg en bepaalt de volgorde (order-*)
  * wat bovenaan staat: eerst wat vandaag aandacht vraagt, dan de rest. De
@@ -87,19 +88,20 @@ const Dashboard = () => {
 
       <div className="flex flex-col gap-4 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(320px,390px)] xl:items-start">
         <div className="contents xl:flex xl:flex-col xl:gap-4">
-          <AfgerondKaart className="order-5 xl:order-none" />
+          <UrenKaart className="order-4 xl:order-none" />
           <AandachtKaart className="order-1 xl:order-none" />
           <MijnTakenKaart className="order-3 xl:order-none" />
-          <ActiviteitKaart className="order-10 xl:order-none" />
+          <AfgerondKaart className="order-6 xl:order-none" />
+          <ActiviteitKaart className="order-11 xl:order-none" />
         </div>
         <div className="contents xl:flex xl:flex-col xl:gap-4">
-          <ProjectvoortgangKaart className="order-6 xl:order-none" />
-          <TaakoverzichtKaart className="order-4 xl:order-none" />
+          <ProjectvoortgangKaart className="order-7 xl:order-none" />
+          <TaakoverzichtKaart className="order-5 xl:order-none" />
           <DezeWeekKaart className="order-2 xl:order-none" />
-          <WerkactiviteitKaart className="order-7 xl:order-none" />
-          <FaseKaart className="order-8 xl:order-none" />
-          {toonHosting && <HostingKaart className="order-9 xl:order-none" />}
-          {toonMailen && <MailenKaart className="order-9 xl:order-none" />}
+          <WerkactiviteitKaart className="order-8 xl:order-none" />
+          <FaseKaart className="order-9 xl:order-none" />
+          {toonHosting && <HostingKaart className="order-10 xl:order-none" />}
+          {toonMailen && <MailenKaart className="order-10 xl:order-none" />}
         </div>
       </div>
     </div>

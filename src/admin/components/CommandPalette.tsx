@@ -9,6 +9,7 @@ import {
   Mail,
   Plus,
   Receipt,
+  Timer,
   UserPen,
   Users,
 } from "lucide-react";
@@ -41,6 +42,7 @@ const PAGINAS = [
   { to: "/admin/kalender", label: "Kalender", zoek: "kalender planning agenda", icon: CalendarDays },
   { to: "/admin/klanten", label: "Klanten", zoek: "klanten projecten", icon: Users },
   { to: "/admin/taken", label: "Taken", zoek: "taken todo werk", icon: CheckSquare },
+  { to: "/admin/uren", label: "Uren", zoek: "uren urenregistratie timer tijd timesheet", icon: Timer },
   { to: "/admin/hosting", label: "Hosting", zoek: "hosting facturatie facturen", icon: Receipt },
   { to: "/admin/mailen", label: "Mailen", zoek: "mailen mailing nieuwsbrief", icon: Mail },
 ] as const;

@@ -31,6 +31,7 @@ import EmptyState from "@/admin/components/EmptyState";
 import StatusPill from "@/admin/ui/StatusPill";
 import DatePicker from "@/admin/components/DatePicker";
 import TaskImages from "@/admin/components/TaskImages";
+import TaakTimer from "@/admin/components/TaakTimer";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import {
   PRIORITY,
@@ -329,6 +330,7 @@ const TaskDetail = () => {
             task.status === "klaar" && "text-muted-foreground line-through",
           )}
         />
+        <TaakTimer taskId={task.id} projectId={task.project_id} />
         <Button
           variant="ghost"
           size="icon"
