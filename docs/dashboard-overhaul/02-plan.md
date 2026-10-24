@@ -193,3 +193,20 @@ skeletons i.p.v. "Laden…" · laadfout in Mailen als foutmelding met "Opnieuw".
 
 Na elke stap: typecheck, lint en build, commit. Browsercontrole van het portaal
 kan alleen als jij in het browservenster inlogt (ik log niet zelf in).
+
+## 10. Aanpassingen na de browsercheck
+
+- **Vraagt aandacht** ook voor werk zonder klant: een rij "Intern / zonder klant"
+  met de te late losse taken, zodat het meest dringende werk bovenaan staat.
+- **Te laat werk zichtbaar in "Deze week" en de kalender:** een vaste regel
+  "Te laat (3)" bovenaan de weekplanning en op vandaag in de kalender, in plaats
+  van alleen op de oude datum.
+- **Lege data eerlijk tonen:** de hostingkaart toont bij 0 contracten een lege
+  staat met "Facturatie instellen", geen nullen; de mailkaart meldt
+  "22 klanten zonder e-mailadres" met een link naar een gefilterde klantenlijst.
+- **Optionele kaart "Ontbrekende gegevens"** (alleen bestaande velden): klanten
+  zonder e-mail, telefoon of contactpersoon, projecten in productie zonder
+  deadline. Helpt de mail- en planningsfuncties bruikbaar te maken. *Wil je die?*
+- **Begroeting:** zonder profielnaam een kleine link "Stel je naam in" (opent
+  de bestaande naamdialoog) in plaats van "jobwijte96".
+- **Laadscherm** in het thema van de gebruiker (geen witte flits).

@@ -91,3 +91,32 @@ Urenregistratie; echte omzetgeschiedenis (bedrag per factuur); betaald/onbetaald
 - Spacing: paginawrapper `space-y-6` of `-8`, gaps 4/5/6/8, rechterkolom 320/340 px of 17rem.
 - Dubbele componenten: twee maandroosters, drie maandnavigaties, twee "snel taak toevoegen", badges in drie varianten (`ui/badge` ongebruikt), zes losse monogram-avatars, twee dropzones, twee eigen overlays i.p.v. Popover, 9× dezelfde te-laat-check. Laden overal als tekst "Laden…" (`ui/skeleton` ongebruikt).
 - Dark mode: werkt via `.dark` op `<html>` en de `--rail*`-tokens; mailvoorbeeld bewust wit, loginpagina altijd licht, PWA-themakleur vast donkergroen.
+
+## 7. Bevindingen in de browser (ingelogd, 24-10-2026, alleen bekeken)
+
+Doorgelopen op `localhost:4210` met de echte data: dashboard, klanten, taken,
+kalender, hosting, mailen, een project, desktop en mobiel (375 px).
+
+- **Tellingen bevestigd:** dashboard en takenpagina zeggen "6 openstaande taken",
+  de lijst toont er 4. "21 taken" op de takenpagina telt ook de stappen mee.
+- **Filter "Lopend werk" bevestigd kapot:** `/admin/klanten?status=actief` toont
+  "Alle fases" en alle 22 klanten.
+- **Begroeting:** "Hallo, jobwijte96": je account heeft geen `display_name`, dus
+  het valt terug op het e-mailadres.
+- **Vraagt aandacht** toont 2 klanten (UVTEQ 2, Het Station 1), terwijl 3 van de 4
+  open taken (alle 3 te laat) bij géén klant horen. Juist het meest dringende werk
+  staat dus niet in "Vraagt aandacht".
+- **Kalender/planning:** de 3 te late taken staan alleen op hun oude datum
+  (1, 2 en 7 oktober); vandaag zegt "Niets gepland". Te laat werk schuift niet door.
+- **Hosting:** 0 klanten met een contract. Alle hostingkaarten zijn nu leeg.
+- **Mailen:** 0 ontvangers, alle 22 klanten zonder e-mailadres. De mailfunctie is
+  pas bruikbaar als er e-mailadressen bij de klanten staan. Je account-e-mail is
+  geen @nieuwblik.com-adres, dus jouw mails gaan vanaf `contact@nieuwblik.com`.
+- **Klantgegevens:** de meeste klanten (uit de portfolio overgenomen) hebben geen
+  e-mail, telefoon, contactpersoon of plaats.
+- **Lange omschrijving:** de UVTEQ-taak toont op desktop een lap tekst van ~10
+  regels in de lijst (line-clamp werkt niet in die rij), op mobiel 2 regels.
+- **Laden:** elke volledige paginalading toont eerst een wit scherm "Portaal
+  laden…", ook in donkere modus (lichte flits).
+- **Mobiel:** dashboard is ruim 4 schermen lang (3.428 px); twee zoekvelden boven
+  elkaar (bovenbalk en "Zoek een klant"); geen horizontale scroll.
