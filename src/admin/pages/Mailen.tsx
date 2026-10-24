@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import EmptyState from "@/admin/components/EmptyState";
+import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { useConfirm } from "@/admin/useConfirm";
 import { mailingClient as supabase } from "@/lib/mailingClient";
 
@@ -32,6 +33,14 @@ const datum = (iso: string) =>
  */
 const Mailen = () => {
   const queryClient = useQueryClient();
+  const { user, displayName } = useAdminAuth();
+  // Zelfde afzender als in de edge function: de admin zelf bij een @nieuwblik.com-adres.
+  const eigenAdres = (user?.email ?? "").toLowerCase();
+  const persoonlijk = eigenAdres.endsWith("@nieuwblik.com");
+  const volledigeNaam = displayName && displayName !== user?.email ? displayName.trim() : "";
+  const afzender = persoonlijk
+    ? `${volledigeNaam ? `${volledigeNaam.split(/s+/)[0]} van Nieuwblik` : "Nieuwblik"} <${eigenAdres}>`
+    : "Nieuwblik <contact@nieuwblik.com>";
   const { data: klanten = [], isLoading } = useQuery({
     queryKey: ["admin", "mailing-klanten"],
     queryFn: async () => {
@@ -195,10 +204,10 @@ const Mailen = () => {
         <div className="space-y-3">
           <Label>Voorbeeld</Label>
           <div className="rounded-xl border bg-muted/40 p-6">
-            <p className="text-xs text-muted-foreground">Van: Nieuwblik &lt;contact@nieuwblik.com&gt;</p>
+            <p className="text-xs text-muted-foreground">Van: {afzender}</p>
             <p className="mt-1 font-medium">{voorbeeld(onderwerp) || "Onderwerp"}</p>
-            <div className="mt-5 rounded-lg bg-background p-6">
-              <p className="mb-5 font-bold text-[#0f4c3a]">Nieuwblik</p>
+            {/* Gewone mail, geen sjabloon: tekst, handtekening met logo, kleine afmeldregel. */}
+            <div className="mt-5 rounded-lg bg-white p-6 font-[Arial,Helvetica,sans-serif] text-[#1a1a1a]">
               <div className="space-y-4 whitespace-pre-line text-sm leading-relaxed">
                 {voorbeeld(tekst)
                   .split(/\n{2,}/)
@@ -207,10 +216,17 @@ const Mailen = () => {
                     <p key={i}>{alinea}</p>
                   ))}
               </div>
+              <p className="mt-6 text-sm font-bold">{volledigeNaam || "Nieuwblik"}</p>
+              <p className="text-[13px] leading-relaxed text-[#555]">
+                Nieuwblik, webdesign uit Enkhuizen
+                <br />
+                +31 6 46253607 · <span className="text-[#0f4c3a] underline">nieuwblik.com</span>
+              </p>
+              <img src="/mail/nieuwblik-logo.png" alt="Nieuwblik" width={120} height={34} className="mt-3 h-auto w-[120px]" />
+              <p className="mt-6 text-xs text-[#8a8f8c]">
+                Je ontvangt deze mail omdat je klant bent van Nieuwblik. <span className="underline">Afmelden</span>
+              </p>
             </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Je ontvangt deze mail omdat je klant bent van Nieuwblik. <span className="underline">Afmelden</span>
-            </p>
           </div>
         </div>
       </div>

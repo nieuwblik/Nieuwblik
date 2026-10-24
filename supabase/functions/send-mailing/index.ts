@@ -10,6 +10,11 @@ import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
  * {naam} in onderwerp of tekst wordt per klant vervangen door de
  * contactpersoon (of de bedrijfsnaam als die ontbreekt). Elke mail heeft een
  * afmeldlink; afgemelde klanten worden overgeslagen.
+ *
+ * De mail moet lijken op een gewone, persoonlijke mail (anders zet Gmail hem
+ * bij Reclame): afzender is de admin die verstuurt (als dat een
+ * @nieuwblik.com-adres is), platte opmaak zonder sjabloon, onderaan een
+ * handtekening met het logo en een kleine afmeldregel.
  */
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
@@ -17,7 +22,11 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const SITE_URL = "https://nieuwblik.com";
-const AFZENDER = "Nieuwblik <contact@nieuwblik.com>";
+const STANDAARD_AFZENDER = { naam: "Nieuwblik", email: "contact@nieuwblik.com" };
+// Zelfde gegevens als src/config/company.ts (edge functions kunnen daar niet bij).
+const TELEFOON = "+31 6 46253607";
+// Donkere variant van het logo, publiek op de site (public/mail).
+const LOGO_URL = `${SITE_URL}/mail/nieuwblik-logo.png`;
 // Resend accepteert maximaal 100 mails per batchverzoek.
 const BATCH = 100;
 
@@ -60,34 +69,41 @@ function naarHtml(tekst: string): string {
     .split(/\n{2,}/)
     .map((alinea) => {
       const veilig = escapeHtml(alinea)
-        .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" style="color:#0f4c3a">$1</a>')
+        .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1">$1</a>')
         .replace(/\n/g, "<br>");
       return `<p style="margin:0 0 16px">${veilig}</p>`;
     })
     .join("");
 }
 
-function htmlMail(onderwerp: string, tekst: string, afmeldUrl: string): string {
+interface Afzender {
+  naam: string;
+  email: string;
+}
+
+const KLEIN = "font-size:12px;line-height:1.5;color:#8a8f8c";
+
+function handtekeningHtml(afzender: Afzender): string {
+  return `<p style="margin:28px 0 2px;font-weight:bold">${escapeHtml(afzender.naam)}</p>
+<p style="margin:0;font-size:14px;line-height:1.5;color:#555">Nieuwblik, webdesign uit Enkhuizen<br>
+<a href="tel:${TELEFOON.replace(/\s/g, "")}" style="color:#555;text-decoration:none">${TELEFOON}</a> · <a href="${SITE_URL}" style="color:#0f4c3a">nieuwblik.com</a></p>
+<p style="margin:14px 0 0"><a href="${SITE_URL}"><img src="${LOGO_URL}" width="120" height="34" alt="Nieuwblik" style="display:block;border:0;width:120px;height:auto"></a></p>`;
+}
+
+function htmlMail(onderwerp: string, tekst: string, afmeldUrl: string, afzender: Afzender): string {
   return `<!doctype html>
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(onderwerp)}</title></head>
-<body style="margin:0;background:#f5f7f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#121a17">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f7f6;padding:32px 16px">
-    <tr><td align="center">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:12px;padding:32px">
-        <tr><td style="font-size:20px;font-weight:700;letter-spacing:-0.02em;padding-bottom:24px;color:#0f4c3a">Nieuwblik</td></tr>
-        <tr><td style="font-size:16px;line-height:1.6">${naarHtml(tekst)}</td></tr>
-      </table>
-      <p style="max-width:560px;font-size:12px;line-height:1.5;color:#6b7470;margin:16px auto 0">
-        Je ontvangt deze mail omdat je klant bent van Nieuwblik.
-        <a href="${afmeldUrl}" style="color:#6b7470">Afmelden</a>
-      </p>
-    </td></tr>
-  </table>
+<body style="margin:0;padding:16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55;color:#1a1a1a">
+<div style="max-width:600px">
+${naarHtml(tekst)}
+${handtekeningHtml(afzender)}
+<p style="margin:28px 0 0;${KLEIN}">Je ontvangt deze mail omdat je klant bent van Nieuwblik. <a href="${afmeldUrl}" style="color:#8a8f8c">Afmelden</a></p>
+</div>
 </body></html>`;
 }
 
-const tekstMail = (tekst: string, afmeldUrl: string) =>
-  `${tekst}\n\n--\nJe ontvangt deze mail omdat je klant bent van Nieuwblik.\nAfmelden: ${afmeldUrl}\n`;
+const tekstMail = (tekst: string, afmeldUrl: string, afzender: Afzender) =>
+  `${tekst}\n\n${afzender.naam}\nNieuwblik, webdesign uit Enkhuizen\n${TELEFOON} · nieuwblik.com\n\nJe ontvangt deze mail omdat je klant bent van Nieuwblik. Afmelden: ${afmeldUrl}\n`;
 
 interface Ontvanger {
   client_id: string | null;
@@ -96,17 +112,17 @@ interface Ontvanger {
   token: string | null;
 }
 
-function mailVoor(o: Ontvanger, onderwerp: string, tekst: string, replyTo: string | undefined, test: boolean) {
+function mailVoor(o: Ontvanger, onderwerp: string, tekst: string, afzender: Afzender, handtekening: Afzender, test: boolean) {
   const afmeldUrl = o.token ? `${SITE_URL}/afmelden?t=${o.token}` : `${SITE_URL}/afmelden`;
   const ow = vulIn(onderwerp, o.naam);
   const tk = vulIn(tekst, o.naam);
   return {
-    from: AFZENDER,
+    from: `${afzender.naam} <${afzender.email}>`,
     to: [o.email],
-    reply_to: replyTo,
+    reply_to: afzender.email,
     subject: test ? `[Test] ${ow}` : ow,
-    html: htmlMail(ow, tk, afmeldUrl),
-    text: tekstMail(tk, afmeldUrl),
+    html: htmlMail(ow, tk, afmeldUrl, handtekening),
+    text: tekstMail(tk, afmeldUrl, handtekening),
     headers: {
       "List-Unsubscribe": `<${afmeldUrl}>, <mailto:contact@nieuwblik.com?subject=Afmelden>`,
     },
@@ -141,13 +157,25 @@ serve(async (req: Request): Promise<Response> => {
     const parsed = verzoekSchema.safeParse(await req.json());
     if (!parsed.success) return antwoord({ error: parsed.error.errors[0]?.message ?? "Ongeldig verzoek" }, 400);
     const { onderwerp, tekst, statussen, test } = parsed.data;
-    const replyTo = gebruiker.user.email ?? undefined;
+    // Afzender: de admin zelf (naam uit het profiel), mits het een
+    // @nieuwblik.com-adres is; anders het algemene adres.
+    const eigenAdres = (gebruiker.user.email ?? "").toLowerCase();
+    const { data: profiel } = await admin
+      .from("profiles")
+      .select("display_name")
+      .eq("user_id", gebruiker.user.id)
+      .maybeSingle();
+    const volledigeNaam = (profiel?.display_name ?? "").trim();
+    const afzender: Afzender = eigenAdres.endsWith("@nieuwblik.com")
+      ? { naam: volledigeNaam ? `${volledigeNaam.split(/\s+/)[0]} van Nieuwblik` : "Nieuwblik", email: eigenAdres }
+      : STANDAARD_AFZENDER;
+    const handtekeningNaam: Afzender = { ...afzender, naam: volledigeNaam || "Nieuwblik" };
 
     // Testmail: alleen naar de admin zelf, niets opslaan.
     if (test) {
       if (!gebruiker.user.email) return antwoord({ error: "Je account heeft geen e-mailadres" }, 400);
       await verstuurBatch([
-        mailVoor({ client_id: null, email: gebruiker.user.email, naam: "Test", token: null }, onderwerp, tekst, replyTo, true),
+        mailVoor({ client_id: null, email: gebruiker.user.email, naam: "Test", token: null }, onderwerp, tekst, afzender, handtekeningNaam, true),
       ]);
       return antwoord({ verstuurd: 1, mislukt: 0, test: true });
     }
@@ -192,7 +220,7 @@ serve(async (req: Request): Promise<Response> => {
     for (let i = 0; i < ontvangers.length; i += BATCH) {
       const deel = ontvangers.slice(i, i + BATCH);
       try {
-        const ids = await verstuurBatch(deel.map((o) => mailVoor(o, onderwerp, tekst, replyTo, false)));
+        const ids = await verstuurBatch(deel.map((o) => mailVoor(o, onderwerp, tekst, afzender, handtekeningNaam, false)));
         deel.forEach((o, j) =>
           regels.push({ mailing_id: mailing.id, client_id: o.client_id, email: o.email, naam: o.naam, status: "verstuurd", resend_id: ids[j]?.id ?? null }),
         );
