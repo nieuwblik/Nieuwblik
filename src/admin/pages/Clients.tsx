@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { addMonths, startOfMonth } from "date-fns";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Plus, Search, Users, X } from "lucide-react";
 
@@ -8,13 +9,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ClientGrid from "@/admin/components/ClientGrid";
+import ClientTable from "@/admin/components/ClientTable";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, TOON, type ProjectStatus } from "@/admin/constants";
 import { useCombinedRows, type ClientRow } from "@/admin/rows";
+import { duurMinuten, useUrenInPeriode } from "@/admin/uren";
+import SegmentedControl from "@/admin/ui/SegmentedControl";
 import { cn } from "@/lib/utils";
 
 type Filter = ProjectStatus | "alle" | "actief";
+type Weergave = "lijst" | "raster";
+
+const WEERGAVE_KEY = "nieuwblik:portaal:klanten-weergave";
+
+/** Bewaarde voorkeur voor lijst of raster; standaard de lijst. */
+function leesWeergave(): Weergave {
+  try {
+    return localStorage.getItem(WEERGAVE_KEY) === "raster" ? "raster" : "lijst";
+  } catch {
+    return "lijst";
+  }
+}
 
 /** Fases waarin een project gebouwd wordt; daar hoort een opleverdatum bij. */
 const IN_PRODUCTIE: ProjectStatus[] = ["in_ontwerp", "in_bouw", "review"];
@@ -47,6 +63,37 @@ const Clients = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+  // Lijst of raster; per browser onthouden.
+  const [weergave, setWeergave] = useState<Weergave>(leesWeergave);
+  const zetWeergave = (nieuw: Weergave) => {
+    setWeergave(nieuw);
+    try {
+      localStorage.setItem(WEERGAVE_KEY, nieuw);
+    } catch {
+      // Geldt dan alleen deze sessie.
+    }
+  };
+
+  // Uren van deze maand per klant, voor de kolom in de lijst.
+  const [maand] = useState(() => {
+    const van = startOfMonth(new Date());
+    return { van, tot: addMonths(van, 1) };
+  });
+  const { data: urenRegels, isError: urenFout } = useUrenInPeriode(maand.van, maand.tot);
+  const urenPerKlant = useMemo(() => {
+    if (urenFout || !urenRegels) return undefined;
+    const klantVanProject = new Map<string, string>();
+    for (const row of rows) {
+      if (!row.client.id) continue;
+      for (const p of [row.project, ...row.otherProjects]) if (p) klantVanProject.set(p.id, row.client.id);
+    }
+    const map = new Map<string, number>();
+    for (const r of urenRegels) {
+      const klant = r.project_id ? klantVanProject.get(r.project_id) : undefined;
+      if (klant) map.set(klant, (map.get(klant) ?? 0) + duurMinuten(r));
+    }
+    return map;
+  }, [urenRegels, urenFout, rows]);
   const location = useLocation();
 
   // Het palet en de bovenbalk sturen hierheen met { nieuw: true } om meteen
@@ -122,6 +169,15 @@ const Clients = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+        <SegmentedControl
+          label="Weergave"
+          waarde={weergave}
+          onChange={zetWeergave}
+          opties={[
+            { waarde: "lijst", label: "Lijst" },
+            { waarde: "raster", label: "Raster" },
+          ]}
+        />
         <Select value={filter} onValueChange={(v) => setFilter(v as Filter)}>
           <SelectTrigger className="w-[200px] bg-card">
             <SelectValue />
@@ -156,11 +212,15 @@ const Clients = () => {
       )}
 
       {isLoading ? (
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4">
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-            <Skeleton key={i} className="aspect-[4/3] rounded-[14px]" />
-          ))}
-        </div>
+        weergave === "lijst" ? (
+          <Skeleton className="h-96 rounded-[16px]" />
+        ) : (
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4">
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+              <Skeleton key={i} className="aspect-[4/3] rounded-[14px]" />
+            ))}
+          </div>
+        )
       ) : visible.length === 0 ? (
         <EmptyState
           icon={Users}
@@ -186,6 +246,8 @@ const Clients = () => {
             )
           }
         />
+      ) : weergave === "lijst" ? (
+        <ClientTable rows={visible} urenPerKlant={urenPerKlant} />
       ) : (
         <ClientGrid rows={visible} />
       )}
