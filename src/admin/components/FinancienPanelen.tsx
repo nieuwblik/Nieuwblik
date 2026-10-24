@@ -115,6 +115,7 @@ export const UitgavenPanel = ({ uitgaven, moneybirdUrl }: { uitgaven: Onderdeel<
                           <span className="block truncate font-medium">{u.leverancier}</span>
                           <span className="block truncate text-[13px] text-muted-foreground">
                             {u.soort}
+                            {u.valuta && ` in ${u.valuta}, omgerekend`}
                             {u.omschrijving && ` · ${u.omschrijving}`}
                           </span>
                         </span>

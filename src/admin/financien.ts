@@ -63,8 +63,10 @@ export interface Uitgaven {
     leverancier: string;
     omschrijving: string | null;
     datum: string | null;
-    /** Incl. btw, zoals op de bon. */
+    /** Incl. btw, omgerekend naar euro. */
     bedrag: number;
+    /** De valuta van de bon als die geen euro is, zoals "TRY". */
+    valuta?: string | null;
     status: string;
     url: string;
   }[];

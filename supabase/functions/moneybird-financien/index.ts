@@ -755,10 +755,20 @@ serve(async (req: Request): Promise<Response> => {
           date: string | null;
           state: string;
           reference?: string | null;
+          currency?: string;
           total_price_excl_tax: unknown;
+          total_price_excl_tax_base?: unknown;
           total_price_incl_tax: unknown;
-          details?: { ledger_account_id?: string | null; total_price_excl_tax_with_discount?: unknown; price?: unknown; amount?: unknown }[];
+          total_price_incl_tax_base?: unknown;
+          details?: {
+            ledger_account_id?: string | null;
+            total_price_excl_tax_with_discount?: unknown;
+            total_price_excl_tax_with_discount_base?: unknown;
+          }[];
         };
+        // Bonnetjes in een andere valuta (lira, dollars) staan ook omgerekend
+        // naar euro in de *_base-velden; die tellen we op, niet het bedrag op de bon.
+        const euro = (basis: unknown, gewoon: unknown) => getal(basis ?? gewoon);
         const filter = encodeURIComponent(`period:${dagCode(jaarTerug)}..${dagCode(nu)}`);
         const [inkoop, bonnetjes, grootboek] = await Promise.all([
           allePaginas<Document>(`documents/purchase_invoices.json?filter=${filter}`),
@@ -777,19 +787,19 @@ serve(async (req: Request): Promise<Response> => {
         for (const d of docs) {
           const naam = d.contact ? contactNaam(d.contact) : "Zonder leverancier";
           const l = perLeverancier.get(naam) ?? { naam, bedrag: 0, aantal: 0 };
-          l.bedrag += getal(d.total_price_excl_tax);
+          l.bedrag += euro(d.total_price_excl_tax_base, d.total_price_excl_tax);
           l.aantal += 1;
           perLeverancier.set(naam, l);
           for (const r of d.details ?? []) {
             const cat = (r.ledger_account_id && categorieNaam.get(r.ledger_account_id)) || "Zonder categorie";
             const c = perCategorie.get(cat) ?? { naam: cat, bedrag: 0 };
-            c.bedrag += getal(r.total_price_excl_tax_with_discount ?? getal(r.price) * (getal(r.amount) || 1));
+            c.bedrag += euro(r.total_price_excl_tax_with_discount_base, r.total_price_excl_tax_with_discount);
             perCategorie.set(cat, c);
           }
         }
         const groot = <T extends { bedrag: number }>(m: Map<string, T>) => [...m.values()].sort((a, b) => b.bedrag - a.bedrag);
         return {
-          totaal: docs.reduce((som, d) => som + getal(d.total_price_excl_tax), 0),
+          totaal: docs.reduce((som, d) => som + euro(d.total_price_excl_tax_base, d.total_price_excl_tax), 0),
           nogTeVerwerken: [...inkoop, ...bonnetjes].filter((d) => d.state === "new").length,
           perLeverancier: groot(perLeverancier).slice(0, 8),
           perCategorie: groot(perCategorie).slice(0, 8),
@@ -802,7 +812,8 @@ serve(async (req: Request): Promise<Response> => {
               leverancier: d.contact ? contactNaam(d.contact) : "Zonder leverancier",
               omschrijving: d.reference || null,
               datum: d.date,
-              bedrag: getal(d.total_price_incl_tax),
+              bedrag: euro(d.total_price_incl_tax_base, d.total_price_incl_tax),
+              valuta: d.currency && d.currency !== "EUR" ? d.currency : null,
               status: d.state,
               url: `https://moneybird.com/${ADMINISTRATIE}/documents/${d.id}`,
             })),
