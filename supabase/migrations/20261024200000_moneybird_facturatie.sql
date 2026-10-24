@@ -18,5 +18,11 @@ ALTER TABLE public.time_entries
   ADD COLUMN IF NOT EXISTS gefactureerd_op timestamptz,
   ADD COLUMN IF NOT EXISTS moneybird_factuur_id text;
 
+-- Ruimere omschrijving: bij werkzaamheden hoort soms een flinke toelichting.
+ALTER TABLE public.time_entries
+  DROP CONSTRAINT IF EXISTS time_entries_description_length;
+ALTER TABLE public.time_entries
+  ADD CONSTRAINT time_entries_description_length CHECK (description IS NULL OR char_length(description) <= 2000);
+
 CREATE INDEX IF NOT EXISTS time_entries_nog_te_factureren_idx
   ON public.time_entries (project_id) WHERE billable AND gefactureerd_op IS NULL;

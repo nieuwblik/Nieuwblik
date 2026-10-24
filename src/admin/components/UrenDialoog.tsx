@@ -5,16 +5,20 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import DatePicker from "@/admin/components/DatePicker";
+import TijdKiezer from "@/admin/components/TijdKiezer";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { hoofdtaken } from "@/admin/constants";
 import { useProjects, useTasks, useTeam } from "@/admin/queries";
 import { formatDuur, useSaveUren, type UrenRegel } from "@/admin/uren";
 
 const GEEN = "__geen__";
+
+/** Zelfde grens als de database (time_entries_description_length). */
+const OMSCHRIJVING_MAX = 2000;
 
 interface UrenDialoogProps {
   open: boolean;
@@ -144,11 +148,11 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="uren-van">Van</Label>
-              <Input id="uren-van" type="time" value={form.van} onChange={(e) => set("van", e.target.value)} className="w-[6.5rem]" />
+              <TijdKiezer id="uren-van" value={form.van} onChange={(v) => set("van", v)} className="w-[6.5rem]" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="uren-tot">Tot</Label>
-              <Input id="uren-tot" type="time" value={form.tot} onChange={(e) => set("tot", e.target.value)} className="w-[6.5rem]" />
+              <TijdKiezer id="uren-tot" value={form.tot} onChange={(v) => set("tot", v)} className="w-[6.5rem]" />
             </div>
           </div>
           <p className="-mt-2 text-[13px] text-muted-foreground">
@@ -200,13 +204,21 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
 
           <div className="space-y-1.5">
             <Label htmlFor="uren-omschrijving">Omschrijving</Label>
-            <Input
+            {/* Groeit mee met de tekst (field-sizing), van drie tot twaalf regels. */}
+            <Textarea
               id="uren-omschrijving"
               value={form.omschrijving}
               onChange={(e) => set("omschrijving", e.target.value)}
               placeholder="Wat heb je gedaan?"
-              maxLength={500}
+              maxLength={OMSCHRIJVING_MAX}
+              rows={3}
+              className="max-h-[18rem] min-h-[5.5rem] resize-y [field-sizing:content]"
             />
+            {form.omschrijving.length > OMSCHRIJVING_MAX - 200 && (
+              <p className="text-right text-xs tabular-nums text-muted-foreground">
+                {form.omschrijving.length} / {OMSCHRIJVING_MAX}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3">

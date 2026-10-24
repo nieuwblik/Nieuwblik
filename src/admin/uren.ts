@@ -5,7 +5,11 @@ import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
-export type TimeEntry = Tables<"time_entries">;
+/** Met de facturatiekolommen uit de migratie moneybird_facturatie, tot de types opnieuw zijn gemaakt. */
+export type TimeEntry = Tables<"time_entries"> & {
+  gefactureerd_op?: string | null;
+  moneybird_factuur_id?: string | null;
+};
 
 /** Een urenregel met het project (en de klant) en de taak erbij. */
 export type UrenRegel = TimeEntry & {
@@ -215,7 +219,7 @@ export function useSaveUren() {
   const { user } = useAdminAuth();
   const vernieuw = useVernieuw();
   return useMutation({
-    mutationFn: async ({ id, values }: { id?: string; values: Partial<TimeEntry> }) => {
+    mutationFn: async ({ id, values }: { id?: string; values: Partial<Tables<"time_entries">> }) => {
       if (id) {
         const { error } = await supabase.from("time_entries").update(values).eq("id", id);
         if (error) throw new Error(error.message);

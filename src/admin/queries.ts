@@ -3,7 +3,15 @@ import { korteNaam } from "@/admin/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
-export type Client = Tables<"clients">;
+/**
+ * Kolommen uit de migratie moneybird_facturatie staan nog niet in de
+ * gegenereerde types; tot die is uitgevoerd en de types opnieuw zijn
+ * gemaakt, hier als optionele velden. Daarna kan dit terug naar Tables<"clients">.
+ */
+export type Client = Tables<"clients"> & {
+  moneybird_contact_id?: string | null;
+  uurtarief_cents?: number | null;
+};
 export type Project = Tables<"projects">;
 export type Task = Tables<"tasks">;
 export type ProjectUpdate = Tables<"project_updates">;
