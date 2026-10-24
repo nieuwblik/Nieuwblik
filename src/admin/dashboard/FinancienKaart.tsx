@@ -5,7 +5,9 @@ import { Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TOON } from "@/admin/constants";
 import { formatBedrag, heeftData, isTeLaatFactuur, useFinancien } from "@/admin/financien";
+import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
+import { useSaldoVerborgen, VERBORGEN } from "@/admin/useSaldoVerborgen";
 
 /**
  * De stand uit Moneybird in drie regels: omzet deze maand, wat klanten nog
@@ -15,6 +17,7 @@ import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
  */
 const FinancienKaart = ({ className }: { className?: string }) => {
   const { data } = useFinancien();
+  const { verborgen: saldoVerborgen } = useSaldoVerborgen();
   if (!data || !("bijgewerkt" in data)) return null;
 
   const omzet = heeftData(data.winstVerlies) ? (data.winstVerlies.data.at(-1)?.omzet ?? 0) : null;
@@ -32,7 +35,7 @@ const FinancienKaart = ({ className }: { className?: string }) => {
       waarde: open === null ? "–" : formatBedrag(open, 0),
       extra: teLaat.length > 0 ? `${teLaat.length} te laat` : null,
     },
-    { label: "Banksaldo", waarde: bank === null ? "–" : formatBedrag(bank, 0) },
+    { label: "Banksaldo", waarde: bank === null ? "–" : saldoVerborgen ? VERBORGEN : formatBedrag(bank, 0), oog: true },
     ...(aangifte
       ? [
           {
@@ -52,7 +55,10 @@ const FinancienKaart = ({ className }: { className?: string }) => {
         <dl className="space-y-2.5 text-sm">
           {regels.map((r) => (
             <div key={r.label} className="flex items-baseline justify-between gap-3">
-              <dt className="text-muted-foreground">{r.label}</dt>
+              <dt className="flex items-center gap-1 text-muted-foreground">
+                {r.label}
+                {"oog" in r && <OogKnop className="-my-1 h-6 w-6" />}
+              </dt>
               <dd className="text-right">
                 <span className="font-medium tabular-nums">{r.waarde}</span>
                 {r.extra && (

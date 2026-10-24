@@ -11,7 +11,9 @@ import { TOON } from "@/admin/constants";
 import { daysUntil } from "@/admin/format";
 import { formatBedrag, heeftData, isTeLaatFactuur, useFinancien, type MaandCijfers } from "@/admin/financien";
 import { useOpenFacturen } from "@/admin/useOpenFacturen";
+import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
+import { useSaldoVerborgen, VERBORGEN } from "@/admin/useSaldoVerborgen";
 
 const maandLabel = (maand: string, lang = false) =>
   format(parseISO(`${maand}-01`), lang ? "LLLL yyyy" : "LLL", { locale: nl }).replace(".", "");
@@ -25,9 +27,25 @@ function asMaximum(hoogste: number): number {
 }
 
 /** Een kerncijfer bovenaan de pagina, met eventueel het verschil met vorige maand. */
-const Cijfer = ({ label, waarde, verschil, laden }: { label: string; waarde: string; verschil?: number | null; laden?: boolean }) => (
+const Cijfer = ({
+  label,
+  waarde,
+  verschil,
+  laden,
+  knop,
+}: {
+  label: string;
+  waarde: string;
+  verschil?: number | null;
+  laden?: boolean;
+  /** Rechts naast het label, zoals het oogje bij het banksaldo. */
+  knop?: React.ReactNode;
+}) => (
   <div className="rounded-[14px] border border-border bg-card px-4 py-3.5">
-    <dt className="text-[13px] text-muted-foreground">{label}</dt>
+    <dt className="-my-1 flex min-h-7 items-center justify-between gap-2 text-[13px] text-muted-foreground">
+      {label}
+      {knop}
+    </dt>
     <dd className="mt-1.5 flex flex-wrap items-baseline gap-x-2">
       {laden ? (
         <Skeleton className="h-7 w-24" />
@@ -160,6 +178,7 @@ const rekeningNaam = (r: { naam: string; soort: string }) => {
  */
 const Financien = () => {
   const { data, isLoading, isError, error, refetch, isFetching } = useFinancien();
+  const { verborgen: saldoVerborgen } = useSaldoVerborgen();
 
   const cijfers = useMemo(() => {
     if (!data || !("bijgewerkt" in data) || !heeftData(data.winstVerlies)) return null;
@@ -279,7 +298,11 @@ const Financien = () => {
         <Cijfer label="Omzet deze maand" waarde={cijfers ? formatBedrag(cijfers.omzet, 0) : "–"} verschil={cijfers?.omzetVerschil ?? null} />
         <Cijfer label="Kosten deze maand" waarde={cijfers ? formatBedrag(cijfers.kosten, 0) : "–"} />
         <Cijfer label={`Winst ${new Date().getFullYear()}`} waarde={cijfers ? formatBedrag(cijfers.winstJaar, 0) : "–"} />
-        <Cijfer label="Banksaldo" waarde={heeftData(data.bank) ? formatBedrag(data.bank.data.totaal, 0) : "–"} />
+        <Cijfer
+          label="Banksaldo"
+          waarde={!heeftData(data.bank) ? "–" : saldoVerborgen ? VERBORGEN : formatBedrag(data.bank.data.totaal, 0)}
+          knop={<OogKnop className="-mr-1.5" />}
+        />
       </dl>
 
       <Panel>
@@ -322,7 +345,7 @@ const Financien = () => {
 
         <div className="space-y-4">
           <Panel>
-            <PanelHeader icon={Landmark} titel="Bank" subtitel="Saldo per rekening" />
+            <PanelHeader icon={Landmark} titel="Bank" subtitel="Saldo per rekening" actie={<OogKnop />} />
             <PanelBody>
               {!heeftData(data.bank) ? (
                 <p className={cn("text-sm", TOON.danger.tekst)}>{data.bank.fout}</p>
@@ -333,7 +356,7 @@ const Financien = () => {
                   {data.bank.data.rekeningen.map((r, i) => (
                     <li key={i} className="flex items-center justify-between gap-3">
                       <span className="truncate">{rekeningNaam(r)}</span>
-                      <span className="font-medium tabular-nums">{formatBedrag(r.saldo)}</span>
+                      <span className="font-medium tabular-nums">{saldoVerborgen ? VERBORGEN : formatBedrag(r.saldo)}</span>
                     </li>
                   ))}
                 </ul>
