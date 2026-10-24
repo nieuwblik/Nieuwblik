@@ -180,6 +180,10 @@ async function roepAan<T>(body: Record<string, unknown>): Promise<T> {
   const { data, error } = await supabase.functions.invoke("moneybird-financien", { body });
   if (error) {
     const bericht = await (error as { context?: Response }).context?.json?.().catch(() => null);
+    // Een functie die ouder is dan deze knop kent de actie niet.
+    if (bericht?.error === "Onbekende actie.") {
+      throw new Error("De serverfunctie kent deze actie nog niet. Publiceer de nieuwste versie in Lovable.");
+    }
     throw new Error(bericht?.error ?? error.message);
   }
   if (!data || typeof data !== "object" || "bijgewerkt" in data || "ingesteld" in data) {
@@ -256,6 +260,54 @@ export function useUrenFactureren() {
       void qc.invalidateQueries({ queryKey: ["admin", "clients"] });
       void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
     },
+  });
+}
+
+export interface BtwRubriek {
+  /** "1a", "5b" */
+  rubriek: string;
+  /** Zoals Moneybird het tarief noemt, bijvoorbeeld "21% btw". */
+  naam: string;
+  /** Het bedrag waarover de btw is berekend. */
+  grondslag: number;
+  btw: number;
+  voorbelasting: boolean;
+}
+
+export interface BtwKwartaalDetail extends BtwKwartaal {
+  jaar: number;
+  kwartaal: number;
+  rubrieken: BtwRubriek[];
+}
+
+/** Btw per kwartaal met de rubrieken, dit jaar en vorig jaar. Pas opgehaald als het tabblad open is. */
+export function useBtwOverzicht(actief: boolean) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "btw"],
+    enabled: actief,
+    staleTime: 10 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<{ ok: true; kwartalen: BtwKwartaalDetail[] }>({ actie: "btw-overzicht" }),
+  });
+}
+
+export interface OmzetJaar {
+  jaar: number;
+  lopend: boolean;
+  omzet: number;
+  kosten: number;
+  winst: number;
+  kwartalen: { kwartaal: number; omzet: number; kosten: number; winst: number }[];
+}
+
+/** Omzet, kosten en winst per jaar en kwartaal, vier jaar terug. Pas opgehaald als het tabblad open is. */
+export function useOmzetHistorie(actief: boolean) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "omzet"],
+    enabled: actief,
+    staleTime: 10 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<{ ok: true; jaren: OmzetJaar[] }>({ actie: "omzet-historie" }),
   });
 }
 

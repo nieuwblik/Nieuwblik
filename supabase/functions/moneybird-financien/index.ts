@@ -32,6 +32,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   gefactureerd gemarkeerd. Er wordt niets naar de klant verstuurd;
  * - "uren-vrijgeven": uren weer vrijgeven als hun concept in Moneybird is
  *   weggegooid (factuurId);
+ * - "btw-overzicht": btw per kwartaal met de rubrieken, dit jaar en vorig jaar;
+ * - "omzet-historie": omzet, kosten en winst per kwartaal, vier jaar terug;
  * - "hosting-factureren": hostingtermijnen als conceptfactuur (items met
  *   clientId en periodDate, eventueel contactId); de termijn wordt daarna in
  *   het portaal als gefactureerd afgevinkt.
@@ -297,7 +299,120 @@ function hostingRegel(periodDate: string, cyclus: string) {
   };
 }
 
+/** "202507..202509" wordt { label: "Q3 2025", jaar, kwartaal }. */
+function kwartaalUit(periode: string) {
+  const jaar = Number(periode.slice(0, 4));
+  const kwartaal = Math.floor((Number(periode.slice(4, 6)) - 1) / 3);
+  return { jaar, kwartaal, label: `Q${kwartaal + 1} ${jaar}` };
+}
+
+/** Een jaar als Moneybird-periode, voor het lopende jaar tot en met deze maand. */
+function jaarPeriode(jaar: number, nu: Date) {
+  const tot = jaar === nu.getUTCFullYear() ? nu.getUTCMonth() + 1 : 12;
+  return `${jaar}01..${jaar}${`${tot}`.padStart(2, "0")}`;
+}
+
+/** Rubriek 5b is voorbelasting (wat je terugkrijgt); de rest is wat je verschuldigd bent. */
+const isVoorbelasting = (t: { report_reference?: string; type?: string }) =>
+  t.report_reference ? /^NL\/5/i.test(t.report_reference) : t.type !== "sales_invoice";
+
 async function voerUit(actie: string, body: Record<string, unknown>, userId: string): Promise<unknown> {
+  if (actie === "btw-overzicht") {
+    // Dit jaar en vorig jaar, per kwartaal, met de rubrieken van de aangifte.
+    const nu = new Date();
+    const jaren = [nu.getUTCFullYear(), nu.getUTCFullYear() - 1];
+    type Regel = { report_reference?: string; name?: string; type?: string; percentage?: unknown; amount?: unknown; tax?: unknown };
+    const perJaar = await Promise.all(
+      jaren.map(async (jaar) => {
+        try {
+          const r = (await moneybird(`reports/tax.json?period=${jaarPeriode(jaar, nu)}&granularity=quarter`)) as {
+            periods?: { period: string; tax_rates?: Regel[] }[];
+          };
+          return r.periods ?? [];
+        } catch (fout) {
+          // Een jaar van voor de start van de administratie geeft een fout; dat jaar overslaan.
+          if (jaar !== nu.getUTCFullYear()) return [];
+          throw fout;
+        }
+      }),
+    );
+    const kwartalen = perJaar
+      .flat()
+      .map((p) => {
+        const { jaar, kwartaal, label } = kwartaalUit(p.period);
+        const rubrieken = new Map<string, { rubriek: string; naam: string; grondslag: number; btw: number; voorbelasting: boolean }>();
+        for (const t of p.tax_rates ?? []) {
+          const rubriek = (t.report_reference ?? "").replace(/^NL\//i, "") || "?";
+          const sleutel = `${rubriek}|${t.name ?? ""}`;
+          const r = rubrieken.get(sleutel) ?? {
+            rubriek,
+            naam: t.name ?? "",
+            grondslag: 0,
+            btw: 0,
+            voorbelasting: isVoorbelasting(t),
+          };
+          r.grondslag += getal(t.amount);
+          r.btw += getal(t.tax);
+          rubrieken.set(sleutel, r);
+        }
+        const lijst = [...rubrieken.values()].sort((a, b) => a.rubriek.localeCompare(b.rubriek, "nl", { numeric: true }));
+        const verschuldigd = lijst.filter((r) => !r.voorbelasting).reduce((som, r) => som + r.btw, 0);
+        const voorbelasting = lijst.filter((r) => r.voorbelasting).reduce((som, r) => som + r.btw, 0);
+        return {
+          label,
+          jaar,
+          kwartaal: kwartaal + 1,
+          lopend: nu < new Date(Date.UTC(jaar, kwartaal * 3 + 3, 1)),
+          deadline: new Date(Date.UTC(jaar, kwartaal * 3 + 4, 0)).toISOString().slice(0, 10),
+          verschuldigd,
+          voorbelasting,
+          afdragen: verschuldigd - voorbelasting,
+          rubrieken: lijst,
+        };
+      })
+      // Alleen kwartalen die al begonnen zijn, nieuwste eerst.
+      .filter((q) => new Date(Date.UTC(q.jaar, (q.kwartaal - 1) * 3, 1)) <= nu)
+      .sort((a, b) => b.jaar - a.jaar || b.kwartaal - a.kwartaal);
+    return { ok: true, kwartalen };
+  }
+
+  if (actie === "omzet-historie") {
+    // Omzet, kosten en winst per kwartaal, voor dit jaar en de drie jaren ervoor.
+    const nu = new Date();
+    const jaren = [0, 1, 2, 3].map((i) => nu.getUTCFullYear() - i);
+    const resultaat = await Promise.all(
+      jaren.map(async (jaar) => {
+        try {
+          const r = (await moneybird(`reports/profit_loss.json?period=${jaarPeriode(jaar, nu)}&granularity=quarter`)) as {
+            periods?: Record<string, unknown>[];
+          };
+          const kwartalen = (r.periods ?? []).map((p) => ({
+            kwartaal: kwartaalUit(String(p.period ?? "")).kwartaal + 1,
+            omzet: getal(p.total_revenue),
+            kosten: getal(p.total_expenses),
+            winst: getal(p.net_profit),
+          }));
+          return {
+            jaar,
+            lopend: jaar === nu.getUTCFullYear(),
+            omzet: kwartalen.reduce((som, k) => som + k.omzet, 0),
+            kosten: kwartalen.reduce((som, k) => som + k.kosten, 0),
+            winst: kwartalen.reduce((som, k) => som + k.winst, 0),
+            kwartalen,
+          };
+        } catch (fout) {
+          if (jaar !== nu.getUTCFullYear()) return null;
+          throw fout;
+        }
+      }),
+    );
+    // Jaren zonder enige boeking (van voor de administratie) weglaten.
+    return {
+      ok: true,
+      jaren: resultaat.filter((j) => j && (j.omzet !== 0 || j.kosten !== 0 || j.lopend)),
+    };
+  }
+
   if (actie === "hosting-factureren") {
     const items = (Array.isArray(body.items) ? body.items : []) as { clientId?: unknown; periodDate?: unknown }[];
     if (items.length === 0) throw new Melding("Geen termijnen gekozen.");
@@ -727,12 +842,10 @@ serve(async (req: Request): Promise<Response> => {
             const r = (await moneybird(`reports/tax.json?period=${q.periode}`)) as {
               tax_rates?: { report_reference?: string; type?: string; tax?: unknown }[];
             };
-            // Rubriek 5b is voorbelasting (wat je terugkrijgt); de rest is wat je verschuldigd bent.
             let verschuldigd = 0;
             let voorbelasting = 0;
             for (const t of r.tax_rates ?? []) {
-              const terug = t.report_reference ? /^NL\/5/i.test(t.report_reference) : t.type !== "sales_invoice";
-              if (terug) voorbelasting += getal(t.tax);
+              if (isVoorbelasting(t)) voorbelasting += getal(t.tax);
               else verschuldigd += getal(t.tax);
             }
             return {
