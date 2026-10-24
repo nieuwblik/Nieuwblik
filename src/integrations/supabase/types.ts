@@ -28,11 +28,13 @@ export type Database = {
           id: string
           mail_afgemeld_op: string | null
           mail_afmeld_token: string
+          moneybird_contact_id: string | null
           name: string
           notes: string | null
           phone: string | null
           status: Database["public"]["Enums"]["client_status"]
           updated_at: string
+          uurtarief_cents: number | null
           website: string | null
         }
         Insert: {
@@ -48,11 +50,13 @@ export type Database = {
           id?: string
           mail_afgemeld_op?: string | null
           mail_afmeld_token?: string
+          moneybird_contact_id?: string | null
           name: string
           notes?: string | null
           phone?: string | null
           status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
+          uurtarief_cents?: number | null
           website?: string | null
         }
         Update: {
@@ -68,11 +72,13 @@ export type Database = {
           id?: string
           mail_afgemeld_op?: string | null
           mail_afmeld_token?: string
+          moneybird_contact_id?: string | null
           name?: string
           notes?: string | null
           phone?: string | null
           status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
+          uurtarief_cents?: number | null
           website?: string | null
         }
         Relationships: []
@@ -537,7 +543,9 @@ export type Database = {
           created_at: string
           description: string | null
           ended_at: string | null
+          gefactureerd_op: string | null
           id: string
+          moneybird_factuur_id: string | null
           project_id: string | null
           started_at: string
           task_id: string | null
@@ -549,7 +557,9 @@ export type Database = {
           created_at?: string
           description?: string | null
           ended_at?: string | null
+          gefactureerd_op?: string | null
           id?: string
+          moneybird_factuur_id?: string | null
           project_id?: string | null
           started_at?: string
           task_id?: string | null
@@ -561,7 +571,9 @@ export type Database = {
           created_at?: string
           description?: string | null
           ended_at?: string | null
+          gefactureerd_op?: string | null
           id?: string
+          moneybird_factuur_id?: string | null
           project_id?: string | null
           started_at?: string
           task_id?: string | null
