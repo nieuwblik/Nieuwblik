@@ -73,7 +73,7 @@ interface NavEntry {
  */
 const railItem = (isActive: boolean, collapsed: boolean) =>
   cn(
-    "group relative flex items-center rounded-lg text-sm transition-colors duration-150",
+    "group relative flex items-center rounded-lg text-sm transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98]",
     collapsed ? "h-10 w-10 justify-center" : "gap-3 px-3 py-2",
     isActive
       ? "bg-rail-active font-medium text-rail-accent shadow-[0_1px_2px_rgb(0_0_0/0.06)]"
@@ -412,7 +412,7 @@ const AdminLayout = () => {
         onClick={onClick}
         title={label}
         aria-label={label}
-        className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground"
+        className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-[background-color,color,transform] duration-150 ease-out hover:bg-muted hover:text-foreground active:scale-90"
       >
         <Icon className="h-[18px] w-[18px]" />
         {stip && <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-danger ring-2 ring-background" />}
@@ -501,7 +501,7 @@ const AdminLayout = () => {
             <button
               type="button"
               onClick={() => setPaletteOpen(true)}
-              className="flex h-10 min-w-0 flex-1 items-center gap-3 rounded-xl border border-border bg-muted/60 px-3 text-sm text-muted-foreground transition-colors duration-150 hover:bg-muted sm:max-w-md"
+              className="flex h-10 min-w-0 flex-1 items-center gap-3 rounded-xl border border-border bg-muted/60 px-3 text-sm text-muted-foreground transition-[background-color,border-color] duration-150 ease-out hover:border-foreground/15 hover:bg-muted sm:max-w-md"
             >
               <Search className="h-4 w-4 shrink-0" />
               <span className="truncate">Zoek een klant, taak of pagina</span>
@@ -544,7 +544,11 @@ const AdminLayout = () => {
             </div>
           </header>
 
-          <main className="px-4 pb-8 pt-2 sm:px-6 lg:px-8">
+          {/* Een korte overgang bij elke paginawissel: zonder verspringt de
+              inhoud in één frame en voelt een klik als een harde knip. De key
+              op het pad laat hem alleen bij een nieuwe pagina afspelen, niet
+              bij een filter in de URL. */}
+          <main key={location.pathname} className="p-verschijn px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             <Outlet />
           </main>
         </div>

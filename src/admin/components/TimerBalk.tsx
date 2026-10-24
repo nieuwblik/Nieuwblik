@@ -110,7 +110,13 @@ const TimerBalk = () => {
             type="button"
             className="hidden h-8 min-w-0 max-w-56 items-center gap-2 rounded-lg px-2 text-sm transition-colors hover:bg-background md:flex"
           >
-            <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
+            {/* Loopt de timer, dan een kloppende stip in plaats van de klok: je
+                ziet vanuit je ooghoek dat er tijd wordt geschreven. */}
+            {lopend ? (
+              <span className="p-puls mx-1 h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
+            ) : (
+              <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
+            )}
             <span className={cn("truncate", !lopend && !keuze.projectId && !keuze.taskId && "text-muted-foreground")}>
               {label}
             </span>

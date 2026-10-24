@@ -70,7 +70,7 @@ const TaakoverzichtKaart = ({ className }: { className?: string }) => {
               .map((r) => (
                 <span
                   key={r.status}
-                  className={cn("rounded-full", TOON[TASK_STATUS[r.status].toon].stip)}
+                  className={cn("p-groei-x rounded-full", TOON[TASK_STATUS[r.status].toon].stip)}
                   style={{ flexGrow: r.aantal, flexBasis: 0 }}
                 />
               ))
@@ -82,7 +82,7 @@ const TaakoverzichtKaart = ({ className }: { className?: string }) => {
             <li key={status}>
               <Link
                 to={`/admin/taken?status=${status}`}
-                className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm transition-colors duration-150 hover:bg-muted/60"
+                className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm p-rij"
               >
                 <span className={cn("h-2.5 w-2.5 shrink-0 rounded-sm", TOON[TASK_STATUS[status].toon].stip)} />
                 <span className="flex-1">

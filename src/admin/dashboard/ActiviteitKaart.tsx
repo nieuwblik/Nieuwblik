@@ -55,7 +55,7 @@ const ActiviteitKaart = ({ className }: { className?: string }) => {
         ) : regels.length === 0 ? (
           <p className="px-2 py-3 text-sm text-muted-foreground">Nog geen activiteit.</p>
         ) : (
-          <ul>
+          <ul className="p-vervaag">
             {regels.map(({ eerste, projecten }) => {
               const meer = projecten.length > 1;
               // Gebundeld: de eerste zin, met het aantal projecten erachter.
@@ -69,7 +69,7 @@ const ActiviteitKaart = ({ className }: { className?: string }) => {
                 <li key={eerste.id}>
                   <Link
                     to={eerste.project && !meer ? `/admin/projecten/${eerste.project.id}?tab=tijdlijn` : "/admin/klanten"}
-                    className="flex items-start gap-3 rounded-lg px-2 py-2 transition-colors duration-150 hover:bg-muted/60"
+                    className="flex items-start gap-3 rounded-lg px-2 py-2 p-rij"
                   >
                     <StatusPill kind="update" value={eerste.kind} className="mt-px w-[4.75rem] justify-center" />
                     <span className="min-w-0 flex-1">

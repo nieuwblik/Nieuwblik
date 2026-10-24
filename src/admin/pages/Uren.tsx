@@ -197,8 +197,8 @@ const Uren = () => {
               {dagen.map((d) => (
                 <li key={d.sleutel} className="flex h-full flex-col items-center justify-end gap-1.5">
                   <span
-                    className={cn("w-full max-w-9 rounded-md", d.minuten > 0 ? "bg-accent" : "bg-muted")}
-                    style={{ height: `${Math.max(4, (d.minuten / hoogsteDag) * 100)}%` }}
+                    className={cn("p-groei-y w-full max-w-9 rounded-md", d.minuten > 0 ? "bg-accent" : "bg-muted")}
+                    style={{ animationDelay: `${dagen.indexOf(d) * 35}ms`, height: `${Math.max(4, (d.minuten / hoogsteDag) * 100)}%` }}
                     title={`${format(d.datum, "EEEE", { locale: nl })}: ${formatDuur(d.minuten)}`}
                   />
                   <span className={cn("text-xs text-muted-foreground", isToday(d.datum) && "font-medium text-foreground")}>
@@ -225,7 +225,7 @@ const Uren = () => {
                       <span className="shrink-0 tabular-nums text-muted-foreground">{formatDuur(p.minuten)}</span>
                     </div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-muted">
-                      <div className={cn("h-full rounded-full", projectKleur(p.id).vlak)} style={{ width: `${(p.minuten / totaal) * 100}%` }} />
+                      <div className={cn("p-groei-x h-full rounded-full", projectKleur(p.id).vlak)} style={{ width: `${(p.minuten / totaal) * 100}%` }} />
                     </div>
                   </li>
                 ))}
@@ -302,7 +302,7 @@ const DagKaart = ({
   const labels = Array.from({ length: Math.floor(breedte / 2) + 1 }, (_, i) => begin + i * 2).filter((u) => u <= eind);
 
   return (
-    <Panel>
+    <Panel className="p-vervaag">
       <PanelHeader
         titel={
           <span className="first-letter:uppercase inline-block">

@@ -55,7 +55,7 @@ const MailenKaart = ({ className }: { className?: string }) => {
             <li>
               <Link
                 to="/admin/klanten?filter=zonder-email"
-                className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 transition-colors duration-150 hover:bg-muted/60"
+                className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 p-rij"
               >
                 <span className={cn("h-2 w-2 shrink-0 rounded-full", TOON.warning.stip)} />
                 <span className="flex-1">

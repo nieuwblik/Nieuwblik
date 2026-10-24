@@ -177,10 +177,10 @@ const UrenKaart = ({ className }: { className?: string }) => {
                           >
                             <span
                               className={cn(
-                                "flex w-full flex-col-reverse overflow-hidden rounded-md transition-colors duration-150",
+                                "p-groei-y flex w-full flex-col-reverse overflow-hidden rounded-md transition-colors duration-150",
                                 !actief && "bg-muted hover:bg-muted-foreground/25",
                               )}
-                              style={{ height: `${(d.minuten / 60 / max) * 100}%`, minHeight: d.minuten > 0 ? 4 : 0 }}
+                              style={{ animationDelay: `${i * 35}ms`, height: `${(d.minuten / 60 / max) * 100}%`, minHeight: d.minuten > 0 ? 4 : 0 }}
                             >
                               {actief &&
                                 d.delen.map((deel) => (
@@ -199,7 +199,8 @@ const UrenKaart = ({ className }: { className?: string }) => {
 
                   {dag && dag.minuten > 0 && (
                     <div
-                      className="pointer-events-none absolute top-2 z-10 w-max min-w-36 max-w-56 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
+                      key={gekozen}
+                      className="p-vervaag pointer-events-none absolute top-2 z-10 w-max min-w-36 max-w-56 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
                       style={
                         gekozen >= dagen.length / 2
                           ? { right: `${((dagen.length - gekozen) / dagen.length) * 100}%` }

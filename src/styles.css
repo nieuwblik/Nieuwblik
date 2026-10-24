@@ -864,6 +864,59 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
 }
 
+/* ---------------------------------------------------------------------------
+   Beweging in het portaal. Kort (150 tot 450 ms) en afremmend, nooit
+   verende of stuiterende curves. Alleen waar het iets zegt: dat je klikte,
+   dat een pagina wisselt, dat er data binnenkomt. Wie minder beweging wil,
+   krijgt via de algemene reduced-motion-regel meteen de eindstand.
+   --------------------------------------------------------------------------- */
+@keyframes p-verschijn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes p-vervaag {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes p-groei-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes p-groei-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes p-puls {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Een pagina die opent of data die binnenkomt. */
+.p-verschijn { animation: p-verschijn 220ms cubic-bezier(0.25, 1, 0.5, 1) both; }
+.p-vervaag { animation: p-vervaag 180ms cubic-bezier(0.25, 1, 0.5, 1) both; }
+/* Staven en balken groeien vanuit hun as, zodat je ziet waar ze vandaan komen. */
+.p-groei-y { transform-origin: bottom; animation: p-groei-y 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.p-groei-x { transform-origin: left; animation: p-groei-x 480ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* Iets wat loopt, zoals de timer. */
+.p-puls { animation: p-puls 1.6s ease-in-out infinite; }
+
+/* Klikbare regels: aanwijzen kleurt licht, indrukken iets dieper en een
+   fractie kleiner, zodat je voelt dat de klik is aangekomen. */
+.portaal .p-rij {
+  transition:
+    background-color 150ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 150ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.portaal .p-rij:hover { background-color: hsl(var(--muted) / 0.6); }
+.portaal .p-rij:active { background-color: hsl(var(--muted)); transform: scale(0.99); }
+
+/* Toetsenbordfocus overal zichtbaar, ook op links en regels zonder eigen ring. */
+.portaal :where(a, button, [role="button"]):focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+.portaal { -webkit-tap-highlight-color: transparent; }
+
 /* Knoppen in het portaal in Cabin, net als de rest van de interface. De
    gedeelde knopcomponent zet Epilogue; de publieke site houdt dat. */
 .portaal :where(button, a).font-epilogue {

@@ -81,7 +81,7 @@ const Meldingen = () => {
         <li key={m.key}>
           <Link
             to={m.to}
-            className="group inline-flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-[13px] transition-colors hover:bg-muted"
+            className="group inline-flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 py-1.5 text-[13px] transition-[background-color,transform] duration-150 ease-out hover:bg-muted active:scale-[0.98]"
           >
             <span className={cn("h-1.5 w-1.5 shrink-0 rounded-full", TOON[m.toon].stip)} aria-hidden="true" />
             <span>{m.tekst}</span>

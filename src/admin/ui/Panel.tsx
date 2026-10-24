@@ -88,10 +88,10 @@ export const PanelFooter = ({
 }) => (
   <Link
     to={to}
-    className="group flex items-center gap-2 rounded-b-[12px] px-3 pb-1 pt-2 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+    className="group flex items-center gap-2 rounded-b-[12px] px-3 pb-1 pt-2 text-[13px] text-muted-foreground transition-colors duration-150 hover:text-foreground"
   >
     <span>{children}</span>
     {extra && <span className="text-muted-foreground/70">· {extra}</span>}
-    <ArrowRight className="ml-auto h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+    <ArrowRight className="ml-auto h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-1 group-active:translate-x-1.5" />
   </Link>
 );

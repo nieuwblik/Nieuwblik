@@ -95,7 +95,7 @@ const DezeWeekKaart = ({ className }: { className?: string }) => {
                   to={`/admin/kalender?dag=${dag.sleutel}`}
                   aria-label={`${format(dag.datum, "EEEE d MMMM", { locale: nl })}: ${dag.items.length} gepland`}
                   className={cn(
-                    "flex flex-col items-center gap-1 rounded-lg border py-2 transition-colors duration-150",
+                    "flex flex-col items-center gap-1 rounded-lg border py-2 transition-[background-color,transform] duration-150 ease-out active:scale-95",
                     vandaag ? "border-accent/40 bg-accent/10" : "border-transparent hover:bg-muted/60",
                   )}
                 >
@@ -126,7 +126,7 @@ const DezeWeekKaart = ({ className }: { className?: string }) => {
                     <li key={item.key}>
                       <Link
                         to={item.to}
-                        className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm transition-colors duration-150 hover:bg-muted/60"
+                        className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm p-rij"
                       >
                         <span className={cn("h-4 w-0.5 shrink-0 rounded-full", item.streep)} aria-hidden="true" />
                         {item.project && <FolderKanban className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />}

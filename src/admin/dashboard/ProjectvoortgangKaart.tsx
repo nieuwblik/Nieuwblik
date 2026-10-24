@@ -92,8 +92,16 @@ const ProjectvoortgangKaart = ({ className }: { className?: string }) => {
             {Array.from({ length: STREEPJES }, (_, i) => (
               <span
                 key={i}
-                className={cn("flex-1 rounded-full", i >= gevuld && "bg-muted")}
-                style={i < gevuld ? { backgroundColor: `hsl(var(--accent) / ${0.3 + 0.7 * ((i + 1) / gevuld)})` } : undefined}
+                className={cn("flex-1 rounded-full", i >= gevuld ? "bg-muted" : "p-groei-y")}
+                style={
+                  i < gevuld
+                    ? {
+                        backgroundColor: `hsl(var(--accent) / ${0.3 + 0.7 * ((i + 1) / gevuld)})`,
+                        // Van links naar rechts gevuld, als een balk die oploopt.
+                        animationDelay: `${i * 12}ms`,
+                      }
+                    : undefined
+                }
               />
             ))}
           </div>

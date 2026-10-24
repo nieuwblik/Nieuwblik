@@ -157,10 +157,10 @@ const AfgerondKaart = ({ className }: { className?: string }) => {
                     >
                       <span
                         className={cn(
-                          "flex w-full flex-col-reverse overflow-hidden rounded-md transition-colors duration-150",
+                          "p-groei-y flex w-full flex-col-reverse overflow-hidden rounded-md transition-colors duration-150",
                           !actief && "bg-muted hover:bg-muted-foreground/25",
                         )}
-                        style={{ height: `${(w.totaal / max) * 100}%`, minHeight: w.totaal > 0 ? 4 : 0 }}
+                        style={{ animationDelay: `${i * 35}ms`, height: `${(w.totaal / max) * 100}%`, minHeight: w.totaal > 0 ? 4 : 0 }}
                       >
                         {actief &&
                           w.perReeks
@@ -178,7 +178,8 @@ const AfgerondKaart = ({ className }: { className?: string }) => {
             {/* Het kaartje bij de gekozen week, naast de balk. */}
             {week && week.totaal > 0 && (
               <div
-                className="pointer-events-none absolute top-2 z-10 w-max min-w-32 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
+                key={gekozen}
+                className="p-vervaag pointer-events-none absolute top-2 z-10 w-max min-w-32 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
                 style={
                   // Naast de balk, aan de kant met de meeste ruimte, zodat het
                   // kaartje ook op een telefoon binnen de grafiek blijft.

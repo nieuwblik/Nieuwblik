@@ -133,12 +133,12 @@ const AandachtKaart = ({ className }: { className?: string }) => {
         ) : zichtbaar.length === 0 ? (
           <EmptyState compact icon={CircleCheck} title="Niets vraagt aandacht" description="Er staat nergens werk open." />
         ) : (
-          <ul>
+          <ul className="p-vervaag">
             {zichtbaar.map((regel) => (
               <li key={regel.key}>
                 <Link
                   to={regel.to}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors duration-150 hover:bg-muted/60"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 p-rij"
                 >
                   {regel.intern ? (
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
