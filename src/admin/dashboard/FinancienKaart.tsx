@@ -2,8 +2,7 @@ import { Wallet } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { TOON } from "@/admin/constants";
-import { daysUntil } from "@/admin/format";
-import { formatBedrag, heeftData, useFinancien } from "@/admin/financien";
+import { formatBedrag, heeftData, isTeLaatFactuur, useFinancien } from "@/admin/financien";
 import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
 
 /**
@@ -19,7 +18,7 @@ const FinancienKaart = ({ className }: { className?: string }) => {
   const omzet = heeftData(data.winstVerlies) ? (data.winstVerlies.data.at(-1)?.omzet ?? 0) : null;
   const facturen = heeftData(data.facturen) ? data.facturen.data : null;
   const open = facturen?.reduce((som, f) => som + f.open, 0) ?? null;
-  const teLaat = facturen?.filter((f) => f.status === "late" || (daysUntil(f.vervaldatum) ?? 0) < 0) ?? [];
+  const teLaat = facturen?.filter(isTeLaatFactuur) ?? [];
   const bank = heeftData(data.bank) ? data.bank.data.totaal : null;
 
   const regels = [

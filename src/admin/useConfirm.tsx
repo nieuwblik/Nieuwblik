@@ -16,6 +16,10 @@ interface Vraag {
   beschrijving?: ReactNode;
   /** Standaard "Verwijderen"; zet iets anders bij een niet-wissende actie. */
   bevestigLabel?: string;
+  /** Rode knop voor wissen (standaard); false voor een gewone bevestiging, zoals een mail versturen. */
+  gevaarlijk?: boolean;
+  /** Extra inhoud onder de beschrijving, zoals een lijst; de beschrijving zelf is één alinea. */
+  inhoud?: ReactNode;
 }
 
 /**
@@ -60,11 +64,14 @@ export function useConfirm() {
           <AlertDialogTitle>{vraag?.titel}</AlertDialogTitle>
           {vraag?.beschrijving && <AlertDialogDescription>{vraag.beschrijving}</AlertDialogDescription>}
         </AlertDialogHeader>
+        {vraag?.inhoud}
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => sluit(false)}>Annuleren</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => sluit(true)}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className={
+              vraag?.gevaarlijk === false ? undefined : "bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            }
           >
             {vraag?.bevestigLabel ?? "Verwijderen"}
           </AlertDialogAction>

@@ -1,6 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
+import { daysUntil } from "@/admin/format";
+
+const FINANCIEN_KEY = ["admin", "financien"] as const;
 
 /** Een onderdeel van het overzicht: gelukt, of een melding waarom niet. */
 export type Onderdeel<T> = { data: T } | { fout: string };
@@ -23,6 +26,12 @@ export interface OpenFactuur {
   totaal: number;
   open: number;
   klant: string;
+  /** Waar Moneybird facturen en herinneringen heen mailt; null als de klant geen adres heeft. */
+  email?: string | null;
+  /** Creditfactuur: een tegoed voor de klant, met een negatief openstaand bedrag. */
+  credit?: boolean;
+  /** Heeft de workflow en huisstijl die Moneybird nodig heeft om een herinnering te sturen. */
+  kanHerinneren?: boolean;
   url: string;
 }
 
@@ -46,7 +55,7 @@ export type FinancienStand = Financien | { ingesteld: false } | { nietLive: true
  */
 export function useFinancien() {
   return useQuery({
-    queryKey: ["admin", "financien"],
+    queryKey: FINANCIEN_KEY,
     staleTime: 5 * 60 * 1000,
     retry: false,
     queryFn: async (): Promise<FinancienStand> => {
@@ -61,6 +70,54 @@ export function useFinancien() {
         throw new Error(bericht?.error ?? error.message);
       }
       return data as FinancienStand;
+    },
+  });
+}
+
+/** Tot dit bedrag mag een rest worden afgeboekt; de serverfunctie gebruikt hetzelfde getal. */
+export const AFBOEK_GRENS = 5;
+
+export const isCredit = (f: OpenFactuur) => Boolean(f.credit) || f.open < 0;
+
+/** Over de vervaldatum en nog niet betaald. Een creditfactuur is nooit te laat. */
+export const isTeLaatFactuur = (f: OpenFactuur) =>
+  !isCredit(f) && f.status !== "pending_payment" && (f.status === "late" || (daysUntil(f.vervaldatum) ?? 0) < 0);
+
+/** Een deels betaalde factuur met een rest die je eerder afboekt dan herinnert, zoals € 0,02. */
+export const isKleineRest = (f: OpenFactuur) => !isCredit(f) && f.open > 0 && f.open <= AFBOEK_GRENS && f.open < f.totaal;
+
+/** Een herinnering kan bij een te late factuur die Moneybird kan versturen. */
+export const kanHerinneren = (f: OpenFactuur) => isTeLaatFactuur(f) && f.kanHerinneren !== false && f.email !== null;
+
+export type FactuurActie =
+  | { actie: "herinnering"; ids: string[] }
+  | { actie: "betaling"; id: string; bedrag: number; datum: string }
+  | { actie: "afboeken"; id: string }
+  | { actie: "pdf"; id: string };
+
+/**
+ * Iets doen met een openstaande factuur in Moneybird. Na een herinnering,
+ * betaling of afboeking wordt het overzicht opnieuw opgehaald.
+ */
+export function useFactuurActie() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (body: FactuurActie): Promise<{ ok?: boolean; url?: string }> => {
+      const { data, error } = await supabase.functions.invoke("moneybird-financien", { body });
+      if (error) {
+        const bericht = await (error as { context?: Response }).context?.json?.().catch(() => null);
+        throw new Error(bericht?.error ?? error.message);
+      }
+      // Een oudere versie van de functie kent geen acties en geeft dan gewoon
+      // het overzicht terug; dat mag niet als "gelukt" doorgaan.
+      const resultaat = data as { ok?: boolean; url?: string };
+      if (!resultaat?.ok && !resultaat?.url) {
+        throw new Error("De serverfunctie kent deze actie nog niet. Publiceer de nieuwste versie in Lovable.");
+      }
+      return resultaat;
+    },
+    onSuccess: (_data, body) => {
+      if (body.actie !== "pdf") void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
     },
   });
 }

@@ -7,18 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
-import { TOON, type Toon } from "@/admin/constants";
-import { daysUntil } from "@/admin/format";
-import { formatBedrag, heeftData, useFinancien, type MaandCijfers, type OpenFactuur } from "@/admin/financien";
+import { TOON } from "@/admin/constants";
+import { formatBedrag, heeftData, isTeLaatFactuur, useFinancien, type MaandCijfers } from "@/admin/financien";
+import { useOpenFacturen } from "@/admin/useOpenFacturen";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
-import StatusPill from "@/admin/ui/StatusPill";
-
-const FACTUURSTATUS: Record<string, { label: string; toon: Toon }> = {
-  late: { label: "Te laat", toon: "danger" },
-  reminded: { label: "Herinnerd", toon: "warning" },
-  pending_payment: { label: "Betaling onderweg", toon: "info" },
-  open: { label: "Open", toon: "neutral" },
-};
 
 const maandLabel = (maand: string, lang = false) =>
   format(parseISO(`${maand}-01`), lang ? "LLLL yyyy" : "LLL", { locale: nl }).replace(".", "");
@@ -158,14 +150,6 @@ const rekeningNaam = (r: { naam: string; soort: string }) => {
   return "Rekening";
 };
 
-/** Hoe lang een factuur nog heeft, of hoe lang hij al over de datum is. */
-const vervalLabel = (f: OpenFactuur) => {
-  const dagen = daysUntil(f.vervaldatum);
-  if (dagen === null) return "Geen vervaldatum";
-  if (dagen < 0) return `${Math.abs(dagen)} ${Math.abs(dagen) === 1 ? "dag" : "dagen"} te laat`;
-  if (dagen === 0) return "Vervalt vandaag";
-  return `Nog ${dagen} ${dagen === 1 ? "dag" : "dagen"}`;
-};
 
 /**
  * Financiën: de stand uit Moneybird in één scherm. Omzet, kosten en winst
@@ -191,6 +175,15 @@ const Financien = () => {
       winstJaar: ditJaar.reduce((som, m) => som + m.winst, 0),
     };
   }, [data]);
+
+  const facturen = useMemo(
+    () =>
+      data && "bijgewerkt" in data && heeftData(data.facturen)
+        ? [...data.facturen.data].sort((a, b) => (a.vervaldatum ?? "").localeCompare(b.vervaldatum ?? ""))
+        : [],
+    [data],
+  );
+  const factuurLijst = useOpenFacturen(facturen);
 
   const kop = (
     <div className="flex flex-wrap items-end justify-between gap-3">
@@ -274,9 +267,8 @@ const Financien = () => {
     );
   }
 
-  const facturen = heeftData(data.facturen) ? [...data.facturen.data].sort((a, b) => (a.vervaldatum ?? "").localeCompare(b.vervaldatum ?? "")) : [];
   const openTotaal = facturen.reduce((som, f) => som + f.open, 0);
-  const teLaat = facturen.filter((f) => f.status === "late" || (daysUntil(f.vervaldatum) ?? 0) < 0);
+  const teLaat = facturen.filter(isTeLaatFactuur);
 
   return (
     <div className="mx-auto max-w-[1100px] space-y-5">
@@ -314,6 +306,7 @@ const Financien = () => {
                 ? `${formatBedrag(openTotaal)} open${teLaat.length > 0 ? `, ${teLaat.length} te laat` : ""}`
                 : "Wat klanten nog moeten betalen"
             }
+            actie={factuurLijst.herinnerAlles}
           />
           <PanelBody className="px-2 pb-2 pt-2">
             {!heeftData(data.facturen) ? (
@@ -321,34 +314,7 @@ const Financien = () => {
             ) : facturen.length === 0 ? (
               <EmptyState compact icon={FileText} title="Alles is betaald" description="Er staan geen facturen open." />
             ) : (
-              <ul className="p-vervaag">
-                {facturen.map((f) => {
-                  const status = FACTUURSTATUS[f.status] ?? FACTUURSTATUS["open"]!;
-                  const laat = (daysUntil(f.vervaldatum) ?? 0) < 0;
-                  return (
-                    <li key={f.id}>
-                      <a
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-rij flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm"
-                      >
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate font-medium">{f.klant}</span>
-                          <span className={cn("block text-[13px] text-muted-foreground", laat && TOON.danger.tekst)}>
-                            {f.nummer ?? "Concept"} · {vervalLabel(f)}
-                          </span>
-                        </span>
-                        <StatusPill toon={laat && f.status === "open" ? "danger" : status.toon}>
-                          {laat && f.status === "open" ? "Te laat" : status.label}
-                        </StatusPill>
-                        <span className="w-24 text-right font-medium tabular-nums">{formatBedrag(f.open)}</span>
-                        <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
+              factuurLijst.lijst
             )}
           </PanelBody>
         </Panel>
@@ -388,8 +354,10 @@ const Financien = () => {
       </div>
 
       <p className="text-[13px] text-muted-foreground">
-        Boeken, de bankkoppeling en de btw-aangifte doe je in Moneybird; deze pagina laat de stand zien.
+        Boeken, de bankkoppeling en de btw-aangifte doe je in Moneybird; hier zie je de stand en handel je openstaande
+        facturen af.
       </p>
+      {factuurLijst.dialogen}
     </div>
   );
 };
