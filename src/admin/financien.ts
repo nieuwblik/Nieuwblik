@@ -45,6 +45,53 @@ export interface Financien {
   crediteuren: Onderdeel<{ totaal: number }>;
   /** Ontbreekt bij een oudere versie van de serverfunctie. */
   btw?: Onderdeel<BtwKwartaal[]>;
+  uitgaven?: Onderdeel<Uitgaven>;
+  betalingen?: Onderdeel<Betaling[]>;
+  offertes?: Onderdeel<Offerte[]>;
+}
+
+export interface Uitgaven {
+  /** Excl. btw, het laatste jaar. */
+  totaal: number;
+  /** Inkoopfacturen en bonnetjes die nog niet zijn verwerkt (en dus niet meetellen). */
+  nogTeVerwerken: number;
+  perLeverancier: { naam: string; bedrag: number; aantal: number }[];
+  perCategorie: { naam: string; bedrag: number }[];
+  recent: {
+    id: string;
+    soort: string;
+    leverancier: string;
+    omschrijving: string | null;
+    datum: string | null;
+    /** Incl. btw, zoals op de bon. */
+    bedrag: number;
+    status: string;
+    url: string;
+  }[];
+}
+
+export interface Betaling {
+  id: string;
+  nummer: string | null;
+  klant: string;
+  bedrag: number;
+  betaaldOp: string | null;
+  url: string;
+}
+
+export interface Offerte {
+  id: string;
+  nummer: string | null;
+  klant: string;
+  /** open, late (verlopen), accepted */
+  status: string;
+  datum: string | null;
+  vervaldatum: string | null;
+  verstuurd: string | null;
+  geaccepteerd: string | null;
+  /** Excl. btw. */
+  bedrag: number;
+  url: string;
 }
 
 export interface BtwKwartaal {
@@ -68,10 +115,13 @@ export type FinancienStand = Financien | { ingesteld: false } | { nietLive: true
  * moneybird-financien. Vijf minuten vers: Moneybird beperkt het aantal
  * verzoeken, en boekhoudcijfers veranderen niet per seconde.
  */
-export function useFinancien() {
+export function useFinancien({ verversen = false, actief = true }: { verversen?: boolean; actief?: boolean } = {}) {
   return useQuery({
     queryKey: FINANCIEN_KEY,
+    enabled: actief,
     staleTime: 5 * 60 * 1000,
+    // De schil van het portaal ververst elke vijf minuten, voor de betaalmeldingen.
+    refetchInterval: verversen ? 5 * 60 * 1000 : false,
     retry: false,
     queryFn: async (): Promise<FinancienStand> => {
       const { data, error } = await supabase.functions.invoke("moneybird-financien", { body: {} });
@@ -103,6 +153,15 @@ export const isKleineRest = (f: OpenFactuur) => !isCredit(f) && f.open > 0 && f.
 
 /** Een herinnering kan bij een te late factuur die Moneybird kan versturen. */
 export const kanHerinneren = (f: OpenFactuur) => isTeLaatFactuur(f) && f.kanHerinneren !== false && f.email !== null;
+
+/** Na zoveel dagen zonder reactie verdient een offerte een herinnering. */
+export const OFFERTE_WACHTTIJD = 14;
+
+/** Hoe lang een verstuurde offerte al zonder antwoord is (0 als hij geaccepteerd is). */
+export const offerteWachtDagen = (o: Offerte) =>
+  o.status === "open" || o.status === "late"
+    ? -(daysUntil((o.verstuurd ?? o.datum ?? "").slice(0, 10) || null) ?? 0)
+    : 0;
 
 export type FactuurActie =
   | { actie: "herinnering"; ids: string[] }
@@ -194,6 +253,28 @@ export function useUrenFactureren() {
       void qc.invalidateQueries({ queryKey: ["admin", "uren"] });
       void qc.invalidateQueries({ queryKey: ["admin", "clients"] });
       void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
+    },
+  });
+}
+
+export type HostingResultaat =
+  | { ok: true; gemaakt: { naam: string; url: string }[]; overgeslagen: { naam: string; reden: string }[] }
+  | { ok: false; kiesContact: MoneybirdContact[] };
+
+/**
+ * Hostingtermijnen als conceptfactuur in Moneybird. Bij één termijn zonder
+ * duidelijk contact komen de kandidaten terug om uit te kiezen; bij meerdere
+ * worden die overgeslagen en gemeld.
+ */
+export function useHostingFactureren() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { items: { clientId: string; periodDate: string }[]; contactId?: string }) =>
+      roepAan<HostingResultaat>({ actie: "hosting-factureren", ...body }),
+    onSuccess: (resultaat) => {
+      if (!resultaat.ok) return;
+      void qc.invalidateQueries({ queryKey: ["admin", "gefactureerd"] });
+      void qc.invalidateQueries({ queryKey: ["admin", "clients"] });
     },
   });
 }

@@ -16,6 +16,7 @@ import { BILLING_CYCLE, formatEuro, leesDatum, termijnen } from "@/admin/billing
 import { TOON } from "@/admin/constants";
 import { useClients, useInvoicedPeriods, useMarkInvoiced, type Client } from "@/admin/queries";
 import { useTeFactureren } from "@/admin/stats";
+import { useHostingFactureren } from "@/admin/useHostingFactureren";
 import MonthNav from "@/admin/ui/MonthNav";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 
@@ -41,6 +42,7 @@ const Hosting = () => {
   // Achterstallig komt uit dezelfde berekening als de teller in de zijbalk
   // en de kaart op het dashboard, zodat die getallen altijd gelijk zijn.
   const { achterstallig } = useTeFactureren();
+  const moneybird = useHostingFactureren();
 
   const [maand, setMaand] = useState(() => startOfMonth(new Date()));
 
@@ -158,6 +160,11 @@ const Hosting = () => {
       <span className="hidden w-24 shrink-0 text-right text-[13px] text-muted-foreground sm:block">
         {BILLING_CYCLE[regel.client.billing_cycle!].label}
       </span>
+
+      {/* Vaste breedte, ook bij een afgevinkte termijn, zodat de kolommen gelijk blijven. */}
+      {moneybird.live && (
+        <span className="flex w-10 shrink-0 justify-end md:w-24">{!regel.gefactureerd && moneybird.knop(regel)}</span>
+      )}
     </li>
   );
 
@@ -185,7 +192,12 @@ const Hosting = () => {
           vooruitkijken. */}
       {achterstalligeRegels.length > 0 && (
         <Panel className="border-danger/30">
-          <PanelHeader icon={AlertCircle} titel="Nog te factureren" subtitel="Deze datums zijn geweest en staan nog open." />
+          <PanelHeader
+            icon={AlertCircle}
+            titel="Nog te factureren"
+            subtitel="Deze datums zijn geweest en staan nog open."
+            actie={moneybird.allesKnop(achterstalligeRegels)}
+          />
           <PanelBody>
             <ul className="space-y-1">{achterstalligeRegels.map((r) => rij(r, true))}</ul>
           </PanelBody>
@@ -287,6 +299,8 @@ const Hosting = () => {
           </PanelBody>
         </Panel>
       )}
+
+      {moneybird.dialogen}
     </div>
   );
 };

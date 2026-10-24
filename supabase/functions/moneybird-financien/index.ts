@@ -13,7 +13,10 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  * - banksaldo per rekening;
  * - openstaande verkoopfacturen (open, herinnerd, te laat);
  * - wat er aan leveranciers nog betaald moet worden (crediteuren);
- * - de btw van het lopende kwartaal, en van het vorige zolang die aangifte loopt.
+ * - de btw van het lopende kwartaal, en van het vorige zolang die aangifte loopt;
+ * - uitgaven van het laatste jaar per leverancier en categorie, en de recentste;
+ * - betalingen van klanten in de laatste twee weken (voor meldingen);
+ * - offertes die uitstaan of geaccepteerd zijn (vraagt het recht "estimates").
  *
  * Elk onderdeel mag los mislukken (bijvoorbeeld als de sleutel een recht mist);
  * dan krijgt alleen dat onderdeel een foutmelding en de rest werkt gewoon.
@@ -28,7 +31,10 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   urenIds, uurtarief, eventueel contactId); de uren worden daarna als
  *   gefactureerd gemarkeerd. Er wordt niets naar de klant verstuurd;
  * - "uren-vrijgeven": uren weer vrijgeven als hun concept in Moneybird is
- *   weggegooid (factuurId).
+ *   weggegooid (factuurId);
+ * - "hosting-factureren": hostingtermijnen als conceptfactuur (items met
+ *   clientId en periodDate, eventueel contactId); de termijn wordt daarna in
+ *   het portaal als gefactureerd afgevinkt.
  * De pagina vraagt altijd eerst om bevestiging; hier wordt alles nog eens
  * gecontroleerd tegen de facturen zoals Moneybird ze nu kent.
  */
@@ -263,7 +269,105 @@ function factuurRegels(regels: Urenregel[]) {
   return [...groepen.values()];
 }
 
-async function voerUit(actie: string, body: Record<string, unknown>): Promise<unknown> {
+/** Alle pagina's van een lijst ophalen, tot een redelijk maximum. */
+async function allePaginas<T>(pad: string, maxPaginas = 5): Promise<T[]> {
+  const lijst: T[] = [];
+  for (let pagina = 1; pagina <= maxPaginas; pagina++) {
+    const deel = (await moneybird(`${pad}${pad.includes("?") ? "&" : "?"}per_page=100&page=${pagina}`)) as T[];
+    lijst.push(...deel);
+    if (deel.length < 100) break;
+  }
+  return lijst;
+}
+
+const MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+
+/** De omschrijving en periode van een hostingtermijn op de factuur. */
+function hostingRegel(periodDate: string, cyclus: string) {
+  const [jaar, maand, dag] = periodDate.split("-").map(Number) as [number, number, number];
+  const van = new Date(Date.UTC(jaar, maand - 1, dag));
+  const tot = cyclus === "jaarlijks"
+    ? new Date(Date.UTC(jaar + 1, maand - 1, dag - 1))
+    : new Date(Date.UTC(jaar, maand, dag - 1));
+  const kort = (d: Date) => `${MAANDEN[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  const code = (d: Date) => d.toISOString().slice(0, 10).replaceAll("-", "");
+  return {
+    omschrijving: cyclus === "jaarlijks" ? `Hosting ${kort(van)} t/m ${kort(tot)}` : `Hosting ${kort(van)}`,
+    periode: `${code(van)}..${code(tot)}`,
+  };
+}
+
+async function voerUit(actie: string, body: Record<string, unknown>, userId: string): Promise<unknown> {
+  if (actie === "hosting-factureren") {
+    const items = (Array.isArray(body.items) ? body.items : []) as { clientId?: unknown; periodDate?: unknown }[];
+    if (items.length === 0) throw new Melding("Geen termijnen gekozen.");
+    if (items.length > 30) throw new Melding("Hooguit 30 termijnen tegelijk.");
+
+    const { data: alGedaan, error: periodeFout } = await admin
+      .from("invoiced_periods")
+      .select("client_id, period_date")
+      .in("client_id", items.map((i) => String(i.clientId)));
+    if (periodeFout) throw new Error(periodeFout.message);
+    const gedaan = new Set(((alGedaan ?? []) as { client_id: string; period_date: string }[]).map((r) => `${r.client_id}|${r.period_date}`));
+
+    const gemaakt: { naam: string; url: string }[] = [];
+    const overgeslagen: { naam: string; reden: string }[] = [];
+    for (const item of items) {
+      const periodDate = typeof item.periodDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.periodDate) ? item.periodDate : null;
+      if (!periodDate) throw new Melding("Onbekende termijn.");
+      const klant = (await portaalKlant(item.clientId)) as PortaalKlant & {
+        billing_cycle: string | null;
+        billing_amount_cents: number | null;
+      };
+      if (gedaan.has(`${klant.id}|${periodDate}`)) {
+        overgeslagen.push({ naam: klant.name, reden: "staat al op gefactureerd" });
+        continue;
+      }
+      if (!klant.billing_cycle || !klant.billing_amount_cents) {
+        overgeslagen.push({ naam: klant.name, reden: "geen bedrag ingevuld" });
+        continue;
+      }
+      const gevonden = await zoekContact(klant, items.length === 1 ? body.contactId : undefined);
+      if (!("contact" in gevonden)) {
+        // Eén termijn: laat de gebruiker kiezen. Meerdere: overslaan en melden.
+        if (items.length === 1) return { ok: false, kiesContact: gevonden.kandidaten.map(contactUit) };
+        overgeslagen.push({ naam: klant.name, reden: "geen eenduidig Moneybird-contact" });
+        continue;
+      }
+      const regel = hostingRegel(periodDate, klant.billing_cycle);
+      const factuur = (await moneybird("sales_invoices.json", {
+        method: "POST",
+        body: {
+          sales_invoice: {
+            contact_id: gevonden.contact.id,
+            reference: regel.omschrijving,
+            // De hostingbedragen in het portaal zijn exclusief btw.
+            prices_are_incl_tax: false,
+            details_attributes: [
+              {
+                description: regel.omschrijving,
+                amount: "1",
+                price: (klant.billing_amount_cents / 100).toFixed(2),
+                period: regel.periode,
+              },
+            ],
+          },
+        },
+      })) as { id: string };
+      const url = `https://moneybird.com/${ADMINISTRATIE}/sales_invoices/${factuur.id}`;
+      const { error } = await admin.from("invoiced_periods").upsert(
+        { client_id: klant.id, period_date: periodDate, invoiced_by: userId, note: `Moneybird-concept ${factuur.id}` },
+        { onConflict: "client_id,period_date" },
+      );
+      if (error) console.error("termijn afvinken mislukt:", error.message);
+      if (klant.moneybird_contact_id !== gevonden.contact.id) {
+        await admin.from("clients").update({ moneybird_contact_id: gevonden.contact.id }).eq("id", klant.id);
+      }
+      gemaakt.push({ naam: klant.name, url });
+    }
+    return { ok: true, gemaakt, overgeslagen };
+  }
+
   if (actie === "klant") {
     const klant = await portaalKlant(body.clientId);
     const gevonden = await zoekContact(klant);
@@ -530,7 +634,7 @@ serve(async (req: Request): Promise<Response> => {
     const body = ((await req.json().catch(() => ({}))) ?? {}) as Record<string, unknown>;
     if (typeof body.actie === "string") {
       try {
-        return antwoord(await voerUit(body.actie, body));
+        return antwoord(await voerUit(body.actie, body, gebruiker.user.id));
       } catch (fout) {
         if (fout instanceof Melding) return antwoord({ error: fout.message }, fout.status);
         throw fout;
@@ -563,7 +667,11 @@ serve(async (req: Request): Promise<Response> => {
       });
     })();
 
-    const [winstVerlies, bank, facturen, crediteuren, btw] = await Promise.all([
+    const dagCode = (d: Date) => d.toISOString().slice(0, 10).replaceAll("-", "");
+    const jaarTerug = new Date(Date.UTC(nu.getUTCFullYear() - 1, nu.getUTCMonth(), nu.getUTCDate() + 1));
+    const veertienDagenTerug = new Date(nu.getTime() - 14 * 86400000);
+
+    const [winstVerlies, bank, facturen, crediteuren, btw, uitgaven, betalingen, offertes] = await Promise.all([
       onderdeel(async () => {
         const r = (await moneybird(`reports/profit_loss.json?period=${periode}&granularity=month`)) as {
           periods?: Record<string, unknown>[];
@@ -638,6 +746,115 @@ serve(async (req: Request): Promise<Response> => {
           }),
         ),
       ),
+      // Uitgaven van het laatste jaar: inkoopfacturen en bonnetjes, per
+      // leverancier en per categorie, plus de meest recente.
+      onderdeel(async () => {
+        type Document = {
+          id: string;
+          contact?: MoneybirdContact | null;
+          date: string | null;
+          state: string;
+          reference?: string | null;
+          total_price_excl_tax: unknown;
+          total_price_incl_tax: unknown;
+          details?: { ledger_account_id?: string | null; total_price_excl_tax_with_discount?: unknown; price?: unknown; amount?: unknown }[];
+        };
+        const filter = encodeURIComponent(`period:${dagCode(jaarTerug)}..${dagCode(nu)}`);
+        const [inkoop, bonnetjes, grootboek] = await Promise.all([
+          allePaginas<Document>(`documents/purchase_invoices.json?filter=${filter}`),
+          allePaginas<Document>(`documents/receipts.json?filter=${filter}`),
+          moneybird("ledger_accounts.json") as Promise<{ id: string; name: string }[]>,
+        ]);
+        const categorieNaam = new Map(grootboek.map((g) => [g.id, g.name]));
+        // Alleen wat echt geboekt is; nieuwe, nog niet verwerkte documenten tellen niet mee.
+        const docs = [
+          ...inkoop.map((d) => ({ ...d, soort: "Inkoopfactuur" })),
+          ...bonnetjes.map((d) => ({ ...d, soort: "Bonnetje" })),
+        ].filter((d) => d.state !== "new");
+
+        const perLeverancier = new Map<string, { naam: string; bedrag: number; aantal: number }>();
+        const perCategorie = new Map<string, { naam: string; bedrag: number }>();
+        for (const d of docs) {
+          const naam = d.contact ? contactNaam(d.contact) : "Zonder leverancier";
+          const l = perLeverancier.get(naam) ?? { naam, bedrag: 0, aantal: 0 };
+          l.bedrag += getal(d.total_price_excl_tax);
+          l.aantal += 1;
+          perLeverancier.set(naam, l);
+          for (const r of d.details ?? []) {
+            const cat = (r.ledger_account_id && categorieNaam.get(r.ledger_account_id)) || "Zonder categorie";
+            const c = perCategorie.get(cat) ?? { naam: cat, bedrag: 0 };
+            c.bedrag += getal(r.total_price_excl_tax_with_discount ?? getal(r.price) * (getal(r.amount) || 1));
+            perCategorie.set(cat, c);
+          }
+        }
+        const groot = <T extends { bedrag: number }>(m: Map<string, T>) => [...m.values()].sort((a, b) => b.bedrag - a.bedrag);
+        return {
+          totaal: docs.reduce((som, d) => som + getal(d.total_price_excl_tax), 0),
+          nogTeVerwerken: [...inkoop, ...bonnetjes].filter((d) => d.state === "new").length,
+          perLeverancier: groot(perLeverancier).slice(0, 8),
+          perCategorie: groot(perCategorie).slice(0, 8),
+          recent: [...docs]
+            .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""))
+            .slice(0, 8)
+            .map((d) => ({
+              id: d.id,
+              soort: d.soort,
+              leverancier: d.contact ? contactNaam(d.contact) : "Zonder leverancier",
+              omschrijving: d.reference || null,
+              datum: d.date,
+              bedrag: getal(d.total_price_incl_tax),
+              status: d.state,
+              url: `https://moneybird.com/${ADMINISTRATIE}/documents/${d.id}`,
+            })),
+        };
+      }),
+      // Betalingen van de laatste twee weken, voor de meldingen in het portaal.
+      onderdeel(async () => {
+        const filter = encodeURIComponent(`state:paid,updated_after:${veertienDagenTerug.toISOString()}`);
+        const r = (await moneybird(`sales_invoices.json?per_page=100&filter=${filter}`)) as (MoneybirdFactuur & {
+          paid_at: string | null;
+        })[];
+        return r
+          .filter((f) => f.paid_at && new Date(f.paid_at) >= veertienDagenTerug && getal(f.total_price_incl_tax) > 0)
+          .sort((a, b) => (b.paid_at ?? "").localeCompare(a.paid_at ?? ""))
+          .map((f) => ({
+            id: f.id,
+            nummer: f.invoice_id,
+            klant: klantNaam(f),
+            bedrag: getal(f.total_price_incl_tax),
+            betaaldOp: f.paid_at,
+            url: `https://moneybird.com/${ADMINISTRATIE}/sales_invoices/${f.id}`,
+          }));
+      }),
+      // Offertes die uitstaan of geaccepteerd zijn en nog gefactureerd moeten worden.
+      onderdeel(async () => {
+        const filter = encodeURIComponent(`state:open|late|accepted,period:${dagCode(jaarTerug)}..${dagCode(nu)}`);
+        const r = (await moneybird(`estimates.json?per_page=100&filter=${filter}`)) as {
+          id: string;
+          estimate_id: string | null;
+          state: string;
+          estimate_date: string | null;
+          due_date: string | null;
+          sent_at: string | null;
+          accepted_at: string | null;
+          total_price_excl_tax: unknown;
+          contact?: MoneybirdContact | null;
+        }[];
+        return r
+          .map((o) => ({
+            id: o.id,
+            nummer: o.estimate_id,
+            klant: o.contact ? contactNaam(o.contact) : "Onbekende klant",
+            status: o.state,
+            datum: o.estimate_date,
+            vervaldatum: o.due_date,
+            verstuurd: o.sent_at,
+            geaccepteerd: o.accepted_at,
+            bedrag: getal(o.total_price_excl_tax),
+            url: `https://moneybird.com/${ADMINISTRATIE}/estimates/${o.id}`,
+          }))
+          .sort((a, b) => (a.datum ?? "").localeCompare(b.datum ?? ""));
+      }),
     ]);
 
     return antwoord({
@@ -649,6 +866,9 @@ serve(async (req: Request): Promise<Response> => {
       facturen,
       crediteuren,
       btw,
+      uitgaven,
+      betalingen,
+      offertes,
     });
   } catch (fout) {
     console.error("moneybird-financien:", fout);

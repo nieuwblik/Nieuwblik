@@ -5,7 +5,9 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TOON, type Toon } from "@/admin/constants";
 import { useClients, useProjects } from "@/admin/queries";
+import { heeftData, OFFERTE_WACHTTIJD, offerteWachtDagen, useFinancien } from "@/admin/financien";
 import { useTeFactureren } from "@/admin/stats";
+import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
 /** Fases waarin een project gebouwd wordt; daar hoort een opleverdatum bij. */
 const IN_PRODUCTIE = ["in_ontwerp", "in_bouw", "review"];
@@ -28,9 +30,45 @@ const Meldingen = () => {
   const { data: clients = [] } = useClients();
   const { data: projects = [] } = useProjects();
   const facturen = useTeFactureren();
+  const { data: financien } = useFinancien();
+  const { bedrag } = useBedragenVerborgen();
 
   const meldingen = useMemo<Melding[]>(() => {
     const lijst: Melding[] = [];
+    // Betalingen van de laatste drie dagen: goed nieuws mag ook in beeld.
+    if (financien && "bijgewerkt" in financien && financien.betalingen && heeftData(financien.betalingen)) {
+      const grens = Date.now() - 3 * 86400000;
+      const recent = financien.betalingen.data.filter((b) => b.betaaldOp && new Date(b.betaaldOp).getTime() >= grens);
+      if (recent.length === 1) {
+        lijst.push({
+          key: "betaald",
+          toon: "success",
+          tekst: `${recent[0]!.klant} heeft ${bedrag(recent[0]!.bedrag)} betaald`,
+          actie: "Financiën",
+          to: "/admin/financien",
+        });
+      } else if (recent.length > 1) {
+        lijst.push({
+          key: "betaald",
+          toon: "success",
+          tekst: `${recent.length} betalingen binnen, samen ${bedrag(recent.reduce((som, b) => som + b.bedrag, 0))}`,
+          actie: "Financiën",
+          to: "/admin/financien",
+        });
+      }
+    }
+    if (financien && "bijgewerkt" in financien && financien.offertes && heeftData(financien.offertes)) {
+      const wachten = financien.offertes.data.filter((o) => offerteWachtDagen(o) >= OFFERTE_WACHTTIJD).length;
+      if (wachten > 0) {
+        lijst.push({
+          key: "offertes",
+          toon: "warning",
+          tekst: `${wachten} ${wachten === 1 ? "offerte wacht" : "offertes wachten"} al ${OFFERTE_WACHTTIJD} dagen of langer op antwoord`,
+          actie: "Bekijken",
+          to: "/admin/financien",
+        });
+      }
+    }
     if (facturen.achterstallig.length > 0) {
       const n = facturen.achterstallig.length;
       lijst.push({
@@ -71,7 +109,7 @@ const Meldingen = () => {
       });
     }
     return lijst;
-  }, [clients, projects, facturen]);
+  }, [clients, projects, facturen, financien, bedrag]);
 
   if (meldingen.length === 0) return null;
 

@@ -11,6 +11,7 @@ import { TOON } from "@/admin/constants";
 import { daysUntil } from "@/admin/format";
 import { heeftData, isTeLaatFactuur, useFinancien, type MaandCijfers } from "@/admin/financien";
 import { useOpenFacturen } from "@/admin/useOpenFacturen";
+import { BetalingenPanel, OffertesPanel, OuderdomPanel, UitgavenPanel } from "@/admin/components/FinancienPanelen";
 import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
@@ -411,6 +412,17 @@ const Financien = () => {
           </Panel>
         </div>
       </div>
+
+      {heeftData(data.facturen) && (
+        <div className="grid gap-4 lg:grid-cols-2">
+          <OuderdomPanel facturen={facturen} />
+          {data.betalingen && <BetalingenPanel betalingen={data.betalingen} />}
+        </div>
+      )}
+
+      {data.uitgaven && <UitgavenPanel uitgaven={data.uitgaven} moneybirdUrl={data.moneybirdUrl} />}
+
+      {data.offertes && <OffertesPanel offertes={data.offertes} />}
 
       <p className="text-[13px] text-muted-foreground">
         Boeken, de bankkoppeling en de btw-aangifte doe je in Moneybird; hier zie je de stand en handel je openstaande
