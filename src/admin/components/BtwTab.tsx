@@ -4,6 +4,7 @@ import { nl } from "date-fns/locale";
 import { Info, Percent, Receipt } from "lucide-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import BankKwartaal from "@/admin/components/BankKwartaal";
 import { cn } from "@/lib/utils";
 import { TOON, type Toon } from "@/admin/constants";
 import { daysUntil } from "@/admin/format";
@@ -403,6 +404,12 @@ const BtwTab = ({
                 </span>
               </p>
             )}
+
+        <BankKwartaal
+          jaar={q.jaar}
+          kwartaal={q.kwartaal}
+          moneybirdUrl={moneybirdUrl}
+        />
 
         <p className="text-[13px] text-muted-foreground">
           Bedragen volgens wat er in Moneybird is geboekt. De aangifte zelf doe

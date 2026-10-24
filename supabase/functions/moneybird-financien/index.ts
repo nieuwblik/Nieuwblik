@@ -34,6 +34,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   weggegooid (factuurId);
  * - "btw-overzicht": btw per kwartaal met de rubrieken, dit jaar en vorig jaar;
  * - "omzet-historie": omzet, kosten en winst per kwartaal, vier jaar terug;
+ * - "bank-zonder-bon": afschrijvingen van één kwartaal, verdeeld in met bon,
+ *   zonder bon, niet verwerkt en geen kosten (jaar, kwartaal);
  * - "hosting-factureren": hostingtermijnen als conceptfactuur (items met
  *   clientId en periodDate, eventueel contactId); de termijn wordt daarna in
  *   het portaal als gefactureerd afgevinkt.
@@ -316,7 +318,105 @@ function jaarPeriode(jaar: number, nu: Date) {
 const isVoorbelasting = (t: { report_reference?: string; type?: string }) =>
   t.report_reference ? /^NL\/5/i.test(t.report_reference) : t.type !== "sales_invoice";
 
+/** Boekingen die geen kosten zijn: privé, belastingen, overboekingen tussen eigen rekeningen. */
+const GEEN_KOSTEN = /priv|btw|belasting|loonheffing|kruispost|overboek|onderling|vennoot|lening|rekening.courant|aflossing/i;
+
+type Mutatie = {
+  id: string;
+  amount: unknown;
+  date: string;
+  message: string | null;
+  contra_account_name: string | null;
+  state: string;
+  payments?: unknown[] | null;
+  ledger_account_bookings?: { ledger_account_id?: string | null; price?: unknown; price_base?: unknown }[] | null;
+};
+
+/**
+ * Banktransacties van één periode. Moneybird geeft er hooguit 100 per
+ * verzoek en kent geen pagina's; bij een volle lijst wordt de periode
+ * gehalveerd tot alles binnen is.
+ */
+async function mutaties(van: Date, tot: Date): Promise<Mutatie[]> {
+  const code = (d: Date) => d.toISOString().slice(0, 10).replaceAll("-", "");
+  const filter = encodeURIComponent(`period:${code(van)}..${code(tot)}`);
+  const lijst = (await moneybird(`financial_mutations.json?filter=${filter}`)) as Mutatie[];
+  const dagen = Math.round((tot.getTime() - van.getTime()) / 86400000);
+  if (lijst.length < 100 || dagen < 1) return lijst;
+  const midden = new Date(van.getTime() + Math.floor(dagen / 2) * 86400000);
+  const [a, b] = await Promise.all([mutaties(van, midden), mutaties(new Date(midden.getTime() + 86400000), tot)]);
+  return [...a, ...b];
+}
+
 async function voerUit(actie: string, body: Record<string, unknown>, userId: string): Promise<unknown> {
+  if (actie === "bank-zonder-bon") {
+    const jaar = Number(body.jaar);
+    const kwartaal = Number(body.kwartaal);
+    if (!Number.isInteger(jaar) || jaar < 2000 || ![1, 2, 3, 4].includes(kwartaal)) throw new Melding("Onbekend kwartaal.");
+    // Per maand ophalen: zo blijft elke vraag ruim onder de 100 transacties.
+    const maanden = [0, 1, 2].map((i) => {
+      const m = (kwartaal - 1) * 3 + i;
+      return [new Date(Date.UTC(jaar, m, 1)), new Date(Date.UTC(jaar, m + 1, 0))] as const;
+    });
+    const [perMaand, grootboek] = await Promise.all([
+      Promise.all(maanden.map(([van, tot]) => mutaties(van, tot))),
+      moneybird("ledger_accounts.json") as Promise<{ id: string; name: string }[]>,
+    ]);
+    const categorie = new Map(grootboek.map((g) => [g.id, g.name]));
+
+    type Soort = "met-bon" | "zonder-bon" | "niet-verwerkt" | "geen-kosten";
+    // Alleen afschrijvingen: geld dat van de rekening af ging.
+    const regels = perMaand.flat().filter((m) => getal(m.amount) < 0).map((m) => {
+      const bedrag = Math.abs(getal(m.amount));
+      const boekingen = m.ledger_account_bookings ?? [];
+      const naam = boekingen.map((b) => (b.ledger_account_id && categorie.get(b.ledger_account_id)) || "").find(Boolean) ?? null;
+      let soort: Soort;
+      if ((m.payments ?? []).length > 0) soort = "met-bon";
+      else if (m.state === "unprocessed" || boekingen.length === 0) soort = "niet-verwerkt";
+      else if (naam && GEEN_KOSTEN.test(naam)) soort = "geen-kosten";
+      else soort = "zonder-bon";
+      return {
+        id: m.id,
+        datum: m.date,
+        bedrag,
+        tegenpartij: m.contra_account_name?.trim() || "Onbekende tegenpartij",
+        omschrijving: m.message?.trim() || null,
+        categorie: naam,
+        soort,
+      };
+    });
+
+    const som = (s: Soort) => regels.filter((r) => r.soort === s);
+    const totaal = (lijst: typeof regels) => lijst.reduce((t, r) => t + r.bedrag, 0);
+
+    // Wat aandacht nodig heeft, per tegenpartij: één regel per leverancier
+    // met de losse afschrijvingen eronder.
+    const groepen = new Map<string, { naam: string; bedrag: number; aantal: number; soorten: Soort[]; transacties: typeof regels }>();
+    for (const r of regels.filter((r) => r.soort === "zonder-bon" || r.soort === "niet-verwerkt" || r.soort === "geen-kosten")) {
+      const sleutel = `${r.soort === "geen-kosten" ? "geen|" : ""}${r.tegenpartij.toLowerCase()}`;
+      const g = groepen.get(sleutel) ?? { naam: r.tegenpartij, bedrag: 0, aantal: 0, soorten: [], transacties: [] };
+      g.bedrag += r.bedrag;
+      g.aantal += 1;
+      if (!g.soorten.includes(r.soort)) g.soorten.push(r.soort);
+      g.transacties.push(r);
+      groepen.set(sleutel, g);
+    }
+    const lijst = [...groepen.values()]
+      .map((g) => ({ ...g, transacties: g.transacties.sort((a, b) => a.datum.localeCompare(b.datum)) }))
+      .sort((a, b) => b.bedrag - a.bedrag);
+
+    return {
+      ok: true,
+      afgeschreven: { bedrag: totaal(regels), aantal: regels.length },
+      metBon: { bedrag: totaal(som("met-bon")), aantal: som("met-bon").length },
+      zonderBon: { bedrag: totaal(som("zonder-bon")), aantal: som("zonder-bon").length },
+      nietVerwerkt: { bedrag: totaal(som("niet-verwerkt")), aantal: som("niet-verwerkt").length },
+      geenKosten: { bedrag: totaal(som("geen-kosten")), aantal: som("geen-kosten").length },
+      teControleren: lijst.filter((g) => !g.soorten.every((s) => s === "geen-kosten")),
+      geenKostenLijst: lijst.filter((g) => g.soorten.every((s) => s === "geen-kosten")),
+    };
+  }
+
   if (actie === "btw-overzicht") {
     // Dit jaar en vorig jaar, per kwartaal, met de rubrieken van de aangifte.
     const nu = new Date();

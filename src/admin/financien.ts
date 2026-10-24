@@ -334,6 +334,49 @@ export function useOmzetHistorie(actief: boolean) {
   });
 }
 
+export type BankSoort = "met-bon" | "zonder-bon" | "niet-verwerkt" | "geen-kosten";
+
+export interface BankTransactie {
+  id: string;
+  datum: string;
+  bedrag: number;
+  tegenpartij: string;
+  omschrijving: string | null;
+  /** De grootboekrekening waarop hij geboekt is, als dat al gebeurd is. */
+  categorie: string | null;
+  soort: BankSoort;
+}
+
+export interface BankGroep {
+  naam: string;
+  bedrag: number;
+  aantal: number;
+  soorten: BankSoort[];
+  transacties: BankTransactie[];
+}
+
+export interface BankKwartaal {
+  afgeschreven: { bedrag: number; aantal: number };
+  metBon: { bedrag: number; aantal: number };
+  zonderBon: { bedrag: number; aantal: number };
+  nietVerwerkt: { bedrag: number; aantal: number };
+  geenKosten: { bedrag: number; aantal: number };
+  /** Zonder bon of niet verwerkt, per tegenpartij, grootste eerst. */
+  teControleren: BankGroep[];
+  /** Privé, belastingen en overboekingen: geen kosten, dus ook geen bon nodig. */
+  geenKostenLijst: BankGroep[];
+}
+
+/** Afschrijvingen van één kwartaal en of er een bon bij zit. */
+export function useBankKwartaal(jaar: number, kwartaal: number) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "bank", jaar, kwartaal],
+    staleTime: 10 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<BankKwartaal & { ok: true }>({ actie: "bank-zonder-bon", jaar, kwartaal }),
+  });
+}
+
 export type HostingResultaat =
   | { ok: true; gemaakt: { naam: string; url: string }[]; overgeslagen: { naam: string; reden: string }[] }
   | { ok: false; kiesContact: MoneybirdContact[] };
