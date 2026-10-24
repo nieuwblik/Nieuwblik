@@ -312,32 +312,76 @@ const BtwTab = ({
                 )}
               >
                 <Info className="mt-0.5 h-4 w-4 shrink-0" />
-                <p>
-                  <span className="font-medium">
-                    {q.nietVerwerkt.aantal}{" "}
-                    {q.nietVerwerkt.aantal === 1 ? "document" : "documenten"}{" "}
-                    uit {q.label} nog niet verwerkt.
-                  </span>{" "}
-                  {q.nietVerwerkt.btw > 0 && (
-                    <>
-                      Daarop staat ongeveer {bedrag(q.nietVerwerkt.btw)} btw die
-                      nog niet als voorbelasting meetelt. Verwerk je ze, dan
-                      valt het af te dragen bedrag rond{" "}
-                      {bedrag(Math.max(0, q.afdragen - q.nietVerwerkt.btw))}{" "}
-                      uit.{" "}
-                    </>
+                <div className="min-w-0 flex-1">
+                  <p>
+                    <span className="font-medium">
+                      {q.nietVerwerkt.aantal}{" "}
+                      {q.nietVerwerkt.aantal === 1 ? "document" : "documenten"}{" "}
+                      uit {q.label} nog niet verwerkt.
+                    </span>{" "}
+                    {q.nietVerwerkt.btw > 0 && (
+                      <>
+                        Daarop staat ongeveer {bedrag(q.nietVerwerkt.btw)}{" "}
+                        Nederlandse btw die nog niet als voorbelasting meetelt.{" "}
+                        {q.afdragen - q.nietVerwerkt.btw >= 0
+                          ? `Verwerk je ze, dan valt het af te dragen bedrag rond ${bedrag(q.afdragen - q.nietVerwerkt.btw)} uit. `
+                          : `Verwerk je ze, dan krijg je over dit kwartaal rond ${bedrag(q.nietVerwerkt.btw - q.afdragen)} terug. `}
+                      </>
+                    )}
+                    {(q.nietVerwerkt.buitenland ?? 0) > 0 &&
+                      `${q.nietVerwerkt.buitenland} ${q.nietVerwerkt.buitenland === 1 ? "is een buitenlandse bon" : "zijn buitenlandse bonnen"}; die buitenlandse btw vraag je niet terug via deze aangifte en telt hier niet mee. `}
+                    {q.nietVerwerkt.zonderBedrag > 0 &&
+                      `${q.nietVerwerkt.zonderBedrag} ${q.nietVerwerkt.zonderBedrag === 1 ? "is" : "zijn"} nog niet uitgelezen, dus daar staat nog geen bedrag bij. `}
+                    <a
+                      href={`${moneybirdUrl}/documents`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium underline"
+                    >
+                      Verwerken in Moneybird
+                    </a>
+                  </p>
+                  {(q.nietVerwerkt.documenten?.length ?? 0) > 0 && (
+                    <details className="group mt-2">
+                      <summary className="cursor-pointer select-none font-medium">
+                        Welke documenten
+                      </summary>
+                      <ul className="mt-2 divide-y divide-current/10">
+                        {q.nietVerwerkt.documenten!.map((d) => (
+                          <li key={d.id}>
+                            <a
+                              href={d.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-baseline gap-3 py-1.5 hover:underline"
+                            >
+                              <span className="w-14 shrink-0 tabular-nums opacity-80">
+                                {format(parseISO(d.datum), "d MMM", {
+                                  locale: nl,
+                                }).replace(".", "")}
+                              </span>
+                              <span className="min-w-0 flex-1 truncate">
+                                {d.leverancier}
+                              </span>
+                              <span className="shrink-0 tabular-nums">
+                                {d.valuta
+                                  ? `${d.valuta} ${d.bedrag.toLocaleString("nl-NL", { maximumFractionDigits: 2 })}`
+                                  : bedrag(d.bedrag)}
+                              </span>
+                              <span className="w-24 shrink-0 text-right tabular-nums opacity-80">
+                                {d.valuta
+                                  ? "buitenland"
+                                  : d.btw > 0
+                                    ? `btw ${bedrag(d.btw)}`
+                                    : "geen btw"}
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
                   )}
-                  {q.nietVerwerkt.zonderBedrag > 0 &&
-                    `${q.nietVerwerkt.zonderBedrag} ${q.nietVerwerkt.zonderBedrag === 1 ? "is" : "zijn"} nog niet uitgelezen, dus daar staat nog geen bedrag bij. `}
-                  <a
-                    href={`${moneybirdUrl}/documents`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium underline"
-                  >
-                    Verwerken in Moneybird
-                  </a>
-                </p>
+                </div>
               </div>
             )
           : nogTeVerwerken > 0 && (

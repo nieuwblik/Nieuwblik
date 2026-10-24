@@ -379,11 +379,22 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
     // er zijn en hoeveel btw erop staat, voor zover Moneybird ze al heeft
     // uitgelezen.
     type Inbox = {
+      id: string;
       date: string | null;
+      currency?: string | null;
+      reference?: string | null;
+      contact?: MoneybirdContact | null;
       total_price_excl_tax?: unknown;
       total_price_excl_tax_base?: unknown;
       total_price_incl_tax?: unknown;
       total_price_incl_tax_base?: unknown;
+    };
+    type Teller = {
+      aantal: number;
+      btw: number;
+      zonderBedrag: number;
+      buitenland: number;
+      documenten: { id: string; leverancier: string; datum: string; bedrag: number; btw: number; valuta: string | null; url: string }[];
     };
     const filter = encodeURIComponent(`period:${jaren[1]}0101..${jaren[0]}1231,state:new`);
     const inbox = (
@@ -392,22 +403,42 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
         allePaginas<Inbox>(`documents/receipts.json?filter=${filter}`),
       ]).catch(() => [[], []] as Inbox[][])
     ).flat();
-    const nietVerwerkt = new Map<string, { aantal: number; btw: number; zonderBedrag: number }>();
+    const leeg = (): Teller => ({ aantal: 0, btw: 0, zonderBedrag: 0, buitenland: 0, documenten: [] });
+    const nietVerwerkt = new Map<string, Teller>();
     for (const d of inbox) {
       if (!d.date) continue;
       const label = kwartaalUit(`${d.date.slice(0, 4)}${d.date.slice(5, 7)}`).label;
-      const n = nietVerwerkt.get(label) ?? { aantal: 0, btw: 0, zonderBedrag: 0 };
+      const n = nietVerwerkt.get(label) ?? leeg();
+      // Een bon in een andere valuta is nog niet omgerekend zolang hij niet
+      // verwerkt is, en buitenlandse btw vraag je niet terug via de Nederlandse
+      // aangifte. Die tellen niet mee in de schatting, wel in het aantal.
+      const valuta = d.currency && d.currency !== "EUR" ? d.currency : null;
       const incl = getal(d.total_price_incl_tax_base ?? d.total_price_incl_tax);
       const excl = getal(d.total_price_excl_tax_base ?? d.total_price_excl_tax);
+      const btw = valuta ? 0 : Math.max(0, incl - excl);
       n.aantal += 1;
-      if (incl === 0) n.zonderBedrag += 1;
-      else n.btw += Math.max(0, incl - excl);
+      if (valuta) n.buitenland += 1;
+      else if (incl === 0) n.zonderBedrag += 1;
+      else n.btw += btw;
+      n.documenten.push({
+        id: d.id,
+        leverancier: d.contact ? contactNaam(d.contact) : d.reference || "Nog niet uitgelezen",
+        datum: d.date,
+        bedrag: getal(d.total_price_incl_tax),
+        btw,
+        valuta,
+        url: `https://moneybird.com/${ADMINISTRATIE}/documents/${d.id}`,
+      });
       nietVerwerkt.set(label, n);
+    }
+    // Per kwartaal de documenten met de meeste btw eerst, hooguit twintig.
+    for (const n of nietVerwerkt.values()) {
+      n.documenten = n.documenten.sort((a, b) => b.btw - a.btw || b.bedrag - a.bedrag).slice(0, 20);
     }
 
     return {
       ok: true,
-      kwartalen: kwartalen.map((q) => ({ ...q, nietVerwerkt: nietVerwerkt.get(q.label) ?? { aantal: 0, btw: 0, zonderBedrag: 0 } })),
+      kwartalen: kwartalen.map((q) => ({ ...q, nietVerwerkt: nietVerwerkt.get(q.label) ?? leeg() })),
       // Inboxdocumenten zonder datum vallen in geen enkel kwartaal.
       nietVerwerktZonderDatum: inbox.filter((d) => !d.date).length,
     };

@@ -282,7 +282,25 @@ export interface BtwKwartaalDetail extends BtwKwartaal {
    * Documenten uit dit kwartaal die nog in de inbox van Moneybird staan, met
    * de btw erop (voor zover al uitgelezen). Ontbreekt bij een oudere functie.
    */
-  nietVerwerkt?: { aantal: number; btw: number; zonderBedrag: number };
+  nietVerwerkt?: {
+    aantal: number;
+    /** Geschatte Nederlandse btw op de uitgelezen documenten. */
+    btw: number;
+    zonderBedrag: number;
+    /** Bonnen in een andere valuta; tellen niet mee in de schatting. */
+    buitenland?: number;
+    /** De documenten zelf, meeste btw eerst (hooguit twintig). */
+    documenten?: {
+      id: string;
+      leverancier: string;
+      datum: string;
+      /** In de valuta van de bon. */
+      bedrag: number;
+      btw: number;
+      valuta: string | null;
+      url: string;
+    }[];
+  };
 }
 
 /** Btw per kwartaal met de rubrieken, dit jaar en vorig jaar. Pas opgehaald als het tabblad open is. */
