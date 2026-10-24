@@ -17,7 +17,7 @@ import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
  * rij nullen maar wat je moet doen om hem te vullen: een kaart vol "€ 0"
  * zegt niets en ziet eruit alsof er iets stuk is.
  */
-const HostingKaart = () => {
+const HostingKaart = ({ className }: { className?: string }) => {
   const facturen = useTeFactureren();
   const { data: clients = [] } = useClients();
 
@@ -33,7 +33,7 @@ const HostingKaart = () => {
   );
 
   return (
-    <Panel className="md:col-span-6 xl:col-span-4">
+    <Panel className={className} footer={<PanelFooter to="/admin/hosting">Bekijk hosting</PanelFooter>}>
       <PanelHeader icon={Receipt} titel="Hosting" subtitel="Te factureren tot en met deze maand" />
       <PanelBody>
         {facturen.isLoading ? (
@@ -82,7 +82,6 @@ const HostingKaart = () => {
           </div>
         )}
       </PanelBody>
-      <PanelFooter to="/admin/hosting">Hosting</PanelFooter>
     </Panel>
   );
 };

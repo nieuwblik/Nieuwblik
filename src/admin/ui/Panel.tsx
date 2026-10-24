@@ -6,26 +6,40 @@ import { cn } from "@/lib/utils";
 
 /**
  * De kaart van het portaal: icoon in een afgerond vak, titel en subtitel,
- * rechtsboven ruimte voor een filter, daaronder de inhoud en onderaan een
- * doorklik. Elke kaart op het dashboard en de pagina's volgt deze opbouw,
- * zodat je overal op dezelfde plek kijkt voor dezelfde soort informatie.
+ * rechtsboven ruimte voor een filter, onder een scheidingslijn de inhoud.
  *
- * Geen schaduw: het grijze paginavlak en een dunne rand scheiden genoeg.
- * Schaduw is voor wat over de pagina heen ligt (popovers, dialogen).
+ * Met een voetregel krijgt de kaart een grijze lijst om zich heen en staat de
+ * doorklik daarin, onder de witte kaart. Dat is de opbouw van de
+ * dashboardkaarten; volle pagina's (een takenlijst) hebben geen voet en
+ * blijven één wit vlak met een rand.
+ *
+ * Geen schaduw op de kaart zelf: rand en lijst scheiden genoeg. Schaduw is
+ * voor wat over de pagina heen ligt (popovers, dialogen).
  */
 export const Panel = ({
   className,
   children,
+  footer,
   id,
 }: {
-  className?: string;
+  className?: string | undefined;
   children: ReactNode;
+  /** Een PanelFooter; zet de grijze lijst om de kaart. */
+  footer?: ReactNode;
   id?: string;
-}) => (
-  <section id={id} className={cn("flex min-w-0 flex-col rounded-[14px] border border-border bg-card", className)}>
-    {children}
-  </section>
-);
+}) =>
+  footer ? (
+    <section id={id} className={cn("flex min-w-0 flex-col rounded-[16px] border border-border bg-muted/50 p-1", className)}>
+      <div className="flex min-w-0 flex-1 flex-col rounded-[12px] border border-border bg-card shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
+        {children}
+      </div>
+      {footer}
+    </section>
+  ) : (
+    <section id={id} className={cn("flex min-w-0 flex-col rounded-[16px] border border-border bg-card", className)}>
+      {children}
+    </section>
+  );
 
 export const PanelHeader = ({
   icon: Icon,
@@ -37,31 +51,31 @@ export const PanelHeader = ({
   icon?: ComponentType<{ className?: string }>;
   titel: ReactNode;
   subtitel?: ReactNode;
-  /** Rechtsboven: een segmented control, filter of kleine knop. */
+  /** Rechtsboven: een filter, segmented control of kleine knop. */
   actie?: ReactNode;
   className?: string;
 }) => (
-  <div className={cn("flex flex-wrap items-start gap-x-3 gap-y-2 px-5 pb-3 pt-4", className)}>
-    <div className="flex min-w-0 flex-1 items-start gap-3">
+  <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border px-4 py-3", className)}>
+    <div className="flex min-w-0 flex-1 items-center gap-3">
       {Icon && (
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border text-muted-foreground">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground">
           <Icon className="h-[18px] w-[18px]" />
         </span>
       )}
-      <div className="min-w-0 flex-1 pt-px">
+      <div className="min-w-0 flex-1">
         <h2 className="p-kaarttitel truncate">{titel}</h2>
-        {subtitel && <p className="mt-0.5 text-[13px] leading-snug text-muted-foreground">{subtitel}</p>}
+        {subtitel && <p className="truncate text-[13px] leading-snug text-muted-foreground">{subtitel}</p>}
       </div>
     </div>
-    {actie && <div className="shrink-0">{actie}</div>}
+    {actie && <div className="flex shrink-0 items-center gap-2">{actie}</div>}
   </div>
 );
 
 export const PanelBody = ({ className, children }: { className?: string; children: ReactNode }) => (
-  <div className={cn("min-w-0 flex-1 px-5 pb-5", className)}>{children}</div>
+  <div className={cn("min-w-0 flex-1 p-4", className)}>{children}</div>
 );
 
-/** Onderaan de kaart: de doorklik naar de pagina waar alles staat. */
+/** In de grijze lijst onder de kaart: de doorklik naar de pagina waar alles staat. */
 export const PanelFooter = ({
   to,
   children = "Bekijk details",
@@ -69,17 +83,15 @@ export const PanelFooter = ({
 }: {
   to: string;
   children?: ReactNode;
-  /** Links in de voet, bijvoorbeeld "3 meer". */
+  /** Achter de linktekst, bijvoorbeeld "nog 3". */
   extra?: ReactNode;
 }) => (
-  <div className="mt-auto flex items-center justify-between gap-3 border-t border-border px-5 py-3 text-[13px]">
-    <span className="text-muted-foreground">{extra}</span>
-    <Link
-      to={to}
-      className="group inline-flex items-center gap-1 font-medium text-foreground transition-colors hover:text-accent"
-    >
-      {children}
-      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
-    </Link>
-  </div>
+  <Link
+    to={to}
+    className="group flex items-center gap-2 rounded-b-[12px] px-3 pb-1.5 pt-2.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+  >
+    <span>{children}</span>
+    {extra && <span className="text-muted-foreground/70">· {extra}</span>}
+    <ArrowRight className="ml-auto h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+  </Link>
 );

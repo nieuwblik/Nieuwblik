@@ -20,7 +20,7 @@ type Wie = "ik" | "iedereen";
  * tweeën werk je door dezelfde stapel; standaard zie je je eigen deel,
  * zodat de kaart niet volloopt met wat een ander oppakt.
  */
-const MijnTakenKaart = () => {
+const MijnTakenKaart = ({ className }: { className?: string }) => {
   const { user } = useAdminAuth();
   const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
@@ -39,7 +39,17 @@ const MijnTakenKaart = () => {
   const rest = open.length - zichtbaar.length;
 
   return (
-    <Panel className="md:col-span-6 xl:col-span-7">
+    <Panel
+      className={className}
+      footer={
+        <PanelFooter
+          to={wie === "ik" ? "/admin/taken?wie=ik&status=open" : "/admin/taken?status=open"}
+          extra={rest > 0 ? `Nog ${rest} open` : undefined}
+        >
+          Bekijk alle taken
+        </PanelFooter>
+      }
+    >
       <PanelHeader
         icon={ListTodo}
         titel={wie === "ik" ? "Mijn taken" : "Alle open taken"}
@@ -76,12 +86,6 @@ const MijnTakenKaart = () => {
           }
         />
       </PanelBody>
-      <PanelFooter
-        to={wie === "ik" ? "/admin/taken?wie=ik&status=open" : "/admin/taken?status=open"}
-        extra={rest > 0 ? `Nog ${rest} open` : undefined}
-      >
-        Alle taken
-      </PanelFooter>
     </Panel>
   );
 };

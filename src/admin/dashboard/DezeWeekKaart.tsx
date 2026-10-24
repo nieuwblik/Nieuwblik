@@ -26,7 +26,7 @@ const MAX_ITEMS = 6;
  * vast bovenaan; het blijft anders op een dag in het verleden staan waar je
  * niet meer kijkt.
  */
-const DezeWeekKaart = () => {
+const DezeWeekKaart = ({ className }: { className?: string }) => {
   const { data: tasks = [] } = useTasks();
   const { data: projects = [] } = useProjects();
 
@@ -76,7 +76,14 @@ const DezeWeekKaart = () => {
   const getoond = lijst.reduce((som, d) => som + d.items.length, 0);
 
   return (
-    <Panel className="md:col-span-6 xl:col-span-5">
+    <Panel
+      className={className}
+      footer={
+        <PanelFooter to="/admin/kalender" extra={totaal > getoond ? `Nog ${totaal - getoond} deze week` : undefined}>
+          Bekijk de kalender
+        </PanelFooter>
+      }
+    >
       <PanelHeader icon={CalendarDays} titel="Deze week" subtitel="Deadlines en opleveringen" />
       <PanelBody className="space-y-4">
         {/* Weekstrook: elke dag een knop naar die dag in de kalender. */}
@@ -149,9 +156,6 @@ const DezeWeekKaart = () => {
           </div>
         )}
       </PanelBody>
-      <PanelFooter to="/admin/kalender" extra={totaal > getoond ? `Nog ${totaal - getoond} deze week` : undefined}>
-        Kalender
-      </PanelFooter>
     </Panel>
   );
 };

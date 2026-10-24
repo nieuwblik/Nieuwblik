@@ -38,7 +38,7 @@ interface Regel {
  * het werk dat over de datum is (administratie, facturen), en dat viel
  * eerder buiten dit blok.
  */
-const AandachtKaart = () => {
+const AandachtKaart = ({ className }: { className?: string }) => {
   const { rows, isLoading } = useCombinedRows();
   const { data: tasks = [] } = useTasks();
 
@@ -110,7 +110,14 @@ const AandachtKaart = () => {
   const rest = regels.length - zichtbaar.length;
 
   return (
-    <Panel className="md:col-span-6 xl:col-span-7">
+    <Panel
+      className={className}
+      footer={
+        <PanelFooter to="/admin/klanten" extra={rest > 0 ? `Nog ${rest} met open werk` : undefined}>
+          Bekijk alle klanten
+        </PanelFooter>
+      }
+    >
       <PanelHeader
         icon={AlertCircle}
         titel="Vraagt aandacht"
@@ -172,9 +179,6 @@ const AandachtKaart = () => {
           </ul>
         )}
       </PanelBody>
-      <PanelFooter to="/admin/klanten" extra={rest > 0 ? `Nog ${rest} met open werk` : undefined}>
-        Alle klanten
-      </PanelFooter>
     </Panel>
   );
 };

@@ -13,7 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
  * fases vallen weg, anders bestaat de kaart vooral uit nullen. Elke balk
  * opent de klantenlijst gefilterd op die fase.
  */
-const FaseKaart = () => {
+const FaseKaart = ({ className }: { className?: string }) => {
   const { rows, isLoading } = useCombinedRows();
 
   const { fases, lopend } = useMemo(() => {
@@ -30,7 +30,7 @@ const FaseKaart = () => {
   const hoogste = Math.max(1, ...fases.map((f) => f.aantal));
 
   return (
-    <Panel className="md:col-span-3 xl:col-span-4">
+    <Panel className={className} footer={<PanelFooter to="/admin/klanten">Bekijk alle klanten</PanelFooter>}>
       <PanelHeader icon={FolderKanban} titel="Klanten per fase" subtitel={`${lopend} met lopend werk`} />
       <PanelBody>
         {isLoading ? (
@@ -63,7 +63,6 @@ const FaseKaart = () => {
           </ul>
         )}
       </PanelBody>
-      <PanelFooter to="/admin/klanten">Alle klanten</PanelFooter>
     </Panel>
   );
 };

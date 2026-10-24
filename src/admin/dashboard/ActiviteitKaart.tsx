@@ -13,14 +13,14 @@ import StatusPill from "@/admin/ui/StatusPill";
  * fasewissel schrijft zelf een mijlpaal weg, dus ook "UVTEQ is live" komt
  * hier langs zonder dat iemand het hoeft te typen.
  */
-const ActiviteitKaart = () => {
+const ActiviteitKaart = ({ className }: { className?: string }) => {
   const { data: updates = [], isLoading } = useRecentUpdates(8);
   const { data: team = [] } = useTeam();
 
   const auteur = (id: string | null) => (id ? (team.find((m) => m.user_id === id)?.name ?? null) : null);
 
   return (
-    <Panel className="md:col-span-6 xl:col-span-8">
+    <Panel className={className}>
       <PanelHeader icon={History} titel="Recente activiteit" subtitel="Updates en mijlpalen over alle projecten" />
       <PanelBody className="px-2 pb-2">
         {isLoading ? (

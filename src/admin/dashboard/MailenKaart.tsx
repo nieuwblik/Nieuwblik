@@ -15,7 +15,7 @@ import StatusPill from "@/admin/ui/StatusPill";
  * e-mailadres krijgen niets, dus dat getal staat hier zichtbaar, met een
  * link naar precies die klanten.
  */
-const MailenKaart = () => {
+const MailenKaart = ({ className }: { className?: string }) => {
   const { data: mailings = [], isLoading, isError } = useMailings(1);
   const { data: clients = [] } = useClients();
 
@@ -30,7 +30,7 @@ const MailenKaart = () => {
   const laatste = mailings[0];
 
   return (
-    <Panel className="md:col-span-6 xl:col-span-5">
+    <Panel className={className} footer={<PanelFooter to="/admin/mailen">Bekijk mailingen</PanelFooter>}>
       <PanelHeader icon={Mail} titel="Mailen" subtitel="Laatste mailing aan je klanten" />
       <PanelBody className="space-y-3">
         {isLoading ? (
@@ -73,7 +73,6 @@ const MailenKaart = () => {
           )}
         </ul>
       </PanelBody>
-      <PanelFooter to="/admin/mailen">Mailen</PanelFooter>
     </Panel>
   );
 };

@@ -76,8 +76,7 @@
   --color-rail-border: hsl(var(--rail-border));
   --color-rail-accent: hsl(var(--rail-accent));
 
-  /* Portaal: paginavlak en statuskleuren (zie de uitleg bij --s-danger). */
-  --color-canvas: hsl(var(--canvas));
+  /* Portaal: statuskleuren (zie de uitleg bij --s-danger). */
   --color-danger: hsl(var(--s-danger));
   --color-danger-ink: hsl(var(--s-danger-ink));
   --color-warning: hsl(var(--s-warning));
@@ -422,37 +421,36 @@
   --sw-green-bright: 160 84% 30%;
   --sw-rule: 160 12% 8%;              /* used with low alpha for hairlines */
 
-  /* Zijbalk en bovenbalk van het portaal. Gebouwd op --sw-ink en --sw-paper,
-     zodat de beheeromgeving hetzelfde groen-getinte zwart en dezelfde warme
-     off-white gebruikt als de publieke site. Lichte modus; donker in .dark. */
-  --rail: 150 14% 97.5%;
-  --rail-panel: 150 10% 93%;          /* verdiept vlak binnen de balk */
+  /* De schil van het portaal: een grijs vlak met de zijbalk, waarop de
+     pagina als één wit vlak ligt. Groen getint, net als --sw-ink en
+     --sw-paper op de publieke site. Lichte modus; donker in .dark. */
+  --rail: 150 8% 95%;
+  --rail-panel: 150 8% 91%;           /* verdiept vlak binnen de balk */
   --rail-fg: 160 14% 7%;
   --rail-muted: 160 6% 36%;
-  --rail-hover: 150 10% 94%;
-  --rail-active: 150 12% 90%;
-  --rail-border: 150 8% 87%;
+  --rail-hover: 150 8% 91.5%;
+  --rail-active: 0 0% 100%;           /* het actieve item ligt wit op het grijs */
+  --rail-border: 150 8% 88%;
   --rail-accent: 160 84% 22%;         /* donker genoeg om op wit te leven */
 }
 
 .dark {
-  --rail: 160 14% 7%;
-  --rail-panel: 160 12% 11%;
+  --rail: 160 10% 9%;
+  --rail-panel: 160 10% 13%;
   --rail-fg: 150 12% 94%;
   --rail-muted: 150 6% 58%;
-  --rail-hover: 160 11% 14%;
-  --rail-active: 160 12% 18%;
-  --rail-border: 160 10% 17%;
+  --rail-hover: 160 10% 13%;
+  --rail-active: 160 10% 15%;
+  --rail-border: 160 10% 15%;
   --rail-accent: 160 60% 55%;         /* helder genoeg om op zwart te leven */
 }
 
-/* Portaal: paginavlak en statuskleuren met een vaste betekenis.
+/* Portaal: statuskleuren met een vaste betekenis.
    danger = te laat, urgent, mislukt · warning = hoog, wacht, te factureren ·
    info = bezig, in productie · success = klaar, live, verstuurd ·
    neutral = todo, normaal, gepauzeerd. Elke kleur heeft een volle tint (stip,
    balk) en een inkt voor tekst op een lichte vulling van dezelfde kleur. */
 :root {
-  --canvas: 150 9% 95.5%;
   --s-danger: 0 72% 51%;
   --s-danger-ink: 0 70% 38%;
   --s-warning: 30 92% 48%;
@@ -466,7 +464,6 @@
 }
 
 .dark {
-  --canvas: 160 12% 6%;
   --s-danger: 0 72% 60%;
   --s-danger-ink: 0 85% 76%;
   --s-warning: 32 90% 56%;
@@ -871,6 +868,14 @@ h1, h2, h3, h4, h5, h6 {
    gedeelde knopcomponent zet Epilogue; de publieke site houdt dat. */
 .portaal :where(button, a).font-epilogue {
   font-family: var(--font-sans);
+}
+
+/* Koppen in het portaal half vet in plaats van 700: een werkomgeving vol
+   koppen oogt anders zwaar. De globale kopregel gebruikt !important. */
+.portaal h1,
+.portaal h2,
+.portaal h3 {
+  font-weight: 600 !important;
 }
 
 /* Kaarttitels in het portaal: Cabin 15/600. De globale kopregel zet elke h1-h6
