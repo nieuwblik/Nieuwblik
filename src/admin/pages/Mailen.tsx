@@ -39,7 +39,7 @@ const Mailen = () => {
   const persoonlijk = eigenAdres.endsWith("@nieuwblik.com");
   const volledigeNaam = displayName && displayName !== user?.email ? displayName.trim() : "";
   const afzender = persoonlijk
-    ? `${volledigeNaam ? `${volledigeNaam.split(/s+/)[0]} van Nieuwblik` : "Nieuwblik"} <${eigenAdres}>`
+    ? `${volledigeNaam ? `${volledigeNaam.split(/\s+/)[0]} van Nieuwblik` : "Nieuwblik"} <${eigenAdres}>`
     : "Nieuwblik <contact@nieuwblik.com>";
   const { data: klanten = [], isLoading } = useQuery({
     queryKey: ["admin", "mailing-klanten"],
