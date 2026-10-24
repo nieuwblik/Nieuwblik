@@ -28,20 +28,37 @@ const RUBRIEK: Record<string, string> = {
   "5b": "Voorbelasting",
 };
 
-const datum = (d: string, jaar = false) => format(parseISO(d), jaar ? "d MMMM yyyy" : "d MMMM", { locale: nl });
+const datum = (d: string, jaar = false) =>
+  format(parseISO(d), jaar ? "d MMMM yyyy" : "d MMMM", { locale: nl });
 
 /** Waar een kwartaal staat: loopt nog, aangifte doen, of de termijn is voorbij. */
-function stand(q: BtwKwartaalDetail): { label: string; toon: Toon; uitleg: string } {
-  if (q.lopend) return { label: "Loopt nog", toon: "info", uitleg: `Aangifte uiterlijk ${datum(q.deadline, true)}` };
+function stand(q: BtwKwartaalDetail): {
+  label: string;
+  toon: Toon;
+  uitleg: string;
+} {
+  if (q.lopend)
+    return {
+      label: "Loopt nog",
+      toon: "info",
+      uitleg: `Aangifte uiterlijk ${datum(q.deadline, true)}`,
+    };
   const dagen = daysUntil(q.deadline) ?? 0;
   if (dagen >= 0) {
     return {
-      label: dagen === 0 ? "Vandaag aangeven" : `Nog ${dagen} ${dagen === 1 ? "dag" : "dagen"}`,
+      label:
+        dagen === 0
+          ? "Vandaag aangeven"
+          : `Nog ${dagen} ${dagen === 1 ? "dag" : "dagen"}`,
       toon: dagen <= 14 ? "warning" : "neutral",
       uitleg: `Aangeven en betalen uiterlijk ${datum(q.deadline, true)}`,
     };
   }
-  return { label: "Termijn voorbij", toon: "neutral", uitleg: `Uiterste datum was ${datum(q.deadline, true)}` };
+  return {
+    label: "Termijn voorbij",
+    toon: "neutral",
+    uitleg: `Uiterste datum was ${datum(q.deadline, true)}`,
+  };
 }
 
 /**
@@ -50,7 +67,13 @@ function stand(q: BtwKwartaalDetail): { label: string; toon: Toon; uitleg: strin
  * aangifte. Of een aangifte al gedaan is weet het portaal niet; dat zie je in
  * Moneybird.
  */
-const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
+const BtwTab = ({
+  nogTeVerwerken,
+  moneybirdUrl,
+}: {
+  nogTeVerwerken: number;
+  moneybirdUrl: string;
+}) => {
   const { data, isLoading, isError, error } = useBtwOverzicht(true);
   const { bedrag } = useBedragenVerborgen();
   const [gekozen, setGekozen] = useState<string | null>(null);
@@ -64,39 +87,72 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
     );
   }
   if (isError || !data) {
-    return <p className={cn("text-sm", TOON.danger.tekst)}>{error instanceof Error ? error.message : "Laden mislukt"}</p>;
+    return (
+      <p className={cn("text-sm", TOON.danger.tekst)}>
+        {error instanceof Error ? error.message : "Laden mislukt"}
+      </p>
+    );
   }
 
   // Kwartalen zonder enige boeking (van voor de administratie) weglaten, behalve het lopende.
-  const kwartalen = data.kwartalen.filter((k) => k.lopend || k.rubrieken.length > 0);
+  const kwartalen = data.kwartalen.filter(
+    (k) =>
+      k.lopend || k.rubrieken.length > 0 || (k.nietVerwerkt?.aantal ?? 0) > 0,
+  );
   // Standaard het kwartaal waarvan de aangifte nu openstaat, anders het lopende.
-  const standaard = kwartalen.find((q) => !q.lopend && (daysUntil(q.deadline) ?? -1) >= 0) ?? kwartalen[0];
+  const standaard =
+    kwartalen.find((q) => !q.lopend && (daysUntil(q.deadline) ?? -1) >= 0) ??
+    kwartalen[0];
   const q = kwartalen.find((k) => k.label === gekozen) ?? standaard;
-  if (!q) return <p className="text-sm text-muted-foreground">Nog geen btw-gegevens in Moneybird.</p>;
+  if (!q)
+    return (
+      <p className="text-sm text-muted-foreground">
+        Nog geen btw-gegevens in Moneybird.
+      </p>
+    );
   const s = stand(q);
   const verschuldigd = q.rubrieken.filter((r) => !r.voorbelasting);
   const voorbelasting = q.rubrieken.filter((r) => r.voorbelasting);
 
   const rij = (r: (typeof q.rubrieken)[number]) => {
     // Verlegde btw staat in twee rubrieken tegelijk ("NL/4b, NL/5b"): verschuldigd én terug te vragen.
-    const codes = r.rubriek.replace(/NL\//gi, "").split(/\s*,\s*/).filter(Boolean);
+    const codes = r.rubriek
+      .replace(/NL\//gi, "")
+      .split(/\s*,\s*/)
+      .filter(Boolean);
     return (
-    <tr key={`${r.rubriek}|${r.naam}`}>
-      <td className="w-16 whitespace-nowrap px-4 py-2.5 align-top font-medium tabular-nums">{codes.join(" en ")}</td>
-      <td className="px-4 py-2.5 align-top">
-        <span className="block">{RUBRIEK[codes[0]?.toLowerCase() ?? ""] ?? r.naam}</span>
-        {r.naam && <span className="block text-[13px] text-muted-foreground">{r.naam}</span>}
-      </td>
-      <td className="px-4 py-2.5 text-right align-top tabular-nums text-muted-foreground">{bedrag(r.grondslag)}</td>
-      <td className="px-4 py-2.5 text-right align-top font-medium tabular-nums">{bedrag(r.btw)}</td>
-    </tr>
+      <tr key={`${r.rubriek}|${r.naam}`}>
+        <td className="w-16 whitespace-nowrap px-4 py-2.5 align-top font-medium tabular-nums">
+          {codes.join(" en ")}
+        </td>
+        <td className="px-4 py-2.5 align-top">
+          <span className="block">
+            {RUBRIEK[codes[0]?.toLowerCase() ?? ""] ?? r.naam}
+          </span>
+          {r.naam && (
+            <span className="block text-[13px] text-muted-foreground">
+              {r.naam}
+            </span>
+          )}
+        </td>
+        <td className="px-4 py-2.5 text-right align-top tabular-nums text-muted-foreground">
+          {bedrag(r.grondslag)}
+        </td>
+        <td className="px-4 py-2.5 text-right align-top font-medium tabular-nums">
+          {bedrag(r.btw)}
+        </td>
+      </tr>
     );
   };
 
   return (
     <div className="grid gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
       <Panel>
-        <PanelHeader icon={Percent} titel="Kwartalen" subtitel="Dit jaar en vorig jaar" />
+        <PanelHeader
+          icon={Percent}
+          titel="Kwartalen"
+          subtitel="Dit jaar en vorig jaar"
+        />
         <PanelBody className="px-2 pb-2 pt-2">
           <ul role="listbox" aria-label="Kwartaal">
             {kwartalen.map((k) => {
@@ -116,13 +172,24 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
                   >
                     <span className="min-w-0 flex-1">
                       <span className="block font-medium">{k.label}</span>
-                      <span className={cn("block text-[13px] text-muted-foreground", ks.toon === "warning" && TOON.warning.tekst)}>
+                      <span
+                        className={cn(
+                          "block text-[13px] text-muted-foreground",
+                          ks.toon === "warning" && TOON.warning.tekst,
+                        )}
+                      >
                         {ks.label}
+                        {(k.nietVerwerkt?.aantal ?? 0) > 0 &&
+                          ` · ${k.nietVerwerkt!.aantal} niet verwerkt`}
                       </span>
                     </span>
                     <span className="text-right font-medium tabular-nums">
                       {bedrag(Math.abs(k.afdragen))}
-                      {k.afdragen < 0 && <span className="block text-[12px] font-normal text-muted-foreground">terug</span>}
+                      {k.afdragen < 0 && (
+                        <span className="block text-[12px] font-normal text-muted-foreground">
+                          terug
+                        </span>
+                      )}
                     </span>
                   </button>
                 </li>
@@ -143,25 +210,54 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
           <PanelBody className="space-y-5">
             <dl className="grid grid-cols-3 gap-3">
               {[
-                { label: "Verschuldigd", waarde: bedrag(q.verschuldigd) },
-                { label: "Voorbelasting", waarde: bedrag(q.voorbelasting) },
+                {
+                  label: "Verschuldigd",
+                  uitleg: "Btw op je eigen facturen",
+                  waarde: bedrag(q.verschuldigd),
+                },
+                {
+                  label: "Voorbelasting",
+                  uitleg: "Btw die jij betaalde op je kosten",
+                  waarde: bedrag(q.voorbelasting),
+                },
                 {
                   label: q.afdragen < 0 ? "Terug te krijgen" : "Af te dragen",
+                  uitleg: "Verschuldigd min voorbelasting",
                   waarde: bedrag(Math.abs(q.afdragen)),
                   nadruk: true,
                 },
               ].map((c) => (
-                <div key={c.label} className={cn("rounded-xl border border-border px-3 py-3", c.nadruk && "bg-muted/50")}>
-                  <dt className="text-[13px] text-muted-foreground">{c.label}</dt>
-                  <dd className={cn("mt-1 tabular-nums", c.nadruk ? "font-epilogue text-xl font-medium" : "text-base font-medium")}>
+                <div
+                  key={c.label}
+                  className={cn(
+                    "rounded-xl border border-border px-3 py-3",
+                    c.nadruk && "bg-muted/50",
+                  )}
+                >
+                  <dt className="text-[13px] text-muted-foreground">
+                    {c.label}
+                  </dt>
+                  <dd
+                    className={cn(
+                      "mt-1 tabular-nums",
+                      c.nadruk
+                        ? "font-epilogue text-xl font-medium"
+                        : "text-base font-medium",
+                    )}
+                  >
                     {c.waarde}
+                  </dd>
+                  <dd className="mt-1 text-[12px] leading-snug text-muted-foreground">
+                    {c.uitleg}
                   </dd>
                 </div>
               ))}
             </dl>
 
             {q.rubrieken.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Geen btw geboekt in dit kwartaal.</p>
+              <p className="text-sm text-muted-foreground">
+                Geen btw geboekt in dit kwartaal.
+              </p>
             ) : (
               <div className="-mx-4 overflow-x-auto border-t border-border">
                 <table className="w-full min-w-[480px] text-sm">
@@ -173,10 +269,16 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
                       <th scope="col" className="px-4 py-2.5 font-normal">
                         Omschrijving
                       </th>
-                      <th scope="col" className="px-4 py-2.5 text-right font-normal">
+                      <th
+                        scope="col"
+                        className="px-4 py-2.5 text-right font-normal"
+                      >
                         Grondslag
                       </th>
-                      <th scope="col" className="px-4 py-2.5 text-right font-normal">
+                      <th
+                        scope="col"
+                        className="px-4 py-2.5 text-right font-normal"
+                      >
                         Btw
                       </th>
                     </tr>
@@ -185,7 +287,10 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
                     {verschuldigd.map(rij)}
                     {voorbelasting.length > 0 && (
                       <tr>
-                        <td colSpan={4} className="bg-muted/40 px-4 py-1.5 text-[13px] text-muted-foreground">
+                        <td
+                          colSpan={4}
+                          className="bg-muted/40 px-4 py-1.5 text-[13px] text-muted-foreground"
+                        >
                           Wat je terugkrijgt
                         </td>
                       </tr>
@@ -198,20 +303,66 @@ const BtwTab = ({ nogTeVerwerken }: { nogTeVerwerken: number }) => {
           </PanelBody>
         </Panel>
 
-        {nogTeVerwerken > 0 && (
-          <p className={cn("flex gap-2 rounded-lg border px-3 py-2.5 text-[13px]", TOON.warning.cel)}>
-            <Info className="mt-0.5 h-4 w-4 shrink-0" />
-            <span>
-              Er {nogTeVerwerken === 1 ? "wacht 1 document" : `wachten ${nogTeVerwerken} documenten`} in Moneybird op
-              verwerking. De btw daarop telt nog niet mee als voorbelasting, dus het bedrag dat je moet afdragen valt
-              waarschijnlijk lager uit zodra ze verwerkt zijn.
-            </span>
-          </p>
-        )}
+        {q.nietVerwerkt
+          ? q.nietVerwerkt.aantal > 0 && (
+              <div
+                className={cn(
+                  "flex gap-2 rounded-lg border px-3 py-2.5 text-[13px]",
+                  TOON.warning.cel,
+                )}
+              >
+                <Info className="mt-0.5 h-4 w-4 shrink-0" />
+                <p>
+                  <span className="font-medium">
+                    {q.nietVerwerkt.aantal}{" "}
+                    {q.nietVerwerkt.aantal === 1 ? "document" : "documenten"}{" "}
+                    uit {q.label} nog niet verwerkt.
+                  </span>{" "}
+                  {q.nietVerwerkt.btw > 0 && (
+                    <>
+                      Daarop staat ongeveer {bedrag(q.nietVerwerkt.btw)} btw die
+                      nog niet als voorbelasting meetelt. Verwerk je ze, dan
+                      valt het af te dragen bedrag rond{" "}
+                      {bedrag(Math.max(0, q.afdragen - q.nietVerwerkt.btw))}{" "}
+                      uit.{" "}
+                    </>
+                  )}
+                  {q.nietVerwerkt.zonderBedrag > 0 &&
+                    `${q.nietVerwerkt.zonderBedrag} ${q.nietVerwerkt.zonderBedrag === 1 ? "is" : "zijn"} nog niet uitgelezen, dus daar staat nog geen bedrag bij. `}
+                  <a
+                    href={`${moneybirdUrl}/documents`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium underline"
+                  >
+                    Verwerken in Moneybird
+                  </a>
+                </p>
+              </div>
+            )
+          : nogTeVerwerken > 0 && (
+              <p
+                className={cn(
+                  "flex gap-2 rounded-lg border px-3 py-2.5 text-[13px]",
+                  TOON.warning.cel,
+                )}
+              >
+                <Info className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>
+                  Er{" "}
+                  {nogTeVerwerken === 1
+                    ? "wacht 1 document"
+                    : `wachten ${nogTeVerwerken} documenten`}{" "}
+                  in Moneybird op verwerking. De btw daarop telt nog niet mee
+                  als voorbelasting, dus het bedrag dat je moet afdragen valt
+                  waarschijnlijk lager uit zodra ze verwerkt zijn.
+                </span>
+              </p>
+            )}
 
         <p className="text-[13px] text-muted-foreground">
-          Bedragen volgens wat er in Moneybird is geboekt. De aangifte zelf doe je in Moneybird; of die al gedaan is, ziet
-          het portaal niet.
+          Bedragen volgens wat er in Moneybird is geboekt. De aangifte zelf doe
+          je in Moneybird; of die al gedaan is, ziet het portaal niet.
         </p>
       </div>
     </div>

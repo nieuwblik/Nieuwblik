@@ -373,7 +373,44 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
       // Alleen kwartalen die al begonnen zijn, nieuwste eerst.
       .filter((q) => new Date(Date.UTC(q.jaar, (q.kwartaal - 1) * 3, 1)) <= nu)
       .sort((a, b) => b.jaar - a.jaar || b.kwartaal - a.kwartaal);
-    return { ok: true, kwartalen };
+
+    // Documenten die nog in de inbox van Moneybird staan: hun btw telt nog
+    // niet mee als voorbelasting. Per kwartaal (op documentdatum) hoeveel het
+    // er zijn en hoeveel btw erop staat, voor zover Moneybird ze al heeft
+    // uitgelezen.
+    type Inbox = {
+      date: string | null;
+      total_price_excl_tax?: unknown;
+      total_price_excl_tax_base?: unknown;
+      total_price_incl_tax?: unknown;
+      total_price_incl_tax_base?: unknown;
+    };
+    const filter = encodeURIComponent(`period:${jaren[1]}0101..${jaren[0]}1231,state:new`);
+    const inbox = (
+      await Promise.all([
+        allePaginas<Inbox>(`documents/purchase_invoices.json?filter=${filter}`),
+        allePaginas<Inbox>(`documents/receipts.json?filter=${filter}`),
+      ]).catch(() => [[], []] as Inbox[][])
+    ).flat();
+    const nietVerwerkt = new Map<string, { aantal: number; btw: number; zonderBedrag: number }>();
+    for (const d of inbox) {
+      if (!d.date) continue;
+      const label = kwartaalUit(`${d.date.slice(0, 4)}${d.date.slice(5, 7)}`).label;
+      const n = nietVerwerkt.get(label) ?? { aantal: 0, btw: 0, zonderBedrag: 0 };
+      const incl = getal(d.total_price_incl_tax_base ?? d.total_price_incl_tax);
+      const excl = getal(d.total_price_excl_tax_base ?? d.total_price_excl_tax);
+      n.aantal += 1;
+      if (incl === 0) n.zonderBedrag += 1;
+      else n.btw += Math.max(0, incl - excl);
+      nietVerwerkt.set(label, n);
+    }
+
+    return {
+      ok: true,
+      kwartalen: kwartalen.map((q) => ({ ...q, nietVerwerkt: nietVerwerkt.get(q.label) ?? { aantal: 0, btw: 0, zonderBedrag: 0 } })),
+      // Inboxdocumenten zonder datum vallen in geen enkel kwartaal.
+      nietVerwerktZonderDatum: inbox.filter((d) => !d.date).length,
+    };
   }
 
   if (actie === "omzet-historie") {

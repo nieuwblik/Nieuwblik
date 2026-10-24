@@ -278,6 +278,11 @@ export interface BtwKwartaalDetail extends BtwKwartaal {
   jaar: number;
   kwartaal: number;
   rubrieken: BtwRubriek[];
+  /**
+   * Documenten uit dit kwartaal die nog in de inbox van Moneybird staan, met
+   * de btw erop (voor zover al uitgelezen). Ontbreekt bij een oudere functie.
+   */
+  nietVerwerkt?: { aantal: number; btw: number; zonderBedrag: number };
 }
 
 /** Btw per kwartaal met de rubrieken, dit jaar en vorig jaar. Pas opgehaald als het tabblad open is. */

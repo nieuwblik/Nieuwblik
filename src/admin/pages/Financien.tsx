@@ -426,6 +426,7 @@ const Financien = () => {
 
         <TabsContent value="btw" className="mt-5">
           <BtwTab
+            moneybirdUrl={data.moneybirdUrl}
             nogTeVerwerken={
               data.uitgaven && heeftData(data.uitgaven)
                 ? data.uitgaven.data.nogTeVerwerken
