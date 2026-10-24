@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 export type PortalTheme = "light" | "dark";
 
@@ -20,6 +20,18 @@ function initialTheme(): PortalTheme {
 }
 
 /**
+ * Zet het opgeslagen thema op <html> nog voordat het portaal geladen is. Het
+ * portaal is een losse chunk; zonder dit staat er tijdens het laden een wit
+ * scherm, ook als je donker hebt gekozen. Het portaal zelf neemt het daarna
+ * over en haalt de klassen weer weg als je het verlaat.
+ */
+export function zetThemaVroeg() {
+  const root = document.documentElement;
+  root.classList.toggle("dark", initialTheme() === "dark");
+  root.classList.add("portaal");
+}
+
+/**
  * Thema van het portaal.
  *
  * De klasse gaat op <html> en niet op een wrapper in het portaal, omdat
@@ -33,7 +45,8 @@ function initialTheme(): PortalTheme {
 export function usePortalTheme() {
   const [theme, setTheme] = useState<PortalTheme>(initialTheme);
 
-  useEffect(() => {
+  // Voor de eerste paint, anders flitst de pagina één frame in het verkeerde thema.
+  useLayoutEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     // Merkt de pagina als portaal, zodat opmaak die niet via Tailwind kan —

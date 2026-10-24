@@ -1,6 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CheckSquare, Clock, LayoutDashboard, Plus, Users } from "lucide-react";
+import {
+  CalendarDays,
+  CheckSquare,
+  Clock,
+  FolderKanban,
+  LayoutDashboard,
+  Mail,
+  Plus,
+  Receipt,
+  UserPen,
+  Users,
+} from "lucide-react";
 
 import {
   CommandDialog,
@@ -12,19 +23,37 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import { PROJECT_STATUS } from "@/admin/constants";
+import { PROJECT_STATUS, PRIORITY_WEIGHT, hoofdtaken } from "@/admin/constants";
+import { deadlineLabel } from "@/admin/format";
 import { useRecentProjects } from "@/admin/recent";
 import { useCombinedRows } from "@/admin/rows";
 import { useTasks } from "@/admin/queries";
+import { useCreateTask } from "@/admin/useCreateTask";
 
 interface CommandPaletteProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
+/** Alle pagina's van het portaal, zodat "Ga naar" nooit een pagina mist. */
+const PAGINAS = [
+  { to: "/admin", label: "Dashboard", zoek: "dashboard overzicht start", icon: LayoutDashboard },
+  { to: "/admin/kalender", label: "Kalender", zoek: "kalender planning agenda", icon: CalendarDays },
+  { to: "/admin/klanten", label: "Klanten", zoek: "klanten projecten", icon: Users },
+  { to: "/admin/taken", label: "Taken", zoek: "taken todo werk", icon: CheckSquare },
+  { to: "/admin/hosting", label: "Hosting", zoek: "hosting facturatie facturen", icon: Receipt },
+  { to: "/admin/mailen", label: "Mailen", zoek: "mailen mailing nieuwsbrief", icon: Mail },
+] as const;
+
+/**
+ * Het zoekpalet: het enige zoekveld van het portaal. Klanten (ook op
+ * e-mailadres), extra projecten, alle open taken, alle pagina's en de
+ * acties die je het vaakst doet.
+ */
 const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
   const navigate = useNavigate();
   const recent = useRecentProjects();
+  const { createTask } = useCreateTask();
   // Deze queries draaien elders in het portaal ook; react-query deelt de cache,
   // dus het palet openen kost geen extra netwerkverkeer.
   const { rows } = useCombinedRows();
@@ -35,11 +64,22 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
     navigate(to, state ? { state } : undefined);
   };
 
-  const openTasks = tasks.filter((t) => t.status !== "klaar").slice(0, 5);
+  // Alle open hoofdtaken, urgent en vroegste deadline eerst. Stappen staan op
+  // de pagina van hun taak; daar brengt de taak zelf je ook.
+  const openTasks = hoofdtaken(tasks)
+    .filter((t) => t.status !== "klaar")
+    .sort(
+      (a, b) =>
+        PRIORITY_WEIGHT[a.priority] - PRIORITY_WEIGHT[b.priority] ||
+        (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999"),
+    );
+
+  // Een klant toont zijn meest recente project; de rest komt hier los te staan.
+  const extraProjecten = rows.flatMap((row) => row.otherProjects.map((project) => ({ project, klant: row.client.name })));
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput placeholder="Zoek een project, klant of taak…" />
+      <CommandInput placeholder="Zoek een klant, taak of pagina…" />
       <CommandList>
         <CommandEmpty>Niets gevonden.</CommandEmpty>
 
@@ -58,13 +98,12 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
           </CommandGroup>
         )}
 
-        {/* Eén groep: klant en project zijn in het portaal hetzelfde, en twee
-            lijsten met dezelfde namen maakte zoeken alleen maar langzamer. */}
+        {/* Klant en project zijn in het portaal één ding, dus één groep. */}
         <CommandGroup heading="Klanten">
           {rows.map((row) => (
             <CommandItem
               key={row.key}
-              value={[row.client.name, row.client.contact_name, row.client.city, row.project?.name]
+              value={[row.client.name, row.client.contact_name, row.client.email, row.client.city, row.project?.name]
                 .filter(Boolean)
                 .join(" ")}
               onSelect={() => go(row.to)}
@@ -76,17 +115,35 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
           ))}
         </CommandGroup>
 
+        {extraProjecten.length > 0 && (
+          <CommandGroup heading="Projecten">
+            {extraProjecten.map(({ project, klant }) => (
+              <CommandItem
+                key={`project-${project.id}`}
+                value={`project ${project.name} ${klant}`}
+                onSelect={() => go(`/admin/projecten/${project.id}`)}
+              >
+                <FolderKanban className="h-4 w-4 text-muted-foreground" />
+                <span className="truncate">{project.name}</span>
+                <CommandShortcut>{klant}</CommandShortcut>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
+
         {openTasks.length > 0 && (
-          <CommandGroup heading="Openstaande taken">
+          <CommandGroup heading="Open taken">
             {openTasks.map((task) => (
               <CommandItem
                 key={task.id}
-                value={`taak ${task.title} ${task.project?.name ?? ""}`}
-                onSelect={() => go(task.project ? `/admin/projecten/${task.project.id}` : "/admin/taken")}
+                value={`taak ${task.title} ${task.project?.name ?? ""} ${task.id}`}
+                onSelect={() => go(`/admin/taken/${task.id}`)}
               >
                 <CheckSquare className="h-4 w-4 text-muted-foreground" />
                 <span className="truncate">{task.title}</span>
-                {task.project && <CommandShortcut>{task.project.name}</CommandShortcut>}
+                <CommandShortcut>
+                  {task.project?.name ?? (task.due_date ? deadlineLabel(task.due_date) : "")}
+                </CommandShortcut>
               </CommandItem>
             ))}
           </CommandGroup>
@@ -95,7 +152,13 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
         <CommandSeparator />
 
         <CommandGroup heading="Acties">
-          <CommandItem value="nieuwe taak toevoegen" onSelect={() => go("/admin/taken", { nieuw: true })}>
+          <CommandItem
+            value="nieuwe taak toevoegen"
+            onSelect={() => {
+              onOpenChange(false);
+              void createTask(null);
+            }}
+          >
             <Plus className="h-4 w-4 text-muted-foreground" />
             Nieuwe taak
           </CommandItem>
@@ -106,21 +169,25 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
             <Plus className="h-4 w-4 text-muted-foreground" />
             Nieuwe klant
           </CommandItem>
+          <CommandItem
+            value="naam wijzigen instellen profiel"
+            onSelect={() => {
+              onOpenChange(false);
+              window.dispatchEvent(new Event("portaal:naam-instellen"));
+            }}
+          >
+            <UserPen className="h-4 w-4 text-muted-foreground" />
+            Naam instellen
+          </CommandItem>
         </CommandGroup>
 
         <CommandGroup heading="Ga naar">
-          <CommandItem value="dashboard overzicht" onSelect={() => go("/admin")}>
-            <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
-            Dashboard
-          </CommandItem>
-          <CommandItem value="alle klanten alle projecten" onSelect={() => go("/admin/klanten")}>
-            <Users className="h-4 w-4 text-muted-foreground" />
-            Klanten
-          </CommandItem>
-          <CommandItem value="alle taken" onSelect={() => go("/admin/taken")}>
-            <CheckSquare className="h-4 w-4 text-muted-foreground" />
-            Taken
-          </CommandItem>
+          {PAGINAS.map(({ to, label, zoek, icon: Icon }) => (
+            <CommandItem key={to} value={`ga naar ${zoek}`} onSelect={() => go(to)}>
+              <Icon className="h-4 w-4 text-muted-foreground" />
+              {label}
+            </CommandItem>
+          ))}
         </CommandGroup>
       </CommandList>
     </CommandDialog>

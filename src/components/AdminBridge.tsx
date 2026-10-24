@@ -2,6 +2,8 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { unstable_HistoryRouter as HistoryRouter, Routes, Route } from "react-router-dom";
 import { createBrowserHistory, type History } from "@remix-run/router";
 
+import { zetThemaVroeg } from "@/admin/theme";
+
 // Het portaal blijft exact zoals het was: client-side, lazy geladen, op de
 // echte react-router. Deze brug mount de oude router onder de
 // TanStack-route /admin/*, zodat niets in src/admin/ hoeft te veranderen.
@@ -37,6 +39,9 @@ const AdminBridge = () => {
   // van TanStack, zodat beide buiten de render-fase gebeuren.
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    // De loginpagina is altijd licht; de rest van het portaal krijgt meteen
+    // het gekozen thema, zodat het laden niet wit flitst.
+    if (!window.location.pathname.startsWith("/admin/login")) zetThemaVroeg();
     getAdminHistory();
     setReady(true);
   }, []);
