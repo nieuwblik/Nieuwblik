@@ -93,6 +93,33 @@ export function useUrenInPeriode(van: Date, tot: Date) {
   });
 }
 
+/**
+ * Regels ophalen voor een export: optioneel binnen een periode en voor één
+ * project. Geen hook, want een export is een eenmalige actie op een klik.
+ * Supabase geeft standaard hooguit 1000 rijen terug, dus in blokken.
+ */
+export async function haalUrenOp({
+  van,
+  tot,
+  projectId,
+}: {
+  van?: Date | null;
+  tot?: Date | null;
+  projectId?: string | null;
+}): Promise<UrenRegel[]> {
+  const alle: UrenRegel[] = [];
+  const BLOK = 1000;
+  for (let start = 0; ; start += BLOK) {
+    let vraag = supabase.from("time_entries").select(SELECTIE).order("started_at", { ascending: true });
+    if (van) vraag = vraag.gte("started_at", van.toISOString());
+    if (tot) vraag = vraag.lt("started_at", tot.toISOString());
+    if (projectId) vraag = vraag.eq("project_id", projectId);
+    const deel = unwrap(await vraag.range(start, start + BLOK - 1)) as unknown as UrenRegel[];
+    alle.push(...deel);
+    if (deel.length < BLOK) return alle;
+  }
+}
+
 /** Alle regels van één taak of één project, voor het totaal op die pagina. */
 export function useUrenVan(soort: "taak" | "project", id: string | undefined) {
   return useQuery({

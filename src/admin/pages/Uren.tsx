@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import UrenDialoog from "@/admin/components/UrenDialoog";
+import UrenExport from "@/admin/components/UrenExport";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { useProjects, useTeam } from "@/admin/queries";
 import {
@@ -104,6 +105,7 @@ const Uren = () => {
     }
   };
 
+  const gekozenProject = projects.find((p) => p.id === project);
   const dezeWeek = isSameWeek(week, new Date(), { weekStartsOn: 1 });
   const weekLabel = `${format(week, "d MMM", { locale: nl })} – ${format(addDays(week, 6), "d MMM yyyy", { locale: nl })}`;
 
@@ -130,10 +132,17 @@ const Uren = () => {
             {totaal > 0 && `, ${formatDuur(factureerbaar)} factureerbaar`}
           </p>
         </div>
-        <Button onClick={() => setDialoog({})}>
-          <Plus className="h-4 w-4" />
-          Uren toevoegen
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          {/* Exporteert wat het projectfilter laat zien: één klant, of alles. */}
+          <UrenExport
+            projectId={project !== "alle" && project !== "geen" ? project : null}
+            {...(gekozenProject ? { naam: gekozenProject.client?.name ?? gekozenProject.name } : {})}
+          />
+          <Button onClick={() => setDialoog({})}>
+            <Plus className="h-4 w-4" />
+            Uren toevoegen
+          </Button>
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
