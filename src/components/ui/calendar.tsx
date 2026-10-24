@@ -12,6 +12,11 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker>;
  * portaal. De native datumkiezer van de browser is niet te stylen en ziet er
  * per besturingssysteem anders uit; dit ziet er overal hetzelfde uit en volgt
  * de licht- en donkerstand mee.
+ *
+ * De klassennamen zijn die van react-day-picker 9 (month_caption, weekdays,
+ * day_button, ...). De oude namen uit versie 8 (caption, head_row, cell)
+ * worden genegeerd, en dan valt de kalender uit elkaar: alle dagnamen op één
+ * regel en de pijltjes los naast de maand.
  */
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
   return (
@@ -19,41 +24,37 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row gap-4",
-        month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
-        nav: "space-x-1 flex items-center",
-        nav_button: cn(
+        months: "relative flex flex-col gap-4 sm:flex-row",
+        month: "space-y-3",
+        month_caption: "flex h-7 items-center justify-center",
+        caption_label: "text-sm font-medium first-letter:uppercase",
+        nav: "absolute inset-x-0 top-0 flex items-center justify-between",
+        button_previous: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-7 w-7 bg-transparent p-0 text-muted-foreground hover:text-foreground",
+          "z-10 h-7 w-7 bg-transparent p-0 text-muted-foreground hover:text-foreground",
         ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
-        head_row: "flex",
-        head_cell: "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
-        cell: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20",
-        day: cn(
+        button_next: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100",
+          "z-10 h-7 w-7 bg-transparent p-0 text-muted-foreground hover:text-foreground",
         ),
-        day_selected:
-          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-        day_today: "bg-muted font-semibold text-foreground",
-        day_outside: "text-muted-foreground/40",
-        day_disabled: "text-muted-foreground/40",
-        day_hidden: "invisible",
+        month_grid: "w-full border-collapse",
+        weekdays: "flex",
+        weekday: "w-9 text-center text-[0.8rem] font-normal text-muted-foreground",
+        weeks: "space-y-1",
+        week: "mt-1 flex w-full",
+        day: "relative h-9 w-9 p-0 text-center text-sm focus-within:relative focus-within:z-20",
+        day_button: cn(buttonVariants({ variant: "ghost" }), "h-9 w-9 p-0 font-normal"),
+        selected:
+          "[&>button]:bg-primary [&>button]:text-primary-foreground [&>button]:hover:bg-primary [&>button]:hover:text-primary-foreground",
+        today: "[&>button]:bg-muted [&>button]:font-semibold [&>button]:text-foreground",
+        outside: "text-muted-foreground/40",
+        disabled: "text-muted-foreground/40",
+        hidden: "invisible",
         ...classNames,
       }}
       components={{
         Chevron: ({ orientation }) =>
-          orientation === "left" ? (
-            <ChevronLeft className="h-4 w-4" />
-          ) : (
-            <ChevronRight className="h-4 w-4" />
-          ),
+          orientation === "left" ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />,
       }}
       {...props}
     />
