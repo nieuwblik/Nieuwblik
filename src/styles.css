@@ -477,6 +477,72 @@
   --s-neutral-ink: 48 6% 74%;
 }
 
+/* ---------------------------------------------------------------------------
+   Kleuren van het portaal: de neutralen van de Claude-app, licht en donker.
+   Licht is warm crème (pagina #faf9f5, zijbalk #f5f4ed, tekst #141413),
+   donker warm grijs (zijbalk #1f1e1d, pagina #262624, vlakken #30302e, tekst
+   #faf9f5). Het groene accent van Nieuwblik blijft.
+
+   Alleen op .portaal (staat op <html>), zodat de publieke site zijn eigen wit
+   en zwart houdt. Buiten een laag en met .portaal.dark voor donker, zodat
+   deze waarden altijd voorgaan op de algemene tokens hierboven.
+   --------------------------------------------------------------------------- */
+.portaal {
+  --background: 48 33% 97%;           /* #faf9f5 */
+  --foreground: 60 3% 8%;             /* #141413 */
+  --card: 0 0% 100%;
+  --card-foreground: 60 3% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 60 3% 8%;
+  --primary: 60 3% 8%;
+  --primary-foreground: 48 33% 97%;
+  --secondary: 53 29% 94.5%;          /* #f5f4ed */
+  --secondary-foreground: 60 3% 8%;
+  --muted: 53 29% 94.5%;
+  --muted-foreground: 51 3% 44%;      /* #73726c */
+  --border: 48 13% 86%;
+  --input: 48 13% 84%;
+
+  --rail: 53 29% 94.5%;               /* #f5f4ed */
+  --rail-panel: 48 25% 92%;           /* #f0eee6 */
+  --rail-fg: 60 3% 8%;
+  --rail-muted: 51 3% 44%;
+  --rail-hover: 48 25% 92%;
+  --rail-active: 50 21% 88.6%;        /* #e8e6dc */
+  --rail-border: 48 13% 86%;
+
+  --s-neutral: 51 4% 52%;
+  --s-neutral-ink: 51 4% 32%;
+}
+
+.portaal.dark {
+  --background: 60 3% 14.5%;          /* #262624 */
+  --foreground: 48 33% 97%;           /* #faf9f5 */
+  --card: 60 2% 18.4%;                /* #30302e */
+  --card-foreground: 48 33% 97%;
+  --popover: 60 2% 18.4%;
+  --popover-foreground: 48 33% 97%;
+  --primary: 48 33% 97%;
+  --primary-foreground: 60 3% 14.5%;
+  --secondary: 60 2% 21%;
+  --secondary-foreground: 48 33% 97%;
+  --muted: 60 2% 20.5%;
+  --muted-foreground: 48 5% 59%;      /* #9c9a92 */
+  --border: 45 4% 24%;
+  --input: 45 4% 27%;
+
+  --rail: 30 3% 11.8%;                /* #1f1e1d */
+  --rail-panel: 60 2% 20%;
+  --rail-fg: 48 33% 97%;
+  --rail-muted: 48 5% 59%;
+  --rail-hover: 40 3% 16%;
+  --rail-active: 60 2% 20%;           /* #343432 */
+  --rail-border: 45 3% 21%;
+
+  --s-neutral: 48 4% 55%;
+  --s-neutral-ink: 48 6% 74%;
+}
+
 
 .sw-paper { background-color: hsl(var(--sw-paper)); }
 .sw-ink   { color: hsl(var(--sw-ink)); }
