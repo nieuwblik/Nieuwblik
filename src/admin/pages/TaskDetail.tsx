@@ -45,7 +45,7 @@ import {
 import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
 import { useConfirm } from "@/admin/useConfirm";
 import { HERHALING, HERHALING_ORDER } from "@/admin/herhaling";
-import type { Herhaling } from "@/admin/werkstroomDb";
+import type { Herhaling } from "@/admin/werkstroom";
 import {
   useDeleteTask,
   useSaveTask,
@@ -512,7 +512,7 @@ const TaskDetail = () => {
               {!parent && (
                 <Row icon={Repeat} label="Herhalen">
                   <Select
-                    value={(task as { herhaling?: Herhaling | null }).herhaling ?? NONE}
+                    value={task.herhaling ?? NONE}
                     onValueChange={(v) => void patch({ herhaling: v === NONE ? null : (v as Herhaling) })}
                   >
                     <SelectTrigger className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus:ring-0">

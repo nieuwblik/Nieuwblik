@@ -1,6 +1,6 @@
 import { addMonths, addWeeks, addYears, format, isValid, parseISO } from "date-fns";
 
-import type { Herhaling } from "@/admin/werkstroomDb";
+import type { Herhaling } from "@/admin/werkstroom";
 
 export const HERHALING: Record<Herhaling, string> = {
   wekelijks: "Elke week",

@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { daysUntil } from "@/admin/format";
 import { useProjects } from "@/admin/queries";
-import { unwrapWerkstroom, werkstroomDb, type WebsiteControle } from "@/admin/werkstroomDb";
+import type { WebsiteControle } from "@/admin/werkstroom";
 
 export const websitesKey = ["admin", "websites"] as const;
 
@@ -20,9 +20,13 @@ export function useWebsiteControles() {
     retry: false,
     staleTime: 10 * 60 * 1000,
     queryFn: async (): Promise<Map<string, WebsiteControle>> => {
-      const rijen = unwrapWerkstroom<WebsiteControle[]>(
-        await werkstroomDb.from("website_controles").select("*").order("created_at", { ascending: false }).limit(1000),
-      );
+      const { data, error } = await supabase
+        .from("website_controles")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(1000);
+      if (error) throw new Error(error.message);
+      const rijen: WebsiteControle[] = data;
       const laatste = new Map<string, WebsiteControle>();
       for (const r of rijen) if (!laatste.has(r.project_id)) laatste.set(r.project_id, r);
       return laatste;

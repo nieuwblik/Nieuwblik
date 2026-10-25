@@ -3,17 +3,9 @@ import { korteNaam } from "@/admin/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { volgendeDeadline } from "@/admin/herhaling";
-import { werkstroomDb, type Herhaling } from "@/admin/werkstroomDb";
+import type { Herhaling } from "@/admin/werkstroom";
 
-/**
- * Kolommen uit de migratie moneybird_facturatie staan nog niet in de
- * gegenereerde types; tot die is uitgevoerd en de types opnieuw zijn
- * gemaakt, hier als optionele velden. Daarna kan dit terug naar Tables<"clients">.
- */
-export type Client = Tables<"clients"> & {
-  moneybird_contact_id?: string | null;
-  uurtarief_cents?: number | null;
-};
+export type Client = Tables<"clients">;
 export type Project = Tables<"projects">;
 export type Task = Tables<"tasks">;
 export type ProjectUpdate = Tables<"project_updates">;
@@ -351,17 +343,15 @@ export function useUpdateTask() {
       values,
     }: {
       id: string;
-      values: TablesUpdate<"tasks"> & { herhaling?: Herhaling | null };
+      values: TablesUpdate<"tasks"> & { herhaling?: Herhaling | null | undefined };
     }): Promise<Task> => {
-      // Via de ongetypeerde client: herhaling staat nog niet in de gegenereerde types.
-      const taak = unwrap(await werkstroomDb.from("tasks").update(values).eq("id", id).select().single()) as Task & {
-        herhaling?: Herhaling | null;
-      };
+      const taak: Task = unwrap(await supabase.from("tasks").update(values).eq("id", id).select().single());
+      const herhaling = taak.herhaling as Herhaling | null;
       // Een herhalende taak afgerond: de volgende komt meteen klaar te staan,
       // waar je hem ook afvinkt. De afgeronde taak houdt geen herhaling meer,
       // zodat opnieuw aan- en uitvinken geen tweede kopie maakt.
-      if (values.status === "klaar" && taak.herhaling) {
-        const { error } = await werkstroomDb.from("tasks").insert({
+      if (values.status === "klaar" && herhaling) {
+        const { error } = await supabase.from("tasks").insert({
           title: taak.title,
           description: taak.description,
           project_id: taak.project_id,
@@ -369,11 +359,11 @@ export function useUpdateTask() {
           created_by: taak.created_by,
           priority: taak.priority,
           status: "todo",
-          due_date: volgendeDeadline(taak.due_date, taak.herhaling),
-          herhaling: taak.herhaling,
+          due_date: volgendeDeadline(taak.due_date, herhaling),
+          herhaling,
         });
         if (error) throw new Error(`Afgerond, maar de volgende keer kon niet worden aangemaakt: ${error.message}`);
-        await werkstroomDb.from("tasks").update({ herhaling: null }).eq("id", id);
+        await supabase.from("tasks").update({ herhaling: null }).eq("id", id);
       }
       return taak;
     },

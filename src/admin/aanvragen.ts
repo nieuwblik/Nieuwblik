@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { Toon } from "@/admin/constants";
-import { unwrapWerkstroom, werkstroomDb, type Aanvraag, type AanvraagStatus } from "@/admin/werkstroomDb";
+import { supabase } from "@/integrations/supabase/client";
+import type { Aanvraag, AanvraagStatus } from "@/admin/werkstroom";
 
 export const aanvragenKey = ["admin", "aanvragen"] as const;
 
@@ -23,10 +24,11 @@ export function useAanvragen() {
   return useQuery({
     queryKey: aanvragenKey,
     retry: false,
-    queryFn: async (): Promise<Aanvraag[]> =>
-      unwrapWerkstroom<Aanvraag[]>(
-        await werkstroomDb.from("aanvragen").select("*").order("created_at", { ascending: false }).limit(500),
-      ),
+    queryFn: async (): Promise<Aanvraag[]> => {
+      const { data, error } = await supabase.from("aanvragen").select("*").order("created_at", { ascending: false }).limit(500);
+      if (error) throw new Error(error.message);
+      return data as Aanvraag[];
+    },
   });
 }
 
@@ -34,7 +36,7 @@ export function useUpdateAanvraag() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, values }: { id: string; values: Partial<Pick<Aanvraag, "status" | "notitie" | "client_id">> }) => {
-      const { error } = await werkstroomDb.from("aanvragen").update(values).eq("id", id);
+      const { error } = await supabase.from("aanvragen").update(values).eq("id", id);
       if (error) throw new Error(error.message);
     },
     // Meteen tonen, niet wachten op de server: een statuswissel moet direct voelen.
@@ -55,7 +57,7 @@ export function useDeleteAanvraag() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await werkstroomDb.from("aanvragen").delete().eq("id", id);
+      const { error } = await supabase.from("aanvragen").delete().eq("id", id);
       if (error) throw new Error(error.message);
     },
     onSuccess: () => void qc.invalidateQueries({ queryKey: aanvragenKey }),

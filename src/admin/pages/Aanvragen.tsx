@@ -25,7 +25,7 @@ import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 import SegmentedControl from "@/admin/ui/SegmentedControl";
 import StatusPill from "@/admin/ui/StatusPill";
 import { useConfirm } from "@/admin/useConfirm";
-import { isMigratieNodig, type Aanvraag } from "@/admin/werkstroomDb";
+import type { Aanvraag } from "@/admin/werkstroom";
 
 type Filter = "open" | "gewonnen" | "verloren" | "alles";
 
@@ -128,14 +128,8 @@ const Aanvragen = () => {
         {kop}
         <EmptyState
           icon={Inbox}
-          title={isMigratieNodig(error) ? "Aanvragen zijn nog niet geactiveerd" : "De aanvragen konden niet geladen worden"}
-          description={
-            isMigratieNodig(error)
-              ? "Voer in Lovable de migratie portaal_werkstroom uit. Daarna komt elk bericht via het contactformulier hier binnen."
-              : error instanceof Error
-                ? error.message
-                : undefined
-          }
+          title="De aanvragen konden niet geladen worden"
+          description={error instanceof Error ? error.message : undefined}
         />
       </div>
     );

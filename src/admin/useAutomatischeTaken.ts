@@ -20,7 +20,6 @@ import {
   type OpenFactuur,
 } from "@/admin/financien";
 import { adminKeys, useClients, useProjects } from "@/admin/queries";
-import { werkstroomDb } from "@/admin/werkstroomDb";
 
 /** Na zoveel dagen over de vervaldatum wordt een factuur een belactie. */
 const NABEL_GRENS = 30;
@@ -135,7 +134,7 @@ export function useAutomatischeTaken(actief: boolean) {
 
     void (async () => {
       // Welke signalen hebben al een taak gekregen?
-      const { data: bekend, error } = await werkstroomDb
+      const { data: bekend, error } = await supabase
         .from("taak_signalen")
         .select("sleutel")
         .in(
@@ -143,13 +142,13 @@ export function useAutomatischeTaken(actief: boolean) {
           nieuw.map((s) => s.sleutel),
         );
       if (error) return; // Tabel bestaat nog niet: de migratie is nog niet uitgevoerd.
-      const al = new Set(((bekend ?? []) as { sleutel: string }[]).map((r) => r.sleutel));
+      const al = new Set((bekend ?? []).map((r) => r.sleutel));
 
       let gemaakt = 0;
       for (const s of nieuw.filter((s) => !al.has(s.sleutel))) {
         // Eerst het signaal claimen; lukt dat niet (een ander tabblad was
         // sneller), dan geen taak, zodat er nooit twee komen.
-        const { error: claimFout } = await werkstroomDb.from("taak_signalen").insert({ sleutel: s.sleutel });
+        const { error: claimFout } = await supabase.from("taak_signalen").insert({ sleutel: s.sleutel });
         if (claimFout) continue;
         const klant = s.klant ? zoekKlantBij({ naam: s.klant }, clients) : null;
         const project = klant ? projects.find((p) => p.client_id === klant.id) : undefined;
@@ -169,10 +168,10 @@ export function useAutomatischeTaken(actief: boolean) {
           .single();
         if (taakFout || !taak) {
           // Geen taak gelukt: het signaal weer vrijgeven voor een volgende poging.
-          await werkstroomDb.from("taak_signalen").delete().eq("sleutel", s.sleutel);
+          await supabase.from("taak_signalen").delete().eq("sleutel", s.sleutel);
           continue;
         }
-        await werkstroomDb.from("taak_signalen").update({ task_id: taak.id }).eq("sleutel", s.sleutel);
+        await supabase.from("taak_signalen").update({ task_id: taak.id }).eq("sleutel", s.sleutel);
         gemaakt += 1;
       }
 
