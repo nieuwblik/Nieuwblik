@@ -1,4 +1,4 @@
-import { useMemo, type CSSProperties, type ReactNode } from "react";
+import { useMemo, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { ArrowRight, ArrowUpRight, Play, Plus, Search, Square, UserPlus } from "lucide-react";
@@ -25,9 +25,9 @@ import { useWebsiteStand } from "@/admin/websites";
  */
 const GLAS =
   "border border-white/15 bg-[rgba(18,24,36,0.18)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150";
-/** Bij aanwijzen: een fractie omhoog, iets donkerder glas en een lichtere rand; bij indrukken even kleiner. */
+/** Bij aanwijzen: iets donkerder glas en een lichtere rand, zonder te zweven; bij indrukken even kleiner. */
 const GLAS_HOVER =
-  "transition-[background-color,border-color,transform,color] duration-300 ease-out hover:-translate-y-px hover:border-white/30 hover:bg-[rgba(18,24,36,0.26)] active:translate-y-0 active:scale-[0.98]";
+  "transition-[background-color,border-color,transform,color] duration-300 ease-out hover:border-white/30 hover:bg-[rgba(18,24,36,0.26)] active:scale-[0.98]";
 /**
  * De kaarten onderaan: echt doorzichtig glas. Een lichte witte tint en weinig
  * vervaging, zodat je de scène (bloemen, lichtjes) erdoor blijft zien; met
@@ -37,7 +37,46 @@ const GLAS_HOVER =
 const TEGEL_GLAS =
   "border border-white/20 bg-white/[0.06] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22)] backdrop-blur-[6px] backdrop-brightness-110 backdrop-saturate-150 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)]";
 const TEGEL_HOVER =
-  "transition-[background-color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/[0.11] active:translate-y-0 active:scale-[0.99]";
+  "transition-[background-color,border-color,transform] duration-300 ease-out hover:border-white/30 hover:bg-white/[0.09] active:scale-[0.99]";
+
+/** De gloed volgt de muis: de positie gaat als --x/--y naar de kaart, de lagen lezen hem uit. */
+const volgMuis = (e: PointerEvent<HTMLElement>) => {
+  if (e.pointerType !== "mouse") return;
+  const vak = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--x", `${e.clientX - vak.left}px`);
+  e.currentTarget.style.setProperty("--y", `${e.clientY - vak.top}px`);
+};
+
+/** Een masker dat alleen de rand van 1 pixel overlaat, voor de oplichtende rand. */
+const ALLEEN_RAND: CSSProperties = {
+  WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+  WebkitMaskComposite: "xor",
+  mask: "linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)",
+};
+
+/**
+ * Twee lagen onder de inhoud van een kaart, alleen zichtbaar bij aanwijzen: een
+ * zachte lichtvlek in het glas onder de cursor, en de rand die oplicht waar de
+ * cursor in de buurt is. Op een aanraakscherm bestaat aanwijzen niet en blijven
+ * ze weg.
+ */
+const Gloed = () => (
+  <>
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 rounded-[20px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      style={{ background: "radial-gradient(300px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.17), transparent 65%)" }}
+    />
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute -inset-px rounded-[21px] p-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      style={{
+        background: "radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.8), transparent 70%)",
+        ...ALLEEN_RAND,
+      }}
+    />
+  </>
+);
 const PIL = cn(GLAS, GLAS_HOVER, "flex h-10 items-center gap-2 rounded-full px-4 text-sm text-white/90 hover:text-white disabled:opacity-60");
 const TEKSTSCHADUW = { textShadow: "0 1px 24px rgba(0,0,0,0.4)" };
 
@@ -65,24 +104,25 @@ const Tegel = ({
 }) => {
   const inhoud = (
     <>
-      <span className="flex items-center justify-between gap-2 text-[13px] text-white/60">
+      <Gloed />
+      <span className="relative flex items-center justify-between gap-2 text-[13px] text-white/60">
         {label}
         {/* Bij aanwijzen schuift er een pijltje in: hier kun je verder. */}
         {to && (
           <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 translate-y-1 opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
         )}
       </span>
-      <span className="mt-1 font-epilogue text-[26px] font-medium leading-tight tracking-tight tabular-nums">{waarde}</span>
-      <span className={cn("mt-0.5 truncate text-[13px]", onderToon === "rood" ? "text-[#ff9b91]" : "text-white/55")}>{onder}</span>
+      <span className="relative mt-1 font-epilogue text-[26px] font-medium leading-tight tracking-tight tabular-nums">{waarde}</span>
+      <span className={cn("relative mt-0.5 truncate text-[13px]", onderToon === "rood" ? "text-[#ff9b91]" : "text-white/55")}>{onder}</span>
     </>
   );
-  const klasse = cn(TEGEL_GLAS, "p-start-op-glas group flex min-w-0 flex-col rounded-[20px] px-5 py-4 text-white");
+  const klasse = cn(TEGEL_GLAS, "p-start-op-glas group relative flex min-w-0 flex-col rounded-[20px] px-5 py-4 text-white");
   return to ? (
-    <VloeiendeLink to={to} className={cn(klasse, TEGEL_HOVER)} style={op(vertraging)}>
+    <VloeiendeLink to={to} className={cn(klasse, TEGEL_HOVER)} style={op(vertraging)} onPointerMove={volgMuis}>
       {inhoud}
     </VloeiendeLink>
   ) : (
-    <div className={klasse} style={op(vertraging)}>
+    <div className={klasse} style={op(vertraging)} onPointerMove={volgMuis}>
       {inhoud}
     </div>
   );
@@ -185,7 +225,7 @@ const Start = () => {
           <img src={logoSrc} alt="Nieuwblik" className="p-start-op h-6 w-auto brightness-0 invert" style={op(0)} />
           <VloeiendeLink
             to="/admin/dashboard"
-            className="p-start-op-glas group ml-auto flex h-10 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-neutral-900 transition-[background-color,transform] duration-300 ease-out hover:-translate-y-px hover:bg-white active:translate-y-0 active:scale-[0.98]"
+            className="p-start-op-glas group ml-auto flex h-10 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-neutral-900 transition-[background-color,transform] duration-300 ease-out hover:bg-white active:scale-[0.98]"
             style={op(80)}
           >
             Dashboard
@@ -226,7 +266,7 @@ const Start = () => {
             className={cn(
               GLAS,
               "p-start-op-glas group mt-9 flex h-14 w-full max-w-[560px] items-center gap-3 rounded-2xl px-5 text-left text-[15px] text-white/60",
-              "transition-[background-color,border-color,transform,color] duration-300 ease-out hover:-translate-y-px hover:border-white/30 hover:bg-[rgba(18,24,36,0.26)] hover:text-white/85 active:translate-y-0 active:scale-[0.99]",
+              "transition-[background-color,border-color,transform,color] duration-300 ease-out hover:border-white/30 hover:bg-[rgba(18,24,36,0.26)] hover:text-white/85 active:scale-[0.99]",
             )}
             style={op(380)}
           >
