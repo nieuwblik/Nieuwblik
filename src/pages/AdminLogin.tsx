@@ -1,7 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo.webp";
@@ -17,12 +18,18 @@ interface LocationState {
 const VELD =
   "h-12 w-full bg-transparent px-4 text-[15px] text-white placeholder:text-white/45 outline-none transition-colors focus:bg-white/[0.06] autofill:shadow-[inset_0_0_0_1000px_rgba(30,40,56,0.95)] autofill:[-webkit-text-fill-color:#fff]";
 
+/** Wanneer een onderdeel opkomt, voor de animaties p-start-op(-glas) in styles.css. */
+const op = (ms: number) => ({ "--vertraging": `${ms}ms` }) as CSSProperties;
+
 /**
  * Inloggen op het portaal, op dezelfde nachtscène als de startpagina. Eén
  * glazen venster in het midden: het logo, twee velden in één blok en een
  * knop. Een fout staat als korte regel onder het blok, met een korte
  * schudbeweging, in plaats van een melding die wegspringt. Na het inloggen
  * gaat de pagina vloeiend over in Start (of de pagina die om een login vroeg).
+ *
+ * Bij binnenkomst komt het venster op zoals Start: eerst het glas, daarna kort
+ * na elkaar het logo, de tekst, de velden en de knop.
  */
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -32,6 +39,24 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
   const [schud, setSchud] = useState(0);
+
+  // Het opkomen begint pas als het lettertype er is (hooguit 0,45 seconde na
+  // het openen); anders wisselen de letters midden in de beweging. Een gewone
+  // timer, geen animatieframe: die pauzeert in een tabblad op de achtergrond.
+  const [klaar, setKlaar] = useState(false);
+  const geopend = useRef(performance.now());
+  useEffect(() => {
+    let weg = false;
+    const begin = () => {
+      if (!weg) window.setTimeout(() => setKlaar(true), 16);
+    };
+    const uiterlijk = window.setTimeout(begin, Math.max(0, 450 - (performance.now() - geopend.current)));
+    void document.fonts.ready.then(begin);
+    return () => {
+      weg = true;
+      window.clearTimeout(uiterlijk);
+    };
+  }, []);
 
   // Hetzelfde lettertype als het portaal (Geist), zonder het thema over te nemen:
   // de inlogpagina is altijd de nachtscène.
@@ -104,7 +129,10 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="relative isolate flex min-h-[100svh] items-center justify-center px-5 py-10 text-white">
+    <div
+      className="relative isolate flex min-h-[100svh] items-center justify-center px-5 py-10 text-white"
+      data-start={klaar ? "klaar" : "laden"}
+    >
       <SEOHead
         title="Inloggen — Nieuwblik Portaal"
         description="Interne inlogpagina voor Nieuwblik."
@@ -114,12 +142,16 @@ const AdminLogin = () => {
       <PortaalAchtergrond />
 
       <main className="w-full max-w-[380px]">
-        <div className="rounded-[28px] border border-white/15 bg-[rgba(18,24,36,0.21)] px-7 pb-7 pt-9 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150 sm:px-8">
-          <img src={logoSrc} alt="Nieuwblik" className="mx-auto h-7 w-auto brightness-0 invert" />
-          <h1 className="mt-7 text-center text-[22px] font-medium tracking-tight">Welkom terug</h1>
-          <p className="mt-1 text-center text-[14px] text-white/60">Log in op het portaal</p>
+        <div style={op(0)} className="p-start-op-glas rounded-[28px] border border-white/15 bg-[rgba(18,24,36,0.21)] px-7 pb-7 pt-9 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150 sm:px-8">
+          <img src={logoSrc} alt="Nieuwblik" style={op(140)} className="p-start-op mx-auto h-7 w-auto brightness-0 invert" />
+          <h1 style={op(220)} className="p-start-op mt-7 text-center text-[22px] font-medium tracking-tight">
+            Welkom terug
+          </h1>
+          <p style={op(270)} className="p-start-op mt-1 text-center text-[14px] text-white/60">
+            Log in op het portaal
+          </p>
 
-          <form onSubmit={handleLogin} className="mt-7" noValidate>
+          <form onSubmit={handleLogin} style={op(340)} className="p-start-op mt-7" noValidate>
             <div
               key={schud}
               className={cn(
@@ -160,23 +192,16 @@ const AdminLogin = () => {
               {fout}
             </p>
 
-            <button
+            {/* Dezelfde knop als Dashboard op Start: een gewone portaalknop, maar wit. */}
+            <Button
               type="submit"
               disabled={isLoading || !email || !password}
-              className="group mt-2 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white text-[15px] font-medium text-neutral-900 transition-[background-color,opacity,transform] duration-150 hover:bg-white/90 active:scale-[0.99] disabled:opacity-50"
+              className="mt-2 h-11 w-full bg-white/95 text-[15px] text-neutral-900 hover:bg-white disabled:opacity-50"
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  Inloggen
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </>
-              )}
-            </button>
+              {isLoading ? <Loader2 className="animate-spin" /> : "Inloggen"}
+            </Button>
           </form>
         </div>
-        <p className="mt-5 text-center text-[12px] text-white/45">Nieuwblik Portaal</p>
       </main>
     </div>
   );
