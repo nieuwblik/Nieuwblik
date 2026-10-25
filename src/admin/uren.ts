@@ -48,26 +48,37 @@ function unwrap<T>({ data, error }: { data: T | null; error: { message: string }
 
 // ------------------------------------------------------------------ duur
 
-/** Minuten tussen begin en eind; een lopende timer telt tot nu. */
 /** Factureerbaar, afgerond en nog niet op een factuur in Moneybird. */
 export const nogTeFactureren = (r: TimeEntry) => r.billable && Boolean(r.ended_at) && !r.gefactureerd_op;
 
-export function duurMinuten(regel: Pick<TimeEntry, "started_at" | "ended_at">, nu = Date.now()): number {
+/** Uren tellen per begonnen kwartier: 1 minuut wordt 15, 16 minuten wordt 30. */
+export const opKwartier = (minuten: number) => (minuten > 0 ? Math.ceil(minuten / 15) * 15 : 0);
+
+/** De echte tijd tussen begin en eind in hele minuten; een lopende timer telt tot nu. */
+export function echteMinuten(regel: Pick<TimeEntry, "started_at" | "ended_at">, nu = Date.now()): number {
   const begin = new Date(regel.started_at).getTime();
   const eind = regel.ended_at ? new Date(regel.ended_at).getTime() : nu;
-  return Math.max(0, Math.round((eind - begin) / 60_000));
+  const ms = Math.max(0, eind - begin);
+  // Ook een registratie van een paar seconden is begonnen werk.
+  return ms > 0 ? Math.max(1, Math.round(ms / 60_000)) : 0;
 }
 
 /**
- * Factureren gaat per begonnen kwartier: de uren van een factuurregel worden
- * naar boven afgerond op 15 minuten (1u 7min wordt 1,25 uur). De serverfunctie
- * die de factuur in Moneybird maakt, rekent precies zo.
+ * Hoe lang een regel telt, in minuten: per begonnen kwartier, overal in het
+ * portaal (lijsten, totalen, grafieken, export) en op de factuur. Een lopende
+ * timer telt de echte tijd tot nu en wordt pas bij het stoppen afgerond.
  */
-export const factureerbareUren = (minuten: number) => Math.ceil(minuten / 15) / 4;
+export function duurMinuten(regel: Pick<TimeEntry, "started_at" | "ended_at">, nu = Date.now()): number {
+  const minuten = echteMinuten(regel, nu);
+  return regel.ended_at ? opKwartier(minuten) : minuten;
+}
+
+/** Uren van een factuurregel; de minuten tellen al per kwartier, dus dit zijn altijd hele kwartieren. */
+export const factureerbareUren = (minuten: number) => opKwartier(minuten) / 60;
 
 /**
  * Dezelfde indeling als de serverfunctie: één factuurregel per taak (of per
- * omschrijving), met de uren per regel afgerond op het kwartier.
+ * omschrijving), met elke registratie per begonnen kwartier geteld.
  */
 export function factuurRegels(regels: Array<Pick<UrenRegel, "started_at" | "ended_at" | "description" | "task">>) {
   const groepen = new Map<string, { omschrijving: string; minuten: number }>();
@@ -80,7 +91,7 @@ export function factuurRegels(regels: Array<Pick<UrenRegel, "started_at" | "ende
   return [...groepen.values()].map((g) => ({ ...g, uren: factureerbareUren(g.minuten) }));
 }
 
-/** Wat uren opleveren excl. btw: per factuurregel afgerond op het kwartier, maal het tarief. */
+/** Wat uren opleveren excl. btw: de kwartieren maal het tarief. */
 export const urenBedrag = (regels: Parameters<typeof factuurRegels>[0], tarief: number) =>
   factuurRegels(regels).reduce((som, g) => som + g.uren * tarief, 0);
 

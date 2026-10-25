@@ -13,7 +13,7 @@ import TijdKiezer from "@/admin/components/TijdKiezer";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { hoofdtaken } from "@/admin/constants";
 import { useProjects, useTasks, useTeam } from "@/admin/queries";
-import { formatDuur, useSaveUren, type UrenRegel } from "@/admin/uren";
+import { formatDuur, opKwartier, useSaveUren, type UrenRegel } from "@/admin/uren";
 
 const GEEN = "__geen__";
 
@@ -156,7 +156,12 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
             </div>
           </div>
           <p className="-mt-2 text-[13px] text-muted-foreground">
-            {minuten > 0 ? formatDuur(minuten) : "Eindtijd ligt voor de begintijd"}
+            {/* Wat de regel gaat tellen (per begonnen kwartier), met de echte tijd erbij als die afwijkt. */}
+            {minuten <= 0
+              ? "Eindtijd ligt voor de begintijd"
+              : opKwartier(minuten) === minuten
+                ? formatDuur(minuten)
+                : `Telt als ${formatDuur(opKwartier(minuten))} (${formatDuur(minuten)} gewerkt)`}
           </p>
 
           <div className="space-y-1.5">

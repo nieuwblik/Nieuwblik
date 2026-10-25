@@ -147,8 +147,7 @@ const UrenFactureren = ({ open, onOpenChange, projectId, client, regels }: UrenF
                 {regelsOpFactuur.map((g) => (
                   <li key={g.omschrijving} className="flex items-baseline gap-3 px-3 py-2">
                     <span className="min-w-0 flex-1 truncate">{g.omschrijving}</span>
-                    {/* Gefactureerd per begonnen kwartier; de echte tijd staat erbij als je erop wijst. */}
-                    <span className="shrink-0 tabular-nums text-muted-foreground" title={`${formatDuur(g.minuten)} gewerkt`}>
+                    <span className="shrink-0 tabular-nums text-muted-foreground">
                       {g.uren.toLocaleString("nl-NL", { maximumFractionDigits: 2 })} uur
                     </span>
                     <span className="w-20 shrink-0 text-right tabular-nums">

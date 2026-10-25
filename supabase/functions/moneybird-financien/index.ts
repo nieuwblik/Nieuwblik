@@ -283,16 +283,19 @@ interface Urenregel {
 }
 
 /**
- * Factuurregels uit uren: één regel per taak (of per omschrijving), met de
- * uren per regel naar boven afgerond op het kwartier (bij het maken van de
- * factuur). Het portaal toont vooraf precies dezelfde indeling en bedragen.
+ * Factuurregels uit uren: één regel per taak (of per omschrijving), met elke
+ * registratie per begonnen kwartier geteld. Het portaal toont vooraf precies
+ * dezelfde indeling en bedragen.
  */
 function factuurRegels(regels: Urenregel[]) {
   const groepen = new Map<string, { omschrijving: string; minuten: number; van: string; tot: string }>();
   for (const r of regels) {
     const omschrijving = r.task?.title?.trim() || r.description?.trim() || "Werkzaamheden";
-    // Hele minuten per regel, net als de duur die het portaal toont.
-    const minuten = Math.max(0, Math.round((new Date(r.ended_at!).getTime() - new Date(r.started_at).getTime()) / 60000));
+    // Elke registratie telt per begonnen kwartier (1 minuut wordt 15), net als
+    // de duur die het portaal toont; ook een paar seconden is begonnen werk.
+    const ms = Math.max(0, new Date(r.ended_at!).getTime() - new Date(r.started_at).getTime());
+    const echt = ms > 0 ? Math.max(1, Math.round(ms / 60000)) : 0;
+    const minuten = Math.ceil(echt / 15) * 15;
     const dag = r.started_at.slice(0, 10);
     const groep = groepen.get(omschrijving) ?? { omschrijving, minuten: 0, van: dag, tot: dag };
     groep.minuten += minuten;
@@ -1076,8 +1079,8 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
           prices_are_incl_tax: false,
           details_attributes: regelsOpFactuur.map((g, i) => ({
             description: g.omschrijving,
-            // Per begonnen kwartier, naar boven afgerond (1u 7min wordt 1,25 uur).
-            amount: (Math.ceil(g.minuten / 15) / 4).toFixed(2),
+            // Altijd hele kwartieren: de minuten zijn per registratie al afgerond.
+            amount: (g.minuten / 60).toFixed(2),
             price: tarief.toFixed(2),
             period: periode(g.van, g.tot),
             row_order: i,
