@@ -479,7 +479,7 @@
 
 /* ---------------------------------------------------------------------------
    Kleuren van het portaal: de neutralen van de Claude-app, licht en donker.
-   Licht is warm crème (pagina #faf9f5, zijbalk #f5f4ed, tekst #141413),
+   Licht is warm crème (zijbalk #f5f4ed, tekst #141413) met een wit paginavlak,
    donker warm grijs (zijbalk #1f1e1d, pagina #262624, vlakken #30302e, tekst
    #faf9f5). Het groene accent van Nieuwblik blijft.
 
@@ -488,7 +488,7 @@
    deze waarden altijd voorgaan op de algemene tokens hierboven.
    --------------------------------------------------------------------------- */
 .portaal {
-  --background: 48 33% 97%;           /* #faf9f5 */
+  --background: 0 0% 100%;            /* het paginavlak blijft wit; de zijbalk is crème */
   --foreground: 60 3% 8%;             /* #141413 */
   --card: 0 0% 100%;
   --card-foreground: 60 3% 8%;
