@@ -55,6 +55,8 @@ export interface Uitgaven {
   totaal: number;
   /** Inkoopfacturen en bonnetjes die nog niet zijn verwerkt (en dus niet meetellen). */
   nogTeVerwerken: number;
+  /** Excl. btw: wat die nog niet verwerkte documenten samen bedragen (voor zover herkend). */
+  nogTeVerwerkenBedrag?: number;
   perLeverancier: { naam: string; bedrag: number; aantal: number }[];
   perCategorie: { naam: string; bedrag: number }[];
   recent: {

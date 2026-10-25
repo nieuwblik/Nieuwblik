@@ -1620,6 +1620,7 @@ serve(async (req: Request): Promise<Response> => {
           id: string;
           contact?: MoneybirdContact | null;
           date: string | null;
+          created_at?: string | null;
           state: string;
           reference?: string | null;
           currency?: string;
@@ -1643,11 +1644,16 @@ serve(async (req: Request): Promise<Response> => {
           moneybird("ledger_accounts.json") as Promise<{ id: string; name: string }[]>,
         ]);
         const categorieNaam = new Map(grootboek.map((g) => [g.id, g.name]));
-        // Alleen wat echt geboekt is; nieuwe, nog niet verwerkte documenten tellen niet mee.
-        const docs = [
+        // In de totalen alleen wat echt geboekt is; nieuwe, nog niet verwerkte
+        // documenten tellen daar niet mee (hun bedrag en categorie kunnen nog
+        // wijzigen). Bij "recent" staan ze wél, zodat de lijst bijblijft ook als
+        // het verwerken in Moneybird achterloopt.
+        const alle = [
           ...inkoop.map((d) => ({ ...d, soort: "Inkoopfactuur" })),
           ...bonnetjes.map((d) => ({ ...d, soort: "Bonnetje" })),
-        ].filter((d) => d.state !== "new");
+        ];
+        const docs = alle.filter((d) => d.state !== "new");
+        const nieuw = alle.filter((d) => d.state === "new");
 
         const perLeverancier = new Map<string, { naam: string; bedrag: number; aantal: number }>();
         const perCategorie = new Map<string, { naam: string; bedrag: number }>();
@@ -1667,18 +1673,20 @@ serve(async (req: Request): Promise<Response> => {
         const groot = <T extends { bedrag: number }>(m: Map<string, T>) => [...m.values()].sort((a, b) => b.bedrag - a.bedrag);
         return {
           totaal: docs.reduce((som, d) => som + euro(d.total_price_excl_tax_base, d.total_price_excl_tax), 0),
-          nogTeVerwerken: [...inkoop, ...bonnetjes].filter((d) => d.state === "new").length,
+          nogTeVerwerken: nieuw.length,
+          nogTeVerwerkenBedrag: nieuw.reduce((som, d) => som + euro(d.total_price_excl_tax_base, d.total_price_excl_tax), 0),
           perLeverancier: groot(perLeverancier).slice(0, 8),
           perCategorie: groot(perCategorie).slice(0, 8),
-          recent: [...docs]
-            .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""))
+          // Op datum van het document; zonder datum (nog niet herkend) op wanneer hij binnenkwam.
+          recent: [...alle]
+            .sort((a, b) => (b.date ?? b.created_at ?? "").localeCompare(a.date ?? a.created_at ?? ""))
             .slice(0, 8)
             .map((d) => ({
               id: d.id,
               soort: d.soort,
               leverancier: d.contact ? contactNaam(d.contact) : "Zonder leverancier",
               omschrijving: d.reference || null,
-              datum: d.date,
+              datum: d.date ?? d.created_at?.slice(0, 10) ?? null,
               bedrag: euro(d.total_price_incl_tax_base, d.total_price_incl_tax),
               valuta: d.currency && d.currency !== "EUR" ? d.currency : null,
               status: d.state,

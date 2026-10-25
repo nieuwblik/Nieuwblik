@@ -77,7 +77,9 @@ export const UitgavenPanel = ({ uitgaven, moneybirdUrl }: { uitgaven: Onderdeel<
               <p className={cn("rounded-lg border px-3 py-2 text-[13px]", TOON.warning.cel)}>
                 {uitgaven.data.nogTeVerwerken}{" "}
                 {uitgaven.data.nogTeVerwerken === 1 ? "document wacht" : "documenten wachten"} in Moneybird nog op verwerking
-                en {uitgaven.data.nogTeVerwerken === 1 ? "telt" : "tellen"} hier nog niet mee.{" "}
+                {uitgaven.data.nogTeVerwerkenBedrag ? ` (samen ongeveer ${bedrag(uitgaven.data.nogTeVerwerkenBedrag, 0)} excl. btw)` : ""}{" "}
+                en {uitgaven.data.nogTeVerwerken === 1 ? "telt" : "tellen"} nog niet mee in de totalen.
+                {uitgaven.data.recent.some((u) => u.status === "new") && " In Recent staan ze al wel."}{" "}
                 <a href={`${moneybirdUrl}/documents`} target="_blank" rel="noopener noreferrer" className="font-medium underline">
                   Verwerken
                 </a>
@@ -110,12 +112,16 @@ export const UitgavenPanel = ({ uitgaven, moneybirdUrl }: { uitgaven: Onderdeel<
                         <span className="min-w-0 flex-1">
                           <span className="block truncate font-medium">{u.leverancier}</span>
                           <span className="block truncate text-[13px] text-muted-foreground">
+                            {/* Nog niet verwerkt in Moneybird: bedrag en leverancier kunnen nog wijzigen. */}
+                            {u.status === "new" && <span className={cn("font-medium", TOON.warning.tekst)}>Te verwerken · </span>}
                             {u.soort}
                             {u.valuta && ` in ${u.valuta}, omgerekend`}
                             {u.omschrijving && ` · ${u.omschrijving}`}
                           </span>
                         </span>
-                        <span className="shrink-0 font-medium tabular-nums">{bedrag(u.bedrag)}</span>
+                        <span className={cn("shrink-0 tabular-nums", u.status === "new" ? "text-muted-foreground" : "font-medium")}>
+                          {u.status === "new" && !u.bedrag ? "–" : bedrag(u.bedrag)}
+                        </span>
                         <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                       </a>
                     </li>

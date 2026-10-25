@@ -23,7 +23,7 @@ import {
   UserPlus,
   Users,
   Wallet,
-  ChartPie,
+  ShoppingBag,
   TrendingUp,
   Percent,
   Zap,
@@ -208,9 +208,9 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
           icon: Wallet,
           end: false,
           sub: [
-            { tab: null, label: "Overzicht", icon: ChartPie },
             { tab: "omzet", label: "Omzet", icon: TrendingUp },
             { tab: "btw", label: "Btw", icon: Percent },
+            { tab: "uitgaven", label: "Uitgaven", icon: ShoppingBag },
           ],
         },
       ],
@@ -269,6 +269,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
             const metSub = Boolean(sub?.length) && !collapsed;
             const opPagina = locatie.pathname === to || locatie.pathname.startsWith(`${to}/`);
             const subOpen = !subDicht.dicht.includes(to);
+            const subActief = opPagina && Boolean(sub?.some((item) => item.tab === huidigTab));
             return (
               <Fragment key={to}>
                 <div className="relative">
@@ -278,8 +279,8 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                   end={end}
                   onClick={onNavigate}
                   title={collapsed ? (uitleg ? `${label}: ${uitleg}` : label) : undefined}
-                  // Met open subitems licht het subitem op, niet het hoofditem; ingeklapt het hoofditem.
-                  className={({ isActive }) => cn(railItem(isActive && !(metSub && subOpen), collapsed), metSub && "pr-9")}
+                  // Staat een subitem open en actief, dan licht dat op; anders (het overzicht, of ingeklapt) het hoofditem.
+                  className={({ isActive }) => cn(railItem(isActive && !(metSub && subOpen && subActief), collapsed), metSub && "pr-9")}
                 >
                   <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
                   {!collapsed && label}

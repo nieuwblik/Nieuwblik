@@ -59,6 +59,7 @@ const TABBLADEN = [
   { waarde: "overzicht", label: "Overzicht" },
   { waarde: "omzet", label: "Omzet" },
   { waarde: "btw", label: "Btw" },
+  { waarde: "uitgaven", label: "Uitgaven" },
 ];
 
 const maandLabel = (maand: string, lang = false) =>
@@ -497,6 +498,21 @@ const Financien = () => {
           />
         </TabsContent>
 
+        {/* Uitgaven als eigen tabblad: per leverancier, per categorie en de
+            recentste, ook die nog in Moneybird op verwerking wachten. */}
+        <TabsContent value="uitgaven" className="mt-5">
+          {data.uitgaven ? (
+            <UitgavenPanel
+              uitgaven={data.uitgaven}
+              moneybirdUrl={data.moneybirdUrl}
+            />
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Uitgaven zijn nog niet geladen.
+            </p>
+          )}
+        </TabsContent>
+
         <TabsContent value="overzicht" className="mt-5 space-y-5">
           <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Cijfer
@@ -711,13 +727,6 @@ const Financien = () => {
                 <BetalingenPanel betalingen={data.betalingen} />
               )}
             </div>
-          )}
-
-          {data.uitgaven && (
-            <UitgavenPanel
-              uitgaven={data.uitgaven}
-              moneybirdUrl={data.moneybirdUrl}
-            />
           )}
 
           {data.offertes && <OffertesPanel offertes={data.offertes} />}
