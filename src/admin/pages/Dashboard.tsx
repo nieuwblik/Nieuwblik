@@ -11,11 +11,13 @@ import HostingKaart from "@/admin/dashboard/HostingKaart";
 import MailenKaart from "@/admin/dashboard/MailenKaart";
 import Meldingen from "@/admin/dashboard/Meldingen";
 import MijnTakenKaart from "@/admin/dashboard/MijnTakenKaart";
+import PijplijnKaart from "@/admin/dashboard/PijplijnKaart";
 import ProjectvoortgangKaart from "@/admin/dashboard/ProjectvoortgangKaart";
+import SnelleKnoppen from "@/admin/dashboard/SnelleKnoppen";
 import TaakoverzichtKaart from "@/admin/dashboard/TaakoverzichtKaart";
 import UrenKaart from "@/admin/dashboard/UrenKaart";
 import WebsitesKaart from "@/admin/dashboard/WebsitesKaart";
-import { useClients, useMailings } from "@/admin/queries";
+import { useMailings } from "@/admin/queries";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
 
 const groet = () => {
@@ -42,14 +44,14 @@ const meervoud = (aantal: number, een: string, meer: string) => `${aantal} ${aan
  * staan.
  *
  * Elk cijfer en elke regel is een link naar de lijst erachter. Hosting en
- * Mailen krijgen pas een kaart als er iets in staat; tot dan staan ze als
- * smalle melding onder de begroeting.
+ * Mailen krijgen pas een kaart als er iets in staat (een contract, een
+ * verstuurde mailing). De pijplijn staat direct onder wat aandacht vraagt:
+ * eerst het werk, dan het geld dat eraan komt.
  */
 const Dashboard = () => {
   const { profielNaam } = useAdminAuth();
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
-  const { data: clients = [] } = useClients();
   const { data: mailings = [] } = useMailings(1);
 
   const samenvatting = [
@@ -60,7 +62,8 @@ const Dashboard = () => {
 
   const voornaam = profielNaam.split(/\s+/)[0];
   const toonHosting = facturen.contracten > 0;
-  const toonMailen = mailings.length > 0 || clients.some((c) => c.email?.includes("@"));
+  // Pas na de eerste mailing: daarvoor zegt de kaart alleen "Nog niets verstuurd".
+  const toonMailen = mailings.length > 0;
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-5">
@@ -88,12 +91,14 @@ const Dashboard = () => {
             </button>
           )}
         </div>
+        <SnelleKnoppen />
         <Meldingen />
       </div>
 
       <div className="flex flex-col gap-4 xl:grid xl:grid-cols-[minmax(0,1fr)_minmax(320px,380px)] xl:items-start">
         <div className="contents xl:flex xl:flex-col xl:gap-4">
           <AandachtKaart className="order-1 xl:order-none" />
+          <PijplijnKaart className="order-3 xl:order-none" />
           <MijnTakenKaart className="order-3 xl:order-none" />
           <UrenKaart className="order-4 xl:order-none" />
           <AfgerondKaart className="order-6 xl:order-none" />

@@ -17,6 +17,7 @@ import {
   UserRound,
   type LucideIcon,
 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -45,9 +46,12 @@ import {
 } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
 import { useConfirm } from "@/admin/useConfirm";
+import { ruimLegeTaakOp } from "@/admin/legeTaken";
+import { NIEUWE_TAAK_TITEL } from "@/admin/useCreateTask";
 import { HERHALING, HERHALING_ORDER } from "@/admin/herhaling";
 import type { Herhaling } from "@/admin/werkstroom";
 import {
+  adminKeys,
   useDeleteTask,
   useSaveTask,
   useTaskFileCounts,
@@ -221,6 +225,27 @@ const TaskDetail = () => {
   const [looptOver, setLooptOver] = useState(false);
   const didFocus = useRef(false);
   const location = useLocation();
+  const qc = useQueryClient();
+
+  // Bij weggaan: een nieuwe taak waar niets aan is gedaan weer opruimen.
+  // Wat nog in de velden staat telt als ingevuld, ook als het nog niet is
+  // opgeslagen; en na een korte pauze, zodat een titel die bij het weggaan
+  // nog wordt opgeslagen eerst binnen is. ruimLegeTaakOp leest dan vers.
+  const veldenNu = useRef({ title, description });
+  veldenNu.current = { title, description };
+  useEffect(() => {
+    const taakId = id;
+    return () => {
+      if (!taakId) return;
+      const { title: t, description: d } = veldenNu.current;
+      if ((t.trim() && t.trim() !== NIEUWE_TAAK_TITEL) || d.trim()) return;
+      window.setTimeout(() => {
+        void ruimLegeTaakOp(taakId).then((weg) => {
+          if (weg) void qc.invalidateQueries({ queryKey: adminKeys.tasks });
+        });
+      }, 1500);
+    };
+  }, [id, qc]);
 
   /*
    * Net aangemaakt via een plusknop: de werktitel staat geselecteerd, zodat

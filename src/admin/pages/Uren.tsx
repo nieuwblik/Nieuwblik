@@ -46,7 +46,10 @@ const Uren = () => {
   const [week, setWeek] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
   const [wie, setWie] = useState<string>("iedereen");
   const [project, setProject] = useState<string>("alle");
-  const [dialoog, setDialoog] = useState<{ regel?: UrenRegel; datum?: string } | null>(null);
+  // Vanaf de snelle knop "Uren" op het dashboard (telefoon) opent het venster meteen.
+  const [dialoog, setDialoog] = useState<{ regel?: UrenRegel; datum?: string } | null>(() =>
+    new URLSearchParams(window.location.search).get("nieuw") === "1" ? {} : null,
+  );
   const verwijder = useDeleteUren();
   const { vraagBevestiging, dialoog: bevestiging } = useConfirm();
 

@@ -50,6 +50,7 @@ import { useBetaalMeldingen } from "@/admin/useBetaalMeldingen";
 import { useAanvragen } from "@/admin/aanvragen";
 import { useAutomatischeTaken } from "@/admin/useAutomatischeTaken";
 import { useWebsiteBewaking } from "@/admin/websites";
+import { useLegeTakenOpruimen } from "@/admin/legeTaken";
 import { initials } from "@/admin/format";
 import { usePortalPwa } from "@/admin/pwa";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
@@ -395,6 +396,7 @@ const AdminLayout = () => {
   useBetaalMeldingen(status === "authorized");
   useAutomatischeTaken(status === "authorized");
   useWebsiteBewaking(status === "authorized");
+  useLegeTakenOpruimen(status === "authorized");
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
