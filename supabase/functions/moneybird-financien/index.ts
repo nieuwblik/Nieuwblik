@@ -373,12 +373,12 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
     );
 
     const voorstellen: unknown[] = [];
-    const zonderContact: string[] = [];
-    const twijfel: string[] = [];
+    const zonderContact: { clientId: string; naam: string }[] = [];
+    const twijfel: { clientId: string; naam: string }[] = [];
     for (const k of onvolledig) {
       const gevonden = await zoekContact(k);
       if (!("contact" in gevonden)) {
-        (gevonden.kandidaten.length > 0 ? twijfel : zonderContact).push(k.name);
+        (gevonden.kandidaten.length > 0 ? twijfel : zonderContact).push({ clientId: k.id, naam: k.name });
         continue;
       }
       const c = gevonden.contact;
@@ -398,6 +398,27 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
       voorstellen.push({ clientId: k.id, klant: k.name, contact: contactUit(c), velden });
     }
     return { ok: true, voorstellen, zonderContact, twijfel };
+  }
+
+  if (actie === "moneybird-contacten") {
+    // Alle contacten, om een klant zelf aan het juiste contact te koppelen.
+    const contacten = await allePaginas<MoneybirdContact>("contacts.json");
+    return {
+      ok: true,
+      contacten: contacten
+        .map((c) => ({
+          ...contactUit(c),
+          telefoon: c.phone?.trim() || null,
+          plaats: c.city?.trim() || null,
+          persoon:
+            c.company_name && (c.firstname || c.lastname)
+              ? [c.firstname, c.lastname].filter(Boolean).join(" ")
+              : c.contact_people?.[0]
+                ? [c.contact_people[0].firstname, c.contact_people[0].lastname].filter(Boolean).join(" ")
+                : null,
+        }))
+        .sort((a, b) => a.naam.localeCompare(b.naam, "nl")),
+    };
   }
 
   if (actie === "hosting-uit-moneybird") {

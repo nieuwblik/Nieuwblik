@@ -457,9 +457,31 @@ export function useKlantenAanvullen(actief: boolean) {
     staleTime: 0,
     retry: false,
     queryFn: () =>
-      roepAan<{ ok: true; voorstellen: KlantVoorstel[]; zonderContact: string[]; twijfel: string[] }>({
+      roepAan<{
+        ok: true;
+        voorstellen: KlantVoorstel[];
+        zonderContact: { clientId: string; naam: string }[];
+        twijfel: { clientId: string; naam: string }[];
+      }>({
         actie: "klanten-aanvullen",
       }),
+  });
+}
+
+export interface MoneybirdContactVolledig extends MoneybirdContact {
+  telefoon: string | null;
+  plaats: string | null;
+  persoon: string | null;
+}
+
+/** Alle Moneybird-contacten, om een klant zelf te koppelen. Pas opgehaald als nodig. */
+export function useMoneybirdContacten(actief: boolean) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "contacten"],
+    enabled: actief,
+    staleTime: 10 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<{ ok: true; contacten: MoneybirdContactVolledig[] }>({ actie: "moneybird-contacten" }),
   });
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { format, parseISO } from "date-fns";
 import { nl } from "date-fns/locale";
 import { useQueryClient } from "@tanstack/react-query";
@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatEuro } from "@/admin/billing";
 import { TOON } from "@/admin/constants";
 import { MONEYBIRD_NOTITIE, useHostingUitMoneybird, type HostingVoorstel } from "@/admin/financien";
-import { adminKeys } from "@/admin/queries";
+import { adminKeys, useClients } from "@/admin/queries";
 
 /** Kan dit voorstel als contract in het portaal? */
 const bruikbaar = (v: HostingVoorstel) => Boolean(v.clientId && v.cyclus && v.start);
@@ -28,14 +29,35 @@ const bruikbaar = (v: HostingVoorstel) => Boolean(v.clientId && v.cyclus && v.st
  */
 const HostingUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
   const { data, isLoading, isError, error } = useHostingUitMoneybird(open);
+  const { data: clients = [] } = useClients();
   const qc = useQueryClient();
   const [gekozen, setGekozen] = useState<Set<string>>(new Set());
+  const [koppelingen, setKoppelingen] = useState<Map<string, string>>(new Map());
   const [bezig, setBezig] = useState(false);
 
   // Standaard aangevinkt: bij een klant gevonden en nog geen contract.
   useEffect(() => {
     if (data) setGekozen(new Set(data.voorstellen.filter((v) => bruikbaar(v) && !v.alIngesteld).map((v) => v.id)));
+    setKoppelingen(new Map());
   }, [data]);
+
+  /** De voorstellen met de klanten die je zelf hebt gekoppeld. */
+  const voorstellen = useMemo<HostingVoorstel[]>(
+    () =>
+      (data?.voorstellen ?? []).map((v) => {
+        const eigen = koppelingen.get(v.id);
+        const klant = eigen ? clients.find((c) => c.id === eigen) : undefined;
+        return klant
+          ? { ...v, clientId: klant.id, klantNaam: klant.name, alIngesteld: Boolean(klant.billing_cycle && klant.billing_start) }
+          : v;
+      }),
+    [data, koppelingen, clients],
+  );
+
+  const koppel = (voorstel: HostingVoorstel, clientId: string) => {
+    setKoppelingen((huidig) => new Map(huidig).set(voorstel.id, clientId));
+    if (voorstel.cyclus && voorstel.start) setGekozen((huidig) => new Set(huidig).add(voorstel.id));
+  };
 
   const wissel = (id: string) =>
     setGekozen((huidig) => {
@@ -49,7 +71,7 @@ const HostingUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChan
     if (!data) return;
     setBezig(true);
     let gelukt = 0;
-    for (const v of data.voorstellen.filter((v) => gekozen.has(v.id) && bruikbaar(v))) {
+    for (const v of voorstellen.filter((v) => gekozen.has(v.id) && bruikbaar(v))) {
       const { error: fout } = await supabase
         .from("clients")
         .update({
@@ -95,11 +117,11 @@ const HostingUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChan
           </div>
         ) : isError || !data ? (
           <p className={cn("text-sm", TOON.danger.tekst)}>{error instanceof Error ? error.message : "Ophalen mislukt"}</p>
-        ) : data.voorstellen.length === 0 ? (
+        ) : voorstellen.length === 0 ? (
           <p className="text-sm text-muted-foreground">Er staan geen actieve terugkerende facturen in Moneybird.</p>
         ) : (
           <ul className="max-h-[55vh] divide-y divide-border overflow-y-auto rounded-xl border border-border">
-            {data.voorstellen.map((v) => {
+            {voorstellen.map((v) => {
               const waarom = reden(v);
               return (
                 <li key={v.id}>
@@ -128,7 +150,25 @@ const HostingUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChan
                         {v.omschrijving ?? "Geen omschrijving"}
                         {v.volgende && ` · volgende ${format(parseISO(v.volgende), "d MMM yyyy", { locale: nl })}`}
                       </span>
-                      {waarom && <span className={cn("mt-0.5 block text-[13px]", TOON.warning.tekst)}>{waarom}</span>}
+                      {!v.clientId ? (
+                        <span className="mt-1.5 flex flex-wrap items-center gap-2 text-[13px]">
+                          <span className={TOON.warning.tekst}>Geen klant gevonden. Koppel aan:</span>
+                          <Select onValueChange={(waarde) => koppel(v, waarde)}>
+                            <SelectTrigger className="h-8 w-52" aria-label={`Klant voor ${v.contact.naam}`}>
+                              <SelectValue placeholder="Kies een klant" />
+                            </SelectTrigger>
+                            <SelectContent className="max-h-72">
+                              {clients.map((c) => (
+                                <SelectItem key={c.id} value={c.id}>
+                                  {c.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </span>
+                      ) : (
+                        waarom && <span className={cn("mt-0.5 block text-[13px]", TOON.warning.tekst)}>{waarom}</span>
+                      )}
                     </span>
                     <a
                       href={v.url}

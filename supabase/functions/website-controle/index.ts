@@ -10,7 +10,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  * Alleen voor admins. Zonder projectId worden alle projecten met een
  * live-URL gecontroleerd; met projectId alleen dat ene.
  *
- * Bronnen: de site zelf (een gewone GET), crt.sh voor certificaten (openbare
+ * Bronnen: de site zelf (een gewone GET), Cert Spotter en crt.sh voor certificaten (openbare
  * certificatenregisters) en RDAP voor domeinen. .nl-domeinen geven via RDAP
  * geen verloopdatum; die blijft dan leeg.
  */
@@ -56,10 +56,37 @@ function hostVan(url: string): string | null {
 /** Het registreerbare domein: "www.shop.voorbeeld.nl" wordt "voorbeeld.nl" (genoeg voor .nl, .com en dergelijke). */
 const domeinVan = (host: string) => host.split(".").slice(-2).join(".");
 
-/** Tot wanneer het nieuwste certificaat voor deze host geldig is, uit crt.sh. */
+/** Past een certificaatnaam (ook een wildcard) bij deze host? */
+const naamPast = (naam: string, host: string) => naam === host || (naam.startsWith("*.") && host.endsWith(naam.slice(1)));
+
+/**
+ * Tot wanneer het nieuwste certificaat voor deze host geldig is. Eerst Cert
+ * Spotter (snel), dan crt.sh als reserve: crt.sh is vanaf servers soms traag.
+ */
 async function sslGeldigTot(host: string): Promise<string | null> {
+  return (await sslViaCertSpotter(host)) ?? (await sslViaCrtSh(host));
+}
+
+async function sslViaCertSpotter(host: string): Promise<string | null> {
   try {
-    const res = await haal(`https://crt.sh/?q=${encodeURIComponent(host)}&output=json&exclude=expired&deduplicate=Y`, 12000);
+    const res = await haal(`https://api.certspotter.com/v1/issuances?domain=${encodeURIComponent(host)}&expand=dns_names`, 10000);
+    if (!res.ok) return null;
+    const lijst = (await res.json()) as { dns_names?: string[]; not_after?: string; revoked?: boolean }[];
+    const laatste = lijst
+      .filter((c) => !c.revoked && (c.dns_names ?? []).some((n) => naamPast(n, host)))
+      .map((c) => c.not_after)
+      .filter((d): d is string => Boolean(d))
+      .sort()
+      .at(-1);
+    return laatste ? new Date(laatste).toISOString() : null;
+  } catch {
+    return null;
+  }
+}
+
+async function sslViaCrtSh(host: string): Promise<string | null> {
+  try {
+    const res = await haal(`https://crt.sh/?q=${encodeURIComponent(host)}&output=json&exclude=expired&deduplicate=Y`, 25000);
     if (!res.ok) return null;
     const lijst = (await res.json()) as { not_after?: string; name_value?: string }[];
     const passend = lijst.filter((c) =>
