@@ -39,7 +39,7 @@ interface MonthGridProps {
  *
  * Rustig van zichzelf: de cellen hebben geen kleur, alleen de taken erin een
  * stip naar prioriteit. Wat over de datum is staat in rood. Vandaag heeft een
- * gevuld rondje om het getal, het weekend een iets andere ondergrond.
+ * zacht vlakje achter het getal, het weekend een iets andere ondergrond.
  *
  * Werken gaat in het rooster zelf: een taak naar een andere dag slepen zet
  * de deadline om, ook vanuit de lijsten ernaast (te laat, zonder datum). Met
@@ -148,8 +148,9 @@ const MonthGrid = ({ maand, gekozenDag, perDag, onSelectDay, onSelectTask, onAdd
                   aria-label={`${datumTekst}${taken.length ? `, ${taken.length} ${taken.length === 1 ? "taak" : "taken"}` : ""}`}
                   aria-pressed={gekozen}
                   className={cn(
-                    "flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    vandaag ? "bg-foreground font-medium text-background" : "text-muted-foreground",
+                    "flex h-5 min-w-5 items-center justify-center rounded-md px-1.5 text-xs tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    // Vandaag: een zacht vlakje en het getal in de gewone tekstkleur, geen zwarte bol.
+                    vandaag ? "bg-foreground/[0.07] font-medium text-foreground" : "text-muted-foreground",
                   )}
                 >
                   {format(dag, "d")}
