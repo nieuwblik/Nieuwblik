@@ -97,6 +97,13 @@ const railItem = (isActive: boolean, collapsed: boolean) =>
   );
 
 const GROEPEN_KEY = "nieuwblik:portaal:zijbalk-groepen-dicht";
+
+/**
+ * De kleur van de boomlijn bij subitems: gedempte tekstkleur, vooraf gemengd
+ * met de zijbalk. Niet doorzichtig, zodat lijn en bochten waar ze elkaar
+ * raken niet donkerder worden.
+ */
+const BOOMLIJN = "border-[color-mix(in_oklab,var(--color-rail-muted)_32%,var(--color-rail))]";
 /** Items met subitems (zoals Financiën) die zijn ingeklapt. */
 const SUB_KEY = "nieuwblik:portaal:zijbalk-sub-dicht";
 
@@ -339,19 +346,21 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                         const laatste = i === sub!.length - 1;
                         const SubIcon = item.icon;
                         return (
-                          <li key={item.label} className="relative">
-                            {/* Alles met randen van dezelfde kleur getekend, zodat lijn,
-                                takje en bocht even dik zijn en precies op elkaar aansluiten.
-                                Het takje stopt ruim voor het vlak van het item. */}
+                          <li key={item.label} className="relative py-0.5">
+                            {/* Elk takje is een zachte bocht vanaf de lijn; bij de
+                                tussenliggende items loopt de lijn erachter door, bij het
+                                laatste houdt hij in de bocht op. Alles met randen in één
+                                kleur, zodat ze even dik zijn en naadloos aansluiten. Het
+                                takje stopt ruim voor het vlak van het item. */}
                             {!laatste && (
-                              <span aria-hidden="true" className="absolute -left-3 top-0 h-full border-l border-rail-muted/30" />
+                              <span aria-hidden="true" className={cn("absolute -left-3 top-0 h-full border-l", BOOMLIJN)} />
                             )}
                             <span
                               aria-hidden="true"
                               className={cn(
-                                "absolute top-0 h-1/2 border-b border-rail-muted/30",
-                                // Het takje begint naast de lijn, anders overlappen twee halfdoorzichtige randen.
-                                laatste ? "-left-3 w-1.5 rounded-bl-[5px] border-l" : "-left-[11px] w-[5px]",
+                                "absolute -left-3 w-1.5 rounded-bl-[6px] border-b border-l",
+                                BOOMLIJN,
+                                laatste ? "top-0 h-1/2" : "top-[calc(50%-6px)] h-1.5",
                               )}
                             />
                             <Link
