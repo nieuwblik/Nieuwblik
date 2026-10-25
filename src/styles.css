@@ -1106,6 +1106,16 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Geen verspringende pagina bij menu's, keuzelijsten en vensters. Die
+   blokkeren het scrollen en zetten daarbij extra ruimte rechts ter grootte
+   van de schuifbalk. Maar de ruimte voor de schuifbalk is er al
+   (scrollbar-gutter: stable op html), dus dan schoof alles rechts 10px op.
+   Hogere specificiteit dan de regel die de scroll-blokkade zelf toevoegt. */
+.portaal body[data-scroll-locked] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
 /* Cursor zoals in de Claude-app: de gewone pijl op knoppen, menu-items,
    tabbladen, rijen en de zijbalk. Dat iets klikbaar is, zie je aan het vlak
    bij hover. De hand alleen op echte tekstlinks: onderstreept, of naar een

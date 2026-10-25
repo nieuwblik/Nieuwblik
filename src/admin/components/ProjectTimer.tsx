@@ -3,7 +3,6 @@ import { startOfWeek } from "date-fns";
 import { Clock, Play, Square } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
@@ -100,19 +99,21 @@ const ProjectTimer = ({ projectId, naam }: { projectId: string; naam: string }) 
         >
           {formatKlok(seconden)}
         </span>
-        <Button
-          size="icon"
+        {/* Zoals de timerknop in de bovenbalk: geen eigen vlak, alleen het
+            icoon in kleur (groen starten, rood stoppen), grijs bij hover. */}
+        <button
+          type="button"
           onClick={() => void klik()}
           disabled={start.isPending || stop.isPending}
           title={looptHier ? "Timer stoppen" : `Timer starten voor ${naam}`}
           aria-label={looptHier ? "Timer stoppen" : `Timer starten voor ${naam}`}
           className={cn(
-            "h-8 w-8 rounded-lg",
-            looptHier ? "bg-danger text-white hover:bg-danger/90" : "bg-accent text-accent-foreground hover:bg-accent/90",
+            "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,transform] duration-150 ease-out hover:bg-muted active:scale-90 disabled:opacity-50",
+            looptHier ? "text-danger-ink" : "text-accent dark:text-[hsl(160_60%_55%)]",
           )}
         >
-          {looptHier ? <Square className="h-3.5 w-3.5 fill-current" /> : <Play className="h-3.5 w-3.5 fill-current" />}
-        </Button>
+          {looptHier ? <Square className="h-2.5 w-2.5 fill-current" /> : <Play className="ml-px h-3 w-3 fill-current" />}
+        </button>
       </div>
 
       {/* Waaraan, voordat je start. Loopt de timer hier, dan staat dat al in de kop. */}
