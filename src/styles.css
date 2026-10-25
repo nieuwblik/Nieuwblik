@@ -1032,6 +1032,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: none !important;
 }
 
+/* En elke schaduwklasse van Tailwind (ook die van de gedeelde kaart-
+   component). Alleen de schaduw zelf gaat op nul; focusringen gebruiken een
+   eigen variabele en blijven werken. */
+.portaal :is(.shadow-2xs, .shadow-xs, .shadow-sm, .shadow, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl) {
+  --tw-shadow: 0 0 #0000;
+}
+
 /* Cursor zoals in de Claude-app: de gewone pijl op knoppen, menu-items,
    tabbladen, rijen en de zijbalk. Dat iets klikbaar is, zie je aan het vlak
    bij hover. De hand alleen op echte tekstlinks: onderstreept, of naar een
