@@ -51,6 +51,7 @@ import { useAanvragen } from "@/admin/aanvragen";
 import { useAutomatischeTaken } from "@/admin/useAutomatischeTaken";
 import { useWebsiteBewaking } from "@/admin/websites";
 import { useLegeTakenOpruimen } from "@/admin/legeTaken";
+import { useVloeiendNaar } from "@/admin/vloeiend";
 import { initials } from "@/admin/format";
 import { usePortalPwa } from "@/admin/pwa";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
@@ -128,6 +129,7 @@ const sneltoetsLabel = () =>
  * hoeft te openen om te weten of het nodig is.
  */
 const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () => void }) => {
+  const naar = useVloeiendNaar();
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
   const { data: aanvragen = [] } = useAanvragen();
@@ -195,7 +197,13 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
         <NavLink
           to="/admin"
           end
-          onClick={onNavigate}
+          // Terug naar Start met dezelfde vloeiende overgang als de heenweg.
+          onClick={(e) => {
+            onNavigate?.();
+            if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            e.preventDefault();
+            naar("/admin");
+          }}
           title={collapsed ? "Start" : undefined}
           className={({ isActive }) => railItem(isActive, collapsed)}
         >
@@ -411,12 +419,17 @@ const AdminLayout = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Andere schermen (de begroeting op het dashboard) openen de naamdialoog
-  // via een gebeurtenis, zodat er één dialoog blijft.
+  // Andere schermen (de begroeting op Start) openen de naamdialoog en het
+  // zoekpalet via een gebeurtenis, zodat er één dialoog van elk blijft.
   useEffect(() => {
-    const open = () => setNaamOpen(true);
-    window.addEventListener("portaal:naam-instellen", open);
-    return () => window.removeEventListener("portaal:naam-instellen", open);
+    const naam = () => setNaamOpen(true);
+    const zoek = () => setPaletteOpen(true);
+    window.addEventListener("portaal:naam-instellen", naam);
+    window.addEventListener("portaal:zoeken", zoek);
+    return () => {
+      window.removeEventListener("portaal:naam-instellen", naam);
+      window.removeEventListener("portaal:zoeken", zoek);
+    };
   }, []);
 
   const { theme, toggle: toggleTheme } = usePortalTheme();
@@ -502,6 +515,20 @@ const AdminLayout = () => {
       onSignOut={() => void signOut()}
     />
   );
+
+  // Start: de pagina over het hele scherm, zonder zijbalk en bovenbalk. De
+  // dialogen blijven, zodat zoeken (Ctrl K), N en de naam ook hier werken.
+  if (location.pathname.replace(/\/$/, "") === "/admin") {
+    return (
+      <>
+        <AdminSEO />
+        <Outlet />
+        <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+        <QuickCapture open={captureOpen} onOpenChange={setCaptureOpen} />
+        <ProfileNameDialog open={naamOpen} onOpenChange={setNaamOpen} />
+      </>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-rail">

@@ -1515,3 +1515,60 @@ html.tn-vast { overflow: hidden; }
 /* Link naar de gids onder de prijspakketten (PricingPackages, groene sectie). */
 .pakket-gids-link { color: #fff; font-weight: 600; transition: color 0.2s ease; }
 .pakket-gids-link:hover, .pakket-gids-link:focus-visible { color: hsl(160 70% 60%); }
+
+/* Paginaovergang in het portaal (View Transitions-API, zie src/admin/vloeiend.ts):
+   de oude pagina vervaagt en zakt licht weg, de nieuwe komt rustig op. De
+   achtergrondscène van inloggen en Start heeft een eigen naam en blijft staan. */
+::view-transition-old(root) {
+  animation: 380ms cubic-bezier(0.4, 0, 1, 1) both portaal-pagina-uit;
+}
+::view-transition-new(root) {
+  animation: 520ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both portaal-pagina-in;
+}
+::view-transition-group(portaal-achtergrond) {
+  animation-duration: 520ms;
+}
+@keyframes portaal-pagina-uit {
+  to {
+    opacity: 0;
+    transform: scale(1.015);
+    filter: blur(8px);
+  }
+}
+@keyframes portaal-pagina-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-group(portaal-achtergrond) {
+    animation: none;
+  }
+}
+
+/* Een kort schudden bij een mislukte login, zoals op een Mac. */
+@keyframes portaal-schud {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+.p-schud {
+  animation: portaal-schud 360ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .p-schud {
+    animation: none;
+  }
+}
