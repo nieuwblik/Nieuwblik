@@ -4,11 +4,13 @@ import {
   Bell,
   CalendarDays,
   CheckSquare,
+  ChevronDown,
   ChevronsUpDown,
   LayoutDashboard,
   LogOut,
   Mail,
   Menu,
+  Plus,
   Moon,
   PanelLeft,
   Receipt,
@@ -70,17 +72,40 @@ interface NavEntry {
 }
 
 /**
- * Een menu-item. Het actieve item ligt als wit blokje op de grijze balk, met
- * tekst en icoon in de accentkleur: zo zie je in één blik waar je bent.
+ * Een menu-item, zoals in de zijbalk van de Claude-app: donkere tekst op het
+ * grijs, en het actieve item als een zacht, iets donkerder vlak. Geen schaduw
+ * en geen accentkleur; de plek zelf vertelt waar je bent.
  */
 const railItem = (isActive: boolean, collapsed: boolean) =>
   cn(
-    "group relative flex items-center rounded-lg text-sm transition-[background-color,color,box-shadow,transform] duration-150 ease-out active:scale-[0.98]",
-    collapsed ? "h-10 w-10 justify-center" : "gap-3 px-3 py-2",
-    isActive
-      ? "bg-rail-active font-medium text-rail-accent shadow-[0_1px_2px_rgb(0_0_0/0.06)]"
-      : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+    "group relative flex items-center rounded-lg text-[15px] text-rail-fg transition-[background-color,transform] duration-150 ease-out active:scale-[0.98]",
+    collapsed ? "h-10 w-10 justify-center" : "gap-3 px-3 py-[7px]",
+    isActive ? "bg-rail-active" : "hover:bg-rail-hover",
   );
+
+const GROEPEN_KEY = "nieuwblik:portaal:zijbalk-groepen-dicht";
+
+/** Welke groepen zijn ingeklapt; per browser onthouden. */
+function useDichteGroepen() {
+  const [dicht, setDicht] = useState<string[]>(() => {
+    try {
+      return JSON.parse(window.localStorage.getItem(GROEPEN_KEY) ?? "[]") as string[];
+    } catch {
+      return [];
+    }
+  });
+  const wissel = (label: string) =>
+    setDicht((huidig) => {
+      const nieuw = huidig.includes(label) ? huidig.filter((l) => l !== label) : [...huidig, label];
+      try {
+        window.localStorage.setItem(GROEPEN_KEY, JSON.stringify(nieuw));
+      } catch {
+        // Opslag geblokkeerd: dan alleen niet onthouden.
+      }
+      return nieuw;
+    });
+  return { dicht, wissel };
+}
 
 /** Op de Mac is het Cmd+K, op Windows en Linux Ctrl+K. */
 const sneltoetsLabel = () =>
@@ -99,12 +124,17 @@ const sneltoetsLabel = () =>
 const RailNav = ({
   collapsed,
   onNavigate,
+  onNieuweTaak,
+  onZoeken,
 }: {
   collapsed: boolean;
   onNavigate?: () => void;
+  onNieuweTaak: () => void;
+  onZoeken: () => void;
 }) => {
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
+  const { dicht, wissel } = useDichteGroepen();
 
   const groepen: { label: string; items: NavEntry[] }[] = [
     {
@@ -153,18 +183,56 @@ const RailNav = ({
     },
   ];
 
+  // Bovenaan, los van de groepen: wat je het vaakst doet.
+  const acties = [
+    { label: "Nieuwe taak", icon: Plus, onClick: onNieuweTaak, titel: "Nieuwe taak (N)" },
+    { label: "Zoeken", icon: Search, onClick: onZoeken, titel: `Zoeken (${sneltoetsLabel()})` },
+  ];
+
   return (
     <nav className={cn("flex flex-col gap-5", collapsed ? "items-center px-2" : "px-3")}>
-      {groepen.map((groep, index) => (
-        <div key={groep.label} className={cn("flex flex-col gap-0.5", collapsed && "items-center")}>
-          {/* Ingeklapt is er geen ruimte voor het woord; een streepje houdt
-              de groepen dan toch uit elkaar. */}
-          {collapsed ? (
-            index > 0 && <span className="mb-2 h-px w-6 bg-rail-border" aria-hidden="true" />
-          ) : (
-            <span className="mb-1 px-3 text-[13px] text-rail-muted">{groep.label}</span>
-          )}
-          {groep.items.map(({ to, label, icon: Icon, end, badge }) => {
+      <div className={cn("flex flex-col gap-0.5", collapsed && "items-center")}>
+        {acties.map(({ label, icon: Icon, onClick, titel }) => (
+          <button
+            key={label}
+            type="button"
+            onClick={() => {
+              onNavigate?.();
+              onClick();
+            }}
+            title={collapsed ? titel : undefined}
+            className={railItem(false, collapsed)}
+          >
+            <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
+            {!collapsed && label}
+          </button>
+        ))}
+      </div>
+
+      {groepen.map((groep) => {
+        const open = collapsed || !dicht.includes(groep.label);
+        return (
+          <div key={groep.label} className={cn("flex flex-col gap-0.5", collapsed && "items-center")}>
+            {/* Ingeklapt is er geen ruimte voor het woord; een streepje houdt
+                de groepen dan toch uit elkaar. Uitgeklapt is het kopje zelf de
+                knop om de groep dicht te doen, zoals in de Claude-app. */}
+            {collapsed ? (
+              <span className="mb-2 h-px w-6 bg-rail-border" aria-hidden="true" />
+            ) : (
+              <button
+                type="button"
+                onClick={() => wissel(groep.label)}
+                aria-expanded={open}
+                className="mb-1 flex w-fit items-center gap-1 rounded-md px-3 text-[13px] text-rail-muted transition-colors duration-150 hover:text-rail-fg"
+              >
+                {groep.label}
+                <ChevronDown
+                  className={cn("h-3.5 w-3.5 transition-transform duration-200", !open && "-rotate-90")}
+                  strokeWidth={2}
+                />
+              </button>
+            )}
+            {open && groep.items.map(({ to, label, icon: Icon, end, badge }) => {
             const telt = badge !== undefined && badge.aantal > 0;
             const uitleg = telt ? `${badge.aantal} ${badge.titel}` : undefined;
             return (
@@ -176,14 +244,14 @@ const RailNav = ({
                 title={collapsed ? (uitleg ? `${label}: ${uitleg}` : label) : undefined}
                 className={({ isActive }) => railItem(isActive, collapsed)}
               >
-                <Icon className="h-[18px] w-[18px] shrink-0" />
+                <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
                 {!collapsed && label}
                 {telt &&
                   (collapsed ? (
                     <span
                       className={cn(
                         "absolute right-1.5 top-1.5 h-2 w-2 rounded-full ring-2 ring-rail",
-                        badge.alarm ? "bg-danger" : "bg-rail-muted",
+                        badge.alarm ? "bg-danger" : "bg-rail-muted/60",
                       )}
                       aria-hidden="true"
                     />
@@ -191,8 +259,10 @@ const RailNav = ({
                     <span
                       title={uitleg}
                       className={cn(
-                        "ml-auto min-w-5 rounded-md px-1.5 text-center text-xs font-medium leading-5 tabular-nums",
-                        badge.alarm ? "bg-danger text-white" : "bg-rail-panel text-rail-muted",
+                        "ml-auto flex h-5 min-w-5 items-center justify-center rounded-md border px-1 text-[11px] font-medium tabular-nums",
+                        badge.alarm
+                          ? "border-danger/30 bg-danger/10 text-danger-ink"
+                          : "border-rail-border bg-rail text-rail-muted",
                       )}
                     >
                       {badge.aantal > 99 ? "99+" : badge.aantal}
@@ -202,8 +272,9 @@ const RailNav = ({
               </NavLink>
             );
           })}
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </nav>
   );
 };
@@ -237,14 +308,14 @@ const AccountMenu = ({
       {variant === "rij" ? (
         <button
           type="button"
-          className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors duration-150 hover:bg-rail-hover"
+          className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left transition-colors duration-150 hover:bg-rail-hover data-[state=open]:bg-rail-hover"
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent text-xs font-semibold text-accent-foreground">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-rail-panel text-[12px] font-medium text-rail-fg">
             {initials(displayName)}
           </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-xs text-rail-muted">Ingelogd als</span>
-            <span className="block truncate text-sm font-medium text-rail-fg">{displayName}</span>
+          <span className="min-w-0 flex-1 truncate text-[15px] text-rail-fg">
+            {displayName}
+            <span className="text-[13px] text-rail-muted"> · Nieuwblik</span>
           </span>
           <ChevronsUpDown className="h-4 w-4 shrink-0 text-rail-muted" />
         </button>
@@ -257,7 +328,7 @@ const AccountMenu = ({
             variant === "icoon" ? "h-10 w-10" : "h-9 w-9",
           )}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-xs font-semibold text-accent-foreground">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-rail-panel text-xs font-medium text-rail-fg">
             {initials(displayName)}
           </span>
         </button>
@@ -463,7 +534,11 @@ const AdminLayout = () => {
         </div>
 
         <div className="w-full flex-1 overflow-y-auto">
-          <RailNav collapsed={collapsed} />
+          <RailNav
+            collapsed={collapsed}
+            onNieuweTaak={() => setCaptureOpen(true)}
+            onZoeken={() => setPaletteOpen(true)}
+          />
         </div>
 
         <div className={cn("mt-4 w-full", collapsed ? "flex justify-center px-2" : "px-3")}>
@@ -493,7 +568,12 @@ const AdminLayout = () => {
                   <div className="mb-6 px-5">
                     <Logo />
                   </div>
-                  <RailNav collapsed={false} onNavigate={() => setMobileOpen(false)} />
+                  <RailNav
+                    collapsed={false}
+                    onNavigate={() => setMobileOpen(false)}
+                    onNieuweTaak={() => setCaptureOpen(true)}
+                    onZoeken={() => setPaletteOpen(true)}
+                  />
                 </div>
                 <div className="px-3 pb-4">{account("rij")}</div>
               </SheetContent>
