@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { NavLink, Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { Link, NavLink, Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Bell,
   CalendarDays,
@@ -77,6 +77,8 @@ interface NavEntry {
   end: boolean;
   /** Getal achter het item; rood als het om te laat werk gaat. */
   badge?: { aantal: number; alarm?: boolean; titel: string };
+  /** Tabbladen van de pagina, als subitems eronder (?tab=…; null is het eerste). */
+  sub?: { tab: string | null; label: string }[];
 }
 
 /**
@@ -135,6 +137,8 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
   const facturen = useTeFactureren();
   const { data: aanvragen = [] } = useAanvragen();
   const { dicht, wissel } = useDichteGroepen();
+  const locatie = useLocation();
+  const huidigTab = new URLSearchParams(locatie.search).get("tab");
 
   const groepen: { label: string; items: NavEntry[] }[] = [
     {
@@ -185,7 +189,17 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
           badge: { aantal: facturen.open.length, titel: "te factureren" },
         },
         { to: "/admin/mailen", label: "Mailen", icon: Mail, end: false },
-        { to: "/admin/financien", label: "Financiën", icon: Wallet, end: false },
+        {
+          to: "/admin/financien",
+          label: "Financiën",
+          icon: Wallet,
+          end: false,
+          sub: [
+            { tab: null, label: "Overzicht" },
+            { tab: "omzet", label: "Omzet" },
+            { tab: "btw", label: "Btw" },
+          ],
+        },
       ],
     },
   ];
@@ -236,17 +250,21 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                 />
               </button>
             )}
-            {open && groep.items.map(({ to, label, icon: Icon, end, badge }) => {
+            {open && groep.items.map(({ to, label, icon: Icon, end, badge, sub }) => {
             const telt = badge !== undefined && badge.aantal > 0;
             const uitleg = telt ? `${badge.aantal} ${badge.titel}` : undefined;
+            const metSub = Boolean(sub?.length) && !collapsed;
+            const opPagina = locatie.pathname === to || locatie.pathname.startsWith(`${to}/`);
             return (
+              <Fragment key={to}>
               <NavLink
                 key={to}
                 to={to}
                 end={end}
                 onClick={onNavigate}
                 title={collapsed ? (uitleg ? `${label}: ${uitleg}` : label) : undefined}
-                className={({ isActive }) => railItem(isActive, collapsed)}
+                // Met subitems licht het subitem op, niet het hoofditem.
+                className={({ isActive }) => railItem(isActive && !metSub, collapsed)}
               >
                 <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
                 {!collapsed && label}
@@ -274,6 +292,42 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                     </span>
                   ))}
               </NavLink>
+              {/* De tabbladen van de pagina, ingesprongen aan een boomlijn zoals
+                  in een bestandsboom: een doorlopende lijn met een bochtje naar
+                  elk item. Altijd zichtbaar, zodat je in één klik op Btw zit. */}
+              {metSub && (
+                <ul className="relative mb-0.5 ml-[21px] flex flex-col gap-0.5 pl-3">
+                  {sub!.map((item, i) => {
+                    const actief = opPagina && (huidigTab ?? null) === item.tab;
+                    const laatste = i === sub!.length - 1;
+                    return (
+                      <li key={item.label} className="relative">
+                        {/* De lijn naar dit item: tot halverwege bij het laatste, anders door. */}
+                        <span
+                          aria-hidden="true"
+                          className={cn("absolute -left-3 top-0 w-px bg-rail-muted/30", laatste ? "h-1/2" : "h-full")}
+                        />
+                        <span
+                          aria-hidden="true"
+                          className="absolute -left-3 top-0 h-1/2 w-2.5 rounded-bl-md border-b border-l border-rail-muted/30"
+                        />
+                        <Link
+                          to={item.tab ? `${to}?tab=${item.tab}` : to}
+                          onClick={onNavigate}
+                          aria-current={actief ? "page" : undefined}
+                          className={cn(
+                            "flex items-center rounded-lg px-2.5 py-[5px] text-[14px] transition-colors duration-150",
+                            actief ? "bg-rail-active text-rail-fg" : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+              </Fragment>
             );
           })}
           </div>
