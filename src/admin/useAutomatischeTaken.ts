@@ -6,7 +6,6 @@ import { nl } from "date-fns/locale";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
-import type { TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { daysUntil } from "@/admin/format";
 import {
@@ -21,7 +20,6 @@ import {
   type OpenFactuur,
 } from "@/admin/financien";
 import { adminKeys, useClients, useProjects, useTasks, type Client, type TaskWithProject } from "@/admin/queries";
-import { heeftKlantKolom } from "@/admin/werkstroom";
 
 /** Na zoveel dagen over de vervaldatum wordt een factuur een belactie. */
 const NABEL_GRENS = 30;
@@ -83,13 +81,12 @@ export function useAutomatischeTaken(actief: boolean) {
   useEffect(() => {
     if (!actief || !user || !clients || !projects || !tasks || !financien || !("bijgewerkt" in financien)) return;
 
-    const metKlantKolom = heeftKlantKolom(tasks);
-    /** Project en klant voor een taak over deze klant; de klant alleen als de kolom er al is. */
+    /** Project en klant voor een taak over deze klant. */
     const koppeling = (klant: Client | null) => {
       const project = klant ? projects.find((p) => p.client_id === klant.id) : undefined;
       return {
         project_id: project?.id ?? null,
-        ...(metKlantKolom ? { client_id: klant?.id ?? null } : {}),
+        client_id: klant?.id ?? null,
       };
     };
 
@@ -188,8 +185,7 @@ export function useAutomatischeTaken(actief: boolean) {
               ...koppeling(klant),
               created_by: user.id,
               assigned_to: user.id,
-              // client_id staat nog niet in de gegenereerde types (zie TaakKlant).
-            } as TablesInsert<"tasks">)
+            })
             .select("id")
             .single();
           if (taakFout || !taak) {
@@ -270,7 +266,7 @@ async function werkBelrondeBij(
   {
     userId,
     ...koppeling
-  }: { project_id: string | null; client_id?: string | null; userId: string },
+  }: { project_id: string | null; client_id: string | null; userId: string },
 ): Promise<"nieuw" | "bijgewerkt" | "niets" | "fout"> {
   const { data: gekoppeld, error } = await supabase
     .from("taak_signalen")
@@ -307,7 +303,7 @@ async function werkBelrondeBij(
         ...koppeling,
         created_by: userId,
         assigned_to: userId,
-      } as TablesInsert<"tasks">)
+      })
       .select("id")
       .single();
     if (taakFout || !taak) {
@@ -346,7 +342,7 @@ async function werkBelrondeBij(
       description: belronde.omschrijving,
       priority: belronde.prioriteit,
       ...koppeling,
-    } as TablesUpdate<"tasks">)
+    })
     .eq("id", bundel.id);
   return "bijgewerkt";
 }
