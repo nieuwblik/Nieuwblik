@@ -38,6 +38,18 @@ const AdminBridge = () => {
   // Maak de history aan én mount de tweede router pas ná de eerste commit
   // van TanStack, zodat beide buiten de render-fase gebeuren.
   const [ready, setReady] = useState(false);
+
+  // Google Analytics meet het portaal niet. Kom je vanaf de site hier, dan is
+  // het script al geladen; deze vlag (die gtag bij elke meting controleert)
+  // houdt het stil zolang het portaal openstaat.
+  useEffect(() => {
+    const vlag = "ga-disable-G-8DLGZ42KPP";
+    (window as unknown as Record<string, boolean>)[vlag] = true;
+    return () => {
+      (window as unknown as Record<string, boolean>)[vlag] = false;
+    };
+  }, []);
+
   useEffect(() => {
     // De loginpagina is altijd licht; de rest van het portaal krijgt meteen
     // het gekozen thema, zodat het laden niet wit flitst.

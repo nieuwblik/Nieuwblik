@@ -24,16 +24,25 @@ import appCss from "../styles.css?url";
 import cabinLatin from "../assets/fonts/cabin-latin.woff2?url";
 import epilogueLatin from "../assets/fonts/epilogue-latin.woff2?url";
 
-// Google Analytics, uitgesteld tot de browser niets te doen heeft — verbatim
-// overgenomen uit de oude index.html zodat metingen identiek blijven.
+// Google Analytics, uitgesteld tot de browser niets te doen heeft — overgenomen
+// uit de oude index.html zodat metingen op de site identiek blijven.
+//
+// Niet in het portaal: daar zou het externe script op dezelfde origin draaien
+// als de inlogsessie, en elke portaal-URL (met klant-id's) naar Google gaan.
+// Binnenkomen op /admin laadt het dus niet; wie vanaf de site doorklikt naar
+// het portaal, wordt daar niet gemeten (AdminBridge zet de ga-disable-vlag).
+// Op /afmelden gaat de URL zonder het persoonlijke token mee.
 const GA_SCRIPT = `
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 function loadGA() {
   if (window.gaLoaded) return;
+  if (/^\\/admin(\\/|$)/.test(location.pathname)) return;
   window.gaLoaded = true;
   gtag('js', new Date());
-  gtag('config', 'G-8DLGZ42KPP', { send_page_view: true });
+  gtag('config', 'G-8DLGZ42KPP', /^\\/afmelden/.test(location.pathname)
+    ? { send_page_view: true, page_location: location.origin + location.pathname }
+    : { send_page_view: true });
   var script = document.createElement('script');
   script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DLGZ42KPP';
   script.async = true;
