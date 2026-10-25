@@ -28,11 +28,16 @@ const GLAS =
 /** Bij aanwijzen: een fractie omhoog, iets donkerder glas en een lichtere rand; bij indrukken even kleiner. */
 const GLAS_HOVER =
   "transition-[background-color,border-color,transform,color] duration-300 ease-out hover:-translate-y-px hover:border-white/30 hover:bg-[rgba(18,24,36,0.26)] active:translate-y-0 active:scale-[0.98]";
-/** De kaarten onderaan nog lichter, zodat de scène erdoor blijft lopen. */
+/**
+ * De kaarten onderaan: echt doorzichtig glas. Een lichte witte tint en weinig
+ * vervaging, zodat je de scène (bloemen, lichtjes) erdoor blijft zien; met
+ * veel vervaging en een donkere tint werd het een egale, dicht ogende vlek.
+ * Een zachte tekstschaduw houdt de tekst leesbaar.
+ */
 const TEGEL_GLAS =
-  "border border-white/[0.12] bg-[rgba(18,24,36,0.10)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.14)] backdrop-blur-2xl backdrop-saturate-150";
+  "border border-white/20 bg-white/[0.06] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22)] backdrop-blur-[6px] backdrop-brightness-110 backdrop-saturate-150 [text-shadow:0_1px_8px_rgba(0,0,0,0.45)]";
 const TEGEL_HOVER =
-  "transition-[background-color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/25 hover:bg-[rgba(18,24,36,0.16)] active:translate-y-0 active:scale-[0.99]";
+  "transition-[background-color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/[0.11] active:translate-y-0 active:scale-[0.99]";
 const PIL = cn(GLAS, GLAS_HOVER, "flex h-10 items-center gap-2 rounded-full px-4 text-sm text-white/90 hover:text-white disabled:opacity-60");
 const TEKSTSCHADUW = { textShadow: "0 1px 24px rgba(0,0,0,0.4)" };
 

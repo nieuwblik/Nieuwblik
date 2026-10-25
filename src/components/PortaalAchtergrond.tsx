@@ -55,7 +55,7 @@ const PortaalAchtergrond = () => {
         onPlaying={() => setSpeelt(true)}
         className={`h-full w-full object-cover transition-opacity duration-700 ${speelt ? "opacity-100" : "opacity-0"}`}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/45" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
     </div>
   );
 };
