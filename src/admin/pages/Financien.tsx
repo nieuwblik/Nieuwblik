@@ -13,6 +13,7 @@ import {
   Wallet,
 } from "lucide-react";
 
+import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -259,8 +260,10 @@ const rekeningNaam = (r: { naam: string; soort: string }) => {
  * btw-aangifte blijven in Moneybird.
  */
 const Financien = () => {
-  const { data, isLoading, isError, error, refetch, isFetching } =
-    useFinancien();
+  const { data, isLoading, isError, error, refetch } = useFinancien();
+  const qc = useQueryClient();
+  const bezigMetVernieuwen =
+    useIsFetching({ queryKey: ["admin", "financien"] }) > 0;
   const [searchParams, setSearchParams] = useSearchParams();
   const tab = TABBLADEN.some((t) => t.waarde === searchParams.get("tab"))
     ? searchParams.get("tab")!
@@ -316,10 +319,16 @@ const Financien = () => {
             variant="outline"
             size="sm"
             className="h-9"
-            disabled={isFetching}
-            onClick={() => void refetch()}
+            disabled={bezigMetVernieuwen}
+            // Alles uit Moneybird opnieuw: het overzicht én de tabbladen Omzet
+            // en Btw met de bank, die anders nog even hun bewaarde stand tonen.
+            onClick={() =>
+              void qc.invalidateQueries({ queryKey: ["admin", "financien"] })
+            }
           >
-            <RotateCw className={cn("h-4 w-4", isFetching && "animate-spin")} />
+            <RotateCw
+              className={cn("h-4 w-4", bezigMetVernieuwen && "animate-spin")}
+            />
             Vernieuwen
           </Button>
           <Button asChild variant="outline" size="sm" className="h-9">
