@@ -48,7 +48,18 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   omzetten naar factuur;
  * - "hosting-factureren": hostingtermijnen als conceptfactuur (items met
  *   clientId en periodDate, eventueel contactId); de termijn wordt daarna in
- *   het portaal als gefactureerd afgevinkt.
+ *   het portaal als gefactureerd afgevinkt;
+ * - "terugkerend-maken": een hostingcontract als terugkerende factuur in
+ *   Moneybird (clientId, eersteFactuur, automatischVersturen, eventueel
+ *   contactId); het contract staat daarna in het portaal als "via Moneybird";
+ * - "machtiging-link": een link voor een incassomachtiging via Moneybird
+ *   Payments (clientId, eventueel contactId);
+ * - "contact-bijwerken": e-mail, telefoon, plaats en contactpersoon van een
+ *   klant naar het gekoppelde Moneybird-contact (clientId);
+ * - "contact-archiveren": een contact in Moneybird archiveren (contactId).
+ *
+ * Als formulier (multipart) met actie "bon-uploaden": foto's of pdf's van bonnen
+ * en inkoopfacturen naar de inbox van Moneybird (bestand, eventueel omschrijving).
  * De pagina vraagt altijd eerst om bevestiging; hier wordt alles nog eens
  * gecontroleerd tegen de facturen zoals Moneybird ze nu kent.
  */
@@ -60,6 +71,9 @@ const ADMINISTRATIE = (Deno.env.get("MONEYBIRD_ADMINISTRATIE_ID") ?? "").trim();
 
 /** Tot dit bedrag mag een rest worden afgeboekt; hetzelfde getal staat in het portaal. */
 const AFBOEK_GRENS = 5;
+
+/** Begin van de contractnotitie voor hosting via Moneybird; dezelfde tekst staat in het portaal. */
+const MONEYBIRD_NOTITIE = "Moneybird: terugkerende factuur";
 
 const admin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -1193,7 +1207,193 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
     return { ok: true };
   }
 
+  if (actie === "terugkerend-maken") {
+    // Een hostingcontract uit het portaal als terugkerende factuur in Moneybird.
+    const klant = (await portaalKlant(body.clientId)) as PortaalKlant & {
+      billing_cycle: string | null;
+      billing_amount_cents: number | null;
+      billing_note: string | null;
+    };
+    if (!klant.billing_cycle || !klant.billing_amount_cents) throw new Melding("Vul eerst het hostingbedrag en de termijn in.");
+    if (klant.billing_note?.startsWith(MONEYBIRD_NOTITIE)) throw new Melding("Dit contract loopt al via een terugkerende factuur in Moneybird.");
+    const eersteDatum = typeof body.eersteFactuur === "string" && /^\d{4}-\d{2}-\d{2}$/.test(body.eersteFactuur) ? body.eersteFactuur : null;
+    if (!eersteDatum || eersteDatum <= vandaag()) throw new Melding("De eerste factuurdatum moet na vandaag liggen.");
+
+    const gevonden = await zoekContact(klant, body.contactId);
+    if (!("contact" in gevonden)) return { ok: false, kiesContact: gevonden.kandidaten.map(contactUit) };
+
+    const jaarlijks = klant.billing_cycle === "jaarlijks";
+    const terugkerend = (await moneybird("recurring_sales_invoices.json", {
+      method: "POST",
+      body: {
+        recurring_sales_invoice: {
+          contact_id: gevonden.contact.id,
+          reference: "Hosting",
+          invoice_date: eersteDatum,
+          frequency_type: jaarlijks ? "year" : "month",
+          frequency: "1",
+          // De hostingbedragen in het portaal zijn exclusief btw.
+          prices_are_incl_tax: false,
+          auto_send: body.automatischVersturen === true,
+          details_attributes: [
+            {
+              description: jaarlijks ? "Hosting website, per jaar" : "Hosting website, per maand",
+              amount: "1",
+              price: (klant.billing_amount_cents / 100).toFixed(2),
+            },
+          ],
+        },
+      },
+    })) as { id: string };
+
+    // In het portaal markeren als "via Moneybird", zodat het daar geen
+    // termijnen meer aanbiedt om te factureren. Een eigen notitie blijft staan.
+    const notitie = `${MONEYBIRD_NOTITIE} ${terugkerend.id}${klant.billing_note?.trim() ? ` · ${klant.billing_note.trim()}` : ""}`;
+    const { error } = await admin
+      .from("clients")
+      .update({ billing_note: notitie.slice(0, 2000), moneybird_contact_id: gevonden.contact.id })
+      .eq("id", klant.id);
+    if (error) console.error("contract markeren mislukt:", error.message);
+    return { ok: true, url: `https://moneybird.com/${ADMINISTRATIE}/recurring_sales_invoices/${terugkerend.id}` };
+  }
+
+  if (actie === "machtiging-link") {
+    // Een link waarmee de klant een incassomachtiging afgeeft (Moneybird
+    // Payments). De klant betaalt daarbij 15 cent; de link is 14 dagen geldig.
+    const klant = await portaalKlant(body.clientId);
+    const gevonden = await zoekContact(klant, body.contactId);
+    if (!("contact" in gevonden)) return { ok: false, kiesContact: gevonden.kandidaten.map(contactUit) };
+    try {
+      const r = (await moneybird(`contacts/${gevonden.contact.id}/moneybird_payments_mandate/url.json`, {
+        method: "POST",
+        body: {},
+      })) as { url?: string };
+      if (!r.url) throw new Error("Moneybird gaf geen link terug.");
+      return { ok: true, url: r.url };
+    } catch (fout) {
+      if (fout instanceof Error && fout.message.includes("(403)")) {
+        throw new Melding(
+          "Moneybird geeft geen machtigingslink. Daarvoor moet Moneybird Payments aan staan en heeft de sleutel de rechten sales_invoices en settings nodig.",
+          403,
+        );
+      }
+      throw fout;
+    }
+  }
+
+  if (actie === "contact-bijwerken") {
+    // Wat in het portaal is aangepast ook in Moneybird zetten: e-mail,
+    // telefoon, plaats en contactpersoon. De naam niet: die verschilt vaak
+    // bewust (BeNoted in het portaal, BeNoted Media in Moneybird). Een leeg
+    // veld in het portaal maakt Moneybird nooit leeg.
+    const klant = (await portaalKlant(body.clientId)) as PortaalKlant & {
+      phone: string | null;
+      city: string | null;
+      contact_name: string | null;
+    };
+    if (!isId(klant.moneybird_contact_id)) return { ok: true, velden: [] };
+    const contact = (await moneybird(`contacts/${klant.moneybird_contact_id}.json`)) as MoneybirdContact & {
+      phone?: string | null;
+      city?: string | null;
+      send_estimates_to_email?: string | null;
+    };
+    const wijziging: Record<string, string> = {};
+    const velden: string[] = [];
+    const zelfde = (a: string | null | undefined, b: string | null | undefined) =>
+      (a ?? "").trim().toLowerCase() === (b ?? "").trim().toLowerCase();
+
+    const email = klant.email?.trim();
+    if (email && !zelfde(email, contact.send_invoices_to_email || contact.email)) {
+      wijziging.send_invoices_to_email = email;
+      wijziging.send_estimates_to_email = email;
+      velden.push("e-mail");
+    }
+    const telefoon = klant.phone?.trim();
+    if (telefoon && !zelfde(telefoon, contact.phone)) {
+      wijziging.phone = telefoon;
+      velden.push("telefoon");
+    }
+    const plaats = klant.city?.trim();
+    if (plaats && !zelfde(plaats, contact.city)) {
+      wijziging.city = plaats;
+      velden.push("plaats");
+    }
+    // Alleen bij een bedrijf: bij een persoon zijn voor- en achternaam de naam zelf.
+    const persoon = klant.contact_name?.trim();
+    const huidigePersoon = [contact.firstname, contact.lastname].filter(Boolean).join(" ");
+    if (persoon && contact.company_name && !zelfde(persoon, huidigePersoon)) {
+      const [voornaam, ...rest] = persoon.split(/\s+/);
+      wijziging.firstname = voornaam ?? "";
+      wijziging.lastname = rest.join(" ");
+      velden.push("contactpersoon");
+    }
+
+    if (velden.length === 0) return { ok: true, velden };
+    await moneybird(`contacts/${contact.id}.json`, { method: "PATCH", body: { contact: wijziging } });
+    return { ok: true, velden };
+  }
+
+  if (actie === "contact-archiveren") {
+    // Een contact in Moneybird archiveren (bijvoorbeeld een dubbel). Gearchiveerd
+    // is niet weg: facturen blijven staan en het contact is terug te zetten.
+    if (!isId(body.contactId)) throw new Melding("Onbekend contact.");
+    const { data: inGebruik } = await admin.from("clients").select("name").eq("moneybird_contact_id", body.contactId).limit(1);
+    if (inGebruik && inGebruik.length > 0) {
+      throw new Melding(`Dit contact is gekoppeld aan ${(inGebruik[0] as { name: string }).name} in het portaal en wordt niet gearchiveerd.`);
+    }
+    await moneybird(`contacts/${body.contactId}/archive.json`, { method: "PATCH" });
+    return { ok: true };
+  }
+
   throw new Melding("Onbekende actie.");
+}
+
+/** Hoeveel bestanden en hoe groot per keer; foto's verkleint het portaal al. */
+const BON_MAX_BESTANDEN = 10;
+const BON_MAX_GROOTTE = 10 * 1024 * 1024;
+const BON_TYPES = /^(image\/(jpeg|png|webp|heic|heif|gif)|application\/pdf)$/i;
+
+/**
+ * Bonnen en inkoopfacturen naar de inbox van Moneybird, net alsof je ze daar
+ * naartoe mailt: per bestand een document zonder soort, met het bestand
+ * eraan. In Moneybird verwerk je ze daarna tot bon of inkoopfactuur.
+ */
+async function bonnenUploaden(form: FormData) {
+  const bestanden = form.getAll("bestand").filter((b): b is File => b instanceof File && b.size > 0);
+  if (bestanden.length === 0) throw new Melding("Kies een foto of pdf.");
+  if (bestanden.length > BON_MAX_BESTANDEN) throw new Melding(`Hooguit ${BON_MAX_BESTANDEN} bestanden tegelijk.`);
+  for (const b of bestanden) {
+    if (!BON_TYPES.test(b.type)) throw new Melding(`${b.name} is geen foto of pdf.`);
+    if (b.size > BON_MAX_GROOTTE) throw new Melding(`${b.name} is groter dan 10 MB.`);
+  }
+  const omschrijving = String(form.get("omschrijving") ?? "").trim().slice(0, 100);
+
+  const gelukt: { naam: string; url: string }[] = [];
+  const mislukt: { naam: string; reden: string }[] = [];
+  for (const bestand of bestanden) {
+    let documentId: string | null = null;
+    try {
+      const document = (await moneybird("documents/typeless_documents.json", {
+        method: "POST",
+        body: { typeless_document: omschrijving ? { reference: omschrijving } : {} },
+      })) as { id: string };
+      documentId = document.id;
+
+      const bijlage = new FormData();
+      bijlage.append("file", bestand, bestand.name);
+      const res = await fetch(
+        `https://moneybird.com/api/v2/${ADMINISTRATIE}/documents/typeless_documents/${document.id}/attachments.json`,
+        { method: "POST", headers: { Authorization: `Bearer ${MONEYBIRD_TOKEN}`, Accept: "application/json" }, body: bijlage },
+      );
+      if (!res.ok) throw new Error(`bijlage niet aangenomen (status ${res.status})`);
+      gelukt.push({ naam: bestand.name, url: `https://moneybird.com/${ADMINISTRATIE}/documents/${document.id}` });
+    } catch (fout) {
+      // Geen leeg document achterlaten in de inbox.
+      if (documentId) await moneybird(`documents/typeless_documents/${documentId}.json`, { method: "DELETE" }).catch(() => null);
+      mislukt.push({ naam: bestand.name, reden: fout instanceof Error ? fout.message : "onbekende fout" });
+    }
+  }
+  return { ok: true, gelukt, mislukt };
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -1211,6 +1411,18 @@ serve(async (req: Request): Promise<Response> => {
     // Nog niet ingesteld: geen fout, maar een duidelijke stand voor de pagina.
     if (!MONEYBIRD_TOKEN || !/^\d+$/.test(ADMINISTRATIE)) {
       return antwoord({ ingesteld: false });
+    }
+
+    // Bestanden komen als formulier binnen, al het andere als JSON.
+    if ((req.headers.get("Content-Type") ?? "").includes("multipart/form-data")) {
+      const form = await req.formData();
+      if (form.get("actie") !== "bon-uploaden") return antwoord({ error: "Onbekende actie." }, 400);
+      try {
+        return antwoord(await bonnenUploaden(form));
+      } catch (fout) {
+        if (fout instanceof Melding) return antwoord({ error: fout.message }, fout.status);
+        throw fout;
+      }
     }
 
     const body = ((await req.json().catch(() => ({}))) ?? {}) as Record<string, unknown>;

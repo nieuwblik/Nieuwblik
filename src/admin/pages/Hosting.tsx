@@ -43,6 +43,7 @@ import {
 import { useTeFactureren } from "@/admin/stats";
 import { useHostingFactureren } from "@/admin/useHostingFactureren";
 import HostingUitMoneybird from "@/admin/components/HostingUitMoneybird";
+import HostingMoneybirdActies from "@/admin/components/HostingMoneybirdActies";
 import { factureertMoneybird } from "@/admin/financien";
 import MonthNav from "@/admin/ui/MonthNav";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
@@ -380,14 +381,22 @@ const Hosting = () => {
                 )[0];
 
                 return (
-                  <li key={client.id}>
-                    <Link
-                      to={`/admin/klanten/${client.id}`}
-                      className="-mx-2 flex items-center gap-3 rounded-lg px-2 py-2.5 p-rij"
-                    >
-                      <span className="min-w-0 flex-1 truncate text-sm font-medium">
+                  <li
+                    key={client.id}
+                    className="relative -mx-2 flex items-center gap-3 rounded-lg px-2 py-1.5 p-rij"
+                  >
+                      {/* De link spant over de regel (after:inset-0); het menu ligt erboven. */}
+                      <Link
+                        to={`/admin/klanten/${client.id}`}
+                        className="min-w-0 flex-1 truncate text-sm font-medium after:absolute after:inset-0 hover:underline"
+                      >
                         {client.name}
-                      </span>
+                      </Link>
+                      {factureertMoneybird(client) && (
+                        <span className="hidden shrink-0 text-[13px] text-muted-foreground md:inline">
+                          Via Moneybird
+                        </span>
+                      )}
                       <span className="shrink-0 text-[13px] text-muted-foreground">
                         {BILLING_CYCLE[client.billing_cycle!].label}
                       </span>
@@ -406,7 +415,9 @@ const Hosting = () => {
                           <span className="text-muted-foreground">Geen</span>
                         )}
                       </span>
-                    </Link>
+                      <span className="relative z-10">
+                        <HostingMoneybirdActies client={client} volgende={volgende?.datum ?? null} />
+                      </span>
                   </li>
                 );
               })}

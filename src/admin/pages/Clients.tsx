@@ -1,9 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { addMonths, startOfMonth } from "date-fns";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { DownloadCloud, Plus, Search, UserPlus, Users, X } from "lucide-react";
+import { ChevronDown, Copy, DownloadCloud, Plus, Search, UserPlus, Users, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,6 +19,7 @@ import ClientTable from "@/admin/components/ClientTable";
 import EmptyState from "@/admin/components/EmptyState";
 import KlantgegevensAanvullen from "@/admin/components/KlantgegevensAanvullen";
 import KlantUitMoneybird from "@/admin/components/KlantUitMoneybird";
+import DubbeleContacten from "@/admin/components/DubbeleContacten";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, TOON, type ProjectStatus } from "@/admin/constants";
 import { useCombinedRows, type ClientRow } from "@/admin/rows";
@@ -66,6 +73,7 @@ const Clients = () => {
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [uitMoneybird, setUitMoneybird] = useState(false);
+  const [dubbel, setDubbel] = useState(false);
   // Lijst of raster; per browser onthouden.
   const [weergave, setWeergave] = useState<Weergave>(leesWeergave);
   const zetWeergave = (nieuw: Weergave) => {
@@ -171,14 +179,29 @@ const Clients = () => {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" onClick={() => setSearchParams((p) => ({ ...Object.fromEntries(p), aanvullen: "1" }))}>
-            <DownloadCloud className="h-4 w-4" />
-            Aanvullen uit Moneybird
-          </Button>
-          <Button variant="outline" onClick={() => setUitMoneybird(true)}>
-            <UserPlus className="h-4 w-4" />
-            Toevoegen uit Moneybird
-          </Button>
+          {/* Alles wat met Moneybird-contacten te maken heeft in één menu. */}
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Moneybird
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-64">
+              <DropdownMenuItem onSelect={() => setSearchParams((p) => ({ ...Object.fromEntries(p), aanvullen: "1" }))}>
+                <DownloadCloud className="h-4 w-4" />
+                Gegevens aanvullen
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setUitMoneybird(true)}>
+                <UserPlus className="h-4 w-4" />
+                Klanten toevoegen
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setDubbel(true)}>
+                <Copy className="h-4 w-4" />
+                Dubbele contacten
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button onClick={() => setDialogOpen(true)}>
             <Plus className="h-4 w-4" />
             Nieuwe klant
@@ -187,6 +210,7 @@ const Clients = () => {
       </div>
 
       <KlantUitMoneybird open={uitMoneybird} onOpenChange={setUitMoneybird} />
+      <DubbeleContacten open={dubbel} onOpenChange={setDubbel} />
 
       <KlantgegevensAanvullen
         open={searchParams.get("aanvullen") === "1"}

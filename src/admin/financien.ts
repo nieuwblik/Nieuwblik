@@ -615,3 +615,84 @@ export function useOfferteActie() {
     },
   });
 }
+
+// ------------------------------------------------------------------ bonnen
+
+export interface BonResultaat {
+  ok: true;
+  gelukt: { naam: string; url: string }[];
+  mislukt: { naam: string; reden: string }[];
+}
+
+/**
+ * Foto's of pdf's van bonnen en inkoopfacturen naar de inbox van Moneybird.
+ * Als formulier, niet als JSON: de bestanden gaan rechtstreeks mee.
+ */
+export function useBonnenUploaden() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ bestanden, omschrijving }: { bestanden: File[]; omschrijving: string }): Promise<BonResultaat> => {
+      const form = new FormData();
+      form.append("actie", "bon-uploaden");
+      if (omschrijving.trim()) form.append("omschrijving", omschrijving.trim());
+      for (const b of bestanden) form.append("bestand", b, b.name);
+      const { data, error } = await supabase.functions.invoke("moneybird-financien", { body: form });
+      if (error) {
+        const bericht = await (error as { context?: Response }).context?.json?.().catch(() => null);
+        if (bericht?.error === "Onbekende actie.") {
+          throw new Error("De serverfunctie kent het uploaden nog niet. Publiceer de nieuwste versie in Lovable.");
+        }
+        throw new Error(bericht?.error ?? error.message);
+      }
+      // Een oude functie leest het formulier niet en geeft het overzicht terug.
+      if (!data || typeof data !== "object" || !("gelukt" in data)) {
+        throw new Error("De serverfunctie kent het uploaden nog niet. Publiceer de nieuwste versie in Lovable.");
+      }
+      return data as BonResultaat;
+    },
+    // Het btw-overzicht telt de documenten die nog verwerkt moeten worden.
+    onSuccess: () => void qc.invalidateQueries({ queryKey: FINANCIEN_KEY }),
+  });
+}
+
+// ------------------------------------------------------------------ hosting en contacten
+
+type MetContactKeuze<T> = ({ ok: true } & T) | { ok: false; kiesContact: MoneybirdContact[] };
+
+/** Een hostingcontract als terugkerende factuur in Moneybird. */
+export function useTerugkerendMaken() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { clientId: string; eersteFactuur: string; automatischVersturen: boolean; contactId?: string }) =>
+      roepAan<MetContactKeuze<{ url: string }>>({ actie: "terugkerend-maken", ...body }),
+    onSuccess: (r) => {
+      if (!r.ok) return;
+      void qc.invalidateQueries({ queryKey: ["admin", "clients"] });
+      void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
+    },
+  });
+}
+
+/** Een link voor een incassomachtiging via Moneybird Payments, 14 dagen geldig. */
+export function useMachtigingLink() {
+  return useMutation({
+    mutationFn: (body: { clientId: string; contactId?: string }) =>
+      roepAan<MetContactKeuze<{ url: string }>>({ actie: "machtiging-link", ...body }),
+  });
+}
+
+/**
+ * Wijzigingen aan een klant ook in Moneybird zetten (e-mail, telefoon, plaats,
+ * contactpersoon). Geeft terug welke velden er in Moneybird veranderd zijn.
+ */
+export const contactBijwerken = (clientId: string) =>
+  roepAan<{ ok: true; velden: string[] }>({ actie: "contact-bijwerken", clientId });
+
+/** Een contact in Moneybird archiveren; niet als het aan een klant gekoppeld is. */
+export function useContactArchiveren() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (contactId: string) => roepAan<{ ok: true }>({ actie: "contact-archiveren", contactId }),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: [...FINANCIEN_KEY, "contacten"] }),
+  });
+}

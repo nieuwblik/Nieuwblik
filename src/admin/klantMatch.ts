@@ -190,3 +190,26 @@ export async function koppelLosseTaken(naam: string, clientId: string, tasks: Ta
     );
   return error ? 0 : losse.length;
 }
+
+/**
+ * Groepen Moneybird-contacten die waarschijnlijk hetzelfde bedrijf zijn
+ * ("ACHATÉ" en "Achaté B.V.", "Higgsfield" en "Higgsfield Inc."). Met dezelfde
+ * signalen als hierboven, maar alleen de zekere (score 2 of hoger), zodat er
+ * geen losse gelijkenissen tussen staan.
+ */
+export function dubbeleContacten(contacten: MoneybirdContactVolledig[]): MoneybirdContactVolledig[][] {
+  const ouder = contacten.map((_, i) => i);
+  const wortel = (i: number): number => (ouder[i] === i ? i : (ouder[i] = wortel(ouder[i]!)));
+  for (let i = 0; i < contacten.length; i += 1) {
+    for (let j = i + 1; j < contacten.length; j += 1) {
+      const b = contacten[j]!;
+      // Het tweede contact als "klant", zodat de vergelijking hierboven bruikbaar is.
+      const alsKlant = { name: b.naam, email: b.email, city: b.plaats, website: null } as unknown as Client;
+      const uitkomst = vergelijk(contacten[i]!, alsKlant);
+      if (uitkomst && uitkomst.score >= 2) ouder[wortel(j)] = wortel(i);
+    }
+  }
+  const groepen = new Map<number, MoneybirdContactVolledig[]>();
+  contacten.forEach((c, i) => groepen.set(wortel(i), [...(groepen.get(wortel(i)) ?? []), c]));
+  return [...groepen.values()].filter((g) => g.length > 1);
+}

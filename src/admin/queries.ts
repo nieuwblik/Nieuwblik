@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { korteNaam } from "@/admin/format";
+import { contactBijwerken } from "@/admin/financien";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { volgendeDeadline } from "@/admin/herhaling";
@@ -221,10 +223,26 @@ export function useSaveClient() {
       }
       return unwrap(await supabase.from("clients").insert(values).select().single());
     },
-    onSuccess: (client) => {
+    onSuccess: (client, { id, values }) => {
       void qc.invalidateQueries({ queryKey: adminKeys.clients });
       void qc.invalidateQueries({ queryKey: adminKeys.client(client.id) });
       void qc.invalidateQueries({ queryKey: adminKeys.projects });
+
+      // Contactgegevens van een gekoppelde klant ook in Moneybird bijwerken.
+      // De serverfunctie past alleen aan wat echt verschilt, en maakt niets leeg.
+      const contactVelden = ["email", "phone", "city", "contact_name"] as const;
+      if (id && client.moneybird_contact_id && contactVelden.some((v) => v in values)) {
+        contactBijwerken(client.id).then(
+          (r) => {
+            if (r.velden.length > 0) toast(`Ook bijgewerkt in Moneybird: ${r.velden.join(", ")}`);
+          },
+          (e: unknown) => {
+            const bericht = e instanceof Error ? e.message : "onbekende fout";
+            // Zolang de serverfunctie de actie nog niet kent: stil, het portaal zelf is opgeslagen.
+            if (!bericht.includes("kent deze actie nog niet")) toast.error(`Moneybird niet bijgewerkt: ${bericht}`);
+          },
+        );
+      }
     },
   });
 }

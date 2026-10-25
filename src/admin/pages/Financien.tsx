@@ -4,6 +4,7 @@ import { nl } from "date-fns/locale";
 import {
   ArrowDown,
   ArrowUp,
+  Camera,
   ExternalLink,
   FileSignature,
   FileText,
@@ -42,7 +43,14 @@ import {
 } from "@/admin/components/FinancienPanelen";
 import OffertesPanel from "@/admin/components/OffertesPanel";
 import DocumentOpstellen from "@/admin/components/DocumentOpstellen";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import BonUploaden from "@/admin/components/BonUploaden";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
@@ -273,6 +281,7 @@ const Financien = () => {
     useIsFetching({ queryKey: ["admin", "financien"] }) > 0;
   const [searchParams, setSearchParams] = useSearchParams();
   const [nieuwDocument, setNieuwDocument] = useState<"offerte" | "factuur" | null>(null);
+  const [bonOpen, setBonOpen] = useState(false);
   const tab = TABBLADEN.some((t) => t.waarde === searchParams.get("tab"))
     ? searchParams.get("tab")!
     : "overzicht";
@@ -339,8 +348,14 @@ const Financien = () => {
                 <Receipt />
                 Factuur
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={() => setBonOpen(true)}>
+                <Camera />
+                Bon of inkoopfactuur
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <BonUploaden open={bonOpen} onOpenChange={setBonOpen} />
           <DocumentOpstellen
             open={nieuwDocument !== null}
             onOpenChange={(o) => !o && setNieuwDocument(null)}
