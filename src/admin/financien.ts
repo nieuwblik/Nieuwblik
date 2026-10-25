@@ -441,3 +441,60 @@ export function formatBedrag(bedrag: number, decimalen: "auto" | 0 = "auto"): st
     maximumFractionDigits: heel ? 0 : 2,
   }).format(bedrag);
 }
+
+export interface KlantVoorstel {
+  clientId: string;
+  klant: string;
+  contact: MoneybirdContact;
+  velden: Partial<Record<"email" | "phone" | "city" | "contact_name", string>>;
+}
+
+/** Voorstellen om ontbrekende klantgegevens uit Moneybird te vullen. Pas opgehaald als het venster open is. */
+export function useKlantenAanvullen(actief: boolean) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "klanten-aanvullen"],
+    enabled: actief,
+    staleTime: 0,
+    retry: false,
+    queryFn: () =>
+      roepAan<{ ok: true; voorstellen: KlantVoorstel[]; zonderContact: string[]; twijfel: string[] }>({
+        actie: "klanten-aanvullen",
+      }),
+  });
+}
+
+export interface HostingVoorstel {
+  id: string;
+  contact: { id: string; naam: string };
+  clientId: string | null;
+  klantNaam: string | null;
+  alIngesteld: boolean;
+  /** null: een frequentie die het portaal niet kent (bijvoorbeeld per kwartaal). */
+  cyclus: "maandelijks" | "jaarlijks" | null;
+  frequentie: string;
+  bedragCenten: number;
+  start: string | null;
+  volgende: string | null;
+  omschrijving: string | null;
+  url: string;
+}
+
+/** Actieve terugkerende facturen in Moneybird, als voorstel voor hostingcontracten. */
+export function useHostingUitMoneybird(actief: boolean) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "hosting-uit-moneybird"],
+    enabled: actief,
+    staleTime: 0,
+    retry: false,
+    queryFn: () => roepAan<{ ok: true; voorstellen: HostingVoorstel[] }>({ actie: "hosting-uit-moneybird" }),
+  });
+}
+
+/**
+ * Een hostingcontract dat Moneybird zelf factureert (ingelezen uit een
+ * terugkerende factuur). Het portaal zet daar geen "nog te factureren" bij,
+ * zodat er nooit een tweede factuur komt.
+ */
+export const MONEYBIRD_NOTITIE = "Moneybird: terugkerende factuur";
+export const factureertMoneybird = (c: { billing_note: string | null }) =>
+  Boolean(c.billing_note?.startsWith(MONEYBIRD_NOTITIE));

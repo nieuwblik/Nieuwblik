@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { addMonths, startOfMonth } from "date-fns";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { Plus, Search, Users, X } from "lucide-react";
+import { DownloadCloud, Plus, Search, Users, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ClientGrid from "@/admin/components/ClientGrid";
 import ClientTable from "@/admin/components/ClientTable";
 import EmptyState from "@/admin/components/EmptyState";
+import KlantgegevensAanvullen from "@/admin/components/KlantgegevensAanvullen";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, TOON, type ProjectStatus } from "@/admin/constants";
 import { useCombinedRows, type ClientRow } from "@/admin/rows";
@@ -153,11 +154,27 @@ const Clients = () => {
             {" · "}open werk bovenaan
           </p>
         </div>
-        <Button onClick={() => setDialogOpen(true)}>
-          <Plus className="h-4 w-4" />
-          Nieuwe klant
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={() => setSearchParams((p) => ({ ...Object.fromEntries(p), aanvullen: "1" }))}>
+            <DownloadCloud className="h-4 w-4" />
+            Aanvullen uit Moneybird
+          </Button>
+          <Button onClick={() => setDialogOpen(true)}>
+            <Plus className="h-4 w-4" />
+            Nieuwe klant
+          </Button>
+        </div>
       </div>
+
+      <KlantgegevensAanvullen
+        open={searchParams.get("aanvullen") === "1"}
+        onOpenChange={(o) => {
+          if (o) return;
+          const volgende = new URLSearchParams(searchParams);
+          volgende.delete("aanvullen");
+          setSearchParams(volgende, { replace: true });
+        }}
+      />
 
       <div className="flex flex-wrap gap-3">
         <div className="relative min-w-[200px] flex-1">

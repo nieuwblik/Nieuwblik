@@ -36,6 +36,10 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  * - "omzet-historie": omzet, kosten en winst per kwartaal, vier jaar terug;
  * - "bank-zonder-bon": afschrijvingen van één kwartaal, verdeeld in met bon,
  *   zonder bon, niet verwerkt en geen kosten (jaar, kwartaal);
+ * - "klanten-aanvullen": voorstellen om ontbrekende klantgegevens (e-mail,
+ *   telefoon, plaats, contactpersoon) uit Moneybird-contacten te vullen;
+ * - "hosting-uit-moneybird": actieve terugkerende facturen als voorstel voor
+ *   hostingcontracten in het portaal;
  * - "hosting-factureren": hostingtermijnen als conceptfactuur (items met
  *   clientId en periodDate, eventueel contactId); de termijn wordt daarna in
  *   het portaal als gefactureerd afgevinkt.
@@ -172,6 +176,9 @@ interface MoneybirdContact {
   lastname?: string | null;
   email?: string | null;
   send_invoices_to_email?: string | null;
+  phone?: string | null;
+  city?: string | null;
+  contact_people?: { firstname?: string | null; lastname?: string | null }[] | null;
 }
 
 const contactNaam = (c: MoneybirdContact) =>
@@ -348,7 +355,109 @@ async function mutaties(van: Date, tot: Date): Promise<Mutatie[]> {
   return [...a, ...b];
 }
 
+/** Moneybird-frequenties die het portaal als hostingcyclus kent. */
+const CYCLUS: Record<string, string> = { month: "maandelijks", year: "jaarlijks" };
+
 async function voerUit(actie: string, body: Record<string, unknown>, userId: string): Promise<unknown> {
+  if (actie === "klanten-aanvullen") {
+    // Klanten waar iets ontbreekt: e-mail, telefoon, plaats of contactpersoon.
+    const { data: klanten, error } = await admin
+      .from("clients")
+      .select("id, name, email, phone, city, contact_name, moneybird_contact_id")
+      .order("name");
+    if (error) throw new Error(error.message);
+    type Klant = PortaalKlant & { phone: string | null; city: string | null; contact_name: string | null };
+    const leeg = (v: string | null | undefined) => !v || !v.trim();
+    const onvolledig = ((klanten ?? []) as Klant[]).filter(
+      (k) => leeg(k.email) || leeg(k.phone) || leeg(k.city) || leeg(k.contact_name),
+    );
+
+    const voorstellen: unknown[] = [];
+    const zonderContact: string[] = [];
+    const twijfel: string[] = [];
+    for (const k of onvolledig) {
+      const gevonden = await zoekContact(k);
+      if (!("contact" in gevonden)) {
+        (gevonden.kandidaten.length > 0 ? twijfel : zonderContact).push(k.name);
+        continue;
+      }
+      const c = gevonden.contact;
+      const persoon =
+        c.company_name && (c.firstname || c.lastname)
+          ? [c.firstname, c.lastname].filter(Boolean).join(" ")
+          : c.contact_people?.[0]
+            ? [c.contact_people[0].firstname, c.contact_people[0].lastname].filter(Boolean).join(" ")
+            : "";
+      const velden: Record<string, string> = {};
+      const email = (c.send_invoices_to_email || c.email || "").trim();
+      if (leeg(k.email) && email) velden.email = email;
+      if (leeg(k.phone) && c.phone?.trim()) velden.phone = c.phone.trim();
+      if (leeg(k.city) && c.city?.trim()) velden.city = c.city.trim();
+      if (leeg(k.contact_name) && persoon.trim()) velden.contact_name = persoon.trim();
+      if (Object.keys(velden).length === 0) continue;
+      voorstellen.push({ clientId: k.id, klant: k.name, contact: contactUit(c), velden });
+    }
+    return { ok: true, voorstellen, zonderContact, twijfel };
+  }
+
+  if (actie === "hosting-uit-moneybird") {
+    // Terugkerende facturen in Moneybird die als hostingcontract in het portaal kunnen.
+    const terugkerend = await allePaginas<{
+      id: string;
+      contact_id: string;
+      contact?: MoneybirdContact | null;
+      start_date: string | null;
+      invoice_date: string | null;
+      frequency_type: string;
+      frequency: number | null;
+      total_price_excl_tax: unknown;
+      total_price_excl_tax_base?: unknown;
+      reference?: string | null;
+      details?: { description?: string | null }[];
+    }>(`recurring_sales_invoices.json?filter=${encodeURIComponent("state:active")}`);
+
+    const { data: klanten, error } = await admin
+      .from("clients")
+      .select("id, name, email, moneybird_contact_id, billing_cycle, billing_amount_cents, billing_start, billing_note");
+    if (error) throw new Error(error.message);
+    type Klant = PortaalKlant & {
+      billing_cycle: string | null;
+      billing_amount_cents: number | null;
+      billing_start: string | null;
+      billing_note: string | null;
+    };
+    const lijst = (klanten ?? []) as Klant[];
+
+    return {
+      ok: true,
+      voorstellen: terugkerend.map((r) => {
+        const naam = r.contact ? contactNaam(r.contact) : "Onbekend contact";
+        const email = r.contact?.send_invoices_to_email || r.contact?.email || null;
+        const klant =
+          lijst.find((k) => k.moneybird_contact_id === r.contact_id) ??
+          lijst.find((k) => email && k.email?.toLowerCase() === email.toLowerCase()) ??
+          lijst.find((k) => naamSleutel(k.name) === naamSleutel(naam)) ??
+          null;
+        const cyclus = (r.frequency ?? 1) === 1 ? (CYCLUS[r.frequency_type] ?? null) : null;
+        return {
+          id: r.id,
+          contact: { id: r.contact_id, naam },
+          clientId: klant?.id ?? null,
+          klantNaam: klant?.name ?? null,
+          alIngesteld: Boolean(klant?.billing_cycle && klant.billing_start),
+          cyclus,
+          frequentie: `${r.frequency ?? 1} ${r.frequency_type}`,
+          bedragCenten: Math.round(getal(r.total_price_excl_tax_base ?? r.total_price_excl_tax) * 100),
+          start: r.start_date ?? r.invoice_date,
+          volgende: r.invoice_date,
+          omschrijving:
+            (r.details ?? []).map((d) => d.description?.trim()).filter(Boolean).join(", ") || r.reference || null,
+          url: `https://moneybird.com/${ADMINISTRATIE}/recurring_sales_invoices/${r.id}`,
+        };
+      }),
+    };
+  }
+
   if (actie === "bank-zonder-bon") {
     const jaar = Number(body.jaar);
     const kwartaal = Number(body.kwartaal);

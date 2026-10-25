@@ -94,8 +94,8 @@ const Meldingen = () => {
         key: "email",
         toon: "warning",
         tekst: `${zonderEmail} ${zonderEmail === 1 ? "klant" : "klanten"} zonder e-mailadres`,
-        actie: "Aanvullen",
-        to: "/admin/mailen?ontvangers=zonder-email",
+        actie: "Aanvullen uit Moneybird",
+        to: "/admin/klanten?aanvullen=1",
       });
     }
     const zonderDeadline = projects.filter((p) => IN_PRODUCTIE.includes(p.status) && !p.deadline).length;
