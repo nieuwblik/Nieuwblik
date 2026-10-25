@@ -235,7 +235,7 @@ const DocumentOpstellen = ({
               <div className="min-w-[14rem] flex-1 space-y-1.5">
                 <Label>Voor</Label>
                 {ontvanger ? (
-                  <div className="flex h-10 items-center rounded-md border border-input px-3 text-sm">
+                  <div className="flex h-10 items-center rounded-[var(--veld-radius,0.375rem)] border border-input px-3 text-sm">
                     <span className="truncate">{ontvanger.naam}</span>
                     {ontvanger.email && <span className="ml-2 truncate text-muted-foreground">{ontvanger.email}</span>}
                   </div>

@@ -42,6 +42,13 @@ const AdminBridge = () => {
     // De loginpagina is altijd licht; de rest van het portaal krijgt meteen
     // het gekozen thema, zodat het laden niet wit flitst.
     if (!window.location.pathname.startsWith("/admin/login")) zetThemaVroeg();
+    // Start en inloggen staan op de nachtscène: meteen die kleur, zodat het
+    // laden niet wit flitst voordat de achtergrond er is.
+    const pad = window.location.pathname.replace(/\/$/, "");
+    if (pad === "/admin" || pad === "/admin/login") {
+      document.documentElement.style.backgroundColor = "#1d2b3d";
+      document.body.style.backgroundColor = "#1d2b3d";
+    }
     getAdminHistory();
     setReady(true);
   }, []);

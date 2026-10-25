@@ -27,6 +27,16 @@ const PortaalAchtergrond = () => {
   const video = useRef<HTMLVideoElement>(null);
   const [speelt, setSpeelt] = useState(false);
 
+  // De nachtblauwe paginakleur van tijdens het laden (zie AdminBridge) weer weg
+  // zodra de scène verdwijnt, anders schemert hij op andere pagina's door.
+  useEffect(
+    () => () => {
+      document.documentElement.style.backgroundColor = "";
+      document.body.style.backgroundColor = "";
+    },
+    [],
+  );
+
   useEffect(() => {
     const v = video.current;
     if (!v) return;

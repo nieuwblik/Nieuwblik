@@ -1,4 +1,4 @@
-import { useMemo, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { ArrowRight, ArrowUpRight, Play, Plus, Search, Square, UserPlus } from "lucide-react";
@@ -112,8 +112,16 @@ const Tegel = ({
           <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 translate-y-1 opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
         )}
       </span>
-      <span className="relative mt-1 font-epilogue text-[26px] font-medium leading-tight tracking-tight tabular-nums">{waarde}</span>
-      <span className={cn("relative mt-0.5 truncate text-[13px]", onderToon === "rood" ? "text-[#ff9b91]" : "text-white/55")}>{onder}</span>
+      {/* Een nieuwe waarde (bijvoorbeeld als Moneybird binnenkomt) vervaagt zacht in in plaats van te verspringen. */}
+      <span key={String(waarde)} className="p-waarde-in relative mt-1 font-epilogue text-[26px] font-medium leading-tight tracking-tight tabular-nums">
+        {waarde}
+      </span>
+      <span
+        key={onder}
+        className={cn("p-waarde-in relative mt-0.5 truncate text-[13px]", onderToon === "rood" ? "text-[#ff9b91]" : "text-white/55")}
+      >
+        {onder}
+      </span>
     </>
   );
   const klasse = cn(TEGEL_GLAS, "p-start-op-glas group relative flex min-w-0 flex-col rounded-[20px] px-5 py-4 text-white");
@@ -215,8 +223,31 @@ const Start = () => {
   const nieuw = aanvragen.filter((a) => a.status === "nieuw").length;
   const eersteProbleem = websites?.problemen[0];
 
+
+  // Het opkomen begint pas als het lettertype en de taken er zijn (hooguit
+  // 0,45 seconde na het openen). Anders liep de animatie al terwijl de letters
+  // nog wisselden en de getallen nog binnenkwamen, en oogde hij schokkerig.
+  const [klaar, setKlaar] = useState(false);
+  const geopend = useRef(performance.now());
+  const takenLaden = taken.isLoading;
+  useEffect(() => {
+    if (klaar) return;
+    let weg = false;
+    const begin = () => {
+      // Een gewone timer en geen animatieframe: die pauzeert in een tabblad op de
+      // achtergrond, en dan zou de pagina onzichtbaar blijven.
+      if (!weg) window.setTimeout(() => setKlaar(true), 16);
+    };
+    const uiterlijk = window.setTimeout(begin, Math.max(0, 450 - (performance.now() - geopend.current)));
+    if (!takenLaden) void document.fonts.ready.then(begin);
+    return () => {
+      weg = true;
+      window.clearTimeout(uiterlijk);
+    };
+  }, [klaar, takenLaden]);
+
   return (
-    <div className="relative isolate min-h-[100svh] text-white">
+    <div className="relative isolate min-h-[100svh] text-white" data-start={klaar ? "klaar" : "laden"}>
       <PortaalAchtergrond />
 
       <div className="mx-auto flex min-h-[100svh] max-w-[1240px] flex-col px-5 pb-6 pt-5 sm:px-8 sm:pb-8">

@@ -1055,6 +1055,15 @@ h1, h2, h3, h4, h5, h6 {
   --knop-tekst-hover: hsl(var(--foreground));
 }
 
+/* Afronding in het portaal, in lijn met de knoppen en keuzemenu's: velden en
+   keuzelijsten 10px, vensters en het zoekpalet ruimer. De onderdelen lezen
+   deze variabelen (met hun oude waarde als terugval); de publieke site zet ze
+   niet en blijft zoals hij was. */
+.portaal {
+  --veld-radius: 10px;
+  --venster-radius: 18px;
+}
+
 .portaal.dark {
   --knop-vlak: hsl(var(--foreground) / 0.12);
   --knop-vlak-hover: hsl(var(--foreground) / 0.17);
@@ -1616,6 +1625,33 @@ html.tn-vast { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .p-start-op,
   .p-start-op-glas {
+    animation: none;
+  }
+}
+
+/* Zolang Start nog laadt (lettertype, taken) staan de opkomanimaties stil in
+   hun beginstand; daarna lopen ze in één vloeiende beweging. Op de GPU, zodat
+   ze ook tijdens het laden van de rest van de pagina niet haperen. */
+[data-start="laden"] :is(.p-start-op, .p-start-op-glas) {
+  animation-play-state: paused;
+}
+.p-start-op,
+.p-start-op-glas {
+  will-change: transform, opacity;
+}
+
+/* Een waarde die verandert (bijvoorbeeld als Moneybird binnenkomt) vervaagt
+   zacht in in plaats van te verspringen. */
+@keyframes waarde-in {
+  from {
+    opacity: 0;
+  }
+}
+.p-waarde-in {
+  animation: waarde-in 450ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .p-waarde-in {
     animation: none;
   }
 }

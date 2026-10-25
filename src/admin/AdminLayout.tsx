@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import PortaalAchtergrond from "@/components/PortaalAchtergrond";
 import SEOHead from "@/components/SEOHead";
 import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo.webp";
@@ -464,7 +465,19 @@ const AdminLayout = () => {
   // de nieuwe pagina heen staan.
   useEffect(() => setMobileOpen(false), [location.pathname]);
 
-  if (status === "loading") return <LaadGeraamte />;
+  if (status === "loading") {
+    // Op Start geen grijs geraamte van het dashboard, maar meteen de scène:
+    // dan komt de pagina er na het laden vloeiend in op, zonder wissel van beeld.
+    return location.pathname.replace(/\/$/, "") === "/admin" ? (
+      <div className="min-h-screen" aria-busy="true">
+        <AdminSEO />
+        <span className="sr-only">Portaal laden</span>
+        <PortaalAchtergrond />
+      </div>
+    ) : (
+      <LaadGeraamte />
+    );
+  }
 
   if (status === "unauthenticated") {
     return <Navigate to="/admin/login" replace state={{ from: location.pathname + location.search }} />;

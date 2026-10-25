@@ -84,7 +84,7 @@ const TijdKiezer = ({ id, value, onChange, className }: TijdKiezerProps) => {
   return (
     <div
       className={cn(
-        "flex h-10 items-center rounded-md border border-input bg-background pl-3 pr-1 text-sm transition-colors focus-within:border-foreground/30",
+        "flex h-10 items-center rounded-[var(--veld-radius,0.375rem)] border border-input bg-background pl-3 pr-1 text-sm transition-colors focus-within:border-foreground/30",
         className,
       )}
     >
