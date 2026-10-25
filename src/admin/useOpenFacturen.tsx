@@ -21,6 +21,7 @@ import {
   isTeLaatFactuur,
   kanHerinneren,
   useFactuurActie,
+  zoekKlantBij,
   type OpenFactuur,
 } from "@/admin/financien";
 import { useClients, type Client } from "@/admin/queries";
@@ -46,23 +47,8 @@ const vervalLabel = (f: OpenFactuur) => {
   return `Nog ${dagen} ${dagen === 1 ? "dag" : "dagen"}`;
 };
 
-/** "Toptas Consultancy B.V." en "toptas consultancy" zijn dezelfde klant. */
-const sleutel = (naam: string) =>
-  naam
-    .toLowerCase()
-    .replace(/\b(b\.?v\.?|v\.?o\.?f\.?|n\.?v\.?|holding)\b/g, "")
-    .replace(/[^a-z0-9]/g, "");
-
-/** De klant in het portaal bij een Moneybird-contact: op e-mailadres, anders op naam. */
-function zoekKlant(f: OpenFactuur, clients: Client[]): Client | null {
-  const email = f.email?.toLowerCase();
-  if (email) {
-    const opMail = clients.find((c) => c.email?.toLowerCase() === email);
-    if (opMail) return opMail;
-  }
-  const naam = sleutel(f.klant);
-  return naam ? (clients.find((c) => sleutel(c.name) === naam) ?? null) : null;
-}
+/** De klant in het portaal bij een factuur: op e-mailadres, anders op naam. */
+const zoekKlant = (f: OpenFactuur, clients: Client[]) => zoekKlantBij({ naam: f.klant, email: f.email }, clients);
 
 const ontvanger = (f: OpenFactuur) => f.email ?? "het adres dat in Moneybird staat";
 

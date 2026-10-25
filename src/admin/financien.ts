@@ -408,6 +408,27 @@ export function useUrenVrijgeven() {
   });
 }
 
+/** "Toptas Consultancy B.V." en "toptas consultancy" zijn dezelfde klant. */
+export const klantSleutel = (naam: string) =>
+  naam
+    .toLowerCase()
+    .replace(/\b(b\.?v\.?|v\.?o\.?f\.?|n\.?v\.?|holding)\b/g, "")
+    .replace(/[^a-z0-9]/g, "");
+
+/** De klant in het portaal bij een Moneybird-naam: op e-mailadres, anders op naam. */
+export function zoekKlantBij<K extends { name: string; email: string | null }>(
+  bron: { naam: string; email?: string | null | undefined },
+  clients: K[],
+): K | null {
+  const email = bron.email?.toLowerCase();
+  if (email) {
+    const opMail = clients.find((c) => c.email?.toLowerCase() === email);
+    if (opMail) return opMail;
+  }
+  const naam = klantSleutel(bron.naam);
+  return naam ? (clients.find((c) => klantSleutel(c.name) === naam) ?? null) : null;
+}
+
 export const heeftData = <T,>(o: Onderdeel<T> | undefined): o is { data: T } => Boolean(o && "data" in o);
 
 /** "€ 1.250" of "€ 1.250,50"; negatief met een minteken. */

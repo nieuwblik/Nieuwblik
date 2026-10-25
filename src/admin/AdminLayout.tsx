@@ -47,6 +47,7 @@ import QuickCapture from "@/admin/components/QuickCapture";
 import TimerBalk from "@/admin/components/TimerBalk";
 import { useBetaalMeldingen } from "@/admin/useBetaalMeldingen";
 import { useAanvragen } from "@/admin/aanvragen";
+import { useAutomatischeTaken } from "@/admin/useAutomatischeTaken";
 import { initials } from "@/admin/format";
 import { usePortalPwa } from "@/admin/pwa";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
@@ -390,6 +391,7 @@ const LaadGeraamte = () => (
 const AdminLayout = () => {
   const { status, displayName, signOut } = useAdminAuth();
   useBetaalMeldingen(status === "authorized");
+  useAutomatischeTaken(status === "authorized");
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
