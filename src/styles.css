@@ -1039,6 +1039,17 @@ h1, h2, h3, h4, h5, h6 {
   --tw-shadow: 0 0 #0000;
 }
 
+/* Velden zonder ring eromheen als je erin klikt, zoals in de Claude-app:
+   alleen de eigen rand wordt iets donkerder, zodat je ziet waar je typt.
+   Knoppen houden hun ring, maar die verschijnt alleen bij het toetsenbord. */
+.portaal :is(input, textarea, select, [role="combobox"]):is(:focus, :focus-visible) {
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-offset-width: 0px;
+  border-color: hsl(var(--foreground) / 0.28);
+  outline: none;
+}
+
 /* Cursor zoals in de Claude-app: de gewone pijl op knoppen, menu-items,
    tabbladen, rijen en de zijbalk. Dat iets klikbaar is, zie je aan het vlak
    bij hover. De hand alleen op echte tekstlinks: onderstreept, of naar een

@@ -4,8 +4,18 @@ import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { hoofdtaken } from "@/admin/constants";
 import { useProjects, useTasks } from "@/admin/queries";
@@ -46,18 +56,30 @@ const TimerBalk = () => {
   const save = useSaveUren();
   const nu = useNu(Boolean(lopend));
   const [open, setOpen] = useState(false);
-  const [keuze, setKeuze] = useState<Keuze>({ projectId: null, taskId: null, omschrijving: "" });
+  const [keuze, setKeuze] = useState<Keuze>({
+    projectId: null,
+    taskId: null,
+    omschrijving: "",
+  });
 
   // Loopt er een timer, dan toont het keuzemenu waar die op staat.
   useEffect(() => {
     if (!open || !lopend) return;
-    setKeuze({ projectId: lopend.project_id, taskId: lopend.task_id, omschrijving: lopend.description ?? "" });
+    setKeuze({
+      projectId: lopend.project_id,
+      taskId: lopend.task_id,
+      omschrijving: lopend.description ?? "",
+    });
   }, [open, lopend]);
 
   const openTaken = useMemo(
     () =>
       hoofdtaken(tasks)
-        .filter((t) => t.status !== "klaar" && (!keuze.projectId || t.project_id === keuze.projectId))
+        .filter(
+          (t) =>
+            t.status !== "klaar" &&
+            (!keuze.projectId || t.project_id === keuze.projectId),
+        )
         .slice(0, 50),
     [tasks, keuze.projectId],
   );
@@ -67,8 +89,13 @@ const TimerBalk = () => {
   const gekozenProject = projects.find((p) => p.id === keuze.projectId);
   const gekozenTaak = tasks.find((t) => t.id === keuze.taskId);
   const label = lopend
-    ? (lopend.task?.title ?? (lopend.project ? projectNaam(lopend) : lopend.description) ?? "Timer loopt")
-    : (gekozenTaak?.title ?? gekozenProject?.client?.name ?? gekozenProject?.name ?? "Waar werk je aan?");
+    ? (lopend.task?.title ??
+      (lopend.project ? projectNaam(lopend) : lopend.description) ??
+      "Timer loopt")
+    : (gekozenTaak?.title ??
+      gekozenProject?.client?.name ??
+      gekozenProject?.name ??
+      "Waar werk je aan?");
 
   const waarden = () => ({
     project_id: keuze.projectId,
@@ -99,11 +126,16 @@ const TimerBalk = () => {
     }
   };
 
-  const seconden = lopend ? (nu - new Date(lopend.started_at).getTime()) / 1000 : 0;
+  const seconden = lopend
+    ? (nu - new Date(lopend.started_at).getTime()) / 1000
+    : 0;
 
   return (
     <div className="flex h-10 shrink-0 items-center gap-1 rounded-xl border border-border bg-muted/60 p-1">
-      <Popover open={open} onOpenChange={(waarde) => (waarde ? setOpen(true) : void bewaarKeuze())}>
+      <Popover
+        open={open}
+        onOpenChange={(waarde) => (waarde ? setOpen(true) : void bewaarKeuze())}
+      >
         <PopoverTrigger asChild>
           <button
             type="button"
@@ -112,11 +144,22 @@ const TimerBalk = () => {
             {/* Loopt de timer, dan een kloppende stip in plaats van de klok: je
                 ziet vanuit je ooghoek dat er tijd wordt geschreven. */}
             {lopend ? (
-              <span className="p-puls mx-1 h-2 w-2 shrink-0 rounded-full bg-success" aria-hidden="true" />
+              <span
+                className="p-puls mx-1 h-2 w-2 shrink-0 rounded-full bg-success"
+                aria-hidden="true"
+              />
             ) : (
               <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
             )}
-            <span className={cn("truncate", !lopend && !keuze.projectId && !keuze.taskId && "text-muted-foreground")}>
+            <span
+              className={cn(
+                "truncate",
+                !lopend &&
+                  !keuze.projectId &&
+                  !keuze.taskId &&
+                  "text-muted-foreground",
+              )}
+            >
               {label}
             </span>
             <ChevronDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
@@ -124,10 +167,18 @@ const TimerBalk = () => {
         </PopoverTrigger>
         <PopoverContent align="start" className="w-80 space-y-3 p-4">
           <div className="space-y-1.5">
-            <Label className="text-xs font-normal text-muted-foreground">Project</Label>
+            <Label className="text-xs font-normal text-muted-foreground">
+              Project
+            </Label>
             <Select
               value={keuze.projectId ?? GEEN}
-              onValueChange={(v) => setKeuze((k) => ({ ...k, projectId: v === GEEN ? null : v, taskId: null }))}
+              onValueChange={(v) =>
+                setKeuze((k) => ({
+                  ...k,
+                  projectId: v === GEEN ? null : v,
+                  taskId: null,
+                }))
+              }
             >
               <SelectTrigger className="h-9">
                 <SelectValue />
@@ -143,7 +194,9 @@ const TimerBalk = () => {
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs font-normal text-muted-foreground">Taak</Label>
+            <Label className="text-xs font-normal text-muted-foreground">
+              Taak
+            </Label>
             <Select
               value={keuze.taskId ?? GEEN}
               onValueChange={(v) => {
@@ -169,13 +222,18 @@ const TimerBalk = () => {
             </Select>
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="timer-omschrijving" className="text-xs font-normal text-muted-foreground">
+            <Label
+              htmlFor="timer-omschrijving"
+              className="text-xs font-normal text-muted-foreground"
+            >
               Omschrijving
             </Label>
             <Input
               id="timer-omschrijving"
               value={keuze.omschrijving}
-              onChange={(e) => setKeuze((k) => ({ ...k, omschrijving: e.target.value }))}
+              onChange={(e) =>
+                setKeuze((k) => ({ ...k, omschrijving: e.target.value }))
+              }
               onKeyDown={(e) => {
                 if (e.key === "Enter") void bewaarKeuze();
               }}
@@ -184,7 +242,9 @@ const TimerBalk = () => {
             />
           </div>
           <p className="text-xs text-muted-foreground">
-            {lopend ? "Wijzigingen gelden voor de lopende timer." : "Start de timer met de knop in de balk."}
+            {lopend
+              ? "Wijzigingen gelden voor de lopende timer."
+              : "Start de timer met de knop in de balk."}
           </p>
         </PopoverContent>
       </Popover>
@@ -194,13 +254,16 @@ const TimerBalk = () => {
           "hidden rounded-md border border-border bg-background px-2 py-0.5 font-mono text-[13px] tabular-nums sm:block",
           !lopend && "text-muted-foreground",
         )}
-        aria-label={lopend ? `Timer loopt: ${formatKlok(seconden)}` : "Timer staat stil"}
+        aria-label={
+          lopend ? `Timer loopt: ${formatKlok(seconden)}` : "Timer staat stil"
+        }
       >
         {formatKlok(seconden)}
       </span>
 
-      {/* Rustig rond knopje met een zachte tint in plaats van een vol blok:
-          groen om te starten, rood zolang hij loopt. Bij hover iets voller. */}
+      {/* Zoals de andere icoonknoppen in de bovenbalk: geen eigen vlak, alleen
+          het icoon in kleur (groen om te starten, rood zolang hij loopt) en
+          bij hover hetzelfde grijze vlak. */}
       <button
         type="button"
         onClick={() => void startOfStop()}
@@ -208,10 +271,10 @@ const TimerBalk = () => {
         title={lopend ? "Timer stoppen" : "Timer starten"}
         aria-label={lopend ? "Timer stoppen" : "Timer starten"}
         className={cn(
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-[background-color,transform] duration-150 active:scale-90 disabled:opacity-50",
+          "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,transform] duration-150 ease-out hover:bg-muted active:scale-90 disabled:opacity-50",
           lopend
-            ? "bg-danger/10 text-danger-ink hover:bg-danger/20"
-            : "bg-accent/10 text-accent hover:bg-accent/20 dark:text-[hsl(160_60%_55%)]",
+            ? "text-danger-ink"
+            : "text-accent dark:text-[hsl(160_60%_55%)]",
         )}
       >
         {lopend ? (
