@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   CheckSquare,
   ChevronRight,
+  CloudUpload,
   Eye,
   EyeOff,
   FileSignature,
@@ -36,6 +37,7 @@ import ProjectUren from "@/admin/components/ProjectUren";
 import TaskList from "@/admin/components/TaskList";
 import UpdatesTimeline from "@/admin/components/UpdatesTimeline";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
+import InMoneybirdZetten from "@/admin/components/InMoneybirdZetten";
 import BillingButton from "@/admin/components/BillingButton";
 import { formatDate, momentLabel, mostRecent } from "@/admin/format";
 import Avatar from "@/admin/ui/Avatar";
@@ -105,6 +107,17 @@ const ProjectDetail = () => {
   const tab = ["taken", "bestanden", "uren", "tijdlijn"].includes(searchParams.get("tab") ?? "")
     ? searchParams.get("tab")!
     : "taken";
+
+  // Na "Nieuwe klant" komt de melding "Kiezen" hier met ?moneybird=1: dan
+  // opent meteen de keuze welk Moneybird-contact het is.
+  const [inMoneybird, setInMoneybird] = useState(false);
+  useEffect(() => {
+    if (searchParams.get("moneybird") !== "1" || !client) return;
+    setInMoneybird(true);
+    const volgende = new URLSearchParams(searchParams);
+    volgende.delete("moneybird");
+    setSearchParams(volgende, { replace: true });
+  }, [searchParams, setSearchParams, client]);
 
   const tasks = useMemo(() => allTasks.filter((t) => t.project_id === id), [allTasks, id]);
   const openTasks = tasks.filter((t) => t.status !== "klaar" && !t.parent_task_id).length;
@@ -277,6 +290,12 @@ const ProjectDetail = () => {
                 <FileText className="h-4 w-4" />
                 Maandrapport
               </DropdownMenuItem>
+              {client && !client.moneybird_contact_id && (
+                <DropdownMenuItem onSelect={() => setInMoneybird(true)}>
+                  <CloudUpload className="h-4 w-4" />
+                  In Moneybird zetten
+                </DropdownMenuItem>
+              )}
               {client && (
                 <DropdownMenuItem onSelect={() => void wisselVerborgen()}>
                   {client.verborgen_op ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
@@ -393,6 +412,8 @@ const ProjectDetail = () => {
           voor={{ ontvanger: { soort: "klant", clientId: client.id }, naam: client.name, email: client.email }}
         />
       )}
+
+      {client && <InMoneybirdZetten open={inMoneybird} onOpenChange={setInMoneybird} client={client} />}
 
       {dialoog}
     </div>

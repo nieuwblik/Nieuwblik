@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft, ChevronRight, Eye, EyeOff, FolderKanban, Mail, Phone, Plus } from "lucide-react";
+import { ArrowLeft, ChevronRight, CloudUpload, Eye, EyeOff, FolderKanban, Mail, Phone, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import BillingButton from "@/admin/components/BillingButton";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import EmptyState from "@/admin/components/EmptyState";
+import InMoneybirdZetten from "@/admin/components/InMoneybirdZetten";
 import TaskList from "@/admin/components/TaskList";
 import { hoofdtaken } from "@/admin/constants";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
@@ -38,6 +39,7 @@ const ClientDetail = () => {
   const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
   const verberg = useVerbergKlant();
+  const [inMoneybird, setInMoneybird] = useState(false);
 
   const own = useMemo(() => projects.filter((p) => p.client_id === id), [projects, id]);
   const taken = useMemo(() => tasks.filter((t) => t.client_id === id), [tasks, id]);
@@ -76,6 +78,12 @@ const ClientDetail = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          {!client.moneybird_contact_id && (
+            <Button variant="outline" onClick={() => setInMoneybird(true)}>
+              <CloudUpload className="h-4 w-4" />
+              In Moneybird zetten
+            </Button>
+          )}
           <Button
             variant="outline"
             disabled={verberg.isPending}
@@ -148,6 +156,8 @@ const ClientDetail = () => {
             }
           />
       </div>
+
+      <InMoneybirdZetten open={inMoneybird} onOpenChange={setInMoneybird} client={client} />
 
       <ClientProjectDialog
         open={dialogOpen}

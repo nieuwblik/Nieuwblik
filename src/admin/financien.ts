@@ -696,3 +696,25 @@ export function useContactArchiveren() {
     onSuccess: () => void qc.invalidateQueries({ queryKey: [...FINANCIEN_KEY, "contacten"] }),
   });
 }
+
+export type ContactAanmakenResultaat =
+  | { ok: true; soort: "gekoppeld" | "aangemaakt" | "al-gekoppeld"; contact: MoneybirdContact }
+  | { ok: false; kiesContact: MoneybirdContact[] };
+
+/**
+ * Een klant uit het portaal in Moneybird zetten. Zonder keuze zoekt de
+ * serverfunctie eerst een bestaand contact; met contactId koppelt hij aan dat
+ * contact, met nieuw: true maakt hij hoe dan ook een nieuw contact.
+ */
+export function useContactAanmaken() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { clientId: string; contactId?: string; nieuw?: boolean }) =>
+      roepAan<ContactAanmakenResultaat>({ actie: "contact-aanmaken", ...body }),
+    onSuccess: (r) => {
+      if (!r.ok) return;
+      void qc.invalidateQueries({ queryKey: ["admin", "clients"] });
+      void qc.invalidateQueries({ queryKey: [...FINANCIEN_KEY, "contacten"] });
+    },
+  });
+}

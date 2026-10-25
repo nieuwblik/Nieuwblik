@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,8 @@ import {
 } from "@/admin/constants";
 import DatePicker from "@/admin/components/DatePicker";
 import { leesBedrag } from "@/admin/billing";
+import { meldMoneybird } from "@/admin/moneybirdMelding";
+import { useContactAanmaken } from "@/admin/financien";
 import { useSaveClient, useSaveProject, type Client, type Project } from "@/admin/queries";
 
 interface ClientProjectDialogProps {
@@ -83,6 +86,10 @@ const ClientProjectDialog = ({
   const [form, setForm] = useState(EMPTY);
   const saveClient = useSaveClient();
   const saveProject = useSaveProject();
+  const inMoneybirdZetten = useContactAanmaken();
+  const navigate = useNavigate();
+  // Een nieuwe klant meteen ook in Moneybird, tenzij je het uitvinkt.
+  const [ookInMoneybird, setOokInMoneybird] = useState(true);
   // Vier situaties, elk met een eigen titel: eerder heette "Project toevoegen"
   // bij een bestaande klant ook "Klant bewerken".
   const kop =
@@ -99,6 +106,7 @@ const ClientProjectDialog = ({
 
   useEffect(() => {
     if (!open) return;
+    setOokInMoneybird(true);
     setForm(
       client
         ? {
@@ -185,6 +193,25 @@ const ClientProjectDialog = ({
       toast.success(project ? "Bijgewerkt" : client ? "Project toegevoegd" : "Klant aangemaakt");
       onOpenChange(false);
       if (!project) onCreated?.(savedProject.id);
+
+      // Op de achtergrond: zoeken in Moneybird en koppelen of aanmaken. Lijkt
+      // er een contact op, dan kies je dat op de projectpagina.
+      if (!client && ookInMoneybird) {
+        inMoneybirdZetten.mutateAsync({ clientId: savedClient.id }).then(
+          (r) => {
+            if (r.ok) {
+              meldMoneybird(r, name);
+              return;
+            }
+            toast(`${name} lijkt op een contact in Moneybird`, {
+              description: "Kies of je koppelt of een nieuw contact aanmaakt.",
+              duration: 15000,
+              action: { label: "Kiezen", onClick: () => navigate(`/admin/projecten/${savedProject.id}?moneybird=1`) },
+            });
+          },
+          (e: unknown) => toast.error(`Niet in Moneybird gezet: ${e instanceof Error ? e.message : "onbekende fout"}`),
+        );
+      }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Opslaan mislukt");
     }
@@ -388,6 +415,22 @@ const ClientProjectDialog = ({
                 maxLength={10000}
               />
             </div>
+
+            {!client && (
+              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-muted/40">
+                <Checkbox
+                  checked={ookInMoneybird}
+                  onCheckedChange={(checked) => setOokInMoneybird(checked === true)}
+                  className="mt-0.5"
+                />
+                <span className="text-sm">
+                  Ook in Moneybird aanmaken
+                  <span className="mt-0.5 block text-xs text-muted-foreground">
+                    Staat de klant daar al, dan wordt hij gekoppeld in plaats van dubbel aangemaakt.
+                  </span>
+                </span>
+              </label>
+            )}
           </div>
 
           <DialogFooter>

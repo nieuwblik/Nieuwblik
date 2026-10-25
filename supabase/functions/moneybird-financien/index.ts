@@ -56,6 +56,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   Payments (clientId, eventueel contactId);
  * - "contact-bijwerken": e-mail, telefoon, plaats en contactpersoon van een
  *   klant naar het gekoppelde Moneybird-contact (clientId);
+ * - "contact-aanmaken": een klant uit het portaal in Moneybird zetten; koppelt aan
+ *   een bestaand contact als dat er is (clientId, eventueel contactId of nieuw);
  * - "contact-archiveren": een contact in Moneybird archiveren (contactId).
  *
  * Als formulier (multipart) met actie "bon-uploaden": foto's of pdf's van bonnen
@@ -1331,6 +1333,52 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
     if (velden.length === 0) return { ok: true, velden };
     await moneybird(`contacts/${contact.id}.json`, { method: "PATCH", body: { contact: wijziging } });
     return { ok: true, velden };
+  }
+
+  if (actie === "contact-aanmaken") {
+    // Een klant uit het portaal in Moneybird zetten, zonder dubbel contact:
+    // eerst zoeken (e-mail, dan naam). Eén duidelijke treffer wordt gekoppeld,
+    // bij twijfel kiest de gebruiker, en alleen als er niets is (of de
+    // gebruiker "nieuw" kiest) komt er een nieuw contact.
+    const klant = (await portaalKlant(body.clientId)) as PortaalKlant & {
+      phone: string | null;
+      city: string | null;
+      contact_name: string | null;
+    };
+    const koppel = async (contact: MoneybirdContact, soort: "gekoppeld" | "aangemaakt") => {
+      const { error } = await admin.from("clients").update({ moneybird_contact_id: contact.id }).eq("id", klant.id);
+      if (error) throw new Error(error.message);
+      return { ok: true, soort, contact: contactUit(contact) };
+    };
+
+    if (isId(body.contactId)) {
+      return await koppel((await moneybird(`contacts/${body.contactId}.json`)) as MoneybirdContact, "gekoppeld");
+    }
+    if (isId(klant.moneybird_contact_id)) {
+      const huidig = (await moneybird(`contacts/${klant.moneybird_contact_id}.json`)) as MoneybirdContact;
+      return { ok: true, soort: "al-gekoppeld", contact: contactUit(huidig) };
+    }
+    if (body.nieuw !== true) {
+      const gevonden = await zoekContact(klant);
+      if ("contact" in gevonden) return await koppel(gevonden.contact, "gekoppeld");
+      if (gevonden.kandidaten.length > 0) return { ok: false, kiesContact: gevonden.kandidaten.map(contactUit) };
+    }
+
+    const email = klant.email?.trim();
+    const [voornaam, ...rest] = (klant.contact_name?.trim() ?? "").split(/\s+/).filter(Boolean);
+    const nieuw = (await moneybird("contacts.json", {
+      method: "POST",
+      body: {
+        contact: {
+          company_name: klant.name,
+          ...(voornaam ? { firstname: voornaam, ...(rest.length ? { lastname: rest.join(" ") } : {}) } : {}),
+          ...(email ? { email, send_invoices_to_email: email, send_estimates_to_email: email } : {}),
+          ...(klant.phone?.trim() ? { phone: klant.phone.trim() } : {}),
+          ...(klant.city?.trim() ? { city: klant.city.trim() } : {}),
+        },
+      },
+    })) as MoneybirdContact;
+    return await koppel(nieuw, "aangemaakt");
   }
 
   if (actie === "contact-archiveren") {
