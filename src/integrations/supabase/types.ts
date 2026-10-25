@@ -14,6 +14,59 @@ export type Database = {
   }
   public: {
     Tables: {
+      aanvragen: {
+        Row: {
+          bedrijf: string | null
+          bericht: string | null
+          client_id: string | null
+          created_at: string
+          email: string
+          id: string
+          naam: string
+          notitie: string | null
+          onderwerp: string | null
+          status: string
+          telefoon: string | null
+          updated_at: string
+        }
+        Insert: {
+          bedrijf?: string | null
+          bericht?: string | null
+          client_id?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          naam: string
+          notitie?: string | null
+          onderwerp?: string | null
+          status?: string
+          telefoon?: string | null
+          updated_at?: string
+        }
+        Update: {
+          bedrijf?: string | null
+          bericht?: string | null
+          client_id?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          naam?: string
+          notitie?: string | null
+          onderwerp?: string | null
+          status?: string
+          telefoon?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aanvragen_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
           billing_amount_cents: number | null
@@ -427,6 +480,32 @@ export type Database = {
         }
         Relationships: []
       }
+      taak_signalen: {
+        Row: {
+          created_at: string
+          sleutel: string
+          task_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          sleutel: string
+          task_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          sleutel?: string
+          task_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "taak_signalen_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       task_files: {
         Row: {
           created_at: string
@@ -482,6 +561,7 @@ export type Database = {
           created_by: string | null
           description: string | null
           due_date: string | null
+          herhaling: string | null
           id: string
           parent_task_id: string | null
           priority: Database["public"]["Enums"]["priority_level"]
@@ -497,6 +577,7 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           due_date?: string | null
+          herhaling?: string | null
           id?: string
           parent_task_id?: string | null
           priority?: Database["public"]["Enums"]["priority_level"]
@@ -512,6 +593,7 @@ export type Database = {
           created_by?: string | null
           description?: string | null
           due_date?: string | null
+          herhaling?: string | null
           id?: string
           parent_task_id?: string | null
           priority?: Database["public"]["Enums"]["priority_level"]
@@ -617,6 +699,53 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      website_controles: {
+        Row: {
+          created_at: string
+          domein_geldig_tot: string | null
+          fout: string | null
+          id: string
+          laadtijd_ms: number | null
+          online: boolean
+          project_id: string
+          ssl_geldig_tot: string | null
+          status_code: number | null
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          domein_geldig_tot?: string | null
+          fout?: string | null
+          id?: string
+          laadtijd_ms?: number | null
+          online: boolean
+          project_id: string
+          ssl_geldig_tot?: string | null
+          status_code?: number | null
+          url: string
+        }
+        Update: {
+          created_at?: string
+          domein_geldig_tot?: string | null
+          fout?: string | null
+          id?: string
+          laadtijd_ms?: number | null
+          online?: boolean
+          project_id?: string
+          ssl_geldig_tot?: string | null
+          status_code?: number | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "website_controles_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
