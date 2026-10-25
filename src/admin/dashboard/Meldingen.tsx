@@ -84,8 +84,8 @@ const Meldingen = () => {
         key: "hosting",
         toon: "neutral",
         tekst: "Nog geen hostingcontracten",
-        actie: "Facturatie instellen",
-        to: "/admin/klanten",
+        actie: "Uit Moneybird inlezen",
+        to: "/admin/hosting?inlezen=1",
       });
     }
     const zonderEmail = clients.filter((c) => !c.email?.includes("@")).length;

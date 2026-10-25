@@ -3,6 +3,7 @@ import { endOfMonth, startOfDay, startOfMonth, subMonths } from "date-fns";
 
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { termijnen } from "@/admin/billing";
+import { factureertMoneybird } from "@/admin/financien";
 import { hoofdtaken, isTeLaat } from "@/admin/constants";
 import { useClients, useInvoicedPeriods, useTasks, type Client, type TaskWithProject } from "@/admin/queries";
 
@@ -63,7 +64,9 @@ export function useTeFactureren() {
     const tot = endOfMonth(vandaag);
     const metContract = clients.filter((c) => c.billing_cycle && c.billing_start);
 
+    // Contracten die Moneybird zelf factureert, staan nooit open.
     const open: OpenTermijn[] = metContract
+      .filter((client) => !factureertMoneybird(client))
       .flatMap((client) =>
         termijnen(client.billing_start!, client.billing_cycle!, van, tot)
           .filter((t) => !afgevinkt.has(`${client.id}|${t.sleutel}`))
