@@ -917,9 +917,45 @@ h1, h2, h3, h4, h5, h6 {
 }
 .portaal { -webkit-tap-highlight-color: transparent; }
 
-/* Knoppen in het portaal in Cabin, net als de rest van de interface. De
-   gedeelde knopcomponent zet Epilogue; de publieke site houdt dat. */
-.portaal :where(button, a).font-epilogue {
+/* ---------------------------------------------------------------------------
+   Lettertype van het portaal: Geist, voor alles. De publieke site houdt Cabin
+   en Epilogue; in een werkomgeving vol cijfers leest één neutrale letter
+   rustiger, en de cijfers staan er netjes onder elkaar.
+
+   .portaal staat op <html>, dus ook vensters, menu's en meldingen (die buiten
+   de pagina-inhoud worden getekend) krijgen Geist. Het bestand wordt alleen
+   geladen waar het gebruikt wordt, dus bezoekers van de site laden het niet.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Geist";
+  src: url("./assets/fonts/geist-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.portaal {
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-epilogue: var(--font-sans);
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+}
+
+.portaal body {
+  font-family: var(--font-sans);
+}
+
+/* De globale kopregel zet Epilogue met !important; hier wint Geist. Een
+   fractie krapper gespatieerd, want Geist loopt op koppen wat breed. */
+.portaal :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-sans) !important;
+  letter-spacing: -0.015em;
+}
+
+/* Alles met font-sans of font-epilogue (knoppen, kerncijfers, sneltoetsen) in
+   het portaal ook in Geist. Tailwind zet de lettervorm vast in die klassen,
+   dus hier expliciet. De publieke site houdt Cabin en Epilogue. */
+.portaal :is(.font-sans, .font-epilogue) {
   font-family: var(--font-sans);
 }
 
