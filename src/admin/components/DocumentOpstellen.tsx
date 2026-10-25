@@ -64,6 +64,7 @@ const legeRegel = (btwId: string | null, omschrijving = ""): Regel => ({
 });
 
 const GEEN_PRODUCT = "__geen__";
+const STANDAARD_BTW = "__standaard__";
 
 /**
  * Een offerte of factuur opstellen in Moneybird, zonder het portaal uit te
@@ -92,7 +93,12 @@ const DocumentOpstellen = ({
   const [kandidaten, setKandidaten] = useState<MoneybirdContact[] | null>(null);
 
   const producten = useMemo(() => gegevens?.producten ?? [], [gegevens]);
-  const tarieven = useMemo(() => gegevens?.btwTarieven ?? [], [gegevens]);
+  // Zonder tarieven uit Moneybird (nog niet geladen of niet bereikbaar):
+  // 21%, dan gebruikt Moneybird zelf het standaardtarief van de administratie.
+  const tarieven = useMemo(
+    () => (gegevens?.btwTarieven?.length ? gegevens.btwTarieven : [{ id: STANDAARD_BTW, naam: "21% btw", percentage: 21 }]),
+    [gegevens],
+  );
   const standaardBtw = (tarieven.find((t) => t.percentage === 21) ?? tarieven[0])?.id ?? null;
 
   useEffect(() => {
@@ -108,9 +114,12 @@ const DocumentOpstellen = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  // Btw-tarief invullen zodra de tarieven binnen zijn.
+  // Btw-tarief invullen zodra de tarieven binnen zijn; de tijdelijke 21% wordt het echte tarief.
   useEffect(() => {
-    if (standaardBtw) setRegels((lijst) => lijst.map((r) => (r.btwId ? r : { ...r, btwId: standaardBtw })));
+    if (standaardBtw)
+      setRegels((lijst) =>
+        lijst.map((r) => (r.btwId && r.btwId !== STANDAARD_BTW ? r : { ...r, btwId: standaardBtw })),
+      );
   }, [standaardBtw]);
 
   const zet = (sleutel: number, wijziging: Partial<Regel>) =>
@@ -179,7 +188,7 @@ const DocumentOpstellen = ({
           omschrijving: r.omschrijving.trim(),
           aantal: Number.parseFloat(r.aantal.replace(",", ".")),
           prijs: leesBedrag(r.prijs) ?? 0,
-          btwId: r.btwId,
+          btwId: r.btwId === STANDAARD_BTW ? null : r.btwId,
           productId: r.productId,
         })),
       });
