@@ -333,30 +333,33 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                       subOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                     )}
                   >
-                    <ul className="ml-[21px] flex min-h-0 flex-col overflow-hidden pl-[10px]">
+                    <ul className="ml-[21px] flex min-h-0 flex-col overflow-hidden pl-3">
                       {sub!.map((item, i) => {
                         const actief = opPagina && (huidigTab ?? null) === item.tab;
                         const laatste = i === sub!.length - 1;
                         const SubIcon = item.icon;
                         return (
                           <li key={item.label} className="relative">
-                            {laatste ? (
-                              <span
-                                aria-hidden="true"
-                                className="absolute -left-[10px] top-0 h-1/2 w-[8px] rounded-bl-[6px] border-b border-l border-rail-muted/30"
-                              />
-                            ) : (
-                              <>
-                                <span aria-hidden="true" className="absolute -left-[10px] top-0 h-full w-px bg-rail-muted/30" />
-                                <span aria-hidden="true" className="absolute -left-[10px] top-1/2 h-px w-[8px] bg-rail-muted/30" />
-                              </>
+                            {/* Alles met randen van dezelfde kleur getekend, zodat lijn,
+                                takje en bocht even dik zijn en precies op elkaar aansluiten.
+                                Het takje stopt ruim voor het vlak van het item. */}
+                            {!laatste && (
+                              <span aria-hidden="true" className="absolute -left-3 top-0 h-full border-l border-rail-muted/30" />
                             )}
+                            <span
+                              aria-hidden="true"
+                              className={cn(
+                                "absolute top-0 h-1/2 border-b border-rail-muted/30",
+                                // Het takje begint naast de lijn, anders overlappen twee halfdoorzichtige randen.
+                                laatste ? "-left-3 w-1.5 rounded-bl-[5px] border-l" : "-left-[11px] w-[5px]",
+                              )}
+                            />
                             <Link
                               to={item.tab ? `${to}?tab=${item.tab}` : to}
                               onClick={onNavigate}
                               aria-current={actief ? "page" : undefined}
                               className={cn(
-                                "flex items-center gap-3 rounded-lg px-3 py-[7px] text-[15px] text-rail-fg transition-[background-color,transform] duration-150 ease-out active:scale-[0.98]",
+                                "flex items-center gap-2.5 rounded-lg px-2.5 py-[5px] text-[15px] text-rail-fg transition-[background-color,transform] duration-150 ease-out active:scale-[0.98]",
                                 actief ? "bg-rail-active" : "hover:bg-rail-hover",
                               )}
                             >
