@@ -23,6 +23,9 @@ import {
   UserPlus,
   Users,
   Wallet,
+  ChartPie,
+  TrendingUp,
+  Percent,
   Zap,
 } from "lucide-react";
 
@@ -78,7 +81,7 @@ interface NavEntry {
   /** Getal achter het item; rood als het om te laat werk gaat. */
   badge?: { aantal: number; alarm?: boolean; titel: string };
   /** Tabbladen van de pagina, als subitems eronder (?tab=…; null is het eerste). */
-  sub?: { tab: string | null; label: string }[];
+  sub?: { tab: string | null; label: string; icon: typeof LayoutDashboard }[];
 }
 
 /**
@@ -94,12 +97,14 @@ const railItem = (isActive: boolean, collapsed: boolean) =>
   );
 
 const GROEPEN_KEY = "nieuwblik:portaal:zijbalk-groepen-dicht";
+/** Items met subitems (zoals Financiën) die zijn ingeklapt. */
+const SUB_KEY = "nieuwblik:portaal:zijbalk-sub-dicht";
 
-/** Welke groepen zijn ingeklapt; per browser onthouden. */
-function useDichteGroepen() {
+/** Welke groepen (of items met subitems) zijn ingeklapt; per browser onthouden. */
+function useDichteGroepen(sleutel = GROEPEN_KEY) {
   const [dicht, setDicht] = useState<string[]>(() => {
     try {
-      return JSON.parse(window.localStorage.getItem(GROEPEN_KEY) ?? "[]") as string[];
+      return JSON.parse(window.localStorage.getItem(sleutel) ?? "[]") as string[];
     } catch {
       return [];
     }
@@ -108,7 +113,7 @@ function useDichteGroepen() {
     setDicht((huidig) => {
       const nieuw = huidig.includes(label) ? huidig.filter((l) => l !== label) : [...huidig, label];
       try {
-        window.localStorage.setItem(GROEPEN_KEY, JSON.stringify(nieuw));
+        window.localStorage.setItem(sleutel, JSON.stringify(nieuw));
       } catch {
         // Opslag geblokkeerd: dan alleen niet onthouden.
       }
@@ -137,6 +142,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
   const facturen = useTeFactureren();
   const { data: aanvragen = [] } = useAanvragen();
   const { dicht, wissel } = useDichteGroepen();
+  const subDicht = useDichteGroepen(SUB_KEY);
   const locatie = useLocation();
   const huidigTab = new URLSearchParams(locatie.search).get("tab");
 
@@ -195,9 +201,9 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
           icon: Wallet,
           end: false,
           sub: [
-            { tab: null, label: "Overzicht" },
-            { tab: "omzet", label: "Omzet" },
-            { tab: "btw", label: "Btw" },
+            { tab: null, label: "Overzicht", icon: ChartPie },
+            { tab: "omzet", label: "Omzet", icon: TrendingUp },
+            { tab: "btw", label: "Btw", icon: Percent },
           ],
         },
       ],
@@ -255,78 +261,97 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
             const uitleg = telt ? `${badge.aantal} ${badge.titel}` : undefined;
             const metSub = Boolean(sub?.length) && !collapsed;
             const opPagina = locatie.pathname === to || locatie.pathname.startsWith(`${to}/`);
+            const subOpen = !subDicht.dicht.includes(to);
             return (
               <Fragment key={to}>
-              <NavLink
-                key={to}
-                to={to}
-                end={end}
-                onClick={onNavigate}
-                title={collapsed ? (uitleg ? `${label}: ${uitleg}` : label) : undefined}
-                // Met subitems licht het subitem op, niet het hoofditem.
-                className={({ isActive }) => railItem(isActive && !metSub, collapsed)}
-              >
-                <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
-                {!collapsed && label}
-                {telt &&
-                  (collapsed ? (
-                    <span
-                      className={cn(
-                        "absolute right-1.5 top-1.5 h-2 w-2 rounded-full ring-2 ring-rail",
-                        badge.alarm ? "bg-danger" : "bg-rail-muted/60",
-                      )}
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    <span
-                      title={uitleg}
-                      className={cn(
-                        "ml-auto flex h-5 min-w-5 items-center justify-center rounded-md border px-1 text-[11px] font-medium tabular-nums",
-                        badge.alarm
-                          ? "border-danger/30 bg-danger/10 text-danger-ink"
-                          : "border-rail-border bg-rail text-rail-muted",
-                      )}
+                <div className="relative">
+                <NavLink
+                  key={to}
+                  to={to}
+                  end={end}
+                  onClick={onNavigate}
+                  title={collapsed ? (uitleg ? `${label}: ${uitleg}` : label) : undefined}
+                  // Met open subitems licht het subitem op, niet het hoofditem; ingeklapt het hoofditem.
+                  className={({ isActive }) => cn(railItem(isActive && !(metSub && subOpen), collapsed), metSub && "pr-9")}
+                >
+                  <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
+                  {!collapsed && label}
+                  {telt &&
+                    (collapsed ? (
+                      <span
+                        className={cn(
+                          "absolute right-1.5 top-1.5 h-2 w-2 rounded-full ring-2 ring-rail",
+                          badge.alarm ? "bg-danger" : "bg-rail-muted/60",
+                        )}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <span
+                        title={uitleg}
+                        className={cn(
+                          "ml-auto flex h-5 min-w-5 items-center justify-center rounded-md border px-1 text-[11px] font-medium tabular-nums",
+                          badge.alarm
+                            ? "border-danger/30 bg-danger/10 text-danger-ink"
+                            : "border-rail-border bg-rail text-rail-muted",
+                        )}
+                      >
+                        {badge.aantal > 99 ? "99+" : badge.aantal}
+                        <span className="sr-only"> {badge.titel}</span>
+                      </span>
+                    ))}
+                </NavLink>
+                  {/* Het pijltje klapt de subitems in en uit; los van de link, zodat
+                      er geen knop in een link zit. */}
+                  {metSub && (
+                    <button
+                      type="button"
+                      onClick={() => subDicht.wissel(to)}
+                      aria-expanded={subOpen}
+                      aria-label={`${label}: ${subOpen ? "subitems inklappen" : "subitems uitklappen"}`}
+                      className="absolute right-1.5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-md text-rail-muted transition-colors duration-150 hover:bg-rail-hover hover:text-rail-fg"
                     >
-                      {badge.aantal > 99 ? "99+" : badge.aantal}
-                      <span className="sr-only"> {badge.titel}</span>
-                    </span>
-                  ))}
-              </NavLink>
-              {/* De tabbladen van de pagina, ingesprongen aan een boomlijn zoals
-                  in een bestandsboom: een doorlopende lijn met een bochtje naar
-                  elk item. Altijd zichtbaar, zodat je in één klik op Btw zit. */}
-              {metSub && (
-                <ul className="relative mb-0.5 ml-[21px] flex flex-col gap-0.5 pl-3">
-                  {sub!.map((item, i) => {
-                    const actief = opPagina && (huidigTab ?? null) === item.tab;
-                    const laatste = i === sub!.length - 1;
-                    return (
-                      <li key={item.label} className="relative">
-                        {/* De lijn naar dit item: tot halverwege bij het laatste, anders door. */}
-                        <span
-                          aria-hidden="true"
-                          className={cn("absolute -left-3 top-0 w-px bg-rail-muted/30", laatste ? "h-1/2" : "h-full")}
-                        />
-                        <span
-                          aria-hidden="true"
-                          className="absolute -left-3 top-0 h-1/2 w-2.5 rounded-bl-md border-b border-l border-rail-muted/30"
-                        />
-                        <Link
-                          to={item.tab ? `${to}?tab=${item.tab}` : to}
-                          onClick={onNavigate}
-                          aria-current={actief ? "page" : undefined}
-                          className={cn(
-                            "flex items-center rounded-lg px-2.5 py-[5px] text-[14px] transition-colors duration-150",
-                            actief ? "bg-rail-active text-rail-fg" : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+                      <ChevronDown
+                        className={cn("h-3.5 w-3.5 transition-transform duration-200", !subOpen && "-rotate-90")}
+                        strokeWidth={2}
+                      />
+                    </button>
+                  )}
+                </div>
+                {/* De tabbladen van de pagina, ingesprongen onder het hoofditem. Eén
+                    doorlopende lijn vanaf het icoon erboven, die bij het laatste
+                    subitem met een zachte bocht afbuigt. */}
+                {metSub && subOpen && (
+                  <ul className="relative ml-[21px] flex flex-col pl-[10px]">
+                    {sub!.map((item, i) => {
+                      const actief = opPagina && (huidigTab ?? null) === item.tab;
+                      const SubIcon = item.icon;
+                      return (
+                        <li key={item.label} className="relative py-px">
+                          {i < sub!.length - 1 ? (
+                            <span aria-hidden="true" className="absolute -left-[10px] top-0 h-full w-px bg-rail-muted/25" />
+                          ) : (
+                            <span
+                              aria-hidden="true"
+                              className="absolute -left-[10px] top-0 h-1/2 w-[7px] rounded-bl-[7px] border-b border-l border-rail-muted/25"
+                            />
                           )}
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
+                          <Link
+                            to={item.tab ? `${to}?tab=${item.tab}` : to}
+                            onClick={onNavigate}
+                            aria-current={actief ? "page" : undefined}
+                            className={cn(
+                              "flex items-center gap-2.5 rounded-lg px-2.5 py-[6px] text-[14px] transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.98]",
+                              actief ? "bg-rail-active text-rail-fg" : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+                            )}
+                          >
+                            <SubIcon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+                            {item.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </Fragment>
             );
           })}
