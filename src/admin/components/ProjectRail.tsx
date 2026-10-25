@@ -27,6 +27,7 @@ import { BILLING_CYCLE, formatEuro, volgendeTermijn } from "@/admin/billing";
 import { daysUntil, deadlineLabel, formatBudget, formatDate } from "@/admin/format";
 import type { Client, ProjectWithClient, TeamMember } from "@/admin/queries";
 import ProjectTimer from "@/admin/components/ProjectTimer";
+import WebsiteStatus from "@/admin/components/WebsiteStatus";
 import { useKlantFinancien } from "@/admin/financien";
 import OogKnop from "@/admin/ui/OogKnop";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
@@ -187,6 +188,15 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
         </div>
 
         {client && <Facturen clientId={client.id} />}
+
+        {/* Alleen bij een live site: of hij bereikbaar is en tot wanneer
+            certificaat en domein lopen. */}
+        {project.live_url?.trim() && (
+          <div className="space-y-4 border-t border-border pt-6">
+            <Kopje>Website</Kopje>
+            <WebsiteStatus projectId={project.id} />
+          </div>
+        )}
       </TabsContent>
 
       <TabsContent value="gegevens" className="mt-6 space-y-6">

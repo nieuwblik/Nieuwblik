@@ -12,6 +12,8 @@ import {
 } from "@/admin/financien";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
+import { useProjects } from "@/admin/queries";
+import { useWebsiteControles, websiteProblemen } from "@/admin/websites";
 
 export interface PortaalMelding {
   sleutel: string;
@@ -32,9 +34,37 @@ export function useMeldingen(): PortaalMelding[] {
   const { data: aanvragen = [] } = useAanvragen();
   const { data: financien } = useFinancien();
   const { bedrag } = useBedragenVerborgen();
+  const { data: controles } = useWebsiteControles();
+  const { data: projects = [] } = useProjects();
 
   return useMemo(() => {
     const lijst: PortaalMelding[] = [];
+
+    // Websites eerst: een site die plat ligt gaat voor alles.
+    for (const c of controles?.values() ?? []) {
+      const project = projects.find((p) => p.id === c.project_id);
+      if (!project) continue;
+      const naam = project.client?.name ?? project.name;
+      for (const probleem of websiteProblemen(c)) {
+        lijst.push({
+          sleutel: `website-${probleem.soort}-${c.project_id}`,
+          toon: probleem.soort === "offline" ? "danger" : "warning",
+          tekst:
+            probleem.soort === "offline"
+              ? `Website van ${naam} is niet bereikbaar`
+              : probleem.soort === "ssl"
+                ? `SSL-certificaat van ${naam} verloopt`
+                : `Domeinnaam van ${naam} verloopt`,
+          uitleg:
+            probleem.soort === "offline"
+              ? (c.fout ?? c.url)
+              : probleem.dagen !== null && probleem.dagen < 0
+                ? "Al verlopen"
+                : `Over ${probleem.dagen} ${probleem.dagen === 1 ? "dag" : "dagen"}`,
+          to: `/admin/projecten/${c.project_id}`,
+        });
+      }
+    }
 
     if (taken.teLaat.length > 0) {
       const n = taken.teLaat.length;
@@ -143,5 +173,5 @@ export function useMeldingen(): PortaalMelding[] {
     }
 
     return lijst;
-  }, [taken, hosting, aanvragen, financien, bedrag]);
+  }, [taken, hosting, aanvragen, financien, bedrag, controles, projects]);
 }
