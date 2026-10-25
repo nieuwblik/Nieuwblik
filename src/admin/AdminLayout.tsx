@@ -44,6 +44,7 @@ import { useAdminAuth } from "@/admin/AdminAuthContext";
 import CommandPalette, { useCommandPaletteShortcut } from "@/admin/components/CommandPalette";
 import ProfileNameDialog from "@/admin/components/ProfileNameDialog";
 import QuickCapture from "@/admin/components/QuickCapture";
+import MeldingenCentrum from "@/admin/components/MeldingenCentrum";
 import TimerBalk from "@/admin/components/TimerBalk";
 import { useBetaalMeldingen } from "@/admin/useBetaalMeldingen";
 import { useAanvragen } from "@/admin/aanvragen";
@@ -398,7 +399,6 @@ const AdminLayout = () => {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [captureOpen, setCaptureOpen] = useState(false);
   const [naamOpen, setNaamOpen] = useState(false);
-  const teLaat = useTaakTellingen().teLaat.length;
 
   /*
    * "N" opent het invoerscherm, zoals in veel werkomgevingen. Bewust zonder
@@ -618,14 +618,8 @@ const AdminLayout = () => {
                 {balkKnop(UserPlus, "Nieuwe klant", () => navigate("/admin/klanten", { state: { nieuw: true } }))}
               </span>
 
-              {/* Geen meldingencentrum, wel het enige wat er echt om roept:
-                  werk dat over de datum is. Het opent precies die taken. */}
-              {balkKnop(
-                Bell,
-                teLaat > 0 ? `${teLaat} ${teLaat === 1 ? "taak" : "taken"} te laat` : "Niets te laat",
-                () => navigate(teLaat > 0 ? "/admin/taken?filter=te-laat" : "/admin/taken"),
-                teLaat > 0,
-              )}
+              {/* Het meldingencentrum: alles wat nu aandacht vraagt. */}
+              <MeldingenCentrum />
 
               <span className="hidden sm:contents">
                 {balkKnop(
