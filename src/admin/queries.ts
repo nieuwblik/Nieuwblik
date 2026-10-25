@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tansta
 import { korteNaam } from "@/admin/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
+import { volgendeDeadline } from "@/admin/herhaling";
+import { werkstroomDb, type Herhaling } from "@/admin/werkstroomDb";
 
 /**
  * Kolommen uit de migratie moneybird_facturatie staan nog niet in de
@@ -344,8 +346,37 @@ export function useSaveTask() {
 export function useUpdateTask() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, values }: { id: string; values: TablesUpdate<"tasks"> }): Promise<Task> =>
-      unwrap(await supabase.from("tasks").update(values).eq("id", id).select().single()),
+    mutationFn: async ({
+      id,
+      values,
+    }: {
+      id: string;
+      values: TablesUpdate<"tasks"> & { herhaling?: Herhaling | null };
+    }): Promise<Task> => {
+      // Via de ongetypeerde client: herhaling staat nog niet in de gegenereerde types.
+      const taak = unwrap(await werkstroomDb.from("tasks").update(values).eq("id", id).select().single()) as Task & {
+        herhaling?: Herhaling | null;
+      };
+      // Een herhalende taak afgerond: de volgende komt meteen klaar te staan,
+      // waar je hem ook afvinkt. De afgeronde taak houdt geen herhaling meer,
+      // zodat opnieuw aan- en uitvinken geen tweede kopie maakt.
+      if (values.status === "klaar" && taak.herhaling) {
+        const { error } = await werkstroomDb.from("tasks").insert({
+          title: taak.title,
+          description: taak.description,
+          project_id: taak.project_id,
+          assigned_to: taak.assigned_to,
+          created_by: taak.created_by,
+          priority: taak.priority,
+          status: "todo",
+          due_date: volgendeDeadline(taak.due_date, taak.herhaling),
+          herhaling: taak.herhaling,
+        });
+        if (error) throw new Error(`Afgerond, maar de volgende keer kon niet worden aangemaakt: ${error.message}`);
+        await werkstroomDb.from("tasks").update({ herhaling: null }).eq("id", id);
+      }
+      return taak;
+    },
     onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.tasks }),
   });
 }

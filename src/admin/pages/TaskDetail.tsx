@@ -11,6 +11,7 @@ import {
   Flag,
   Paperclip,
   Plus,
+  Repeat,
   Trash2,
   UserRound,
   type LucideIcon,
@@ -43,6 +44,8 @@ import {
 } from "@/admin/constants";
 import { daysUntil, deadlineLabel, formatDateTime } from "@/admin/format";
 import { useConfirm } from "@/admin/useConfirm";
+import { HERHALING, HERHALING_ORDER } from "@/admin/herhaling";
+import type { Herhaling } from "@/admin/werkstroomDb";
 import {
   useDeleteTask,
   useSaveTask,
@@ -503,6 +506,29 @@ const TaskDetail = () => {
                   aria-label="Deadline"
                 />
               </Row>
+
+              {/* Herhalen kan alleen bij een hoofdtaak: bij afronden staat de
+                  volgende keer meteen klaar, met de deadline een periode verder. */}
+              {!parent && (
+                <Row icon={Repeat} label="Herhalen">
+                  <Select
+                    value={(task as { herhaling?: Herhaling | null }).herhaling ?? NONE}
+                    onValueChange={(v) => void patch({ herhaling: v === NONE ? null : (v as Herhaling) })}
+                  >
+                    <SelectTrigger className="h-8 border-0 bg-transparent px-2 shadow-none hover:bg-muted focus:ring-0">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={NONE}>Niet</SelectItem>
+                      {HERHALING_ORDER.map((h) => (
+                        <SelectItem key={h} value={h}>
+                          {HERHALING[h]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Row>
+              )}
 
               {/* Alleen tonen als er stappen zijn: een balk op 0% bij een taak
                   zonder stappen suggereert achterstand die er niet is. */}
