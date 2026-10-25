@@ -13,7 +13,7 @@ import { leesBedrag } from "@/admin/billing";
 import { TOON } from "@/admin/constants";
 import { formatBedrag, useUrenFactureren, type MoneybirdContact } from "@/admin/financien";
 import type { Client } from "@/admin/queries";
-import { duurMinuten, formatDuur, nogTeFactureren, type UrenRegel } from "@/admin/uren";
+import { duurMinuten, formatDuur, nogTeFactureren, uurtariefVoor, type UrenRegel } from "@/admin/uren";
 
 const ALLES = "alles";
 
@@ -46,6 +46,9 @@ function factuurRegels(regels: UrenRegel[]) {
  * klant: de factuur komt als concept klaar te staan en je verstuurt hem daar.
  * De uren worden daarna als gefactureerd gemarkeerd, zodat ze niet nog eens
  * op een factuur komen.
+ *
+ * Het tarief staat klaar: dat van de klant, anders het standaardtarief. Pas
+ * je het aan, dan onthoudt de serverfunctie het bij de klant.
  */
 const UrenFactureren = ({ open, onOpenChange, projectId, client, regels }: UrenFacturerenProps) => {
   const factureer = useUrenFactureren();
@@ -64,13 +67,14 @@ const UrenFactureren = ({ open, onOpenChange, projectId, client, regels }: UrenF
     return [...lijst.entries()].sort(([a], [b]) => b.localeCompare(a));
   }, [vrij]);
 
+  const beginTarief = uurtariefVoor(client);
   useEffect(() => {
     if (!open) return;
     setMaand(ALLES);
-    setTarief(client?.uurtarief_cents ? (client.uurtarief_cents / 100).toFixed(2).replace(".", ",") : "");
+    setTarief(beginTarief.toFixed(2).replace(".", ","));
     setKandidaten(null);
     setContactId(null);
-  }, [open, client?.uurtarief_cents]);
+  }, [open, beginTarief]);
 
   const gekozen = maand === ALLES ? vrij : vrij.filter((r) => format(new Date(r.started_at), "yyyy-MM") === maand);
   const regelsOpFactuur = factuurRegels(gekozen);

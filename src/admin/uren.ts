@@ -21,7 +21,15 @@ export const urenKeys = {
   lopend: (userId: string) => ["admin", "uren", "lopend", userId] as const,
   taak: (taskId: string) => ["admin", "uren", "taak", taskId] as const,
   project: (projectId: string) => ["admin", "uren", "project", projectId] as const,
+  teFactureren: ["admin", "uren", "te-factureren"] as const,
 };
+
+/** Het uurtarief excl. btw als een klant geen eigen tarief heeft. */
+export const STANDAARD_UURTARIEF = 75;
+
+/** Het tarief voor een klant: het eigen tarief, anders het standaardtarief. */
+export const uurtariefVoor = (client: { uurtarief_cents: number | null } | null | undefined) =>
+  client?.uurtarief_cents ? client.uurtarief_cents / 100 : STANDAARD_UURTARIEF;
 
 /**
  * Bestaat de tabel nog niet (migratie niet uitgevoerd), dan geeft Supabase
@@ -92,6 +100,30 @@ export function useUrenInPeriode(van: Date, tot: Date) {
           .gte("started_at", van.toISOString())
           .lt("started_at", tot.toISOString())
           .order("started_at", { ascending: true }),
+      ) as unknown as UrenRegel[],
+  });
+}
+
+/**
+ * Alle uren die nog op een factuur moeten, van alle projecten: factureerbaar,
+ * afgerond, met een project en nog niet in Moneybird. Voor het overzicht op
+ * het dashboard en de urenpagina.
+ */
+export function useTeFacturerenUren() {
+  return useQuery({
+    queryKey: urenKeys.teFactureren,
+    retry: false,
+    queryFn: async (): Promise<UrenRegel[]> =>
+      unwrap(
+        await supabase
+          .from("time_entries")
+          .select(SELECTIE)
+          .eq("billable", true)
+          .is("gefactureerd_op", null)
+          .not("ended_at", "is", null)
+          .not("project_id", "is", null)
+          .order("started_at", { ascending: true })
+          .limit(2000),
       ) as unknown as UrenRegel[],
   });
 }

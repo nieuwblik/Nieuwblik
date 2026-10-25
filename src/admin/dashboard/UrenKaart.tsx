@@ -5,6 +5,7 @@ import { ArrowDown, ArrowUp, Clock, Timer } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import TeFacturerenUren from "@/admin/components/TeFacturerenUren";
 import EmptyState from "@/admin/components/EmptyState";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { TOON } from "@/admin/constants";
@@ -234,6 +235,9 @@ const UrenKaart = ({ className }: { className?: string }) => {
                 </ol>
               </div>
             )}
+
+            {/* Wat er nog op een factuur moet, met per project de knop ernaartoe. */}
+            <TeFacturerenUren verbergAlsLeeg className="mt-5 border-t border-border pt-4" />
           </>
         )}
       </PanelBody>

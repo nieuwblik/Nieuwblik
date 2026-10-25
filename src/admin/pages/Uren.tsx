@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import TeFacturerenUren from "@/admin/components/TeFacturerenUren";
 import EmptyState from "@/admin/components/EmptyState";
 import UrenDialoog from "@/admin/components/UrenDialoog";
 import UrenExport from "@/admin/components/UrenExport";
@@ -144,6 +145,8 @@ const Uren = () => {
           </Button>
         </div>
       </div>
+
+      <TeFacturerenUren verbergAlsLeeg className="rounded-[16px] border border-border bg-card px-4 py-3" />
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex items-center gap-1">
