@@ -4,7 +4,7 @@ import { isOpenAanvraag, useAanvragen } from "@/admin/aanvragen";
 import { heeftData, isCredit, isTeLaatFactuur, useFinancien } from "@/admin/financien";
 import { useClients, useProjects } from "@/admin/queries";
 import { useTeFactureren } from "@/admin/stats";
-import { duurMinuten, useTeFacturerenUren, uurtariefVoor } from "@/admin/uren";
+import { urenBedrag, useTeFacturerenUren, uurtariefVoor } from "@/admin/uren";
 
 export interface Pijplijn {
   aanvragen: { open: number; nieuw: number };
@@ -36,10 +36,16 @@ export function usePijplijn(): Pijplijn {
     const uit = offertes?.filter((o) => o.status !== "accepted") ?? [];
 
     const geaccepteerd = offertes ? offertes.filter((o) => o.status === "accepted").reduce((som, o) => som + o.bedrag, 0) : 0;
-    const urenBedrag = uren.reduce((som, r) => {
-      const project = projects.find((p) => p.id === r.project_id);
+    // Per project, zoals de factuur: per regel afgerond op het kwartier.
+    const perProject = new Map<string, typeof uren>();
+    for (const r of uren) {
+      const sleutel = r.project_id ?? "";
+      perProject.set(sleutel, [...(perProject.get(sleutel) ?? []), r]);
+    }
+    const openUrenBedrag = [...perProject.entries()].reduce((som, [projectId, lijst]) => {
+      const project = projects.find((p) => p.id === projectId);
       const client = project?.client_id ? clients.find((c) => c.id === project.client_id) : null;
-      return som + (duurMinuten(r) / 60) * uurtariefVoor(client);
+      return som + urenBedrag(lijst, uurtariefVoor(client));
     }, 0);
     const hostingBedrag = hosting.achterstallig.reduce((som, t) => som + (t.client.billing_amount_cents ?? 0), 0) / 100;
 
@@ -50,9 +56,9 @@ export function usePijplijn(): Pijplijn {
       aanvragen: { open: open.length, nieuw: open.filter((a) => a.status === "nieuw").length },
       offertesUit: offertes ? { bedrag: uit.reduce((som, o) => som + o.bedrag, 0), aantal: uit.length } : null,
       teFactureren: {
-        totaal: geaccepteerd + urenBedrag + hostingBedrag,
+        totaal: geaccepteerd + openUrenBedrag + hostingBedrag,
         offertes: geaccepteerd,
-        uren: urenBedrag,
+        uren: openUrenBedrag,
         hosting: hostingBedrag,
       },
       openstaand: facturen

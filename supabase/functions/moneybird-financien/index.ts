@@ -284,7 +284,8 @@ interface Urenregel {
 
 /**
  * Factuurregels uit uren: één regel per taak (of per omschrijving), met de
- * uren in twee decimalen. Het portaal toont vooraf precies dezelfde indeling.
+ * uren per regel naar boven afgerond op het kwartier (bij het maken van de
+ * factuur). Het portaal toont vooraf precies dezelfde indeling en bedragen.
  */
 function factuurRegels(regels: Urenregel[]) {
   const groepen = new Map<string, { omschrijving: string; minuten: number; van: string; tot: string }>();
@@ -1075,7 +1076,8 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
           prices_are_incl_tax: false,
           details_attributes: regelsOpFactuur.map((g, i) => ({
             description: g.omschrijving,
-            amount: (Math.round((g.minuten / 60) * 100) / 100).toFixed(2),
+            // Per begonnen kwartier, naar boven afgerond (1u 7min wordt 1,25 uur).
+            amount: (Math.ceil(g.minuten / 15) / 4).toFixed(2),
             price: tarief.toFixed(2),
             period: periode(g.van, g.tot),
             row_order: i,

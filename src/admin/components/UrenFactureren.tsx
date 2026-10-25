@@ -13,7 +13,7 @@ import { leesBedrag } from "@/admin/billing";
 import { TOON } from "@/admin/constants";
 import { formatBedrag, useUrenFactureren, type MoneybirdContact } from "@/admin/financien";
 import type { Client } from "@/admin/queries";
-import { duurMinuten, formatDuur, nogTeFactureren, uurtariefVoor, type UrenRegel } from "@/admin/uren";
+import { duurMinuten, factuurRegels, formatDuur, nogTeFactureren, uurtariefVoor, type UrenRegel } from "@/admin/uren";
 
 const ALLES = "alles";
 
@@ -24,21 +24,6 @@ interface UrenFacturerenProps {
   client: Client | null;
   /** Alle uren van het project; het venster kiest zelf wat nog te factureren is. */
   regels: UrenRegel[];
-}
-
-/**
- * Dezelfde indeling als de serverfunctie: één factuurregel per taak (of per
- * omschrijving), met de uren in twee decimalen.
- */
-function factuurRegels(regels: UrenRegel[]) {
-  const groepen = new Map<string, { omschrijving: string; minuten: number }>();
-  for (const r of regels) {
-    const omschrijving = r.task?.title?.trim() || r.description?.trim() || "Werkzaamheden";
-    const groep = groepen.get(omschrijving) ?? { omschrijving, minuten: 0 };
-    groep.minuten += duurMinuten(r);
-    groepen.set(omschrijving, groep);
-  }
-  return [...groepen.values()].map((g) => ({ ...g, uren: Math.round((g.minuten / 60) * 100) / 100 }));
 }
 
 /**
@@ -162,7 +147,8 @@ const UrenFactureren = ({ open, onOpenChange, projectId, client, regels }: UrenF
                 {regelsOpFactuur.map((g) => (
                   <li key={g.omschrijving} className="flex items-baseline gap-3 px-3 py-2">
                     <span className="min-w-0 flex-1 truncate">{g.omschrijving}</span>
-                    <span className="shrink-0 tabular-nums text-muted-foreground">
+                    {/* Gefactureerd per begonnen kwartier; de echte tijd staat erbij als je erop wijst. */}
+                    <span className="shrink-0 tabular-nums text-muted-foreground" title={`${formatDuur(g.minuten)} gewerkt`}>
                       {g.uren.toLocaleString("nl-NL", { maximumFractionDigits: 2 })} uur
                     </span>
                     <span className="w-20 shrink-0 text-right tabular-nums">

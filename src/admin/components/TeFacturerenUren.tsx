@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import UrenFactureren from "@/admin/components/UrenFactureren";
 import { useClients, useProjects, type Client } from "@/admin/queries";
-import { duurMinuten, formatDuur, useTeFacturerenUren, uurtariefVoor, type UrenRegel } from "@/admin/uren";
+import { duurMinuten, formatDuur, urenBedrag, useTeFacturerenUren, uurtariefVoor, type UrenRegel } from "@/admin/uren";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
 interface Groep {
@@ -57,7 +57,7 @@ const TeFacturerenUren = ({ className, verbergAlsLeeg = false }: { className?: s
           regels: lijst,
           minuten,
           tarief,
-          bedrag: Math.round((minuten / 60) * tarief * 100) / 100,
+          bedrag: Math.round(urenBedrag(lijst, tarief) * 100) / 100,
           vanaf: lijst[0]!.started_at,
         };
       })

@@ -58,6 +58,32 @@ export function duurMinuten(regel: Pick<TimeEntry, "started_at" | "ended_at">, n
   return Math.max(0, Math.round((eind - begin) / 60_000));
 }
 
+/**
+ * Factureren gaat per begonnen kwartier: de uren van een factuurregel worden
+ * naar boven afgerond op 15 minuten (1u 7min wordt 1,25 uur). De serverfunctie
+ * die de factuur in Moneybird maakt, rekent precies zo.
+ */
+export const factureerbareUren = (minuten: number) => Math.ceil(minuten / 15) / 4;
+
+/**
+ * Dezelfde indeling als de serverfunctie: één factuurregel per taak (of per
+ * omschrijving), met de uren per regel afgerond op het kwartier.
+ */
+export function factuurRegels(regels: Array<Pick<UrenRegel, "started_at" | "ended_at" | "description" | "task">>) {
+  const groepen = new Map<string, { omschrijving: string; minuten: number }>();
+  for (const r of regels) {
+    const omschrijving = r.task?.title?.trim() || r.description?.trim() || "Werkzaamheden";
+    const groep = groepen.get(omschrijving) ?? { omschrijving, minuten: 0 };
+    groep.minuten += duurMinuten(r);
+    groepen.set(omschrijving, groep);
+  }
+  return [...groepen.values()].map((g) => ({ ...g, uren: factureerbareUren(g.minuten) }));
+}
+
+/** Wat uren opleveren excl. btw: per factuurregel afgerond op het kwartier, maal het tarief. */
+export const urenBedrag = (regels: Parameters<typeof factuurRegels>[0], tarief: number) =>
+  factuurRegels(regels).reduce((som, g) => som + g.uren * tarief, 0);
+
 /** "6u 24min", "45min", "0min". */
 export function formatDuur(minuten: number): string {
   const uren = Math.floor(minuten / 60);
