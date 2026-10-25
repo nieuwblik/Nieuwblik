@@ -20,6 +20,7 @@ import {
   isNietGeactiveerd,
   projectKleur,
   projectNaam,
+  urenGroep,
   useDeleteUren,
   useNu,
   useUrenInPeriode,
@@ -84,10 +85,10 @@ const Uren = () => {
   const perProject = useMemo(() => {
     const map = new Map<string, { id: string | null; naam: string; minuten: number }>();
     for (const r of zichtbaar) {
-      const sleutel = r.project_id ?? "geen";
-      const huidig = map.get(sleutel) ?? { id: r.project_id, naam: projectNaam(r), minuten: 0 };
+      const groep = urenGroep(r);
+      const huidig = map.get(groep.sleutel) ?? { id: groep.id, naam: groep.naam, minuten: 0 };
       huidig.minuten += duurMinuten(r, nu);
-      map.set(sleutel, huidig);
+      map.set(groep.sleutel, huidig);
     }
     return [...map.values()].sort((a, b) => b.minuten - a.minuten);
   }, [zichtbaar, nu]);
@@ -346,7 +347,7 @@ const DagKaart = ({
                   title={`${projectNaam(r)}: ${format(new Date(r.started_at), "HH:mm")} – ${r.ended_at ? format(new Date(r.ended_at), "HH:mm") : "nu"}`}
                   className={cn(
                     "absolute inset-y-1 rounded-md border transition-opacity hover:opacity-80",
-                    projectKleur(r.project_id).zacht,
+                    projectKleur(urenGroep(r).id).zacht,
                     !r.ended_at && "border-dashed",
                   )}
                   style={{ left: `${links}%`, width: `max(${breed}%, 6px)` }}
@@ -365,7 +366,7 @@ const DagKaart = ({
 
         <ul className="divide-y divide-border rounded-lg border border-border">
           {dag.regels.map((r) => {
-            const kleur = projectKleur(r.project_id);
+            const kleur = projectKleur(urenGroep(r).id);
             return (
               <li key={r.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-3 py-2.5 text-sm">
                 <span className="min-w-0 flex-1 basis-48">

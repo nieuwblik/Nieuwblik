@@ -8,12 +8,20 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import UrenFactureren from "@/admin/components/UrenFactureren";
-import { useClients, useProjects, type Client } from "@/admin/queries";
-import { duurMinuten, formatDuur, urenBedrag, useTeFacturerenUren, uurtariefVoor, type UrenRegel } from "@/admin/uren";
+import { useClients, type Client } from "@/admin/queries";
+import {
+  duurMinuten,
+  formatDuur,
+  klantIdVan,
+  urenBedrag,
+  useTeFacturerenUren,
+  uurtariefVoor,
+  type UrenRegel,
+} from "@/admin/uren";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
 interface Groep {
-  projectId: string;
+  clientId: string;
   naam: string;
   client: Client | null;
   regels: UrenRegel[];
@@ -24,35 +32,41 @@ interface Groep {
 }
 
 /**
- * De uren die nog op een factuur moeten, per project, met wat dat oplevert
- * tegen het tarief van de klant (anders het standaardtarief). Elke regel
- * heeft een knop die er een conceptfactuur in Moneybird van maakt.
+ * De uren die nog op een factuur moeten, per klant, met wat dat oplevert
+ * tegen het tarief van de klant (anders het standaardtarief). Uren van
+ * projecten en losse uren zonder project (een mail, een belletje) staan
+ * samen. Elke regel heeft een knop die er één conceptfactuur in Moneybird
+ * van maakt. Uren zonder klant kunnen niet op een factuur; die worden
+ * apart genoemd, zodat je ze in Uren aan een klant kunt hangen.
  *
  * Staat op het dashboard in de kaart Gewerkte uren en bovenaan de pagina
  * Uren. Zonder openstaande uren toont hij één regel, of niets (verberg).
  */
 const TeFacturerenUren = ({ className, verbergAlsLeeg = false }: { className?: string; verbergAlsLeeg?: boolean }) => {
   const { data: regels = [], isLoading, isError } = useTeFacturerenUren();
-  const { data: projects = [] } = useProjects();
   const { data: clients = [] } = useClients();
   const { bedrag } = useBedragenVerborgen();
   const [open, setOpen] = useState<Groep | null>(null);
 
-  const groepen = useMemo<Groep[]>(() => {
-    const perProject = new Map<string, UrenRegel[]>();
+  const { groepen, zonderKlant } = useMemo(() => {
+    const perKlant = new Map<string, UrenRegel[]>();
+    let zonderKlant = 0;
     for (const r of regels) {
-      if (!r.project_id) continue;
-      perProject.set(r.project_id, [...(perProject.get(r.project_id) ?? []), r]);
+      const klantId = klantIdVan(r);
+      if (!klantId) {
+        zonderKlant += duurMinuten(r);
+        continue;
+      }
+      perKlant.set(klantId, [...(perKlant.get(klantId) ?? []), r]);
     }
-    return [...perProject.entries()]
-      .map(([projectId, lijst]) => {
-        const project = projects.find((p) => p.id === projectId);
-        const client = project?.client_id ? (clients.find((c) => c.id === project.client_id) ?? null) : null;
+    const groepen: Groep[] = [...perKlant.entries()]
+      .map(([clientId, lijst]) => {
+        const client = clients.find((c) => c.id === clientId) ?? null;
         const minuten = lijst.reduce((som, r) => som + duurMinuten(r), 0);
         const tarief = uurtariefVoor(client);
         return {
-          projectId,
-          naam: client?.name ?? lijst[0]?.project?.client?.name ?? lijst[0]?.project?.name ?? "Project",
+          clientId,
+          naam: client?.name ?? lijst[0]?.project?.client?.name ?? lijst[0]?.klant?.name ?? "Klant",
           client,
           regels: lijst,
           minuten,
@@ -62,11 +76,12 @@ const TeFacturerenUren = ({ className, verbergAlsLeeg = false }: { className?: s
         };
       })
       .sort((a, b) => b.bedrag - a.bedrag);
-  }, [regels, projects, clients]);
+    return { groepen, zonderKlant };
+  }, [regels, clients]);
 
   if (isError) return null;
   if (isLoading) return <Skeleton className={cn("h-24", className)} />;
-  if (groepen.length === 0) {
+  if (groepen.length === 0 && zonderKlant === 0) {
     return verbergAlsLeeg ? null : (
       <p className={cn("text-[13px] text-muted-foreground", className)}>Alle factureerbare uren staan op een factuur.</p>
     );
@@ -85,9 +100,9 @@ const TeFacturerenUren = ({ className, verbergAlsLeeg = false }: { className?: s
       </div>
       <ul className="divide-y divide-border">
         {groepen.map((g) => (
-          <li key={g.projectId} className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2 text-sm">
+          <li key={g.clientId} className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2 text-sm">
             <span className="min-w-0 flex-1 basis-40">
-              <Link to={`/admin/projecten/${g.projectId}`} className="block truncate font-medium hover:underline">
+              <Link to={`/admin/klanten/${g.clientId}`} className="block truncate font-medium hover:underline">
                 {g.naam}
               </Link>
               <span className="block text-[13px] text-muted-foreground">
@@ -103,11 +118,20 @@ const TeFacturerenUren = ({ className, verbergAlsLeeg = false }: { className?: s
           </li>
         ))}
       </ul>
+      {zonderKlant > 0 && (
+        <p className="mt-1.5 text-[13px] text-muted-foreground">
+          {formatDuur(zonderKlant)} zonder klant.{" "}
+          <Link to="/admin/uren" className="underline-offset-2 hover:underline">
+            Koppel een klant in Uren
+          </Link>{" "}
+          om ze te kunnen factureren.
+        </p>
+      )}
 
       <UrenFactureren
         open={open !== null}
         onOpenChange={(o) => !o && setOpen(null)}
-        projectId={open?.projectId ?? ""}
+        clientId={open?.clientId ?? ""}
         client={open?.client ?? null}
         regels={open?.regels ?? []}
       />

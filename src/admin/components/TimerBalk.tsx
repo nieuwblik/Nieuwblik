@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { hoofdtaken } from "@/admin/constants";
-import { useProjects, useTasks } from "@/admin/queries";
+import { useClients, useProjects, useTasks } from "@/admin/queries";
 import {
   formatKlok,
   isNietGeactiveerd,
@@ -35,6 +35,8 @@ const GEEN = "__geen__";
 
 interface Keuze {
   projectId: string | null;
+  /** Alleen zonder project: de klant voor wie het werk is. */
+  klantId: string | null;
   taskId: string | null;
   omschrijving: string;
 }
@@ -50,6 +52,7 @@ interface Keuze {
 const TimerBalk = () => {
   const { data: lopend, isError, error } = useLopendeTimer();
   const { data: projects = [] } = useProjects();
+  const { data: clients = [] } = useClients();
   const { data: tasks = [] } = useTasks();
   const start = useStartTimer();
   const stop = useStopTimer();
@@ -58,6 +61,7 @@ const TimerBalk = () => {
   const [open, setOpen] = useState(false);
   const [keuze, setKeuze] = useState<Keuze>({
     projectId: null,
+    klantId: null,
     taskId: null,
     omschrijving: "",
   });
@@ -67,6 +71,7 @@ const TimerBalk = () => {
     if (!open || !lopend) return;
     setKeuze({
       projectId: lopend.project_id,
+      klantId: lopend.project_id ? null : (lopend.client_id ?? null),
       taskId: lopend.task_id,
       omschrijving: lopend.description ?? "",
     });
@@ -88,17 +93,29 @@ const TimerBalk = () => {
 
   const gekozenProject = projects.find((p) => p.id === keuze.projectId);
   const gekozenTaak = tasks.find((t) => t.id === keuze.taskId);
+  const gekozenKlant = clients.find((c) => c.id === keuze.klantId);
   const label = lopend
     ? (lopend.task?.title ??
-      (lopend.project ? projectNaam(lopend) : lopend.description) ??
+      (lopend.project || lopend.klant ? projectNaam(lopend) : lopend.description) ??
       "Timer loopt")
     : (gekozenTaak?.title ??
       gekozenProject?.client?.name ??
       gekozenProject?.name ??
+      gekozenKlant?.name ??
       "Waar werk je aan?");
+
+  // Verborgen klanten alleen als ze al gekozen staan.
+  const klanten = clients
+    .filter((c) => !c.verborgen_op || c.id === keuze.klantId)
+    .sort((a, b) => a.name.localeCompare(b.name, "nl"));
 
   const waarden = () => ({
     project_id: keuze.projectId,
+    // Met een project zet de database de klant zelf; zonder project gaat de
+    // gekozen klant mee (of het wissen ervan als de timer er een had).
+    ...(!keuze.projectId && (keuze.klantId || lopend?.client_id)
+      ? { client_id: keuze.klantId }
+      : {}),
     task_id: keuze.taskId,
     description: keuze.omschrijving.trim() || null,
   });
@@ -157,6 +174,7 @@ const TimerBalk = () => {
                 !lopend &&
                   !keuze.projectId &&
                   !keuze.taskId &&
+                  !keuze.klantId &&
                   "text-muted-foreground",
               )}
             >
@@ -193,6 +211,31 @@ const TimerBalk = () => {
               </SelectContent>
             </Select>
           </div>
+          {!keuze.projectId && (
+            <div className="space-y-1.5">
+              <Label className="text-xs font-normal text-muted-foreground">
+                Klant
+              </Label>
+              <Select
+                value={keuze.klantId ?? GEEN}
+                onValueChange={(v) =>
+                  setKeuze((k) => ({ ...k, klantId: v === GEEN ? null : v }))
+                }
+              >
+                <SelectTrigger className="h-9">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={GEEN}>Geen klant (intern)</SelectItem>
+                  {klanten.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
           <div className="space-y-1.5">
             <Label className="text-xs font-normal text-muted-foreground">
               Taak
@@ -205,6 +248,7 @@ const TimerBalk = () => {
                   ...k,
                   taskId: v === GEEN ? null : v,
                   projectId: taak?.project_id ?? k.projectId,
+                  klantId: taak?.client_id ?? k.klantId,
                 }));
               }}
             >

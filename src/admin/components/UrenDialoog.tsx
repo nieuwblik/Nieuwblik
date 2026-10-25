@@ -12,7 +12,7 @@ import DatePicker from "@/admin/components/DatePicker";
 import TijdKiezer from "@/admin/components/TijdKiezer";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { hoofdtaken } from "@/admin/constants";
-import { useProjects, useTasks, useTeam } from "@/admin/queries";
+import { useClients, useProjects, useTasks, useTeam } from "@/admin/queries";
 import { formatDuur, opKwartier, useSaveUren, type UrenRegel } from "@/admin/uren";
 
 const GEEN = "__geen__";
@@ -36,6 +36,8 @@ const LEEG = {
   van: "09:00",
   tot: "10:00",
   projectId: null as string | null,
+  /** Alleen bij uren zonder project: de klant voor wie het werk was. */
+  klantId: null as string | null,
   taskId: null as string | null,
   omschrijving: "",
   billable: true,
@@ -57,6 +59,7 @@ function opDag(datum: string, tijd: string): Date {
 const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: UrenDialoogProps) => {
   const { user } = useAdminAuth();
   const { data: projects = [] } = useProjects();
+  const { data: clients = [] } = useClients();
   const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
   const save = useSaveUren();
@@ -72,6 +75,7 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
         van: format(begin, "HH:mm"),
         tot: format(eind, "HH:mm"),
         projectId: regel.project_id,
+        klantId: regel.project_id ? null : (regel.client_id ?? null),
         taskId: regel.task_id,
         omschrijving: regel.description ?? "",
         billable: regel.billable,
@@ -93,6 +97,12 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
     [tasks, form.projectId, form.taskId],
   );
 
+  // Verborgen klanten alleen als ze al gekozen staan.
+  const klanten = useMemo(
+    () => clients.filter((c) => !c.verborgen_op || c.id === form.klantId).sort((a, b) => a.name.localeCompare(b.name, "nl")),
+    [clients, form.klantId],
+  );
+
   const begin = form.datum ? opDag(form.datum, form.van) : null;
   const eind = form.datum ? opDag(form.datum, form.tot) : null;
   const minuten = begin && eind ? Math.round((eind.getTime() - begin.getTime()) / 60_000) : 0;
@@ -110,6 +120,9 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
           started_at: begin.toISOString(),
           ended_at: eind.toISOString(),
           project_id: form.projectId,
+          // Met een project zet de database de klant zelf. Zonder project gaat
+          // de gekozen klant mee (of het wissen ervan bij een bestaande regel).
+          ...(!form.projectId && (form.klantId || regel?.client_id) ? { client_id: form.klantId } : {}),
           task_id: form.taskId,
           description: form.omschrijving.trim() || null,
           billable: form.billable,
@@ -184,13 +197,39 @@ const UrenDialoog = ({ open, onOpenChange, regel, datum, projectId = null }: Ure
             </Select>
           </div>
 
+          {/* Werk zonder project (een mail, een belletje) kan toch bij een klant
+              horen, en zo ook gefactureerd worden. */}
+          {!form.projectId && (
+            <div className="space-y-1.5">
+              <Label>Klant</Label>
+              <Select value={form.klantId ?? GEEN} onValueChange={(v) => set("klantId", v === GEEN ? null : v)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={GEEN}>Geen klant (intern)</SelectItem>
+                  {klanten.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
           <div className="space-y-1.5">
             <Label>Taak</Label>
             <Select
               value={form.taskId ?? GEEN}
               onValueChange={(v) => {
                 const taak = tasks.find((t) => t.id === v);
-                setForm((f) => ({ ...f, taskId: v === GEEN ? null : v, projectId: taak?.project_id ?? f.projectId }));
+                setForm((f) => ({
+                  ...f,
+                  taskId: v === GEEN ? null : v,
+                  projectId: taak?.project_id ?? f.projectId,
+                  klantId: taak?.client_id ?? f.klantId,
+                }));
               }}
             >
               <SelectTrigger>

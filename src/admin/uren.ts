@@ -3,17 +3,53 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
+import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
-export type TimeEntry = Tables<"time_entries">;
+/**
+ * De klant van een urenregel zonder project (migratie uren_klant). Tot die
+ * migratie is uitgevoerd staat de kolom nog niet in de gegenereerde types;
+ * daarom hier als aanvulling, zodat die bestanden onaangeroerd blijven.
+ */
+export interface UrenKlantVeld {
+  client_id?: string | null;
+}
+
+export type TimeEntry = Tables<"time_entries"> & UrenKlantVeld;
 
 /** Een urenregel met het project (en de klant) en de taak erbij. */
 export type UrenRegel = TimeEntry & {
-  project: { id: string; name: string; client: { name: string } | null } | null;
+  project: { id: string; name: string; client_id?: string | null; client: { name: string } | null } | null;
   task: { id: string; title: string } | null;
+  /** De klant van een regel zonder project; ontbreekt zolang de migratie er niet is. */
+  klant?: { id: string; name: string } | null;
 };
 
-const SELECTIE = "*, project:projects(id, name, client:clients(name)), task:tasks(id, title)";
+const SELECTIE = "*, project:projects(id, name, client_id, client:clients(name)), task:tasks(id, title)";
+const SELECTIE_MET_KLANT = `${SELECTIE}, klant:clients(id, name)`;
+
+/**
+ * Leest uren mét de klant van de regel. Bestaat de kolom nog niet (migratie
+ * niet uitgevoerd), dan zonder; daarna onthoudt het portaal dat tot de
+ * pagina opnieuw laadt. Zo blijft alles werken, ook vóór de migratie.
+ */
+let klantKolom = true;
+async function metKlant<T>(
+  vraag: (selectie: string) => PromiseLike<{ data: unknown; error: { message: string; code?: string } | null }>,
+): Promise<T> {
+  if (klantKolom) {
+    const { data, error } = await vraag(SELECTIE_MET_KLANT);
+    if (!error) return data as T;
+    if (!/client_id|PGRST200|42703|relationship/i.test(`${error.code ?? ""} ${error.message}`)) throw new Error(error.message);
+    klantKolom = false;
+  }
+  const { data, error } = await vraag(SELECTIE);
+  if (error) throw new Error(error.message);
+  return data as T;
+}
+
+/** De klant bij wie een regel hoort: via het project, of direct (uren zonder project). */
+export const klantIdVan = (r: Pick<UrenRegel, "client_id" | "project">): string | null =>
+  r.project?.client_id ?? r.client_id ?? null;
 
 export const urenKeys = {
   alles: ["admin", "uren"] as const,
@@ -129,39 +165,38 @@ export function useUrenInPeriode(van: Date, tot: Date) {
   return useQuery({
     queryKey: urenKeys.periode(van.toISOString(), tot.toISOString()),
     retry: false,
-    queryFn: async (): Promise<UrenRegel[]> =>
-      unwrap(
-        await supabase
+    queryFn: () =>
+      metKlant<UrenRegel[]>((selectie) =>
+        supabase
           .from("time_entries")
-          .select(SELECTIE)
+          .select(selectie)
           .gte("started_at", van.toISOString())
           .lt("started_at", tot.toISOString())
           .order("started_at", { ascending: true }),
-      ) as unknown as UrenRegel[],
+      ),
   });
 }
 
 /**
- * Alle uren die nog op een factuur moeten, van alle projecten: factureerbaar,
- * afgerond, met een project en nog niet in Moneybird. Voor het overzicht op
- * het dashboard en de urenpagina.
+ * Alle uren die nog op een factuur moeten: factureerbaar, afgerond en nog
+ * niet in Moneybird, met of zonder project. Voor het overzicht op het
+ * dashboard en de urenpagina; daar worden ze per klant gegroepeerd.
  */
 export function useTeFacturerenUren() {
   return useQuery({
     queryKey: urenKeys.teFactureren,
     retry: false,
-    queryFn: async (): Promise<UrenRegel[]> =>
-      unwrap(
-        await supabase
+    queryFn: () =>
+      metKlant<UrenRegel[]>((selectie) =>
+        supabase
           .from("time_entries")
-          .select(SELECTIE)
+          .select(selectie)
           .eq("billable", true)
           .is("gefactureerd_op", null)
           .not("ended_at", "is", null)
-          .not("project_id", "is", null)
           .order("started_at", { ascending: true })
           .limit(2000),
-      ) as unknown as UrenRegel[],
+      ),
   });
 }
 
@@ -182,11 +217,13 @@ export async function haalUrenOp({
   const alle: UrenRegel[] = [];
   const BLOK = 1000;
   for (let start = 0; ; start += BLOK) {
-    let vraag = supabase.from("time_entries").select(SELECTIE).order("started_at", { ascending: true });
-    if (van) vraag = vraag.gte("started_at", van.toISOString());
-    if (tot) vraag = vraag.lt("started_at", tot.toISOString());
-    if (projectId) vraag = vraag.eq("project_id", projectId);
-    const deel = unwrap(await vraag.range(start, start + BLOK - 1)) as unknown as UrenRegel[];
+    const deel = await metKlant<UrenRegel[]>((selectie) => {
+      let vraag = supabase.from("time_entries").select(selectie).order("started_at", { ascending: true });
+      if (van) vraag = vraag.gte("started_at", van.toISOString());
+      if (tot) vraag = vraag.lt("started_at", tot.toISOString());
+      if (projectId) vraag = vraag.eq("project_id", projectId);
+      return vraag.range(start, start + BLOK - 1);
+    });
     alle.push(...deel);
     if (deel.length < BLOK) return alle;
   }
@@ -198,14 +235,14 @@ export function useUrenVan(soort: "taak" | "project", id: string | undefined) {
     queryKey: soort === "taak" ? urenKeys.taak(id ?? "") : urenKeys.project(id ?? ""),
     enabled: Boolean(id),
     retry: false,
-    queryFn: async (): Promise<UrenRegel[]> =>
-      unwrap(
-        await supabase
+    queryFn: () =>
+      metKlant<UrenRegel[]>((selectie) =>
+        supabase
           .from("time_entries")
-          .select(SELECTIE)
+          .select(selectie)
           .eq(soort === "taak" ? "task_id" : "project_id", id!)
           .order("started_at", { ascending: false }),
-      ) as unknown as UrenRegel[],
+      ),
   });
 }
 
@@ -216,15 +253,10 @@ export function useLopendeTimer() {
     queryKey: urenKeys.lopend(user?.id ?? ""),
     enabled: Boolean(user?.id),
     retry: false,
-    queryFn: async (): Promise<UrenRegel | null> =>
-      unwrap(
-        await supabase
-          .from("time_entries")
-          .select(SELECTIE)
-          .eq("user_id", user!.id)
-          .is("ended_at", null)
-          .maybeSingle(),
-      ) as unknown as UrenRegel | null,
+    queryFn: () =>
+      metKlant<UrenRegel | null>((selectie) =>
+        supabase.from("time_entries").select(selectie).eq("user_id", user!.id).is("ended_at", null).maybeSingle(),
+      ),
   });
 }
 
@@ -243,7 +275,13 @@ export function useStartTimer() {
   const { user } = useAdminAuth();
   const vernieuw = useVernieuw();
   return useMutation({
-    mutationFn: async (waarden: { project_id: string | null; task_id: string | null; description: string | null }) => {
+    mutationFn: async (waarden: {
+      project_id: string | null;
+      task_id: string | null;
+      description: string | null;
+      /** Alleen bij uren zonder project; bij een project zet de database de klant zelf. */
+      client_id?: string | null;
+    }) => {
       if (!user) throw new Error("Niet ingelogd");
       const nu = new Date().toISOString();
       const { error: stopFout } = await supabase
@@ -255,7 +293,7 @@ export function useStartTimer() {
       return unwrap(
         await supabase
           .from("time_entries")
-          .insert({ ...waarden, user_id: user.id, started_at: nu })
+          .insert({ ...waarden, user_id: user.id, started_at: nu } as TablesInsert<"time_entries">)
           .select()
           .single(),
       );
@@ -284,15 +322,18 @@ export function useSaveUren() {
   const { user } = useAdminAuth();
   const vernieuw = useVernieuw();
   return useMutation({
-    mutationFn: async ({ id, values }: { id?: string; values: Partial<Tables<"time_entries">> }) => {
+    mutationFn: async ({ id, values }: { id?: string; values: Partial<TimeEntry> }) => {
       if (id) {
-        const { error } = await supabase.from("time_entries").update(values).eq("id", id);
+        const { error } = await supabase
+          .from("time_entries")
+          .update(values as TablesUpdate<"time_entries">)
+          .eq("id", id);
         if (error) throw new Error(error.message);
         return;
       }
       const { error } = await supabase
         .from("time_entries")
-        .insert({ ...values, user_id: values.user_id ?? user!.id });
+        .insert({ ...values, user_id: values.user_id ?? user!.id } as TablesInsert<"time_entries">);
       if (error) throw new Error(error.message);
     },
     onSuccess: vernieuw,
@@ -340,6 +381,16 @@ export function projectKleur(projectId: string | null | undefined) {
 }
 
 /** Naam voor op het scherm: de klant als die er is, anders het project. */
-export function projectNaam(regel: Pick<UrenRegel, "project">): string {
-  return regel.project?.client?.name ?? regel.project?.name ?? "Zonder project";
+export function projectNaam(regel: Pick<UrenRegel, "project" | "klant">): string {
+  return regel.project?.client?.name ?? regel.project?.name ?? regel.klant?.name ?? "Zonder klant";
+}
+
+/**
+ * Waar een regel onder valt in overzichten en grafieken: het project, anders
+ * de klant (uren zonder project), anders "geen". Met de naam en een sleutel
+ * voor de kleur.
+ */
+export function urenGroep(regel: Pick<UrenRegel, "project_id" | "client_id" | "project" | "klant">) {
+  const id = regel.project_id ?? (regel.client_id ? `klant:${regel.client_id}` : null);
+  return { sleutel: id ?? "geen", id, naam: projectNaam(regel) };
 }

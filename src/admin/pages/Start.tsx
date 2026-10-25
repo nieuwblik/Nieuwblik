@@ -16,7 +16,7 @@ import { isTeLaat } from "@/admin/constants";
 import { groet } from "@/admin/format";
 import { usePijplijn } from "@/admin/pijplijn";
 import { useTaakTellingen } from "@/admin/stats";
-import { useProjects } from "@/admin/queries";
+import { useClients, useProjects } from "@/admin/queries";
 import {
   duurMinuten,
   formatDuur,
@@ -184,18 +184,30 @@ const WeekStaafjes = ({ minuten, vandaag }: { minuten: number[]; vandaag: number
  * opent een zoeklijst met projecten; zolang die openstaat blijft het plusje
  * zichtbaar, en met het toetsenbord komt het open zodra het focus krijgt.
  */
-const ProjectPlus = ({ lopend, onKies }: { lopend: boolean; onKies: (projectId: string, naam: string) => void }) => {
+/** Waar de timer op komt te staan: een project, of alleen een klant (werk zonder project). */
+type TimerDoel = { project_id: string } | { client_id: string };
+
+const ProjectPlus = ({ lopend, onKies }: { lopend: boolean; onKies: (doel: TimerDoel, naam: string) => void }) => {
   const { data: projects = [] } = useProjects();
+  const { data: clients = [] } = useClients();
   const [open, setOpen] = useState(false);
   const keuzes = useMemo(() => projects.filter((p) => p.status !== "geannuleerd"), [projects]);
+  const klanten = useMemo(
+    () => clients.filter((c) => !c.verborgen_op).sort((a, b) => a.name.localeCompare(b.name, "nl")),
+    [clients],
+  );
+  const kies = (doel: TimerDoel, naam: string) => {
+    setOpen(false);
+    onKies(doel, naam);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button
           type="button"
-          aria-label={lopend ? "Project kiezen voor de lopende timer" : "Timer starten voor een project"}
-          title={lopend ? "Project kiezen" : "Starten voor een project"}
+          aria-label={lopend ? "Project of klant kiezen voor de lopende timer" : "Timer starten voor een project of klant"}
+          title={lopend ? "Project of klant kiezen" : "Starten voor een project of klant"}
           className="grid h-full grid-cols-[0fr] opacity-0 outline-none transition-[grid-template-columns,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/timer:grid-cols-[1fr] group-hover/timer:opacity-100 group-focus-within/timer:grid-cols-[1fr] group-focus-within/timer:opacity-100 data-[state=open]:grid-cols-[1fr] data-[state=open]:opacity-100 motion-reduce:transition-none"
         >
           <span className="flex min-w-0 items-center overflow-hidden">
@@ -214,21 +226,18 @@ const ProjectPlus = ({ lopend, onKies }: { lopend: boolean; onKies: (projectId: 
         sideOffset={10}
         className="w-72 overflow-hidden rounded-[var(--venster-radius,1rem)] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.45)]"
       >
-        <Command className="rounded-none [&_[cmdk-item]]:px-2.5 [&_[cmdk-item]]:py-2 [&_[cmdk-item]]:text-sm">
-          <CommandInput placeholder="Zoek een project" className="h-11" />
+        <Command className="rounded-none [&_[cmdk-group-heading]]:px-2.5 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-item]]:px-2.5 [&_[cmdk-item]]:py-2 [&_[cmdk-item]]:text-sm">
+          <CommandInput placeholder="Zoek een project of klant" className="h-11" />
           <CommandList className="max-h-[292px] pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-28px),transparent)] [scrollbar-width:none]! [&::-webkit-scrollbar]:hidden">
-            <CommandEmpty>Geen project gevonden</CommandEmpty>
-            <CommandGroup>
+            <CommandEmpty>Niets gevonden</CommandEmpty>
+            <CommandGroup heading="Projecten">
               {keuzes.map((p) => {
                 const naam = p.client?.name ?? p.name;
                 return (
                   <CommandItem
                     key={p.id}
                     value={`${naam} ${p.name} ${p.id}`}
-                    onSelect={() => {
-                      setOpen(false);
-                      onKies(p.id, naam);
-                    }}
+                    onSelect={() => kies({ project_id: p.id }, naam)}
                   >
                     <span className="truncate">{naam}</span>
                     {/* Meestal heet het project naar de klant; alleen een afwijkende naam erbij. */}
@@ -238,6 +247,14 @@ const ProjectPlus = ({ lopend, onKies }: { lopend: boolean; onKies: (projectId: 
                   </CommandItem>
                 );
               })}
+            </CommandGroup>
+            {/* Werk dat niet bij een project hoort, zoals een mail beantwoorden. */}
+            <CommandGroup heading="Klant, zonder project">
+              {klanten.map((c) => (
+                <CommandItem key={c.id} value={`klant ${c.name} ${c.id}`} onSelect={() => kies({ client_id: c.id }, c.name)}>
+                  <span className="truncate">{c.name}</span>
+                </CommandItem>
+              ))}
             </CommandGroup>
           </CommandList>
         </Command>
@@ -259,16 +276,17 @@ const TimerPil = ({ style }: { style: CSSProperties }) => {
   const nu = useNu(Boolean(lopend));
   if (isError) return null;
 
-  const kiesProject = (projectId: string, naam: string) => {
+  const kiesProject = (doel: TimerDoel, naam: string) => {
+    const waarden = "project_id" in doel ? doel : { project_id: null, client_id: doel.client_id };
     if (lopend) {
       save.mutate(
-        { id: lopend.id, values: { project_id: projectId, task_id: null } },
+        { id: lopend.id, values: { ...waarden, task_id: null } },
         { onSuccess: () => toast.success(`Timer staat op ${naam}`), onError: (e) => toast.error(e.message) },
       );
       return;
     }
     start.mutate(
-      { project_id: projectId, task_id: null, description: null },
+      { ...waarden, task_id: null, description: null },
       { onSuccess: () => toast.success(`Timer loopt voor ${naam}`), onError: (e) => toast.error(e.message) },
     );
   };

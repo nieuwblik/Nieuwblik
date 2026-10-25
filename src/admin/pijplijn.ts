@@ -2,9 +2,9 @@ import { useMemo } from "react";
 
 import { isOpenAanvraag, useAanvragen } from "@/admin/aanvragen";
 import { heeftData, isCredit, isTeLaatFactuur, useFinancien } from "@/admin/financien";
-import { useClients, useProjects } from "@/admin/queries";
+import { useClients } from "@/admin/queries";
 import { useTeFactureren } from "@/admin/stats";
-import { urenBedrag, useTeFacturerenUren, uurtariefVoor } from "@/admin/uren";
+import { klantIdVan, urenBedrag, useTeFacturerenUren, uurtariefVoor } from "@/admin/uren";
 
 export interface Pijplijn {
   aanvragen: { open: number; nieuw: number };
@@ -25,7 +25,6 @@ export function usePijplijn(): Pijplijn {
   const { data: aanvragen = [] } = useAanvragen();
   const { data: financien } = useFinancien();
   const { data: uren = [] } = useTeFacturerenUren();
-  const { data: projects = [] } = useProjects();
   const { data: clients = [] } = useClients();
   const hosting = useTeFactureren();
 
@@ -36,15 +35,14 @@ export function usePijplijn(): Pijplijn {
     const uit = offertes?.filter((o) => o.status !== "accepted") ?? [];
 
     const geaccepteerd = offertes ? offertes.filter((o) => o.status === "accepted").reduce((som, o) => som + o.bedrag, 0) : 0;
-    // Per project, zoals de factuur: per regel afgerond op het kwartier.
-    const perProject = new Map<string, typeof uren>();
+    // Per klant, zoals de factuur: met en zonder project, tegen het tarief van de klant.
+    const perKlant = new Map<string, typeof uren>();
     for (const r of uren) {
-      const sleutel = r.project_id ?? "";
-      perProject.set(sleutel, [...(perProject.get(sleutel) ?? []), r]);
+      const sleutel = klantIdVan(r) ?? "";
+      perKlant.set(sleutel, [...(perKlant.get(sleutel) ?? []), r]);
     }
-    const openUrenBedrag = [...perProject.entries()].reduce((som, [projectId, lijst]) => {
-      const project = projects.find((p) => p.id === projectId);
-      const client = project?.client_id ? clients.find((c) => c.id === project.client_id) : null;
+    const openUrenBedrag = [...perKlant.entries()].reduce((som, [clientId, lijst]) => {
+      const client = clients.find((c) => c.id === clientId);
       return som + urenBedrag(lijst, uurtariefVoor(client));
     }, 0);
     const hostingBedrag = hosting.achterstallig.reduce((som, t) => som + (t.client.billing_amount_cents ?? 0), 0) / 100;
@@ -70,5 +68,5 @@ export function usePijplijn(): Pijplijn {
           }
         : null,
     };
-  }, [aanvragen, financien, uren, projects, clients, hosting.achterstallig]);
+  }, [aanvragen, financien, uren, clients, hosting.achterstallig]);
 }

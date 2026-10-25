@@ -15,6 +15,7 @@ import {
   isNietGeactiveerd,
   projectKleur,
   projectNaam,
+  urenGroep,
   useNu,
   useUrenInPeriode,
 } from "@/admin/uren";
@@ -52,10 +53,10 @@ const UrenKaart = ({ className }: { className?: string }) => {
       const opDag = eigen.filter((r) => format(new Date(r.started_at), "yyyy-MM-dd") === sleutel);
       const perProject = new Map<string, { id: string | null; naam: string; minuten: number }>();
       for (const r of opDag) {
-        const k = r.project_id ?? "geen";
-        const huidig = perProject.get(k) ?? { id: r.project_id, naam: projectNaam(r), minuten: 0 };
+        const groep = urenGroep(r);
+        const huidig = perProject.get(groep.sleutel) ?? { id: groep.id, naam: groep.naam, minuten: 0 };
         huidig.minuten += duurMinuten(r, nu);
-        perProject.set(k, huidig);
+        perProject.set(groep.sleutel, huidig);
       }
       const delen = [...perProject.values()].sort((a, b) => b.minuten - a.minuten);
       return { datum, sleutel, delen, minuten: delen.reduce((som, d) => som + d.minuten, 0) };

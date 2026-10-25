@@ -27,8 +27,9 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  * - "afboeken": een kleine rest afboeken als betalingsverschil (id);
  * - "pdf": een downloadlink voor de pdf (id), 30 seconden geldig;
  * - "klant": de facturen en betaalcijfers van een klant uit het portaal (clientId);
- * - "uren-factureren": uren van een project als conceptfactuur (projectId,
- *   urenIds, uurtarief, eventueel contactId); de uren worden daarna als
+ * - "uren-factureren": uren als conceptfactuur, van één project (projectId)
+ *   of van een klant met en zonder project (clientId), met urenIds,
+ *   uurtarief en eventueel contactId; de uren worden daarna als
  *   gefactureerd gemarkeerd. Er wordt niets naar de klant verstuurd;
  * - "uren-vrijgeven": uren weer vrijgeven als hun concept in Moneybird is
  *   weggegooid (factuurId);
@@ -274,6 +275,9 @@ async function portaalKlant(id: unknown): Promise<PortaalKlant> {
 interface Urenregel {
   id: string;
   project_id: string | null;
+  /** De klant van een regel zonder project (migratie uren_klant). */
+  client_id: string | null;
+  project: { client_id: string | null } | null;
   started_at: string;
   ended_at: string | null;
   billable: boolean;
@@ -1026,29 +1030,43 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
   }
 
   if (actie === "uren-factureren") {
+    // Per klant (alle uren, met en zonder project) of per project.
+    const perKlant = body.clientId !== undefined;
     const projectId = body.projectId;
-    if (typeof projectId !== "string" || !/^[0-9a-f-]{36}$/i.test(projectId)) throw new Melding("Onbekend project.");
+    if (!perKlant && (typeof projectId !== "string" || !/^[0-9a-f-]{36}$/i.test(projectId))) {
+      throw new Melding("Onbekend project.");
+    }
     const ids = Array.isArray(body.urenIds) ? body.urenIds.filter((x): x is string => typeof x === "string") : [];
     if (ids.length === 0) throw new Melding("Geen uren gekozen.");
     const tarief = typeof body.uurtarief === "number" ? Math.round(body.uurtarief * 100) / 100 : NaN;
     if (!Number.isFinite(tarief) || tarief <= 0) throw new Melding("Vul een uurtarief in.");
 
-    const { data: project, error: projectFout } = await admin
-      .from("projects")
-      .select("id, name, client_id")
-      .eq("id", projectId)
-      .maybeSingle();
-    if (projectFout) throw new Error(projectFout.message);
-    if (!project?.client_id) throw new Melding("Dit project hoort niet bij een klant.");
-    const klant = await portaalKlant(project.client_id);
+    let klant: PortaalKlant;
+    let referentie: string;
+    if (perKlant) {
+      klant = await portaalKlant(body.clientId);
+      referentie = `Uren ${klant.name}`;
+    } else {
+      const { data: project, error: projectFout } = await admin
+        .from("projects")
+        .select("id, name, client_id")
+        .eq("id", projectId as string)
+        .maybeSingle();
+      if (projectFout) throw new Error(projectFout.message);
+      if (!project?.client_id) throw new Melding("Dit project hoort niet bij een klant.");
+      klant = await portaalKlant(project.client_id);
+      referentie = `Uren ${project.name}`;
+    }
 
     // Eerst de uren controleren, pas daarna iets in Moneybird aanmaken.
     const { data: regels, error: urenFout } = await admin
       .from("time_entries")
-      .select("id, project_id, started_at, ended_at, billable, description, gefactureerd_op, task:tasks(title)")
+      .select(
+        "id, project_id, client_id, started_at, ended_at, billable, description, gefactureerd_op, task:tasks(title), project:projects(client_id)",
+      )
       .in("id", ids);
     if (urenFout) {
-      if (/gefactureerd_op|column/i.test(urenFout.message)) {
+      if (/gefactureerd_op|client_id|column/i.test(urenFout.message)) {
         throw new Melding("De database mist nog de kolommen voor facturatie. Voer eerst de migratie uit in Lovable.");
       }
       throw new Error(urenFout.message);
@@ -1056,7 +1074,11 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
     const lijst = (regels ?? []) as unknown as Urenregel[];
     if (lijst.length !== ids.length) throw new Melding("Een deel van deze uren bestaat niet meer. Vernieuw de pagina.");
     for (const r of lijst) {
-      if (r.project_id !== projectId) throw new Melding("Er zitten uren van een ander project tussen.");
+      if (perKlant) {
+        if ((r.project?.client_id ?? r.client_id) !== klant.id) throw new Melding("Er zitten uren van een andere klant tussen.");
+      } else if (r.project_id !== projectId) {
+        throw new Melding("Er zitten uren van een ander project tussen.");
+      }
       if (!r.billable) throw new Melding("Er zitten interne uren tussen; die worden niet gefactureerd.");
       if (!r.ended_at) throw new Melding("Er loopt nog een timer op deze uren. Stop die eerst.");
       if (r.gefactureerd_op) throw new Melding("Een deel van deze uren is al gefactureerd. Vernieuw de pagina.");
@@ -1075,7 +1097,7 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
       body: {
         sales_invoice: {
           contact_id: contact.id,
-          reference: `Uren ${project.name}`.slice(0, 100),
+          reference: referentie.slice(0, 100),
           prices_are_incl_tax: false,
           details_attributes: regelsOpFactuur.map((g, i) => ({
             description: g.omschrijving,

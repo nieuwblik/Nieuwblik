@@ -252,7 +252,14 @@ export type UrenFactuurResultaat =
 export function useUrenFactureren() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (body: { projectId: string; urenIds: string[]; uurtarief: number; contactId?: string }) =>
+    mutationFn: (body: {
+      /** Uren van één project, of (clientId) alle uren van een klant met en zonder project. */
+      projectId?: string;
+      clientId?: string;
+      urenIds: string[];
+      uurtarief: number;
+      contactId?: string;
+    }) =>
       roepAan<UrenFactuurResultaat>({ actie: "uren-factureren", ...body }),
     onSuccess: (resultaat) => {
       if (!resultaat.ok) return;

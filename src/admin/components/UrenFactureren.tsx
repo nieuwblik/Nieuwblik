@@ -20,9 +20,12 @@ const ALLES = "alles";
 interface UrenFacturerenProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  projectId: string;
+  /** Uren van één project (op de projectpagina)... */
+  projectId?: string;
+  /** ...of alle uren van een klant, met en zonder project (Nog te factureren). */
+  clientId?: string;
   client: Client | null;
-  /** Alle uren van het project; het venster kiest zelf wat nog te factureren is. */
+  /** De uren; het venster kiest zelf wat nog te factureren is. */
   regels: UrenRegel[];
 }
 
@@ -35,7 +38,7 @@ interface UrenFacturerenProps {
  * Het tarief staat klaar: dat van de klant, anders het standaardtarief. Pas
  * je het aan, dan onthoudt de serverfunctie het bij de klant.
  */
-const UrenFactureren = ({ open, onOpenChange, projectId, client, regels }: UrenFacturerenProps) => {
+const UrenFactureren = ({ open, onOpenChange, projectId, clientId, client, regels }: UrenFacturerenProps) => {
   const factureer = useUrenFactureren();
   const [maand, setMaand] = useState(ALLES);
   const [tarief, setTarief] = useState("");
@@ -71,7 +74,7 @@ const UrenFactureren = ({ open, onOpenChange, projectId, client, regels }: UrenF
     if (!kanMaken || uurtarief === null) return;
     try {
       const resultaat = await factureer.mutateAsync({
-        projectId,
+        ...(clientId ? { clientId } : { projectId: projectId ?? "" }),
         urenIds: gekozen.map((r) => r.id),
         uurtarief,
         ...(contactId ? { contactId } : {}),
