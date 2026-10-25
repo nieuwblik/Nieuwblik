@@ -30,7 +30,7 @@ export const Panel = ({
 }) =>
   footer ? (
     <section id={id} className={cn("flex min-w-0 flex-col rounded-[16px] bg-muted/50 p-1", className)}>
-      <div className="flex min-w-0 flex-1 flex-col rounded-[12px] border border-border bg-card shadow-[0_1px_2px_rgb(0_0_0/0.03)]">
+      <div className="flex min-w-0 flex-1 flex-col rounded-[12px] border border-border bg-card">
         {children}
       </div>
       {footer}

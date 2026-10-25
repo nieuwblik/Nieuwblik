@@ -125,7 +125,7 @@ const CalendarPage = () => {
 
               {actief && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center p-2">
-                  <div className="w-full max-w-md rounded-xl border border-border bg-popover p-4 shadow-lg">
+                  <div className="w-full max-w-md rounded-xl border border-border bg-popover p-4">
                     <div className="flex items-start justify-between gap-3">
                       <h2 className="text-base font-semibold leading-tight">{actief.title}</h2>
                       <Button

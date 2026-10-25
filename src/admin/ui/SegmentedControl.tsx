@@ -31,7 +31,7 @@ const SegmentedControl = <T extends string>({ opties, waarde, onChange, label }:
       {vlak && (
         <span
           aria-hidden="true"
-          className="absolute inset-y-0.5 left-0 rounded-md bg-background shadow-[0_1px_2px_rgb(0_0_0/0.08)] transition-[transform,width] duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]"
+          className="absolute inset-y-0.5 left-0 rounded-md border border-border bg-background transition-[transform,width] duration-200 ease-[cubic-bezier(0.25,1,0.5,1)]"
           style={{ transform: `translateX(${vlak.x}px)`, width: vlak.breedte }}
         />
       )}

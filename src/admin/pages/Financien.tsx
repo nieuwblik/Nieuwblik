@@ -187,7 +187,7 @@ const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
           {maand && (
             <div
               key={gekozen}
-              className="p-vervaag pointer-events-none absolute top-1 z-10 w-max rounded-lg bg-foreground px-3 py-2 text-[13px] text-background shadow-md"
+              className="p-vervaag pointer-events-none absolute top-1 z-10 w-max rounded-lg bg-foreground px-3 py-2 text-[13px] text-background"
               style={
                 gekozen >= maanden.length / 2
                   ? {

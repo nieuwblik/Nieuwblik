@@ -179,7 +179,7 @@ const AfgerondKaart = ({ className }: { className?: string }) => {
             {week && week.totaal > 0 && (
               <div
                 key={gekozen}
-                className="p-vervaag pointer-events-none absolute top-2 z-10 w-max min-w-32 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
+                className="p-vervaag pointer-events-none absolute top-2 z-10 w-max min-w-32 rounded-lg bg-foreground px-3 py-2 text-background"
                 style={
                   // Naast de balk, aan de kant met de meeste ruimte, zodat het
                   // kaartje ook op een telefoon binnen de grafiek blijft.

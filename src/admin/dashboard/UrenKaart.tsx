@@ -200,7 +200,7 @@ const UrenKaart = ({ className }: { className?: string }) => {
                   {dag && dag.minuten > 0 && (
                     <div
                       key={gekozen}
-                      className="p-vervaag pointer-events-none absolute top-2 z-10 w-max min-w-36 max-w-56 rounded-lg bg-foreground px-3 py-2 text-background shadow-md"
+                      className="p-vervaag pointer-events-none absolute top-2 z-10 w-max min-w-36 max-w-56 rounded-lg bg-foreground px-3 py-2 text-background"
                       style={
                         gekozen >= dagen.length / 2
                           ? { right: `${((dagen.length - gekozen) / dagen.length) * 100}%` }

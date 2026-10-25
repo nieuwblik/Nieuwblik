@@ -1024,6 +1024,14 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.015em;
 }
 
+/* Geen schaduwen in het portaal: vensters, het schuifpaneel en meldingen
+   liggen plat, met alleen een rand. Die componenten deelt het portaal met de
+   publieke site, dus hier en niet in de componenten zelf. Focusringen
+   (ook een box-shadow) zitten op knoppen en velden, niet op deze vlakken. */
+.portaal :is([role="dialog"], [role="alertdialog"], [data-sonner-toast]) {
+  box-shadow: none !important;
+}
+
 /* Cursor zoals in de Claude-app: de gewone pijl op knoppen, menu-items,
    tabbladen, rijen en de zijbalk. Dat iets klikbaar is, zie je aan het vlak
    bij hover. De hand alleen op echte tekstlinks: onderstreept, of naar een

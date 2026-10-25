@@ -37,7 +37,7 @@ const CommandDialog = ({
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
       <DialogPrimitive.Content
-        className="fixed left-[50%] top-[15%] z-50 w-full max-w-lg translate-x-[-50%] overflow-hidden rounded-2xl border border-border/70 bg-popover p-0 shadow-[0_16px_48px_-8px_rgb(0_0_0/0.22),0_2px_8px_rgb(0_0_0/0.06)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-98 data-[state=open]:zoom-in-98"
+        className="fixed left-[50%] top-[15%] z-50 w-full max-w-lg translate-x-[-50%] overflow-hidden rounded-2xl border border-border bg-popover p-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-98 data-[state=open]:zoom-in-98"
         aria-label="Snel zoeken"
       >
         <DialogPrimitive.Title className="sr-only">Snel zoeken</DialogPrimitive.Title>
