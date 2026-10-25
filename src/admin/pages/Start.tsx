@@ -4,6 +4,7 @@ import { nl } from "date-fns/locale";
 import { ArrowRight, ArrowUpRight, Play, Plus, Search, Square, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo.webp";
 import PortaalAchtergrond from "@/components/PortaalAchtergrond";
@@ -254,14 +255,14 @@ const Start = () => {
         {/* Bovenin alleen het merk en de weg naar het dashboard. */}
         <header className="flex items-center gap-3">
           <img src={logoSrc} alt="Nieuwblik" className="p-start-op h-6 w-auto brightness-0 invert" style={op(0)} />
-          <VloeiendeLink
-            to="/admin/dashboard"
-            className="p-start-op-glas group ml-auto flex h-10 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-neutral-900 transition-[background-color,transform] duration-300 ease-out hover:bg-white active:scale-[0.98]"
-            style={op(80)}
-          >
-            Dashboard
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </VloeiendeLink>
+          {/* Een gewone portaalknop (afronding, gewicht en klikreactie van Button),
+              maar wit: een donkere knop zou op de nachtscène wegvallen. */}
+          <Button asChild size="sm" className="p-start-op-glas ml-auto bg-white/95 text-neutral-900 hover:bg-white">
+            <VloeiendeLink to="/admin/dashboard" style={op(80)}>
+              Dashboard
+              <ArrowRight />
+            </VloeiendeLink>
+          </Button>
         </header>
 
         {/* In het midden: begroeting, zoeken en de acties. Een zachte, donkere
