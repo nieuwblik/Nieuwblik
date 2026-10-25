@@ -37,6 +37,10 @@ const hostingPerMaand = (row: ClientRow) => {
  * Op een telefoon worden het compacte regels: naam en fase boven, de rest
  * eronder.
  */
+/** Kolommen die pas op bredere schermen in de tabel komen. */
+const ZICHTBAAR_LG = "hidden lg:table-cell";
+const ZICHTBAAR_XL = "hidden xl:table-cell";
+
 const ClientTable = ({ rows, urenPerKlant }: ClientTableProps) => {
   const [sortering, setSortering] = useState<{ kolom: Kolom; richting: Richting } | null>(null);
   const { createTask, isPending } = useCreateTask();
@@ -96,11 +100,11 @@ const ClientTable = ({ rows, urenPerKlant }: ClientTableProps) => {
   // Een gewone functie en geen component: een component die binnen de render
   // wordt gemaakt, is elke render een nieuw type, en dan bouwt React de kop
   // opnieuw op en raak je met het toetsenbord je focus kwijt na het sorteren.
-  const kop = (kolom: Kolom, children: string, rechts = false) => {
+  const kop = (kolom: Kolom, children: string, rechts = false, extra?: string) => {
     const actief = sortering?.kolom === kolom;
     const Icoon = !actief ? ChevronsUpDown : sortering.richting === "op" ? ArrowUp : ArrowDown;
     return (
-      <th key={kolom} scope="col" className={cn("px-3 py-2.5 font-normal", rechts && "text-right")} aria-sort={actief ? (sortering.richting === "op" ? "ascending" : "descending") : "none"}>
+      <th key={kolom} scope="col" className={cn("px-3 py-2.5 font-normal", rechts && "text-right", extra)} aria-sort={actief ? (sortering.richting === "op" ? "ascending" : "descending") : "none"}>
         <button
           type="button"
           onClick={() => sorteer(kolom)}
@@ -179,7 +183,9 @@ const ClientTable = ({ rows, urenPerKlant }: ClientTableProps) => {
 
   return (
     <div className="p-vervaag overflow-hidden rounded-[16px] border border-border bg-card">
-      {/* Tabel vanaf tablet. */}
+      {/* Tabel vanaf tablet. Op een tablet of kleine laptop passen niet alle
+          acht kolommen; de bijzaken (uren, hosting, laatste activiteit) komen
+          er pas bij op bredere schermen, in plaats van rechts af te vallen. */}
       <table className="hidden w-full text-sm md:table">
         <thead className="border-b border-border bg-muted/40 text-left text-[13px] text-muted-foreground">
           <tr>
@@ -187,9 +193,9 @@ const ClientTable = ({ rows, urenPerKlant }: ClientTableProps) => {
             {kop("fase", "Fase")}
             {kop("open", "Open taken")}
             {kop("deadline", "Deadline")}
-            {urenPerKlant && kop("uren", "Uren deze maand", true)}
-            {kop("hosting", "Hosting", true)}
-            {kop("activiteit", "Laatste activiteit")}
+            {urenPerKlant && kop("uren", "Uren deze maand", true, ZICHTBAAR_XL)}
+            {kop("hosting", "Hosting", true, ZICHTBAAR_LG)}
+            {kop("activiteit", "Laatste activiteit", false, ZICHTBAAR_XL)}
             <th scope="col" className="w-12">
               <span className="sr-only">Acties</span>
             </th>
@@ -203,12 +209,12 @@ const ClientTable = ({ rows, urenPerKlant }: ClientTableProps) => {
               <td className="px-3 py-2.5">{openCel(row)}</td>
               <td className="px-3 py-2.5 whitespace-nowrap">{deadlineCel(row)}</td>
               {urenPerKlant && (
-                <td className="px-3 py-2.5 text-right tabular-nums">
+                <td className={cn("px-3 py-2.5 text-right tabular-nums", ZICHTBAAR_XL)}>
                   {uren(row) > 0 ? formatDuur(uren(row)) : <span className="text-muted-foreground">–</span>}
                 </td>
               )}
-              <td className="px-3 py-2.5 text-right whitespace-nowrap">{hostingCel(row)}</td>
-              <td className="px-3 py-2.5 whitespace-nowrap text-muted-foreground">{row.activeAt ? timeAgo(row.activeAt) : "–"}</td>
+              <td className={cn("px-3 py-2.5 text-right whitespace-nowrap", ZICHTBAAR_LG)}>{hostingCel(row)}</td>
+              <td className={cn("px-3 py-2.5 whitespace-nowrap text-muted-foreground", ZICHTBAAR_XL)}>{row.activeAt ? timeAgo(row.activeAt) : "–"}</td>
               <td className="px-2 py-2.5">{plus(row)}</td>
             </tr>
           ))}

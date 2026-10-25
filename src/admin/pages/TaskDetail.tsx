@@ -352,35 +352,42 @@ const TaskDetail = () => {
         {parent ? parent.title : (task.project?.name ?? "Taken")}
       </Link>
 
-      <div className="flex items-start gap-3">
-        <Checkbox
-          checked={task.status === "klaar"}
-          onCheckedChange={(checked) => void patch({ status: checked === true ? "klaar" : "todo" })}
-          aria-label={task.status === "klaar" ? "Markeer als open" : "Markeer als klaar"}
-          className="mt-2"
-        />
-        <input
-          ref={titleRef}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onBlur={() => title.trim() && title !== task.title && void patch({ title: title.trim() })}
-          maxLength={300}
-          aria-label="Titel"
-          className={cn(
-            "min-w-0 flex-1 border-0 bg-transparent p-0 text-2xl font-semibold tracking-tight outline-hidden focus:ring-0",
-            task.status === "klaar" && "text-muted-foreground line-through",
-          )}
-        />
-        <TaakTimer taskId={task.id} projectId={task.project_id} />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
-          onClick={() => void handleDelete()}
-          aria-label="Taak verwijderen"
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+      {/* Op een telefoon krijgt de titel de hele breedte, met de timer en
+          verwijderen eronder; ernaast bleef er voor de titel maar een paar
+          letters over. */}
+      <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
+        <div className="flex min-w-0 basis-full items-start gap-3 sm:flex-1 sm:basis-0">
+          <Checkbox
+            checked={task.status === "klaar"}
+            onCheckedChange={(checked) => void patch({ status: checked === true ? "klaar" : "todo" })}
+            aria-label={task.status === "klaar" ? "Markeer als open" : "Markeer als klaar"}
+            className="mt-2"
+          />
+          <input
+            ref={titleRef}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onBlur={() => title.trim() && title !== task.title && void patch({ title: title.trim() })}
+            maxLength={300}
+            aria-label="Titel"
+            className={cn(
+              "min-w-0 flex-1 border-0 bg-transparent p-0 text-2xl font-semibold tracking-tight outline-hidden focus:ring-0",
+              task.status === "klaar" && "text-muted-foreground line-through",
+            )}
+          />
+        </div>
+        <div className="flex items-center gap-1 max-sm:w-full max-sm:pl-7">
+          <TaakTimer taskId={task.id} projectId={task.project_id} />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive max-sm:ml-auto"
+            onClick={() => void handleDelete()}
+            aria-label="Taak verwijderen"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
       {/* Inhoud links, eigenschappen in een vaste kolom ernaast. Alles over de
@@ -478,7 +485,7 @@ const TaskDetail = () => {
                       event.preventDefault();
                       void addSubtask();
                     }}
-                    placeholder="Stap toevoegen en op Enter drukken…"
+                    placeholder="Nieuwe stap"
                     maxLength={300}
                     aria-label="Nieuwe stap"
                   />
