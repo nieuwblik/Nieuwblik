@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ArrowLeft, CheckSquare, ChevronRight, Mail, MoreHorizontal, Pencil, Phone, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, CheckSquare, ChevronRight, FileText, Mail, MoreHorizontal, Pencil, Phone, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -229,6 +229,10 @@ const ProjectDetail = () => {
               <DropdownMenuItem onSelect={() => setEditOpen(true)}>
                 <Pencil className="h-4 w-4" />
                 Bewerken
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => navigate(`/admin/projecten/${project.id}/rapport`)}>
+                <FileText className="h-4 w-4" />
+                Maandrapport
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem

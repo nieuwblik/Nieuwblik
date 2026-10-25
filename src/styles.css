@@ -1072,6 +1072,40 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
 }
 
+/* Afdrukken (maandrapport): alleen het rapport, op wit papier. Zijbalk,
+   bovenbalk, knoppen en meldingen gaan weg, en ook in donkere modus komt
+   het licht op papier. */
+@media print {
+  .portaal aside,
+  .portaal header,
+  .portaal .geen-print,
+  .portaal [data-sonner-toaster] {
+    display: none !important;
+  }
+  .portaal,
+  .portaal.dark {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 11%;
+    --muted-foreground: 0 0% 41%;
+    --border: 0 0% 90%;
+    --rail: 0 0% 100%;
+    color-scheme: light;
+  }
+  .portaal main {
+    padding: 0 !important;
+  }
+  .portaal .rapport {
+    border: 0 !important;
+    padding: 0 !important;
+  }
+  /* Het logo is in donkere modus wit gemaakt; op papier weer zwart. */
+  .portaal .rapport img {
+    filter: brightness(0) !important;
+  }
+}
+
 /* Cursor zoals in de Claude-app: de gewone pijl op knoppen, menu-items,
    tabbladen, rijen en de zijbalk. Dat iets klikbaar is, zie je aan het vlak
    bij hover. De hand alleen op echte tekstlinks: onderstreept, of naar een

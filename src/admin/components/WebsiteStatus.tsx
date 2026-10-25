@@ -15,7 +15,7 @@ const datum = (d: string) => format(parseISO(d), "d MMM yyyy", { locale: nl }).r
  * bereikbaar of niet, laadtijd, en tot wanneer certificaat en domeinnaam
  * lopen. Met een knop om meteen opnieuw te controleren.
  */
-const WebsiteStatus = ({ projectId }: { projectId: string }) => {
+const WebsiteStatus = ({ projectId, kop }: { projectId: string; kop: React.ReactNode }) => {
   const { data: controles, isError } = useWebsiteControles();
   const controleer = useControleerWebsites();
   const c = controles?.get(projectId);
@@ -36,7 +36,8 @@ const WebsiteStatus = ({ projectId }: { projectId: string }) => {
   const domein = c?.domein_geldig_tot ? daysUntil(c.domein_geldig_tot.slice(0, 10)) : null;
 
   return (
-    <div className="space-y-3 text-sm">
+    <div className="space-y-3 border-t border-border pt-6 text-sm">
+      {kop}
       {!c ? (
         <p className="text-muted-foreground">Nog niet gecontroleerd.</p>
       ) : (

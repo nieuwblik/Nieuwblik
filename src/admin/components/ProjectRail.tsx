@@ -191,12 +191,7 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
 
         {/* Alleen bij een live site: of hij bereikbaar is en tot wanneer
             certificaat en domein lopen. */}
-        {project.live_url?.trim() && (
-          <div className="space-y-4 border-t border-border pt-6">
-            <Kopje>Website</Kopje>
-            <WebsiteStatus projectId={project.id} />
-          </div>
-        )}
+        {project.live_url?.trim() && <WebsiteStatus projectId={project.id} kop={<Kopje>Website</Kopje>} />}
       </TabsContent>
 
       <TabsContent value="gegevens" className="mt-6 space-y-6">
