@@ -40,6 +40,8 @@ interface ClientProjectDialogProps {
   userId: string | null;
   /** Krijgt het nieuwe project-id, zodat de aanroeper er meteen heen kan. */
   onCreated?: (projectId: string) => void;
+  /** Bij een nieuwe klant alvast ingevuld, bijvoorbeeld vanuit een aanvraag. */
+  voorinvullen?: Partial<Pick<typeof EMPTY, "name" | "contact_name" | "email" | "phone" | "notes">> | undefined;
 }
 
 const EMPTY = {
@@ -76,6 +78,7 @@ const ClientProjectDialog = ({
   project,
   userId,
   onCreated,
+  voorinvullen,
 }: ClientProjectDialogProps) => {
   const [form, setForm] = useState(EMPTY);
   const saveClient = useSaveClient();
@@ -116,8 +119,10 @@ const ClientProjectDialog = ({
             description: project?.description ?? "",
             built_with_tanstack: project?.built_with_tanstack ?? false,
           }
-        : EMPTY,
+        : { ...EMPTY, ...voorinvullen },
     );
+    // voorinvullen alleen bij het openen lezen, niet bij elke render opnieuw.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, client, project]);
 
   const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>

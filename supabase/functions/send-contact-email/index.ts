@@ -95,6 +95,22 @@ const handler = async (req: Request): Promise<Response> => {
 
     const data = validationResult.data;
 
+    // De aanvraag ook bewaren voor het portaal (pagina Aanvragen). Mislukt dat,
+    // bijvoorbeeld omdat de tabel er nog niet is, dan gaat de mail gewoon door.
+    try {
+      const { error: opslagFout } = await admin.from("aanvragen").insert({
+        naam: data.fullName,
+        bedrijf: data.companyName || null,
+        email: data.email,
+        telefoon: data.phone || null,
+        onderwerp: data.subject || null,
+        bericht: data.notes || null,
+      });
+      if (opslagFout) console.error("Aanvraag opslaan mislukt:", opslagFout.message);
+    } catch (opslagFout) {
+      console.error("Aanvraag opslaan mislukt:", opslagFout);
+    }
+
     const emailHtml = `
       <h1>Nieuw contactformulier bericht van ${escapeHtml(data.fullName)}</h1>
       

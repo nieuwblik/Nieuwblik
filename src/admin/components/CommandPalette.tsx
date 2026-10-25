@@ -5,6 +5,7 @@ import {
   CheckSquare,
   Clock,
   FolderKanban,
+  Inbox,
   LayoutDashboard,
   Mail,
   Plus,
@@ -41,6 +42,7 @@ interface CommandPaletteProps {
 const PAGINAS = [
   { to: "/admin", label: "Dashboard", zoek: "dashboard overzicht start", icon: LayoutDashboard },
   { to: "/admin/kalender", label: "Kalender", zoek: "kalender planning agenda", icon: CalendarDays },
+  { to: "/admin/aanvragen", label: "Aanvragen", zoek: "aanvragen leads contactformulier berichten offerte", icon: Inbox },
   { to: "/admin/klanten", label: "Klanten", zoek: "klanten projecten", icon: Users },
   { to: "/admin/taken", label: "Taken", zoek: "taken todo werk", icon: CheckSquare },
   { to: "/admin/uren", label: "Uren", zoek: "uren urenregistratie timer tijd timesheet", icon: Timer },

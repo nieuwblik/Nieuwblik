@@ -8,6 +8,7 @@ import {
   ChevronsUpDown,
   LayoutDashboard,
   LogOut,
+  Inbox,
   Mail,
   Menu,
   Plus,
@@ -45,6 +46,7 @@ import ProfileNameDialog from "@/admin/components/ProfileNameDialog";
 import QuickCapture from "@/admin/components/QuickCapture";
 import TimerBalk from "@/admin/components/TimerBalk";
 import { useBetaalMeldingen } from "@/admin/useBetaalMeldingen";
+import { useAanvragen } from "@/admin/aanvragen";
 import { initials } from "@/admin/format";
 import { usePortalPwa } from "@/admin/pwa";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
@@ -134,6 +136,7 @@ const RailNav = ({
 }) => {
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
+  const { data: aanvragen = [] } = useAanvragen();
   const { dicht, wissel } = useDichteGroepen();
 
   const groepen: { label: string; items: NavEntry[] }[] = [
@@ -153,6 +156,13 @@ const RailNav = ({
     {
       label: "Werk",
       items: [
+        {
+          to: "/admin/aanvragen",
+          label: "Aanvragen",
+          icon: Inbox,
+          end: false,
+          badge: { aantal: aanvragen.filter((a) => a.status === "nieuw").length, titel: "nieuw" },
+        },
         { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
         {
           to: "/admin/taken",
