@@ -334,7 +334,7 @@ const AccountMenu = ({
         </button>
       )}
     </DropdownMenuTrigger>
-    <DropdownMenuContent align={variant === "balk" ? "end" : "start"} side={variant === "balk" ? "bottom" : "top"} className="w-56">
+    <DropdownMenuContent align={variant === "balk" ? "end" : "start"} side={variant === "balk" ? "bottom" : "top"} className="w-64">
       <DropdownMenuLabel className="truncate font-normal text-muted-foreground">{displayName}</DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuItem onSelect={onNaam}>

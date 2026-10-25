@@ -1024,6 +1024,19 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.015em;
 }
 
+/* Cursor zoals in de Claude-app: de gewone pijl op knoppen, menu-items,
+   tabbladen, rijen en de zijbalk. Dat iets klikbaar is, zie je aan het vlak
+   bij hover. De hand alleen op echte tekstlinks: onderstreept, of naar een
+   andere site. Invoervelden houden hun tekstcursor. */
+.portaal :is(a, button, summary, label, [role="button"], [role="tab"], [role="option"], [role="menuitem"],
+    [role="menuitemcheckbox"], [role="menuitemradio"], [role="checkbox"], [role="switch"], [role="radio"],
+    [cmdk-item], .cursor-pointer) {
+  cursor: default;
+}
+.portaal a[href]:is([target="_blank"], .underline) {
+  cursor: pointer;
+}
+
 /* Alles met font-sans of font-epilogue (knoppen, kerncijfers, sneltoetsen) in
    het portaal ook in Geist. Tailwind zet de lettervorm vast in die klassen,
    dus hier expliciet. De publieke site houdt Cabin en Epilogue. */
