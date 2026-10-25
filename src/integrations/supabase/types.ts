@@ -88,6 +88,7 @@ export type Database = {
           status: Database["public"]["Enums"]["client_status"]
           updated_at: string
           uurtarief_cents: number | null
+          verborgen_op: string | null
           website: string | null
         }
         Insert: {
@@ -110,6 +111,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
           uurtarief_cents?: number | null
+          verborgen_op?: string | null
           website?: string | null
         }
         Update: {
@@ -132,6 +134,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["client_status"]
           updated_at?: string
           uurtarief_cents?: number | null
+          verborgen_op?: string | null
           website?: string | null
         }
         Relationships: []
