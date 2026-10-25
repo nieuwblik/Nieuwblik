@@ -317,40 +317,57 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                     </button>
                   )}
                 </div>
-                {/* De tabbladen van de pagina, ingesprongen onder het hoofditem. Eén
-                    doorlopende lijn vanaf het icoon erboven, die bij het laatste
-                    subitem met een zachte bocht afbuigt. */}
-                {metSub && subOpen && (
-                  <ul className="relative ml-[21px] flex flex-col pl-[10px]">
-                    {sub!.map((item, i) => {
-                      const actief = opPagina && (huidigTab ?? null) === item.tab;
-                      const SubIcon = item.icon;
-                      return (
-                        <li key={item.label} className="relative py-px">
-                          {i < sub!.length - 1 ? (
-                            <span aria-hidden="true" className="absolute -left-[10px] top-0 h-full w-px bg-rail-muted/25" />
-                          ) : (
-                            <span
-                              aria-hidden="true"
-                              className="absolute -left-[10px] top-0 h-1/2 w-[7px] rounded-bl-[7px] border-b border-l border-rail-muted/25"
-                            />
-                          )}
-                          <Link
-                            to={item.tab ? `${to}?tab=${item.tab}` : to}
-                            onClick={onNavigate}
-                            aria-current={actief ? "page" : undefined}
-                            className={cn(
-                              "flex items-center gap-2.5 rounded-lg px-2.5 py-[6px] text-[14px] transition-[background-color,color,transform] duration-150 ease-out active:scale-[0.98]",
-                              actief ? "bg-rail-active text-rail-fg" : "text-rail-muted hover:bg-rail-hover hover:text-rail-fg",
+                {/* De tabbladen van de pagina, ingesprongen onder het hoofditem, met
+                    het icoon onder de tekst erboven. Eén doorlopende lijn vanaf het
+                    icoon van het hoofditem, met een kort takje naar elk subitem en
+                    een zachte bocht bij het laatste.
+
+                    In- en uitklappen gaat zacht: de hoogte loopt mee (rijen van 0fr
+                    naar 1fr) en de items vervagen in. Dicht zijn ze inert, zodat
+                    Tab er niet langs gaat. */}
+                {metSub && (
+                  <div
+                    inert={!subOpen}
+                    className={cn(
+                      "grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none",
+                      subOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                    )}
+                  >
+                    <ul className="ml-[21px] flex min-h-0 flex-col overflow-hidden pl-[10px]">
+                      {sub!.map((item, i) => {
+                        const actief = opPagina && (huidigTab ?? null) === item.tab;
+                        const laatste = i === sub!.length - 1;
+                        const SubIcon = item.icon;
+                        return (
+                          <li key={item.label} className="relative">
+                            {laatste ? (
+                              <span
+                                aria-hidden="true"
+                                className="absolute -left-[10px] top-0 h-1/2 w-[8px] rounded-bl-[6px] border-b border-l border-rail-muted/30"
+                              />
+                            ) : (
+                              <>
+                                <span aria-hidden="true" className="absolute -left-[10px] top-0 h-full w-px bg-rail-muted/30" />
+                                <span aria-hidden="true" className="absolute -left-[10px] top-1/2 h-px w-[8px] bg-rail-muted/30" />
+                              </>
                             )}
-                          >
-                            <SubIcon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
-                            {item.label}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                            <Link
+                              to={item.tab ? `${to}?tab=${item.tab}` : to}
+                              onClick={onNavigate}
+                              aria-current={actief ? "page" : undefined}
+                              className={cn(
+                                "flex items-center gap-3 rounded-lg px-3 py-[7px] text-[15px] text-rail-fg transition-[background-color,transform] duration-150 ease-out active:scale-[0.98]",
+                                actief ? "bg-rail-active" : "hover:bg-rail-hover",
+                              )}
+                            >
+                              <SubIcon className="h-[18px] w-[18px] shrink-0" strokeWidth={1.75} />
+                              {item.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 )}
               </Fragment>
             );
