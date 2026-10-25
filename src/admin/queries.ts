@@ -410,7 +410,24 @@ export function useUpdateTask() {
       }
       return taak;
     },
-    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.tasks }),
+    // Meteen in de lijst zetten, zodat slepen in de kalender en afvinken direct
+    // zichtbaar zijn; bij een fout terug naar hoe het was. Daarna toch verversen
+    // voor wat de database er zelf bij doet (afgerond op, de volgende herhaling).
+    onMutate: async ({ id, values }) => {
+      await qc.cancelQueries({ queryKey: adminKeys.tasks, exact: true });
+      const vorige = qc.getQueryData<TaskWithProject[]>(adminKeys.tasks);
+      if (vorige) {
+        qc.setQueryData<TaskWithProject[]>(
+          adminKeys.tasks,
+          vorige.map((t) => (t.id === id ? ({ ...t, ...values } as TaskWithProject) : t)),
+        );
+      }
+      return { vorige };
+    },
+    onError: (_fout, _waarden, context) => {
+      if (context?.vorige) qc.setQueryData(adminKeys.tasks, context.vorige);
+    },
+    onSettled: () => void qc.invalidateQueries({ queryKey: adminKeys.tasks }),
   });
 }
 
