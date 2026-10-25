@@ -16,8 +16,9 @@ import {
   type KlantVoorstel,
   type MoneybirdContactVolledig,
 } from "@/admin/financien";
-import { waarschijnlijkContact } from "@/admin/klantMatch";
-import { adminKeys, useClients, type Client } from "@/admin/queries";
+import { koppelLosseTaken, waarschijnlijkContact } from "@/admin/klantMatch";
+import { adminKeys, useClients, useTasks, type Client } from "@/admin/queries";
+import { useCombinedRows } from "@/admin/rows";
 
 const VELD: Record<string, string> = {
   email: "E-mail",
@@ -49,7 +50,14 @@ function veldenUit(klant: Client, c: MoneybirdContactVolledig): KlantVoorstel["v
 const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
   const { data, isLoading, isError, error } = useKlantenAanvullen(open);
   const { data: clients = [] } = useClients();
-  const losse = useMemo(() => [...(data?.zonderContact ?? []), ...(data?.twijfel ?? [])], [data]);
+  const { data: tasks = [] } = useTasks();
+  // Verborgen klanten (zelf verborgen of alles geannuleerd) hoeven niet aangevuld.
+  const { rows } = useCombinedRows();
+  const verborgen = useMemo(() => new Set(rows.flatMap((r) => (r.verborgen && r.client.id ? [r.client.id] : []))), [rows]);
+  const losse = useMemo(
+    () => [...(data?.zonderContact ?? []), ...(data?.twijfel ?? [])].filter((l) => !verborgen.has(l.clientId)),
+    [data, verborgen],
+  );
   const { data: contactData } = useMoneybirdContacten(open && losse.length > 0);
   const contacten = useMemo(() => contactData?.contacten ?? [], [contactData]);
   const qc = useQueryClient();
@@ -70,8 +78,11 @@ const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenC
       if (!klant) return [];
       return [{ clientId, klant: klant.name, contact: c, velden: veldenUit(klant, c) }];
     });
-    return [...(data?.voorstellen ?? []), ...zelf];
-  }, [data, handmatig, clients]);
+    return [...(data?.voorstellen ?? []).filter((v) => !verborgen.has(v.clientId)), ...zelf];
+  }, [data, handmatig, clients, verborgen]);
+
+  // Alleen wat in de lijst staat telt; een verborgen klant kan nog in de keuze zitten.
+  const aantalGekozen = voorstellen.filter((v) => gekozen.has(v.clientId)).length;
 
   const wissel = (id: string) =>
     setGekozen((huidig) => {
@@ -104,16 +115,23 @@ const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenC
   const neemOver = async () => {
     setBezig(true);
     let gelukt = 0;
+    let taken = 0;
     for (const v of voorstellen.filter((v) => gekozen.has(v.clientId))) {
       const { error: fout } = await supabase
         .from("clients")
         .update({ ...v.velden, moneybird_contact_id: v.contact.id })
         .eq("id", v.clientId);
-      if (!fout) gelukt += 1;
+      if (fout) continue;
+      gelukt += 1;
+      // Taken die onder de Moneybird-naam op Intern stonden, gaan nu naar de klant.
+      taken += await koppelLosseTaken(v.contact.naam, v.clientId, tasks);
     }
     setBezig(false);
     void qc.invalidateQueries({ queryKey: adminKeys.clients });
-    toast.success(`${gelukt} ${gelukt === 1 ? "klant" : "klanten"} aangevuld uit Moneybird`);
+    void qc.invalidateQueries({ queryKey: adminKeys.tasks });
+    toast.success(`${gelukt} ${gelukt === 1 ? "klant" : "klanten"} aangevuld uit Moneybird`, {
+      description: taken > 0 ? `${taken} ${taken === 1 ? "taak staat" : "taken staan"} nu bij de juiste klant.` : undefined,
+    });
     onOpenChange(false);
   };
 
@@ -222,8 +240,8 @@ const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenC
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Annuleren
           </Button>
-          <Button disabled={!data || gekozen.size === 0 || bezig} onClick={() => void neemOver()}>
-            {bezig ? "Bezig…" : `${gekozen.size} ${gekozen.size === 1 ? "klant" : "klanten"} aanvullen`}
+          <Button disabled={!data || aantalGekozen === 0 || bezig} onClick={() => void neemOver()}>
+            {bezig ? "Bezig…" : `${aantalGekozen} ${aantalGekozen === 1 ? "klant" : "klanten"} aanvullen`}
           </Button>
         </DialogFooter>
       </DialogContent>

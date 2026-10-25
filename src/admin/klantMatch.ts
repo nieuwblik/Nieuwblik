@@ -1,5 +1,6 @@
+import { supabase } from "@/integrations/supabase/client";
 import { klantSleutel, type MoneybirdContactVolledig } from "@/admin/financien";
-import type { Client } from "@/admin/queries";
+import type { Client, TaskWithProject } from "@/admin/queries";
 
 /**
  * Welke klant in het portaal is waarschijnlijk dit Moneybird-contact, ook als
@@ -169,4 +170,23 @@ export function waarschijnlijkContact(
     if (uitkomst && (!beste || uitkomst.score > beste.score)) beste = { contact, ...uitkomst };
   }
   return beste;
+}
+
+/**
+ * Open taken zonder klant en zonder project met deze naam in de titel naar de
+ * klant zetten. Zo komen taken die het portaal maakte voordat de klant
+ * bestond of gekoppeld was (een offerte factureren) alsnog bij die klant.
+ */
+export async function koppelLosseTaken(naam: string, clientId: string, tasks: TaskWithProject[]) {
+  const zoek = naam.toLowerCase();
+  const losse = tasks.filter((t) => !t.project_id && !t.client_id && t.status !== "klaar" && t.title.toLowerCase().includes(zoek));
+  if (losse.length === 0) return 0;
+  const { error } = await supabase
+    .from("tasks")
+    .update({ client_id: clientId })
+    .in(
+      "id",
+      losse.map((t) => t.id),
+    );
+  return error ? 0 : losse.length;
 }

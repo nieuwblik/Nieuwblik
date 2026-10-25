@@ -20,23 +20,8 @@ import {
   zoekKlantBij,
   type MoneybirdContactVolledig,
 } from "@/admin/financien";
-import { waarschijnlijkeKlant, type KlantVoorstel } from "@/admin/klantMatch";
-import { adminKeys, useClients, useTasks, type Client, type TaskWithProject } from "@/admin/queries";
-
-/** Open taken zonder klant met deze naam in de titel naar de klant zetten. */
-async function koppelLosseTaken(naam: string, clientId: string, tasks: TaskWithProject[]) {
-  const zoek = naam.toLowerCase();
-  const losse = tasks.filter((t) => !t.project_id && !t.client_id && t.status !== "klaar" && t.title.toLowerCase().includes(zoek));
-  if (losse.length === 0) return 0;
-  const { error } = await supabase
-    .from("tasks")
-    .update({ client_id: clientId })
-    .in(
-      "id",
-      losse.map((t) => t.id),
-    );
-  return error ? 0 : losse.length;
-}
+import { koppelLosseTaken, waarschijnlijkeKlant, type KlantVoorstel } from "@/admin/klantMatch";
+import { adminKeys, useClients, useTasks, type Client } from "@/admin/queries";
 
 const leeg = (v: string | null | undefined) => !v || !v.trim();
 

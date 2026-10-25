@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft, ChevronRight, FolderKanban, Mail, Phone, Plus } from "lucide-react";
+import { ArrowLeft, ChevronRight, Eye, EyeOff, FolderKanban, Mail, Phone, Plus } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,7 +13,7 @@ import { hoofdtaken } from "@/admin/constants";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { formatDate } from "@/admin/format";
 import Avatar from "@/admin/ui/Avatar";
-import { useClient, useProjects, useTasks, useTeam } from "@/admin/queries";
+import { useClient, useProjects, useTasks, useTeam, useVerbergKlant } from "@/admin/queries";
 
 /**
  * Klant en project zijn in het portaal één ding, dus deze route stuurt door
@@ -36,6 +37,7 @@ const ClientDetail = () => {
 
   const { data: tasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
+  const verberg = useVerbergKlant();
 
   const own = useMemo(() => projects.filter((p) => p.client_id === id), [projects, id]);
   const taken = useMemo(() => tasks.filter((t) => t.client_id === id), [tasks, id]);
@@ -74,6 +76,23 @@ const ClientDetail = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <Button
+            variant="outline"
+            disabled={verberg.isPending}
+            onClick={() => {
+              const verbergen = !client.verborgen_op;
+              verberg.mutate(
+                { id: client.id, verbergen },
+                {
+                  onSuccess: () => toast.success(verbergen ? `${client.name} is verborgen` : `${client.name} staat weer in de lijst`),
+                  onError: (e) => toast.error(e.message),
+                },
+              );
+            }}
+          >
+            {client.verborgen_op ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+            {client.verborgen_op ? "Weer tonen" : "Verbergen"}
+          </Button>
           <BillingButton client={client} />
 
           {client.email ? (

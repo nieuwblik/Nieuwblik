@@ -4,7 +4,8 @@ import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { TOON, type Toon } from "@/admin/constants";
-import { useClients, useProjects } from "@/admin/queries";
+import { useProjects } from "@/admin/queries";
+import { useCombinedRows } from "@/admin/rows";
 import { useTeFactureren } from "@/admin/stats";
 
 /** Fases waarin een project gebouwd wordt; daar hoort een opleverdatum bij. */
@@ -25,7 +26,7 @@ interface Melding {
  * meldingencentrum achter de bel. Is alles op orde, dan verdwijnt de strook.
  */
 const Meldingen = () => {
-  const { data: clients = [] } = useClients();
+  const { rows } = useCombinedRows();
   const { data: projects = [] } = useProjects();
   const facturen = useTeFactureren();
 
@@ -43,7 +44,8 @@ const Meldingen = () => {
         to: "/admin/hosting?inlezen=1",
       });
     }
-    const zonderEmail = clients.filter((c) => !c.email?.includes("@")).length;
+    // Verborgen klanten tellen niet mee: die wil je niet meer aanvullen.
+    const zonderEmail = rows.filter((r) => r.client.id && !r.verborgen && !r.client.email?.includes("@")).length;
     if (zonderEmail > 0) {
       lijst.push({
         key: "email",
@@ -64,7 +66,7 @@ const Meldingen = () => {
       });
     }
     return lijst;
-  }, [clients, projects, facturen]);
+  }, [rows, projects, facturen]);
 
   if (meldingen.length === 0) return null;
 

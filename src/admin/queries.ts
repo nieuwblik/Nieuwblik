@@ -3,9 +3,9 @@ import { korteNaam } from "@/admin/format";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { volgendeDeadline } from "@/admin/herhaling";
-import type { Herhaling } from "@/admin/werkstroom";
+import type { Herhaling, KlantVerborgen } from "@/admin/werkstroom";
 
-export type Client = Tables<"clients">;
+export type Client = Tables<"clients"> & KlantVerborgen;
 export type Project = Tables<"projects">;
 export type Task = Tables<"tasks">;
 export type ProjectUpdate = Tables<"project_updates">;
@@ -182,6 +182,31 @@ export function useClient(id: string | undefined) {
     enabled: Boolean(id),
     queryFn: async (): Promise<Client> =>
       unwrap(await supabase.from("clients").select("*").eq("id", id!).single()),
+  });
+}
+
+/**
+ * Een klant verbergen of weer tonen. Verborgen klanten staan niet in de
+ * klantenlijst en niet op het dashboard, maar blijven bestaan en vindbaar.
+ */
+export function useVerbergKlant() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, verbergen }: { id: string; verbergen: boolean }) => {
+      const { error } = await supabase
+        .from("clients")
+        // verborgen_op staat nog niet in de gegenereerde types (zie KlantVerborgen).
+        .update({ verborgen_op: verbergen ? new Date().toISOString() : null } as TablesUpdate<"clients">)
+        .eq("id", id);
+      if (error) {
+        throw new Error(
+          error.message.includes("verborgen_op")
+            ? "Verbergen werkt pas als de migratie klant_verbergen is uitgevoerd."
+            : error.message,
+        );
+      }
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: adminKeys.clients }),
   });
 }
 

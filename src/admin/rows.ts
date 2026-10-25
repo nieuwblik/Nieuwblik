@@ -38,6 +38,11 @@ export interface ClientRow {
   tanstack: boolean;
   /** Nieuwste van: project gewijzigd, update geplaatst, taak aangeraakt. */
   activeAt: string | null;
+  /**
+   * Niet in de klantenlijst en niet op het dashboard: zelf verborgen, of elk
+   * project van de klant is geannuleerd.
+   */
+  verborgen: boolean;
 }
 
 export interface CombinedRows {
@@ -133,6 +138,7 @@ export function useCombinedRows(): CombinedRows {
           return PRIORITY_WEIGHT[eigen] < PRIORITY_WEIGHT[zwaarste] ? eigen : zwaarste;
         }, null),
         activeAt: primary ? activityOf(primary) : mostRecent(client.updated_at, latestTask.get(klantSleutel(client.id))),
+        verborgen: Boolean(client.verborgen_op) || (own.length > 0 && own.every((p) => p.status === "geannuleerd")),
       };
     };
 
@@ -173,6 +179,7 @@ export function useCombinedRows(): CombinedRows {
       teLaat: teLaatPerProject.get(project.id) ?? 0,
       urgentie: zwaarstePerProject.get(project.id) ?? null,
       activeAt: activityOf(project),
+      verborgen: project.status === "geannuleerd",
     }));
 
     return [...clientRows, ...looseRows].sort((a, b) => {

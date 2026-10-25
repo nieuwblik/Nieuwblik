@@ -63,7 +63,7 @@ const AandachtKaart = ({ className }: { className?: string }) => {
     }
 
     const klanten: Regel[] = rows
-      .filter((row) => row.openTasks > 0)
+      .filter((row) => row.openTasks > 0 && !row.verborgen)
       .map((row) => {
         const projecten = [row.project, ...row.otherProjects].filter(Boolean);
         const deadlines = projecten

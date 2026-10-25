@@ -13,3 +13,12 @@ export type Aanvraag = Omit<Tables<"aanvragen">, "status"> & { status: AanvraagS
 export type Herhaling = "wekelijks" | "maandelijks" | "kwartaal" | "jaarlijks";
 
 export type WebsiteControle = Tables<"website_controles">;
+
+/**
+ * clients.verborgen_op uit de migratie klant_verbergen. Optioneel tot de
+ * migratie is uitgevoerd en de types opnieuw zijn gemaakt; daarna kan dit weg
+ * en komt het veld uit Tables<"clients">.
+ */
+export interface KlantVerborgen {
+  verborgen_op?: string | null;
+}

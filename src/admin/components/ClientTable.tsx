@@ -168,6 +168,7 @@ const ClientTable = ({ rows, urenPerKlant }: ClientTableProps) => {
               <Code2 className="h-3.5 w-3.5" />
             </span>
           )}
+          {row.verborgen && <span className="shrink-0 text-[13px] font-normal text-muted-foreground">verborgen</span>}
         </Link>
         <p className="truncate text-[13px] text-muted-foreground">
           {[row.client.contact_name, row.client.city].filter(Boolean).join(" · ") || row.client.email || "Geen contactgegevens"}

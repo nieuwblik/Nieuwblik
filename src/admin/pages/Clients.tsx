@@ -115,6 +115,7 @@ const Clients = () => {
   const known =
     statusParam === "alle" || statusParam === "actief" || PROJECT_STATUS_ORDER.includes(statusParam as ProjectStatus);
   const filter: Filter = statusParam && known ? (statusParam as Filter) : "alle";
+  const toonVerborgen = searchParams.get("verborgen") === "1";
   const ontbrekendParam = searchParams.get("filter");
   const ontbrekend = ontbrekendParam && ONTBREKEND[ontbrekendParam] ? ontbrekendParam : null;
 
@@ -134,6 +135,9 @@ const Clients = () => {
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
     return rows.filter((row) => {
+      // Verborgen klanten (zelf verborgen of alles geannuleerd) alleen op
+      // verzoek, bij het filter Geannuleerd, of als je ernaar zoekt.
+      if (row.verborgen && !toonVerborgen && filter !== "geannuleerd" && !term) return false;
       if (filter === "actief" && !(row.status && ACTIVE_PROJECT_STATUSES.includes(row.status))) return false;
       if (filter !== "alle" && filter !== "actief" && row.status !== filter) return false;
       if (ontbrekend && !ONTBREKEND[ontbrekend]!.test(row)) return false;
@@ -142,9 +146,19 @@ const Clients = () => {
         (value) => (value ?? "").toLowerCase().includes(term),
       );
     });
-  }, [rows, filter, ontbrekend, search]);
+  }, [rows, filter, ontbrekend, search, toonVerborgen]);
+
+  const verborgenAantal = rows.filter((r) => r.verborgen).length;
+  const wisselVerborgen = () => {
+    const volgende = new URLSearchParams(searchParams);
+    if (toonVerborgen) volgende.delete("verborgen");
+    else volgende.set("verborgen", "1");
+    setSearchParams(volgende, { replace: true });
+  };
 
   const gefilterd = filter !== "alle" || ontbrekend !== null || search.trim() !== "";
+  // Verborgen klanten tellen alleen mee als ze getoond worden.
+  const totaal = toonVerborgen ? rows.length : rows.length - verborgenAantal;
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-4 lg:space-y-6">
@@ -152,7 +166,7 @@ const Clients = () => {
         <div>
           <h1 className="text-2xl tracking-tight">Klanten</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {gefilterd ? `${visible.length} van ${rows.length}` : rows.length} {rows.length === 1 ? "klant" : "klanten"}
+            {gefilterd ? `${visible.length} van ${totaal}` : totaal} {totaal === 1 ? "klant" : "klanten"}
             {" · "}open werk bovenaan
           </p>
         </div>
@@ -275,6 +289,18 @@ const Clients = () => {
         <ClientTable rows={visible} urenPerKlant={urenPerKlant} />
       ) : (
         <ClientGrid rows={visible} />
+      )}
+
+      {verborgenAantal > 0 && filter !== "geannuleerd" && !search.trim() && (
+        <button
+          type="button"
+          onClick={wisselVerborgen}
+          className="text-[13px] text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          {toonVerborgen
+            ? "Verborgen klanten weer verbergen"
+            : `${verborgenAantal} verborgen ${verborgenAantal === 1 ? "klant" : "klanten"} tonen`}
+        </button>
       )}
 
       <ClientProjectDialog

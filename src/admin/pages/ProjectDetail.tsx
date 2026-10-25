@@ -4,6 +4,8 @@ import {
   ArrowLeft,
   CheckSquare,
   ChevronRight,
+  Eye,
+  EyeOff,
   FileSignature,
   FileText,
   Mail,
@@ -49,6 +51,7 @@ import {
   useProjectUpdates,
   useTasks,
   useTeam,
+  useVerbergKlant,
 } from "@/admin/queries";
 
 /** Eén tabblad in de rechterkolom, met het aantal als donkere pil erachter. */
@@ -74,6 +77,19 @@ const ProjectDetail = () => {
   const { user } = useAdminAuth();
   const { data: project, isLoading, isError } = useProject(id);
   const { data: client } = useClient(project?.client_id ?? undefined);
+  const verberg = useVerbergKlant();
+  const wisselVerborgen = async () => {
+    if (!client) return;
+    const verbergen = !client.verborgen_op;
+    try {
+      await verberg.mutateAsync({ id: client.id, verbergen });
+      toast.success(verbergen ? `${client.name} is verborgen` : `${client.name} staat weer in de lijst`, {
+        description: verbergen ? "Niet meer in de klantenlijst en op het dashboard. Terugzetten kan hier via Meer." : undefined,
+      });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Verbergen mislukt");
+    }
+  };
   const { data: allTasks = [] } = useTasks();
   const { data: team = [] } = useTeam();
   const { data: files = [] } = useProjectFiles(id);
@@ -261,6 +277,12 @@ const ProjectDetail = () => {
                 <FileText className="h-4 w-4" />
                 Maandrapport
               </DropdownMenuItem>
+              {client && (
+                <DropdownMenuItem onSelect={() => void wisselVerborgen()}>
+                  {client.verborgen_op ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                  {client.verborgen_op ? "Klant weer tonen" : "Klant verbergen"}
+                </DropdownMenuItem>
+              )}
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="text-destructive focus:bg-destructive/10 focus:text-destructive"
