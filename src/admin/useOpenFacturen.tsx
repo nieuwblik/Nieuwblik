@@ -181,8 +181,11 @@ export function useOpenFacturen(facturen: OpenFactuur[]) {
                 {kleineRest && <span className="text-muted-foreground"> · restbedrag</span>}
               </span>
             </span>
-            <StatusPill toon={status.toon}>{status.label}</StatusPill>
-            <span className="w-24 text-right font-medium tabular-nums">{bedrag(f.open)}</span>
+            {/* Op een telefoon zegt de regel onder de klant (rood bij te laat) genoeg; het label kost daar de ruimte voor de naam. */}
+            <span className="max-sm:hidden">
+              <StatusPill toon={status.toon}>{status.label}</StatusPill>
+            </span>
+            <span className="text-right font-medium tabular-nums sm:w-24">{bedrag(f.open)}</span>
             {/* Niet modaal: de menu-items openen zelf een dialoog, en twee modale lagen na elkaar laten de pagina soms onklikbaar achter. */}
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>

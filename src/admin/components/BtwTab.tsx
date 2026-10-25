@@ -81,7 +81,7 @@ const BtwTab = ({
 
   if (isLoading) {
     return (
-      <div className="grid gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
         <Skeleton className="h-80 rounded-[16px]" />
         <Skeleton className="h-80 rounded-[16px]" />
       </div>
@@ -147,7 +147,7 @@ const BtwTab = ({
   };
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
       <Panel>
         <PanelHeader
           icon={Percent}
@@ -209,7 +209,7 @@ const BtwTab = ({
             actie={<StatusPill toon={s.toon}>{s.label}</StatusPill>}
           />
           <PanelBody className="space-y-5">
-            <dl className="grid grid-cols-3 gap-3">
+            <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {[
                 {
                   label: "Verschuldigd",
@@ -232,7 +232,7 @@ const BtwTab = ({
                   key={c.label}
                   className={cn(
                     "rounded-xl border border-border px-3 py-3",
-                    c.nadruk && "bg-muted/50",
+                    c.nadruk && "col-span-2 bg-muted/50 sm:col-span-1",
                   )}
                 >
                   <dt className="text-[13px] text-muted-foreground">

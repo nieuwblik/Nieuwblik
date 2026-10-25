@@ -81,7 +81,7 @@ const Maandrapport = () => {
             Terug naar {klant}
           </Link>
         </Button>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <MonthNav maand={maand} onChange={(m) => setSearchParams({ maand: format(m, "yyyy-MM") }, { replace: true })} />
           <Button onClick={() => window.print()}>
             <Printer className="h-4 w-4" />

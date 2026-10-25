@@ -56,7 +56,9 @@ export const PanelHeader = ({
   className?: string;
 }) => (
   <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border px-4 py-3", className)}>
-    <div className="flex min-w-0 flex-1 items-center gap-3">
+    {/* Op een telefoon een vaste basisbreedte, zodat een brede actie naar de
+        volgende regel gaat in plaats van de titel tot niets af te kappen. */}
+    <div className="flex min-w-0 flex-1 items-center gap-3 max-sm:basis-48">
       {Icon && (
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground">
           <Icon className="h-[18px] w-[18px]" />

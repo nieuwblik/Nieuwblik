@@ -33,7 +33,7 @@ const MeldingenCentrum = () => {
           {actie > 0 && <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-danger ring-2 ring-background" />}
         </button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-[22rem] p-1.5">
+      <PopoverContent align="end" collisionPadding={8} className="w-[min(22rem,calc(100vw-16px))] p-1.5">
         <p className="px-2.5 pb-1.5 pt-1 text-[13px] font-medium text-muted-foreground">Meldingen</p>
         {meldingen.length === 0 ? (
           <p className="px-2.5 pb-3 pt-1 text-sm text-muted-foreground">Alles is bij. Niets dat nu aandacht vraagt.</p>

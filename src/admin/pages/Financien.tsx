@@ -227,7 +227,9 @@ const MaandGrafiek = ({ maanden }: { maanden: MaandCijfers[] }) => {
                 i === gekozen && "font-medium text-foreground",
               )}
             >
-              {maandLabel(m.maand)}
+              {/* Op een smal scherm alleen de eerste letter, anders worden de namen afgekapt. */}
+              <span className="sm:hidden">{maandLabel(m.maand).charAt(0)}</span>
+              <span className="max-sm:hidden">{maandLabel(m.maand)}</span>
             </li>
           ))}
         </ol>
@@ -319,7 +321,7 @@ const Financien = () => {
         </p>
       </div>
       {data && "bijgewerkt" in data && (
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <OogKnop className="h-9 w-9 border border-border bg-background" />
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
@@ -347,7 +349,8 @@ const Financien = () => {
           <Button
             variant="outline"
             size="sm"
-            className="h-9"
+            className="h-9 max-sm:w-9 max-sm:px-0"
+            aria-label="Vernieuwen"
             disabled={bezigMetVernieuwen}
             // Alles uit Moneybird opnieuw: het overzicht én de tabbladen Omzet
             // en Btw met de bank, die anders nog even hun bewaarde stand tonen.
@@ -358,16 +361,22 @@ const Financien = () => {
             <RotateCw
               className={cn("h-4 w-4", bezigMetVernieuwen && "animate-spin")}
             />
-            Vernieuwen
+            <span className="max-sm:hidden">Vernieuwen</span>
           </Button>
-          <Button asChild variant="outline" size="sm" className="h-9">
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="h-9 max-sm:w-9 max-sm:px-0"
+          >
             <a
               href={data.moneybirdUrl}
+              aria-label="Open Moneybird"
               target="_blank"
               rel="noopener noreferrer"
             >
               <ExternalLink className="h-4 w-4" />
-              Open Moneybird
+              <span className="max-sm:hidden">Open Moneybird</span>
             </a>
           </Button>
         </div>
