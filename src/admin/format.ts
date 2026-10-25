@@ -136,3 +136,18 @@ export function leesbareUpdate(tekst: string, labels: Record<string, { label: st
     labels[sleutel] ? `${voorzetsel} ${labels[sleutel].label.toLowerCase()}` : geheel,
   );
 }
+
+/**
+ * Eén leesbare regel uit een omschrijving, voor in een lijst: zonder links
+ * (een Moneybird-adres zegt in een regel niets) en alleen de eerste regel
+ * met tekst. De volledige omschrijving staat op de taakpagina.
+ */
+export function korteOmschrijving(tekst: string | null | undefined): string {
+  if (!tekst) return "";
+  const regels = tekst
+    .replace(/https?:\/\/\S+/g, "")
+    .split("\n")
+    .map((r) => r.replace(/^\s*[-•]\s*/, "").trim())
+    .filter(Boolean);
+  return regels[0] ?? "";
+}

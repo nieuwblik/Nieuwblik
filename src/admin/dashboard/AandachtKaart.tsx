@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { AlertCircle, CircleCheck, Inbox } from "lucide-react";
+import { AlertCircle, CircleCheck, Inbox, MessageSquareText } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
 import { PRIORITY_WEIGHT, PROJECT_STATUS, TOON, hoofdtaken, isTeLaat, type Priority } from "@/admin/constants";
-import { deadlineLabel } from "@/admin/format";
+import { useAanvragen } from "@/admin/aanvragen";
+import { deadlineLabel, timeAgo } from "@/admin/format";
 import { useCombinedRows } from "@/admin/rows";
 import { useTasks } from "@/admin/queries";
 import Avatar from "@/admin/ui/Avatar";
@@ -26,7 +27,10 @@ interface Regel {
   urgentie: Priority | null;
   /** Vroegste deadline onder de open taken. */
   deadline: string | null;
-  intern?: boolean;
+  /** Geen klant maar een vaste regel: losse taken, of nieuwe aanvragen. */
+  soort?: "intern" | "aanvragen";
+  /** Vervangt de regel onder de naam (aanvragen). */
+  onderregel?: string;
 }
 
 /**
@@ -36,11 +40,16 @@ interface Regel {
  *
  * Losse taken zonder klant staan er als eigen regel bij. Daar zit vaak juist
  * het werk dat over de datum is (administratie, facturen), en dat viel
- * eerder buiten dit blok.
+ * eerder buiten dit blok. Taken die zonder project bij een klant horen,
+ * tellen bij die klant.
+ *
+ * Nieuwe aanvragen via het contactformulier staan altijd bovenaan: een lead
+ * die blijft liggen kost het meest.
  */
 const AandachtKaart = ({ className }: { className?: string }) => {
   const { rows, isLoading } = useCombinedRows();
   const { data: tasks = [] } = useTasks();
+  const { data: aanvragen = [] } = useAanvragen();
 
   const regels = useMemo<Regel[]>(() => {
     const open = hoofdtaken(tasks).filter((t) => t.status !== "klaar");
@@ -74,7 +83,7 @@ const AandachtKaart = ({ className }: { className?: string }) => {
         };
       });
 
-    const los = open.filter((t) => !t.project_id);
+    const los = open.filter((t) => !t.project_id && !t.client_id);
     if (los.length > 0) {
       const teLaat = los.filter((t) => isTeLaat(t)).length;
       klanten.push({
@@ -94,17 +103,40 @@ const AandachtKaart = ({ className }: { className?: string }) => {
             .map((t) => t.due_date)
             .filter((d): d is string => Boolean(d))
             .sort()[0] ?? null,
-        intern: true,
+        soort: "intern",
       });
     }
 
-    return klanten.sort(
+    const gesorteerd = klanten.sort(
       (a, b) =>
         Number(b.teLaat > 0) - Number(a.teLaat > 0) ||
         PRIORITY_WEIGHT[a.urgentie ?? "laag"] - PRIORITY_WEIGHT[b.urgentie ?? "laag"] ||
         (a.deadline ?? "9999").localeCompare(b.deadline ?? "9999"),
     );
-  }, [rows, tasks]);
+
+    const nieuw = aanvragen.filter((a) => a.status === "nieuw");
+    if (nieuw.length === 0) return gesorteerd;
+    const oudste = nieuw.reduce((a, b) => (a.created_at < b.created_at ? a : b));
+    return [
+      {
+        key: "aanvragen",
+        to: "/admin/aanvragen",
+        naam: nieuw.length === 1 ? "Nieuwe aanvraag" : `${nieuw.length} nieuwe aanvragen`,
+        slug: null,
+        fase: null,
+        open: nieuw.length,
+        teLaat: 0,
+        urgentie: null,
+        deadline: null,
+        soort: "aanvragen" as const,
+        onderregel:
+          nieuw.length === 1
+            ? `${oudste.naam}, ${timeAgo(oudste.created_at)}`
+            : `Oudste van ${oudste.naam}, ${timeAgo(oudste.created_at)}`,
+      },
+      ...gesorteerd,
+    ];
+  }, [rows, tasks, aanvragen]);
 
   const zichtbaar = regels.slice(0, MAX);
   const rest = regels.length - zichtbaar.length;
@@ -140,9 +172,9 @@ const AandachtKaart = ({ className }: { className?: string }) => {
                   to={regel.to}
                   className="flex items-center gap-3 rounded-lg px-3 py-2.5 p-rij"
                 >
-                  {regel.intern ? (
+                  {regel.soort ? (
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                      <Inbox className="h-4 w-4" />
+                      {regel.soort === "aanvragen" ? <MessageSquareText className="h-4 w-4" /> : <Inbox className="h-4 w-4" />}
                     </span>
                   ) : (
                     <Avatar naam={regel.naam} slug={regel.slug} maat="md" className="h-9 w-9" />
@@ -150,6 +182,9 @@ const AandachtKaart = ({ className }: { className?: string }) => {
 
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{regel.naam}</span>
+                    {regel.onderregel ? (
+                      <span className="mt-0.5 block truncate text-[13px] text-muted-foreground">{regel.onderregel}</span>
+                    ) : (
                     <span className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[13px] text-muted-foreground">
                       {regel.fase && <span>{regel.fase}</span>}
                       {regel.fase && <span aria-hidden="true">·</span>}
@@ -170,6 +205,7 @@ const AandachtKaart = ({ className }: { className?: string }) => {
                         )
                       )}
                     </span>
+                    )}
                   </span>
 
                   {regel.urgentie && <StatusPill kind="priority" value={regel.urgentie} />}

@@ -77,7 +77,7 @@ const Tasks = () => {
       if (status !== "open" && status !== "alle" && task.status !== status) return false;
 
       if (extra === "te-laat" && !isTeLaat(task)) return false;
-      if (extra === "zonder-klant" && task.project_id) return false;
+      if (extra === "zonder-klant" && (task.project_id || task.client_id)) return false;
 
       if (owner === "ik" && task.assigned_to !== user?.id) return false;
       if (owner === "niemand" && task.assigned_to !== null) return false;

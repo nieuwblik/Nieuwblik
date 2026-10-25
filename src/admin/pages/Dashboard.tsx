@@ -14,6 +14,7 @@ import MijnTakenKaart from "@/admin/dashboard/MijnTakenKaart";
 import ProjectvoortgangKaart from "@/admin/dashboard/ProjectvoortgangKaart";
 import TaakoverzichtKaart from "@/admin/dashboard/TaakoverzichtKaart";
 import UrenKaart from "@/admin/dashboard/UrenKaart";
+import WebsitesKaart from "@/admin/dashboard/WebsitesKaart";
 import { useClients, useMailings } from "@/admin/queries";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
 
@@ -101,6 +102,7 @@ const Dashboard = () => {
           <DezeWeekKaart className="order-2 xl:order-none" />
           <TaakoverzichtKaart className="order-5 xl:order-none" />
           <FinancienKaart className="order-7 xl:order-none" />
+          <WebsitesKaart className="order-7 xl:order-none" />
           <ProjectvoortgangKaart className="order-7 xl:order-none" />
           {toonHosting && <HostingKaart className="order-8 xl:order-none" />}
           {toonMailen && <MailenKaart className="order-8 xl:order-none" />}

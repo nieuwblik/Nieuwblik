@@ -13,3 +13,15 @@ export type Aanvraag = Omit<Tables<"aanvragen">, "status"> & { status: AanvraagS
 export type Herhaling = "wekelijks" | "maandelijks" | "kwartaal" | "jaarlijks";
 
 export type WebsiteControle = Tables<"website_controles">;
+
+/**
+ * tasks.client_id uit de migratie taken_klant: een taak bij een klant zonder
+ * project. Optioneel tot de migratie is uitgevoerd en de types opnieuw zijn
+ * gemaakt; daarna kan dit weg en komt het veld uit Tables<"tasks">.
+ */
+export interface TaakKlant {
+  client_id?: string | null;
+}
+
+/** Staat de kolom er al? Een select("*") geeft hem dan bij elke rij mee. */
+export const heeftKlantKolom = (taken: readonly object[]) => taken.length > 0 && "client_id" in taken[0]!;

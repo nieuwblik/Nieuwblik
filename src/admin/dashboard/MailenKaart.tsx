@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
-import { ChevronRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -11,21 +10,15 @@ import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
 import StatusPill from "@/admin/ui/StatusPill";
 
 /**
- * De laatste mailing en wat het mailen in de weg zit: klanten zonder
- * e-mailadres krijgen niets, dus dat getal staat hier zichtbaar, met een
- * link naar precies die klanten.
+ * De laatste mailing en hoeveel klanten zich hebben afgemeld. Klanten zonder
+ * e-mailadres staan in de strook onder de begroeting, met de knop om ze aan
+ * te vullen; hier zouden ze een tweede keer staan.
  */
 const MailenKaart = ({ className }: { className?: string }) => {
   const { data: mailings = [], isLoading, isError } = useMailings(1);
   const { data: clients = [] } = useClients();
 
-  const { zonderEmail, afgemeld } = useMemo(
-    () => ({
-      zonderEmail: clients.filter((c) => !c.email?.includes("@")).length,
-      afgemeld: clients.filter((c) => c.mail_afgemeld_op).length,
-    }),
-    [clients],
-  );
+  const afgemeld = useMemo(() => clients.filter((c) => c.mail_afgemeld_op).length, [clients]);
 
   const laatste = mailings[0];
 
@@ -50,28 +43,12 @@ const MailenKaart = ({ className }: { className?: string }) => {
           <p className="text-sm text-muted-foreground">Nog niets verstuurd.</p>
         )}
 
-        <ul className="space-y-0.5 text-sm">
-          {zonderEmail > 0 && (
-            <li>
-              <Link
-                to="/admin/mailen?ontvangers=zonder-email"
-                className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 p-rij"
-              >
-                <span className={cn("h-2 w-2 shrink-0 rounded-full", TOON.warning.stip)} />
-                <span className="flex-1">
-                  {zonderEmail} {zonderEmail === 1 ? "klant" : "klanten"} zonder e-mailadres
-                </span>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
-              </Link>
-            </li>
-          )}
-          {afgemeld > 0 && (
-            <li className="flex items-center gap-2.5 py-1.5">
-              <span className={cn("h-2 w-2 shrink-0 rounded-full", TOON.neutral.stip)} />
-              <span className="text-muted-foreground">{afgemeld} afgemeld voor mailingen</span>
-            </li>
-          )}
-        </ul>
+        {afgemeld > 0 && (
+          <p className="flex items-center gap-2.5 text-sm">
+            <span className={cn("h-2 w-2 shrink-0 rounded-full", TOON.neutral.stip)} />
+            <span className="text-muted-foreground">{afgemeld} afgemeld voor mailingen</span>
+          </p>
+        )}
       </PanelBody>
     </Panel>
   );

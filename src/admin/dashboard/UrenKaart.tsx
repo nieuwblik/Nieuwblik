@@ -118,6 +118,8 @@ const UrenKaart = ({ className }: { className?: string }) => {
           <Skeleton className="h-48" />
         ) : (
           <>
+            {/* Zonder één minuut deze week geen groot "0 u 0 min": alleen de regel eronder. */}
+            {dezeWeek > 0 && (
             <p className="flex flex-wrap items-baseline gap-x-1 gap-y-1">
               <span className="font-epilogue text-[32px] font-medium leading-none tabular-nums tracking-tight">
                 {Math.floor(dezeWeek / 60)}
@@ -140,10 +142,11 @@ const UrenKaart = ({ className }: { className?: string }) => {
                 </span>
               )}
             </p>
+            )}
 
             {/* Onder een kwartier is een grafiek alleen lege as; dan een regel tekst. */}
             {bijnaLeeg ? (
-              <p className="mt-3 text-[13px] text-muted-foreground">
+              <p className={cn("text-[13px] text-muted-foreground", dezeWeek > 0 && "mt-3")}>
                 {dezeWeek === 0 ? "Nog geen uren deze week." : "Nog bijna geen uren deze week."} Start de timer bovenin om bij
                 te houden waar je aan werkt.
               </p>

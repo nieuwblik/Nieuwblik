@@ -128,7 +128,7 @@ const DezeWeekKaart = ({ className }: { className?: string }) => {
                         to={item.to}
                         className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm p-rij"
                       >
-                        <span className={cn("h-4 w-0.5 shrink-0 rounded-full", item.streep)} aria-hidden="true" />
+                        <span className={cn("h-1.5 w-1.5 shrink-0 rounded-full", item.streep)} aria-hidden="true" />
                         {item.project && <FolderKanban className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
                         <span className="truncate">{item.titel}</span>
                       </Link>

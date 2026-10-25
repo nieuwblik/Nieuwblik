@@ -52,6 +52,9 @@ export interface CombinedRows {
  * zelf. Een geplaatste update of een aangepaste taak zou daardoor buiten de
  * sortering vallen, dus die bronnen worden hier samengenomen.
  */
+/** Sleutel voor taken die zonder project rechtstreeks bij een klant horen. */
+const klantSleutel = (clientId: string) => `klant:${clientId}`;
+
 export function useCombinedRows(): CombinedRows {
   const { data: projects = [], isLoading: projectsLoading } = useProjects();
   const { data: clients = [], isLoading: clientsLoading } = useClients();
@@ -65,20 +68,23 @@ export function useCombinedRows(): CombinedRows {
     const latestTask = new Map<string, string>();
 
     for (const task of tasks) {
-      if (!task.project_id) continue;
+      // Een taak hangt aan een project, of (zonder project) rechtstreeks aan
+      // een klant. Beide tellen in dezelfde mappen, met een eigen sleutel.
+      const sleutel = task.project_id ?? (task.client_id ? klantSleutel(task.client_id) : null);
+      if (!sleutel) continue;
       // Alleen hoofdtaken tellen: stappen staan bij hun taak, en meetellen
       // gaf een getal dat niet klopte met de lijst op de klantpagina.
       if (task.status !== "klaar" && !task.parent_task_id) {
-        openPerProject.set(task.project_id, (openPerProject.get(task.project_id) ?? 0) + 1);
-        if (isTeLaat(task)) teLaatPerProject.set(task.project_id, (teLaatPerProject.get(task.project_id) ?? 0) + 1);
+        openPerProject.set(sleutel, (openPerProject.get(sleutel) ?? 0) + 1);
+        if (isTeLaat(task)) teLaatPerProject.set(sleutel, (teLaatPerProject.get(sleutel) ?? 0) + 1);
 
-        const huidig = zwaarstePerProject.get(task.project_id);
+        const huidig = zwaarstePerProject.get(sleutel);
         if (!huidig || PRIORITY_WEIGHT[task.priority] < PRIORITY_WEIGHT[huidig]) {
-          zwaarstePerProject.set(task.project_id, task.priority);
+          zwaarstePerProject.set(sleutel, task.priority);
         }
       }
-      const current = latestTask.get(task.project_id);
-      if (!current || task.updated_at > current) latestTask.set(task.project_id, task.updated_at);
+      const current = latestTask.get(sleutel);
+      if (!current || task.updated_at > current) latestTask.set(sleutel, task.updated_at);
     }
 
     const byClient = new Map<string, ProjectWithClient[]>();
@@ -106,6 +112,8 @@ export function useCombinedRows(): CombinedRows {
         return new Date(bt).getTime() - new Date(at).getTime();
       });
       const [primary, ...rest] = sorted;
+      // Projecten plus de taken die zonder project bij de klant horen.
+      const sleutels = [...sorted.map((p) => p.id), klantSleutel(client.id)];
 
       return {
         key: client.id,
@@ -116,15 +124,15 @@ export function useCombinedRows(): CombinedRows {
         status: primary?.status ?? null,
         tanstack: primary?.built_with_tanstack ?? false,
         deadline: primary?.deadline ?? null,
-        openTasks: sorted.reduce((total, p) => total + (openPerProject.get(p.id) ?? 0), 0),
-        teLaat: sorted.reduce((total, p) => total + (teLaatPerProject.get(p.id) ?? 0), 0),
-        urgentie: sorted.reduce<Priority | null>((zwaarste, p) => {
-          const eigen = zwaarstePerProject.get(p.id);
+        openTasks: sleutels.reduce((total, k) => total + (openPerProject.get(k) ?? 0), 0),
+        teLaat: sleutels.reduce((total, k) => total + (teLaatPerProject.get(k) ?? 0), 0),
+        urgentie: sleutels.reduce<Priority | null>((zwaarste, k) => {
+          const eigen = zwaarstePerProject.get(k);
           if (!eigen) return zwaarste;
           if (!zwaarste) return eigen;
           return PRIORITY_WEIGHT[eigen] < PRIORITY_WEIGHT[zwaarste] ? eigen : zwaarste;
         }, null),
-        activeAt: primary ? activityOf(primary) : client.updated_at,
+        activeAt: primary ? activityOf(primary) : mostRecent(client.updated_at, latestTask.get(klantSleutel(client.id))),
       };
     };
 

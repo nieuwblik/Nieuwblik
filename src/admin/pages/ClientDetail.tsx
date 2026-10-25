@@ -7,10 +7,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import BillingButton from "@/admin/components/BillingButton";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import EmptyState from "@/admin/components/EmptyState";
+import TaskList from "@/admin/components/TaskList";
+import { hoofdtaken } from "@/admin/constants";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { formatDate } from "@/admin/format";
 import Avatar from "@/admin/ui/Avatar";
-import { useClient, useProjects } from "@/admin/queries";
+import { useClient, useProjects, useTasks, useTeam } from "@/admin/queries";
 
 /**
  * Klant en project zijn in het portaal één ding, dus deze route stuurt door
@@ -21,6 +23,9 @@ import { useClient, useProjects } from "@/admin/queries";
  * De kop is dezelfde als op de gewone klantpagina — kruimelpad, portret,
  * contactknoppen — zodat je bij een klant zonder werk niet op een heel ander
  * scherm belandt.
+ *
+ * Taken kunnen ook zonder project bij een klant horen (nabellen over een
+ * factuur, een offerte factureren); die staan hier.
  */
 const ClientDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,7 +34,11 @@ const ClientDetail = () => {
   const { data: projects = [], isLoading: projectsLoading } = useProjects();
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const { data: tasks = [] } = useTasks();
+  const { data: team = [] } = useTeam();
+
   const own = useMemo(() => projects.filter((p) => p.client_id === id), [projects, id]);
+  const taken = useMemo(() => tasks.filter((t) => t.client_id === id), [tasks, id]);
 
   if (isLoading || projectsLoading) return <Skeleton className="h-40 rounded-[14px]" />;
   if (isError || !client) return <p className="text-sm text-muted-foreground">Deze klant bestaat niet (meer).</p>;
@@ -97,11 +106,21 @@ const ClientDetail = () => {
         </div>
       </div>
 
+      {hoofdtaken(taken).length > 0 && (
+        <div className="mt-6">
+          <TaskList tasks={taken} team={team} showProject={false} />
+        </div>
+      )}
+
       <div className="mt-6">
           <EmptyState
             icon={FolderKanban}
             title="Nog geen project"
-            description="Er hangt geen werk aan deze klant, dus er valt niets bij te houden."
+            description={
+              taken.length > 0
+                ? "Deze taken horen bij de klant zelf. Voor websitewerk maak je een project aan."
+                : "Er hangt geen werk aan deze klant, dus er valt niets bij te houden."
+            }
             action={
               <Button onClick={() => setDialogOpen(true)}>
                 <Plus className="h-4 w-4" />

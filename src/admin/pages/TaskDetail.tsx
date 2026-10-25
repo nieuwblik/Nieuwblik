@@ -8,6 +8,7 @@ import {
   CircleDashed,
   CircleDot,
   Clock,
+  ExternalLink,
   Flag,
   Paperclip,
   Plus,
@@ -170,6 +171,18 @@ const SubtaskRow = ({
       </Button>
     </li>
   );
+};
+
+/** De adressen in een omschrijving, elk één keer. */
+const linksIn = (tekst: string | null | undefined) => [...new Set(tekst?.match(/https?:\/\/[^\s)]+/g) ?? [])];
+
+const linkLabel = (url: string) => {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    return host.endsWith("moneybird.com") ? "Openen in Moneybird" : host;
+  } catch {
+    return url;
+  }
 };
 
 /**
@@ -377,6 +390,25 @@ const TaskDetail = () => {
                 <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-150", uitgeklapt && "rotate-180")} />
                 {uitgeklapt ? "Inklappen" : "Alles tonen"}
               </button>
+            )}
+
+            {/* Links in de tekst zijn in een tekstveld niet aan te klikken;
+                hier staan ze als knop, Moneybird met zijn eigen naam. */}
+            {linksIn(task.description).length > 0 && (
+              <div className="flex flex-wrap gap-x-4 gap-y-1">
+                {linksIn(task.description).map((url) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    {linkLabel(url)}
+                  </a>
+                ))}
+              </div>
             )}
           </div>
 

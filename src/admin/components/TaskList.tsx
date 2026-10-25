@@ -8,9 +8,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import StatusPill from "@/admin/ui/StatusPill";
 import { PRIORITY_WEIGHT, TOON } from "@/admin/constants";
-import { daysUntil, deadlineLabel, formatDate } from "@/admin/format";
+import { daysUntil, deadlineLabel, formatDate, korteOmschrijving } from "@/admin/format";
 import Avatar from "@/admin/ui/Avatar";
-import { useDeleteTask, useTasks, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
+import { useClients, useDeleteTask, useTasks, useUpdateTask, type TaskWithProject, type TeamMember } from "@/admin/queries";
 import { useConfirm } from "@/admin/useConfirm";
 
 interface TaskListProps {
@@ -54,6 +54,8 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
   // De volledige set staat al in de react-query-cache; hieruit tellen we de
   // stappen per taak, ook als de aanroeper een gefilterde lijst doorgeeft.
   const { data: allTasks = [] } = useTasks();
+  const { data: clients = [] } = useClients();
+  const klantNaam = (id: string | null | undefined) => (id ? clients.find((c) => c.id === id)?.name : undefined);
 
   const steps = (taskId: string) => {
     const own = allTasks.filter((t) => t.parent_task_id === taskId);
@@ -173,14 +175,19 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
           </Link>
 
           {/* Eén regel in een lijst; de hele omschrijving staat op de taakpagina. */}
-          {task.description && !done && (
-            <p className="mt-0.5 truncate text-[13px] text-muted-foreground">{task.description}</p>
+          {korteOmschrijving(task.description) && !done && (
+            <p className="mt-0.5 truncate text-[13px] text-muted-foreground">{korteOmschrijving(task.description)}</p>
           )}
 
           <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             {showProject && task.project && (
               <Link to={`/admin/projecten/${task.project.id}`} className="hover:text-foreground hover:underline">
                 {task.project.name}
+              </Link>
+            )}
+            {showProject && !task.project && klantNaam(task.client_id) && (
+              <Link to={`/admin/klanten/${task.client_id}`} className="hover:text-foreground hover:underline">
+                {klantNaam(task.client_id)}
               </Link>
             )}
             {assignee && <span>{assignee}</span>}
@@ -271,8 +278,8 @@ const TaskList = ({ tasks, team, showProject = true, empty, variant = "lijst" }:
               )}
             </div>
 
-            {task.description && (
-              <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{task.description}</p>
+            {korteOmschrijving(task.description) && (
+              <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{korteOmschrijving(task.description)}</p>
             )}
 
             {/* Onderregel: wie eraan werkt links, de kenmerken rechts. Dat is

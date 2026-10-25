@@ -23,8 +23,8 @@ function asMaximum(hoogste: number): number {
 
 /**
  * Hoeveel taken er per week zijn afgevinkt, uitgesplitst naar wie ze op naam
- * had. Gebouwd op completed_at, dat de database bij het afvinken zet; er is
- * geen urenregistratie, dus dit is de eerlijkste maat voor "wat is er gedaan".
+ * had. Gebouwd op completed_at, dat de database bij het afvinken zet. De
+ * gewerkte tijd staat in de kaart Gewerkte uren; dit is het werk dat af is.
  *
  * De balken zijn grijs; de gekozen week (standaard deze week, anders die waar
  * je overheen gaat) toont de verdeling in kleur, met de getallen ernaast.
