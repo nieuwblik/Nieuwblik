@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { addDays, format, startOfWeek } from "date-fns";
 import { nl } from "date-fns/locale";
-import { ArrowRight, ArrowUpRight, Play, Plus, Search, Square, UserPlus } from "lucide-react";
+import { ArrowRight, ArrowUpRight, LogOut, Play, Plus, Search, Square, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -361,7 +361,7 @@ const TimerPil = ({ style }: { style: CSSProperties }) => {
  * minder beweging ingesteld staat alles meteen stil op zijn plek.
  */
 const Start = () => {
-  const { profielNaam, user } = useAdminAuth();
+  const { profielNaam, user, signOut } = useAdminAuth();
   const taken = useTaakTellingen();
   const maandag = useMemo(() => startOfWeek(new Date(), { weekStartsOn: 1 }), []);
   const { data: weekUren = [] } = useUrenInPeriode(maandag, addDays(maandag, 7));
@@ -422,9 +422,19 @@ const Start = () => {
         {/* Bovenin alleen het merk en de weg naar het dashboard. */}
         <header className="flex items-center gap-3">
           <img src={logoSrc} alt="Nieuwblik" className="p-start-op h-6 w-auto brightness-0 invert" style={op(0)} />
+          {/* Uitloggen in glas: rustiger dan de witte knop ernaast, die je vaker nodig hebt. */}
+          <Button
+            size="sm"
+            className={cn(GLAS, "p-start-op-glas ml-auto text-white/90 hover:bg-[rgba(18,24,36,0.26)] hover:text-white")}
+            style={op(60)}
+            onClick={() => void signOut()}
+          >
+            <LogOut />
+            Uitloggen
+          </Button>
           {/* Een gewone portaalknop (afronding, gewicht en klikreactie van Button),
               maar wit: een donkere knop zou op de nachtscène wegvallen. */}
-          <Button asChild size="sm" className="p-start-op-glas ml-auto bg-white/95 text-neutral-900 hover:bg-white">
+          <Button asChild size="sm" className="p-start-op-glas bg-white/95 text-neutral-900 hover:bg-white">
             <VloeiendeLink to="/admin/dashboard" style={op(80)}>
               Dashboard
               <ArrowRight />
