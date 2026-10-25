@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { addMonths, startOfMonth } from "date-fns";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { DownloadCloud, Plus, Search, Users, X } from "lucide-react";
+import { DownloadCloud, Plus, Search, UserPlus, Users, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import ClientGrid from "@/admin/components/ClientGrid";
 import ClientTable from "@/admin/components/ClientTable";
 import EmptyState from "@/admin/components/EmptyState";
 import KlantgegevensAanvullen from "@/admin/components/KlantgegevensAanvullen";
+import KlantUitMoneybird from "@/admin/components/KlantUitMoneybird";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { ACTIVE_PROJECT_STATUSES, PROJECT_STATUS, PROJECT_STATUS_ORDER, TOON, type ProjectStatus } from "@/admin/constants";
 import { useCombinedRows, type ClientRow } from "@/admin/rows";
@@ -64,6 +65,7 @@ const Clients = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [uitMoneybird, setUitMoneybird] = useState(false);
   // Lijst of raster; per browser onthouden.
   const [weergave, setWeergave] = useState<Weergave>(leesWeergave);
   const zetWeergave = (nieuw: Weergave) => {
@@ -159,12 +161,18 @@ const Clients = () => {
             <DownloadCloud className="h-4 w-4" />
             Aanvullen uit Moneybird
           </Button>
+          <Button variant="outline" onClick={() => setUitMoneybird(true)}>
+            <UserPlus className="h-4 w-4" />
+            Toevoegen uit Moneybird
+          </Button>
           <Button onClick={() => setDialogOpen(true)}>
             <Plus className="h-4 w-4" />
             Nieuwe klant
           </Button>
         </div>
       </div>
+
+      <KlantUitMoneybird open={uitMoneybird} onOpenChange={setUitMoneybird} />
 
       <KlantgegevensAanvullen
         open={searchParams.get("aanvullen") === "1"}
