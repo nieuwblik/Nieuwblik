@@ -168,10 +168,17 @@ const ProjectPlus = ({ lopend, onKies }: { lopend: boolean; onKies: (projectId: 
           </span>
         </button>
       </PopoverTrigger>
-      <PopoverContent align="center" sideOffset={10} className="w-72">
-        <Command>
-          <CommandInput placeholder="Zoek een project" />
-          <CommandList>
+      {/* Rustig lijstje: zelfde afronding als de vensters, ruimte rond elke
+          regel, en geen schuifbalk maar een zachte vervaging onderaan die
+          laat zien dat er meer is. */}
+      <PopoverContent
+        align="center"
+        sideOffset={10}
+        className="w-72 overflow-hidden rounded-[var(--venster-radius,1rem)] shadow-[0_16px_48px_-12px_rgba(0,0,0,0.45)]"
+      >
+        <Command className="rounded-none [&_[cmdk-item]]:px-2.5 [&_[cmdk-item]]:py-2 [&_[cmdk-item]]:text-sm">
+          <CommandInput placeholder="Zoek een project" className="h-11" />
+          <CommandList className="max-h-[292px] pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-28px),transparent)] [scrollbar-width:none]! [&::-webkit-scrollbar]:hidden">
             <CommandEmpty>Geen project gevonden</CommandEmpty>
             <CommandGroup>
               {keuzes.map((p) => {
