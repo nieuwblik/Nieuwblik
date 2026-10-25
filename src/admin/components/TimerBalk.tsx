@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Clock, Play, Square } from "lucide-react";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -200,19 +199,27 @@ const TimerBalk = () => {
         {formatKlok(seconden)}
       </span>
 
-      <Button
-        size="icon"
+      {/* Rustig rond knopje met een zachte tint in plaats van een vol blok:
+          groen om te starten, rood zolang hij loopt. Bij hover iets voller. */}
+      <button
+        type="button"
         onClick={() => void startOfStop()}
         disabled={start.isPending || stop.isPending}
         title={lopend ? "Timer stoppen" : "Timer starten"}
         aria-label={lopend ? "Timer stoppen" : "Timer starten"}
         className={cn(
-          "h-8 w-8 rounded-lg",
-          lopend ? "bg-danger text-white hover:bg-danger/90" : "bg-accent text-accent-foreground hover:bg-accent/90",
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-[background-color,transform] duration-150 active:scale-90 disabled:opacity-50",
+          lopend
+            ? "bg-danger/10 text-danger-ink hover:bg-danger/20"
+            : "bg-accent/10 text-accent hover:bg-accent/20 dark:text-[hsl(160_60%_55%)]",
         )}
       >
-        {lopend ? <Square className="h-3.5 w-3.5 fill-current" /> : <Play className="h-3.5 w-3.5 fill-current" />}
-      </Button>
+        {lopend ? (
+          <Square className="h-2.5 w-2.5 fill-current" />
+        ) : (
+          <Play className="ml-px h-3 w-3 fill-current" />
+        )}
+      </button>
     </div>
   );
 };
