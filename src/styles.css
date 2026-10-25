@@ -478,69 +478,71 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Kleuren van het portaal: de neutralen van de Claude-app, licht en donker.
-   Licht is warm crème (zijbalk #f5f4ed, tekst #141413) met een wit paginavlak,
-   donker warm grijs (zijbalk #1f1e1d, pagina #262624, vlakken #30302e, tekst
-   #faf9f5). Het groene accent van Nieuwblik blijft.
+   Kleuren van het portaal: die van de Claude-app, gemeten uit de app zelf.
+   Licht: zijbalk #fafafa, pagina wit, actief item #e0e0e0, tekst #1d1d1d,
+   bijschrift #696969. Donker: zijbalk #1f1f1f, pagina #181818, vlakken
+   #2f2f2f, actief item #404040, randen #303030, tekst #f4f4f4, bijschrift
+   #9f9f9f. Neutraal grijs, zonder tint. Het groene accent van Nieuwblik
+   blijft.
 
    Alleen op .portaal (staat op <html>), zodat de publieke site zijn eigen wit
    en zwart houdt. Buiten een laag en met .portaal.dark voor donker, zodat
    deze waarden altijd voorgaan op de algemene tokens hierboven.
    --------------------------------------------------------------------------- */
 .portaal {
-  --background: 0 0% 100%;            /* het paginavlak blijft wit; de zijbalk is crème */
-  --foreground: 60 3% 8%;             /* #141413 */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 11%;             /* #1d1d1d */
   --card: 0 0% 100%;
-  --card-foreground: 60 3% 8%;
+  --card-foreground: 0 0% 11%;
   --popover: 0 0% 100%;
-  --popover-foreground: 60 3% 8%;
-  --primary: 60 3% 8%;
-  --primary-foreground: 48 33% 97%;
-  --secondary: 53 29% 94.5%;          /* #f5f4ed */
-  --secondary-foreground: 60 3% 8%;
-  --muted: 53 29% 94.5%;
-  --muted-foreground: 51 3% 44%;      /* #73726c */
-  --border: 48 13% 86%;
-  --input: 48 13% 84%;
+  --popover-foreground: 0 0% 11%;
+  --primary: 0 0% 11%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 11%;
+  --muted: 0 0% 96%;                  /* #f5f5f5 */
+  --muted-foreground: 0 0% 41%;       /* #696969 */
+  --border: 0 0% 92%;                 /* #ebebeb */
+  --input: 0 0% 89%;
 
-  --rail: 53 29% 94.5%;               /* #f5f4ed */
-  --rail-panel: 48 25% 92%;           /* #f0eee6 */
-  --rail-fg: 60 3% 8%;
-  --rail-muted: 51 3% 44%;
-  --rail-hover: 48 25% 92%;
-  --rail-active: 50 21% 88.6%;        /* #e8e6dc */
-  --rail-border: 48 13% 86%;
+  --rail: 0 0% 98%;                   /* #fafafa */
+  --rail-panel: 0 0% 92%;
+  --rail-fg: 0 0% 11%;
+  --rail-muted: 0 0% 41%;
+  --rail-hover: 0 0% 94%;
+  --rail-active: 0 0% 88%;            /* #e0e0e0 */
+  --rail-border: 0 0% 94.5%;          /* #f1f1f1 */
 
-  --s-neutral: 51 4% 52%;
-  --s-neutral-ink: 51 4% 32%;
+  --s-neutral: 0 0% 52%;
+  --s-neutral-ink: 0 0% 32%;
 }
 
 .portaal.dark {
-  --background: 60 3% 14.5%;          /* #262624 */
-  --foreground: 48 33% 97%;           /* #faf9f5 */
-  --card: 60 2% 18.4%;                /* #30302e */
-  --card-foreground: 48 33% 97%;
-  --popover: 60 2% 18.4%;
-  --popover-foreground: 48 33% 97%;
-  --primary: 48 33% 97%;
-  --primary-foreground: 60 3% 14.5%;
-  --secondary: 60 2% 21%;
-  --secondary-foreground: 48 33% 97%;
-  --muted: 60 2% 20.5%;
-  --muted-foreground: 48 5% 59%;      /* #9c9a92 */
-  --border: 45 4% 24%;
-  --input: 45 4% 27%;
+  --background: 0 0% 9.4%;            /* #181818 */
+  --foreground: 0 0% 95.7%;           /* #f4f4f4 */
+  --card: 0 0% 12.2%;                 /* #1f1f1f */
+  --card-foreground: 0 0% 95.7%;
+  --popover: 0 0% 18.4%;              /* #2f2f2f */
+  --popover-foreground: 0 0% 95.7%;
+  --primary: 0 0% 95.7%;
+  --primary-foreground: 0 0% 9.4%;
+  --secondary: 0 0% 18.4%;
+  --secondary-foreground: 0 0% 95.7%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 62%;       /* #9f9f9f */
+  --border: 0 0% 18.8%;               /* #303030 */
+  --input: 0 0% 21%;
 
-  --rail: 30 3% 11.8%;                /* #1f1e1d */
-  --rail-panel: 60 2% 20%;
-  --rail-fg: 48 33% 97%;
-  --rail-muted: 48 5% 59%;
-  --rail-hover: 40 3% 16%;
-  --rail-active: 60 2% 20%;           /* #343432 */
-  --rail-border: 45 3% 21%;
+  --rail: 0 0% 12.2%;                 /* #1f1f1f */
+  --rail-panel: 0 0% 25%;
+  --rail-fg: 0 0% 95.7%;
+  --rail-muted: 0 0% 62%;
+  --rail-hover: 0 0% 17%;
+  --rail-active: 0 0% 25%;            /* #404040 */
+  --rail-border: 0 0% 16%;            /* #292929 */
 
-  --s-neutral: 48 4% 55%;
-  --s-neutral-ink: 48 6% 74%;
+  --s-neutral: 0 0% 55%;
+  --s-neutral-ink: 0 0% 74%;
 }
 
 
