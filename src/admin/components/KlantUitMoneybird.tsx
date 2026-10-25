@@ -20,7 +20,25 @@ import {
   zoekKlantBij,
   type MoneybirdContactVolledig,
 } from "@/admin/financien";
-import { adminKeys, useClients, useTasks } from "@/admin/queries";
+import { waarschijnlijkeKlant, type KlantVoorstel } from "@/admin/klantMatch";
+import { adminKeys, useClients, useTasks, type Client, type TaskWithProject } from "@/admin/queries";
+
+/** Open taken zonder klant met deze naam in de titel naar de klant zetten. */
+async function koppelLosseTaken(naam: string, clientId: string, tasks: TaskWithProject[]) {
+  const zoek = naam.toLowerCase();
+  const losse = tasks.filter((t) => !t.project_id && !t.client_id && t.status !== "klaar" && t.title.toLowerCase().includes(zoek));
+  if (losse.length === 0) return 0;
+  const { error } = await supabase
+    .from("tasks")
+    .update({ client_id: clientId })
+    .in(
+      "id",
+      losse.map((t) => t.id),
+    );
+  return error ? 0 : losse.length;
+}
+
+const leeg = (v: string | null | undefined) => !v || !v.trim();
 
 /**
  * Klanten die alleen in Moneybird staan, in één keer in het portaal zetten:
@@ -33,6 +51,11 @@ import { adminKeys, useClients, useTasks } from "@/admin/queries";
  *
  * Open taken zonder klant die de naam in hun titel hebben (zoals een
  * offerte die gefactureerd moet worden) gaan meteen naar de nieuwe klant.
+ *
+ * Tegen dubbele klanten: een contact dat lijkt op een klant die nog niet aan
+ * Moneybird gekoppeld is (zelfde domein, bijna dezelfde naam), staat apart
+ * met een knop om te koppelen in plaats van toe te voegen. Alleen lege
+ * velden van die klant worden dan aangevuld.
  */
 const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
   const { user } = useAdminAuth();
@@ -44,11 +67,15 @@ const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange
   const [zoek, setZoek] = useState("");
   const [gekozen, setGekozen] = useState<Set<string>>(new Set());
   const [bezig, setBezig] = useState(false);
+  const [koppelt, setKoppelt] = useState<string | null>(null);
+  /** Contacten waarvan je zei dat het een andere klant is dan voorgesteld. */
+  const [afgewezen, setAfgewezen] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!open) return;
     setZoek("");
     setGekozen(new Set());
+    setAfgewezen(new Set());
   }, [open]);
 
   /** Namen uit facturen, offertes en betalingen: die contacten zijn klant. */
@@ -63,8 +90,9 @@ const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange
     return namen;
   }, [financien]);
 
-  const { uitFacturen, overige } = useMemo(() => {
+  const { lijktOp, uitFacturen, overige } = useMemo(() => {
     const gekoppeld = new Set(clients.flatMap((c) => (c.moneybird_contact_id ? [c.moneybird_contact_id] : [])));
+    const ongekoppeld = clients.filter((c) => !c.moneybird_contact_id);
     const term = zoek.trim().toLowerCase();
     const los = (data?.contacten ?? []).filter(
       (c) =>
@@ -72,11 +100,49 @@ const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange
         !zoekKlantBij(c, clients) &&
         (!term || c.naam.toLowerCase().includes(term) || (c.email ?? "").toLowerCase().includes(term)),
     );
+    const metVoorstel = los.flatMap((c) => {
+      if (afgewezen.has(c.id)) return [];
+      const voorstel = waarschijnlijkeKlant(c, ongekoppeld);
+      return voorstel ? [{ contact: c, voorstel }] : [];
+    });
+    const apart = new Set(metVoorstel.map((m) => m.contact.id));
+    const rest = los.filter((c) => !apart.has(c.id));
     return {
-      uitFacturen: los.filter((c) => klantNamen.has(klantSleutel(c.naam))),
-      overige: los.filter((c) => !klantNamen.has(klantSleutel(c.naam))),
+      lijktOp: metVoorstel.sort((a, b) => b.voorstel.score - a.voorstel.score),
+      uitFacturen: rest.filter((c) => klantNamen.has(klantSleutel(c.naam))),
+      overige: rest.filter((c) => !klantNamen.has(klantSleutel(c.naam))),
     };
-  }, [data, clients, zoek, klantNamen]);
+  }, [data, clients, zoek, klantNamen, afgewezen]);
+
+  const koppel = async (contact: MoneybirdContactVolledig, klant: Client) => {
+    setKoppelt(contact.id);
+    const { error: fout } = await supabase
+      .from("clients")
+      .update({
+        moneybird_contact_id: contact.id,
+        ...(leeg(klant.email) && contact.email ? { email: contact.email } : {}),
+        ...(leeg(klant.phone) && contact.telefoon ? { phone: contact.telefoon } : {}),
+        ...(leeg(klant.city) && contact.plaats ? { city: contact.plaats } : {}),
+        ...(leeg(klant.contact_name) && contact.persoon ? { contact_name: contact.persoon } : {}),
+      })
+      .eq("id", klant.id);
+    const taken = fout ? 0 : await koppelLosseTaken(contact.naam, klant.id, tasks);
+    setKoppelt(null);
+    if (fout) {
+      toast.error(`Koppelen mislukt: ${fout.message}`);
+      return;
+    }
+    setGekozen((huidig) => {
+      const nieuw = new Set(huidig);
+      nieuw.delete(contact.id);
+      return nieuw;
+    });
+    void qc.invalidateQueries({ queryKey: adminKeys.clients });
+    void qc.invalidateQueries({ queryKey: adminKeys.tasks });
+    toast.success(`${klant.name} gekoppeld aan ${contact.naam}`, {
+      description: taken > 0 ? `${taken} ${taken === 1 ? "taak staat" : "taken staan"} nu bij deze klant.` : undefined,
+    });
+  };
 
   const wissel = (id: string) =>
     setGekozen((huidig) => {
@@ -107,21 +173,7 @@ const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange
         .single();
       if (fout || !klant) continue;
       klanten += 1;
-
-      const naam = c.naam.toLowerCase();
-      const losseTaken = tasks.filter(
-        (t) => !t.project_id && !t.client_id && t.status !== "klaar" && t.title.toLowerCase().includes(naam),
-      );
-      if (losseTaken.length > 0) {
-        const { error: koppelFout } = await supabase
-          .from("tasks")
-          .update({ client_id: klant.id })
-          .in(
-            "id",
-            losseTaken.map((t) => t.id),
-          );
-        if (!koppelFout) taken += losseTaken.length;
-      }
+      taken += await koppelLosseTaken(c.naam, klant.id, tasks);
     }
     setBezig(false);
     void qc.invalidateQueries({ queryKey: adminKeys.clients });
@@ -164,6 +216,25 @@ const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange
       </div>
     );
 
+  const lijktOpRij = ({ contact: c, voorstel }: { contact: MoneybirdContactVolledig; voorstel: KlantVoorstel }) => (
+    <li key={c.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2.5 text-sm">
+      <span className="min-w-0 flex-1 basis-56">
+        <span className="block font-medium">
+          {c.naam} <span className="font-normal text-muted-foreground">is waarschijnlijk</span> {voorstel.client.name}
+        </span>
+        <span className="mt-0.5 block text-[13px] text-muted-foreground">{voorstel.reden}</span>
+      </span>
+      <span className="flex shrink-0 gap-1.5">
+        <Button size="sm" variant="ghost" onClick={() => setAfgewezen((huidig) => new Set(huidig).add(c.id))}>
+          Andere klant
+        </Button>
+        <Button size="sm" disabled={koppelt !== null} onClick={() => void koppel(c, voorstel.client)}>
+          {koppelt === c.id ? "Bezig…" : "Koppelen"}
+        </Button>
+      </span>
+    </li>
+  );
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex max-h-[90vh] flex-col sm:max-w-xl">
@@ -188,12 +259,20 @@ const KlantUitMoneybird = ({ open, onOpenChange }: { open: boolean; onOpenChange
             </div>
           ) : isError ? (
             <p className={cn("text-sm", TOON.danger.tekst)}>{error instanceof Error ? error.message : "Ophalen mislukt"}</p>
-          ) : uitFacturen.length + overige.length === 0 ? (
+          ) : lijktOp.length + uitFacturen.length + overige.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               {zoek.trim() ? "Geen contact gevonden." : "Elk contact in Moneybird is al klant in het portaal."}
             </p>
           ) : (
             <>
+              {lijktOp.length > 0 && (
+                <div>
+                  <h3 className="mb-1.5 text-[13px] text-muted-foreground">
+                    Staat waarschijnlijk al in het portaal: koppel in plaats van toevoegen
+                  </h3>
+                  <ul className="divide-y divide-border rounded-xl border border-border">{lijktOp.map(lijktOpRij)}</ul>
+                </div>
+              )}
               {groep("Uit je facturen, offertes en betalingen", uitFacturen)}
               {groep(uitFacturen.length > 0 ? "Overige contacten" : "Contacten", overige)}
             </>

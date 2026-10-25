@@ -16,6 +16,7 @@ import {
   type KlantVoorstel,
   type MoneybirdContactVolledig,
 } from "@/admin/financien";
+import { waarschijnlijkContact } from "@/admin/klantMatch";
 import { adminKeys, useClients, type Client } from "@/admin/queries";
 
 const VELD: Record<string, string> = {
@@ -48,9 +49,9 @@ function veldenUit(klant: Client, c: MoneybirdContactVolledig): KlantVoorstel["v
 const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
   const { data, isLoading, isError, error } = useKlantenAanvullen(open);
   const { data: clients = [] } = useClients();
-  const losse = [...(data?.zonderContact ?? []), ...(data?.twijfel ?? [])];
+  const losse = useMemo(() => [...(data?.zonderContact ?? []), ...(data?.twijfel ?? [])], [data]);
   const { data: contactData } = useMoneybirdContacten(open && losse.length > 0);
-  const contacten = contactData?.contacten ?? [];
+  const contacten = useMemo(() => contactData?.contacten ?? [], [contactData]);
   const qc = useQueryClient();
   const [gekozen, setGekozen] = useState<Set<string>>(new Set());
   const [handmatig, setHandmatig] = useState<Map<string, MoneybirdContactVolledig>>(new Map());
@@ -79,6 +80,19 @@ const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenC
       else nieuw.add(id);
       return nieuw;
     });
+
+  /** Per losse klant het meest waarschijnlijke contact, uit de contacten die nog vrij zijn. */
+  const voorstelVoor = useMemo(() => {
+    const bezet = new Set(clients.flatMap((k) => (k.moneybird_contact_id ? [k.moneybird_contact_id] : [])));
+    const vrij = contacten.filter((c) => !bezet.has(c.id));
+    const kaart = new Map<string, { contact: MoneybirdContactVolledig; reden: string }>();
+    for (const l of losse) {
+      const klant = clients.find((k) => k.id === l.clientId);
+      const v = klant ? waarschijnlijkContact(klant, vrij) : null;
+      if (v) kaart.set(l.clientId, v);
+    }
+    return kaart;
+  }, [clients, contacten, losse]);
 
   const koppel = (clientId: string, contactId: string) => {
     const c = contacten.find((x) => x.id === contactId);
@@ -170,8 +184,20 @@ const KlantgegevensAanvullen = ({ open, onOpenChange }: { open: boolean; onOpenC
                   {losse
                     .filter((l) => !handmatig.has(l.clientId))
                     .map((l) => (
-                      <li key={l.clientId} className="flex items-center gap-3 px-3 py-2 text-sm">
-                        <span className="min-w-0 flex-1 truncate font-medium">{l.naam}</span>
+                      <li key={l.clientId} className="flex flex-wrap items-center gap-x-3 gap-y-1.5 px-3 py-2 text-sm">
+                        <span className="min-w-0 flex-1 basis-40">
+                          <span className="block truncate font-medium">{l.naam}</span>
+                          {voorstelVoor.get(l.clientId) && (
+                            <button
+                              type="button"
+                              onClick={() => koppel(l.clientId, voorstelVoor.get(l.clientId)!.contact.id)}
+                              title={voorstelVoor.get(l.clientId)!.reden}
+                              className="mt-0.5 block max-w-full truncate text-left text-[13px] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                            >
+                              Waarschijnlijk {voorstelVoor.get(l.clientId)!.contact.naam}: koppelen
+                            </button>
+                          )}
+                        </span>
                         <Select onValueChange={(waarde) => koppel(l.clientId, waarde)}>
                           <SelectTrigger className="h-9 w-56" aria-label={`Moneybird-contact voor ${l.naam}`}>
                             <SelectValue placeholder={contactData ? "Kies een contact" : "Contacten laden…"} />
