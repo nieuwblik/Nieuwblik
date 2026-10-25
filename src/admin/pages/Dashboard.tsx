@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
-import { nl } from "date-fns/locale";
 
 import AandachtKaart from "@/admin/dashboard/AandachtKaart";
 import ActiviteitKaart from "@/admin/dashboard/ActiviteitKaart";
@@ -18,9 +16,7 @@ import TaakoverzichtKaart from "@/admin/dashboard/TaakoverzichtKaart";
 import UrenKaart from "@/admin/dashboard/UrenKaart";
 import WebsitesKaart from "@/admin/dashboard/WebsitesKaart";
 import { useMailings } from "@/admin/queries";
-import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
-
-const meervoud = (aantal: number, een: string, meer: string) => `${aantal} ${aantal === 1 ? een : meer}`;
+import { useTeFactureren } from "@/admin/stats";
 
 /**
  * Het beginscherm, in twee kolommen: links breed wat er moet en wat er gedaan
@@ -52,15 +48,8 @@ const Dashboard = () => {
     return () => window.clearTimeout(id);
   }, []);
 
-  const taken = useTaakTellingen();
   const facturen = useTeFactureren();
   const { data: mailings = [] } = useMailings(1);
-
-  const samenvatting = [
-    taken.teLaat.length > 0 && `${meervoud(taken.teLaat.length, "taak", "taken")} te laat`,
-    taken.vandaag.length > 0 && `${meervoud(taken.vandaag.length, "deadline", "deadlines")} vandaag`,
-    `${meervoud(taken.open.length, "open taak", "open taken")}`,
-  ].filter(Boolean);
 
   const toonHosting = facturen.contracten > 0;
   // Pas na de eerste mailing: daarvoor zegt de kaart alleen "Nog niets verstuurd".
@@ -69,16 +58,9 @@ const Dashboard = () => {
   return (
     <div className="mx-auto max-w-[1400px] space-y-5">
       <div className="space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <div className="min-w-0">
-            {/* De begroeting staat op Start; hier het overzicht zelf. */}
-            <h1 className="text-[26px] leading-tight tracking-tight sm:text-[30px]">Dashboard</h1>
-            <p className="mt-1 text-sm text-muted-foreground first-letter:uppercase">
-              {format(new Date(), "EEEE d MMMM", { locale: nl })} · {samenvatting.join(", ")}
-            </p>
-          </div>
-
-        </div>
+        {/* De begroeting staat op Start; hier alleen de kop. Wat te laat is en
+            wat vandaag moet, staat in de kaarten zelf. */}
+        <h1 className="text-[26px] leading-tight tracking-tight sm:text-[30px]">Dashboard</h1>
         <SnelleKnoppen />
         <Meldingen />
       </div>
