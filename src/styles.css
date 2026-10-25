@@ -1572,3 +1572,10 @@ html.tn-vast { overflow: hidden; }
     animation: none;
   }
 }
+
+/* De begroeting op Start: groot en licht, eleganter dan de halfvette koppen
+   elders. Specifieker dan ".portaal h1", dat het gewicht met !important vastzet. */
+.portaal h1.p-groet {
+  font-weight: 300 !important;
+  letter-spacing: -0.025em;
+}

@@ -424,11 +424,14 @@ const AdminLayout = () => {
   useEffect(() => {
     const naam = () => setNaamOpen(true);
     const zoek = () => setPaletteOpen(true);
+    const taak = () => setCaptureOpen(true);
     window.addEventListener("portaal:naam-instellen", naam);
     window.addEventListener("portaal:zoeken", zoek);
+    window.addEventListener("portaal:nieuwe-taak", taak);
     return () => {
       window.removeEventListener("portaal:naam-instellen", naam);
       window.removeEventListener("portaal:zoeken", zoek);
+      window.removeEventListener("portaal:nieuwe-taak", taak);
     };
   }, []);
 
