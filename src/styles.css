@@ -1039,6 +1039,28 @@ h1, h2, h3, h4, h5, h6 {
   --tw-shadow: 0 0 #0000;
 }
 
+/* Knoppen zoals in de Claude-app. De hoofdknop is gevuld in de tekstkleur
+   (licht: bijna zwart met witte tekst, donker: bijna wit met donkere tekst);
+   dat doet --primary al. De tweede knop (outline en secondary) is een zacht
+   grijs vlak zonder rand, en een doorzichtige knop krijgt bij hover hetzelfde
+   grijs in plaats van groen. Ruimer afgerond en iets zwaarder. De knop-
+   component leest deze variabelen; de publieke site zet ze niet. */
+.portaal {
+  --knop-radius: 10px;
+  --knop-gewicht: 500;
+  --knop-rand: transparent;
+  --knop-vlak: hsl(var(--foreground) / 0.07);
+  --knop-vlak-hover: hsl(var(--foreground) / 0.11);
+  --knop-spook-hover: hsl(var(--foreground) / 0.06);
+  --knop-tekst-hover: hsl(var(--foreground));
+}
+
+.portaal.dark {
+  --knop-vlak: hsl(var(--foreground) / 0.12);
+  --knop-vlak-hover: hsl(var(--foreground) / 0.17);
+  --knop-spook-hover: hsl(var(--foreground) / 0.08);
+}
+
 /* Velden zonder ring eromheen als je erin klikt, zoals in de Claude-app:
    alleen de eigen rand wordt iets donkerder, zodat je ziet waar je typt.
    Knoppen houden hun ring, maar die verschijnt alleen bij het toetsenbord. */
