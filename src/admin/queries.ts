@@ -5,9 +5,9 @@ import { contactBijwerken } from "@/admin/financien";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { volgendeDeadline } from "@/admin/herhaling";
-import type { Herhaling, KlantVerborgen } from "@/admin/werkstroom";
+import type { Herhaling } from "@/admin/werkstroom";
 
-export type Client = Tables<"clients"> & KlantVerborgen;
+export type Client = Tables<"clients">;
 export type Project = Tables<"projects">;
 export type Task = Tables<"tasks">;
 export type ProjectUpdate = Tables<"project_updates">;
@@ -197,8 +197,7 @@ export function useVerbergKlant() {
     mutationFn: async ({ id, verbergen }: { id: string; verbergen: boolean }) => {
       const { error } = await supabase
         .from("clients")
-        // verborgen_op staat nog niet in de gegenereerde types (zie KlantVerborgen).
-        .update({ verborgen_op: verbergen ? new Date().toISOString() : null } as TablesUpdate<"clients">)
+        .update({ verborgen_op: verbergen ? new Date().toISOString() : null })
         .eq("id", id);
       if (error) {
         throw new Error(
