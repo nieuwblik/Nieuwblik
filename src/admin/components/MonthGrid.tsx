@@ -123,7 +123,8 @@ const MonthGrid = ({
                 compact ? "h-11 sm:aspect-[4/3] sm:h-auto" : "h-12 sm:aspect-[4/3] sm:h-auto",
                 zwaarste ? ACCENT[zwaarste].cel : "border-border bg-background hover:bg-muted/50",
                 buitenMaand && "opacity-40",
-                gekozen && "ring-2 ring-ring ring-offset-1 ring-offset-background",
+                // Een dunne rand aan de binnenkant: zichtbaar, zonder de dikke groene ring.
+                gekozen && "ring-1 ring-inset ring-foreground/30",
               )}
             >
               <span

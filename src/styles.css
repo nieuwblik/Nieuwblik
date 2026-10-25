@@ -504,6 +504,8 @@
   --muted-foreground: 0 0% 41%;       /* #696969 */
   --border: 0 0% 92%;                 /* #ebebeb */
   --input: 0 0% 89%;
+  /* Focus- en selectieringen zacht grijs in plaats van 2px donkergroen. */
+  --ring: 0 0% 76%;
 
   --rail: 0 0% 98%;                   /* #fafafa */
   --rail-panel: 0 0% 92%;
@@ -532,6 +534,7 @@
   --muted-foreground: 0 0% 62%;       /* #9f9f9f */
   --border: 0 0% 18.8%;               /* #303030 */
   --input: 0 0% 21%;
+  --ring: 0 0% 38%;
 
   --rail: 0 0% 12.2%;                 /* #1f1f1f */
   --rail-panel: 0 0% 25%;
