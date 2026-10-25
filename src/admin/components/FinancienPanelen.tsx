@@ -1,23 +1,19 @@
 import { format, parseISO } from "date-fns";
 import { nl } from "date-fns/locale";
-import { BadgeCheck, CalendarClock, ExternalLink, FileSignature, ShoppingBag } from "lucide-react";
+import { BadgeCheck, CalendarClock, ExternalLink, ShoppingBag } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { TOON, type Toon } from "@/admin/constants";
+import { TOON } from "@/admin/constants";
 import { daysUntil } from "@/admin/format";
 import {
   heeftData,
   isCredit,
-  OFFERTE_WACHTTIJD,
-  offerteWachtDagen,
   type Betaling,
-  type Offerte,
   type Onderdeel,
   type OpenFactuur,
   type Uitgaven,
 } from "@/admin/financien";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
-import StatusPill from "@/admin/ui/StatusPill";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
 const datumKort = (d: string | null) => (d ? format(parseISO(d), "d MMM", { locale: nl }).replace(".", "") : "–");
@@ -255,81 +251,9 @@ export const BetalingenPanel = ({ betalingen }: { betalingen: Onderdeel<Betaling
   );
 };
 
-const OFFERTESTATUS: Record<string, { label: string; toon: Toon }> = {
-  open: { label: "Uitstaand", toon: "info" },
-  late: { label: "Verlopen", toon: "danger" },
-  accepted: { label: "Geaccepteerd", toon: "success" },
-};
 
 /**
  * Offertes die uitstaan, verlopen zijn of geaccepteerd zijn en nog
  * gefactureerd moeten worden. Wie al twee weken niets van zich liet horen,
  * krijgt een duidelijk teken: tijd om na te bellen.
  */
-export const OffertesPanel = ({ offertes }: { offertes: Onderdeel<Offerte[]> }) => {
-  const { bedrag } = useBedragenVerborgen();
-  const lijst = heeftData(offertes) ? offertes.data : [];
-  const uitstaand = lijst.filter((o) => o.status !== "accepted");
-  const zonderRecht = !heeftData(offertes) && /403|recht/i.test(offertes.fout);
-
-  return (
-    <Panel>
-      <PanelHeader
-        icon={FileSignature}
-        titel="Offertes"
-        subtitel={
-          heeftData(offertes)
-            ? `${uitstaand.length} uitstaand, ${bedrag(uitstaand.reduce((som, o) => som + o.bedrag, 0), 0)} excl. btw`
-            : "Uitstaand en geaccepteerd"
-        }
-      />
-      <PanelBody className="px-2 pb-2 pt-2">
-        {!heeftData(offertes) ? (
-          <p className={cn("px-2 py-2 text-sm", zonderRecht ? "text-muted-foreground" : TOON.danger.tekst)}>
-            {zonderRecht
-              ? "De Moneybird-sleutel mag nog geen offertes lezen. Maak in Moneybird een nieuwe sleutel met ook het recht Offertes (estimates) en zet die in Lovable als MONEYBIRD_API_TOKEN."
-              : offertes.fout}
-          </p>
-        ) : lijst.length === 0 ? (
-          <p className="px-2 py-2 text-sm text-muted-foreground">Geen offertes die uitstaan.</p>
-        ) : (
-          <ul>
-            {lijst.map((o) => {
-              const status = OFFERTESTATUS[o.status] ?? OFFERTESTATUS["open"]!;
-              const wacht = offerteWachtDagen(o);
-              return (
-                <li key={o.id}>
-                  <a
-                    href={o.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-rij flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm"
-                  >
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate font-medium">{o.klant}</span>
-                      <span
-                        className={cn(
-                          "block text-[13px] text-muted-foreground",
-                          wacht >= OFFERTE_WACHTTIJD && TOON.warning.tekst,
-                        )}
-                      >
-                        {o.nummer ?? "Concept"} ·{" "}
-                        {o.status === "accepted"
-                          ? `geaccepteerd ${datumKort((o.geaccepteerd ?? "").slice(0, 10) || null)}, nog factureren`
-                          : wacht >= OFFERTE_WACHTTIJD
-                            ? `${wacht} dagen geen reactie, tijd om na te vragen`
-                            : `verstuurd ${datumKort((o.verstuurd ?? o.datum ?? "").slice(0, 10) || null)}`}
-                      </span>
-                    </span>
-                    <StatusPill toon={status.toon}>{status.label}</StatusPill>
-                    <span className="w-20 text-right font-medium tabular-nums">{bedrag(o.bedrag, 0)}</span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </PanelBody>
-    </Panel>
-  );
-};

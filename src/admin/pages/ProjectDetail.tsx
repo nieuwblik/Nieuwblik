@@ -1,6 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ArrowLeft, CheckSquare, ChevronRight, FileText, Mail, MoreHorizontal, Pencil, Phone, Plus, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckSquare,
+  ChevronRight,
+  FileSignature,
+  FileText,
+  Mail,
+  MoreHorizontal,
+  Pencil,
+  Phone,
+  Plus,
+  Receipt,
+  Trash2,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +28,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
+import DocumentOpstellen from "@/admin/components/DocumentOpstellen";
 import ProjectRail from "@/admin/components/ProjectRail";
 import ProjectUren from "@/admin/components/ProjectUren";
 import TaskList from "@/admin/components/TaskList";
@@ -55,6 +69,7 @@ const Tab = ({ value, children, count }: { value: string; children: React.ReactN
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [documentSoort, setDocumentSoort] = useState<"offerte" | "factuur" | null>(null);
   const { createTask, isPending } = useCreateTask();
   const { user } = useAdminAuth();
   const { data: project, isLoading, isError } = useProject(id);
@@ -230,6 +245,18 @@ const ProjectDetail = () => {
                 <Pencil className="h-4 w-4" />
                 Bewerken
               </DropdownMenuItem>
+              {project.client && (
+                <>
+                  <DropdownMenuItem onSelect={() => setDocumentSoort("offerte")}>
+                    <FileSignature className="h-4 w-4" />
+                    Offerte maken
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => setDocumentSoort("factuur")}>
+                    <Receipt className="h-4 w-4" />
+                    Factuur maken
+                  </DropdownMenuItem>
+                </>
+              )}
               <DropdownMenuItem onSelect={() => navigate(`/admin/projecten/${project.id}/rapport`)}>
                 <FileText className="h-4 w-4" />
                 Maandrapport
@@ -335,6 +362,15 @@ const ProjectDetail = () => {
         project={project}
         userId={user?.id ?? null}
       />
+
+      {client && (
+        <DocumentOpstellen
+          open={documentSoort !== null}
+          onOpenChange={(open) => !open && setDocumentSoort(null)}
+          soort={documentSoort ?? "offerte"}
+          voor={{ ontvanger: { soort: "klant", clientId: client.id }, naam: client.name, email: client.email }}
+        />
+      )}
 
       {dialoog}
     </div>

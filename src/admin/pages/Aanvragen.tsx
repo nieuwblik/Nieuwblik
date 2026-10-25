@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Building2, Inbox, Mail, Phone, Trash2, UserPlus, UserRound } from "lucide-react";
+import { Building2, FileSignature, Inbox, Mail, Phone, Trash2, UserPlus, UserRound } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
   useUpdateAanvraag,
 } from "@/admin/aanvragen";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
+import DocumentOpstellen from "@/admin/components/DocumentOpstellen";
 import EmptyState from "@/admin/components/EmptyState";
 import { formatDateTime, timeAgo } from "@/admin/format";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
@@ -49,6 +50,7 @@ const Aanvragen = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filter, setFilter] = useState<Filter>("open");
   const [klantVan, setKlantVan] = useState<Aanvraag | null>(null);
+  const [offerteVoor, setOfferteVoor] = useState<Aanvraag | null>(null);
   const [notitie, setNotitie] = useState("");
 
   const zichtbaar = useMemo(
@@ -276,6 +278,10 @@ const Aanvragen = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 border-t border-border pt-4">
+                  <Button variant="outline" size="sm" onClick={() => setOfferteVoor(gekozen)}>
+                    <FileSignature className="h-4 w-4" />
+                    Maak offerte
+                  </Button>
                   {gekozen.client_id ? (
                     <Button asChild variant="outline" size="sm">
                       <Link to={`/admin/klanten/${gekozen.client_id}`}>
@@ -321,6 +327,35 @@ const Aanvragen = () => {
             : undefined
         }
         onCreated={(projectId) => void koppel(projectId)}
+      />
+      <DocumentOpstellen
+        open={offerteVoor !== null}
+        onOpenChange={(o) => !o && setOfferteVoor(null)}
+        soort="offerte"
+        voor={
+          offerteVoor
+            ? {
+                naam: offerteVoor.bedrijf || offerteVoor.naam,
+                email: offerteVoor.email,
+                // Is de aanvraag al een klant, dan via die klant; anders maakt
+                // Moneybird een nieuw contact met de gegevens uit de aanvraag.
+                ontvanger: offerteVoor.client_id
+                  ? { soort: "klant", clientId: offerteVoor.client_id }
+                  : {
+                      soort: "nieuw",
+                      bedrijf: offerteVoor.bedrijf ?? "",
+                      naam: offerteVoor.naam,
+                      email: offerteVoor.email,
+                      telefoon: offerteVoor.telefoon ?? "",
+                    },
+              }
+            : undefined
+        }
+        onGemaakt={() => {
+          if (offerteVoor && (offerteVoor.status === "nieuw" || offerteVoor.status === "contact")) {
+            void update.mutateAsync({ id: offerteVoor.id, values: { status: "offerte" } }).catch(() => undefined);
+          }
+        }}
       />
       {dialoog}
     </div>

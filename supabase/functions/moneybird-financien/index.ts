@@ -40,6 +40,12 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   telefoon, plaats, contactpersoon) uit Moneybird-contacten te vullen;
  * - "hosting-uit-moneybird": actieve terugkerende facturen als voorstel voor
  *   hostingcontracten in het portaal;
+ * - "document-gegevens": producten en btw-tarieven voor het opstellen;
+ * - "document-maken": een offerte of factuur aanmaken (als concept, of na
+ *   bevestiging in het portaal ook versturen), voor een gekozen contact, een
+ *   klant uit het portaal of een nieuw contact;
+ * - "offerte-actie": versturen, pdf, accepteren, afwijzen, archiveren of
+ *   omzetten naar factuur;
  * - "hosting-factureren": hostingtermijnen als conceptfactuur (items met
  *   clientId en periodDate, eventueel contactId); de termijn wordt daarna in
  *   het portaal als gefactureerd afgevinkt.
@@ -398,6 +404,169 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
       voorstellen.push({ clientId: k.id, klant: k.name, contact: contactUit(c), velden });
     }
     return { ok: true, voorstellen, zonderContact, twijfel };
+  }
+
+  if (actie === "document-gegevens") {
+    // Wat het venster "Offerte of factuur opstellen" nodig heeft: producten
+    // (vaste diensten met prijs) en de btw-tarieven voor verkoop.
+    const [producten, tarieven] = await Promise.all([
+      allePaginas<{ id: string; title?: string | null; description?: string | null; price?: unknown; tax_rate_id?: string | null }>(
+        "products.json",
+      ).catch(() => []),
+      moneybird(`tax_rates.json?filter=${encodeURIComponent("tax_rate_type:sales_invoice,active:true")}`) as Promise<
+        { id: string; name: string; percentage: unknown }[]
+      >,
+    ]);
+    return {
+      ok: true,
+      producten: producten.map((p) => ({
+        id: p.id,
+        naam: p.title?.trim() || p.description?.trim() || "Product",
+        omschrijving: p.description?.trim() || p.title?.trim() || "",
+        prijs: getal(p.price),
+        btwId: p.tax_rate_id ?? null,
+      })),
+      btwTarieven: tarieven.map((t) => ({ id: t.id, naam: t.name, percentage: getal(t.percentage) })),
+    };
+  }
+
+  if (actie === "document-maken") {
+    const soort = body.soort === "factuur" ? "factuur" : body.soort === "offerte" ? "offerte" : null;
+    if (!soort) throw new Melding("Kies offerte of factuur.");
+    type Regel = { omschrijving?: unknown; aantal?: unknown; prijs?: unknown; btwId?: unknown; productId?: unknown };
+    const regels = (Array.isArray(body.regels) ? body.regels : []) as Regel[];
+    if (regels.length === 0) throw new Melding("Voeg minstens één regel toe.");
+    for (const r of regels) {
+      if (typeof r.omschrijving !== "string" || !r.omschrijving.trim()) throw new Melding("Elke regel heeft een omschrijving nodig.");
+      if (typeof r.prijs !== "number" || !Number.isFinite(r.prijs)) throw new Melding("Elke regel heeft een prijs nodig.");
+      if (typeof r.aantal !== "number" || !(r.aantal > 0)) throw new Melding("Elke regel heeft een aantal nodig.");
+    }
+
+    // Het contact: gekozen in Moneybird, via een klant in het portaal, of nieuw
+    // (bijvoorbeeld vanuit een aanvraag).
+    let contactId: string | null = isId(body.contactId) ? body.contactId : null;
+    let klantId: string | null = null;
+    if (!contactId && typeof body.clientId === "string") {
+      const klant = await portaalKlant(body.clientId);
+      klantId = klant.id;
+      const gevonden = await zoekContact(klant);
+      if (!("contact" in gevonden)) return { ok: false, kiesContact: gevonden.kandidaten.map(contactUit) };
+      contactId = gevonden.contact.id;
+    }
+    if (!contactId && body.nieuwContact && typeof body.nieuwContact === "object") {
+      const n = body.nieuwContact as { bedrijf?: unknown; naam?: unknown; email?: unknown; telefoon?: unknown };
+      const naam = typeof n.naam === "string" ? n.naam.trim() : "";
+      const bedrijf = typeof n.bedrijf === "string" ? n.bedrijf.trim() : "";
+      if (!naam && !bedrijf) throw new Melding("Het nieuwe contact heeft een naam nodig.");
+      const [voornaam, ...rest] = naam.split(/\s+/);
+      const email = typeof n.email === "string" ? n.email.trim() : "";
+      const nieuw = (await moneybird("contacts.json", {
+        method: "POST",
+        body: {
+          contact: {
+            ...(bedrijf ? { company_name: bedrijf } : {}),
+            ...(naam ? { firstname: voornaam, lastname: rest.join(" ") || undefined } : {}),
+            ...(email ? { email, send_invoices_to_email: email, send_estimates_to_email: email } : {}),
+            ...(typeof n.telefoon === "string" && n.telefoon.trim() ? { phone: n.telefoon.trim() } : {}),
+          },
+        },
+      })) as { id: string };
+      contactId = nieuw.id;
+    }
+    if (!contactId) throw new Melding("Kies voor wie het is.");
+
+    const details = regels.map((r, i) => ({
+      description: (r.omschrijving as string).trim(),
+      amount: String(r.aantal),
+      price: (Math.round((r.prijs as number) * 100) / 100).toFixed(2),
+      ...(isId(r.btwId) ? { tax_rate_id: r.btwId } : {}),
+      ...(isId(r.productId) ? { product_id: r.productId } : {}),
+      row_order: i,
+    }));
+    const referentie = typeof body.referentie === "string" && body.referentie.trim() ? body.referentie.trim().slice(0, 100) : undefined;
+    const toelichting = typeof body.toelichting === "string" && body.toelichting.trim() ? body.toelichting.trim() : undefined;
+
+    const document = (await moneybird(soort === "offerte" ? "estimates.json" : "sales_invoices.json", {
+      method: "POST",
+      body:
+        soort === "offerte"
+          ? {
+              estimate: {
+                contact_id: contactId,
+                reference: referentie,
+                pre_text: toelichting,
+                prices_are_incl_tax: false,
+                details_attributes: details,
+              },
+            }
+          : {
+              sales_invoice: {
+                contact_id: contactId,
+                reference: referentie,
+                prices_are_incl_tax: false,
+                details_attributes: details,
+              },
+            },
+    })) as { id: string };
+
+    // Versturen gebeurt pas na een bevestiging in het portaal.
+    if (body.versturen === true) {
+      await moneybird(
+        soort === "offerte" ? `estimates/${document.id}/send_estimate.json` : `sales_invoices/${document.id}/send_invoice.json`,
+        {
+          method: "PATCH",
+          body:
+            soort === "offerte"
+              ? { estimate_sending: { delivery_method: "Email" } }
+              : { sales_invoice_sending: { delivery_method: "Email" } },
+        },
+      );
+    }
+
+    // Een nieuw gekoppeld contact bij de klant onthouden.
+    if (klantId) await admin.from("clients").update({ moneybird_contact_id: contactId }).eq("id", klantId);
+
+    return {
+      ok: true,
+      verstuurd: body.versturen === true,
+      url: `https://moneybird.com/${ADMINISTRATIE}/${soort === "offerte" ? "estimates" : "sales_invoices"}/${document.id}`,
+    };
+  }
+
+  if (actie === "offerte-actie") {
+    if (!isId(body.id)) throw new Melding("Onbekende offerte.");
+    const wat = body.wat;
+    if (wat === "pdf") {
+      const res = await fetch(`https://moneybird.com/api/v2/${ADMINISTRATIE}/estimates/${body.id}/download_pdf.json`, {
+        headers: { Authorization: `Bearer ${MONEYBIRD_TOKEN}` },
+        redirect: "manual",
+      });
+      const url = res.headers.get("Location");
+      await res.body?.cancel();
+      if (!url) throw new Error(`Moneybird gaf geen pdf-link (status ${res.status}).`);
+      return { url };
+    }
+    if (wat === "versturen") {
+      await moneybird(`estimates/${body.id}/send_estimate.json`, {
+        method: "PATCH",
+        body: { estimate_sending: { delivery_method: "Email" } },
+      });
+      return { ok: true };
+    }
+    if (wat === "accepteren" || wat === "afwijzen" || wat === "archiveren") {
+      const state = wat === "accepteren" ? "accepted" : wat === "afwijzen" ? "rejected" : "archived";
+      await moneybird(`estimates/${body.id}/change_state.json`, { method: "PATCH", body: { state } });
+      return { ok: true };
+    }
+    if (wat === "factureren") {
+      // Moneybird zet de offerte om in een conceptfactuur met dezelfde regels.
+      const factuur = (await moneybird(`estimates/${body.id}/bill_estimate.json`, { method: "PATCH", body: {} })) as { id?: string };
+      return {
+        ok: true,
+        url: factuur?.id ? `https://moneybird.com/${ADMINISTRATIE}/sales_invoices/${factuur.id}` : undefined,
+      };
+    }
+    throw new Melding("Onbekende actie op de offerte.");
   }
 
   if (actie === "moneybird-contacten") {
@@ -1250,7 +1419,7 @@ serve(async (req: Request): Promise<Response> => {
       }),
       // Offertes die uitstaan of geaccepteerd zijn en nog gefactureerd moeten worden.
       onderdeel(async () => {
-        const filter = encodeURIComponent(`state:open|late|accepted,period:${dagCode(jaarTerug)}..${dagCode(nu)}`);
+        const filter = encodeURIComponent(`state:draft|open|late|accepted,period:${dagCode(jaarTerug)}..${dagCode(nu)}`);
         const r = (await moneybird(`estimates.json?per_page=100&filter=${filter}`)) as {
           id: string;
           estimate_id: string | null;

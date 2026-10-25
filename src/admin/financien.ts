@@ -520,3 +520,98 @@ export function useHostingUitMoneybird(actief: boolean) {
 export const MONEYBIRD_NOTITIE = "Moneybird: terugkerende factuur";
 export const factureertMoneybird = (c: { billing_note: string | null }) =>
   Boolean(c.billing_note?.startsWith(MONEYBIRD_NOTITIE));
+
+export interface MoneybirdProduct {
+  id: string;
+  naam: string;
+  omschrijving: string;
+  prijs: number;
+  btwId: string | null;
+}
+
+export interface BtwTarief {
+  id: string;
+  naam: string;
+  percentage: number;
+}
+
+/** Producten en btw-tarieven uit Moneybird, voor het opstellen van een offerte of factuur. */
+export function useDocumentGegevens(actief: boolean) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "document-gegevens"],
+    enabled: actief,
+    staleTime: 30 * 60 * 1000,
+    retry: false,
+    queryFn: () =>
+      roepAan<{ ok: true; producten: MoneybirdProduct[]; btwTarieven: BtwTarief[] }>({ actie: "document-gegevens" }),
+  });
+}
+
+export interface DocumentRegel {
+  omschrijving: string;
+  aantal: number;
+  prijs: number;
+  btwId: string | null;
+  productId: string | null;
+}
+
+export type DocumentOntvanger =
+  | { soort: "contact"; contactId: string }
+  | { soort: "klant"; clientId: string }
+  | { soort: "nieuw"; bedrijf: string; naam: string; email: string; telefoon: string };
+
+export type DocumentResultaat =
+  | { ok: true; verstuurd: boolean; url: string }
+  | { ok: false; kiesContact: MoneybirdContact[] };
+
+/** Een offerte of factuur aanmaken in Moneybird, als concept of meteen versturen. */
+export function useDocumentMaken() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      soort,
+      ontvanger,
+      regels,
+      referentie,
+      toelichting,
+      versturen,
+    }: {
+      soort: "offerte" | "factuur";
+      ontvanger: DocumentOntvanger;
+      regels: DocumentRegel[];
+      referentie: string;
+      toelichting: string;
+      versturen: boolean;
+    }) =>
+      roepAan<DocumentResultaat>({
+        actie: "document-maken",
+        soort,
+        regels,
+        referentie,
+        toelichting,
+        versturen,
+        ...(ontvanger.soort === "contact"
+          ? { contactId: ontvanger.contactId }
+          : ontvanger.soort === "klant"
+            ? { clientId: ontvanger.clientId }
+            : { nieuwContact: ontvanger }),
+      }),
+    onSuccess: (r) => {
+      if (r.ok) void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
+    },
+  });
+}
+
+export type OfferteWat = "versturen" | "pdf" | "accepteren" | "afwijzen" | "archiveren" | "factureren";
+
+/** Iets doen met een offerte in Moneybird. Behalve de pdf ververst daarna het overzicht. */
+export function useOfferteActie() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, wat }: { id: string; wat: OfferteWat }) =>
+      roepAan<{ ok?: boolean; url?: string }>({ actie: "offerte-actie", id, wat }),
+    onSuccess: (_r, { wat }) => {
+      if (wat !== "pdf") void qc.invalidateQueries({ queryKey: FINANCIEN_KEY });
+    },
+  });
+}

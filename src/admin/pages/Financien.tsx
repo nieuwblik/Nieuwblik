@@ -5,9 +5,12 @@ import {
   ArrowDown,
   ArrowUp,
   ExternalLink,
+  FileSignature,
   FileText,
   Landmark,
   Percent,
+  Plus,
+  Receipt,
   RotateCw,
   TrendingUp,
   Wallet,
@@ -34,10 +37,12 @@ import {
 import { useOpenFacturen } from "@/admin/useOpenFacturen";
 import {
   BetalingenPanel,
-  OffertesPanel,
   OuderdomPanel,
   UitgavenPanel,
 } from "@/admin/components/FinancienPanelen";
+import OffertesPanel from "@/admin/components/OffertesPanel";
+import DocumentOpstellen from "@/admin/components/DocumentOpstellen";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
@@ -265,6 +270,7 @@ const Financien = () => {
   const bezigMetVernieuwen =
     useIsFetching({ queryKey: ["admin", "financien"] }) > 0;
   const [searchParams, setSearchParams] = useSearchParams();
+  const [nieuwDocument, setNieuwDocument] = useState<"offerte" | "factuur" | null>(null);
   const tab = TABBLADEN.some((t) => t.waarde === searchParams.get("tab"))
     ? searchParams.get("tab")!
     : "overzicht";
@@ -315,6 +321,29 @@ const Financien = () => {
       {data && "bijgewerkt" in data && (
         <div className="flex gap-2">
           <OogKnop className="h-9 w-9 border border-border bg-background" />
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild>
+              <Button size="sm" className="h-9">
+                <Plus className="h-4 w-4" />
+                Nieuw
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-52">
+              <DropdownMenuItem onSelect={() => setNieuwDocument("offerte")}>
+                <FileSignature />
+                Offerte
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setNieuwDocument("factuur")}>
+                <Receipt />
+                Factuur
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DocumentOpstellen
+            open={nieuwDocument !== null}
+            onOpenChange={(o) => !o && setNieuwDocument(null)}
+            soort={nieuwDocument ?? "offerte"}
+          />
           <Button
             variant="outline"
             size="sm"
