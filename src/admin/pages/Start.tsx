@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
-import { format } from "date-fns";
+import { addDays, format, startOfWeek } from "date-fns";
 import { nl } from "date-fns/locale";
 import { ArrowRight, ArrowUpRight, Play, Plus, Search, Square, UserPlus } from "lucide-react";
 import { toast } from "sonner";
@@ -14,11 +14,21 @@ import { useAdminAuth } from "@/admin/AdminAuthContext";
 import VloeiendeLink from "@/admin/components/VloeiendeLink";
 import { isTeLaat } from "@/admin/constants";
 import { groet } from "@/admin/format";
-import { useAanvragen } from "@/admin/aanvragen";
 import { usePijplijn } from "@/admin/pijplijn";
 import { useTaakTellingen } from "@/admin/stats";
 import { useProjects } from "@/admin/queries";
-import { formatKlok, projectNaam, useLopendeTimer, useNu, useSaveUren, useStartTimer, useStopTimer } from "@/admin/uren";
+import {
+  duurMinuten,
+  formatDuur,
+  formatKlok,
+  projectNaam,
+  useLopendeTimer,
+  useNu,
+  useSaveUren,
+  useStartTimer,
+  useStopTimer,
+  useUrenInPeriode,
+} from "@/admin/uren";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 import { useVloeiendNaar } from "@/admin/vloeiend";
 import { useWebsiteStand } from "@/admin/websites";
@@ -97,6 +107,7 @@ const Tegel = ({
   waarde,
   onder,
   onderToon,
+  grafiek,
   vertraging,
 }: {
   to?: string;
@@ -104,6 +115,8 @@ const Tegel = ({
   waarde: ReactNode;
   onder: string;
   onderToon?: "rood";
+  /** Een klein beeld rechts naast de waarde, zoals de uren per dag. */
+  grafiek?: ReactNode;
   vertraging: number;
 }) => {
   const inhoud = (
@@ -117,8 +130,11 @@ const Tegel = ({
         )}
       </span>
       {/* Een nieuwe waarde (bijvoorbeeld als Moneybird binnenkomt) vervaagt zacht in in plaats van te verspringen. */}
-      <span key={String(waarde)} className="p-waarde-in relative mt-1 font-epilogue text-[26px] font-medium leading-tight tracking-tight tabular-nums">
-        {waarde}
+      <span className="relative mt-1 flex items-end justify-between gap-3">
+        <span key={String(waarde)} className="p-waarde-in truncate font-epilogue text-[26px] font-medium leading-tight tracking-tight tabular-nums">
+          {waarde}
+        </span>
+        {grafiek}
       </span>
       <span
         key={onder}
@@ -137,6 +153,28 @@ const Tegel = ({
     <div className={klasse} style={op(vertraging)} onPointerMove={volgMuis}>
       {inhoud}
     </div>
+  );
+};
+
+/**
+ * De week in zeven staafjes, maandag tot en met zondag: hoe lang je per dag
+ * werkte. Vandaag is het felst; dagen die nog moeten komen zijn een stipje.
+ */
+const WeekStaafjes = ({ minuten, vandaag }: { minuten: number[]; vandaag: number }) => {
+  const hoogste = Math.max(60, ...minuten);
+  return (
+    <span className="flex h-7 shrink-0 items-end gap-[3px] pb-1" aria-hidden="true">
+      {minuten.map((m, i) => (
+        <span
+          key={i}
+          className={cn(
+            "w-[5px] rounded-full transition-[height] duration-500 ease-out",
+            i === vandaag ? "bg-white/90" : i > vandaag ? "bg-white/15" : "bg-white/40",
+          )}
+          style={{ height: m > 0 ? `${Math.max(15, (m / hoogste) * 100)}%` : "3px" }}
+        />
+      ))}
+    </span>
   );
 };
 
@@ -305,9 +343,11 @@ const TimerPil = ({ style }: { style: CSSProperties }) => {
  * minder beweging ingesteld staat alles meteen stil op zijn plek.
  */
 const Start = () => {
-  const { profielNaam } = useAdminAuth();
+  const { profielNaam, user } = useAdminAuth();
   const taken = useTaakTellingen();
-  const { data: aanvragen = [] } = useAanvragen();
+  const maandag = useMemo(() => startOfWeek(new Date(), { weekStartsOn: 1 }), []);
+  const { data: weekUren = [] } = useUrenInPeriode(maandag, addDays(maandag, 7));
+  const nuUren = useNu(weekUren.some((r) => !r.ended_at), 30_000);
   const pijplijn = usePijplijn();
   const websites = useWebsiteStand();
   const { bedrag } = useBedragenVerborgen();
@@ -321,7 +361,16 @@ const Start = () => {
     return { aantal: ids.size, teLaat: taken.teLaat.filter((t) => isTeLaat(t)).length };
   }, [taken.teLaat, taken.vandaag]);
 
-  const nieuw = aanvragen.filter((a) => a.status === "nieuw").length;
+  // Jouw uren van deze week, per dag (maandag eerst), voor de kaart Uren.
+  const week = useMemo(() => {
+    const perDag = Array.from({ length: 7 }, () => 0);
+    for (const r of weekUren) {
+      if (r.user_id !== user?.id) continue;
+      const dag = (new Date(r.started_at).getDay() + 6) % 7;
+      perDag[dag] = (perDag[dag] ?? 0) + duurMinuten(r, nuUren);
+    }
+    return { perDag, totaal: perDag.reduce((som, m) => som + m, 0), vandaag: (new Date().getDay() + 6) % 7 };
+  }, [weekUren, user?.id, nuUren]);
   const eersteProbleem = websites?.problemen[0];
 
 
@@ -457,10 +506,11 @@ const Start = () => {
             vertraging={740}
           />
           <Tegel
-            to="/admin/aanvragen"
-            label="Aanvragen"
-            waarde={nieuw}
-            onder={nieuw > 0 ? "Nog niet opgepakt" : pijplijn.aanvragen.open > 0 ? `${pijplijn.aanvragen.open} in behandeling` : "Geen nieuwe"}
+            to="/admin/uren"
+            label="Uren deze week"
+            waarde={week.totaal === 0 ? "0u" : formatDuur(week.totaal)}
+            onder={pijplijn.teFactureren.uren > 0 ? `${bedrag(pijplijn.teFactureren.uren, 0)} te factureren` : "Alles gefactureerd"}
+            grafiek={<WeekStaafjes minuten={week.perDag} vandaag={week.vandaag} />}
             vertraging={800}
           />
           <Tegel
