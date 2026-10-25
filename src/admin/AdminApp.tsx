@@ -11,6 +11,7 @@ import Mailen from "@/admin/pages/Mailen";
 import ClientDetail from "@/admin/pages/ClientDetail";
 import Clients from "@/admin/pages/Clients";
 import Dashboard from "@/admin/pages/Dashboard";
+import Start from "@/admin/pages/Start";
 import ProjectDetail from "@/admin/pages/ProjectDetail";
 import TaskDetail from "@/admin/pages/TaskDetail";
 import Tasks from "@/admin/pages/Tasks";
@@ -36,7 +37,9 @@ const AdminApp = () => (
   <AdminAuthProvider>
     <Routes>
       <Route element={<AdminLayout />}>
-        <Route index element={<Dashboard />} />
+        {/* Binnenkomen gebeurt op Start; het volledige overzicht staat op het dashboard. */}
+        <Route index element={<Start />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="klanten" element={<Clients />} />
         <Route path="klanten/:id" element={<ClientDetail />} />
         <Route path="projecten/:id" element={<ProjectDetail />} />
@@ -51,7 +54,6 @@ const AdminApp = () => (
         <Route path="aanvragen" element={<Aanvragen />} />
         {/* Oude adressen uit eerdere versies van het portaal. */}
         <Route path="projecten" element={<ToClients />} />
-        <Route path="dashboard" element={<Navigate to="/admin" replace />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>

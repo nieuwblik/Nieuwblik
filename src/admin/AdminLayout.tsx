@@ -6,12 +6,12 @@ import {
   CheckSquare,
   ChevronDown,
   ChevronsUpDown,
+  Home,
   LayoutDashboard,
   LogOut,
   Inbox,
   Mail,
   Menu,
-  Plus,
   Moon,
   PanelLeft,
   Receipt,
@@ -127,17 +127,7 @@ const sneltoetsLabel = () =>
  * doorlopen. De getallen zijn wat er op die pagina op je wacht, zodat je niet
  * hoeft te openen om te weten of het nodig is.
  */
-const RailNav = ({
-  collapsed,
-  onNavigate,
-  onNieuweTaak,
-  onZoeken,
-}: {
-  collapsed: boolean;
-  onNavigate?: () => void;
-  onNieuweTaak: () => void;
-  onZoeken: () => void;
-}) => {
+const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () => void }) => {
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
   const { data: aanvragen = [] } = useAanvragen();
@@ -147,7 +137,7 @@ const RailNav = ({
     {
       label: "Overzicht",
       items: [
-        { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
+        { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard, end: false },
         {
           to: "/admin/kalender",
           label: "Kalender",
@@ -197,30 +187,21 @@ const RailNav = ({
     },
   ];
 
-  // Bovenaan, los van de groepen: wat je het vaakst doet.
-  const acties = [
-    { label: "Nieuwe taak", icon: Plus, onClick: onNieuweTaak, titel: "Nieuwe taak (N)" },
-    { label: "Zoeken", icon: Search, onClick: onZoeken, titel: `Zoeken (${sneltoetsLabel()})` },
-  ];
-
   return (
     <nav className={cn("flex flex-col gap-5", collapsed ? "items-center px-2" : "px-3")}>
+      {/* Bovenaan, los van de groepen: de startpagina, waar je binnenkomt.
+          Nieuwe taak en zoeken staan in de bovenbalk (en onder N en het palet). */}
       <div className={cn("flex flex-col gap-0.5", collapsed && "items-center")}>
-        {acties.map(({ label, icon: Icon, onClick, titel }) => (
-          <button
-            key={label}
-            type="button"
-            onClick={() => {
-              onNavigate?.();
-              onClick();
-            }}
-            title={collapsed ? titel : undefined}
-            className={railItem(false, collapsed)}
-          >
-            <Icon className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
-            {!collapsed && label}
-          </button>
-        ))}
+        <NavLink
+          to="/admin"
+          end
+          onClick={onNavigate}
+          title={collapsed ? "Start" : undefined}
+          className={({ isActive }) => railItem(isActive, collapsed)}
+        >
+          <Home className="h-[19px] w-[19px] shrink-0" strokeWidth={1.75} />
+          {!collapsed && "Start"}
+        </NavLink>
       </div>
 
       {groepen.map((groep) => {
@@ -550,11 +531,7 @@ const AdminLayout = () => {
         </div>
 
         <div className="w-full flex-1 overflow-y-auto">
-          <RailNav
-            collapsed={collapsed}
-            onNieuweTaak={() => setCaptureOpen(true)}
-            onZoeken={() => setPaletteOpen(true)}
-          />
+          <RailNav collapsed={collapsed} />
         </div>
 
         <div className={cn("mt-4 w-full", collapsed ? "flex justify-center px-2" : "px-3")}>
@@ -584,12 +561,7 @@ const AdminLayout = () => {
                   <div className="mb-6 px-5">
                     <Logo />
                   </div>
-                  <RailNav
-                    collapsed={false}
-                    onNavigate={() => setMobileOpen(false)}
-                    onNieuweTaak={() => setCaptureOpen(true)}
-                    onZoeken={() => setPaletteOpen(true)}
-                  />
+                  <RailNav collapsed={false} onNavigate={() => setMobileOpen(false)} />
                 </div>
                 <div className="px-3 pb-4">{account("rij")}</div>
               </SheetContent>

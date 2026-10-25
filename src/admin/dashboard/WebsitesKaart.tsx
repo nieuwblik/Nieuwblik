@@ -1,13 +1,11 @@
-import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight, Globe } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { TOON } from "@/admin/constants";
 import { timeAgo } from "@/admin/format";
-import { useProjects } from "@/admin/queries";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
-import { useWebsiteControles, websiteProblemen } from "@/admin/websites";
+import { useWebsiteStand } from "@/admin/websites";
 
 /**
  * De stand van alle live-sites in één regel. De bel meldt alleen wat er mis
@@ -18,26 +16,9 @@ import { useWebsiteControles, websiteProblemen } from "@/admin/websites";
  * verschijnt de kaart niet.
  */
 const WebsitesKaart = ({ className }: { className?: string }) => {
-  const { data: controles, isError } = useWebsiteControles();
-  const { data: projects = [] } = useProjects();
+  const stand = useWebsiteStand();
 
-  const stand = useMemo(() => {
-    const metSite = projects.filter((p) => p.live_url?.trim());
-    const gecontroleerd = metSite.flatMap((p) => {
-      const c = controles?.get(p.id);
-      return c ? [{ project: p, controle: c }] : [];
-    });
-    const problemen = gecontroleerd.flatMap(({ project, controle }) =>
-      websiteProblemen(controle).map((probleem) => ({ ...probleem, naam: project.client?.name ?? project.name, fout: controle.fout })),
-    );
-    const laatste = gecontroleerd.reduce<string | null>(
-      (nieuwste, { controle }) => (!nieuwste || controle.created_at > nieuwste ? controle.created_at : nieuwste),
-      null,
-    );
-    return { sites: metSite.length, gecontroleerd: gecontroleerd.length, problemen, laatste };
-  }, [controles, projects]);
-
-  if (isError || !controles || stand.sites === 0) return null;
+  if (!stand || stand.sites === 0) return null;
 
   const nogNiet = stand.sites - stand.gecontroleerd;
 

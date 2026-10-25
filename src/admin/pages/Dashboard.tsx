@@ -1,7 +1,6 @@
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 
-import { useAdminAuth } from "@/admin/AdminAuthContext";
 import AandachtKaart from "@/admin/dashboard/AandachtKaart";
 import ActiviteitKaart from "@/admin/dashboard/ActiviteitKaart";
 import AfgerondKaart from "@/admin/dashboard/AfgerondKaart";
@@ -19,13 +18,6 @@ import UrenKaart from "@/admin/dashboard/UrenKaart";
 import WebsitesKaart from "@/admin/dashboard/WebsitesKaart";
 import { useMailings } from "@/admin/queries";
 import { useTaakTellingen, useTeFactureren } from "@/admin/stats";
-
-const groet = () => {
-  const uur = new Date().getHours();
-  if (uur < 12) return "Goedemorgen";
-  if (uur < 18) return "Goedemiddag";
-  return "Goedenavond";
-};
 
 const meervoud = (aantal: number, een: string, meer: string) => `${aantal} ${aantal === 1 ? een : meer}`;
 
@@ -49,7 +41,6 @@ const meervoud = (aantal: number, een: string, meer: string) => `${aantal} ${aan
  * eerst het werk, dan het geld dat eraan komt.
  */
 const Dashboard = () => {
-  const { profielNaam } = useAdminAuth();
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
   const { data: mailings = [] } = useMailings(1);
@@ -60,7 +51,6 @@ const Dashboard = () => {
     `${meervoud(taken.open.length, "open taak", "open taken")}`,
   ].filter(Boolean);
 
-  const voornaam = profielNaam.split(/\s+/)[0];
   const toonHosting = facturen.contracten > 0;
   // Pas na de eerste mailing: daarvoor zegt de kaart alleen "Nog niets verstuurd".
   const toonMailen = mailings.length > 0;
@@ -70,26 +60,13 @@ const Dashboard = () => {
       <div className="space-y-3">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <div className="min-w-0">
-            <h1 className="text-[26px] leading-tight tracking-tight sm:text-[30px]">
-              {groet()}
-              {voornaam ? `, ${voornaam}` : ""}
-            </h1>
+            {/* De begroeting staat op Start; hier het overzicht zelf. */}
+            <h1 className="text-[26px] leading-tight tracking-tight sm:text-[30px]">Dashboard</h1>
             <p className="mt-1 text-sm text-muted-foreground first-letter:uppercase">
               {format(new Date(), "EEEE d MMMM", { locale: nl })} · {samenvatting.join(", ")}
             </p>
           </div>
 
-          {/* Zonder profielnaam stond hier het begin van je e-mailadres. Een
-              kleine vraag om je naam is vriendelijker en lost het echt op. */}
-          {!profielNaam && (
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new Event("portaal:naam-instellen"))}
-              className="text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
-            >
-              Stel je naam in
-            </button>
-          )}
         </div>
         <SnelleKnoppen />
         <Meldingen />

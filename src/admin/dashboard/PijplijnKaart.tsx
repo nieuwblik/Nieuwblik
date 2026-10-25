@@ -4,11 +4,7 @@ import { ChevronRight, Route } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { TOON } from "@/admin/constants";
-import { isOpenAanvraag, useAanvragen } from "@/admin/aanvragen";
-import { heeftData, isCredit, isTeLaatFactuur, useFinancien } from "@/admin/financien";
-import { useClients, useProjects } from "@/admin/queries";
-import { useTeFactureren } from "@/admin/stats";
-import { duurMinuten, useTeFacturerenUren, uurtariefVoor } from "@/admin/uren";
+import { usePijplijn } from "@/admin/pijplijn";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
@@ -33,78 +29,62 @@ interface Stap {
  * alleen de stappen over die het portaal zelf kent.
  */
 const PijplijnKaart = ({ className }: { className?: string }) => {
-  const { data: aanvragen = [] } = useAanvragen();
-  const { data: financien } = useFinancien();
-  const { data: uren = [] } = useTeFacturerenUren();
-  const { data: projects = [] } = useProjects();
-  const { data: clients = [] } = useClients();
-  const hosting = useTeFactureren();
+  const p = usePijplijn();
   const { bedrag } = useBedragenVerborgen();
 
   const stappen = useMemo<Stap[]>(() => {
-    const lijst: Stap[] = [];
-    const stand = financien && "bijgewerkt" in financien ? financien : null;
-
-    const open = aanvragen.filter(isOpenAanvraag);
-    const nieuw = open.filter((a) => a.status === "nieuw").length;
-    lijst.push({
-      sleutel: "aanvragen",
-      titel: "Aanvragen",
-      waarde: String(open.length),
-      onder: open.length === 0 ? "Geen open aanvragen" : nieuw > 0 ? `${nieuw} nog niet opgepakt` : "Allemaal opgepakt",
-      to: "/admin/aanvragen",
-    });
-
-    const offertes = stand?.offertes && heeftData(stand.offertes) ? stand.offertes.data : null;
-    if (offertes) {
-      const uit = offertes.filter((o) => o.status !== "accepted");
+    const lijst: Stap[] = [
+      {
+        sleutel: "aanvragen",
+        titel: "Aanvragen",
+        waarde: String(p.aanvragen.open),
+        onder:
+          p.aanvragen.open === 0
+            ? "Geen open aanvragen"
+            : p.aanvragen.nieuw > 0
+              ? `${p.aanvragen.nieuw} nog niet opgepakt`
+              : "Allemaal opgepakt",
+        to: "/admin/aanvragen",
+      },
+    ];
+    if (p.offertesUit) {
       lijst.push({
         sleutel: "offertes",
         titel: "Offertes uit",
-        waarde: bedrag(uit.reduce((som, o) => som + o.bedrag, 0), 0),
-        onder: `${uit.length} ${uit.length === 1 ? "offerte" : "offertes"} · excl. btw`,
+        waarde: bedrag(p.offertesUit.bedrag, 0),
+        onder: `${p.offertesUit.aantal} ${p.offertesUit.aantal === 1 ? "offerte" : "offertes"} · excl. btw`,
         to: "/admin/financien",
       });
     }
-
-    // Te factureren: geaccepteerde offertes, open uren tegen het klanttarief en hostingtermijnen.
-    const geaccepteerd = offertes ? offertes.filter((o) => o.status === "accepted").reduce((som, o) => som + o.bedrag, 0) : 0;
-    const urenBedrag = uren.reduce((som, r) => {
-      const project = projects.find((p) => p.id === r.project_id);
-      const client = project?.client_id ? clients.find((c) => c.id === project.client_id) : null;
-      return som + (duurMinuten(r) / 60) * uurtariefVoor(client);
-    }, 0);
-    const hostingBedrag = hosting.achterstallig.reduce((som, t) => som + (t.client.billing_amount_cents ?? 0), 0) / 100;
+    const { offertes, uren, hosting, totaal } = p.teFactureren;
     const delen = [
-      geaccepteerd > 0 && `offertes ${bedrag(geaccepteerd, 0)}`,
-      urenBedrag > 0 && `uren ${bedrag(urenBedrag, 0)}`,
-      hostingBedrag > 0 && `hosting ${bedrag(hostingBedrag, 0)}`,
+      offertes > 0 && `offertes ${bedrag(offertes, 0)}`,
+      uren > 0 && `uren ${bedrag(uren, 0)}`,
+      hosting > 0 && `hosting ${bedrag(hosting, 0)}`,
     ].filter(Boolean);
     lijst.push({
       sleutel: "factureren",
       titel: "Te factureren",
-      waarde: bedrag(geaccepteerd + urenBedrag + hostingBedrag, 0),
+      waarde: bedrag(totaal, 0),
       onder: delen.length > 0 ? delen.join(" · ") : "Niets dat wacht",
-      to: urenBedrag > 0 ? "/admin/uren" : hostingBedrag > 0 ? "/admin/hosting" : "/admin/financien",
+      to: uren > 0 ? "/admin/uren" : hosting > 0 ? "/admin/hosting" : "/admin/financien",
     });
-
-    if (stand && heeftData(stand.facturen)) {
-      const facturen = stand.facturen.data.filter((f) => !isCredit(f) && f.open > 0);
-      const teLaat = facturen.filter(isTeLaatFactuur);
+    if (p.openstaand) {
+      const o = p.openstaand;
       lijst.push({
         sleutel: "openstaand",
         titel: "Openstaand",
-        waarde: bedrag(facturen.reduce((som, f) => som + f.open, 0), 0),
+        waarde: bedrag(o.bedrag, 0),
         onder:
-          teLaat.length > 0
-            ? `${bedrag(teLaat.reduce((som, f) => som + f.open, 0), 0)} te laat · incl. btw`
-            : `${facturen.length} ${facturen.length === 1 ? "factuur" : "facturen"} · incl. btw`,
+          o.teLaat > 0
+            ? `${bedrag(o.teLaatBedrag, 0)} te laat · incl. btw`
+            : `${o.aantal} ${o.aantal === 1 ? "factuur" : "facturen"} · incl. btw`,
         to: "/admin/financien",
-        ...(teLaat.length > 0 ? { toon: "danger" as const } : {}),
+        ...(o.teLaat > 0 ? { toon: "danger" as const } : {}),
       });
     }
     return lijst;
-  }, [aanvragen, financien, uren, projects, clients, hosting.achterstallig, bedrag]);
+  }, [p, bedrag]);
 
   return (
     <Panel className={className}>

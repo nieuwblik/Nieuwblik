@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -91,4 +91,31 @@ export function useWebsiteBewaking(actief: boolean) {
     gestart.current = true;
     controleer.mutate(undefined);
   }, [actief, isSuccess, controles, projects, controleer]);
+}
+
+/**
+ * De stand van alle live-sites: hoeveel er zijn, hoeveel gecontroleerd, wat er
+ * mis is en wanneer de laatste controle was. Voor de websitekaart op het
+ * dashboard en de startpagina. Null zolang de bewaking niet live is.
+ */
+export function useWebsiteStand() {
+  const { data: controles, isError } = useWebsiteControles();
+  const { data: projects = [] } = useProjects();
+
+  return useMemo(() => {
+    if (isError || !controles) return null;
+    const metSite = projects.filter((p) => p.live_url?.trim());
+    const gecontroleerd = metSite.flatMap((p) => {
+      const c = controles.get(p.id);
+      return c ? [{ project: p, controle: c }] : [];
+    });
+    const problemen = gecontroleerd.flatMap(({ project, controle }) =>
+      websiteProblemen(controle).map((probleem) => ({ ...probleem, naam: project.client?.name ?? project.name })),
+    );
+    const laatste = gecontroleerd.reduce<string | null>(
+      (nieuwste, { controle }) => (!nieuwste || controle.created_at > nieuwste ? controle.created_at : nieuwste),
+      null,
+    );
+    return { sites: metSite.length, gecontroleerd: gecontroleerd.length, problemen, laatste };
+  }, [controles, isError, projects]);
 }

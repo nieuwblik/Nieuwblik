@@ -6,6 +6,7 @@ import {
   Clock,
   FolderKanban,
   Inbox,
+  Home,
   LayoutDashboard,
   Mail,
   Plus,
@@ -40,7 +41,8 @@ interface CommandPaletteProps {
 
 /** Alle pagina's van het portaal, zodat "Ga naar" nooit een pagina mist. */
 const PAGINAS = [
-  { to: "/admin", label: "Dashboard", zoek: "dashboard overzicht start", icon: LayoutDashboard },
+  { to: "/admin", label: "Start", zoek: "start begin home welkom", icon: Home },
+  { to: "/admin/dashboard", label: "Dashboard", zoek: "dashboard overzicht", icon: LayoutDashboard },
   { to: "/admin/kalender", label: "Kalender", zoek: "kalender planning agenda", icon: CalendarDays },
   { to: "/admin/aanvragen", label: "Aanvragen", zoek: "aanvragen leads contactformulier berichten offerte", icon: Inbox },
   { to: "/admin/klanten", label: "Klanten", zoek: "klanten projecten", icon: Users },

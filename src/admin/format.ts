@@ -151,3 +151,11 @@ export function korteOmschrijving(tekst: string | null | undefined): string {
     .filter(Boolean);
   return regels[0] ?? "";
 }
+
+/** "Goedemorgen", "Goedemiddag" of "Goedenavond", naar de klok van nu. */
+export function groet(): string {
+  const uur = new Date().getHours();
+  if (uur < 12) return "Goedemorgen";
+  if (uur < 18) return "Goedemiddag";
+  return "Goedenavond";
+}
