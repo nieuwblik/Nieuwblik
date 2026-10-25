@@ -10,7 +10,7 @@ const KNOP =
   "flex flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-3 text-[13px] font-medium transition-[background-color,transform] duration-150 ease-out active:scale-[0.97]";
 const GEWOON = "border-border bg-card hover:bg-muted";
 /** Op de startpagina: matglas op de achtergrondscène. */
-const GLAS = "border-white/15 bg-[rgba(18,24,36,0.38)] text-white backdrop-blur-2xl backdrop-saturate-150 hover:bg-[rgba(18,24,36,0.5)]";
+const GLAS = "border-white/15 bg-[rgba(18,24,36,0.18)] text-white backdrop-blur-2xl backdrop-saturate-150 hover:bg-[rgba(18,24,36,0.26)]";
 
 /**
  * Op een telefoon, onder de begroeting: wat je onderweg doet. Een bon

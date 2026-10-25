@@ -516,22 +516,16 @@ const AdminLayout = () => {
     />
   );
 
-  // Start: de pagina over het hele scherm, zonder zijbalk en bovenbalk. De
-  // dialogen blijven, zodat zoeken (Ctrl K), N en de naam ook hier werken.
-  if (location.pathname.replace(/\/$/, "") === "/admin") {
-    return (
-      <>
-        <AdminSEO />
-        <Outlet />
-        <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
-        <QuickCapture open={captureOpen} onOpenChange={setCaptureOpen} />
-        <ProfileNameDialog open={naamOpen} onOpenChange={setNaamOpen} />
-      </>
-    );
-  }
+  // Start: de pagina over het hele scherm, zonder zijbalk en bovenbalk. Die
+  // blijven wel gemount (alleen verborgen): anders bouwt elke wissel tussen
+  // Start en de rest de hele schil opnieuw op, met timer en meldingen, en dat
+  // maakte het heen en weer gaan traag.
+  const huidigPad = location.pathname.replace(/\/$/, "") || "/";
+  const opStart = huidigPad === "/admin";
 
   return (
-    <div className="flex min-h-screen bg-rail">
+    // data-pad: het pad van de pagina die nu getoond wordt, voor de vloeiende overgang (zie vloeiend.ts).
+    <div data-pad={huidigPad} className={cn("flex min-h-screen", !opStart && "bg-rail")}>
       <AdminSEO />
 
       {/* Zijbalk op het grijze vlak, zonder eigen rand: de pagina ernaast is
@@ -540,7 +534,8 @@ const AdminLayout = () => {
           eigenschappen animeren geeft schokkerige herberekening. */}
       <aside
         className={cn(
-          "sticky top-0 hidden h-screen shrink-0 flex-col py-4 lg:flex",
+          "sticky top-0 hidden h-screen shrink-0 flex-col py-4",
+          !opStart && "lg:flex",
           collapsed ? "w-[76px] items-center" : "w-60",
         )}
       >
@@ -568,7 +563,13 @@ const AdminLayout = () => {
 
       {/* De pagina als één wit vlak op het grijs, met de bovenbalk erin. Op
           een telefoon vult het vlak het scherm. */}
-      <div className="min-w-0 flex-1 lg:py-2 lg:pr-2">
+      {opStart && (
+        <div className="min-w-0 flex-1">
+          <Outlet />
+        </div>
+      )}
+
+      <div className={cn("min-w-0 flex-1 lg:py-2 lg:pr-2", opStart && "hidden")}>
         <div className="min-h-screen bg-background lg:min-h-[calc(100vh-1rem)] lg:rounded-[20px] lg:border lg:border-rail-border">
           <header className="sticky top-0 z-40 flex h-16 items-center gap-2 bg-background/90 px-4 backdrop-blur-md sm:px-6 lg:rounded-t-[20px] lg:px-8">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -642,7 +643,7 @@ const AdminLayout = () => {
               op het pad laat hem alleen bij een nieuwe pagina afspelen, niet
               bij een filter in de URL. */}
           <main key={location.pathname} className="p-verschijn px-4 pb-8 pt-2 sm:px-6 lg:px-8">
-            <Outlet />
+            {!opStart && <Outlet />}
           </main>
         </div>
       </div>

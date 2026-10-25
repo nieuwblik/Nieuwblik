@@ -24,9 +24,9 @@ import { useWebsiteStand } from "@/admin/websites";
  * lichte wolken.
  */
 const GLAS =
-  "border border-white/15 bg-[rgba(18,24,36,0.38)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150";
+  "border border-white/15 bg-[rgba(18,24,36,0.18)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150";
 const BENTO = cn(GLAS, "flex min-w-0 flex-col rounded-[22px] p-5 text-white transition-colors duration-300");
-const KLIKBAAR = "hover:bg-[rgba(18,24,36,0.5)]";
+const KLIKBAAR = "hover:bg-[rgba(18,24,36,0.26)]";
 const TITEL = "text-[13px] text-white/60";
 const GROOT = "mt-1 font-epilogue text-[30px] font-medium leading-tight tracking-tight tabular-nums";
 const RIJ = "rounded-lg px-2 transition-colors duration-150 hover:bg-white/10";
@@ -108,7 +108,7 @@ const Start = () => {
               type="button"
               onClick={() => window.dispatchEvent(new Event("portaal:zoeken"))}
               aria-label="Zoeken"
-              className={cn(GLAS, "flex h-10 items-center gap-2 rounded-full px-3.5 text-sm text-white/85 transition-colors hover:bg-[rgba(18,24,36,0.5)] hover:text-white")}
+              className={cn(GLAS, "flex h-10 items-center gap-2 rounded-full px-3.5 text-sm text-white/85 transition-colors hover:bg-[rgba(18,24,36,0.26)] hover:text-white")}
             >
               <Search className="h-4 w-4" />
               <span className="hidden sm:inline">Zoeken</span>

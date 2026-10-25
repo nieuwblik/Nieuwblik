@@ -94,7 +94,7 @@ const AdminLogin = () => {
         return;
       }
 
-      vloeiendNavigeren(() => navigate(target, { replace: true }));
+      vloeiendNavigeren(() => navigate(target, { replace: true }), target);
     } catch {
       // Bewust één algemene melding: geen signaal of het e-mailadres bestaat.
       mislukt("Inloggen mislukt. Controleer je gegevens.");
@@ -114,7 +114,7 @@ const AdminLogin = () => {
       <PortaalAchtergrond />
 
       <main className="w-full max-w-[380px]">
-        <div className="rounded-[28px] border border-white/15 bg-[rgba(18,24,36,0.42)] px-7 pb-7 pt-9 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150 sm:px-8">
+        <div className="rounded-[28px] border border-white/15 bg-[rgba(18,24,36,0.21)] px-7 pb-7 pt-9 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.16)] backdrop-blur-2xl backdrop-saturate-150 sm:px-8">
           <img src={logoSrc} alt="Nieuwblik" className="mx-auto h-7 w-auto brightness-0 invert" />
           <h1 className="mt-7 text-center text-[22px] font-medium tracking-tight">Welkom terug</h1>
           <p className="mt-1 text-center text-[14px] text-white/60">Log in op het portaal</p>
