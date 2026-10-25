@@ -386,6 +386,41 @@ export function useBankKwartaal(jaar: number, kwartaal: number) {
   });
 }
 
+export interface Transactie {
+  id: string;
+  datum: string;
+  /** Negatief is een afschrijving, positief een bijschrijving. */
+  bedrag: number;
+  tegenpartij: string;
+  rekeningnummer: string | null;
+  omschrijving: string | null;
+  /** De eigen rekening, als er meer zijn. */
+  rekening: string | null;
+  /** De categorie waarop hij in Moneybird geboekt is. */
+  categorie: string | null;
+  verwerkt: boolean;
+  /** Gekoppeld aan een factuur of bon. */
+  gekoppeld: boolean;
+}
+
+export interface Transacties {
+  dagen: 30 | 90;
+  transacties: Transactie[];
+  /** Totaal bijgeschreven en afgeschreven in de periode (beide positief). */
+  bij: number;
+  af: number;
+}
+
+/** Banktransacties van de laatste 30 of 90 dagen, uit Moneybird. */
+export function useTransacties(dagen: 30 | 90) {
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "transacties", dagen],
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<Transacties & { ok: true }>({ actie: "transacties", dagen }),
+  });
+}
+
 export type HostingResultaat =
   | { ok: true; gemaakt: { naam: string; url: string }[]; overgeslagen: { naam: string; reden: string }[] }
   | { ok: false; kiesContact: MoneybirdContact[] };

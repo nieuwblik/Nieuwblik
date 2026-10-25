@@ -35,6 +35,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   weggegooid (factuurId);
  * - "btw-overzicht": btw per kwartaal met de rubrieken, dit jaar en vorig jaar;
  * - "omzet-historie": omzet, kosten en winst per kwartaal, vier jaar terug;
+ * - "transacties": de banktransacties van de laatste 30 of 90 dagen (dagen),
+ *   af- en bijschrijvingen, met tegenpartij, rekening en of ze verwerkt zijn;
  * - "bank-zonder-bon": afschrijvingen van één kwartaal, verdeeld in met bon,
  *   zonder bon, niet verwerkt en geen kosten (jaar, kwartaal);
  * - "klanten-aanvullen": voorstellen om ontbrekende klantgegevens (e-mail,
@@ -364,6 +366,8 @@ type Mutatie = {
   date: string;
   message: string | null;
   contra_account_name: string | null;
+  contra_account_number?: string | null;
+  financial_account_id?: string | null;
   state: string;
   payments?: unknown[] | null;
   ledger_account_bookings?: { ledger_account_id?: string | null; price?: unknown; price_base?: unknown }[] | null;
@@ -669,6 +673,52 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
           url: `https://moneybird.com/${ADMINISTRATIE}/recurring_sales_invoices/${r.id}`,
         };
       }),
+    };
+  }
+
+  if (actie === "transacties") {
+    // Een vaste keuze, zodat niemand met één verzoek jaren aan transacties opvraagt.
+    const dagen = body.dagen === 90 ? 90 : 30;
+    const nu = new Date();
+    const van = new Date(nu.getTime() - (dagen - 1) * 86400000);
+    const [lijst, grootboek, rekeningen] = await Promise.all([
+      mutaties(van, nu),
+      moneybird("ledger_accounts.json") as Promise<{ id: string; name: string }[]>,
+      // De namen van de rekeningen; mislukt dat, dan zonder.
+      (moneybird("financial_accounts.json") as Promise<{ id: string; name?: string | null; identifier?: string | null }[]>).catch(
+        () => [],
+      ),
+    ]);
+    const categorie = new Map(grootboek.map((g) => [g.id, g.name]));
+    const rekening = new Map(rekeningen.map((r) => [r.id, r.name?.trim() || r.identifier || "Rekening"]));
+    const transacties = lijst
+      .map((m) => {
+        const bedrag = getal(m.amount);
+        const boeking = (m.ledger_account_bookings ?? [])
+          .map((b) => (b.ledger_account_id && categorie.get(b.ledger_account_id)) || "")
+          .find(Boolean);
+        return {
+          id: m.id,
+          datum: m.date,
+          // Negatief is een afschrijving, positief een bijschrijving.
+          bedrag,
+          tegenpartij: m.contra_account_name?.trim() || "Onbekende tegenpartij",
+          rekeningnummer: m.contra_account_number?.trim() || null,
+          omschrijving: m.message?.trim() || null,
+          rekening: (m.financial_account_id && rekening.get(m.financial_account_id)) || null,
+          categorie: boeking || null,
+          verwerkt: m.state !== "unprocessed",
+          // Gekoppeld aan een factuur of bon.
+          gekoppeld: (m.payments ?? []).length > 0,
+        };
+      })
+      .sort((a, b) => b.datum.localeCompare(a.datum));
+    return {
+      ok: true,
+      dagen,
+      transacties,
+      bij: transacties.filter((t) => t.bedrag > 0).reduce((s, t) => s + t.bedrag, 0),
+      af: transacties.filter((t) => t.bedrag < 0).reduce((s, t) => s - t.bedrag, 0),
     };
   }
 

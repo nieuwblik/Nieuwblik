@@ -39,8 +39,8 @@ import { useOpenFacturen } from "@/admin/useOpenFacturen";
 import {
   BetalingenPanel,
   OuderdomPanel,
-  UitgavenPanel,
 } from "@/admin/components/FinancienPanelen";
+import TransactiesTab from "@/admin/components/TransactiesTab";
 import OffertesPanel from "@/admin/components/OffertesPanel";
 import DocumentOpstellen from "@/admin/components/DocumentOpstellen";
 import BonUploaden from "@/admin/components/BonUploaden";
@@ -59,7 +59,7 @@ const TABBLADEN = [
   { waarde: "overzicht", label: "Overzicht" },
   { waarde: "omzet", label: "Omzet" },
   { waarde: "btw", label: "Btw" },
-  { waarde: "uitgaven", label: "Uitgaven" },
+  { waarde: "transacties", label: "Transacties" },
 ];
 
 const maandLabel = (maand: string, lang = false) =>
@@ -498,19 +498,13 @@ const Financien = () => {
           />
         </TabsContent>
 
-        {/* Uitgaven als eigen tabblad: per leverancier, per categorie en de
-            recentste, ook die nog in Moneybird op verwerking wachten. */}
-        <TabsContent value="uitgaven" className="mt-5">
-          {data.uitgaven ? (
-            <UitgavenPanel
-              uitgaven={data.uitgaven}
-              moneybirdUrl={data.moneybirdUrl}
-            />
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              Uitgaven zijn nog niet geladen.
-            </p>
-          )}
+        {/* Transacties: af- en bijschrijvingen van de bank, en de uitgaven
+            (bonnen en inkoopfacturen) zoals Moneybird ze kent. */}
+        <TabsContent value="transacties" className="mt-5">
+          <TransactiesTab
+            {...(data.uitgaven ? { uitgaven: data.uitgaven } : {})}
+            moneybirdUrl={data.moneybirdUrl}
+          />
         </TabsContent>
 
         <TabsContent value="overzicht" className="mt-5 space-y-5">

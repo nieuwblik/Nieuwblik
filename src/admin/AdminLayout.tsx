@@ -23,7 +23,7 @@ import {
   UserPlus,
   Users,
   Wallet,
-  ShoppingBag,
+  ArrowLeftRight,
   TrendingUp,
   Percent,
   Zap,
@@ -210,7 +210,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
           sub: [
             { tab: "omzet", label: "Omzet", icon: TrendingUp },
             { tab: "btw", label: "Btw", icon: Percent },
-            { tab: "uitgaven", label: "Uitgaven", icon: ShoppingBag },
+            { tab: "transacties", label: "Transacties", icon: ArrowLeftRight },
           ],
         },
       ],
