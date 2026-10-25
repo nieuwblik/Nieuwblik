@@ -102,8 +102,9 @@ interface MailOntvangersProps {
 
 /**
  * Wie de mail krijgt, wie niet en waarom. Drie lijsten in één paneel:
- * de ontvangers (uit te vinken), de klanten zonder e-mailadres (direct aan
- * te vullen) en wie zich heeft afgemeld.
+ * de ontvangers (uit te vinken), de klanten zonder bruikbaar e-mailadres
+ * (direct aan te vullen; ook adressen die eerder onbestelbaar bleken) en wie
+ * zich heeft afgemeld.
  */
 const MailOntvangers = ({
   tab,
@@ -233,14 +234,22 @@ const MailOntvangers = ({
         ) : (
           <>
             <p className="text-[13px] text-muted-foreground">
-              Deze klanten krijgen de mail niet. Vul een adres in en ze schuiven vanzelf naar Ontvangers.
+              Deze klanten krijgen de mail niet. Vul een (nieuw) adres in en ze schuiven vanzelf naar Ontvangers.
             </p>
             <ul className="max-h-96 divide-y divide-border overflow-y-auto rounded-lg border border-border">
               {zonderEmail.map((k) => (
                 <li key={k.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-3 py-2.5 text-sm">
-                  <Link to={`/admin/klanten/${k.id}`} className="min-w-0 font-medium hover:underline">
-                    {k.name}
-                  </Link>
+                  <span className="min-w-0">
+                    <Link to={`/admin/klanten/${k.id}`} className="font-medium hover:underline">
+                      {k.name}
+                    </Link>
+                    {/* Resend meldde dit adres als onbestelbaar; een ander adres invullen heft dat op. */}
+                    {k.email_onbestelbaar_op && (
+                      <span className={cn("block text-[13px]", TOON.danger.tekst)}>
+                        {k.email} is onbestelbaar sinds {formatDate(k.email_onbestelbaar_op)}
+                      </span>
+                    )}
+                  </span>
                   <SnelInvullen klant={k} velden={["contact", "email"]} />
                 </li>
               ))}

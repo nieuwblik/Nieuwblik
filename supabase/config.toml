@@ -3,3 +3,8 @@ project_id = "rkpfgiaxumwdidpfkqpp"
 # Afmelden met één klik vanuit een mailprogramma: die stuurt geen inlog mee.
 [functions.mail-afmelden]
 verify_jwt = false
+
+# Meldingen van Resend (afgeleverd, onbestelbaar, spamklacht): Resend stuurt geen
+# inlog mee; de functie controleert zelf de handtekening.
+[functions.resend-webhook]
+verify_jwt = false
