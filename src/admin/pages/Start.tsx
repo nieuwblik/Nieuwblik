@@ -5,6 +5,8 @@ import { ArrowRight, ArrowUpRight, Play, Plus, Search, Square, UserPlus } from "
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo.webp";
 import PortaalAchtergrond from "@/components/PortaalAchtergrond";
@@ -15,7 +17,8 @@ import { groet } from "@/admin/format";
 import { useAanvragen } from "@/admin/aanvragen";
 import { usePijplijn } from "@/admin/pijplijn";
 import { useTaakTellingen } from "@/admin/stats";
-import { formatKlok, projectNaam, useLopendeTimer, useNu, useStartTimer, useStopTimer } from "@/admin/uren";
+import { useProjects } from "@/admin/queries";
+import { formatKlok, projectNaam, useLopendeTimer, useNu, useSaveUren, useStartTimer, useStopTimer } from "@/admin/uren";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 import { useVloeiendNaar } from "@/admin/vloeiend";
 import { useWebsiteStand } from "@/admin/websites";
@@ -137,59 +140,149 @@ const Tegel = ({
   );
 };
 
-/** De timer als pil: starten zonder project (kiezen kan in de bovenbalk), of de lopende tijd met stoppen. */
+/**
+ * Het plusje voor in de timerpil: dicht tot je de pil aanwijst, dan schuift het
+ * zacht open (de kolom groeit van 0fr naar 1fr) en wordt de pil breder. Het
+ * opent een zoeklijst met projecten; zolang die openstaat blijft het plusje
+ * zichtbaar, en met het toetsenbord komt het open zodra het focus krijgt.
+ */
+const ProjectPlus = ({ lopend, onKies }: { lopend: boolean; onKies: (projectId: string, naam: string) => void }) => {
+  const { data: projects = [] } = useProjects();
+  const [open, setOpen] = useState(false);
+  const keuzes = useMemo(() => projects.filter((p) => p.status !== "geannuleerd"), [projects]);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label={lopend ? "Project kiezen voor de lopende timer" : "Timer starten voor een project"}
+          title={lopend ? "Project kiezen" : "Starten voor een project"}
+          className="grid h-full grid-cols-[0fr] opacity-0 outline-none transition-[grid-template-columns,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/timer:grid-cols-[1fr] group-hover/timer:opacity-100 group-focus-within/timer:grid-cols-[1fr] group-focus-within/timer:opacity-100 data-[state=open]:grid-cols-[1fr] data-[state=open]:opacity-100 motion-reduce:transition-none"
+        >
+          <span className="flex min-w-0 items-center overflow-hidden">
+            <span className="flex h-full items-center pl-3.5 pr-3 text-white/70 transition-colors duration-200 hover:text-white">
+              <Plus className="h-4 w-4" />
+            </span>
+            <span className="h-4 w-px shrink-0 bg-white/20" />
+          </span>
+        </button>
+      </PopoverTrigger>
+      <PopoverContent align="center" sideOffset={10} className="w-72">
+        <Command>
+          <CommandInput placeholder="Zoek een project" />
+          <CommandList>
+            <CommandEmpty>Geen project gevonden</CommandEmpty>
+            <CommandGroup>
+              {keuzes.map((p) => {
+                const naam = p.client?.name ?? p.name;
+                return (
+                  <CommandItem
+                    key={p.id}
+                    value={`${naam} ${p.name} ${p.id}`}
+                    onSelect={() => {
+                      setOpen(false);
+                      onKies(p.id, naam);
+                    }}
+                  >
+                    <span className="truncate">{naam}</span>
+                    {/* Meestal heet het project naar de klant; alleen een afwijkende naam erbij. */}
+                    {p.client && p.name !== naam && (
+                      <span className="ml-auto truncate pl-3 text-xs text-muted-foreground">{p.name}</span>
+                    )}
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+/**
+ * De timer als pil: starten zonder project, of de lopende tijd met stoppen.
+ * Bij aanwijzen schuift links een plusje open om de timer aan een project te
+ * hangen (starten voor dat project, of de lopende timer erop zetten).
+ */
 const TimerPil = ({ style }: { style: CSSProperties }) => {
   const { data: lopend, isError } = useLopendeTimer();
   const start = useStartTimer();
   const stop = useStopTimer();
+  const save = useSaveUren();
   const nu = useNu(Boolean(lopend));
   if (isError) return null;
 
-  if (lopend) {
-    return (
-      <button
-        type="button"
-        className={cn(PIL, "p-start-op-glas")}
-        style={style}
-        disabled={stop.isPending}
-        onClick={() =>
-          stop.mutate(lopend, {
-            onSuccess: () => toast.success("Timer gestopt"),
-            onError: (e) => toast.error(e.message),
-          })
-        }
-        aria-label="Timer stoppen"
-      >
-        {/* Een zachte puls: de klok loopt. */}
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 motion-reduce:animate-none" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-        </span>
-        <span className="tabular-nums">{formatKlok((nu - new Date(lopend.started_at).getTime()) / 1000)}</span>
-        <span className="hidden max-w-40 truncate text-white/60 sm:inline">{projectNaam(lopend)}</span>
-        <Square className="h-3 w-3 fill-current opacity-70" />
-      </button>
+  const kiesProject = (projectId: string, naam: string) => {
+    if (lopend) {
+      save.mutate(
+        { id: lopend.id, values: { project_id: projectId, task_id: null } },
+        { onSuccess: () => toast.success(`Timer staat op ${naam}`), onError: (e) => toast.error(e.message) },
+      );
+      return;
+    }
+    start.mutate(
+      { project_id: projectId, task_id: null, description: null },
+      { onSuccess: () => toast.success(`Timer loopt voor ${naam}`), onError: (e) => toast.error(e.message) },
     );
-  }
+  };
+
+  // De pil zelf is het glas; de knoppen erin hebben geen eigen vlak.
+  const knop =
+    "flex h-full items-center gap-2 px-4 transition-[color,transform] duration-150 ease-out hover:text-white active:scale-[0.97] disabled:opacity-60";
+
   return (
-    <button
-      type="button"
-      className={cn(PIL, "p-start-op-glas group")}
+    <div
+      className={cn(
+        GLAS,
+        "p-start-op-glas group/timer flex h-10 items-center overflow-hidden rounded-full text-sm text-white/90 transition-[background-color,border-color] duration-300 ease-out hover:border-white/30 hover:bg-[rgba(18,24,36,0.26)]",
+      )}
       style={style}
-      disabled={start.isPending}
-      onClick={() =>
-        start.mutate(
-          { project_id: null, task_id: null, description: null },
-          {
-            onSuccess: () => toast.success("Timer loopt", { description: "Waaraan je werkt, kies je in de bovenbalk van het dashboard." }),
-            onError: (e) => toast.error(e.message),
-          },
-        )
-      }
     >
-      <Play className="h-3.5 w-3.5 fill-current transition-transform duration-300 group-hover:scale-110" />
-      Timer
-    </button>
+      <ProjectPlus lopend={Boolean(lopend)} onKies={kiesProject} />
+      {lopend ? (
+        <button
+          type="button"
+          className={knop}
+          disabled={stop.isPending}
+          onClick={() =>
+            stop.mutate(lopend, {
+              onSuccess: () => toast.success("Timer gestopt"),
+              onError: (e) => toast.error(e.message),
+            })
+          }
+          aria-label="Timer stoppen"
+        >
+          {/* Een zachte puls: de klok loopt. */}
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 motion-reduce:animate-none" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+          </span>
+          <span className="tabular-nums">{formatKlok((nu - new Date(lopend.started_at).getTime()) / 1000)}</span>
+          <span className="hidden max-w-40 truncate text-white/60 sm:inline">{projectNaam(lopend)}</span>
+          <Square className="h-3 w-3 fill-current opacity-70" />
+        </button>
+      ) : (
+        <button
+          type="button"
+          className={knop}
+          disabled={start.isPending}
+          onClick={() =>
+            start.mutate(
+              { project_id: null, task_id: null, description: null },
+              {
+                onSuccess: () => toast.success("Timer loopt", { description: "Een project kies je met het plusje voor de timer." }),
+                onError: (e) => toast.error(e.message),
+              },
+            )
+          }
+        >
+          <Play className="h-3.5 w-3.5 fill-current" />
+          Timer
+        </button>
+      )}
+    </div>
   );
 };
 
