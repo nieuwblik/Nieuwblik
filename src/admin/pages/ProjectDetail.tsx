@@ -28,6 +28,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import NotitieWerkplek from "@/admin/components/NotitieWerkplek";
+import { useNotities } from "@/admin/notities";
 import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import ProjectFiles from "@/admin/components/ProjectFiles";
@@ -79,6 +81,8 @@ const ProjectDetail = () => {
   const { user } = useAdminAuth();
   const { data: project, isLoading, isError } = useProject(id);
   const { data: client } = useClient(project?.client_id ?? undefined);
+  const { data: alleNotities = [] } = useNotities();
+  const aantalNotities = project?.client_id ? alleNotities.filter((n) => n.client_id === project.client_id).length : 0;
   const verberg = useVerbergKlant();
   const wisselVerborgen = async () => {
     if (!client) return;
@@ -104,7 +108,7 @@ const ProjectDetail = () => {
   // Het tabblad staat in de URL, zodat een link van het dashboard (een
   // update in de activiteit) meteen op de tijdlijn opent.
   const [searchParams, setSearchParams] = useSearchParams();
-  const tab = ["taken", "bestanden", "uren", "tijdlijn"].includes(searchParams.get("tab") ?? "")
+  const tab = ["taken", "bestanden", "uren", "notities", "tijdlijn"].includes(searchParams.get("tab") ?? "")
     ? searchParams.get("tab")!
     : "taken";
 
@@ -346,6 +350,9 @@ const ProjectDetail = () => {
                 Bestanden
               </Tab>
               <Tab value="uren">Uren</Tab>
+              <Tab value="notities" count={aantalNotities}>
+                Notities
+              </Tab>
               <Tab value="tijdlijn">Tijdlijn</Tab>
             </TabsList>
 
@@ -387,6 +394,19 @@ const ProjectDetail = () => {
 
             <TabsContent value="uren" className="mt-6">
               <ProjectUren projectId={project.id} naam={naam} client={client ?? null} />
+            </TabsContent>
+
+            {/* De notities van deze klant: hetzelfde scherm als de pagina Notities. */}
+            <TabsContent value="notities" className="mt-6">
+              {project.client_id ? (
+                <NotitieWerkplek
+                  klantId={project.client_id}
+                  kop={<h2 className="text-lg font-semibold tracking-tight">Notities</h2>}
+                  hoogte="lg:h-[640px]"
+                />
+              ) : (
+                <p className="text-sm text-muted-foreground">Koppel eerst een klant aan dit project om notities te maken.</p>
+              )}
             </TabsContent>
 
             <TabsContent value="tijdlijn" className="mt-6">

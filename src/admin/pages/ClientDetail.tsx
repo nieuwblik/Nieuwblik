@@ -9,6 +9,7 @@ import BillingButton from "@/admin/components/BillingButton";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
 import EmptyState from "@/admin/components/EmptyState";
 import InMoneybirdZetten from "@/admin/components/InMoneybirdZetten";
+import NotitieWerkplek from "@/admin/components/NotitieWerkplek";
 import TaskList from "@/admin/components/TaskList";
 import { hoofdtaken } from "@/admin/constants";
 import { useAdminAuth } from "@/admin/AdminAuthContext";
@@ -155,6 +156,15 @@ const ClientDetail = () => {
               </Button>
             }
           />
+      </div>
+
+      {/* Ook een klant zonder project kan notities hebben. */}
+      <div className="mt-8">
+        <NotitieWerkplek
+          klantId={client.id}
+          kop={<h2 className="text-lg font-semibold tracking-tight">Notities</h2>}
+          hoogte="lg:h-[560px]"
+        />
       </div>
 
       <InMoneybirdZetten open={inMoneybird} onOpenChange={setInMoneybird} client={client} />
