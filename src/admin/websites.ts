@@ -34,6 +34,38 @@ export function useWebsiteControles() {
   });
 }
 
+/** Eén controle in de geschiedenis: genoeg voor uptime, de urenbalk en storingen. */
+export type Meting = Pick<WebsiteControle, "project_id" | "created_at" | "online" | "status_code" | "laadtijd_ms" | "fout">;
+
+/**
+ * Alle controles van de laatste dagen, oudste eerst. Met een controle per uur
+ * zijn dat er al snel duizenden; Supabase geeft er 1000 per keer, dus in blokken.
+ */
+export function useWebsiteGeschiedenis(dagen = 7) {
+  return useQuery({
+    queryKey: [...websitesKey, "geschiedenis", dagen],
+    retry: false,
+    staleTime: 5 * 60 * 1000,
+    queryFn: async (): Promise<Meting[]> => {
+      const vanaf = new Date(Date.now() - dagen * 86400000).toISOString();
+      const alle: Meting[] = [];
+      const BLOK = 1000;
+      for (let start = 0; start < 20 * BLOK; start += BLOK) {
+        const { data, error } = await supabase
+          .from("website_controles")
+          .select("project_id, created_at, online, status_code, laadtijd_ms, fout")
+          .gte("created_at", vanaf)
+          .order("created_at", { ascending: true })
+          .range(start, start + BLOK - 1);
+        if (error) throw new Error(error.message);
+        alle.push(...data);
+        if (data.length < BLOK) break;
+      }
+      return alle;
+    },
+  });
+}
+
 /** Nu controleren: één project, of alle projecten met een live-URL. */
 export function useControleerWebsites() {
   const qc = useQueryClient();

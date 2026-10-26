@@ -4,7 +4,7 @@ import { ChevronRight, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TOON } from "@/admin/constants";
 import { timeAgo } from "@/admin/format";
-import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
+import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/admin/ui/Panel";
 import { useWebsiteStand } from "@/admin/websites";
 
 /**
@@ -23,7 +23,7 @@ const WebsitesKaart = ({ className }: { className?: string }) => {
   const nogNiet = stand.sites - stand.gecontroleerd;
 
   return (
-    <Panel className={className}>
+    <Panel className={className} footer={<PanelFooter to="/admin/websites">Alle websites</PanelFooter>}>
       <PanelHeader
         icon={Globe}
         titel="Websites"

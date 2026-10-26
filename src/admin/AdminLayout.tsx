@@ -23,6 +23,7 @@ import {
   UserPlus,
   Users,
   Wallet,
+  Globe,
   ArrowLeftRight,
   TrendingUp,
   Percent,
@@ -53,7 +54,7 @@ import TimerBalk from "@/admin/components/TimerBalk";
 import { useBetaalMeldingen } from "@/admin/useBetaalMeldingen";
 import { useAanvragen } from "@/admin/aanvragen";
 import { useAutomatischeTaken } from "@/admin/useAutomatischeTaken";
-import { useWebsiteBewaking } from "@/admin/websites";
+import { useWebsiteBewaking, useWebsiteStand } from "@/admin/websites";
 import { useLegeTakenOpruimen } from "@/admin/legeTaken";
 import { useVloeiendNaar } from "@/admin/vloeiend";
 import { initials } from "@/admin/format";
@@ -148,6 +149,8 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
   const taken = useTaakTellingen();
   const facturen = useTeFactureren();
   const { data: aanvragen = [] } = useAanvragen();
+  const websites = useWebsiteStand();
+  const offline = websites?.problemen.filter((p) => p.soort === "offline").length ?? 0;
   const { dicht, wissel } = useDichteGroepen();
   const subDicht = useDichteGroepen(SUB_KEY);
   const locatie = useLocation();
@@ -200,6 +203,17 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
           icon: Receipt,
           end: false,
           badge: { aantal: facturen.open.length, titel: "te factureren" },
+        },
+        {
+          to: "/admin/websites",
+          label: "Websites",
+          icon: Globe,
+          end: false,
+          // Rood bij een site die offline is; anders wat binnenkort verloopt.
+          badge:
+            offline > 0
+              ? { aantal: offline, alarm: true, titel: "offline" }
+              : { aantal: websites?.problemen.length ?? 0, titel: "aandacht nodig" },
         },
         { to: "/admin/mailen", label: "Mailen", icon: Mail, end: false },
         {

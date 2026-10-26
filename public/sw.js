@@ -125,3 +125,40 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(networkFirst(event.request));
 });
 
+// ---------------------------------------------------------------------------
+// Pushmeldingen van het portaal (websitebewaking). De functie website-controle
+// stuurt { titel, tekst, url, tag }; een klik opent die pagina in het portaal,
+// in een venster dat al openstaat als dat kan.
+// ---------------------------------------------------------------------------
+self.addEventListener("push", (event) => {
+  let bericht = {};
+  try {
+    bericht = event.data ? event.data.json() : {};
+  } catch {
+    bericht = { tekst: event.data ? event.data.text() : "" };
+  }
+  event.waitUntil(
+    self.registration.showNotification(bericht.titel || "Nieuwblik Portaal", {
+      body: bericht.tekst || "",
+      icon: "/admin/icon-192.png",
+      badge: "/admin/icon-192.png",
+      tag: bericht.tag || undefined,
+      renotify: Boolean(bericht.tag),
+      data: { url: bericht.url || "/admin/websites" },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const doel = new URL((event.notification.data && event.notification.data.url) || "/admin/websites", self.location.origin).href;
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((vensters) => {
+      const portaal = vensters.find((v) => v.url.startsWith(self.location.origin + "/admin"));
+      if (portaal) {
+        return portaal.focus().then((v) => (v && "navigate" in v ? v.navigate(doel) : undefined)).catch(() => undefined);
+      }
+      return self.clients.openWindow(doel);
+    })
+  );
+});

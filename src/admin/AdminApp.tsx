@@ -16,6 +16,7 @@ import ProjectDetail from "@/admin/pages/ProjectDetail";
 import TaskDetail from "@/admin/pages/TaskDetail";
 import Tasks from "@/admin/pages/Tasks";
 import Uren from "@/admin/pages/Uren";
+import Websites from "@/admin/pages/Websites";
 
 /** Houdt een eventueel ?status=-filter vast bij het doorsturen. */
 const ToClients = () => {
@@ -51,6 +52,7 @@ const AdminApp = () => (
         <Route path="taken" element={<Tasks />} />
         <Route path="taken/:id" element={<TaskDetail />} />
         <Route path="uren" element={<Uren />} />
+        <Route path="websites" element={<Websites />} />
         <Route path="aanvragen" element={<Aanvragen />} />
         {/* Oude adressen uit eerdere versies van het portaal. */}
         <Route path="projecten" element={<ToClients />} />

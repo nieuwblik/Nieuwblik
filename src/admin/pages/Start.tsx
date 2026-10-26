@@ -542,7 +542,7 @@ const Start = () => {
             vertraging={800}
           />
           <Tegel
-            {...(eersteProbleem ? { to: `/admin/projecten/${eersteProbleem.projectId}` } : {})}
+            to="/admin/websites"
             label="Websites"
             waarde={
               !websites || websites.sites === 0
