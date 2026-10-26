@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AlertTriangle, Check, Users } from "lucide-react";
+import { AlertTriangle, Check, MailX, Users, UserX } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Tabs } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import EmptyState from "@/admin/components/EmptyState";
+import PillTabs from "@/admin/ui/PillTabs";
 import { TOON } from "@/admin/constants";
 import { formatDate } from "@/admin/format";
 import { useSaveClient, type Client } from "@/admin/queries";
@@ -127,33 +129,23 @@ const MailOntvangers = ({
 
   return (
     <div className="space-y-3">
-      <div role="tablist" aria-label="Ontvangers" className="flex flex-wrap gap-1 border-b border-border">
-        {tabs.map((t) => (
-          <button
-            key={t.waarde}
-            type="button"
-            role="tab"
-            aria-selected={tab === t.waarde}
-            onClick={() => onTab(t.waarde)}
-            className={cn(
-              "-mb-px flex items-center gap-1.5 border-b-2 px-2 pb-2 pt-1 text-sm transition-colors duration-150",
-              tab === t.waarde
-                ? "border-foreground font-medium text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground",
-            )}
-          >
-            {t.label}
-            <span
-              className={cn(
-                "rounded-md px-1.5 text-xs tabular-nums leading-5",
-                t.waarde === "zonder-email" && t.aantal > 0 ? TOON.warning.pil : "bg-muted text-muted-foreground",
-              )}
-            >
-              {t.aantal}
-            </span>
-          </button>
-        ))}
-      </div>
+      {/* Alleen de balk: de inhoud hieronder volgt het gekozen tabblad zelf. */}
+      <Tabs value={tab} onValueChange={(w) => onTab(w as OntvangersTab)}>
+        <PillTabs
+          value={tab}
+          tabs={[
+            { value: "ontvangers", label: "Ontvangers", icon: Users, count: tabs[0]!.aantal },
+            {
+              value: "zonder-email",
+              label: "Zonder e-mailadres",
+              icon: MailX,
+              count: tabs[1]!.aantal,
+              waarschuwing: tabs[1]!.aantal > 0,
+            },
+            { value: "afgemeld", label: "Afgemeld", icon: UserX, count: tabs[2]!.aantal },
+          ]}
+        />
+      </Tabs>
 
       {tab === "ontvangers" && (
         <>

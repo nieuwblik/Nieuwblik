@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import {
+  Activity,
+  Info,
   CalendarClock,
   CalendarDays,
   CircleDollarSign,
@@ -19,7 +22,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import PillTabs from "@/admin/ui/PillTabs";
 import { cn } from "@/lib/utils";
 import ActivityFeed from "@/admin/components/ActivityFeed";
 import StatusPill from "@/admin/ui/StatusPill";
@@ -130,24 +134,18 @@ const ProjectRail = ({ project, client, team, userId }: ProjectRailProps) => {
   const late = (daysUntil(project.deadline) ?? 1) < 0 && project.status !== "live";
   const volgende = volgendeTermijn(client?.billing_start ?? null, client?.billing_cycle ?? null);
 
+  const [tab, setTab] = useState("activiteit");
+
   return (
-    <Tabs defaultValue="activiteit">
-      {/* Dezelfde hoogte als de tabbalk van de rechterkolom, zodat de twee
-          onderstrepingen op één lijn liggen. */}
-      <TabsList className="h-auto w-full justify-start gap-6 rounded-none border-b border-border bg-transparent p-0">
-        <TabsTrigger
-          value="activiteit"
-          className="rounded-none border-b-2 border-transparent px-0 pb-3 pt-0 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-        >
-          Activiteit
-        </TabsTrigger>
-        <TabsTrigger
-          value="gegevens"
-          className="rounded-none border-b-2 border-transparent px-0 pb-3 pt-0 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-        >
-          Gegevens
-        </TabsTrigger>
-      </TabsList>
+    <Tabs value={tab} onValueChange={setTab}>
+      {/* Dezelfde tabbalk als de rechterkolom, zodat de twee op één lijn liggen. */}
+      <PillTabs
+        value={tab}
+        tabs={[
+          { value: "activiteit", label: "Activiteit", icon: Activity },
+          { value: "gegevens", label: "Gegevens", icon: Info },
+        ]}
+      />
 
       <TabsContent value="activiteit" className="mt-6 space-y-6">
         <div className="space-y-4">

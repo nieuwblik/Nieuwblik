@@ -16,6 +16,10 @@ import {
   Plus,
   Receipt,
   Trash2,
+  Paperclip,
+  Timer,
+  NotebookPen,
+  History as TijdlijnIcoon,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -29,6 +33,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import NotitieWerkplek from "@/admin/components/NotitieWerkplek";
+import PillTabs from "@/admin/ui/PillTabs";
 import { useNotities } from "@/admin/notities";
 import EmptyState from "@/admin/components/EmptyState";
 import ClientProjectDialog from "@/admin/components/ClientProjectDialog";
@@ -57,21 +62,6 @@ import {
   useTeam,
   useVerbergKlant,
 } from "@/admin/queries";
-
-/** Eén tabblad in de rechterkolom, met het aantal als donkere pil erachter. */
-const Tab = ({ value, children, count }: { value: string; children: React.ReactNode; count?: number }) => (
-  <TabsTrigger
-    value={value}
-    className="gap-2 rounded-none border-b-2 border-transparent px-0 pb-3 pt-0 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-  >
-    {children}
-    {count !== undefined && count > 0 && (
-      <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-foreground px-1.5 text-[11px] font-medium tabular-nums text-background">
-        {count}
-      </span>
-    )}
-  </TabsTrigger>
-);
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -342,19 +332,16 @@ const ProjectDetail = () => {
               setSearchParams(waarde === "taken" ? {} : { tab: waarde }, { replace: true })
             }
           >
-            <TabsList className="h-auto w-full justify-start gap-6 rounded-none border-b border-border bg-transparent p-0">
-              <Tab value="taken" count={openTasks}>
-                Taken
-              </Tab>
-              <Tab value="bestanden" count={files.length}>
-                Bestanden
-              </Tab>
-              <Tab value="uren">Uren</Tab>
-              <Tab value="notities" count={aantalNotities}>
-                Notities
-              </Tab>
-              <Tab value="tijdlijn">Tijdlijn</Tab>
-            </TabsList>
+            <PillTabs
+              value={tab}
+              tabs={[
+                { value: "taken", label: "Taken", icon: CheckSquare, count: openTasks },
+                { value: "bestanden", label: "Bestanden", icon: Paperclip, count: files.length },
+                { value: "uren", label: "Uren", icon: Timer },
+                { value: "notities", label: "Notities", icon: NotebookPen, count: aantalNotities },
+                { value: "tijdlijn", label: "Tijdlijn", icon: TijdlijnIcoon },
+              ]}
+            />
 
             <TabsContent value="taken" className="mt-6">
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">

@@ -15,13 +15,16 @@ import {
   RotateCw,
   TrendingUp,
   Wallet,
+  ArrowLeftRight,
+  ChartPie,
 } from "lucide-react";
 
 import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import PillTabs from "@/admin/ui/PillTabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import BtwTab from "@/admin/components/BtwTab";
@@ -55,11 +58,12 @@ import OogKnop from "@/admin/ui/OogKnop";
 import { Panel, PanelBody, PanelHeader } from "@/admin/ui/Panel";
 import { useBedragenVerborgen } from "@/admin/useBedragenVerborgen";
 
+// Dezelfde iconen als de subitems in de zijbalk.
 const TABBLADEN = [
-  { waarde: "overzicht", label: "Overzicht" },
-  { waarde: "omzet", label: "Omzet" },
-  { waarde: "btw", label: "Btw" },
-  { waarde: "transacties", label: "Transacties" },
+  { waarde: "overzicht", label: "Overzicht", icon: ChartPie },
+  { waarde: "omzet", label: "Omzet", icon: TrendingUp },
+  { waarde: "btw", label: "Btw", icon: Percent },
+  { waarde: "transacties", label: "Transacties", icon: ArrowLeftRight },
 ];
 
 const maandLabel = (maand: string, lang = false) =>
@@ -471,17 +475,10 @@ const Financien = () => {
           })
         }
       >
-        <TabsList className="h-auto w-full justify-start gap-6 rounded-none border-b border-border bg-transparent p-0">
-          {TABBLADEN.map((t) => (
-            <TabsTrigger
-              key={t.waarde}
-              value={t.waarde}
-              className="rounded-none border-b-2 border-transparent px-0 pb-3 pt-0 data-[state=active]:border-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-            >
-              {t.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <PillTabs
+          value={tab}
+          tabs={TABBLADEN.map((t) => ({ value: t.waarde, label: t.label, icon: t.icon }))}
+        />
 
         <TabsContent value="omzet" className="mt-5">
           <OmzetTab />
