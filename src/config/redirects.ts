@@ -35,6 +35,9 @@ const OPGEHEVEN_WERKGEBIED_STEDEN = [
   "alkmaar",
 ] as const;
 
+// Moet gelijk blijven aan de dorpen in SAMENGEVOEGDE_WERKGEBIEDEN (src/data/regions.ts).
+const WEST_FRIESE_DORPEN = ["hoogkarspel", "zwaagdijk", "bovenkarspel", "venhuizen", "hem", "hauwert", "andijk"] as const;
+
 export const REDIRECTS: Redirect[] = [
   ...OPGEHEVEN_WERKGEBIED_STEDEN.map((stad) => ({
     from: `/werkgebied/${stad}`,
@@ -42,11 +45,18 @@ export const REDIRECTS: Redirect[] = [
     reden: "Kannibalisatie: zelfde zoekwoord als de landelijke stadspagina",
   })),
 
-  // Stap 2 groeiplan (okt 2026): één hoofdpagina per plaats. Google koos voor
-  // Enkhuizen al de homepage; Heerhugowaard en Schagen hebben nu een volwaardige stadspagina.
-  { from: "/werkgebied/enkhuizen", to: "/", reden: "Kannibalisatie: homepage rankt op website laten maken/webdesign Enkhuizen" },
+  // Stap 2 groeiplan (okt 2026): één hoofdpagina per plaats. Enkhuizen,
+  // Heerhugowaard en Schagen hebben een volwaardige stadspagina.
+  { from: "/werkgebied/enkhuizen", to: "/website-laten-maken-enkhuizen", reden: "Kannibalisatie: zelfde zoekwoord als de stadspagina, die nu ook de unieke Enkhuizen-inhoud heeft" },
   { from: "/werkgebied/heerhugowaard", to: "/website-laten-maken-heerhugowaard", reden: "Kannibalisatie: zelfde zoekwoord als de nieuwe stadspagina" },
   { from: "/werkgebied/schagen", to: "/website-laten-maken-schagen", reden: "Kannibalisatie: zelfde zoekwoord als de nieuwe stadspagina" },
+  // Release okt 2026: de dorpspagina's waren hetzelfde sjabloon met een andere
+  // naam. Ze staan nu als werkgebied op de West-Friesland-pagina.
+  ...WEST_FRIESE_DORPEN.map((dorp) => ({
+    from: `/werkgebied/${dorp}`,
+    to: "/werkgebied/west-friesland",
+    reden: "Dunne sjabloonpagina, samengevoegd met de West-Friesland-pagina",
+  })),
 
   // Defect 3: routes van vóór de migratie. De git-historie begint pas bij
   // Lovable (nov 2025); deze paden komen uit het Wayback Machine-archief.

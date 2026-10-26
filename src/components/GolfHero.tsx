@@ -156,14 +156,15 @@ const GolfHero = () => {
               >
                 Nieuwblik ontwerpt en bouwt websites en webshops die opvallen,
                 razendsnel laden en goed vindbaar zijn, van eerste schets tot
-                livegang. Vanuit{" "}
+                livegang. Vanuit Enkhuizen voor ondernemers door heel Nederland.
+                Zelf ondernemer in de stad? Lees meer over{" "}
                 <Link
                   to="/website-laten-maken-enkhuizen"
                   className="transition-colors hover:text-[hsl(var(--sw-green))]"
                 >
-                  Enkhuizen
-                </Link>{" "}
-                voor ondernemers door heel Nederland.
+                  website laten maken in Enkhuizen
+                </Link>
+                .
               </p>
 
               <div

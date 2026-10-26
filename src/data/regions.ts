@@ -501,7 +501,11 @@ export const regions: Region[] = [
  * Plaatsen waarvan /werkgebied/{slug} is opgeheven tegen kannibalisatie. Ze
  * 301'en via src/config/redirects.ts naar de ene hoofdpagina voor die plaats.
  */
-export const SAMENGEVOEGDE_WERKGEBIEDEN = ['enkhuizen', 'heerhugowaard', 'schagen'] as const;
+export const SAMENGEVOEGDE_WERKGEBIEDEN = [
+  'enkhuizen', 'heerhugowaard', 'schagen',
+  // Samengevoegd met /werkgebied/west-friesland (okt 2026).
+  'hoogkarspel', 'zwaagdijk', 'bovenkarspel', 'venhuizen', 'hem', 'hauwert', 'andijk',
+] as const;
 const isSamengevoegd = (slug: string) => (SAMENGEVOEGDE_WERKGEBIEDEN as readonly string[]).includes(slug);
 
 export const getWerkgebiedRegionBySlug = (slug: string): Region | undefined =>

@@ -928,6 +928,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       h2: "Website laten maken in Enkhuizen, onze thuisplaats",
       alineas: [
         "Enkhuizen is onze thuisplaats. Nieuwblik zijn Justin en Job, twee ontwerpers en developers uit Enkhuizen. Justin richtte het bureau op. Bij ons spreek je degene die ook daadwerkelijk aan je website bouwt, zonder accountmanager of tussenlaag.",
+        "We zitten zelf op bedrijventerrein De Trompet. Onderneem je in Enkhuizen, dan heb je dus een webbureau om de hoek, dat de stad kent en weet welke klanten je hier wilt bereiken.",
         "We werken voornamelijk online, via videocall, telefoon, mail en WhatsApp. Spreek je elkaar liever in het echt, dan komen we bij je langs.",
         "Een website voor een bedrijf in Enkhuizen begint bij de vraag wie je wilt bereiken: klanten uit de stad zelf, uit de dorpen eromheen of uit de rest van het land. Dat bepaalt welke pagina's er komen, welke woorden erin staan en welke knop een bezoeker als eerste ziet.",
       ],
@@ -975,6 +976,10 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: `Starter kost ${STARTER}, Professional begint bij ${PROFESSIONAL} en een webshop bij ${WEBSHOP}. Na een kennismaking krijg je binnen 24 uur een offerte met een vaste prijs.`,
       },
       {
+        q: "Werken jullie ook voor kleine ondernemers in Enkhuizen?",
+        a: "Ja. Of je nu zzp'er bent, een winkel in de binnenstad hebt of een bedrijf op een bedrijventerrein: het Starter-pakket is voor kleinere ondernemers bedoeld, en in de offerte zie je vooraf precies wat je krijgt.",
+      },
+      {
         q: "Met welke levertijd moet ik rekenen?",
         a: `Een Starter-site staat meestal binnen ${LEVERTIJD.starter} live, een bedrijfswebsite binnen ${LEVERTIJD.standaard} en een webshop of groter project binnen ${LEVERTIJD.complex}. Het tempo hangt ook af van hoe snel teksten en foto's klaar zijn.`,
       },
@@ -993,6 +998,10 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         q: "Wat heeft mijn Google Bedrijfsprofiel met mijn website te maken?",
         a: "Ze horen bij elkaar. Bij lokale zoekopdrachten toont Google vaak bedrijven uit het Bedrijfsprofiel. Consistente gegevens helpen daarbij: dezelfde naam, hetzelfde adres en hetzelfde telefoonnummer op je website en in je profiel. Reviews van klanten helpen ook.",
+      },
+      {
+        q: "Mijn bedrijf draait op toeristen in het seizoen. Waar moet mijn site op letten?",
+        a: "Vooral op de telefoon. Bezoekers zoeken onderweg en willen meteen je openingstijden, de route en een knop om te bellen of te reserveren. Zorg ook dat je prijzen en openingstijden snel kunt aanpassen als het seizoen verandert. Een Engelse of Duitse versie kan als optionele uitbreiding.",
       },
       {
         q: "Werken jullie alleen voor bedrijven in Enkhuizen?",
