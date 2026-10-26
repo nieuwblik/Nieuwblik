@@ -6,9 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { volgendeDeadline } from "@/admin/herhaling";
 import type { Herhaling } from "@/admin/werkstroom";
-import type { KlantMailing } from "@/admin/mailing";
 
-export type Client = Tables<"clients"> & KlantMailing;
+export type Client = Tables<"clients">;
 export type Project = Tables<"projects">;
 export type Task = Tables<"tasks">;
 export type ProjectUpdate = Tables<"project_updates">;

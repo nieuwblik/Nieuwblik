@@ -1,28 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
-import type { TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { adminKeys, type Client } from "@/admin/queries";
-
-/**
- * Kolommen uit de migratie mailing_uitbreiding (concepten, inplannen,
- * spreiden, opmaak en afleverstatus). Optioneel tot de migratie is uitgevoerd
- * en de types opnieuw zijn gemaakt; daarna kan dit weg en komen de velden uit
- * Tables<"mailings">, Tables<"mailing_ontvangers"> en Tables<"clients">.
- */
-export interface MailingUitbreiding {
-  status?: MailingStatus;
-  ingepland_op?: string | null;
-  spreiding_minuten?: number;
-  persoonlijk?: boolean;
-  afmeldkop?: boolean;
-  klant_ids?: string[] | null;
-  updated_at?: string;
-}
-
-export interface KlantMailing {
-  email_onbestelbaar_op?: string | null;
-}
 
 export type MailingStatus = "concept" | "ingepland" | "verstuurd" | "geannuleerd";
 
@@ -48,7 +27,7 @@ export interface MailingOntvanger {
 }
 
 /** Het adres kan geen mailing krijgen: geen adres, of eerder onbestelbaar. */
-export const kanMailen = (k: Client & KlantMailing) => Boolean(k.email?.includes("@")) && !k.email_onbestelbaar_op;
+export const kanMailen = (k: Client) => Boolean(k.email?.includes("@")) && !k.email_onbestelbaar_op;
 
 /** De velden die in een mailing worden ingevuld, net als in send-mailing. */
 export function mailVelden(k: Pick<Client, "name" | "contact_name" | "website">) {
@@ -102,11 +81,10 @@ export function useConceptOpslaan() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, gegevens, userId }: { id: string | null; gegevens: ConceptGegevens; userId: string | null }) => {
-      // De nieuwe kolommen staan nog niet in de gegenereerde types (zie MailingUitbreiding).
       const rij = { ...gegevens, status: "concept", verstuurd_door: userId, updated_at: new Date().toISOString() };
       const { data, error } = id
-        ? await supabase.from("mailings").update(rij as TablesUpdate<"mailings">).eq("id", id).select("id").single()
-        : await supabase.from("mailings").insert(rij as TablesInsert<"mailings">).select("id").single();
+        ? await supabase.from("mailings").update(rij).eq("id", id).select("id").single()
+        : await supabase.from("mailings").insert(rij).select("id").single();
       if (error) {
         throw new Error(
           /status|column|schema cache/i.test(error.message)

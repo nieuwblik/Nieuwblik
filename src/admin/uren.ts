@@ -3,45 +3,24 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
+import type { Tables } from "@/integrations/supabase/types";
 
-/**
- * De klant van een urenregel zonder project (migratie uren_klant). Tot die
- * migratie is uitgevoerd staat de kolom nog niet in de gegenereerde types;
- * daarom hier als aanvulling, zodat die bestanden onaangeroerd blijven.
- */
-export interface UrenKlantVeld {
-  client_id?: string | null;
-}
-
-export type TimeEntry = Tables<"time_entries"> & UrenKlantVeld;
+export type TimeEntry = Tables<"time_entries">;
 
 /** Een urenregel met het project (en de klant) en de taak erbij. */
 export type UrenRegel = TimeEntry & {
-  project: { id: string; name: string; client_id?: string | null; client: { name: string } | null } | null;
+  project: { id: string; name: string; client_id: string | null; client: { name: string } | null } | null;
   task: { id: string; title: string } | null;
-  /** De klant van een regel zonder project; ontbreekt zolang de migratie er niet is. */
-  klant?: { id: string; name: string } | null;
+  /** De klant van de regel (bij projecturen die van het project, bij losse uren de gekozen klant). */
+  klant: { id: string; name: string } | null;
 };
 
-const SELECTIE = "*, project:projects(id, name, client_id, client:clients(name)), task:tasks(id, title)";
-const SELECTIE_MET_KLANT = `${SELECTIE}, klant:clients(id, name)`;
+const SELECTIE = "*, project:projects(id, name, client_id, client:clients(name)), task:tasks(id, title), klant:clients(id, name)";
 
-/**
- * Leest uren mét de klant van de regel. Bestaat de kolom nog niet (migratie
- * niet uitgevoerd), dan zonder; daarna onthoudt het portaal dat tot de
- * pagina opnieuw laadt. Zo blijft alles werken, ook vóór de migratie.
- */
-let klantKolom = true;
-async function metKlant<T>(
-  vraag: (selectie: string) => PromiseLike<{ data: unknown; error: { message: string; code?: string } | null }>,
+/** Leest uren met project, taak en klant erbij. */
+async function lees<T>(
+  vraag: (selectie: string) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
 ): Promise<T> {
-  if (klantKolom) {
-    const { data, error } = await vraag(SELECTIE_MET_KLANT);
-    if (!error) return data as T;
-    if (!/client_id|PGRST200|42703|relationship/i.test(`${error.code ?? ""} ${error.message}`)) throw new Error(error.message);
-    klantKolom = false;
-  }
   const { data, error } = await vraag(SELECTIE);
   if (error) throw new Error(error.message);
   return data as T;
@@ -166,7 +145,7 @@ export function useUrenInPeriode(van: Date, tot: Date) {
     queryKey: urenKeys.periode(van.toISOString(), tot.toISOString()),
     retry: false,
     queryFn: () =>
-      metKlant<UrenRegel[]>((selectie) =>
+      lees<UrenRegel[]>((selectie) =>
         supabase
           .from("time_entries")
           .select(selectie)
@@ -187,7 +166,7 @@ export function useTeFacturerenUren() {
     queryKey: urenKeys.teFactureren,
     retry: false,
     queryFn: () =>
-      metKlant<UrenRegel[]>((selectie) =>
+      lees<UrenRegel[]>((selectie) =>
         supabase
           .from("time_entries")
           .select(selectie)
@@ -217,7 +196,7 @@ export async function haalUrenOp({
   const alle: UrenRegel[] = [];
   const BLOK = 1000;
   for (let start = 0; ; start += BLOK) {
-    const deel = await metKlant<UrenRegel[]>((selectie) => {
+    const deel = await lees<UrenRegel[]>((selectie) => {
       let vraag = supabase.from("time_entries").select(selectie).order("started_at", { ascending: true });
       if (van) vraag = vraag.gte("started_at", van.toISOString());
       if (tot) vraag = vraag.lt("started_at", tot.toISOString());
@@ -236,7 +215,7 @@ export function useUrenVan(soort: "taak" | "project", id: string | undefined) {
     enabled: Boolean(id),
     retry: false,
     queryFn: () =>
-      metKlant<UrenRegel[]>((selectie) =>
+      lees<UrenRegel[]>((selectie) =>
         supabase
           .from("time_entries")
           .select(selectie)
@@ -254,7 +233,7 @@ export function useLopendeTimer() {
     enabled: Boolean(user?.id),
     retry: false,
     queryFn: () =>
-      metKlant<UrenRegel | null>((selectie) =>
+      lees<UrenRegel | null>((selectie) =>
         supabase.from("time_entries").select(selectie).eq("user_id", user!.id).is("ended_at", null).maybeSingle(),
       ),
   });
@@ -293,7 +272,7 @@ export function useStartTimer() {
       return unwrap(
         await supabase
           .from("time_entries")
-          .insert({ ...waarden, user_id: user.id, started_at: nu } as TablesInsert<"time_entries">)
+          .insert({ ...waarden, user_id: user.id, started_at: nu })
           .select()
           .single(),
       );
@@ -324,16 +303,13 @@ export function useSaveUren() {
   return useMutation({
     mutationFn: async ({ id, values }: { id?: string; values: Partial<TimeEntry> }) => {
       if (id) {
-        const { error } = await supabase
-          .from("time_entries")
-          .update(values as TablesUpdate<"time_entries">)
-          .eq("id", id);
+        const { error } = await supabase.from("time_entries").update(values).eq("id", id);
         if (error) throw new Error(error.message);
         return;
       }
       const { error } = await supabase
         .from("time_entries")
-        .insert({ ...values, user_id: values.user_id ?? user!.id } as TablesInsert<"time_entries">);
+        .insert({ ...values, user_id: values.user_id ?? user!.id });
       if (error) throw new Error(error.message);
     },
     onSuccess: vernieuw,

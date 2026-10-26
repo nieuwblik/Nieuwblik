@@ -38,11 +38,12 @@ function dagKop(datum: string): string {
 }
 
 /** Eén bank­transactie: richting, tegenpartij met omschrijving, en het bedrag. */
-const TransactieRegel = ({ t }: { t: Transactie }) => {
+const TransactieRegel = ({ t, metRekening }: { t: Transactie; metRekening: boolean }) => {
   const { bedrag } = useBedragenVerborgen();
   const bij = t.bedrag > 0;
   const Pijl = bij ? ArrowDownLeft : ArrowUpRight;
-  const onder = [t.omschrijving, t.categorie, t.rekening].filter(Boolean).join(" · ");
+  // De eigen rekening alleen als er meer zijn; anders staat overal hetzelfde nummer.
+  const onder = [t.omschrijving, t.categorie, metRekening && t.rekening].filter(Boolean).join(" · ");
   return (
     <li className="flex items-center gap-3 px-4 py-2.5 text-sm">
       <span
@@ -99,6 +100,8 @@ const TransactiesTab = ({ uitgaven, moneybirdUrl }: { uitgaven?: Onderdeel<Uitga
   };
 
   // Gefilterd op soort en zoekterm, daarna per dag gegroepeerd.
+  const meerRekeningen = new Set((data?.transacties ?? []).map((t) => t.rekening).filter(Boolean)).size > 1;
+
   const perDag = useMemo(() => {
     const term = zoek.trim().toLowerCase();
     const lijst = (data?.transacties ?? []).filter(
@@ -185,7 +188,7 @@ const TransactiesTab = ({ uitgaven, moneybirdUrl }: { uitgaven?: Onderdeel<Uitga
                   </h3>
                   <ul className="divide-y divide-border">
                     {lijst.map((t) => (
-                      <TransactieRegel key={t.id} t={t} />
+                      <TransactieRegel key={t.id} t={t} metRekening={meerRekeningen} />
                     ))}
                   </ul>
                 </section>
