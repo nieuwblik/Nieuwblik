@@ -23,6 +23,10 @@ import {
   UserPlus,
   Users,
   Wallet,
+  Hammer,
+  CircleCheck,
+  Wrench,
+  NotebookPen,
   Globe,
   ArrowLeftRight,
   TrendingUp,
@@ -81,8 +85,14 @@ interface NavEntry {
   end: boolean;
   /** Getal achter het item; rood als het om te laat werk gaat. */
   badge?: { aantal: number; alarm?: boolean; titel: string };
-  /** Tabbladen van de pagina, als subitems eronder (?tab=…; null is het eerste). */
+  /**
+   * Weergaven van de pagina als subitems eronder: een waarde van een
+   * parameter in de link (standaard ?tab=); null is de pagina zonder, die
+   * het hoofditem zelf al opent.
+   */
   sub?: { tab: string | null; label: string; icon: typeof LayoutDashboard }[];
+  /** De parameter van de subitems, als dat niet "tab" is (bij Klanten "status"). */
+  subParam?: string;
 }
 
 /**
@@ -154,7 +164,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
   const { dicht, wissel } = useDichteGroepen();
   const subDicht = useDichteGroepen(SUB_KEY);
   const locatie = useLocation();
-  const huidigTab = new URLSearchParams(locatie.search).get("tab");
+  const zoekParams = new URLSearchParams(locatie.search);
 
   const groepen: { label: string; items: NavEntry[] }[] = [
     {
@@ -180,7 +190,19 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
           end: false,
           badge: { aantal: aanvragen.filter((a) => a.status === "nieuw").length, titel: "nieuw" },
         },
-        { to: "/admin/klanten", label: "Klanten", icon: Users, end: false },
+        {
+          to: "/admin/klanten",
+          label: "Klanten",
+          icon: Users,
+          end: false,
+          // De fasefilters van de klantenpagina; Klanten zelf toont iedereen.
+          subParam: "status",
+          sub: [
+            { tab: "actief", label: "Lopend werk", icon: Hammer },
+            { tab: "live", label: "Live", icon: CircleCheck },
+            { tab: "onderhoud", label: "Onderhoud", icon: Wrench },
+          ],
+        },
         {
           to: "/admin/taken",
           label: "Taken",
@@ -191,6 +213,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
               ? { aantal: taken.teLaat.length, alarm: true, titel: "te laat" }
               : { aantal: taken.open.length, titel: "open" },
         },
+        { to: "/admin/notities", label: "Notities", icon: NotebookPen, end: false },
         { to: "/admin/uren", label: "Uren", icon: Timer, end: false },
       ],
     },
@@ -277,13 +300,14 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                 />
               </button>
             )}
-            {open && groep.items.map(({ to, label, icon: Icon, end, badge, sub }) => {
+            {open && groep.items.map(({ to, label, icon: Icon, end, badge, sub, subParam = "tab" }) => {
             const telt = badge !== undefined && badge.aantal > 0;
             const uitleg = telt ? `${badge.aantal} ${badge.titel}` : undefined;
             const metSub = Boolean(sub?.length) && !collapsed;
             const opPagina = locatie.pathname === to || locatie.pathname.startsWith(`${to}/`);
             const subOpen = !subDicht.dicht.includes(to);
-            const subActief = opPagina && Boolean(sub?.some((item) => item.tab === huidigTab));
+            const huidig = zoekParams.get(subParam);
+            const subActief = opPagina && Boolean(sub?.some((item) => item.tab === huidig));
             return (
               <Fragment key={to}>
                 <div className="relative">
@@ -357,7 +381,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                   >
                     <ul className="ml-[21px] flex min-h-0 flex-col overflow-hidden pl-3">
                       {sub!.map((item, i) => {
-                        const actief = opPagina && (huidigTab ?? null) === item.tab;
+                        const actief = opPagina && (huidig ?? null) === item.tab;
                         const laatste = i === sub!.length - 1;
                         const SubIcon = item.icon;
                         return (
@@ -379,7 +403,7 @@ const RailNav = ({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
                               )}
                             />
                             <Link
-                              to={item.tab ? `${to}?tab=${item.tab}` : to}
+                              to={item.tab ? `${to}?${subParam}=${item.tab}` : to}
                               onClick={onNavigate}
                               aria-current={actief ? "page" : undefined}
                               className={cn(
