@@ -306,6 +306,57 @@ export type Database = {
         }
         Relationships: []
       }
+      notities: {
+        Row: {
+          client_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          inhoud: string
+          task_id: string | null
+          titel: string
+          updated_at: string
+          vastgezet: boolean
+        }
+        Insert: {
+          client_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          inhoud?: string
+          task_id?: string | null
+          titel?: string
+          updated_at?: string
+          vastgezet?: boolean
+        }
+        Update: {
+          client_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          inhoud?: string
+          task_id?: string | null
+          titel?: string
+          updated_at?: string
+          vastgezet?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notities_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notities_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string | null
