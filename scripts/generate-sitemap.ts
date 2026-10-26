@@ -226,8 +226,32 @@ function lastmodBlok(pad: string, bestand: string, startRegel: RegExp, alleStart
   return laatsteCommitRegels(bestand, start, einde === -1 ? regels.length : einde);
 }
 
+/**
+ * Code in een paginacomponent die maar voor één URL rendert, zoals de
+ * West-Friesland-hub in WerkgebiedDetail.tsx. Die tekst staat niet in een
+ * data-bestand, dus zonder deze lijst telde een wijziging daar niet mee.
+ * Het blok loopt van de regel met `van` tot (niet t/m) de regel met `tot`.
+ */
+const PAGINABLOKKEN: Record<string, { bestand: string; van: RegExp; tot: RegExp }> = {
+  "/werkgebied/west-friesland": {
+    bestand: "src/pages/WerkgebiedDetail.tsx",
+    van: /\{\/\* West-Friesland hub/,
+    tot: /\{\/\* Lokaal blok/,
+  },
+};
+
+function lastmodPaginablok(pad: string): string | null {
+  const blok = PAGINABLOKKEN[pad];
+  if (!blok) return null;
+  const regels = fs.readFileSync(rel(blok.bestand), "utf8").split(/\r?\n/);
+  const start = regels.findIndex((r) => blok.van.test(r));
+  const einde = regels.findIndex((r, i) => i > start && blok.tot.test(r));
+  if (start === -1 || einde === -1) throw new Error(`Paginablok niet gevonden voor ${pad} in ${blok.bestand}`);
+  return laatsteCommitRegels(blok.bestand, start + 1, einde);
+}
+
 function lastmodItem(item: Item, alleStarts: RegExp): string | null {
-  const datums = [lastmodBlok(item.pad, item.bestand, item.startRegel, alleStarts)];
+  const datums = [lastmodBlok(item.pad, item.bestand, item.startRegel, alleStarts), lastmodPaginablok(item.pad)];
   if (item.lokaal) datums.push(lastmodBlok(item.pad, item.lokaal.bestand, item.lokaal.startRegel, item.lokaal.alleStarts, false, true));
   const geldig = datums.filter((d): d is string => Boolean(d)).sort();
   return geldig.length ? geldig[geldig.length - 1]! : null;

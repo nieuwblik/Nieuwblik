@@ -222,7 +222,7 @@ const WerkgebiedDetail = () => {
                 Websites in elke West-Friese kern
               </h2>
               <div className="space-y-4">
-                <Alinea tekst="Ons werkgebied omvat ook de dorpen: Bovenkarspel, Hoogkarspel, Andijk, Venhuizen, Hem, Hauwert en Zwaagdijk. Voor ondernemers daar gelden dezelfde prijzen, dezelfde werkwijze en dezelfde levertijd als op deze pagina. We werken voornamelijk online, en spreek je elkaar liever in het echt, dan komen we bij je langs." />
+                <Alinea tekst="Ons werkgebied omvat ook de dorpen: Bovenkarspel, Hoogkarspel, Andijk, Venhuizen, Hem, Hauwert en Zwaagdijk. Voor ondernemers daar gelden dezelfde prijzen, dezelfde werkwijze en dezelfde levertijd als op deze pagina. We werken voornamelijk online. Spreken we elkaar liever in het echt? Dan komen we bij je langs." />
                 <Alinea tekst="Voor de grotere plaatsen in en rond West-Friesland is er een uitgebreide pagina met prijzen, werkwijze en voorbeelden: [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard) en [website laten maken in Alkmaar](/website-laten-maken-alkmaar). Ons eigen kantoor staat in Enkhuizen: lees over [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen)." />
               </div>
             </div>

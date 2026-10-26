@@ -997,7 +997,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Mijn bedrijf draait op toeristen in het seizoen. Waar moet mijn site op letten?",
-        a: "Vooral op de telefoon. Bezoekers zoeken onderweg en willen meteen je openingstijden, de route en een knop om te bellen of te reserveren. Zorg ook dat je prijzen en openingstijden snel kunt aanpassen als het seizoen verandert. Een Engelse of Duitse versie kan als optionele uitbreiding.",
+        a: "Vooral op de telefoon. Bezoekers zoeken onderweg en willen meteen je openingstijden, de route en een knop om te bellen of te reserveren. Zorg ook dat je prijzen en openingstijden snel kunt aanpassen als het seizoen verandert.",
       },
       {
         q: "Werken jullie alleen voor bedrijven in Enkhuizen?",
