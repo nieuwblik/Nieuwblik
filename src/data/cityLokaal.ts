@@ -996,20 +996,12 @@ export const cityLokaal: Record<string, CityLokaal> = {
         a: `Ja. We bouwen webshops op maat met betaalkoppelingen, vanaf ${WEBSHOP}. Je krijgt een gebruiksvriendelijk dashboard waarin je zelf producten, prijzen en voorraad beheert.`,
       },
       {
-        q: "Wat heeft mijn Google Bedrijfsprofiel met mijn website te maken?",
-        a: "Ze horen bij elkaar. Bij lokale zoekopdrachten toont Google vaak bedrijven uit het Bedrijfsprofiel. Consistente gegevens helpen daarbij: dezelfde naam, hetzelfde adres en hetzelfde telefoonnummer op je website en in je profiel. Reviews van klanten helpen ook.",
-      },
-      {
         q: "Mijn bedrijf draait op toeristen in het seizoen. Waar moet mijn site op letten?",
         a: "Vooral op de telefoon. Bezoekers zoeken onderweg en willen meteen je openingstijden, de route en een knop om te bellen of te reserveren. Zorg ook dat je prijzen en openingstijden snel kunt aanpassen als het seizoen verandert. Een Engelse of Duitse versie kan als optionele uitbreiding.",
       },
       {
         q: "Werken jullie alleen voor bedrijven in Enkhuizen?",
         a: "Nee. Enkhuizen is onze thuisplaats, maar we werken grotendeels op afstand, voor ondernemers door heel Nederland. Voor osteopaat Jord de Boer in Almere Poort bouwden we bijvoorbeeld een website waarop patiënten online een afspraak plannen.",
-      },
-      {
-        q: "Wie regelt de hosting en het onderhoud?",
-        a: `${HOSTING_ZIN} Een apart onderhoudscontract is er niet. Aanpassingen en uitbreidingen doen we op aanvraag, met een aparte offerte.`,
       },
     ],
   },
