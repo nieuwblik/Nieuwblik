@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import {
   addDays,
   addMonths,
-  addWeeks,
   endOfMonth,
   endOfWeek,
   format,
@@ -26,7 +25,6 @@ import MonthGrid from "@/admin/components/MonthGrid";
 import QuickCapture from "@/admin/components/QuickCapture";
 import TaakVenster from "@/admin/components/TaakVenster";
 import UrenDialoog from "@/admin/components/UrenDialoog";
-import WeekRooster from "@/admin/components/WeekRooster";
 import { PRIORITY_WEIGHT, TOON, hoofdtaken, isTeLaat } from "@/admin/constants";
 import { begintSlepen, dagVan, groepeerPerDag } from "@/admin/kalender";
 import { useClients, useTasks, useTeam, useUpdateTask, type TaskWithProject } from "@/admin/queries";
@@ -43,7 +41,6 @@ import {
   type UrenRegel,
 } from "@/admin/uren";
 
-type Weergave = "week" | "maand";
 /** De knoppen in de bovenbalk: wit met een dunne rand, allemaal even hoog. */
 const RUSTIGE_KNOP = "h-9 border-border bg-card text-foreground shadow-none hover:bg-muted";
 /** Zoveel taken per groep staan er meteen; de rest achter "Toon alle". */
@@ -69,12 +66,10 @@ interface Groep {
 
 /**
  * Kalender: links je takenlijst (te laat, deze week, deze maand, zonder datum)
- * of de uren van de gekozen dag; rechts de week als agenda, of de maand.
+ * of de uren van de gekozen dag; rechts de maand met de deadlines per dag.
  *
- * In de week staan bovenin per dag de deadlines (taken hebben een datum, geen
- * tijd) en daaronder de geregistreerde uren als blokken op de tijdlijn. Taken
- * sleep je naar een andere dag, ook vanuit de lijst links; uren open je met
- * een klik om ze bij te stellen.
+ * Taken sleep je naar een andere dag, ook vanuit de lijst links; uren van de
+ * gekozen dag open je met een klik om ze bij te stellen.
  *
  * Alleen hoofdtaken, net als op het dashboard en bij Taken: stappen horen bij
  * hun taak, en zo kloppen de tellingen overal met elkaar.
@@ -85,8 +80,7 @@ const CalendarPage = () => {
   const { data: clients = [] } = useClients();
   const update = useUpdateTask();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const weergave: Weergave = searchParams.get("weergave") === "maand" ? "maand" : "week";
+  const [searchParams] = useSearchParams();
   const dagUitLink = searchParams.get("dag");
 
   // Het anker bepaalt welke week of maand in beeld is; de gekozen dag is die
@@ -100,13 +94,12 @@ const CalendarPage = () => {
     setAnker(datum);
   }, [dagUitLink]);
 
-  const week = startOfWeek(anker, { weekStartsOn: 1 });
   const maand = startOfMonth(anker);
-  // De uren van wat er in beeld is (de week, of de weken van de maand).
-  const [van, tot] =
-    weergave === "week"
-      ? [week, addDays(week, 7)]
-      : [startOfWeek(maand, { weekStartsOn: 1 }), addDays(endOfWeek(endOfMonth(maand), { weekStartsOn: 1 }), 1)];
+  // De uren van de weken in beeld, voor het tabblad Uren van de gekozen dag.
+  const [van, tot] = [
+    startOfWeek(maand, { weekStartsOn: 1 }),
+    addDays(endOfWeek(endOfMonth(maand), { weekStartsOn: 1 }), 1),
+  ];
   const { data: uren = [] } = useUrenInPeriode(van, tot);
 
   const [paneel, setPaneel] = useState<"taken" | "uren">("taken");
@@ -189,14 +182,8 @@ const CalendarPage = () => {
     });
   };
 
-  const zetWeergave = (w: Weergave) => {
-    const volgende = new URLSearchParams(searchParams);
-    if (w === "week") volgende.delete("weergave");
-    else volgende.set("weergave", w);
-    setSearchParams(volgende, { replace: true });
-  };
   const blader = (richting: 1 | -1) => {
-    setAnker((a) => (weergave === "week" ? addWeeks(a, richting) : addMonths(a, richting)));
+    setAnker((a) => addMonths(a, richting));
     setOpenId(null);
   };
   const naarVandaag = () => {
@@ -208,10 +195,7 @@ const CalendarPage = () => {
     setAnker(dag);
   };
 
-  const periode =
-    weergave === "week"
-      ? `${format(week, "d MMM", { locale: nl })} – ${format(addDays(week, 6), "d MMM yyyy", { locale: nl })}`
-      : format(maand, "LLLL yyyy", { locale: nl });
+  const periode = format(maand, "LLLL yyyy", { locale: nl });
 
   const actief = openId ? (tasks.find((t) => t.id === openId) ?? null) : null;
 
@@ -223,23 +207,13 @@ const CalendarPage = () => {
           <p className="mt-1 text-sm text-muted-foreground first-letter:uppercase">{periode}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <SegmentedControl
-            label="Weergave"
-            formaat="normaal"
-            waarde={weergave}
-            onChange={zetWeergave}
-            opties={[
-              { waarde: "week", label: "Week" },
-              { waarde: "maand", label: "Maand" },
-            ]}
-          />
           <Button variant="outline" className={cn(RUSTIGE_KNOP, "px-3.5")} onClick={naarVandaag}>
             Vandaag
           </Button>
-          <Button variant="outline" size="icon" className={cn(RUSTIGE_KNOP, "w-9")} onClick={() => blader(-1)} aria-label={weergave === "week" ? "Vorige week" : "Vorige maand"}>
+          <Button variant="outline" size="icon" className={cn(RUSTIGE_KNOP, "w-9")} onClick={() => blader(-1)} aria-label="Vorige maand">
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="icon" className={cn(RUSTIGE_KNOP, "w-9")} onClick={() => blader(1)} aria-label={weergave === "week" ? "Volgende week" : "Volgende maand"}>
+          <Button variant="outline" size="icon" className={cn(RUSTIGE_KNOP, "w-9")} onClick={() => blader(1)} aria-label="Volgende maand">
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button
@@ -409,32 +383,17 @@ const CalendarPage = () => {
           )}
         </Panel>
 
-        {/* Rechts: de week of de maand. */}
-        <Panel className={cn("order-1 overflow-hidden lg:order-none", weergave === "maand" && "p-4")}>
-          {weergave === "week" ? (
-            <WeekRooster
-              week={week}
-              gekozenDag={gekozenDag}
-              perDag={perDag}
-              uren={uren}
-              naamVan={naamVan}
-              onSelectDay={kiesDag}
-              onSelectTask={(taak) => setOpenId(taak.id)}
-              onVerplaats={verplaats}
-              onAddOnDay={(dag) => setNieuw({ datum: format(dag, "yyyy-MM-dd") })}
-              onSelectUren={(regel) => setUrenOpen({ regel, datum: format(parseISO(regel.started_at), "yyyy-MM-dd") })}
-            />
-          ) : (
-            <MonthGrid
-              maand={maand}
-              gekozenDag={gekozenDag}
-              perDag={perDag}
-              onSelectDay={kiesDag}
-              onSelectTask={(taak) => setOpenId(taak.id)}
-              onAddOnDay={(dag) => setNieuw({ datum: format(dag, "yyyy-MM-dd") })}
-              onVerplaats={verplaats}
-            />
-          )}
+        {/* Rechts: de maand. */}
+        <Panel className="order-1 overflow-hidden p-4 lg:order-none">
+          <MonthGrid
+            maand={maand}
+            gekozenDag={gekozenDag}
+            perDag={perDag}
+            onSelectDay={kiesDag}
+            onSelectTask={(taak) => setOpenId(taak.id)}
+            onAddOnDay={(dag) => setNieuw({ datum: format(dag, "yyyy-MM-dd") })}
+            onVerplaats={verplaats}
+          />
         </Panel>
       </div>
 
