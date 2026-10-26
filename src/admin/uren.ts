@@ -316,6 +316,21 @@ export function useSaveUren() {
   });
 }
 
+/**
+ * Uren (niet) laten factureren, in één keer. Niet factureren haalt ze uit
+ * "Nog te factureren" zonder ze te wissen: de gewerkte tijd blijft staan.
+ */
+export function useZetFactureerbaar() {
+  const vernieuw = useVernieuw();
+  return useMutation({
+    mutationFn: async ({ ids, billable }: { ids: string[]; billable: boolean }) => {
+      const { error } = await supabase.from("time_entries").update({ billable }).in("id", ids);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: vernieuw,
+  });
+}
+
 export function useDeleteUren() {
   const vernieuw = useVernieuw();
   return useMutation({
