@@ -35,8 +35,9 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
  *   weggegooid (factuurId);
  * - "btw-overzicht": btw per kwartaal met de rubrieken, dit jaar en vorig jaar;
  * - "omzet-historie": omzet, kosten en winst per kwartaal, vier jaar terug;
- * - "transacties": de banktransacties van de laatste 30 of 90 dagen (dagen),
- *   af- en bijschrijvingen, met tegenpartij, rekening en of ze verwerkt zijn;
+ * - "transacties": de banktransacties van een periode (van, tot als
+ *   yyyy-mm-dd) of alles (alles: true), af- en bijschrijvingen, met
+ *   tegenpartij, rekening en of ze verwerkt zijn;
  * - "bank-zonder-bon": afschrijvingen van één kwartaal, verdeeld in met bon,
  *   zonder bon, niet verwerkt en geen kosten (jaar, kwartaal);
  * - "klanten-aanvullen": voorstellen om ontbrekende klantgegevens (e-mail,
@@ -389,6 +390,51 @@ async function mutaties(van: Date, tot: Date): Promise<Mutatie[]> {
   return [...a, ...b];
 }
 
+/** Meer transacties dan dit in één keer is geen overzicht meer; dan een kortere periode. */
+const MAX_TRANSACTIES = 5000;
+
+/**
+ * Alle banktransacties van een periode, of alles (van en tot null). Via de
+ * synchronisatie-API: eerst in één verzoek alle id's, daarna de transacties
+ * zelf per 100. Zo zijn ook jaren in een paar verzoeken binnen. Lukt dat
+ * niet, dan de oude manier (per periode, gehalveerd tot alles binnen is).
+ */
+async function alleMutaties(van: string | null, tot: string | null): Promise<Mutatie[]> {
+  const vandaag = new Date().toISOString().slice(0, 10);
+  const code = (d: string) => d.replaceAll("-", "");
+  const filter =
+    van || tot ? `?filter=${encodeURIComponent(`period:${code(van ?? "2000-01-01")}..${code(tot ?? vandaag)}`)}` : "";
+  let ids: string[];
+  try {
+    const sync = (await moneybird(`financial_mutations/synchronization.json${filter}`)) as { id: string }[];
+    ids = sync.map((s) => s.id);
+  } catch (fout) {
+    if (fout instanceof Melding) throw fout;
+    console.error("synchronisatie mislukt, terug naar per periode:", fout instanceof Error ? fout.message : fout);
+    const begin = new Date(`${van ?? "2015-01-01"}T00:00:00Z`);
+    const eind = new Date(`${tot ?? vandaag}T00:00:00Z`);
+    return mutaties(begin, eind);
+  }
+  if (ids.length > MAX_TRANSACTIES) {
+    throw new Melding(`Dat zijn ${ids.length} transacties; kies een kortere periode.`);
+  }
+  const blokken: string[][] = [];
+  for (let i = 0; i < ids.length; i += 100) blokken.push(ids.slice(i, i + 100));
+  const lijst: Mutatie[] = [];
+  // Vier tegelijk: snel genoeg, en ruim binnen de limiet van Moneybird.
+  for (let i = 0; i < blokken.length; i += 4) {
+    const delen = await Promise.all(
+      blokken.slice(i, i + 4).map(
+        (blok) =>
+          moneybird("financial_mutations/synchronization.json", { method: "POST", body: { ids: blok } }) as Promise<Mutatie[]>,
+      ),
+    );
+    for (const deel of delen) lijst.push(...deel);
+  }
+  // Het filter van de synchronisatie kan ruimer zijn dan de periode; hier precies.
+  return lijst.filter((m) => (!van || m.date >= van) && (!tot || m.date <= tot));
+}
+
 /** Moneybird-frequenties die het portaal als hostingcyclus kent. */
 const CYCLUS: Record<string, string> = { month: "maandelijks", year: "jaarlijks" };
 
@@ -677,12 +723,19 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
   }
 
   if (actie === "transacties") {
-    // Een vaste keuze, zodat niemand met één verzoek jaren aan transacties opvraagt.
-    const dagen = body.dagen === 90 ? 90 : 30;
-    const nu = new Date();
-    const van = new Date(nu.getTime() - (dagen - 1) * 86400000);
+    // Een periode (van en tot, elk mag ontbreken) of alles. Zonder iets de laatste 30 dagen.
+    const isDatum = (v: unknown): v is string =>
+      typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v));
+    const alles = body.alles === true;
+    let van = !alles && isDatum(body.van) ? body.van : null;
+    let tot = !alles && isDatum(body.tot) ? body.tot : null;
+    if (!alles && !van && !tot) {
+      tot = new Date().toISOString().slice(0, 10);
+      van = new Date(Date.now() - 29 * 86400000).toISOString().slice(0, 10);
+    }
+    if (van && tot && van > tot) throw new Melding("De begindatum ligt na de einddatum.");
     const [lijst, grootboek, rekeningen] = await Promise.all([
-      mutaties(van, nu),
+      alleMutaties(van, tot),
       moneybird("ledger_accounts.json") as Promise<{ id: string; name: string }[]>,
       // De namen van de rekeningen; mislukt dat, dan zonder.
       (moneybird("financial_accounts.json") as Promise<{ id: string; name?: string | null; identifier?: string | null }[]>).catch(
@@ -715,7 +768,8 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
       .sort((a, b) => b.datum.localeCompare(a.datum));
     return {
       ok: true,
-      dagen,
+      van,
+      tot,
       transacties,
       bij: transacties.filter((t) => t.bedrag > 0).reduce((s, t) => s + t.bedrag, 0),
       af: transacties.filter((t) => t.bedrag < 0).reduce((s, t) => s - t.bedrag, 0),

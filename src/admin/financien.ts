@@ -404,20 +404,26 @@ export interface Transactie {
 }
 
 export interface Transacties {
-  dagen: 30 | 90;
+  /** De periode zoals de functie hem gebruikte; null is open (bij "alles" beide). */
+  van: string | null;
+  tot: string | null;
   transacties: Transactie[];
   /** Totaal bijgeschreven en afgeschreven in de periode (beide positief). */
   bij: number;
   af: number;
 }
 
-/** Banktransacties van de laatste 30 of 90 dagen, uit Moneybird. */
-export function useTransacties(dagen: 30 | 90) {
+/** Een periode voor de transacties: van en tot (yyyy-MM-dd, elk mag open), of alles. */
+export type TransactiePeriode = { van: string | null; tot: string | null } | { alles: true };
+
+/** Banktransacties van een periode, of alle, uit Moneybird. */
+export function useTransacties(periode: TransactiePeriode) {
+  const sleutel = "alles" in periode ? "alles" : `${periode.van ?? ""}..${periode.tot ?? ""}`;
   return useQuery({
-    queryKey: [...FINANCIEN_KEY, "transacties", dagen],
+    queryKey: [...FINANCIEN_KEY, "transacties", sleutel],
     staleTime: 5 * 60 * 1000,
     retry: false,
-    queryFn: () => roepAan<Transacties & { ok: true }>({ actie: "transacties", dagen }),
+    queryFn: () => roepAan<Transacties & { ok: true }>({ actie: "transacties", ...periode }),
   });
 }
 
