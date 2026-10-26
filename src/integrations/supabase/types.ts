@@ -477,6 +477,36 @@ export type Database = {
           },
         ]
       }
+      push_abonnementen: {
+        Row: {
+          apparaat: string | null
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          p256dh: string
+          user_id: string
+        }
+        Insert: {
+          apparaat?: string | null
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          p256dh: string
+          user_id: string
+        }
+        Update: {
+          apparaat?: string | null
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          p256dh?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           company: string | null
