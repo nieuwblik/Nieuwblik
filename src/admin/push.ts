@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -20,13 +19,7 @@ export interface PushApparaat {
   created_at: string;
 }
 
-/**
- * De tabel push_abonnementen komt uit de migratie websites_elk_uur_en_push.
- * Tot die is uitgevoerd en de types opnieuw zijn gemaakt, staat hij niet in de
- * gegenereerde types; daarom hier zonder types, zodat die bestanden
- * onaangeroerd blijven. Na de migratie kan dit gewoon supabase.from worden.
- */
-const abonnementen = () => (supabase as unknown as SupabaseClient).from("push_abonnementen");
+const abonnementen = () => supabase.from("push_abonnementen");
 
 const pushKey = ["admin", "push"] as const;
 
