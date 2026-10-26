@@ -78,6 +78,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           email: string | null
+          email_onbestelbaar_op: string | null
           id: string
           mail_afgemeld_op: string | null
           mail_afmeld_token: string
@@ -101,6 +102,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           email?: string | null
+          email_onbestelbaar_op?: string | null
           id?: string
           mail_afgemeld_op?: string | null
           mail_afmeld_token?: string
@@ -124,6 +126,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           email?: string | null
+          email_onbestelbaar_op?: string | null
           id?: string
           mail_afgemeld_op?: string | null
           mail_afmeld_token?: string
@@ -194,10 +197,12 @@ export type Database = {
       }
       mailing_ontvangers: {
         Row: {
+          bijgewerkt_op: string | null
           client_id: string | null
           created_at: string
           email: string
           fout: string | null
+          gepland_op: string | null
           id: string
           mailing_id: string
           naam: string | null
@@ -205,10 +210,12 @@ export type Database = {
           status: string
         }
         Insert: {
+          bijgewerkt_op?: string | null
           client_id?: string | null
           created_at?: string
           email: string
           fout?: string | null
+          gepland_op?: string | null
           id?: string
           mailing_id: string
           naam?: string | null
@@ -216,10 +223,12 @@ export type Database = {
           status?: string
         }
         Update: {
+          bijgewerkt_op?: string | null
           client_id?: string | null
           created_at?: string
           email?: string
           fout?: string | null
+          gepland_op?: string | null
           id?: string
           mailing_id?: string
           naam?: string | null
@@ -247,31 +256,52 @@ export type Database = {
         Row: {
           aantal_mislukt: number
           aantal_ontvangers: number
+          afmeldkop: boolean
           created_at: string
           id: string
+          ingepland_op: string | null
+          klant_ids: string[] | null
           onderwerp: string
+          persoonlijk: boolean
+          spreiding_minuten: number
+          status: string
           statussen: string[]
           tekst: string
+          updated_at: string
           verstuurd_door: string | null
         }
         Insert: {
           aantal_mislukt?: number
           aantal_ontvangers?: number
+          afmeldkop?: boolean
           created_at?: string
           id?: string
+          ingepland_op?: string | null
+          klant_ids?: string[] | null
           onderwerp: string
+          persoonlijk?: boolean
+          spreiding_minuten?: number
+          status?: string
           statussen?: string[]
           tekst: string
+          updated_at?: string
           verstuurd_door?: string | null
         }
         Update: {
           aantal_mislukt?: number
           aantal_ontvangers?: number
+          afmeldkop?: boolean
           created_at?: string
           id?: string
+          ingepland_op?: string | null
+          klant_ids?: string[] | null
           onderwerp?: string
+          persoonlijk?: boolean
+          spreiding_minuten?: number
+          status?: string
           statussen?: string[]
           tekst?: string
+          updated_at?: string
           verstuurd_door?: string | null
         }
         Relationships: []
@@ -635,6 +665,7 @@ export type Database = {
       time_entries: {
         Row: {
           billable: boolean
+          client_id: string | null
           created_at: string
           description: string | null
           ended_at: string | null
@@ -649,6 +680,7 @@ export type Database = {
         }
         Insert: {
           billable?: boolean
+          client_id?: string | null
           created_at?: string
           description?: string | null
           ended_at?: string | null
@@ -663,6 +695,7 @@ export type Database = {
         }
         Update: {
           billable?: boolean
+          client_id?: string | null
           created_at?: string
           description?: string | null
           ended_at?: string | null
@@ -676,6 +709,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "time_entries_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "time_entries_project_id_fkey"
             columns: ["project_id"]
