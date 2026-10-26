@@ -154,6 +154,6 @@ export const LASTMOD: Record<string, string> = {
   "/website-laten-maken-zwolle": "2026-09-22",
   "/werkgebied": "2026-10-14",
   "/werkgebied/hoorn": "2026-10-09",
-  "/werkgebied/west-friesland": "2026-06-24",
+  "/werkgebied/west-friesland": "2026-10-26",
   "/woocommerce-webshop-laten-maken": "2026-10-18",
 };
