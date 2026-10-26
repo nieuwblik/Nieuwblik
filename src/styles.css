@@ -548,6 +548,35 @@
   --s-neutral-ink: 0 0% 74%;
 }
 
+/* ---------------------------------------------------------------------------
+   Grafiekkleuren van het portaal. Acht herkenbare tinten in een vaste volgorde
+   (blauw, oranje, aqua, geel, magenta, groen, violet, rood), gecontroleerd op
+   kleurenblindheid en onderling onderscheid, tegen de witte en de donkere
+   kaart. Donker heeft eigen stappen, geen omkering. Een categorie houdt zijn
+   kleur; een grafiek met één reeks gebruikt --grafiek-1. Statuskleuren
+   (te laat, klaar) blijven apart en komen hier niet in.
+   --------------------------------------------------------------------------- */
+.portaal {
+  --grafiek-1: #2a78d6;
+  --grafiek-2: #eb6834;
+  --grafiek-3: #1baf7a;
+  --grafiek-4: #eda100;
+  --grafiek-5: #e87ba4;
+  --grafiek-6: #008300;
+  --grafiek-7: #6250d6;
+  --grafiek-8: #e34948;
+}
+.portaal.dark {
+  --grafiek-1: #3987e5;
+  --grafiek-2: #d95926;
+  --grafiek-3: #199e70;
+  --grafiek-4: #c98500;
+  --grafiek-5: #d55181;
+  --grafiek-6: #008300;
+  --grafiek-7: #9085e9;
+  --grafiek-8: #e66767;
+}
+
 
 .sw-paper { background-color: hsl(var(--sw-paper)); }
 .sw-ink   { color: hsl(var(--sw-ink)); }

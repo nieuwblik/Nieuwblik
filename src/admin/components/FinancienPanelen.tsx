@@ -21,15 +21,51 @@ const datumKort = (d: string | null) => (d ? format(parseISO(d), "d MMM", { loca
 const Fout = ({ tekst }: { tekst: string }) => <p className={cn("text-sm", TOON.danger.tekst)}>{tekst}</p>;
 
 /** Een lijst bedragen als liggende balken, de grootste vol. */
-const Balken = ({ titel, regels }: { titel: string; regels: { naam: string; bedrag: number; extra?: string }[] }) => {
+/** De grafiekkleuren uit styles.css, in vaste volgorde. */
+const GRAFIEK = Array.from({ length: 8 }, (_, i) => `var(--grafiek-${i + 1})`);
+
+/**
+ * Staafjes per naam, langste bovenaan. Eén reeks (per leverancier) krijgt één
+ * kleur; met perNaam (per categorie) krijgt elke naam zijn eigen kleur uit de
+ * vaste volgorde, toegekend op alfabet en niet op grootte, zodat een categorie
+ * niet van kleur wisselt als de volgorde verschuift. Dan staat er bovenaan ook
+ * een balk met de verdeling, in dezelfde kleuren.
+ */
+const Balken = ({
+  titel,
+  regels,
+  perNaam = false,
+}: {
+  titel: string;
+  regels: { naam: string; bedrag: number; extra?: string }[];
+  perNaam?: boolean;
+}) => {
   const { bedrag, verborgen } = useBedragenVerborgen();
   const max = Math.max(...regels.map((r) => r.bedrag), 1);
+  const totaal = regels.reduce((s, r) => s + r.bedrag, 0);
+  const alfabet = [...regels.map((r) => r.naam)].sort((a, b) => a.localeCompare(b, "nl"));
+  const kleurVan = (naam: string) => (perNaam ? GRAFIEK[alfabet.indexOf(naam) % GRAFIEK.length]! : GRAFIEK[0]!);
+  const deel = (b: number) => (totaal > 0 ? Math.round((b / totaal) * 100) : 0);
   return (
     <div className="min-w-0">
       <h3 className="mb-3 text-[13px] text-muted-foreground">{titel}</h3>
       {regels.length === 0 ? (
         <p className="text-sm text-muted-foreground">Nog niets geboekt.</p>
       ) : (
+        <>
+          {/* De verdeling in één oogopslag; tussen de stukken een smalle opening. */}
+          {perNaam && !verborgen && totaal > 0 && (
+            <div className="mb-4 flex h-2.5 gap-0.5 overflow-hidden rounded-full" aria-hidden="true">
+              {regels.map((r) => (
+                <span
+                  key={r.naam}
+                  className="h-full first:rounded-l-full last:rounded-r-full"
+                  style={{ width: `${(r.bedrag / totaal) * 100}%`, minWidth: 3, backgroundColor: kleurVan(r.naam) }}
+                  title={`${r.naam}: ${deel(r.bedrag)}%`}
+                />
+              ))}
+            </div>
+          )}
         <ul className="space-y-2.5">
           {regels.map((r, i) => (
             <li key={r.naam} className="text-sm">
@@ -42,13 +78,19 @@ const Balken = ({ titel, regels }: { titel: string; regels: { naam: string; bedr
               </div>
               <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
                 <div
-                  className="p-groei-x h-full rounded-full bg-neutral/45"
-                  style={{ width: verborgen ? "0%" : `${Math.max(2, (r.bedrag / max) * 100)}%`, animationDelay: `${i * 30}ms` }}
+                  className="p-groei-x h-full rounded-full"
+                  style={{
+                    width: verborgen ? "0%" : `${Math.max(2, (r.bedrag / max) * 100)}%`,
+                    backgroundColor: kleurVan(r.naam),
+                    animationDelay: `${i * 30}ms`,
+                  }}
+                  title={verborgen ? undefined : `${r.naam}: ${bedrag(r.bedrag, 0)} (${deel(r.bedrag)}%)`}
                 />
               </div>
             </li>
           ))}
         </ul>
+        </>
       )}
     </div>
   );
@@ -94,7 +136,7 @@ export const UitgavenPanel = ({ uitgaven, moneybirdUrl }: { uitgaven: Onderdeel<
                   extra: `${l.aantal}×`,
                 }))}
               />
-              <Balken titel="Per categorie" regels={uitgaven.data.perCategorie} />
+              <Balken titel="Per categorie" regels={uitgaven.data.perCategorie} perNaam />
             </div>
             {uitgaven.data.recent.length > 0 && (
               <div>
