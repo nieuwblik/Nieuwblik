@@ -228,9 +228,9 @@ const CalendarPage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-        {/* Links: de takenlijst, of de uren van de gekozen dag. */}
-        <Panel className="order-2 lg:order-none lg:sticky lg:top-20">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+        {/* Rechts (op een telefoon eronder): de takenlijst, of de uren van de gekozen dag. */}
+        <Panel className="order-2 lg:sticky lg:top-20">
           <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
             <h2 className="p-kaarttitel">{paneel === "taken" ? "Te doen" : dagNaam(gekozenDag)}</h2>
             <SegmentedControl
@@ -383,8 +383,8 @@ const CalendarPage = () => {
           )}
         </Panel>
 
-        {/* Rechts: de maand. */}
-        <Panel className="order-1 overflow-hidden p-4 lg:order-none">
+        {/* Links: de maand. */}
+        <Panel className="order-1 overflow-hidden p-4">
           <MonthGrid
             maand={maand}
             gekozenDag={gekozenDag}
