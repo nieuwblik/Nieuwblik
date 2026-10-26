@@ -153,6 +153,7 @@ export function useCombinedRows(): CombinedRows {
         name: project.name,
         contact_name: null,
         email: null,
+        email_onbestelbaar_op: null,
         phone: null,
         website: null,
         city: null,
