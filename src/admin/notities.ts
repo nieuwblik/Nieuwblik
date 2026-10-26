@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { useAdminAuth } from "@/admin/AdminAuthContext";
 import { adminKeys } from "@/admin/queries";
@@ -17,13 +16,7 @@ export interface Notitie {
   updated_at: string;
 }
 
-/**
- * De tabel notities komt uit de migratie notities. Tot die is uitgevoerd en de
- * types opnieuw zijn gemaakt, staat hij niet in de gegenereerde types; daarom
- * hier zonder types, zodat die bestanden onaangeroerd blijven. Na de migratie
- * kan dit gewoon supabase.from("notities") worden.
- */
-const tabel = () => (supabase as unknown as SupabaseClient).from("notities");
+const tabel = () => supabase.from("notities");
 
 export const notitiesKey = ["admin", "notities"] as const;
 
