@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 import { volgendeDeadline } from "@/admin/herhaling";
 import type { Herhaling } from "@/admin/werkstroom";
-import type { KlantMailing, MailingUitbreiding } from "@/admin/mailing";
+import type { KlantMailing } from "@/admin/mailing";
 
 export type Client = Tables<"clients"> & KlantMailing;
 export type Project = Tables<"projects">;
@@ -722,7 +722,7 @@ export function useDeleteTaskImage(taskId: string) {
 
 // ---------------------------------------------------------------- mailingen
 
-export type Mailing = Tables<"mailings"> & MailingUitbreiding;
+export type Mailing = Tables<"mailings">;
 
 /** De laatste verzonden mailingen, nieuwste eerst. */
 export function useMailings(limit = 20) {
