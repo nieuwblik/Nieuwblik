@@ -27,7 +27,7 @@ import QuickCapture from "@/admin/components/QuickCapture";
 import TaakVenster from "@/admin/components/TaakVenster";
 import UrenDialoog from "@/admin/components/UrenDialoog";
 import WeekRooster from "@/admin/components/WeekRooster";
-import { ACCENT, PRIORITY_WEIGHT, TOON, hoofdtaken, isTeLaat } from "@/admin/constants";
+import { PRIORITY_WEIGHT, TOON, hoofdtaken, isTeLaat } from "@/admin/constants";
 import { begintSlepen, dagVan, groepeerPerDag } from "@/admin/kalender";
 import { useClients, useTasks, useTeam, useUpdateTask, type TaskWithProject } from "@/admin/queries";
 import Avatar from "@/admin/ui/Avatar";
@@ -44,6 +44,8 @@ import {
 } from "@/admin/uren";
 
 type Weergave = "week" | "maand";
+/** De knoppen in de bovenbalk: wit met een dunne rand, allemaal even hoog. */
+const RUSTIGE_KNOP = "h-9 border-border bg-card text-foreground shadow-none hover:bg-muted";
 /** Zoveel taken per groep staan er meteen; de rest achter "Toon alle". */
 const KORT = 6;
 
@@ -223,6 +225,7 @@ const CalendarPage = () => {
         <div className="flex flex-wrap items-center gap-2">
           <SegmentedControl
             label="Weergave"
+            formaat="normaal"
             waarde={weergave}
             onChange={zetWeergave}
             opties={[
@@ -230,13 +233,13 @@ const CalendarPage = () => {
               { waarde: "maand", label: "Maand" },
             ]}
           />
-          <Button variant="outline" size="sm" onClick={naarVandaag}>
+          <Button variant="outline" className={cn(RUSTIGE_KNOP, "px-3.5")} onClick={naarVandaag}>
             Vandaag
           </Button>
-          <Button variant="outline" size="icon" className="h-9 w-9" onClick={() => blader(-1)} aria-label={weergave === "week" ? "Vorige week" : "Vorige maand"}>
+          <Button variant="outline" size="icon" className={cn(RUSTIGE_KNOP, "w-9")} onClick={() => blader(-1)} aria-label={weergave === "week" ? "Vorige week" : "Vorige maand"}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="icon" className="h-9 w-9" onClick={() => blader(1)} aria-label={weergave === "week" ? "Volgende week" : "Volgende maand"}>
+          <Button variant="outline" size="icon" className={cn(RUSTIGE_KNOP, "w-9")} onClick={() => blader(1)} aria-label={weergave === "week" ? "Volgende week" : "Volgende maand"}>
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button
@@ -255,7 +258,7 @@ const CalendarPage = () => {
         {/* Links: de takenlijst, of de uren van de gekozen dag. */}
         <Panel className="order-2 lg:order-none lg:sticky lg:top-20">
           <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
-            <h2 className="p-kaarttitel">{paneel === "taken" ? "Taken" : dagNaam(gekozenDag)}</h2>
+            <h2 className="p-kaarttitel">{paneel === "taken" ? "Te doen" : dagNaam(gekozenDag)}</h2>
             <SegmentedControl
               label="Paneel"
               waarde={paneel}
@@ -286,6 +289,7 @@ const CalendarPage = () => {
                           className={cn(
                             "flex flex-1 items-center gap-1.5 py-1 text-left text-sm font-medium",
                             g.rood && TOON.danger.tekst,
+                            g.taken.length === 0 && "font-normal text-muted-foreground",
                           )}
                         >
                           <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", ingeklapt && "-rotate-90")} />
@@ -303,9 +307,8 @@ const CalendarPage = () => {
                           </button>
                         )}
                       </div>
-                      {!ingeklapt && (
+                      {!ingeklapt && g.taken.length > 0 && (
                         <ul className="mt-0.5">
-                          {g.taken.length === 0 && <li className="px-2 py-1 text-[13px] text-muted-foreground">Niets</li>}
                           {lijst.map((taak) => {
                             const laat = isTeLaat(taak);
                             const bij = bijWie(taak);
@@ -325,14 +328,9 @@ const CalendarPage = () => {
                                   aria-label={`${taak.title} afvinken`}
                                 />
                                 <button type="button" onClick={() => setOpenId(taak.id)} className="min-w-0 flex-1 text-left">
-                                  <span className="flex items-center gap-1.5">
-                                    <span
-                                      className={cn("h-1.5 w-1.5 shrink-0 rounded-full", laat ? TOON.danger.stip : ACCENT[taak.priority].stip)}
-                                    />
-                                    <span className="truncate text-sm">{taak.title}</span>
-                                  </span>
+                                  <span className="block truncate text-sm leading-5">{taak.title}</span>
                                   {(datum || bij) && (
-                                    <span className={cn("block truncate pl-3 text-xs", laat ? TOON.danger.tekst : "text-muted-foreground")}>
+                                    <span className={cn("block truncate text-xs", laat ? TOON.danger.tekst : "text-muted-foreground")}>
                                       {[datum, bij].filter(Boolean).join(" · ")}
                                     </span>
                                   )}

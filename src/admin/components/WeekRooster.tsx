@@ -138,7 +138,7 @@ const WeekRooster = ({
       <div className="min-w-[760px]">
         {/* Kop: per dag het getal en de dag; de gekozen dag onderstreept. */}
         <div className={cn("grid border-b border-border", KOLOMMEN)}>
-          <div className="flex items-end justify-center pb-2 text-[11px] text-muted-foreground">wk {getISOWeek(week)}</div>
+          <div className="flex items-end justify-end pb-3 pr-2 text-[11px] text-muted-foreground">wk {getISOWeek(week)}</div>
           {dagen.map((dag) => {
             const gekozen = isSameDay(dag, gekozenDag);
             return (
@@ -148,7 +148,7 @@ const WeekRooster = ({
                 onClick={() => onSelectDay(dag)}
                 aria-pressed={gekozen}
                 aria-label={format(dag, "EEEE d MMMM", { locale: nl })}
-                className="relative flex flex-col items-center gap-0.5 pb-2.5 pt-1 transition-colors hover:bg-muted/40"
+                className="relative flex flex-col items-center gap-1 pb-3 pt-3 transition-colors hover:bg-muted/40"
               >
                 <span
                   className={cn(
@@ -159,9 +159,9 @@ const WeekRooster = ({
                   {format(dag, "d")}
                 </span>
                 <span className={cn("text-xs", isToday(dag) ? "text-foreground" : "text-muted-foreground")}>
-                  {format(dag, "EEE", { locale: nl })}
+                  {format(dag, "EEEEEE", { locale: nl })}
                 </span>
-                {gekozen && <span className="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-foreground" />}
+                {gekozen && <span className="absolute inset-x-0 -bottom-px h-0.5 bg-foreground" />}
               </button>
             );
           })}
@@ -169,7 +169,7 @@ const WeekRooster = ({
 
         {/* Deadlines: taken van die dag, te slepen naar een andere dag. */}
         <div className={cn("grid border-b border-border", KOLOMMEN)}>
-          <div className="px-1 pt-2 text-center text-[11px] leading-tight text-muted-foreground">Deadlines</div>
+          <div className="pr-2 pt-2.5 text-right text-[11px] leading-tight text-muted-foreground">Deadlines</div>
           {dagen.map((dag) => {
             const sleutel = format(dag, "yyyy-MM-dd");
             const taken = perDag.get(sleutel) ?? [];
@@ -193,7 +193,7 @@ const WeekRooster = ({
                   onVerplaats(taakId, sleutel);
                 }}
                 className={cn(
-                  "group relative min-h-[72px] space-y-1 border-l border-border p-1.5 transition-colors",
+                  "group relative min-h-[64px] space-y-1 border-l border-border p-1.5 pb-7 transition-colors",
                   isWeekend(dag) && "bg-muted/25",
                   sleepDoel === sleutel && "bg-accent/5 ring-2 ring-inset ring-accent/50",
                 )}
@@ -208,10 +208,12 @@ const WeekRooster = ({
                       onDragStart={(event) => begintSlepen(event, taak.id)}
                       onClick={() => onSelectTask(taak)}
                       title={taak.title}
-                      className="flex w-full min-w-0 cursor-grab items-center gap-1.5 rounded-md bg-muted/70 px-2 py-1 text-left text-[12px] transition-colors hover:bg-muted active:cursor-grabbing"
+                      className="flex w-full min-w-0 cursor-grab items-start gap-1 rounded-lg bg-muted/70 px-1.5 py-1.5 text-left text-[12px] leading-snug transition-colors hover:bg-muted active:cursor-grabbing"
                     >
-                      <span className={cn("h-1.5 w-1.5 shrink-0 rounded-full", laat ? TOON.danger.stip : ACCENT[taak.priority].stip)} />
-                      <span className={cn("truncate", laat && TOON.danger.tekst)}>{taak.title}</span>
+                      <span
+                        className={cn("mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full", laat ? TOON.danger.stip : ACCENT[taak.priority].stip)}
+                      />
+                      <span lang="nl" className={cn("line-clamp-2 min-w-0 hyphens-auto [overflow-wrap:anywhere]", laat && TOON.danger.tekst)}>{taak.title}</span>
                     </button>
                   );
                 })}
@@ -238,7 +240,7 @@ const WeekRooster = ({
         </div>
 
         {/* De tijdlijn met de uren. */}
-        <div className={cn("relative grid", KOLOMMEN)} style={{ height: hoogte }}>
+        <div className={cn("relative grid pt-3", KOLOMMEN)} style={{ height: hoogte + 12 }}>
           <div className="relative">
             {uurLabels.map((uur, i) => (
               <span
@@ -246,7 +248,7 @@ const WeekRooster = ({
                 className="absolute right-2 -translate-y-1/2 text-[11px] tabular-nums text-muted-foreground"
                 style={{ top: i * UUR_PX }}
               >
-                {i === 0 ? "" : `${uur}:00`}
+                {`${uur}:00`}
               </span>
             ))}
           </div>

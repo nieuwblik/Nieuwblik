@@ -8,6 +8,8 @@ interface SegmentedControlProps<T extends string> {
   onChange: (waarde: T) => void;
   /** Voor schermlezers: waar de keuze over gaat. */
   label: string;
+  /** "normaal": even hoog als een knop ernaast (36px); standaard klein. */
+  formaat?: "klein" | "normaal";
 }
 
 /**
@@ -17,7 +19,7 @@ interface SegmentedControlProps<T extends string> {
  * verspringen: zo zie je waar je keuze heen gaat, en voelt de klik als een
  * schakelaar in plaats van een knop die ineens een andere kleur heeft.
  */
-const SegmentedControl = <T extends string>({ opties, waarde, onChange, label }: SegmentedControlProps<T>) => {
+const SegmentedControl = <T extends string>({ opties, waarde, onChange, label, formaat = "klein" }: SegmentedControlProps<T>) => {
   const knoppen = useRef<Record<string, HTMLButtonElement | null>>({});
   const [vlak, setVlak] = useState<{ x: number; breedte: number } | null>(null);
 
@@ -27,7 +29,14 @@ const SegmentedControl = <T extends string>({ opties, waarde, onChange, label }:
   }, [waarde, opties.length]);
 
   return (
-    <div role="group" aria-label={label} className="relative inline-flex rounded-lg border border-border bg-muted/50 p-0.5">
+    <div
+      role="group"
+      aria-label={label}
+      className={cn(
+        "relative inline-flex rounded-lg border border-border bg-muted/50 p-0.5",
+        formaat === "normaal" && "h-9 rounded-[10px] p-[3px]",
+      )}
+    >
       {vlak && (
         <span
           aria-hidden="true"
@@ -45,7 +54,8 @@ const SegmentedControl = <T extends string>({ opties, waarde, onChange, label }:
           aria-pressed={optie.waarde === waarde}
           onClick={() => onChange(optie.waarde)}
           className={cn(
-            "relative rounded-md px-2.5 py-1 text-xs font-medium transition-colors duration-150 active:scale-95",
+            "relative rounded-md font-medium transition-colors duration-150 active:scale-95",
+            formaat === "normaal" ? "rounded-[7px] px-3 text-[13px]" : "px-2.5 py-1 text-xs",
             optie.waarde === waarde ? "text-foreground" : "text-muted-foreground hover:text-foreground",
           )}
         >
