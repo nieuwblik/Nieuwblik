@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { format, parseISO } from "date-fns";
+import { format, parseISO, startOfMonth } from "date-fns";
 import { nl } from "date-fns/locale";
 import {
   ArrowDown,
@@ -36,6 +36,7 @@ import {
   heeftData,
   isTeLaatFactuur,
   useFinancien,
+  useTransacties,
   type MaandCijfers,
 } from "@/admin/financien";
 import { useOpenFacturen } from "@/admin/useOpenFacturen";
@@ -86,11 +87,14 @@ const Cijfer = ({
   verschil,
   laden,
   knop,
+  rood,
 }: {
   label: string;
   waarde: string;
   verschil?: number | null;
   laden?: boolean;
+  /** Geld dat eraf gaat, zoals de uitgaven. */
+  rood?: boolean;
   /** Rechts naast het label, zoals het oogje bij het banksaldo. */
   knop?: React.ReactNode;
 }) => (
@@ -103,7 +107,12 @@ const Cijfer = ({
       {laden ? (
         <Skeleton className="h-7 w-24" />
       ) : (
-        <span className="font-epilogue text-2xl font-medium tabular-nums tracking-tight">
+        <span
+          className={cn(
+            "font-epilogue text-2xl font-medium tabular-nums tracking-tight",
+            rood && TOON.danger.tekst,
+          )}
+        >
           {waarde}
         </span>
       )}
@@ -281,6 +290,13 @@ const rekeningNaam = (r: { naam: string; soort: string }) => {
  */
 const Financien = () => {
   const { data, isLoading, isError, error, refetch } = useFinancien();
+  // Alles wat deze maand van de bank afging: geboekte kosten én losse
+  // afschrijvingen. De kosten uit de winst-en-verliesrekening stonden vaak op
+  // nul omdat bonnen nog niet verwerkt waren.
+  const dezeMaand = useTransacties({
+    van: format(startOfMonth(new Date()), "yyyy-MM-dd"),
+    tot: format(new Date(), "yyyy-MM-dd"),
+  });
   const qc = useQueryClient();
   const bezigMetVernieuwen =
     useIsFetching({ queryKey: ["admin", "financien"] }) > 0;
@@ -307,7 +323,6 @@ const Financien = () => {
         vorige && vorige.omzet > 0
           ? (((deze?.omzet ?? 0) - vorige.omzet) / vorige.omzet) * 100
           : null,
-      kosten: deze?.kosten ?? 0,
       winstJaar: ditJaar.reduce((som, m) => som + m.winst, 0),
     };
   }, [data]);
@@ -512,18 +527,20 @@ const Financien = () => {
               verschil={verborgen ? null : (cijfers?.omzetVerschil ?? null)}
             />
             <Cijfer
-              label="Kosten deze maand"
-              waarde={cijfers ? bedrag(cijfers.kosten, 0) : "–"}
-            />
-            <Cijfer
-              label={`Winst ${new Date().getFullYear()}`}
-              waarde={cijfers ? bedrag(cijfers.winstJaar, 0) : "–"}
+              label="Uitgaven deze maand"
+              waarde={dezeMaand.data ? bedrag(dezeMaand.data.af, 0) : "–"}
+              laden={dezeMaand.isLoading}
+              rood={Boolean(dezeMaand.data?.af)}
             />
             <Cijfer
               label="Banksaldo"
               waarde={
                 heeftData(data.bank) ? bedrag(data.bank.data.totaal, 0) : "–"
               }
+            />
+            <Cijfer
+              label={`Winst ${new Date().getFullYear()}`}
+              waarde={cijfers ? bedrag(cijfers.winstJaar, 0) : "–"}
             />
           </dl>
 
