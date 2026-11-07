@@ -2,6 +2,7 @@ import { LEVERTIJD } from "@/config/business";
 import type { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import {
+  ClientOnly,
   HeadContent,
   Outlet,
   Scripts,
@@ -9,13 +10,16 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import type { ErrorComponentProps } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, type ReactNode } from "react";
 
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import ScrollToTop from "@/components/ScrollToTop";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import appCss from "../styles.css?url";
+
+// Meldingen verschijnen pas na een actie; ze hoeven niet in de hoofdbundel.
+const Sonner = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
+
 // Webfonts: @font-face staat in styles.css met font-display: optional. De
 // latin-bestanden (de tekens die we echt gebruiken) worden hieronder vooraf
 // geladen, zodat ze er bij de eerste weergave al zijn. Zijn ze dat op een
@@ -159,7 +163,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Sonner />
+      <ClientOnly fallback={null}>
+        <Suspense fallback={null}>
+          <Sonner />
+        </Suspense>
+      </ClientOnly>
       <ScrollToTop />
       <Outlet />
     </QueryClientProvider>

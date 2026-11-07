@@ -2,7 +2,6 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import BlogPost from "@/pages/BlogPost";
 import NotFound from "@/pages/NotFound";
-import { blogPosts } from "@/data/blogPosts";
 import { buildHead } from "@/lib/seo";
 import { blogTitel } from "@/lib/blogTitel";
 import { companyInfo } from "@/config/company";
@@ -11,22 +10,12 @@ import { laatstGewijzigd } from "@/lib/lastmod";
 // Verwijderde artikelen 301'en via src/config/redirects.ts (server-side).
 export const Route = createFileRoute("/_public/blog/$slug")({
   // Onbekende slug moet een echte HTTP 404 geven in plaats van 200.
-  loader: ({ params }) => {
-    if (!blogPosts.find((p) => p.slug === params.slug)) {
-      throw notFound();
-    }
-    return null;
-  },
-  head: ({ params }) => {
+  // De artikelen worden hier pas opgehaald, zodat ze niet in de hoofdbundel zitten.
+  loader: async ({ params }) => {
+    const { blogPosts } = await import("@/data/blogPosts");
     const post = blogPosts.find((p) => p.slug === params.slug);
-    if (!post) {
-      return buildHead({
-        title: "Artikel niet gevonden | Nieuwblik",
-        description: "Dit artikel bestaat niet (meer).",
-        noIndex: true,
-      });
-    }
-    return buildHead({
+    if (!post) throw notFound();
+    return {
       title: blogTitel(post),
       description: post.excerpt.nl,
       keywords: post.seoKeywords,
@@ -40,12 +29,20 @@ export const Route = createFileRoute("/_public/blog/$slug")({
         : undefined,
       ogImageWidth: post.imageWidth,
       ogImageHeight: post.imageHeight,
-      ogType: "article",
+      ogType: "article" as const,
       articlePublishedTime: post.date,
       articleModifiedTime: laatstGewijzigd(`/blog/${post.slug}`, post.date),
       articleAuthor: "Justin Slok",
-    });
+    };
   },
+  head: ({ loaderData }) =>
+    buildHead(
+      loaderData ?? {
+        title: "Artikel niet gevonden | Nieuwblik",
+        description: "Dit artikel bestaat niet (meer).",
+        noIndex: true,
+      },
+    ),
   notFoundComponent: NotFound,
   component: BlogPost,
 });

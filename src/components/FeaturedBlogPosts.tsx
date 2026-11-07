@@ -1,10 +1,12 @@
+import { getRouteApi } from "@tanstack/react-router";
 import { Link } from "@/lib/router-compat";
-import { blogPosts } from "@/data/blogPosts";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { easings } from "@/lib/motion";
 import { useReveal } from "@/lib/reveal";
+
+const homepage = getRouteApi("/_public/");
 
 const fmtDate = (d: string) =>
   new Date(d).toLocaleDateString("nl-NL", { year: "numeric", month: "long", day: "numeric" });
@@ -15,8 +17,9 @@ const FeaturedBlogPosts = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-60px" });
   useReveal(sectionRef);
 
-  const featuredPost = blogPosts[0];
-  const secondaryPosts = blogPosts.slice(1, 4);
+  const { artikelen } = homepage.useLoaderData();
+  const featuredPost = artikelen[0];
+  const secondaryPosts = artikelen.slice(1, 4);
 
   if (!featuredPost) return null;
 

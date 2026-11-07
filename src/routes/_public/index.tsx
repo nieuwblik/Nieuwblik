@@ -5,6 +5,23 @@ import { buildHead } from "@/lib/seo";
 import { companyInfo } from "@/config/company";
 
 export const Route = createFileRoute("/_public/")({
+  // Alleen wat de vier artikelkaarten tonen. Importeert de sectie blogPosts zelf,
+  // dan komt de volledige tekst van alle artikelen mee naar de homepage.
+  loader: async () => {
+    const { blogPosts } = await import("@/data/blogPosts");
+    return {
+      artikelen: blogPosts
+        .slice(0, 4)
+        .map(({ slug, title, excerpt, date, readingTime, image }) => ({
+          slug,
+          title,
+          excerpt,
+          date,
+          readingTime,
+          image,
+        })),
+    };
+  },
   head: () =>
     buildHead({
       title: "Webdesign Bureau Enkhuizen | Websites & Webshops - Nieuwblik",
