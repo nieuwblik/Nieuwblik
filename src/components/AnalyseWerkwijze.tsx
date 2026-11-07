@@ -35,6 +35,10 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
   // ScrollTrigger hangt aan dezelfde klok als Lenis (zie SmoothScroll), dus de foto
   // beweegt in hetzelfde frame als de pagina. Een eigen scroll-luisteraar liep daar
   // een frame achteraan, en dat voelde hakkelig.
+  //
+  // De beweging begint op 0 bij scrollpositie 0: dat is ook de stand uit de
+  // server-HTML, dus er verspringt niets bij het laden. Scrub zonder naloop,
+  // anders schuift de foto na een refresh zichtbaar naar zijn plek.
   useEffect(() => {
     const kader = kaderRef.current, foto = fotoRef.current;
     if (!kader || !foto || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -42,11 +46,11 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         foto,
-        { yPercent: -6 },
+        { yPercent: 0 },
         {
-          yPercent: 6,
+          yPercent: 11,
           ease: "none",
-          scrollTrigger: { trigger: kader, start: "top bottom", end: "bottom top", scrub: 0.4 },
+          scrollTrigger: { trigger: kader, start: 0, end: "bottom top", scrub: true },
         },
       );
     });
@@ -80,7 +84,7 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
             alt="Twee mensen bekijken samen een website op een laptop"
             decoding="async"
             fetchPriority="low"
-            className="absolute inset-x-0 -top-[8%] h-[116%] w-full object-cover object-center will-change-transform"
+            className="absolute inset-x-0 -top-[14%] h-[116%] w-full object-cover object-center will-change-transform"
           />
         </div>
 
