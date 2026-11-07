@@ -1,11 +1,11 @@
 import { Star } from "lucide-react";
 
+import { useDarkNavSection } from "@/components/TabNav";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
 import { googleReviews, type GoogleReview } from "@/data/googleReviews";
 
 const RAND = "hsl(var(--sw-rule) / 0.08)";
-const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
 
 /** De G van Google in de vier merkkleuren. */
 export const GoogleG = ({ className }: { className?: string }) => (
@@ -81,46 +81,68 @@ const KOLOMMEN = [
 
 /**
  * Vijftien letterlijke Google-reviews in kolommen die rustig voorbijschuiven,
- * met de score ernaast. De muur loopt tot de randen van de sectie, zodat de
- * kaarten er als het ware doorheen schuiven. Aanwijzen zet de beweging stil.
+ * met de score ernaast, op de donkergroene band van de homepage en precies één
+ * scherm hoog. De muur loopt tot de randen van de sectie, zodat de kaarten er als
+ * het ware doorheen schuiven. Aanwijzen zet de beweging stil.
  */
-const GoogleReviewMuur = () => (
-  <section className="sw-paper overflow-hidden">
-    <div className="container mx-auto grid grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
-      <div className="pt-16 md:pt-24 lg:py-0">
-        <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
-          Wat onze klanten zeggen
-        </h2>
-        <div className="mt-5 flex items-center gap-3">
-          <GoogleG className="h-8 w-8 shrink-0" />
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-bold sw-ink">{REVIEWS.scoreLabel}</span>
-              <Sterren className="h-4 w-4" />
+const GoogleReviewMuur = () => {
+  // Donkere band: de vaste header keert om zolang hij eronder staat.
+  const donkereBand = useDarkNavSection<HTMLElement>();
+
+  return (
+    <section
+      ref={donkereBand}
+      className="relative h-[100svh] min-h-[640px] overflow-hidden"
+      style={{ background: "hsl(160 84% 12%)" }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, hsl(160 84% 60%) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[120px]"
+        style={{ background: "radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)" }}
+      />
+
+      <div className="container relative z-10 mx-auto flex h-full flex-col gap-8 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
+        <div className="shrink-0 pt-[calc(var(--header-height)_+_1.5rem)] lg:pt-0">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
+            Wat onze klanten zeggen
+          </h2>
+          <div className="mt-5 flex items-center gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white">
+              <GoogleG className="h-6 w-6" />
+            </span>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-white">{REVIEWS.scoreLabel}</span>
+                <Sterren className="h-4 w-4" />
+              </div>
+              <p className="text-sm text-white/70">Op basis van {REVIEWS.aantalLabel}reviews</p>
             </div>
-            <p className="text-sm" style={{ color: INKT_65 }}>
-              Op basis van {REVIEWS.aantalLabel}reviews
-            </p>
+          </div>
+          <div className="mt-6">
+            <AnimatedButton href={REVIEWS.profielUrl} variant="outlineWhite">
+              Bekijk op Google
+            </AnimatedButton>
           </div>
         </div>
-        <div className="mt-6">
-          <AnimatedButton href={REVIEWS.profielUrl} variant="outline">
-            Bekijk op Google
-          </AnimatedButton>
+
+        <div className="review-muur hidden h-full grid-cols-3 items-start gap-4 lg:grid">
+          <LopendeKolom reviews={KOLOMMEN[0]!} duur={62} />
+          <LopendeKolom reviews={KOLOMMEN[1]!} duur={74} omgekeerd />
+          <LopendeKolom reviews={KOLOMMEN[2]!} duur={56} />
+        </div>
+        {/* Op de telefoon alle vijftien in één kolom. */}
+        <div className="review-muur min-h-0 flex-1 lg:hidden">
+          <LopendeKolom reviews={KOLOMMEN.flat()} duur={150} />
         </div>
       </div>
-
-      <div className="review-muur hidden h-[760px] grid-cols-3 items-start gap-4 lg:grid">
-        <LopendeKolom reviews={KOLOMMEN[0]!} duur={62} />
-        <LopendeKolom reviews={KOLOMMEN[1]!} duur={74} omgekeerd />
-        <LopendeKolom reviews={KOLOMMEN[2]!} duur={56} />
-      </div>
-      {/* Op de telefoon alle vijftien in één kolom. */}
-      <div className="review-muur h-[560px] lg:hidden">
-        <LopendeKolom reviews={KOLOMMEN.flat()} duur={150} />
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default GoogleReviewMuur;
