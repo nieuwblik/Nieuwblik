@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
+import { lazy, memo, Suspense, useCallback, useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { Star } from "lucide-react";
 
 import AnalyseOnderdelen from "@/components/AnalyseOnderdelen";
@@ -123,6 +123,79 @@ const Veld = ({
   </div>
 );
 
+/**
+ * Alles onder de hero. Staat los van de pagina zodat typen in het formulier deze
+ * secties niet opnieuw rendert; op een traag toestel voel je dat bij elke toets.
+ */
+const Onderkant = memo(({ onKnop }: { onKnop: () => void }) => (
+  <>
+    <AnalyseWerkwijze onKnop={onKnop} />
+
+    <div id="onderdelen" className="scroll-mt-16">
+      <Sectie>
+        <Inleiding>
+          We lopen je website door zoals een klant dat doet. Word je gevonden, werkt je site op de telefoon, oogt hij
+          verzorgd en snappen bezoekers meteen wat je doet?
+        </Inleiding>
+        <AnalyseOnderdelen />
+      </Sectie>
+    </div>
+
+    <Sectie papier>
+      <Inleiding>
+        Recent werk voor ondernemers in heel Nederland. Van dakdekker tot taxibedrijf: elke site op maat ontworpen, snel
+        en goed vindbaar.
+      </Inleiding>
+      <CaseGrid projects={cases} zonderOmschrijving />
+    </Sectie>
+
+    <GoogleReviewMuur />
+
+    {/* Hier komt het voorbeeldrapport zodra de PDF klaar is. */}
+
+    <Suspense fallback={<div className="min-h-[420px]" />}>
+      <FAQSection
+        zonderAnimatie
+        vragen={vragen}
+        intro="Alles wat je wilt weten voordat je de analyse aanvraagt."
+        actie={
+          <AnimatedButton onClick={onKnop} size="lg">
+            Ontvang mijn gratis analyse
+          </AnimatedButton>
+        }
+      />
+    </Suspense>
+  </>
+));
+
+const Voet = memo(Footer);
+
+/**
+ * Op de telefoon blijft de knop bereikbaar zodra het formulier uit beeld is;
+ * rechts staan de zwevende knoppen. De state zit hier en niet in de pagina: anders
+ * rendert de hele pagina opnieuw op het moment dat je voorbij het formulier scrolt.
+ */
+const PlakKnop = ({ formRef, onKnop }: { formRef: RefObject<HTMLFormElement | null>; onKnop: () => void }) => {
+  const [formInBeeld, setFormInBeeld] = useState(true);
+
+  useEffect(() => {
+    const form = formRef.current;
+    if (!form) return;
+    const waarnemer = new IntersectionObserver(([item]) => setFormInBeeld(Boolean(item?.isIntersecting)));
+    waarnemer.observe(form);
+    return () => waarnemer.disconnect();
+  }, [formRef]);
+
+  if (formInBeeld) return null;
+  return (
+    <div className="fixed bottom-4 left-4 right-[136px] z-50 md:bottom-6 lg:hidden">
+      <AnimatedButton onClick={onKnop} className="h-[52px] w-full px-3" showArrow={false}>
+        Gratis analyse
+      </AnimatedButton>
+    </div>
+  );
+};
+
 const GratisWebsiteAnalyse = () => {
   const navigate = useNavigate();
   const heroRef = useRef<HTMLElement>(null);
@@ -134,7 +207,6 @@ const GratisWebsiteAnalyse = () => {
   const [bezig, setBezig] = useState(false);
   const [fouten, setFouten] = useState<Fouten>({});
   const [verzendFout, setVerzendFout] = useState<string | null>(null);
-  const [formInBeeld, setFormInBeeld] = useState(true);
   const [formData, setFormData] = useState<FormState>({
     fullName: "",
     email: "",
@@ -143,22 +215,13 @@ const GratisWebsiteAnalyse = () => {
     kenmerk: "",
   });
 
-  // De vaste knop op de telefoon alleen als het formulier uit beeld is.
-  useEffect(() => {
-    const form = formRef.current;
-    if (!form) return;
-    const waarnemer = new IntersectionObserver(([item]) => setFormInBeeld(Boolean(item?.isIntersecting)));
-    waarnemer.observe(form);
-    return () => waarnemer.disconnect();
-  }, []);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setFouten((prev) => ({ ...prev, [name]: undefined }));
   };
 
-  const naarFormulier = () => {
+  const naarFormulier = useCallback(() => {
     const form = formRef.current;
     if (!form) return;
     // Via Lenis: die houdt de scrollpositie vast en negeert een gewone scrollIntoView.
@@ -166,7 +229,7 @@ const GratisWebsiteAnalyse = () => {
     if (lenis) lenis.scrollTo(form, { offset: -96 });
     else form.scrollIntoView({ behavior: "smooth", block: "center" });
     form.querySelector<HTMLInputElement>("#website")?.focus({ preventScroll: true });
-  };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -435,54 +498,11 @@ const GratisWebsiteAnalyse = () => {
           </div>
         </section>
 
-        <AnalyseWerkwijze onKnop={naarFormulier} />
-
-        <div id="onderdelen" className="scroll-mt-16">
-          <Sectie>
-            <Inleiding>
-              We lopen je website door zoals een klant dat doet. Word je gevonden, werkt je site op de telefoon, oogt hij
-              verzorgd en snappen bezoekers meteen wat je doet?
-            </Inleiding>
-            <AnalyseOnderdelen />
-          </Sectie>
-        </div>
-
-        <Sectie papier>
-          <Inleiding>
-            Recent werk voor ondernemers in heel Nederland. Van dakdekker tot taxibedrijf: elke site op maat ontworpen,
-            snel en goed vindbaar.
-          </Inleiding>
-          <CaseGrid projects={cases} zonderOmschrijving />
-        </Sectie>
-
-        <GoogleReviewMuur />
-
-        {/* Hier komt het voorbeeldrapport zodra de PDF klaar is. */}
-
-        <Suspense fallback={<div className="min-h-[420px]" />}>
-          <FAQSection
-              zonderAnimatie
-            vragen={vragen}
-            intro="Alles wat je wilt weten voordat je de analyse aanvraagt."
-            actie={
-              <AnimatedButton onClick={naarFormulier} size="lg">
-                Ontvang mijn gratis analyse
-              </AnimatedButton>
-            }
-          />
-        </Suspense>
+        <Onderkant onKnop={naarFormulier} />
       </main>
 
-      <Footer />
-
-      {/* Op de telefoon blijft de knop bereikbaar; rechts staan de zwevende knoppen. */}
-      {!formInBeeld && (
-        <div className="fixed bottom-4 left-4 right-[136px] z-50 md:bottom-6 lg:hidden">
-          <AnimatedButton onClick={naarFormulier} className="h-[52px] w-full px-3" showArrow={false}>
-            Gratis analyse
-          </AnimatedButton>
-        </div>
-      )}
+      <Voet />
+      <PlakKnop formRef={formRef} onKnop={naarFormulier} />
     </div>
   );
 };
