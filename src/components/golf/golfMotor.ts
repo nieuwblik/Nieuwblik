@@ -14,7 +14,10 @@
 // 4. Nabewerking: gaussische vervaging naar boven- en onderrand en filmkorrel.
 //
 // Prestaties: alleen tekenen als er iets beweegt of verandert en de hero in beeld is;
-// zwakke toestellen krijgen een grover raster zonder multisampling.
+// zwakke toestellen krijgen een grover raster zonder multisampling. De rustige drift
+// loopt op 30 beelden per seconde, sneller zie je niet bij deze snelheid. Haalt een
+// toestel het tempo niet, dan zakt de resolutie stap voor stap en blijft in het
+// uiterste geval een stilstaand beeld over, zodat de pagina soepel blijft scrollen.
 
 export type GolfDeel = "voorRand" | "voorVouw" | "achterVouw" | "achterRand";
 export type GolfIntro =
@@ -588,8 +591,42 @@ export function startGolf(
   let exportSchaal = 0;
   let introStart = -1,
     vorigeIntro = -1;
+  // Kwaliteit: het tekenen gebeurt op dezelfde thread als het scrollen. Loopt de
+  // videokaart achter, dan hapert de pagina mee; daarom meet de motor het tempo zelf.
+  const STAPPEN = [2, 1.5, 1.25, 1];
+  const startDpr = zwak ? 1.5 : 2;
+  let dprPlafond = startDpr,
+    stil = false,
+    laatsteBeeld = 0,
+    meetVanaf = 0;
+  let intervallen: number[] = [];
+  function bewaakTempo(nu: number, dt: number, introKlaar: boolean) {
+    if (stil || exportSchaal || reduced || document.hidden) return;
+    if (!meetVanaf) meetVanaf = nu + 500;
+    if (nu < meetVanaf) return;
+    // Een pauze (ander tabblad, lang stuk script) telt niet mee; de mediaan negeert
+    // losse uitschieters, zodat alleen aanhoudend te traag tekenen meetelt.
+    if (dt > 0 && dt < 0.2) intervallen.push(dt);
+    if (intervallen.length < 24) return;
+    const mediaan = intervallen.sort((a, b) => a - b)[12] ?? 0;
+    intervallen = [];
+    meetVanaf = nu + 200;
+    if (mediaan < 0.026) return;
+    // Ver onder het tempo: meteen twee stappen, anders duurt het te lang op een
+    // toestel dat juist snel lucht nodig heeft.
+    const lager = STAPPEN.filter((d) => d < dprPlafond);
+    const volgende = lager[mediaan > 0.05 ? 1 : 0] ?? lager[0];
+    if (volgende && Math.min(devicePixelRatio || 1, dprPlafond) > volgende) {
+      dprPlafond = volgende;
+    } else if (introKlaar) {
+      // Ook op de laagste stand te traag: nog een laatste beeld, dat mag weer scherp.
+      stil = true;
+      dprPlafond = startDpr;
+      vuil = true;
+    }
+  }
   function maat() {
-    const dpr = exportSchaal || Math.min(devicePixelRatio || 1, zwak ? 1.5 : 2);
+    const dpr = exportSchaal || Math.min(devicePixelRatio || 1, dprPlafond);
     const nw = Math.round(canvas.clientWidth * dpr),
       nh = Math.round(canvas.clientHeight * dpr);
     if (!nw || !nh || (nw === w && nh === h)) return false;
@@ -661,9 +698,15 @@ export function startGolf(
     voortgang += (doel - voortgang) * Math.min(1, volg * 1.6);
     if (Math.abs(doel - voortgang) < 1e-4) voortgang = doel;
     const loopt = Math.abs(muis.x + muis.y + voortgang - oud) > 1e-5;
+    bewaakTempo(nu, dt, ip === 1);
     if (maat()) vuil = true;
-    if (!(vuil || beweegt || loopt || introVeranderd) || !w || !h) return;
+    // Alleen de drift loopt door: 30 beelden per seconde is genoeg.
+    const alleenDrift = !vuil && !loopt && !introVeranderd;
+    if (alleenDrift && !exportSchaal && nu - laatsteBeeld < 30) return;
+    if (stil ? !vuil : !(vuil || beweegt || loopt || introVeranderd)) return;
+    if (!w || !h) return;
     vuil = false;
+    laatsteBeeld = nu;
     luister();
     bouwPalet();
 
