@@ -2,169 +2,118 @@ import type { ReactNode } from "react";
 
 import Reveal from "@/components/Reveal";
 import { GoogleG } from "@/components/GoogleReviewMuur";
-import feigroBeeld from "@/assets/feigro-project-nieuwblik.webp";
-import schermDanique from "@/assets/hero/hero-scherm-danique-kwakman.webp";
-import schermKyodai from "@/assets/hero/hero-scherm-kyodai-originals.webp";
-import schermPuur from "@/assets/hero/hero-scherm-puur-in-harmonie.webp";
+import puurDesktop from "@/assets/analyse/puur-desktop.webp";
+import puurMobiel from "@/assets/hero/hero-scherm-puur-in-harmonie.webp";
 
 const RAND = "hsl(var(--sw-rule) / 0.1)";
 const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
 const GROEN = "hsl(var(--sw-green))";
 
-/** Een zoekresultaat als grijze regels. */
-const Resultaat = ({ klasse, top }: { klasse: string; top: number }) => (
-  <div
-    className={`absolute inset-x-0 flex h-12 flex-col justify-center gap-1.5 rounded-xl bg-white px-4 ${klasse}`}
-    style={{ top, border: `1px solid ${RAND}` }}
-  >
-    <span className="h-2 w-2/5 rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.14)" }} />
-    <span className="h-2 w-4/5 rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.07)" }} />
-  </div>
-);
-
-/** Jouw site klimt in de zoekresultaten: de groene regel schuift naar boven. */
+/** Het zoekresultaat van de site, zoals iemand het in Google ziet. */
 const BeeldVindbaarheid = () => (
-  <div className="mx-auto w-full max-w-md">
-    <div className="flex h-11 items-center gap-3 rounded-full bg-white px-4 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.3)]">
-      <GoogleG className="h-5 w-5 shrink-0" />
+  <div className="w-full max-w-md self-center">
+    <div className="flex h-10 items-center gap-3 rounded-full border px-4" style={{ borderColor: RAND }}>
+      <GoogleG className="h-[18px] w-[18px] shrink-0" />
       <span className="truncate text-sm" style={{ color: INKT_65 }}>
-        wat jouw klant zoekt
+        schoonheidssalon midwoud
       </span>
     </div>
-    <div className="relative mt-3 h-[152px]">
-      <Resultaat klasse="analyse-rij-zakt" top={0} />
-      <Resultaat klasse="analyse-rij-zakt" top={52} />
-      <div
-        className="analyse-rij-stijgt absolute inset-x-0 top-0 flex h-12 items-center justify-between rounded-xl px-4 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_hsl(160_84%_16%/0.8)]"
-        style={{ background: GROEN }}
-      >
-        jouwbedrijf.nl
-        <span className="text-xs font-normal text-white/75">Gevonden</span>
-      </div>
+    <div className="mt-5 px-1">
+      <p className="text-xs" style={{ color: INKT_65 }}>
+        puurinharmonie.nl
+      </p>
+      <p className="mt-1 text-base font-semibold leading-snug" style={{ color: GROEN }}>
+        Holistische Schoonheidssalon Midwoud · Gezicht, Massage & Reiki
+      </p>
+      <span className="mt-3 block h-2 w-full rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.08)" }} />
+      <span className="mt-2 block h-2 w-3/4 rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.08)" }} />
     </div>
   </div>
 );
 
-/** Echte klantsites op een telefoon, die rustig in elkaar overlopen. */
+/** De telefoonweergave van de site, afgesneden door de onderrand. */
 const BeeldMobiel = () => (
-  <div className="absolute left-1/2 top-7 w-[176px] -translate-x-1/2 rounded-[30px] border-[6px] bg-white shadow-[0_24px_50px_-22px_rgba(0,0,0,0.45)] [border-color:hsl(var(--sw-ink))]">
-    <div className="relative aspect-[720/1565] overflow-hidden rounded-[24px]">
-      {[schermPuur, schermKyodai, schermDanique].map((scherm, i) => (
-        <img
-          key={scherm}
-          src={scherm}
-          alt=""
-          width="720"
-          height="1565"
-          loading="lazy"
-          className="analyse-scherm absolute inset-0 h-full w-full object-cover"
-          style={{ animationDelay: `${i * 4}s` }}
-        />
-      ))}
-    </div>
+  <div
+    className="mx-auto h-[260px] w-[176px] self-start overflow-hidden rounded-t-[26px] border-[5px] border-b-0"
+    style={{ borderColor: "hsl(var(--sw-ink))" }}
+  >
+    <img src={puurMobiel} alt="" width="720" height="1565" loading="lazy" className="block w-full" />
   </div>
 );
 
-/** Opgeleverd werk in een browservenster. */
+/** De desktopweergave in een browservenster, afgesneden door de onderrand. */
 const BeeldDesign = () => (
-  <div className="absolute inset-x-6 top-7 overflow-hidden rounded-t-xl border border-b-0 bg-white shadow-[0_24px_50px_-22px_rgba(0,0,0,0.4)] md:inset-x-8" style={{ borderColor: RAND }}>
-    <div className="flex h-7 items-center gap-1.5 border-b px-3" style={{ borderColor: RAND }}>
+  <div className="h-fit w-full max-w-md self-start overflow-hidden rounded-t-xl border border-b-0" style={{ borderColor: RAND }}>
+    <div className="flex h-6 items-center gap-1.5 border-b px-3" style={{ borderColor: RAND }}>
       {[0, 1, 2].map((i) => (
-        <span key={i} className="h-2 w-2 rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
+        <span key={i} className="h-1.5 w-1.5 rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
       ))}
     </div>
-    <img src={feigroBeeld} alt="" loading="lazy" className="block w-full" />
+    <img src={puurDesktop} alt="" width="1200" height="750" loading="lazy" className="block w-full" />
   </div>
 );
 
-/** Een tekst met aantekeningen, zoals in de analyse. */
+/** De kop van de site met een vraag erbij, zoals we teksten nalopen. */
 const BeeldTeksten = () => (
-  <div className="mx-auto w-full max-w-lg">
-    <div className="rounded-xl bg-white p-5 shadow-[0_12px_32px_-20px_rgba(0,0,0,0.35)]">
-      <p className="text-base font-medium leading-snug md:text-lg" style={{ color: "hsl(var(--sw-ink) / 0.4)" }}>
-        <span className="analyse-streep">Wij bieden innovatieve oplossingen op maat</span>
-      </p>
-      <p className="mt-2 text-lg font-bold leading-snug tracking-tight sw-ink md:text-xl">
-        <span className="analyse-marker">Wij maken daken in West-Friesland waterdicht</span>
-      </p>
-    </div>
-    <p className="ml-auto mt-3 w-fit max-w-[85%] rounded-xl rounded-tr-sm px-3.5 py-2 text-sm font-medium text-white" style={{ background: GROEN }}>
-      Nu snapt een bezoeker meteen wat je doet
+  <div className="w-full max-w-md self-center">
+    <p className="text-3xl font-medium leading-tight tracking-tight sw-ink md:text-[2.5rem]">
+      <span style={{ background: "linear-gradient(transparent 64%, hsl(var(--sw-green) / 0.16) 64%)" }}>
+        Rust uit bij
+      </span>
+      <br />
+      PUUR in Harmonie
+    </p>
+    <p className="mt-4 text-sm" style={{ color: INKT_65 }}>
+      Snapt een bezoeker dit in drie seconden?
     </p>
   </div>
 );
 
-const Kaart = ({
-  beeld,
-  titel,
-  tekst,
-  klasse,
-  vertraging,
-  gecentreerd = false,
-}: {
-  beeld: ReactNode;
-  titel: string;
-  tekst: string;
-  klasse: string;
-  vertraging: number;
-  /** Het beeld midden in het vlak, in plaats van vanaf de onderrand. */
-  gecentreerd?: boolean;
-}) => (
-  <Reveal afstand={24} delay={vertraging} className={`h-full ${klasse}`}>
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border bg-white" style={{ borderColor: RAND }}>
-      <div
-        className={`relative h-64 shrink-0 overflow-hidden ${gecentreerd ? "flex items-center px-6 md:px-8" : ""}`}
-        style={{ background: "hsl(var(--sw-green) / 0.06)" }}
-        aria-hidden="true"
-      >
-        {beeld}
-      </div>
-      <div className="p-6 md:p-7">
-        <h3 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">{titel}</h3>
-        <p className="mt-2 text-[0.9375rem] leading-relaxed" style={{ color: INKT_65 }}>
-          {tekst}
-        </p>
-      </div>
-    </article>
-  </Reveal>
-);
+const onderdelen: { titel: string; tekst: string; beeld: ReactNode }[] = [
+  {
+    titel: "Vindbaarheid",
+    tekst: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.",
+    beeld: <BeeldVindbaarheid />,
+  },
+  {
+    titel: "Mobiele weergave",
+    tekst: "Of je site goed werkt op telefoon, tablet en computer.",
+    beeld: <BeeldMobiel />,
+  },
+  {
+    titel: "Design",
+    tekst: "Of je site er verzorgd uitziet en vertrouwen geeft.",
+    beeld: <BeeldDesign />,
+  },
+  {
+    titel: "Teksten",
+    tekst: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.",
+    beeld: <BeeldTeksten />,
+  },
+];
 
 /**
- * De vier onderdelen van de analyse, elk met een beeld van wat we bekijken:
- * een breed en een smal blok, en op de tweede rij andersom.
+ * De vier onderdelen van de analyse, als vier gelijke kaarten. Alle beelden
+ * laten dezelfde site zien (Puur in Harmonie), zodat het één verhaal is: zo
+ * loopt de analyse door een website heen.
  */
 const AnalyseOnderdelen = () => (
-  <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
-    <Kaart
-      klasse="lg:col-span-7"
-      vertraging={0}
-      gecentreerd
-      beeld={<BeeldVindbaarheid />}
-      titel="Vindbaarheid"
-      tekst="Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT."
-    />
-    <Kaart
-      klasse="lg:col-span-5"
-      vertraging={0.08}
-      beeld={<BeeldMobiel />}
-      titel="Mobiele weergave"
-      tekst="Of je site goed werkt op telefoon, tablet en computer."
-    />
-    <Kaart
-      klasse="lg:col-span-5"
-      vertraging={0}
-      beeld={<BeeldDesign />}
-      titel="Design"
-      tekst="Of je site er verzorgd uitziet en vertrouwen geeft."
-    />
-    <Kaart
-      klasse="lg:col-span-7"
-      vertraging={0.08}
-      gecentreerd
-      beeld={<BeeldTeksten />}
-      titel="Teksten"
-      tekst="Of bezoekers snel snappen wat je doet en wat ze moeten doen."
-    />
+  <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+    {onderdelen.map(({ titel, tekst, beeld }, i) => (
+      <Reveal key={titel} afstand={24} delay={(i % 2) * 0.08} className="h-full">
+        <article className="flex h-full flex-col overflow-hidden rounded-2xl border bg-white" style={{ borderColor: RAND }}>
+          <div className="flex h-[280px] shrink-0 justify-center overflow-hidden px-6 pt-8 md:px-8" aria-hidden="true">
+            {beeld}
+          </div>
+          <div className="border-t p-6 md:p-7" style={{ borderColor: RAND }}>
+            <h3 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">{titel}</h3>
+            <p className="mt-2 text-[0.9375rem] leading-relaxed" style={{ color: INKT_65 }}>
+              {tekst}
+            </p>
+          </div>
+        </article>
+      </Reveal>
+    ))}
   </div>
 );
 
