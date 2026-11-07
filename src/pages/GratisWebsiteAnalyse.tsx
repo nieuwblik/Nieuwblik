@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { FileText, Palette, Search, Smartphone, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
+import AnalyseOnderdelen from "@/components/AnalyseOnderdelen";
 import Breadcrumb from "@/components/Breadcrumb";
 import CaseGrid from "@/components/CaseGrid";
 import Footer from "@/components/Footer";
 import GoogleReviewMuur, { GoogleG } from "@/components/GoogleReviewMuur";
-import Reveal from "@/components/Reveal";
 import SEOHead from "@/components/SEOHead";
 import { getLenis } from "@/components/SmoothScroll";
 import { GroenPaneel, INKT_65, Sectie, SectieKop, Vragen } from "@/components/dienst/DienstBlokken";
@@ -33,29 +33,6 @@ type Fouten = Partial<Record<keyof FormState, string>>;
 
 const GROEN = "hsl(var(--sw-green))";
 const RAND = "hsl(var(--sw-rule) / 0.1)";
-
-const onderdelen = [
-  {
-    icon: Search,
-    title: "Vindbaarheid",
-    text: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobiele weergave",
-    text: "Of je site goed werkt op telefoon, tablet en computer.",
-  },
-  {
-    icon: Palette,
-    title: "Design",
-    text: "Of je site er verzorgd uitziet en vertrouwen geeft.",
-  },
-  {
-    icon: FileText,
-    title: "Teksten",
-    text: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.",
-  },
-];
 
 const vragen = [
   {
@@ -448,24 +425,7 @@ const GratisWebsiteAnalyse = () => {
             titel="Dit bekijken we"
             intro="Vier onderdelen, en per onderdeel concrete verbeterpunten."
           />
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {onderdelen.map(({ icon: Icon, title, text }, i) => (
-              <Reveal key={title} afstand={24} delay={i * 0.08} className="h-full">
-                <article className="h-full rounded-2xl border bg-white p-7" style={{ borderColor: RAND }}>
-                  <span
-                    className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl"
-                    style={{ background: "hsl(var(--sw-green) / 0.08)" }}
-                  >
-                    <Icon className="h-5 w-5" style={{ color: GROEN }} aria-hidden="true" />
-                  </span>
-                  <h3 className="text-lg font-bold tracking-tight sw-ink md:text-xl">{title}</h3>
-                  <p className="mt-2 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
-                    {text}
-                  </p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <AnalyseOnderdelen />
         </Sectie>
 
         <Sectie>

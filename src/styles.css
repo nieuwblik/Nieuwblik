@@ -1721,3 +1721,44 @@ html.tn-vast { overflow: hidden; }
   .review-kolom { animation: none; }
   .review-kolom__kopie { display: none; }
 }
+
+/* Beelden bij de onderdelen van de analyse (AnalyseOnderdelen). Traag en in een
+   lus: jouw site klimt in de zoekresultaten, klantsites lopen op de telefoon in
+   elkaar over, en de oude zin wordt doorgestreept. */
+@keyframes analyse-stijgt {
+  0%, 18% { transform: translate3d(0, 104px, 0); }
+  42%, 88% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, 104px, 0); }
+}
+@keyframes analyse-zakt {
+  0%, 18% { transform: translate3d(0, 0, 0); }
+  42%, 88% { transform: translate3d(0, 52px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes analyse-scherm {
+  0% { opacity: 0; }
+  6%, 33% { opacity: 1; }
+  39%, 100% { opacity: 0; }
+}
+@keyframes analyse-streep {
+  0%, 12% { background-size: 0% 2px; }
+  30%, 100% { background-size: 100% 2px; }
+}
+.analyse-rij-stijgt { animation: analyse-stijgt 7s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.analyse-rij-zakt { animation: analyse-zakt 7s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.analyse-scherm { opacity: 0; animation: analyse-scherm 12s linear infinite; }
+.analyse-streep {
+  background: linear-gradient(hsl(var(--s-danger)), hsl(var(--s-danger))) no-repeat 0 55%;
+  background-size: 100% 2px;
+  animation: analyse-streep 7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.analyse-marker {
+  background: linear-gradient(transparent 62%, hsl(var(--sw-green) / 0.18) 62%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .analyse-rij-stijgt { animation: none; transform: none; }
+  .analyse-rij-zakt { animation: none; transform: translate3d(0, 52px, 0); }
+  .analyse-scherm { animation: none; }
+  .analyse-scherm:first-child { opacity: 1; }
+  .analyse-streep { animation: none; }
+}
