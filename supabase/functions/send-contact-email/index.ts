@@ -42,16 +42,23 @@ interface ContactRequest {
   fullName: string;
   companyName?: string;
   email: string;
-  phone: string;
+  phone?: string;
   notes?: string;
   subject?: string;
+  /** Lokveld: onzichtbaar voor mensen, alleen spambots vullen het in. */
+  kenmerk?: string;
 }
 
 const contactSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name too long"),
   companyName: z.string().trim().max(100, "Company name too long").optional(),
   email: z.string().trim().email("Invalid email address").max(255, "Email too long"),
-  phone: z.string().trim().regex(/^[0-9+\s\-()]{10,20}$/, "Invalid phone number").max(20, "Phone number too long"),
+  // Optioneel: de gratis website-analyse vraagt geen telefoonnummer. Een leeg
+  // veld telt als niet ingevuld.
+  phone: z.preprocess(
+    (waarde) => (typeof waarde === "string" && waarde.trim() === "" ? undefined : waarde),
+    z.string().trim().regex(/^[0-9+\s\-()]{10,20}$/, "Invalid phone number").max(20, "Phone number too long").optional(),
+  ),
   notes: z.string().trim().max(1000, "Notes too long").optional(),
   // Optional override for the email subject (e.g. a distinct lead form like
   // the free website analysis request) - falls back to the default contact
@@ -74,15 +81,15 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    if (await isRateLimited(clientIp)) {
-      return new Response(
-        JSON.stringify({ error: "Too many requests. Please try again later." }),
-        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
-    }
-
     const rawData: ContactRequest = await req.json();
+
+    // Een spambot krijgt een gewoon antwoord, zodat hij niets leert.
+    if (rawData.kenmerk) {
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
     const validationResult = contactSchema.safeParse(rawData);
     if (!validationResult.success) {
@@ -90,6 +97,16 @@ const handler = async (req: Request): Promise<Response> => {
       return new Response(
         JSON.stringify({ error: "Invalid input data. Please check your form fields." }),
         { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Pas na de controle tellen: een typefout in het formulier mag iemand niet
+    // een uur blokkeren.
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (await isRateLimited(clientIp)) {
+      return new Response(
+        JSON.stringify({ error: "Too many requests. Please try again later." }),
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
 
@@ -117,7 +134,7 @@ const handler = async (req: Request): Promise<Response> => {
       <p><strong>Volledige Naam:</strong> ${escapeHtml(data.fullName)}</p>
       ${data.companyName ? `<p><strong>Bedrijfsnaam:</strong> ${escapeHtml(data.companyName)}</p>` : ''}
       <p><strong>E-mailadres:</strong> ${escapeHtml(data.email)}</p>
-      <p><strong>Telefoonnummer:</strong> ${escapeHtml(data.phone)}</p>
+      ${data.phone ? `<p><strong>Telefoonnummer:</strong> ${escapeHtml(data.phone)}</p>` : ''}
       ${data.notes ? `<p><strong>Opmerkingen:</strong></p><p>${escapeHtml(data.notes).replace(/\n/g, '<br>')}</p>` : ''}
     `;
 

@@ -1,9 +1,11 @@
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { Button } from "@/components/ui/button";
 import { Cookie } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
+import { OPEN_COOKIEKEUZE } from "@/lib/consent";
 
 const Cookies = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -60,6 +62,16 @@ const Cookies = () => {
             <p className="text-muted-foreground">
               Wij gebruiken Google Analytics om bij te houden hoe bezoekers onze website gebruiken. De informatie die hiermee verzameld wordt, wordt gebruikt om rapporten op te stellen over het gebruik van de website. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken.
             </p>
+            <p className="text-muted-foreground mt-4">
+              Analytische cookies plaatsen wij alleen als u daarvoor toestemming geeft.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Advertentiecookies</h3>
+            <p className="text-muted-foreground">
+              Wij kunnen Google Ads gebruiken om te meten of onze advertenties werken. Ook deze cookies plaatsen wij alleen als u daarvoor toestemming geeft.
+            </p>
           </div>
         </div>
       )
@@ -68,6 +80,16 @@ const Cookies = () => {
       title: "4. Cookies in- of uitschakelen",
       content: (
         <>
+          <p className="text-muted-foreground mb-4">
+            U kunt uw keuze op elk moment wijzigen.
+          </p>
+          <Button
+            variant="outline"
+            className="mb-6"
+            onClick={() => window.dispatchEvent(new Event(OPEN_COOKIEKEUZE))}
+          >
+            Cookievoorkeuren wijzigen
+          </Button>
           <p className="text-muted-foreground">
             U kunt ervoor kiezen om cookies uit te schakelen. Dit doet u via uw browser. Let op: het uitschakelen van cookies kan gevolgen hebben voor de werking van onze website. Sommige functionaliteiten werken mogelijk niet meer optimaal.
           </p>

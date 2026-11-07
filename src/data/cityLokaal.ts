@@ -439,7 +439,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Eerst kijken wat je huidige site doet",
         alineas: [
-          "Voordat we iets nieuws voorstellen, bekijken we je huidige website op snelheid, vindbaarheid en conversie. Dat kan met een [gratis website-analyse](/gratis-website-analyse): binnen 24 uur krijg je een persoonlijke analyse met concrete verbeterpunten.",
+          "Voordat we iets nieuws voorstellen, bekijken we je huidige website op vindbaarheid, mobiele weergave, design en teksten. Dat kan met een [gratis website-analyse](/gratis-website-analyse): binnen 1 werkdag krijg je een PDF met concrete verbeterpunten.",
           "Soms is verbeteren genoeg. Vaak is vernieuwen verstandiger, omdat de basis van de oude site niet meer meekan. Die keuze maken we samen, op basis van wat de analyse laat zien.",
         ],
       },
@@ -957,7 +957,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       {
         h2: "Je huidige website vernieuwen",
         alineas: [
-          "Heb je al een site die traag laadt, niet prettig werkt op de telefoon of weinig aanvragen oplevert? Dan kijken we eerst wat hij nu doet. Met een [gratis website-analyse](/gratis-website-analyse) krijg je binnen 24 uur een persoonlijke analyse van snelheid, vindbaarheid en conversie, met concrete verbeterpunten.",
+          "Heb je al een site die traag laadt, niet prettig werkt op de telefoon of weinig aanvragen oplevert? Dan kijken we eerst wat hij nu doet. Met een [gratis website-analyse](/gratis-website-analyse) krijg je binnen 1 werkdag een PDF over je vindbaarheid, mobiele weergave, design en teksten, met concrete verbeterpunten.",
           "Daarna kiezen we samen: verbeteren wat er staat, of opnieuw bouwen. Bij een nieuwe site zetten we de adressen van je oude pagina's met een 301-redirect door, zodat bezoekers en Google op de juiste plek uitkomen.",
         ],
       },
@@ -989,7 +989,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
       },
       {
         q: "Mijn website is verouderd. Waar beginnen we?",
-        a: "Met een gratis website-analyse van snelheid, vindbaarheid en conversie. Binnen 24 uur heb je die, en daarna bepalen we samen of verbeteren of opnieuw bouwen verstandiger is.",
+        a: "Met een gratis website-analyse van je vindbaarheid, mobiele weergave, design en teksten. Binnen 1 werkdag heb je die, en daarna bepalen we samen of verbeteren of opnieuw bouwen verstandiger is.",
       },
       {
         q: "Kan ik mijn winkel uitbreiden met een webshop?",

@@ -24,8 +24,14 @@ import appCss from "../styles.css?url";
 import cabinLatin from "../assets/fonts/cabin-latin.woff2?url";
 import epilogueLatin from "../assets/fonts/epilogue-latin.woff2?url";
 
-// Google Analytics, uitgesteld tot de browser niets te doen heeft — overgenomen
-// uit de oude index.html zodat metingen op de site identiek blijven.
+// Google Analytics, uitgesteld tot de browser niets te doen heeft.
+//
+// Alleen na toestemming: zonder keuze of na "Weigeren" laadt er niets van
+// Google. De keuze staat in localStorage (zie src/lib/consent.ts); wie in de
+// cookiemelding accepteert, roept window.laadGoogle aan. Consent Mode staat
+// standaard op geweigerd en gaat pas om vlak voordat het script laadt. De
+// router voert dit script bij een routewissel opnieuw uit, vandaar de vlag: een
+// tweede "default" mag een gegeven toestemming niet terugdraaien.
 //
 // Niet in het portaal: daar zou het externe script op dezelfde origin draaien
 // als de inlogsessie, en elke portaal-URL (met klant-id's) naar Google gaan.
@@ -35,10 +41,15 @@ import epilogueLatin from "../assets/fonts/epilogue-latin.woff2?url";
 const GA_SCRIPT = `
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+if (!window.gaStandaardGezet) {
+  window.gaStandaardGezet = true;
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+}
 function loadGA() {
   if (window.gaLoaded) return;
   if (/^\\/admin(\\/|$)/.test(location.pathname)) return;
   window.gaLoaded = true;
+  gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
   gtag('js', new Date());
   gtag('config', 'G-8DLGZ42KPP', /^\\/afmelden/.test(location.pathname)
     ? { send_page_view: true, page_location: location.origin + location.pathname }
@@ -48,12 +59,18 @@ function loadGA() {
   script.async = true;
   document.head.appendChild(script);
 }
+window.laadGoogle = loadGA;
 function whenIdle() {
   if ('requestIdleCallback' in window) requestIdleCallback(loadGA, { timeout: 5000 });
   else setTimeout(loadGA, 2000);
 }
-if (document.readyState === 'complete') whenIdle();
-else window.addEventListener('load', whenIdle, { once: true });
+function heeftToestemming() {
+  try { return localStorage.getItem('cookieConsent') === 'accepted'; } catch (e) { return false; }
+}
+if (heeftToestemming()) {
+  if (document.readyState === 'complete') whenIdle();
+  else window.addEventListener('load', whenIdle, { once: true });
+}
 `;
 
 

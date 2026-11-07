@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUp, Gauge, Plus, Search, TrendingUp } from "lucide-react";
+import { ArrowUp, FileText, Gauge, Palette, Plus, Search, Smartphone } from "lucide-react";
 import { useLocation } from "@/lib/router-compat";
 import { companyInfo } from "@/config/company";
 import { AnimatedButton } from "@/components/ui/animated-button";
@@ -29,24 +29,29 @@ const vertraging = (open: boolean, i: number) => ({
 
 // Pagina's waar het analysedeel niets toevoegt: al aan het converteren, of de
 // pagina waar het zelf naartoe linkt. Daar blijven naar boven en WhatsApp over.
-const HIDDEN_ON = ["/gratis-website-analyse", "/contact", "/bedankt", "/admin"];
+const HIDDEN_ON = ["/gratis-website-analyse", "/bedankt-analyse", "/contact", "/bedankt", "/admin"];
 
-// Dezelfde drie onderdelen als op /gratis-website-analyse.
+// Dezelfde vier onderdelen als op /gratis-website-analyse.
 const CHECKS = [
-  {
-    icon: Gauge,
-    title: "Snelheid & techniek",
-    text: "Laadtijd, mobielvriendelijkheid en technische SEO-basis.",
-  },
   {
     icon: Search,
     title: "Vindbaarheid",
-    text: "Hoe goed scoort je site in Google en AI-zoekmachines zoals ChatGPT.",
+    text: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.",
   },
   {
-    icon: TrendingUp,
-    title: "Conversiekansen",
-    text: "Waar bezoekers afhaken en wat dat je aan omzet kost.",
+    icon: Smartphone,
+    title: "Mobiele weergave",
+    text: "Of je site goed werkt op telefoon, tablet en computer.",
+  },
+  {
+    icon: Palette,
+    title: "Design",
+    text: "Of je site er verzorgd uitziet en vertrouwen geeft.",
+  },
+  {
+    icon: FileText,
+    title: "Teksten",
+    text: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.",
   },
 ];
 
@@ -120,7 +125,7 @@ const ZwevendeKnoppen = () => {
                   className={`text-sm font-light leading-relaxed ${verschijn(open)}`}
                   style={vertraging(open, 0)}
                 >
-                  Ontdek in 24 uur waar jouw website kansen laat liggen.
+                  Ontdek binnen 1 werkdag waar jouw website kansen laat liggen.
                 </p>
                 <ul className="mt-4 space-y-3">
                   {CHECKS.map(({ icon: Icon, title, text }, i) => (
@@ -184,7 +189,7 @@ const ZwevendeKnoppen = () => {
                   className="block truncate text-[0.75rem] leading-snug"
                   style={{ color: INKT_65 }}
                 >
-                  Binnen 24 uur, vrijblijvend
+                  Binnen 1 werkdag, vrijblijvend
                 </span>
               </span>
               {/* Plus die bij openen een kruisje wordt: duidelijk iets anders dan de pijl naar boven. */}

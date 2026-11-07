@@ -16,6 +16,7 @@ import { Route as PublicLandingPathRouteImport } from './routes/_public/$landing
 import { Route as PublicAfmeldenRouteImport } from './routes/_public/afmelden'
 import { Route as PublicAlgemeneVoorwaardenRouteImport } from './routes/_public/algemene-voorwaarden'
 import { Route as PublicBedanktRouteImport } from './routes/_public/bedankt'
+import { Route as PublicBedanktAnalyseRouteImport } from './routes/_public/bedankt-analyse'
 import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicCookiesRouteImport } from './routes/_public/cookies'
 import { Route as PublicGratisWebsiteAnalyseRouteImport } from './routes/_public/gratis-website-analyse'
@@ -90,6 +91,11 @@ const PublicAlgemeneVoorwaardenRoute =
 const PublicBedanktRoute = PublicBedanktRouteImport.update({
   id: '/bedankt',
   path: '/bedankt',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicBedanktAnalyseRoute = PublicBedanktAnalyseRouteImport.update({
+  id: '/bedankt-analyse',
+  path: '/bedankt-analyse',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicContactRoute = PublicContactRouteImport.update({
@@ -307,6 +313,7 @@ export interface FileRoutesByFullPath {
   '/afmelden': typeof PublicAfmeldenRoute
   '/algemene-voorwaarden': typeof PublicAlgemeneVoorwaardenRoute
   '/bedankt': typeof PublicBedanktRoute
+  '/bedankt-analyse': typeof PublicBedanktAnalyseRoute
   '/contact': typeof PublicContactRoute
   '/cookies': typeof PublicCookiesRoute
   '/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
@@ -354,6 +361,7 @@ export interface FileRoutesByTo {
   '/afmelden': typeof PublicAfmeldenRoute
   '/algemene-voorwaarden': typeof PublicAlgemeneVoorwaardenRoute
   '/bedankt': typeof PublicBedanktRoute
+  '/bedankt-analyse': typeof PublicBedanktAnalyseRoute
   '/contact': typeof PublicContactRoute
   '/cookies': typeof PublicCookiesRoute
   '/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
@@ -404,6 +412,7 @@ export interface FileRoutesById {
   '/_public/afmelden': typeof PublicAfmeldenRoute
   '/_public/algemene-voorwaarden': typeof PublicAlgemeneVoorwaardenRoute
   '/_public/bedankt': typeof PublicBedanktRoute
+  '/_public/bedankt-analyse': typeof PublicBedanktAnalyseRoute
   '/_public/contact': typeof PublicContactRoute
   '/_public/cookies': typeof PublicCookiesRoute
   '/_public/gratis-website-analyse': typeof PublicGratisWebsiteAnalyseRoute
@@ -455,6 +464,7 @@ export interface FileRouteTypes {
     | '/afmelden'
     | '/algemene-voorwaarden'
     | '/bedankt'
+    | '/bedankt-analyse'
     | '/contact'
     | '/cookies'
     | '/gratis-website-analyse'
@@ -502,6 +512,7 @@ export interface FileRouteTypes {
     | '/afmelden'
     | '/algemene-voorwaarden'
     | '/bedankt'
+    | '/bedankt-analyse'
     | '/contact'
     | '/cookies'
     | '/gratis-website-analyse'
@@ -551,6 +562,7 @@ export interface FileRouteTypes {
     | '/_public/afmelden'
     | '/_public/algemene-voorwaarden'
     | '/_public/bedankt'
+    | '/_public/bedankt-analyse'
     | '/_public/contact'
     | '/_public/cookies'
     | '/_public/gratis-website-analyse'
@@ -650,6 +662,13 @@ declare module '@tanstack/react-router' {
       path: '/bedankt'
       fullPath: '/bedankt'
       preLoaderRoute: typeof PublicBedanktRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/bedankt-analyse': {
+      id: '/_public/bedankt-analyse'
+      path: '/bedankt-analyse'
+      fullPath: '/bedankt-analyse'
+      preLoaderRoute: typeof PublicBedanktAnalyseRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/contact': {
@@ -941,6 +960,7 @@ interface PublicRouteChildren {
   PublicAfmeldenRoute: typeof PublicAfmeldenRoute
   PublicAlgemeneVoorwaardenRoute: typeof PublicAlgemeneVoorwaardenRoute
   PublicBedanktRoute: typeof PublicBedanktRoute
+  PublicBedanktAnalyseRoute: typeof PublicBedanktAnalyseRoute
   PublicContactRoute: typeof PublicContactRoute
   PublicCookiesRoute: typeof PublicCookiesRoute
   PublicGratisWebsiteAnalyseRoute: typeof PublicGratisWebsiteAnalyseRoute
@@ -987,6 +1007,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicAfmeldenRoute: PublicAfmeldenRoute,
   PublicAlgemeneVoorwaardenRoute: PublicAlgemeneVoorwaardenRoute,
   PublicBedanktRoute: PublicBedanktRoute,
+  PublicBedanktAnalyseRoute: PublicBedanktAnalyseRoute,
   PublicContactRoute: PublicContactRoute,
   PublicCookiesRoute: PublicCookiesRoute,
   PublicGratisWebsiteAnalyseRoute: PublicGratisWebsiteAnalyseRoute,
