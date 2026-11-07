@@ -1,6 +1,6 @@
 import Reveal from "@/components/Reveal";
-import puurDesktop from "@/assets/analyse/puur-desktop.webp";
-import puurMobiel from "@/assets/hero/hero-scherm-puur-in-harmonie.webp";
+import xdrIphone from "@/assets/analyse/xdr-iphone-puur.webp";
+import xdrIphoneSet from "@/assets/analyse/xdr-iphone-puur.webp?w=640;960;1280&format=webp&as=srcset";
 
 const RAND = "hsl(var(--sw-rule) / 0.12)";
 const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
@@ -18,44 +18,24 @@ interface Onderdeel {
 }
 
 const onderdelen: Onderdeel[] = [
-  { titel: "Vindbaarheid", tekst: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.", kant: "links", hoogte: 12, diepte: 42 },
-  { titel: "Teksten", tekst: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.", kant: "links", hoogte: 58, diepte: 26 },
-  { titel: "Design", tekst: "Of je site er verzorgd uitziet en vertrouwen geeft.", kant: "rechts", hoogte: 30, diepte: 9 },
-  { titel: "Mobiele weergave", tekst: "Of je site goed werkt op telefoon, tablet en computer.", kant: "rechts", hoogte: 68, diepte: 6 },
+  { titel: "Vindbaarheid", tekst: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.", kant: "links", hoogte: 9.5, diepte: 42 },
+  { titel: "Teksten", tekst: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.", kant: "links", hoogte: 56, diepte: 26 },
+  { titel: "Design", tekst: "Of je site er verzorgd uitziet en vertrouwen geeft.", kant: "rechts", hoogte: 34, diepte: 10 },
+  { titel: "Mobiele weergave", tekst: "Of je site goed werkt op telefoon, tablet en computer.", kant: "rechts", hoogte: 78, diepte: 11 },
 ];
 
-/** Een echte site in een browservenster, met de telefoonweergave ervoor. */
+/** Een echte site op een monitor en een iPhone; de foto loopt wit uit in de pagina. */
 const Beeld = () => (
-  <div className="relative">
-    <div className="overflow-hidden rounded-xl border bg-white" style={{ borderColor: RAND }}>
-      <div className="flex h-7 items-center gap-1.5 border-b px-3" style={{ borderColor: RAND }}>
-        {[0, 1, 2].map((i) => (
-          <span key={i} className="h-2 w-2 rounded-full" style={{ background: "hsl(var(--sw-rule) / 0.16)" }} />
-        ))}
-      </div>
-      <img
-        src={puurDesktop}
-        alt="De homepage van Puur in Harmonie op een computer"
-        width="1200"
-        height="750"
-        loading="lazy"
-        className="block w-full"
-      />
-    </div>
-    <div
-      className="absolute -bottom-8 right-[6%] w-[19%] overflow-hidden rounded-[18px] border-[4px] bg-white shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)]"
-      style={{ borderColor: "hsl(var(--sw-ink))" }}
-    >
-      <img
-        src={puurMobiel}
-        alt="Dezelfde site op een telefoon"
-        width="720"
-        height="1565"
-        loading="lazy"
-        className="block w-full"
-      />
-    </div>
-  </div>
+  <img
+    src={xdrIphone}
+    srcSet={xdrIphoneSet}
+    sizes="(min-width: 1024px) 58vw, 100vw"
+    width="1550"
+    height="1290"
+    alt="De website van Puur in Harmonie op een monitor en een iPhone"
+    loading="lazy"
+    className="block w-full"
+  />
 );
 
 const Label = ({ titel, tekst }: Pick<Onderdeel, "titel" | "tekst">) => (
@@ -110,9 +90,7 @@ const AnalyseOnderdelen = () => (
     </div>
 
     <div className="lg:hidden">
-      <div className="pb-8">
-        <Beeld />
-      </div>
+      <Beeld />
       <ul className="mt-6 border-t" style={{ borderColor: RAND }}>
         {onderdelen.map(({ titel, tekst }) => (
           <li key={titel} className="border-b py-5" style={{ borderColor: RAND }}>
