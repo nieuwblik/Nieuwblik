@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 
 import AnalyseOnderdelen from "@/components/AnalyseOnderdelen";
@@ -272,7 +272,7 @@ const GratisWebsiteAnalyse = () => {
             toets p, de instellingen staan los van de homepage (src/data/golfAnalyse.ts). */}
         <section
           ref={heroRef}
-          className={`golf-hero${golfAnalyse.opstelling.spiegel ? " golf-hero--gespiegeld" : ""} sw-ink sw-hero-anim relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[86svh]`}
+          className={`golf-hero${golfAnalyse.opstelling.spiegel ? " golf-hero--gespiegeld" : ""} sw-ink relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[86svh]`}
         >
           <picture className="golf-hero__terugval" aria-hidden="true">
             <source media="(max-width: 759px), (max-aspect-ratio: 9/10)" srcSet={terugvalMobiel} />
@@ -294,8 +294,8 @@ const GratisWebsiteAnalyse = () => {
                 </span>
               </h1>
               <p
-                className="sw-lead relative z-[3] mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
-                style={{ color: "hsl(var(--sw-ink) / 0.7)", "--sw-delay": "0.4s" } as CSSProperties}
+                className="relative z-[3] mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
+                style={{ color: "hsl(var(--sw-ink) / 0.7)" }}
               >
                 Binnen 1 werkdag krijg je per mail een PDF met wat er beter kan aan je vindbaarheid, mobiele weergave,
                 design en teksten.
@@ -304,8 +304,7 @@ const GratisWebsiteAnalyse = () => {
                 href={REVIEWS.profielUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sw-cta group relative z-[3] mt-4 flex w-fit items-center gap-2.5 md:mt-6"
-                style={{ "--sw-delay": "0.55s" } as CSSProperties}
+                className="group relative z-[3] mt-4 flex w-fit items-center gap-2.5 md:mt-6"
               >
                 <GoogleG className="h-[18px] w-[18px] shrink-0" />
                 <span className="flex items-center gap-1" aria-hidden="true">
@@ -330,8 +329,8 @@ const GratisWebsiteAnalyse = () => {
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="sw-cta relative z-[3] space-y-3 rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
-              style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
+              className="relative z-[3] space-y-3 rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
+              style={{ borderColor: RAND }}
             >
               <h2 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
               <Veld id="website" label="Je website" fout={fouten.website}>
@@ -461,6 +460,7 @@ const GratisWebsiteAnalyse = () => {
 
         <Suspense fallback={<div className="min-h-[420px]" />}>
           <FAQSection
+              zonderAnimatie
             vragen={vragen}
             intro="Alles wat je wilt weten voordat je de analyse aanvraagt."
             actie={

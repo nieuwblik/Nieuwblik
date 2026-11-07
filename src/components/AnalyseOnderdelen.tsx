@@ -1,4 +1,3 @@
-import Reveal from "@/components/Reveal";
 import xdrIphone from "@/assets/analyse/xdr-iphone-puur.webp";
 import xdrIphoneSet from "@/assets/analyse/xdr-iphone-puur.webp?w=640;960;1280&format=webp&as=srcset";
 
@@ -56,20 +55,11 @@ const Label = ({ titel, tekst }: Pick<Onderdeel, "titel" | "tekst">) => (
 const AnalyseOnderdelen = () => (
   <>
     <div className="relative hidden lg:block lg:px-[21%]">
-      <Reveal afstand={32}>
-        <Beeld />
-      </Reveal>
-      {onderdelen.map(({ titel, tekst, kant, hoogte, diepte }, i) => {
+      <Beeld />
+      {onderdelen.map(({ titel, tekst, kant, hoogte, diepte }) => {
         const links = kant === "links";
         return (
-          <Reveal
-            key={titel}
-            from={links ? "links" : "rechts"}
-            afstand={24}
-            delay={0.12 + i * 0.07}
-            className="absolute inset-x-0"
-            style={{ top: `${hoogte}%` }}
-          >
+          <div key={titel} className="absolute inset-x-0" style={{ top: `${hoogte}%` }}>
             <div className={`absolute top-0 w-[19%] ${links ? "left-0" : "right-0"}`}>
               <span className="block h-px w-full" style={{ background: GROEN }} />
               <div className="pt-3">
@@ -90,12 +80,12 @@ const AnalyseOnderdelen = () => (
                 style={{ background: GROEN, [links ? "right" : "left"]: "-3px" }}
               />
             </span>
-          </Reveal>
+          </div>
         );
       })}
     </div>
 
-    <Reveal afstand={32} className="lg:hidden">
+    <div className="lg:hidden">
       <Beeld />
       <ul className="mt-6 border-t" style={{ borderColor: RAND }}>
         {onderdelen.map(({ titel, tekst }) => (
@@ -104,7 +94,7 @@ const AnalyseOnderdelen = () => (
           </li>
         ))}
       </ul>
-    </Reveal>
+    </div>
   </>
 );
 

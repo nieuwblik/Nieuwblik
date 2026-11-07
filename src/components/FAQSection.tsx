@@ -207,12 +207,16 @@ const FAQSection = ({
   vragen = faqs,
   intro = "Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.",
   actie,
+  zonderAnimatie = false,
 }: {
   vragen?: typeof faqs;
   intro?: string;
   /** Onder de intro, bijvoorbeeld een knop. */
   actie?: ReactNode;
+  /** Kop en tekst staan er meteen, zonder binnenkomst. */
+  zonderAnimatie?: boolean;
 }) => {
+  const reveal = zonderAnimatie ? "" : "sw-reveal";
   // Hooguit één vraag tegelijk open; de eerste staat open bij binnenkomst.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -237,13 +241,13 @@ const FAQSection = ({
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Links: kop en tekst */}
           <div className="lg:col-span-4">
-            <h2 className="sw-reveal text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight mb-5 leading-[1.05]" style={{ color: "hsl(var(--sw-ink))" }}>
+            <h2 className={`${reveal} text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight mb-5 leading-[1.05]`} style={{ color: "hsl(var(--sw-ink))" }}>
               Veelgestelde vragen
             </h2>
-            <p className="sw-reveal text-base md:text-lg font-light leading-relaxed max-w-sm" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+            <p className={`${reveal} text-base md:text-lg font-light leading-relaxed max-w-sm`} style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
               {intro}
             </p>
-            {actie && <div className="sw-reveal mt-7">{actie}</div>}
+            {actie && <div className={`${reveal} mt-7`}>{actie}</div>}
           </div>
 
           {/* Rechts: de vragen, op brede schermen in twee kolommen */}

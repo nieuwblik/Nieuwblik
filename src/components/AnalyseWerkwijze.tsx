@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
 import samenLaptop from "@/assets/analyse/samen-laptop.webp";
@@ -89,17 +88,15 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
         </div>
 
         <div className="px-4 pt-12 sm:px-6 lg:px-16 lg:pt-0 xl:px-20">
-          <Reveal afstand={32}>
-            <h2 className="pf-inleiding">
-              Je vult je website in en wij doen de rest. Binnen 1 werkdag heb je een PDF in je mail, en daarna beslis jij
-              wat je ermee doet.
-            </h2>
-          </Reveal>
-          <Reveal afstand={32} delay={0.08} className="mt-8">
+          <h2 className="pf-inleiding">
+            Je vult je website in en wij doen de rest. Binnen 1 werkdag heb je een PDF in je mail, en daarna beslis jij
+            wat je ermee doet.
+          </h2>
+          <div className="mt-8">
             <AnimatedButton onClick={onKnop} size="lg">
               Ontvang mijn gratis analyse
             </AnimatedButton>
-          </Reveal>
+          </div>
         </div>
       </div>
 
@@ -117,12 +114,7 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
             ))}
           <div className="grid cursor-default grid-cols-2 lg:grid-cols-4" onMouseLeave={() => setVast(false)}>
             {cijfers.map(({ waarde, regels }, i) => (
-              <Reveal
-                key={waarde}
-                afstand={24}
-                delay={i * 0.07}
-                className="flex flex-col items-center px-3 py-10 text-center lg:py-14"
-              >
+              <div key={waarde} className="flex flex-col items-center px-3 py-10 text-center lg:py-14">
                 <div
                   onMouseEnter={() => {
                     setVast(true);
@@ -145,7 +137,7 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
                     ))}
                   </div>
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>
