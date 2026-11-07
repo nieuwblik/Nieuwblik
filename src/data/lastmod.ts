@@ -2,7 +2,7 @@
 // Laatste inhoudelijke wijziging per pagina: dezelfde datums als de lastmod in
 // public/sitemap.xml. Gebruikt voor dateModified en article:modified_time.
 export const LASTMOD: Record<string, string> = {
-  "/": "2026-10-13",
+  "/": "2026-11-07",
   "/algemene-voorwaarden": "2026-10-22",
   "/blog": "2026-10-18",
   "/blog/brand-storytelling-van-pixel-tot-voordeur": "2026-10-18",
