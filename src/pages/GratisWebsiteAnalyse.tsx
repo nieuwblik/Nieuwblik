@@ -358,7 +358,7 @@ const GratisWebsiteAnalyse = () => {
               </h1>
               <p
                 className="sw-lead relative z-[3] mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
-                style={{ color: "hsl(var(--sw-ink) / 0.7)", "--sw-delay": "0.4s" } as CSSProperties}
+                style={{ color: "hsl(var(--sw-ink) / 0.7)", "--sw-delay": "0.1s" } as CSSProperties}
               >
                 Binnen 1 werkdag krijg je per mail een PDF met wat er beter kan aan je vindbaarheid, mobiele weergave,
                 design en teksten.
