@@ -288,7 +288,7 @@ const GratisWebsiteAnalyse = () => {
             />
           </picture>
 
-          <div className="container mx-auto grid grid-cols-1 items-center gap-7 px-4 pb-14 pt-[calc(var(--header-height)_+_1.25rem)] sm:px-6 md:pb-20 lg:min-h-[86svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
+          <div className="container mx-auto grid grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-20 lg:min-h-[86svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
               <div className="mb-8 hidden md:block">
                 <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
@@ -326,7 +326,10 @@ const GratisWebsiteAnalyse = () => {
                   style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
                 >
                   {REVIEWS.scoreLabel} op Google,{" "}
-                  <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>op basis van {REVIEWS.aantalLabel}reviews</span>
+                  <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>
+                    <span className="max-sm:hidden">op basis van </span>
+                    {REVIEWS.aantalLabel}reviews
+                  </span>
                 </span>
               </a>
             </div>
@@ -335,7 +338,7 @@ const GratisWebsiteAnalyse = () => {
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="sw-cta relative space-y-3.5 rounded-2xl border bg-white p-5 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
+              className="sw-cta relative space-y-3 rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
               style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
             >
               <h2 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
@@ -421,7 +424,12 @@ const GratisWebsiteAnalyse = () => {
                 </p>
               )}
 
-              <AnimatedButton type="submit" disabled={bezig} size="lg" className="h-12 w-full">
+              <AnimatedButton
+                type="submit"
+                disabled={bezig}
+                size="lg"
+                className="h-12 w-full whitespace-nowrap px-4 max-sm:text-base"
+              >
                 {bezig ? "Versturen..." : "Ontvang mijn gratis analyse"}
               </AnimatedButton>
               <p className="text-center text-xs" style={{ color: INKT_65 }}>
