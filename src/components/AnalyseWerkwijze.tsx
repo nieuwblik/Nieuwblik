@@ -1,29 +1,36 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
+import { REVIEWS } from "@/config/business";
 import samenLaptop from "@/assets/analyse/samen-laptop.webp";
 import samenLaptopSet from "@/assets/analyse/samen-laptop.webp?w=480;800;1200&format=webp&as=srcset";
 
 const RAND = "hsl(var(--sw-rule) / 0.14)";
 
-const stappen = [
-  { titel: "Je vraagt de analyse aan", tekst: "Je website, naam en e-mailadres zijn genoeg." },
-  { titel: "Wij bekijken je site", tekst: "Vindbaarheid, mobiele weergave, design en teksten." },
-  { titel: "Je krijgt de PDF per mail", tekst: "Binnen 1 werkdag, met concrete verbeterpunten." },
-  { titel: "Jij beslist wat je ermee doet", tekst: "Zelf oppakken of samen met ons. Je zit nergens aan vast." },
+const cijfers = [
+  { waarde: "€0", regels: ["kost de analyse,", "zonder verplichtingen"] },
+  { waarde: "1 werkdag", regels: ["en de PDF", "staat in je mail"] },
+  { waarde: "4 onderdelen", regels: ["vindbaarheid, mobiel,", "design en teksten"] },
+  { waarde: REVIEWS.scoreLabel, regels: ["op Google, op basis", `van ${REVIEWS.aantalLabel}reviews`] },
 ];
+
+const ACCENTLIJN = "linear-gradient(90deg, transparent, hsl(var(--sw-green)), transparent)";
 
 /**
  * Hoe de analyse verloopt: links een grote foto tot de rand van het scherm, die
  * boven de sectie uitsteekt en rustig meeschuift, rechts de zin, en daaronder
- * de vier stappen naast elkaar, zodat alles tegelijk te lezen is.
+ * vier kerncijfers. Op desktop licht er steeds één op en schuift een groen
+ * stukje lijn mee; aanwijzen houdt dat cijfer vast.
  */
 const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
   const kaderRef = useRef<HTMLDivElement>(null);
   const fotoRef = useRef<HTMLImageElement>(null);
+  const [actief, setActief] = useState(0);
+  const [vast, setVast] = useState(false);
+  const [wisselt, setWisselt] = useState(false);
 
   // ScrollTrigger hangt aan dezelfde klok als Lenis (zie SmoothScroll), dus de foto
   // beweegt in hetzelfde frame als de pagina. Een eigen scroll-luisteraar liep daar
@@ -46,8 +53,18 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
     return () => ctx.revert();
   }, []);
 
+  // Om de beurt oplichten, alleen op desktop en niet bij "minder beweging".
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(min-width: 1024px)").matches) return;
+    setWisselt(true);
+    if (vast) return;
+    const id = window.setInterval(() => setActief((i) => (i + 1) % cijfers.length), 2800);
+    return () => window.clearInterval(id);
+  }, [vast]);
+
   return (
-    <section className="sw-paper relative z-10 pb-14 md:pb-20">
+    <section className="sw-paper relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,52vw)_minmax(0,1fr)] lg:items-center">
         <div
           ref={kaderRef}
@@ -82,26 +99,52 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6">
-        <ol className="mt-12 grid grid-cols-1 border-t sm:grid-cols-2 lg:mt-20 lg:grid-cols-4" style={{ borderColor: RAND }}>
-          {stappen.map(({ titel, tekst }, i) => (
-            <Reveal
-              as="li"
-              key={titel}
-              afstand={28}
-              delay={i * 0.07}
-              className={`border-b py-6 sm:border-b-0 sm:pr-6 sm:pt-7 lg:pr-8 ${i > 0 ? "lg:border-l lg:pl-8" : ""}`}
-              style={{ borderColor: RAND }}
-            >
-              <h3 className="text-xl font-bold tracking-tight sw-ink md:text-2xl" style={{ lineHeight: 1.12 }}>
-                {titel}
-              </h3>
-              <p className="mt-2 text-[0.9375rem] font-light leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
-                {tekst}
-              </p>
-            </Reveal>
-          ))}
-        </ol>
+      <div className="mt-14 lg:mt-20">
+        <div className="relative border-y" style={{ borderColor: RAND }}>
+          {/* Het stukje groene lijn schuift mee met het actieve cijfer. */}
+          {wisselt &&
+            ["-top-px", "-bottom-px"].map((plek) => (
+              <span
+                key={plek}
+                aria-hidden="true"
+                className={`absolute left-0 h-px w-1/4 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${plek}`}
+                style={{ background: ACCENTLIJN, transform: `translateX(${actief * 100}%)` }}
+              />
+            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4" onMouseLeave={() => setVast(false)}>
+            {cijfers.map(({ waarde, regels }, i) => (
+              <Reveal
+                key={waarde}
+                afstand={24}
+                delay={i * 0.07}
+                className="flex flex-col items-center px-3 py-10 text-center lg:py-14"
+              >
+                <div
+                  onMouseEnter={() => {
+                    setVast(true);
+                    setActief(i);
+                  }}
+                  className="transition-opacity duration-500"
+                  style={{ opacity: wisselt && i !== actief ? 0.45 : 1 }}
+                >
+                  <p
+                    className="text-[2rem] font-normal leading-none sw-ink md:text-5xl"
+                    style={{ letterSpacing: "-0.03em" }}
+                  >
+                    {waarde}
+                  </p>
+                  <div className="mt-3 text-sm leading-snug md:text-base" style={{ color: "hsl(var(--sw-ink) / 0.75)" }}>
+                    {regels.map((regel) => (
+                      <span key={regel} className="block">
+                        {regel}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
