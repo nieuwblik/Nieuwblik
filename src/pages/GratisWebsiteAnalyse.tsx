@@ -18,8 +18,10 @@ import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
 import { projects } from "@/data/projects";
 import { Link, useNavigate } from "@/lib/router-compat";
-import golfDesktop from "@/assets/hero/golf-desktop.webp";
-import golfMobiel from "@/assets/hero/golf-mobiel.webp";
+import { golfAnalyse } from "@/data/golfAnalyse";
+import { useGolf } from "@/components/golf/useGolf";
+import terugvalDesktop from "@/assets/hero/analyse-desktop.webp";
+import terugvalMobiel from "@/assets/hero/analyse-mobiel.webp";
 
 // Zoals op de homepage: pas laden als de pagina er staat.
 const FAQSection = lazy(() => import("@/components/FAQSection"));
@@ -123,6 +125,9 @@ const Veld = ({
 
 const GratisWebsiteAnalyse = () => {
   const navigate = useNavigate();
+  const heroRef = useRef<HTMLElement>(null);
+  const vlakRef = useRef<HTMLDivElement>(null);
+  useGolf(heroRef, vlakRef, golfAnalyse, "analyse");
   const formRef = useRef<HTMLFormElement>(null);
   // Een ref en geen state: een dubbele tik valt binnen dezelfde render.
   const verstuurt = useRef(false);
@@ -263,22 +268,21 @@ const GratisWebsiteAnalyse = () => {
 
       <main>
         {/* De hero van de homepage, met het formulier op de plek van de hand met
-            telefoon: de zijden golf loopt achter de kaart door. */}
-        <section className="sw-ink sw-hero-anim relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[86svh]">
-          <picture className="pointer-events-none absolute inset-x-0 bottom-0 top-[var(--header-height)] -z-10 -scale-x-100" aria-hidden="true">
-            <source media="(max-width: 1023px)" srcSet={golfMobiel} />
-            <img
-              src={golfDesktop}
-              alt=""
-              decoding="async"
-              fetchPriority="low"
-              className="h-full w-full object-cover object-left max-lg:object-bottom"
-            />
+            telefoon: de zijden golf loopt achter de kaart door. Afstellen kan met
+            toets p, de instellingen staan los van de homepage (src/data/golfAnalyse.ts). */}
+        <section
+          ref={heroRef}
+          className={`golf-hero${golfAnalyse.opstelling.spiegel ? " golf-hero--gespiegeld" : ""} sw-ink sw-hero-anim relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[86svh]`}
+        >
+          <picture className="golf-hero__terugval" aria-hidden="true">
+            <source media="(max-width: 759px), (max-aspect-ratio: 9/10)" srcSet={terugvalMobiel} />
+            <img src={terugvalDesktop} alt="" decoding="async" fetchPriority="low" />
           </picture>
+          <div ref={vlakRef} className="golf-hero__vlak" />
 
-          <div className="container mx-auto grid flex-1 grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-20 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
+          <div className="golf-hero__inhoud container mx-auto grid flex-1 grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-20 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
-              <div className="mb-8 hidden md:block">
+              <div className="relative z-[3] mb-8 hidden md:block">
                 <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
               </div>
               <h1 className="golf-hero__titel">
@@ -290,7 +294,7 @@ const GratisWebsiteAnalyse = () => {
                 </span>
               </h1>
               <p
-                className="sw-lead mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
+                className="sw-lead relative z-[3] mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
                 style={{ color: "hsl(var(--sw-ink) / 0.7)", "--sw-delay": "0.4s" } as CSSProperties}
               >
                 Binnen 1 werkdag krijg je per mail een PDF met wat er beter kan aan je vindbaarheid, mobiele weergave,
@@ -300,7 +304,7 @@ const GratisWebsiteAnalyse = () => {
                 href={REVIEWS.profielUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:mt-6"
+                className="sw-cta group relative z-[3] mt-4 flex w-fit items-center gap-2.5 md:mt-6"
                 style={{ "--sw-delay": "0.55s" } as CSSProperties}
               >
                 <GoogleG className="h-[18px] w-[18px] shrink-0" />
@@ -326,7 +330,7 @@ const GratisWebsiteAnalyse = () => {
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="sw-cta relative space-y-3 rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
+              className="sw-cta relative z-[3] space-y-3 rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
               style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
             >
               <h2 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>

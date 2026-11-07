@@ -4,15 +4,20 @@
 // wordt alleen geladen in de ontwikkelomgeving of met ?afstellen in de url.
 //
 // Toets p opent het paneel. "Opslaan in site" (alleen in de ontwikkelomgeving)
-// schrijft de instellingen naar src/data/golfHero.ts en maakt de terugvalbeelden
+// schrijft de instellingen van deze plek naar src/data en maakt de terugvalbeelden
 // opnieuw (via de Vite-middleware in scripts/vite-golf-afstellen.ts). De
 // opslagvakjes worden in de ontwikkelomgeving gedeeld met het prototype.
 import { startGolf, type GolfInstellingen, type GolfMotor } from "./golfMotor";
 import "./golfPaneel.css";
 
-type Opties = { motor: GolfMotor; hero: HTMLElement; site: GolfInstellingen };
+type Opties = {
+  motor: GolfMotor;
+  hero: HTMLElement;
+  site: GolfInstellingen;
+  plek: "home" | "analyse";
+};
 
-export function startPaneel({ motor, hero, site }: Opties): () => void {
+export function startPaneel({ motor, hero, site, plek }: Opties): () => void {
   const opruimen = [];
   const luister = (doel, type, f, o) => {
     doel.addEventListener(type, f, o);
@@ -514,7 +519,11 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
     return JSON.stringify(rest);
   };
 
-  const LAATST = "nieuwblik-golf-site-laatst";
+  // Per plek apart: niet-opgeslagen wijzigingen op de ene pagina horen niet op de andere.
+  const LAATST =
+    plek === "home"
+      ? "nieuwblik-golf-site-laatst"
+      : `nieuwblik-golf-${plek}-laatst`;
   const HASH = "#golf=";
   const leesHash = () => {
     try {
@@ -1526,6 +1535,7 @@ export function startPaneel({ motor, hero, site }: Opties): () => void {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          plek,
           instellingen: S,
           desktop: await naarBase64(desktop),
           mobiel: await naarBase64(mobiel),

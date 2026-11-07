@@ -1,11 +1,12 @@
-// Alleen voor de ontwikkelserver: opslag voor het afstelpaneel van de golf in de
-// homepage-hero (src/components/golf/golfPaneel.ts).
+// Alleen voor de ontwikkelserver: opslag voor het afstelpaneel van de golf
+// (src/components/golf/golfPaneel.ts).
 //
 //   GET  /__golf/opslag  vakjes van het paneel (gedeeld met het prototype in
 //                        ../_prototypes/hero-golf als die map bestaat)
 //   POST /__golf/opslag  velden in dat bestand bijwerken (bijv. { vakjes })
-//   POST /__golf/site    { instellingen, desktop, mobiel } -> src/data/golfHero.ts en
-//                        de terugvalbeelden in src/assets/hero (base64 WebP)
+//   POST /__golf/site    { plek, instellingen, desktop, mobiel } -> het databestand
+//                        van die plek en de terugvalbeelden in src/assets/hero
+//                        (base64 WebP)
 import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import type { IncomingMessage } from "node:http";
@@ -26,6 +27,23 @@ const leesJson = async (bestand: string): Promise<Record<string, unknown>> => {
   } catch {
     return {};
   }
+};
+
+const PLEKKEN = {
+  home: {
+    bestand: "src/data/golfHero.ts",
+    naam: "golfHero",
+    omschrijving: "de homepage-hero",
+    desktop: "golf-desktop.webp",
+    mobiel: "golf-mobiel.webp",
+  },
+  analyse: {
+    bestand: "src/data/golfAnalyse.ts",
+    naam: "golfAnalyse",
+    omschrijving: "de hero van /gratis-website-analyse",
+    desktop: "analyse-desktop.webp",
+    mobiel: "analyse-mobiel.webp",
+  },
 };
 
 export function golfAfstellen(): Plugin {
@@ -56,23 +74,25 @@ export function golfAfstellen(): Plugin {
             return stuur(200, { ok: true });
           }
           if (req.url === "/site" && req.method === "POST") {
-            const { instellingen, desktop, mobiel } = JSON.parse(
+            const { plek, instellingen, desktop, mobiel } = JSON.parse(
               await leesBody(req),
             );
+            const doel = PLEKKEN[plek as keyof typeof PLEKKEN];
             if (
+              !doel ||
               !instellingen?.vorm ||
               !instellingen?.kleuren ||
               !instellingen?.desktop ||
               !instellingen?.mobiel
             )
               return stuur(400, { fout: "Ongeldige instellingen" });
-            const bestand = path.join(root, "src/data/golfHero.ts");
+            const bestand = path.join(root, doel.bestand);
             const inhoud = `import type { GolfInstellingen } from "@/components/golf/golfMotor";
 
-// Instellingen van de golf in de homepage-hero, opgeslagen met het afstelpaneel
+// Instellingen van de golf in ${doel.omschrijving}, opgeslagen met het afstelpaneel
 // (toets p in de ontwikkelomgeving, knop "Opslaan in site"). Die knop maakt ook de
 // terugvalbeelden in src/assets/hero opnieuw (hero op 1600 x 900 en 390 x 844).
-export const golfHero: GolfInstellingen = ${JSON.stringify(instellingen, null, 2)};
+export const ${doel.naam}: GolfInstellingen = ${JSON.stringify(instellingen, null, 2)};
 `;
             const prettier = await import("prettier");
             const config = (await prettier.resolveConfig(bestand)) ?? {};
@@ -84,12 +104,12 @@ export const golfHero: GolfInstellingen = ${JSON.stringify(instellingen, null, 2
             await mkdir(assets, { recursive: true });
             if (desktop)
               await writeFile(
-                path.join(assets, "golf-desktop.webp"),
+                path.join(assets, doel.desktop),
                 Buffer.from(desktop, "base64"),
               );
             if (mobiel)
               await writeFile(
-                path.join(assets, "golf-mobiel.webp"),
+                path.join(assets, doel.mobiel),
                 Buffer.from(mobiel, "base64"),
               );
             return stuur(200, { ok: true });

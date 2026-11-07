@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import {
   PencilRuler,
   Search,
@@ -13,6 +13,7 @@ import { golfHero } from "@/data/golfHero";
 import terugvalDesktop from "@/assets/hero/golf-desktop.webp";
 import terugvalMobiel from "@/assets/hero/golf-mobiel.webp";
 import HeroTelefoon from "@/components/golf/HeroTelefoon";
+import { useGolf } from "@/components/golf/useGolf";
 
 /**
  * Homepage-hero met de zijden golf (WebGL, src/components/golf/golfMotor.ts).
@@ -25,8 +26,6 @@ import HeroTelefoon from "@/components/golf/HeroTelefoon";
  *   aria-hidden), boven de golf de echte h1 in groen met multiply. Op wit lees je
  *   zo inkt met een groen "Enkhuizen", waar de golf erachter loopt kleurt de kop
  *   diepgroen mee.
- * - De engine wordt pas na de eerste paint geladen, zodat hij niet in de
- *   hoofdbundel zit en de tekst (LCP) niet ophoudt.
  */
 // Diensten in de balk onderin de hero (bestaande pagina's, zie ook de footer).
 const DIENSTEN = [
@@ -44,72 +43,7 @@ const GolfHero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const vlakRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const hero = heroRef.current,
-      vlak = vlakRef.current;
-    if (!hero || !vlak) return;
-    // Per keer een nieuw canvas: een canvas waarvan de context bij het opruimen is
-    // vrijgegeven, kan niet opnieuw worden gebruikt.
-    const canvas = document.createElement("canvas");
-    canvas.className = "golf-hero__canvas";
-    canvas.setAttribute("aria-hidden", "true");
-    vlak.appendChild(canvas);
-    const opruimen: (() => void)[] = [];
-    let weg = false;
-    const zoek = new URLSearchParams(location.search);
-    import("@/components/golf/golfMotor")
-      .then(({ startGolf }) => {
-        if (weg) return;
-        const motor = startGolf(canvas, golfHero, {
-          opEersteBeeld: () => hero.classList.add("golf-klaar"),
-          opVerloren: () => hero.classList.remove("golf-klaar"),
-        });
-        if (!motor) return;
-        opruimen.push(motor.stop);
-
-        if (zoek.has("golfvoorbeeld")) {
-          // Mobiel voorbeeld in het afstelpaneel (iframe): instellingen komen van het paneel.
-          const opBericht = (e: MessageEvent) => {
-            if (
-              e.origin !== location.origin ||
-              e.data?.type !== "golf-instellingen"
-            )
-              return;
-            motor.zet(e.data.instellingen);
-            hero.classList.toggle(
-              "golf-hero--gespiegeld",
-              !!e.data.instellingen.opstelling?.spiegel,
-            );
-          };
-          addEventListener("message", opBericht);
-          opruimen.push(() => removeEventListener("message", opBericht));
-          parent.postMessage({ type: "golf-voorbeeld-klaar" }, location.origin);
-        } else if (import.meta.env.DEV || zoek.has("afstellen")) {
-          // Afstelpaneel (toets p): in de ontwikkelomgeving altijd, elders met ?afstellen.
-          import("@/components/golf/golfPaneel")
-            .then(({ startPaneel }) => {
-              if (!weg)
-                opruimen.push(startPaneel({ motor, hero, site: golfHero }));
-            })
-            .catch(() => {
-              /* zonder paneel */
-            });
-        }
-      })
-      .catch(() => {
-        /* terugvalbeeld blijft staan */
-      });
-    return () => {
-      weg = true;
-      opruimen.forEach((f) => f());
-      canvas.remove();
-      hero.classList.remove("golf-klaar");
-      hero.classList.toggle(
-        "golf-hero--gespiegeld",
-        golfHero.opstelling.spiegel,
-      );
-    };
-  }, []);
+  useGolf(heroRef, vlakRef, golfHero, "home");
 
   return (
     <section
