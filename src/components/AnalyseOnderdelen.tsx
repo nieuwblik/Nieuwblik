@@ -33,7 +33,8 @@ const Beeld = () => (
     width="1550"
     height="1290"
     alt="De website van Puur in Harmonie op een monitor en een iPhone"
-    loading="lazy"
+    decoding="async"
+    fetchPriority="low"
     className="block w-full"
   />
 );
@@ -53,14 +54,19 @@ const Label = ({ titel, tekst }: Pick<Onderdeel, "titel" | "tekst">) => (
  * het beeld boven en de onderdelen eronder.
  */
 const AnalyseOnderdelen = () => (
-  <Reveal afstand={24}>
+  <>
     <div className="relative hidden lg:block lg:px-[21%]">
-      <Beeld />
-      {onderdelen.map(({ titel, tekst, kant, hoogte, diepte }) => {
+      <Reveal afstand={32}>
+        <Beeld />
+      </Reveal>
+      {onderdelen.map(({ titel, tekst, kant, hoogte, diepte }, i) => {
         const links = kant === "links";
         return (
-          <div
+          <Reveal
             key={titel}
+            from={links ? "links" : "rechts"}
+            afstand={24}
+            delay={0.12 + i * 0.07}
             className="absolute inset-x-0"
             style={{ top: `${hoogte}%` }}
           >
@@ -84,12 +90,12 @@ const AnalyseOnderdelen = () => (
                 style={{ background: GROEN, [links ? "right" : "left"]: "-3px" }}
               />
             </span>
-          </div>
+          </Reveal>
         );
       })}
     </div>
 
-    <div className="lg:hidden">
+    <Reveal afstand={32} className="lg:hidden">
       <Beeld />
       <ul className="mt-6 border-t" style={{ borderColor: RAND }}>
         {onderdelen.map(({ titel, tekst }) => (
@@ -98,8 +104,8 @@ const AnalyseOnderdelen = () => (
           </li>
         ))}
       </ul>
-    </div>
-  </Reveal>
+    </Reveal>
+  </>
 );
 
 export default AnalyseOnderdelen;

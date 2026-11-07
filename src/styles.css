@@ -1695,18 +1695,27 @@ html.tn-vast { overflow: hidden; }
 .review-muur {
   --review-fade: min(26%, 240px);
   --review-start: 0px;
-  --review-masker: linear-gradient(
-    to bottom,
-    transparent var(--review-start),
-    rgb(0 0 0 / 0.35) calc(var(--review-start) + var(--review-fade) * 0.45),
-    #000 calc(var(--review-start) + var(--review-fade)),
-    #000 calc(100% - var(--review-fade)),
-    rgb(0 0 0 / 0.35) calc(100% - var(--review-fade) * 0.45),
-    transparent 100%
-  );
+  --review-groen: hsl(160 84% 12%);
+  position: relative;
   overflow: hidden;
-  -webkit-mask-image: var(--review-masker);
-  mask-image: var(--review-masker);
+}
+.review-muur::before,
+.review-muur::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.review-muur::before {
+  top: 0;
+  height: calc(var(--review-start) + var(--review-fade));
+  background: linear-gradient(to bottom, var(--review-groen) var(--review-start), transparent);
+}
+.review-muur::after {
+  bottom: 0;
+  height: var(--review-fade);
+  background: linear-gradient(to top, var(--review-groen), transparent);
 }
 /* Op desktop loopt de muur onder de vaste header door: daar begint de vervaging pas. */
 @media (min-width: 1024px) {
@@ -1714,10 +1723,13 @@ html.tn-vast { overflow: hidden; }
 }
 .review-kolom {
   animation: review-loop 60s linear infinite;
+  will-change: transform;
 }
 .review-kolom--omgekeerd { animation-direction: reverse; }
 @media (prefers-reduced-motion: reduce) {
-  .review-muur { overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
+  .review-muur { overflow-y: auto; }
+  .review-muur::before,
+  .review-muur::after { display: none; }
   .review-kolom { animation: none; }
   .review-kolom__kopie { display: none; }
 }
