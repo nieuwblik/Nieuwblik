@@ -17,6 +17,8 @@ import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
 import { projects } from "@/data/projects";
 import { Link, useNavigate } from "@/lib/router-compat";
+import samenLaptop from "@/assets/analyse/samen-laptop.webp";
+import samenLaptopSet from "@/assets/analyse/samen-laptop.webp?w=480;800;1200&format=webp&as=srcset";
 import golfDesktop from "@/assets/hero/golf-desktop.webp";
 import golfMobiel from "@/assets/hero/golf-mobiel.webp";
 
@@ -58,6 +60,13 @@ const vragen = [
     answer:
       "Zo laten we zien hoe we naar websites kijken. Bevalt dat, dan praten we verder. Zo niet, dan heb je in elk geval bruikbare verbeterpunten.",
   },
+];
+
+const stappen = [
+  { titel: "Je vraagt de analyse aan", tekst: "Je website, naam en e-mailadres zijn genoeg." },
+  { titel: "Wij bekijken je site", tekst: "Vindbaarheid, mobiele weergave, design en teksten." },
+  { titel: "Je krijgt de PDF per mail", tekst: "Binnen 1 werkdag, met concrete verbeterpunten." },
+  { titel: "Jij beslist wat je ermee doet", tekst: "Zelf oppakken of samen met ons. Je zit nergens aan vast." },
 ];
 
 const CASES = ["feigro-dakwerken", "taxi-drechterland"];
@@ -429,6 +438,41 @@ const GratisWebsiteAnalyse = () => {
         </Sectie>
 
         <Sectie>
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
+            <img
+              src={samenLaptop}
+              srcSet={samenLaptopSet}
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              width="1400"
+              height="2087"
+              alt="Twee mensen bekijken samen een website op een laptop"
+              loading="lazy"
+              className="aspect-[4/5] w-full rounded-2xl object-cover object-center"
+            />
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-5xl" style={{ lineHeight: 1.04 }}>
+                Zo werkt het
+              </h2>
+              <ol className="mt-8 divide-y" style={{ borderColor: RAND }}>
+                {stappen.map(({ titel, tekst }) => (
+                  <li key={titel} className="py-4 first:pt-0" style={{ borderColor: RAND }}>
+                    <h3 className="text-lg font-bold tracking-tight sw-ink">{titel}</h3>
+                    <p className="mt-1 text-[0.9375rem] leading-relaxed" style={{ color: INKT_65 }}>
+                      {tekst}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-6">
+                <AnimatedButton onClick={naarFormulier} size="lg">
+                  Ontvang mijn gratis analyse
+                </AnimatedButton>
+              </div>
+            </div>
+          </div>
+        </Sectie>
+
+        <Sectie papier>
           <SectieKop titel="Recent werk voor ondernemers in heel Nederland" />
           <CaseGrid projects={cases} />
         </Sectie>
