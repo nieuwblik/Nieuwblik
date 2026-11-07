@@ -4,7 +4,7 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
 import { googleReviews, type GoogleReview } from "@/data/googleReviews";
 
-const RAND = "hsl(var(--sw-rule) / 0.1)";
+const RAND = "hsl(var(--sw-rule) / 0.08)";
 const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
 
 /** De G van Google in de vier merkkleuren. */
@@ -26,24 +26,18 @@ const Sterren = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
 );
 
 const ReviewKaart = ({ review }: { review: GoogleReview }) => (
-  <li className="rounded-2xl border bg-white p-5" style={{ borderColor: RAND }}>
-    <div className="flex items-center gap-3">
-      <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold"
-        style={{ background: "hsl(var(--sw-green) / 0.08)", color: "hsl(var(--sw-green))" }}
-        aria-hidden="true"
-      >
-        {review.naam.charAt(0)}
-      </span>
-      <span className="min-w-0 flex-1 truncate text-sm font-bold sw-ink">{review.naam}</span>
+  <li
+    className="rounded-2xl border bg-white p-5 shadow-[0_10px_30px_-22px_rgba(0,0,0,0.25)]"
+    style={{ borderColor: RAND }}
+  >
+    <div className="flex items-center justify-between">
+      <Sterren />
       <GoogleG className="h-4 w-4 shrink-0" />
     </div>
-    <div className="mt-3">
-      <Sterren />
-    </div>
-    <p className="mt-2 text-sm font-light leading-relaxed" style={{ color: INKT_65 }}>
+    <p className="mt-3 text-[0.9375rem] leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.78)" }}>
       {review.tekst}
     </p>
+    <p className="mt-3 text-sm font-semibold sw-ink">{review.naam}</p>
   </li>
 );
 
@@ -87,12 +81,13 @@ const KOLOMMEN = [
 
 /**
  * Vijftien letterlijke Google-reviews in kolommen die rustig voorbijschuiven,
- * met de score ernaast. Aanwijzen zet de beweging stil, zodat je kunt lezen.
+ * met de score ernaast. De muur loopt tot de randen van de sectie, zodat de
+ * kaarten er als het ware doorheen schuiven. Aanwijzen zet de beweging stil.
  */
 const GoogleReviewMuur = () => (
-  <section className="sw-paper overflow-hidden py-16 md:py-24">
+  <section className="sw-paper overflow-hidden">
     <div className="container mx-auto grid grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
-      <div>
+      <div className="pt-16 md:pt-24 lg:py-0">
         <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
           Wat onze klanten zeggen
         </h2>
@@ -115,7 +110,7 @@ const GoogleReviewMuur = () => (
         </div>
       </div>
 
-      <div className="review-muur hidden h-[640px] grid-cols-3 items-start gap-4 lg:grid">
+      <div className="review-muur hidden h-[760px] grid-cols-3 items-start gap-4 lg:grid">
         <LopendeKolom reviews={KOLOMMEN[0]!} duur={62} />
         <LopendeKolom reviews={KOLOMMEN[1]!} duur={74} omgekeerd />
         <LopendeKolom reviews={KOLOMMEN[2]!} duur={56} />
