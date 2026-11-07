@@ -50,10 +50,10 @@ export const golfAnalyse: GolfInstellingen = {
     rotatie: 23,
   },
   mobiel: {
-    posX: -30.5,
-    posY: 14,
-    schaal: 2.45,
-    rotatie: 27.5,
+    posX: 20,
+    posY: 24,
+    schaal: 2.6,
+    rotatie: 60,
   },
   kleuren: {
     voorRand: ["#9fd9bd", "#aadec0", "#b5e2c4"],

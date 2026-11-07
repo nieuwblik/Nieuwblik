@@ -703,6 +703,17 @@
 .golf-hero__titel .sw-mask:first-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-1) 20%, var(--golf-kop-2) 90%); }
 .golf-hero__titel .sw-mask:last-child > .sw-line-inner { background-image: linear-gradient(180deg, var(--golf-kop-3) 15%, var(--golf-kop-4) 85%); filter: drop-shadow(0 0 14px hsl(160 84% 16% / 0.12)); }
 .golf-hero__rest { position: relative; z-index: 3; }
+/* Op de telefoon dekt de zwevende knop anders de privacylink onder het formulier af. */
+.zwevend-rechts { transition: opacity 0.3s ease; }
+@media (max-width: 1023px) {
+  .form-in-beeld .zwevend-rechts { opacity: 0; pointer-events: none; }
+}
+/* Het masker om de regels knipt de gloed recht af. Op een klein scherm, waar de kop
+   op wit staat, zie je dan een lichte rechthoek rond de tekst. */
+@media (max-width: 1023px) {
+  .golf-hero__titel--strak .sw-line-inner,
+  .golf-hero__titel--strak .sw-mask:last-child > .sw-line-inner { filter: none; }
+}
 
 /* Hand met telefoon (src/components/golf/HeroTelefoon.tsx), alleen vanaf 1024px:
    tussen golf en tekst, de arm loopt onder de balk door (die komt later in de DOM

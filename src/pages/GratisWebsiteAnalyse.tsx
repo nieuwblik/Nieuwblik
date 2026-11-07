@@ -181,9 +181,18 @@ const PlakKnop = ({ formRef, onKnop }: { formRef: RefObject<HTMLFormElement | nu
   useEffect(() => {
     const form = formRef.current;
     if (!form) return;
-    const waarnemer = new IntersectionObserver(([item]) => setFormInBeeld(Boolean(item?.isIntersecting)));
+    const html = document.documentElement;
+    const waarnemer = new IntersectionObserver(([item]) => {
+      const inBeeld = Boolean(item?.isIntersecting);
+      setFormInBeeld(inBeeld);
+      // Op de telefoon ligt de zwevende knop anders over het formulier (zie styles.css).
+      html.classList.toggle("form-in-beeld", inBeeld);
+    });
     waarnemer.observe(form);
-    return () => waarnemer.disconnect();
+    return () => {
+      waarnemer.disconnect();
+      html.classList.remove("form-in-beeld");
+    };
   }, [formRef]);
 
   if (formInBeeld) return null;
@@ -343,12 +352,12 @@ const GratisWebsiteAnalyse = () => {
           </picture>
           <div ref={vlakRef} className="golf-hero__vlak" />
 
-          <div className="golf-hero__inhoud container mx-auto grid flex-1 grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-20 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
+          <div className="golf-hero__inhoud container mx-auto grid flex-1 grid-cols-1 items-center gap-6 px-4 pb-28 pt-[calc(var(--header-height)_+_2rem)] sm:px-6 md:pb-28 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
               <div className="relative z-[3] mb-8 hidden md:block">
                 <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
               </div>
-              <h1 className="golf-hero__titel">
+              <h1 className="golf-hero__titel golf-hero__titel--strak">
                 <span className="sw-mask">
                   <span className="sw-line-inner">Laat je website</span>
                 </span>{" "}

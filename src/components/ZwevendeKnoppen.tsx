@@ -207,7 +207,7 @@ const ZwevendeKnoppen = () => {
       )}
 
       <div
-        className="fixed bottom-4 right-4 z-50 flex h-[52px] items-stretch overflow-hidden rounded-2xl border bg-white shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)] md:bottom-6 md:right-6"
+        className="zwevend-rechts fixed bottom-4 right-4 z-50 flex h-[52px] items-stretch overflow-hidden rounded-2xl border bg-white shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)] md:bottom-6 md:right-6"
         style={{ borderColor: RAND }}
       >
         {/* Terug naar boven schuift pas in beeld na wat scrollen. */}
