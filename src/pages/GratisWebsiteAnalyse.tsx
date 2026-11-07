@@ -100,17 +100,10 @@ function bronUitUrl(): string {
     .join(", ");
 }
 
-/** Sectiekop in de maat van de homepage. */
-const Kop = ({ titel, intro }: { titel: string; intro?: string }) => (
+/** Een lopende zin als kop, in de opmaak van de inleiding op de homepage. */
+const Inleiding = ({ children }: { children: string }) => (
   <div className="mb-12 md:mb-16">
-    <h2 className="max-w-4xl text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl" style={{ lineHeight: 1.02 }}>
-      {titel}
-    </h2>
-    {intro && (
-      <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed md:text-xl" style={{ color: INKT_65 }}>
-        {intro}
-      </p>
-    )}
+    <h2 className="pf-inleiding">{children}</h2>
   </div>
 );
 
@@ -518,13 +511,19 @@ const GratisWebsiteAnalyse = () => {
 
         <div id="onderdelen" className="scroll-mt-16 lg:pt-20">
           <Sectie>
-            <Kop titel="Dit bekijken we" intro="Vier onderdelen, en per onderdeel concrete verbeterpunten." />
+            <Inleiding>
+              We lopen je website door zoals een klant dat doet. Word je gevonden, werkt je site op de telefoon, oogt hij
+              verzorgd en snappen bezoekers meteen wat je doet?
+            </Inleiding>
             <AnalyseOnderdelen />
           </Sectie>
         </div>
 
         <Sectie papier>
-          <Kop titel="Recent werk voor ondernemers in heel Nederland" />
+          <Inleiding>
+            Recent werk voor ondernemers in heel Nederland. Van dakdekker tot taxibedrijf: elke site op maat ontworpen,
+            snel en goed vindbaar.
+          </Inleiding>
           <CaseGrid projects={cases} zonderOmschrijving />
         </Sectie>
 
