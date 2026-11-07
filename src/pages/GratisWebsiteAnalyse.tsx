@@ -1,13 +1,13 @@
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { FileText, Palette, Search, Smartphone, Star } from "lucide-react";
 
 import Breadcrumb from "@/components/Breadcrumb";
 import CaseGrid from "@/components/CaseGrid";
 import Footer from "@/components/Footer";
+import GoogleReviewMuur, { GoogleG } from "@/components/GoogleReviewMuur";
 import Reveal from "@/components/Reveal";
 import SEOHead from "@/components/SEOHead";
 import { getLenis } from "@/components/SmoothScroll";
-import { useDarkNavSection } from "@/components/TabNav";
 import { GroenPaneel, INKT_65, Sectie, SectieKop, Vragen } from "@/components/dienst/DienstBlokken";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Input } from "@/components/ui/input";
@@ -19,8 +19,6 @@ import { projects } from "@/data/projects";
 import { Link, useNavigate } from "@/lib/router-compat";
 import golfDesktop from "@/assets/hero/golf-desktop.webp";
 import golfMobiel from "@/assets/hero/golf-mobiel.webp";
-
-const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 interface FormState {
   fullName: string;
@@ -137,8 +135,6 @@ const Veld = ({
 
 const GratisWebsiteAnalyse = () => {
   const navigate = useNavigate();
-  // Donkere reviewband: de vaste header keert om zolang hij eronder staat.
-  const donkereBand = useDarkNavSection<HTMLElement>();
   const formRef = useRef<HTMLFormElement>(null);
   // Een ref en geen state: een dubbele tik valt binnen dezelfde render.
   const verstuurt = useRef(false);
@@ -319,6 +315,7 @@ const GratisWebsiteAnalyse = () => {
                 className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:mt-6"
                 style={{ "--sw-delay": "0.55s" } as CSSProperties}
               >
+                <GoogleG className="h-[18px] w-[18px] shrink-0" />
                 <span className="flex items-center gap-1" aria-hidden="true">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-4 w-4" style={{ fill: GROEN, color: GROEN }} />
@@ -468,39 +465,9 @@ const GratisWebsiteAnalyse = () => {
           <CaseGrid projects={cases} />
         </Sectie>
 
-        {/* De reviewband van de homepage. */}
-        <section
-          ref={donkereBand}
-          className="relative overflow-hidden py-16 md:py-24"
-          style={{ background: "hsl(160 84% 12%)" }}
-        >
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px, hsl(160 84% 60%) 1px, transparent 0)",
-              backgroundSize: "28px 28px",
-            }}
-          />
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[120px]"
-            style={{ background: "radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)" }}
-          />
-          <div className="container relative z-10 mx-auto px-6">
-            <Reveal afstand={20}>
-              <h2
-                className="mx-auto mb-12 max-w-4xl text-center text-4xl font-bold tracking-tight text-white md:mb-16 md:text-5xl lg:text-6xl"
-                style={{ lineHeight: 1.02 }}
-              >
-                Wat onze klanten zeggen
-              </h2>
-            </Reveal>
-            <Suspense fallback={<div className="min-h-[280px]" />}>
-              <TestimonialsCarousel />
-            </Suspense>
-          </div>
-        </section>
+        <GoogleReviewMuur />
 
-        <Sectie papier>
+        <Sectie>
           <SectieKop titel="Veelgestelde vragen" />
           <Vragen items={vragen} />
         </Sectie>
