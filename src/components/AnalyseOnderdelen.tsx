@@ -13,15 +13,15 @@ interface Onderdeel {
   kant: "links" | "rechts";
   /** Hoogte van het label en de lijn, in procenten van het beeld. */
   hoogte: number;
-  /** Tot hoever de lijn het beeld in loopt, gemeten vanaf de eigen kant. */
+  /** Waar het toestel begint, in procenten van het beeld vanaf de eigen kant. */
   diepte: number;
 }
 
 const onderdelen: Onderdeel[] = [
-  { titel: "Vindbaarheid", tekst: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.", kant: "links", hoogte: 9.5, diepte: 42 },
-  { titel: "Teksten", tekst: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.", kant: "links", hoogte: 56, diepte: 26 },
-  { titel: "Design", tekst: "Of je site er verzorgd uitziet en vertrouwen geeft.", kant: "rechts", hoogte: 34, diepte: 10 },
-  { titel: "Mobiele weergave", tekst: "Of je site goed werkt op telefoon, tablet en computer.", kant: "rechts", hoogte: 78, diepte: 11 },
+  { titel: "Vindbaarheid", tekst: "Hoe goed je gevonden wordt in Google en AI-zoekmachines zoals ChatGPT.", kant: "links", hoogte: 16, diepte: 2.7 },
+  { titel: "Teksten", tekst: "Of bezoekers snel snappen wat je doet en wat ze moeten doen.", kant: "links", hoogte: 52, diepte: 2.7 },
+  { titel: "Design", tekst: "Of je site er verzorgd uitziet en vertrouwen geeft.", kant: "rechts", hoogte: 16, diepte: 2.7 },
+  { titel: "Mobiele weergave", tekst: "Of je site goed werkt op telefoon, tablet en computer.", kant: "rechts", hoogte: 76, diepte: 11.2 },
 ];
 
 /** Een echte site op een monitor en een iPhone; de foto loopt wit uit in de pagina. */
@@ -49,7 +49,7 @@ const Label = ({ titel, tekst }: Pick<Onderdeel, "titel" | "tekst">) => (
 
 /**
  * De vier onderdelen als aantekeningen bij één echte website: dunne lijnen lopen
- * vanaf de labels het beeld in, zoals in een rapport. Op kleinere schermen staat
+ * vanaf de labels naar de rand van het toestel, zoals in een rapport. Op kleinere schermen staat
  * het beeld boven en de onderdelen eronder.
  */
 const AnalyseOnderdelen = () => (
@@ -70,7 +70,7 @@ const AnalyseOnderdelen = () => (
                 <Label titel={titel} tekst={tekst} />
               </div>
             </div>
-            {/* De lijn loopt door tot in het beeld en eindigt in een stip. */}
+            {/* De lijn stopt op de rand van het toestel, zodat hij niet over de site loopt. */}
             <span
               className="absolute top-0 h-px"
               style={{
