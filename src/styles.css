@@ -1686,16 +1686,32 @@ html.tn-vast { overflow: hidden; }
 }
 
 /* Lopende reviewkolommen (GoogleReviewMuur). De lijst staat er twee keer in, dus
-   een verschuiving van de halve hoogte sluit naadloos. De randen vervagen, en
-   aanwijzen of aanraken zet de beweging stil zodat je kunt lezen. */
+   een verschuiving van de halve hoogte sluit naadloos. De kaarten lossen over een
+   flinke hoogte op in de achtergrond, zodat er geen harde band ontstaat. Aanwijzen
+   of aanraken zet de beweging stil zodat je kunt lezen. */
 @keyframes review-loop {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(0, -50%, 0); }
 }
 .review-muur {
+  --review-fade: min(26%, 240px);
+  --review-start: 0px;
+  --review-masker: linear-gradient(
+    to bottom,
+    transparent var(--review-start),
+    rgb(0 0 0 / 0.35) calc(var(--review-start) + var(--review-fade) * 0.45),
+    #000 calc(var(--review-start) + var(--review-fade)),
+    #000 calc(100% - var(--review-fade)),
+    rgb(0 0 0 / 0.35) calc(100% - var(--review-fade) * 0.45),
+    transparent 100%
+  );
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: var(--review-masker);
+  mask-image: var(--review-masker);
+}
+/* Op desktop loopt de muur onder de vaste header door: daar begint de vervaging pas. */
+@media (min-width: 1024px) {
+  .review-muur { --review-start: var(--header-height); }
 }
 .review-kolom {
   animation: review-loop 60s linear infinite;
