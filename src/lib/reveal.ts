@@ -1,11 +1,4 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { RefObject } from "react";
-
-// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
-// gebruikt requestAnimationFrame. Op de server valt dat om.
-if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { useEffect, type RefObject } from "react";
 
 /**
  * Consistent, professional scroll reveal for section headings + subheadings.
@@ -14,15 +7,24 @@ if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
  * prefers-reduced-motion (no animation, content simply visible).
  */
 export function useReveal(scope: RefObject<HTMLElement | null>) {
-  useGSAP(
-    () => {
-      const root = scope.current;
-      if (!root) return;
-      const items = root.querySelectorAll<HTMLElement>(".sw-reveal");
-      if (!items.length) return;
+  useEffect(() => {
+    const root = scope.current;
+    if (!root) return;
+    const items = root.querySelectorAll<HTMLElement>(".sw-reveal");
+    if (!items.length) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+    let weg = false;
+    let ruimOp: (() => void) | undefined;
+    // GSAP pas ophalen als er iets te onthullen valt; een sectie zonder animatie
+    // laadt hem zo niet voor niets.
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+      if (weg) return;
+      // Al in beeld toen GSAP binnenkwam: laten staan, anders verdwijnt de tekst
+      // eerst weer om daarna opnieuw binnen te komen.
+      if (root.getBoundingClientRect().top < window.innerHeight * 0.8) return;
+      gsap.registerPlugin(ScrollTrigger);
+      const ctx = gsap.context(() => {
         gsap.from(items, {
           y: 26,
           opacity: 0,
@@ -32,7 +34,11 @@ export function useReveal(scope: RefObject<HTMLElement | null>) {
           scrollTrigger: { trigger: root, start: "top 80%", once: true },
         });
       });
-    },
-    { scope }
-  );
+      ruimOp = () => ctx.revert();
+    });
+    return () => {
+      weg = true;
+      ruimOp?.();
+    };
+  }, [scope]);
 }

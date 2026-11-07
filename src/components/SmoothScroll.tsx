@@ -1,11 +1,5 @@
 import { useEffect } from "react";
 import { useLocation } from "@/lib/router-compat";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-// Alleen in de browser: registerPlugin start GSAP zijn ticker, en die
-// gebruikt requestAnimationFrame. Op de server valt dat om.
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 // Shared instance so route changes can jump to top instantly.
 let lenisInstance: import("lenis").default | null = null;
@@ -42,9 +36,14 @@ const SmoothScroll = () => {
     let stop: (() => void) | null = null;
 
     void (async () => {
-      const { default: Lenis } = await import("lenis");
-      await import("lenis/dist/lenis.css");
+      const [{ default: Lenis }, { default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("lenis"),
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+        import("lenis/dist/lenis.css"),
+      ]);
       if (opgeruimd) return;
+      gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({
         duration: 1.15,

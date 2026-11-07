@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
@@ -15,6 +13,9 @@ const cijfers = [
   { waarde: "4 onderdelen", regels: ["vindbaarheid, mobiel,", "design en teksten"] },
   { waarde: REVIEWS.scoreLabel, regels: ["op Google, op basis", `van ${REVIEWS.aantalLabel}reviews`] },
 ];
+
+/** Hoeveel de foto meeschuift, in procenten van zijn eigen hoogte. */
+const VERSCHUIVING = 11;
 
 const ACCENTLIJN = "linear-gradient(90deg, transparent, hsl(var(--sw-green)), transparent)";
 
@@ -38,22 +39,42 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
   // De beweging begint op 0 bij scrollpositie 0: dat is ook de stand uit de
   // server-HTML, dus er verspringt niets bij het laden. Scrub zonder naloop,
   // anders schuift de foto na een refresh zichtbaar naar zijn plek.
+  //
+  // Alleen met een muis: op een touchscherm loopt het scrollen buiten de hoofdthread
+  // om en zou de foto achterlopen. Die toestellen hoeven GSAP dan ook niet te laden.
   useEffect(() => {
     const kader = kaderRef.current, foto = fotoRef.current;
-    if (!kader || !foto || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        foto,
-        { yPercent: 0 },
-        {
-          yPercent: 11,
-          ease: "none",
-          scrollTrigger: { trigger: kader, start: 0, end: "bottom top", scrub: true },
-        },
-      );
+    if (!kader || !foto) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    // Na een refresh staat de pagina al op de oude plek: meteen de juiste stand, zodat
+    // de foto niet verspringt als GSAP binnenkomt.
+    const einde = kader.getBoundingClientRect().bottom + window.scrollY;
+    foto.style.transform = `translateY(${(Math.min(1, window.scrollY / einde) * VERSCHUIVING).toFixed(3)}%)`;
+
+    let weg = false;
+    let ruimOp: (() => void) | undefined;
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+      if (weg) return;
+      gsap.registerPlugin(ScrollTrigger);
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          foto,
+          { yPercent: 0, y: 0 },
+          {
+            yPercent: VERSCHUIVING,
+            ease: "none",
+            scrollTrigger: { trigger: kader, start: 0, end: "bottom top", scrub: true },
+          },
+        );
+      });
+      ruimOp = () => ctx.revert();
     });
-    return () => ctx.revert();
+    return () => {
+      weg = true;
+      ruimOp?.();
+    };
   }, []);
 
   // Om de beurt oplichten, alleen op desktop en niet bij "minder beweging".
@@ -83,7 +104,7 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
             alt="Twee mensen bekijken samen een website op een laptop"
             decoding="async"
             fetchPriority="low"
-            className="absolute inset-x-0 -top-[14%] h-[116%] w-full object-cover object-center will-change-transform"
+            className="absolute inset-x-0 -top-[14%] h-[116%] w-full object-cover object-center [@media(pointer:fine)]:will-change-transform"
           />
         </div>
 

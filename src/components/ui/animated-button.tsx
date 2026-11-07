@@ -1,6 +1,6 @@
 import { Link } from "@/lib/router-compat";
 import { ArrowUpRight } from "lucide-react";
-import gsap from "gsap";
+import { metGsap } from "@/lib/gsapLui";
 import { useReducedMotion } from "@/lib/reduced-motion";
 import { cn } from "@/lib/utils";
 
@@ -62,16 +62,18 @@ const AnimatedButton = ({
 
   const handleHover = (el: HTMLElement, enter: boolean) => {
     if (shouldReduceMotion) return;
-    const roll = el.querySelector<HTMLElement>(".animated-btn-roll");
-    if (roll) gsap.to(roll, { yPercent: enter ? -100 : 0, duration: 0.4125, ease: "power3.inOut", overwrite: true });
+    metGsap((gsap) => {
+      const roll = el.querySelector<HTMLElement>(".animated-btn-roll");
+      if (roll) gsap.to(roll, { yPercent: enter ? -100 : 0, duration: 0.4125, ease: "power3.inOut", overwrite: true });
 
-    if (!showArrow) return;
-    const a = el.querySelector<HTMLElement>(".animated-btn-arrow-a");
-    const b = el.querySelector<HTMLElement>(".animated-btn-arrow-b");
-    const dist = arrowPx * 1.2;
-    const opts = { duration: 0.375, ease: "power3.inOut", overwrite: true } as const;
-    if (a) gsap.to(a, { x: enter ? dist : 0, y: enter ? -dist : 0, ...opts });
-    if (b) gsap.to(b, { x: enter ? 0 : -dist, y: enter ? 0 : dist, ...opts });
+      if (!showArrow) return;
+      const a = el.querySelector<HTMLElement>(".animated-btn-arrow-a");
+      const b = el.querySelector<HTMLElement>(".animated-btn-arrow-b");
+      const dist = arrowPx * 1.2;
+      const opts = { duration: 0.375, ease: "power3.inOut", overwrite: true } as const;
+      if (a) gsap.to(a, { x: enter ? dist : 0, y: enter ? -dist : 0, ...opts });
+      if (b) gsap.to(b, { x: enter ? 0 : -dist, y: enter ? 0 : dist, ...opts });
+    });
   };
 
   const buttonClass = cn(

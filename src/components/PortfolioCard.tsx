@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/lib/router-compat";
-import gsap from "gsap";
+import { metGsap } from "@/lib/gsapLui";
 import { useReducedMotion } from "@/lib/reduced-motion";
 
 export interface PortfolioCardProps {
@@ -40,7 +40,7 @@ export default function PortfolioCard({ title, category, image, imageSet, slug, 
   const roll = (container: HTMLElement, y: number) => {
     if (shouldReduceMotion) return;
     const el = container.querySelector<HTMLElement>(".pf-roll");
-    if (el) gsap.to(el, { yPercent: y, duration: 0.55, ease: "power3.inOut", overwrite: true });
+    if (el) metGsap((gsap) => gsap.to(el, { yPercent: y, duration: 0.55, ease: "power3.inOut", overwrite: true }));
   };
 
   return (
