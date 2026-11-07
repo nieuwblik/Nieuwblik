@@ -111,7 +111,7 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
                 style={{ background: ACCENTLIJN, transform: `translateX(${actief * 100}%)` }}
               />
             ))}
-          <div className="grid grid-cols-2 lg:grid-cols-4" onMouseLeave={() => setVast(false)}>
+          <div className="grid cursor-default grid-cols-2 lg:grid-cols-4" onMouseLeave={() => setVast(false)}>
             {cijfers.map(({ waarde, regels }, i) => (
               <Reveal
                 key={waarde}
