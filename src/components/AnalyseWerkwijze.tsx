@@ -51,7 +51,7 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,52vw)_minmax(0,1fr)] lg:items-center">
         <div
           ref={kaderRef}
-          className="relative aspect-[4/5] overflow-hidden lg:-mt-24 lg:aspect-[5/4] lg:rounded-r-3xl"
+          className="relative aspect-[4/5] overflow-hidden lg:-mt-24 lg:aspect-square lg:rounded-r-3xl"
         >
           <img
             ref={fotoRef}
