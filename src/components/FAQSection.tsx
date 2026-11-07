@@ -1,4 +1,4 @@
-import { useState, useRef, useId, useLayoutEffect, useEffect } from "react";
+import { useState, useRef, useId, useLayoutEffect, useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { easings } from "@/lib/motion";
@@ -202,7 +202,17 @@ function useVasteHoogte(blokRef: React.RefObject<HTMLDivElement | null>) {
   return minHoogte;
 }
 
-const FAQSection = () => {
+/** Zonder props de algemene vragen van de homepage. */
+const FAQSection = ({
+  vragen = faqs,
+  intro = "Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.",
+  actie,
+}: {
+  vragen?: typeof faqs;
+  intro?: string;
+  /** Onder de intro, bijvoorbeeld een knop. */
+  actie?: ReactNode;
+}) => {
   // Hooguit één vraag tegelijk open; de eerste staat open bij binnenkomst.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
@@ -215,8 +225,8 @@ const FAQSection = () => {
   };
 
   // Twee kolommen op desktop: eerste helft links, tweede helft rechts.
-  const helft = Math.ceil(faqs.length / 2);
-  const kolommen = [faqs.slice(0, helft), faqs.slice(helft)];
+  const helft = Math.ceil(vragen.length / 2);
+  const kolommen = [vragen.slice(0, helft), vragen.slice(helft)];
 
   return (
     <section
@@ -231,8 +241,9 @@ const FAQSection = () => {
               Veelgestelde vragen
             </h2>
             <p className="sw-reveal text-base md:text-lg font-light leading-relaxed max-w-sm" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
-              Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.
+              {intro}
             </p>
+            {actie && <div className="sw-reveal mt-7">{actie}</div>}
           </div>
 
           {/* Rechts: de vragen, op brede schermen in twee kolommen */}

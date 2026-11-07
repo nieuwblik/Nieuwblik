@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { Star } from "lucide-react";
+import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
+import { FileText, Palette, Search, Smartphone, Star } from "lucide-react";
 
 import AnalyseOnderdelen from "@/components/AnalyseOnderdelen";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import GoogleReviewMuur, { GoogleG } from "@/components/GoogleReviewMuur";
 import SEOHead from "@/components/SEOHead";
 import { getLenis } from "@/components/SmoothScroll";
-import { GroenPaneel, INKT_65, Sectie, SectieKop, Vragen } from "@/components/dienst/DienstBlokken";
+import { INKT_65, Sectie } from "@/components/dienst/DienstBlokken";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +21,9 @@ import samenLaptop from "@/assets/analyse/samen-laptop.webp";
 import samenLaptopSet from "@/assets/analyse/samen-laptop.webp?w=480;800;1200&format=webp&as=srcset";
 import golfDesktop from "@/assets/hero/golf-desktop.webp";
 import golfMobiel from "@/assets/hero/golf-mobiel.webp";
+
+// Zoals op de homepage: pas laden als de pagina er staat.
+const FAQSection = lazy(() => import("@/components/FAQSection"));
 
 interface FormState {
   fullName: string;
@@ -69,6 +72,14 @@ const stappen = [
   { titel: "Jij beslist wat je ermee doet", tekst: "Zelf oppakken of samen met ons. Je zit nergens aan vast." },
 ];
 
+/** De vier onderdelen in de balk onder de hero, op de plek van de diensten op de homepage. */
+const BALK = [
+  { label: "Vindbaarheid", Icoon: Search },
+  { label: "Mobiele weergave", Icoon: Smartphone },
+  { label: "Design", Icoon: Palette },
+  { label: "Teksten", Icoon: FileText },
+];
+
 const CASES = ["feigro-dakwerken", "taxi-drechterland"];
 const cases = CASES.flatMap((slug) => projects.filter((p) => p.slug === slug));
 
@@ -96,6 +107,20 @@ function bronUitUrl(): string {
     })
     .join(", ");
 }
+
+/** Sectiekop in de maat van de homepage. */
+const Kop = ({ titel, intro }: { titel: string; intro?: string }) => (
+  <div className="mb-12 md:mb-16">
+    <h2 className="max-w-4xl text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl" style={{ lineHeight: 1.02 }}>
+      {titel}
+    </h2>
+    {intro && (
+      <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed md:text-xl" style={{ color: INKT_65 }}>
+        {intro}
+      </p>
+    )}
+  </div>
+);
 
 const Veld = ({
   id,
@@ -262,7 +287,7 @@ const GratisWebsiteAnalyse = () => {
       <main>
         {/* De hero van de homepage, met het formulier op de plek van de hand met
             telefoon: de zijden golf loopt achter de kaart door. */}
-        <section className="sw-ink sw-hero-anim relative isolate overflow-hidden bg-background">
+        <section className="sw-ink sw-hero-anim relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[82svh]">
           <picture className="pointer-events-none absolute inset-x-0 bottom-0 top-[var(--header-height)] -z-10 -scale-x-100" aria-hidden="true">
             <source media="(max-width: 1023px)" srcSet={golfMobiel} />
             <img
@@ -274,7 +299,7 @@ const GratisWebsiteAnalyse = () => {
             />
           </picture>
 
-          <div className="container mx-auto grid grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-20 lg:min-h-[86svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
+          <div className="container mx-auto grid flex-1 grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
               <div className="mb-8 hidden md:block">
                 <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
@@ -298,7 +323,7 @@ const GratisWebsiteAnalyse = () => {
                 href={REVIEWS.profielUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:mt-6"
+                className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:hidden"
                 style={{ "--sw-delay": "0.55s" } as CSSProperties}
               >
                 <GoogleG className="h-[18px] w-[18px] shrink-0" />
@@ -427,15 +452,52 @@ const GratisWebsiteAnalyse = () => {
               </p>
             </form>
           </div>
+
+          {/* De balk van de homepage: reviews links, de onderdelen rechts. */}
+          <div className="golf-hero__balk sw-cta hidden md:block" style={{ "--sw-delay": "0.8s" } as CSSProperties}>
+            <div className="container mx-auto flex items-center justify-between gap-8 px-4 sm:px-6">
+              <a
+                href={REVIEWS.profielUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex shrink-0 items-center gap-2.5"
+              >
+                <GoogleG className="h-[18px] w-[18px] shrink-0" />
+                <span className="flex items-center gap-1" aria-hidden="true">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4" style={{ fill: GROEN, color: GROEN }} />
+                  ))}
+                </span>
+                <span
+                  className="text-sm transition-colors group-hover:text-[hsl(var(--sw-green))]"
+                  style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
+                >
+                  {REVIEWS.scoreLabel} op Google,{" "}
+                  <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>op basis van {REVIEWS.aantalLabel}reviews</span>
+                </span>
+              </a>
+              <nav aria-label="Onderdelen van de analyse" className="golf-hero__diensten">
+                <ul>
+                  {BALK.map(({ label, Icoon }) => (
+                    <li key={label}>
+                      <a href="#onderdelen">
+                        <Icoon className="golf-hero__icoon" strokeWidth={1.75} aria-hidden="true" />
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </div>
         </section>
 
-        <Sectie papier>
-          <SectieKop
-            titel="Dit bekijken we"
-            intro="Vier onderdelen, en per onderdeel concrete verbeterpunten."
-          />
-          <AnalyseOnderdelen />
-        </Sectie>
+        <div id="onderdelen" className="scroll-mt-16">
+          <Sectie papier>
+            <Kop titel="Dit bekijken we" intro="Vier onderdelen, en per onderdeel concrete verbeterpunten." />
+            <AnalyseOnderdelen />
+          </Sectie>
+        </div>
 
         <Sectie>
           <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
@@ -450,20 +512,20 @@ const GratisWebsiteAnalyse = () => {
               className="aspect-[4/5] w-full rounded-2xl object-cover object-center"
             />
             <div>
-              <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-5xl" style={{ lineHeight: 1.04 }}>
+              <h2 className="text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl" style={{ lineHeight: 1.02 }}>
                 Zo werkt het
               </h2>
-              <ol className="mt-8 divide-y" style={{ borderColor: RAND }}>
+              <ol className="mt-10 border-t" style={{ borderColor: RAND }}>
                 {stappen.map(({ titel, tekst }) => (
-                  <li key={titel} className="py-4 first:pt-0" style={{ borderColor: RAND }}>
-                    <h3 className="text-lg font-bold tracking-tight sw-ink">{titel}</h3>
-                    <p className="mt-1 text-[0.9375rem] leading-relaxed" style={{ color: INKT_65 }}>
+                  <li key={titel} className="border-b py-5" style={{ borderColor: RAND }}>
+                    <h3 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">{titel}</h3>
+                    <p className="mt-1 font-light leading-relaxed" style={{ color: INKT_65 }}>
                       {tekst}
                     </p>
                   </li>
                 ))}
               </ol>
-              <div className="mt-6">
+              <div className="mt-8">
                 <AnimatedButton onClick={naarFormulier} size="lg">
                   Ontvang mijn gratis analyse
                 </AnimatedButton>
@@ -473,24 +535,25 @@ const GratisWebsiteAnalyse = () => {
         </Sectie>
 
         <Sectie papier>
-          <SectieKop titel="Recent werk voor ondernemers in heel Nederland" />
-          <CaseGrid projects={cases} />
+          <Kop titel="Recent werk voor ondernemers in heel Nederland" />
+          <CaseGrid projects={cases} zonderOmschrijving />
         </Sectie>
 
         <GoogleReviewMuur />
 
-        <Sectie>
-          <SectieKop titel="Veelgestelde vragen" />
-          <Vragen items={vragen} />
-        </Sectie>
-
         {/* Hier komt het voorbeeldrapport zodra de PDF klaar is. */}
 
-        <GroenPaneel
-          titel="Benieuwd wat er beter kan?"
-          tekst="Vul je website in en je krijgt binnen 1 werkdag een PDF met concrete verbeterpunten."
-          knop={{ label: "Ontvang mijn gratis analyse", onClick: naarFormulier }}
-        />
+        <Suspense fallback={<div className="min-h-[420px]" />}>
+          <FAQSection
+            vragen={vragen}
+            intro="Alles wat je wilt weten voordat je de analyse aanvraagt."
+            actie={
+              <AnimatedButton onClick={naarFormulier} size="lg">
+                Ontvang mijn gratis analyse
+              </AnimatedButton>
+            }
+          />
+        </Suspense>
       </main>
 
       <Footer />

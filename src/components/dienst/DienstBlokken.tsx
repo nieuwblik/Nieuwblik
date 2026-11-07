@@ -254,8 +254,8 @@ export function GroenPaneel({
 }: {
   titel: string;
   tekst: ReactNode;
-  /** to voor een interne pagina, href voor een externe link (nieuw tabblad), onClick voor een actie op de pagina. */
-  knop: { label: string; to?: string; href?: string; onClick?: () => void };
+  /** to voor een interne pagina, href voor een externe link (nieuw tabblad). */
+  knop: { label: string; to?: string; href?: string };
 }) {
   return (
     <section className="py-8 md:py-12">
@@ -282,15 +282,7 @@ export function GroenPaneel({
                 <p className="mt-4 text-base font-light leading-relaxed text-white/75 md:text-lg">{tekst}</p>
               </div>
               <div className="shrink-0">
-                <AnimatedButton
-                  {...(knop.onClick
-                    ? { onClick: knop.onClick }
-                    : knop.href
-                      ? { href: knop.href }
-                      : { to: knop.to ?? "/contact" })}
-                  size="lg"
-                  variant="white"
-                >
+                <AnimatedButton {...(knop.href ? { href: knop.href } : { to: knop.to ?? "/contact" })} size="lg" variant="white">
                   {knop.label}
                 </AnimatedButton>
               </div>

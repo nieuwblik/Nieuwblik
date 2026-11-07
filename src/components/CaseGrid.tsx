@@ -10,7 +10,14 @@ import type { Project } from "@/data/projects";
  * Alleen het raster, niet de kop of de knop eronder: die verschillen per pagina
  * en blijven daar staan.
  */
-export default function CaseGrid({ projects }: { projects: Project[] }) {
+export default function CaseGrid({
+  projects,
+  zonderOmschrijving = false,
+}: {
+  projects: Project[];
+  /** Alleen beeld en titel, zoals op de homepage. */
+  zonderOmschrijving?: boolean;
+}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20">
       {projects.map((project) => (
@@ -18,7 +25,7 @@ export default function CaseGrid({ projects }: { projects: Project[] }) {
           key={project.slug}
           title={project.title}
           category={project.category}
-          description={project.description}
+          {...(zonderOmschrijving ? {} : { description: project.description })}
           image={project.image}
           {...(project.imageSet ? { imageSet: project.imageSet } : {})}
           slug={project.slug}
