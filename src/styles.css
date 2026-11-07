@@ -1687,8 +1687,7 @@ html.tn-vast { overflow: hidden; }
 
 /* Lopende reviewkolommen (GoogleReviewMuur). De lijst staat er twee keer in, dus
    een verschuiving van de halve hoogte sluit naadloos. De kaarten lossen over een
-   flinke hoogte op in de achtergrond, zodat er geen harde band ontstaat. Aanwijzen
-   of aanraken zet de beweging stil zodat je kunt lezen. */
+   flinke hoogte op in de achtergrond, zodat er geen harde band ontstaat. */
 @keyframes review-loop {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(0, -50%, 0); }
@@ -1717,8 +1716,6 @@ html.tn-vast { overflow: hidden; }
   animation: review-loop 60s linear infinite;
 }
 .review-kolom--omgekeerd { animation-direction: reverse; }
-.review-muur:hover .review-kolom,
-.review-muur:active .review-kolom { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   .review-muur { overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
   .review-kolom { animation: none; }

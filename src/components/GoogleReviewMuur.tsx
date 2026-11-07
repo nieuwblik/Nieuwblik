@@ -83,7 +83,7 @@ const KOLOMMEN = [
  * Vijftien letterlijke Google-reviews in kolommen die rustig voorbijschuiven,
  * met de score ernaast, op de donkergroene band van de homepage en precies één
  * scherm hoog. De muur loopt tot de randen van de sectie, zodat de kaarten er als
- * het ware doorheen schuiven. Aanwijzen zet de beweging stil.
+ * het ware doorheen schuiven.
  */
 const GoogleReviewMuur = () => {
   // Donkere band: de vaste header keert om zolang hij eronder staat.
