@@ -91,24 +91,24 @@ const KOLOMMEN = [
  */
 const GoogleReviewMuur = () => (
   <section className="sw-paper overflow-hidden py-16 md:py-24">
-    <div className="container mx-auto grid grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-center lg:gap-14">
+    <div className="container mx-auto grid grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
       <div>
-        <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-5xl" style={{ lineHeight: 1.04 }}>
+        <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
           Wat onze klanten zeggen
         </h2>
-        <div className="mt-6 flex items-center gap-4">
-          <GoogleG className="h-10 w-10 shrink-0" />
+        <div className="mt-5 flex items-center gap-3">
+          <GoogleG className="h-8 w-8 shrink-0" />
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold tracking-tight sw-ink">{REVIEWS.scoreLabel}</span>
-              <Sterren className="h-[18px] w-[18px]" />
+              <span className="text-lg font-bold sw-ink">{REVIEWS.scoreLabel}</span>
+              <Sterren className="h-4 w-4" />
             </div>
             <p className="text-sm" style={{ color: INKT_65 }}>
               Op basis van {REVIEWS.aantalLabel}reviews
             </p>
           </div>
         </div>
-        <div className="mt-7">
+        <div className="mt-6">
           <AnimatedButton href={REVIEWS.profielUrl} variant="outline">
             Bekijk op Google
           </AnimatedButton>
