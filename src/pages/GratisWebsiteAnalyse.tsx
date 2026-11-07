@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 
 import { Star } from "lucide-react";
 
 import AnalyseOnderdelen from "@/components/AnalyseOnderdelen";
+import AnalyseWerkwijze from "@/components/AnalyseWerkwijze";
 import Breadcrumb from "@/components/Breadcrumb";
 import CaseGrid from "@/components/CaseGrid";
 import Footer from "@/components/Footer";
@@ -17,8 +18,6 @@ import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
 import { projects } from "@/data/projects";
 import { Link, useNavigate } from "@/lib/router-compat";
-import samenLaptop from "@/assets/analyse/samen-laptop.webp";
-import samenLaptopSet from "@/assets/analyse/samen-laptop.webp?w=480;800;1200&format=webp&as=srcset";
 import golfDesktop from "@/assets/hero/golf-desktop.webp";
 import golfMobiel from "@/assets/hero/golf-mobiel.webp";
 
@@ -63,13 +62,6 @@ const vragen = [
     answer:
       "Zo laten we zien hoe we naar websites kijken. Bevalt dat, dan praten we verder. Zo niet, dan heb je in elk geval bruikbare verbeterpunten.",
   },
-];
-
-const stappen = [
-  { titel: "Je vraagt de analyse aan", tekst: "Je website, naam en e-mailadres zijn genoeg." },
-  { titel: "Wij bekijken je site", tekst: "Vindbaarheid, mobiele weergave, design en teksten." },
-  { titel: "Je krijgt de PDF per mail", tekst: "Binnen 1 werkdag, met concrete verbeterpunten." },
-  { titel: "Jij beslist wat je ermee doet", tekst: "Zelf oppakken of samen met ons. Je zit nergens aan vast." },
 ];
 
 const CASES = ["feigro-dakwerken", "taxi-drechterland"];
@@ -132,7 +124,6 @@ const Veld = ({
 const GratisWebsiteAnalyse = () => {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
-  const fotoRef = useRef<HTMLDivElement>(null);
   // Een ref en geen state: een dubbele tik valt binnen dezelfde render.
   const verstuurt = useRef(false);
   const [bezig, setBezig] = useState(false);
@@ -154,32 +145,6 @@ const GratisWebsiteAnalyse = () => {
     const waarnemer = new IntersectionObserver(([item]) => setFormInBeeld(Boolean(item?.isIntersecting)));
     waarnemer.observe(form);
     return () => waarnemer.disconnect();
-  }, []);
-
-  // Parallax op de grote foto. Alleen een transform, en alleen zolang hij in beeld is.
-  useEffect(() => {
-    const kader = fotoRef.current;
-    const foto = kader?.querySelector<HTMLElement>("[data-parallax]");
-    if (!kader || !foto || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let frame = 0;
-    const werkBij = () => {
-      frame = 0;
-      const { top, height } = kader.getBoundingClientRect();
-      const voortgang = (top + height / 2 - window.innerHeight / 2) / (window.innerHeight / 2 + height / 2);
-      const beperkt = Math.max(-1, Math.min(1, voortgang));
-      foto.style.transform = `translate3d(0, ${(-beperkt * 8).toFixed(2)}%, 0)`;
-    };
-    const vraag = () => {
-      if (!frame) frame = requestAnimationFrame(werkBij);
-    };
-    werkBij();
-    window.addEventListener("scroll", vraag, { passive: true });
-    window.addEventListener("resize", vraag);
-    return () => {
-      window.removeEventListener("scroll", vraag);
-      window.removeEventListener("resize", vraag);
-      cancelAnimationFrame(frame);
-    };
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -466,50 +431,9 @@ const GratisWebsiteAnalyse = () => {
           </div>
         </section>
 
-        {/* De foto staat buiten het raster: tot de rand van het scherm en over de
-            secties heen. Hij schuift rustig mee met het scrollen. */}
-        <section className="sw-paper relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,52vw)_minmax(0,1fr)] lg:items-center">
-            <div
-              ref={fotoRef}
-              className="relative aspect-[4/5] overflow-hidden lg:-mb-20 lg:-mt-24 lg:rounded-r-3xl"
-            >
-              <img
-                src={samenLaptop}
-                srcSet={samenLaptopSet}
-                sizes="(min-width: 1024px) 52vw, 100vw"
-                width="1400"
-                height="2087"
-                alt="Twee mensen bekijken samen een website op een laptop"
-                loading="lazy"
-                data-parallax=""
-                className="absolute inset-x-0 -top-[9%] h-[118%] w-full object-cover object-center will-change-transform"
-              />
-            </div>
-            <div className="px-4 py-14 sm:px-6 lg:max-w-2xl lg:px-16 lg:py-24 xl:px-20">
-              <h2 className="text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl" style={{ lineHeight: 1.02 }}>
-                Zo werkt het
-              </h2>
-              <ol className="mt-10 border-t" style={{ borderColor: RAND }}>
-                {stappen.map(({ titel, tekst }) => (
-                  <li key={titel} className="border-b py-5" style={{ borderColor: RAND }}>
-                    <h3 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">{titel}</h3>
-                    <p className="mt-1 font-light leading-relaxed" style={{ color: INKT_65 }}>
-                      {tekst}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-8">
-                <AnimatedButton onClick={naarFormulier} size="lg">
-                  Ontvang mijn gratis analyse
-                </AnimatedButton>
-              </div>
-            </div>
-          </div>
-        </section>
+        <AnalyseWerkwijze onKnop={naarFormulier} />
 
-        <div id="onderdelen" className="scroll-mt-16 lg:pt-20">
+        <div id="onderdelen" className="scroll-mt-16">
           <Sectie>
             <Inleiding>
               We lopen je website door zoals een klant dat doet. Word je gevonden, werkt je site op de telefoon, oogt hij
