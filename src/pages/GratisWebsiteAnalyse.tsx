@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
-import { FileText, Palette, Search, Smartphone, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 import AnalyseOnderdelen from "@/components/AnalyseOnderdelen";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -72,14 +72,6 @@ const stappen = [
   { titel: "Jij beslist wat je ermee doet", tekst: "Zelf oppakken of samen met ons. Je zit nergens aan vast." },
 ];
 
-/** De vier onderdelen in de balk onder de hero, op de plek van de diensten op de homepage. */
-const BALK = [
-  { label: "Vindbaarheid", Icoon: Search },
-  { label: "Mobiele weergave", Icoon: Smartphone },
-  { label: "Design", Icoon: Palette },
-  { label: "Teksten", Icoon: FileText },
-];
-
 const CASES = ["feigro-dakwerken", "taxi-drechterland"];
 const cases = CASES.flatMap((slug) => projects.filter((p) => p.slug === slug));
 
@@ -147,6 +139,7 @@ const Veld = ({
 const GratisWebsiteAnalyse = () => {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
+  const fotoRef = useRef<HTMLDivElement>(null);
   // Een ref en geen state: een dubbele tik valt binnen dezelfde render.
   const verstuurt = useRef(false);
   const [bezig, setBezig] = useState(false);
@@ -168,6 +161,32 @@ const GratisWebsiteAnalyse = () => {
     const waarnemer = new IntersectionObserver(([item]) => setFormInBeeld(Boolean(item?.isIntersecting)));
     waarnemer.observe(form);
     return () => waarnemer.disconnect();
+  }, []);
+
+  // Parallax op de grote foto. Alleen een transform, en alleen zolang hij in beeld is.
+  useEffect(() => {
+    const kader = fotoRef.current;
+    const foto = kader?.querySelector<HTMLElement>("[data-parallax]");
+    if (!kader || !foto || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    const werkBij = () => {
+      frame = 0;
+      const { top, height } = kader.getBoundingClientRect();
+      const voortgang = (top + height / 2 - window.innerHeight / 2) / (window.innerHeight / 2 + height / 2);
+      const beperkt = Math.max(-1, Math.min(1, voortgang));
+      foto.style.transform = `translate3d(0, ${(-beperkt * 8).toFixed(2)}%, 0)`;
+    };
+    const vraag = () => {
+      if (!frame) frame = requestAnimationFrame(werkBij);
+    };
+    werkBij();
+    window.addEventListener("scroll", vraag, { passive: true });
+    window.addEventListener("resize", vraag);
+    return () => {
+      window.removeEventListener("scroll", vraag);
+      window.removeEventListener("resize", vraag);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -287,7 +306,7 @@ const GratisWebsiteAnalyse = () => {
       <main>
         {/* De hero van de homepage, met het formulier op de plek van de hand met
             telefoon: de zijden golf loopt achter de kaart door. */}
-        <section className="sw-ink sw-hero-anim relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[82svh]">
+        <section className="sw-ink sw-hero-anim relative isolate flex flex-col overflow-hidden bg-background lg:min-h-[86svh]">
           <picture className="pointer-events-none absolute inset-x-0 bottom-0 top-[var(--header-height)] -z-10 -scale-x-100" aria-hidden="true">
             <source media="(max-width: 1023px)" srcSet={golfMobiel} />
             <img
@@ -299,7 +318,7 @@ const GratisWebsiteAnalyse = () => {
             />
           </picture>
 
-          <div className="container mx-auto grid flex-1 grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
+          <div className="container mx-auto grid flex-1 grid-cols-1 items-center gap-5 px-4 pb-14 pt-[calc(var(--header-height)_+_0.75rem)] sm:px-6 md:pb-20 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
               <div className="mb-8 hidden md:block">
                 <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
@@ -323,7 +342,7 @@ const GratisWebsiteAnalyse = () => {
                 href={REVIEWS.profielUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:hidden"
+                className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:mt-6"
                 style={{ "--sw-delay": "0.55s" } as CSSProperties}
               >
                 <GoogleG className="h-[18px] w-[18px] shrink-0" />
@@ -452,66 +471,29 @@ const GratisWebsiteAnalyse = () => {
               </p>
             </form>
           </div>
-
-          {/* De balk van de homepage: reviews links, de onderdelen rechts. */}
-          <div className="golf-hero__balk sw-cta hidden md:block" style={{ "--sw-delay": "0.8s" } as CSSProperties}>
-            <div className="container mx-auto flex items-center justify-between gap-8 px-4 sm:px-6">
-              <a
-                href={REVIEWS.profielUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex shrink-0 items-center gap-2.5"
-              >
-                <GoogleG className="h-[18px] w-[18px] shrink-0" />
-                <span className="flex items-center gap-1" aria-hidden="true">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4" style={{ fill: GROEN, color: GROEN }} />
-                  ))}
-                </span>
-                <span
-                  className="text-sm transition-colors group-hover:text-[hsl(var(--sw-green))]"
-                  style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
-                >
-                  {REVIEWS.scoreLabel} op Google,{" "}
-                  <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>op basis van {REVIEWS.aantalLabel}reviews</span>
-                </span>
-              </a>
-              <nav aria-label="Onderdelen van de analyse" className="golf-hero__diensten">
-                <ul>
-                  {BALK.map(({ label, Icoon }) => (
-                    <li key={label}>
-                      <a href="#onderdelen">
-                        <Icoon className="golf-hero__icoon" strokeWidth={1.75} aria-hidden="true" />
-                        {label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          </div>
         </section>
 
-        <div id="onderdelen" className="scroll-mt-16">
-          <Sectie papier>
-            <Kop titel="Dit bekijken we" intro="Vier onderdelen, en per onderdeel concrete verbeterpunten." />
-            <AnalyseOnderdelen />
-          </Sectie>
-        </div>
-
-        <Sectie>
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
-            <img
-              src={samenLaptop}
-              srcSet={samenLaptopSet}
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              width="1400"
-              height="2087"
-              alt="Twee mensen bekijken samen een website op een laptop"
-              loading="lazy"
-              className="aspect-[4/5] w-full rounded-2xl object-cover object-center"
-            />
-            <div>
+        {/* De foto staat buiten het raster: tot de rand van het scherm en over de
+            secties heen. Hij schuift rustig mee met het scrollen. */}
+        <section className="sw-paper relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,52vw)_minmax(0,1fr)] lg:items-center">
+            <div
+              ref={fotoRef}
+              className="relative aspect-[4/5] overflow-hidden lg:-mb-20 lg:-mt-24 lg:rounded-r-3xl"
+            >
+              <img
+                src={samenLaptop}
+                srcSet={samenLaptopSet}
+                sizes="(min-width: 1024px) 52vw, 100vw"
+                width="1400"
+                height="2087"
+                alt="Twee mensen bekijken samen een website op een laptop"
+                loading="lazy"
+                data-parallax=""
+                className="absolute inset-x-0 -top-[9%] h-[118%] w-full object-cover object-center will-change-transform"
+              />
+            </div>
+            <div className="px-4 py-14 sm:px-6 lg:max-w-2xl lg:px-16 lg:py-24 xl:px-20">
               <h2 className="text-4xl font-bold tracking-tight sw-ink md:text-5xl lg:text-6xl" style={{ lineHeight: 1.02 }}>
                 Zo werkt het
               </h2>
@@ -532,7 +514,14 @@ const GratisWebsiteAnalyse = () => {
               </div>
             </div>
           </div>
-        </Sectie>
+        </section>
+
+        <div id="onderdelen" className="scroll-mt-16 lg:pt-20">
+          <Sectie>
+            <Kop titel="Dit bekijken we" intro="Vier onderdelen, en per onderdeel concrete verbeterpunten." />
+            <AnalyseOnderdelen />
+          </Sectie>
+        </div>
 
         <Sectie papier>
           <Kop titel="Recent werk voor ondernemers in heel Nederland" />
