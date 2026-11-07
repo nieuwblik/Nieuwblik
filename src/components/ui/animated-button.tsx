@@ -9,6 +9,9 @@ interface AnimatedButtonProps {
   to?: string;
   href?: string;
   onClick?: () => void;
+  /** Alleen zonder to en href: een formulier versturen. */
+  type?: "button" | "submit";
+  disabled?: boolean;
   className?: string;
   size?: "sm" | "default" | "lg";
   /** solid = the site's main button (filled green). outline = border + text only,
@@ -47,6 +50,8 @@ const AnimatedButton = ({
   to,
   href,
   onClick,
+  type = "button",
+  disabled = false,
   className,
   size = "default",
   variant = "solid",
@@ -126,7 +131,14 @@ const AnimatedButton = ({
   }
 
   return (
-    <button type="button" onClick={onClick} className={buttonClass} style={style} {...handlers}>
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={cn(buttonClass, "disabled:pointer-events-none disabled:opacity-60")}
+      style={style}
+      {...handlers}
+    >
       {buttonContent}
     </button>
   );

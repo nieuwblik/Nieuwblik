@@ -1,18 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
 import { FileText, Palette, Search, Smartphone, Star } from "lucide-react";
 
+import Breadcrumb from "@/components/Breadcrumb";
+import CaseGrid from "@/components/CaseGrid";
+import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import SEOHead from "@/components/SEOHead";
 import { getLenis } from "@/components/SmoothScroll";
-import { Button } from "@/components/ui/button";
+import { useDarkNavSection } from "@/components/TabNav";
+import { GroenPaneel, INKT_65, Sectie, SectieKop, Vragen } from "@/components/dienst/DienstBlokken";
+import { AnimatedButton } from "@/components/ui/animated-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { REVIEWS } from "@/config/business";
 import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
-import { googleReviews } from "@/data/googleReviews";
+import { projects } from "@/data/projects";
 import { Link, useNavigate } from "@/lib/router-compat";
-import justinImage from "@/assets/justin-slok.webp";
-import logo from "@/assets/logo.webp";
+import golfDesktop from "@/assets/hero/golf-desktop.webp";
+import golfMobiel from "@/assets/hero/golf-mobiel.webp";
+
+const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
 
 interface FormState {
   fullName: string;
@@ -24,6 +32,9 @@ interface FormState {
 }
 
 type Fouten = Partial<Record<keyof FormState, string>>;
+
+const GROEN = "hsl(var(--sw-green))";
+const RAND = "hsl(var(--sw-rule) / 0.1)";
 
 const onderdelen = [
   {
@@ -50,30 +61,32 @@ const onderdelen = [
 
 const vragen = [
   {
-    q: "Is het echt gratis?",
-    a: "Ja. De analyse kost niets en je zit nergens aan vast.",
+    question: "Is het echt gratis?",
+    answer: "Ja. De analyse kost niets en je zit nergens aan vast.",
   },
   {
-    q: "Wat krijg ik precies?",
-    a: "Je krijgt per mail een PDF met de uitwerking van je vindbaarheid, mobiele weergave, design en teksten, met concrete verbeterpunten.",
+    question: "Wat krijg ik precies?",
+    answer:
+      "Je krijgt per mail een PDF met de uitwerking van je vindbaarheid, mobiele weergave, design en teksten, met concrete verbeterpunten.",
   },
   {
-    q: "Wanneer heb ik de analyse?",
-    a: "Binnen 1 werkdag na je aanvraag.",
+    question: "Wanneer heb ik de analyse?",
+    answer: "Binnen 1 werkdag na je aanvraag.",
   },
   {
-    q: "Moet ik daarna iets afnemen?",
-    a: "Nee. Je mag de punten zelf oppakken of door iemand anders laten doen. Wil je hulp van ons, dan krijg je eerst een vaste prijs.",
+    question: "Moet ik daarna iets afnemen?",
+    answer:
+      "Nee. Je mag de punten zelf oppakken of door iemand anders laten doen. Wil je hulp van ons, dan krijg je eerst een vaste prijs.",
   },
   {
-    q: "Waarom is het gratis?",
-    a: "Zo laten we zien hoe we naar websites kijken. Bevalt dat, dan praten we verder. Zo niet, dan heb je in elk geval bruikbare verbeterpunten.",
+    question: "Waarom is het gratis?",
+    answer:
+      "Zo laten we zien hoe we naar websites kijken. Bevalt dat, dan praten we verder. Zo niet, dan heb je in elk geval bruikbare verbeterpunten.",
   },
 ];
 
-/** Letterlijk uit googleReviews; zie de opmerking in dat bestand. */
-const REVIEW_NAMEN = ["Deniz Cem Toptaş", "Nancy van Ham", "Dennis van Heuven van Staerelingen"];
-const reviews = REVIEW_NAMEN.flatMap((naam) => googleReviews.filter((r) => r.naam === naam));
+const CASES = ["feigro-dakwerken", "taxi-drechterland"];
+const cases = CASES.flatMap((slug) => projects.filter((p) => p.slug === slug));
 
 /** Dezelfde regel als de serverfunctie, zodat een fout hier al zichtbaar wordt. */
 const TELEFOON = /^[0-9+\s\-()]{10,20}$/;
@@ -122,16 +135,10 @@ const Veld = ({
   </div>
 );
 
-const Sterren = () => (
-  <span className="flex gap-0.5" aria-hidden="true">
-    {Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className="h-4 w-4 fill-current" style={{ color: "hsl(var(--sw-green))" }} />
-    ))}
-  </span>
-);
-
 const GratisWebsiteAnalyse = () => {
   const navigate = useNavigate();
+  // Donkere reviewband: de vaste header keert om zolang hij eronder staat.
+  const donkereBand = useDarkNavSection<HTMLElement>();
   const formRef = useRef<HTMLFormElement>(null);
   // Een ref en geen state: een dubbele tik valt binnen dezelfde render.
   const verstuurt = useRef(false);
@@ -167,8 +174,8 @@ const GratisWebsiteAnalyse = () => {
     if (!form) return;
     // Via Lenis: die houdt de scrollpositie vast en negeert een gewone scrollIntoView.
     const lenis = getLenis();
-    if (lenis) lenis.scrollTo(form, { offset: -24 });
-    else form.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (lenis) lenis.scrollTo(form, { offset: -96 });
+    else form.scrollIntoView({ behavior: "smooth", block: "center" });
     form.querySelector<HTMLInputElement>("#website")?.focus({ preventScroll: true });
   };
 
@@ -230,21 +237,31 @@ const GratisWebsiteAnalyse = () => {
     }
   };
 
+  const url = `${SITE_URL}/gratis-website-analyse`;
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: "Gratis website-analyse - Nieuwblik",
-    description:
-      "Gratis analyse van je website op vindbaarheid, mobiele weergave, design en teksten. Binnen 1 werkdag per mail als PDF.",
-    provider: {
-      "@type": "Organization",
-      name: "Nieuwblik",
-      url: SITE_URL,
-    },
-    areaServed: "Nederland",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: "Gratis website-analyse",
+        description:
+          "Gratis analyse van je website op vindbaarheid, mobiele weergave, design en teksten. Binnen 1 werkdag per mail als PDF.",
+        provider: { "@type": "Organization", name: companyInfo.name, url: companyInfo.url },
+        areaServed: { "@type": "Country", name: "Nederland" },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: vragen.map((v) => ({
+          "@type": "Question",
+          name: v.question,
+          acceptedAnswer: { "@type": "Answer", text: v.answer },
+        })),
+      },
+    ],
   };
 
-  const invoerKlasse = "mt-1.5 bg-background";
+  const invoerKlasse = "mt-1.5 bg-white";
 
   return (
     <div className="min-h-screen bg-background">
@@ -252,60 +269,79 @@ const GratisWebsiteAnalyse = () => {
         title="Gratis website-analyse binnen 1 werkdag | Nieuwblik"
         description="Laat je website gratis nakijken. Binnen 1 werkdag krijg je een PDF met verbeterpunten voor vindbaarheid, mobiel, design en teksten. Vrijblijvend."
         keywords="gratis website analyse, website check, SEO scan, website laten checken"
-        canonicalUrl={`${SITE_URL}/gratis-website-analyse`}
+        canonicalUrl={url}
         structuredData={structuredData}
         breadcrumbs={[
           { name: "Home", url: SITE_URL },
-          { name: "Gratis website-analyse", url: `${SITE_URL}/gratis-website-analyse` },
+          { name: "Gratis website-analyse", url },
         ]}
       />
 
-      <header className="container mx-auto flex h-16 items-center justify-between px-6">
-        <Link to="/" aria-label="Nieuwblik, naar de homepage">
-          <img src={logo} alt="Nieuwblik" width="120" height="24" className="h-6 w-auto brightness-0" />
-        </Link>
-        <a
-          href={companyInfo.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-medium underline underline-offset-4"
-          style={{ color: "hsl(var(--sw-green))" }}
-        >
-          App ons
-        </a>
-      </header>
-
       <main>
-        <section className="pb-14 pt-4 md:pb-20 md:pt-12">
-          <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-16">
+        {/* De hero van de homepage, met het formulier op de plek van de hand met
+            telefoon: de zijden golf loopt achter de kaart door. */}
+        <section className="sw-ink sw-hero-anim relative isolate overflow-hidden bg-background">
+          <picture className="pointer-events-none absolute inset-x-0 bottom-0 top-[var(--header-height)] -z-10 -scale-x-100" aria-hidden="true">
+            <source media="(max-width: 1023px)" srcSet={golfMobiel} />
+            <img
+              src={golfDesktop}
+              alt=""
+              decoding="async"
+              fetchPriority="low"
+              className="h-full w-full object-cover object-left max-lg:object-bottom"
+            />
+          </picture>
+
+          <div className="container mx-auto grid grid-cols-1 items-center gap-7 px-4 pb-14 pt-[calc(var(--header-height)_+_1.25rem)] sm:px-6 md:pb-20 lg:min-h-[86svh] lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
-              <h1 className="text-[2.1rem] font-extrabold leading-[1.05] tracking-tight md:text-[3.15rem] lg:text-[3.6rem]">
-                Laat je website gratis nakijken
+              <div className="mb-8 hidden md:block">
+                <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
+              </div>
+              <h1 className="golf-hero__titel">
+                <span className="sw-mask">
+                  <span className="sw-line-inner">Laat je website</span>
+                </span>{" "}
+                <span className="sw-mask">
+                  <span className="sw-line-inner">gratis nakijken</span>
+                </span>
               </h1>
-              <p className="mt-3 text-base font-light leading-snug text-muted-foreground md:mt-6 md:text-xl">
+              <p
+                className="sw-lead mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
+                style={{ color: "hsl(var(--sw-ink) / 0.7)", "--sw-delay": "0.4s" } as CSSProperties}
+              >
                 Binnen 1 werkdag krijg je per mail een PDF met wat er beter kan aan je vindbaarheid, mobiele weergave,
                 design en teksten.
               </p>
-              <ul className="mt-10 hidden space-y-5 lg:block">
-                {onderdelen.map(({ icon: Icon, title, text }) => (
-                  <li key={title} className="flex gap-4">
-                    <Icon className="mt-0.5 h-5 w-5 shrink-0" style={{ color: "hsl(var(--sw-green))" }} aria-hidden="true" />
-                    <span>
-                      <span className="block font-semibold">{title}</span>
-                      <span className="block text-sm font-light text-muted-foreground">{text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <a
+                href={REVIEWS.profielUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sw-cta group mt-4 flex w-fit items-center gap-2.5 md:mt-6"
+                style={{ "--sw-delay": "0.55s" } as CSSProperties}
+              >
+                <span className="flex items-center gap-1" aria-hidden="true">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4" style={{ fill: GROEN, color: GROEN }} />
+                  ))}
+                </span>
+                <span
+                  className="text-sm transition-colors group-hover:text-[hsl(var(--sw-green))]"
+                  style={{ color: "hsl(var(--sw-ink) / 0.8)" }}
+                >
+                  {REVIEWS.scoreLabel} op Google,{" "}
+                  <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>op basis van {REVIEWS.aantalLabel}reviews</span>
+                </span>
+              </a>
             </div>
 
             <form
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="space-y-3.5 rounded-2xl border p-5 md:p-8"
-              style={{ background: "hsl(var(--sw-paper))", borderColor: "hsl(var(--sw-rule) / 0.1)" }}
+              className="sw-cta relative space-y-3.5 rounded-2xl border bg-white p-5 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
+              style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
             >
+              <h2 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
               <Veld id="website" label="Je website" fout={fouten.website}>
                 <Input
                   id="website"
@@ -388,147 +424,104 @@ const GratisWebsiteAnalyse = () => {
                 </p>
               )}
 
-              <Button
-                type="submit"
-                disabled={bezig}
-                size="lg"
-                className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
-              >
+              <AnimatedButton type="submit" disabled={bezig} size="lg" className="h-12 w-full">
                 {bezig ? "Versturen..." : "Ontvang mijn gratis analyse"}
-              </Button>
-              <p className="text-center text-xs text-muted-foreground">
+              </AnimatedButton>
+              <p className="text-center text-xs" style={{ color: INKT_65 }}>
                 Gratis en zonder verplichtingen. Lees onze{" "}
                 <Link to="/privacy" className="underline underline-offset-2">
                   privacyverklaring
                 </Link>
                 .
               </p>
-              <a
-                href={REVIEWS.profielUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-sm text-muted-foreground"
-              >
-                <Sterren />
-                <span>
-                  {REVIEWS.scoreLabel} op Google, {REVIEWS.aantalLabel}reviews
-                </span>
-              </a>
             </form>
           </div>
         </section>
 
-        {/* Op desktop staan de onderdelen al naast het formulier. */}
-        <section className="pb-14 lg:hidden">
-          <div className="container mx-auto px-6">
-            <h2 className="text-2xl font-semibold">Dit bekijken we</h2>
-            <ul className="mt-6 space-y-5">
-              {onderdelen.map(({ icon: Icon, title, text }) => (
-                <li key={title} className="flex gap-4">
-                  <Icon className="mt-0.5 h-5 w-5 shrink-0" style={{ color: "hsl(var(--sw-green))" }} aria-hidden="true" />
-                  <span>
-                    <span className="block font-semibold">{title}</span>
-                    <span className="block text-sm font-light text-muted-foreground">{text}</span>
+        <Sectie papier>
+          <SectieKop
+            titel="Dit bekijken we"
+            intro="Vier onderdelen, en per onderdeel concrete verbeterpunten."
+          />
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {onderdelen.map(({ icon: Icon, title, text }, i) => (
+              <Reveal key={title} afstand={24} delay={i * 0.08} className="h-full">
+                <article className="h-full rounded-2xl border bg-white p-7" style={{ borderColor: RAND }}>
+                  <span
+                    className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl"
+                    style={{ background: "hsl(var(--sw-green) / 0.08)" }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: GROEN }} aria-hidden="true" />
                   </span>
-                </li>
-              ))}
-            </ul>
+                  <h3 className="text-lg font-bold tracking-tight sw-ink md:text-xl">{title}</h3>
+                  <p className="mt-2 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
+                    {text}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </Sectie>
+
+        <Sectie>
+          <SectieKop titel="Recent werk voor ondernemers in heel Nederland" />
+          <CaseGrid projects={cases} />
+        </Sectie>
+
+        {/* De reviewband van de homepage. */}
+        <section
+          ref={donkereBand}
+          className="relative overflow-hidden py-16 md:py-24"
+          style={{ background: "hsl(160 84% 12%)" }}
+        >
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage: "radial-gradient(circle at 1px 1px, hsl(160 84% 60%) 1px, transparent 0)",
+              backgroundSize: "28px 28px",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[120px]"
+            style={{ background: "radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)" }}
+          />
+          <div className="container relative z-10 mx-auto px-6">
+            <Reveal afstand={20}>
+              <h2
+                className="mx-auto mb-12 max-w-4xl text-center text-4xl font-bold tracking-tight text-white md:mb-16 md:text-5xl lg:text-6xl"
+                style={{ lineHeight: 1.02 }}
+              >
+                Wat onze klanten zeggen
+              </h2>
+            </Reveal>
+            <Suspense fallback={<div className="min-h-[280px]" />}>
+              <TestimonialsCarousel />
+            </Suspense>
           </div>
         </section>
+
+        <Sectie papier>
+          <SectieKop titel="Veelgestelde vragen" />
+          <Vragen items={vragen} />
+        </Sectie>
 
         {/* Hier komt het voorbeeldrapport zodra de PDF klaar is. */}
 
-        <section className="py-14 md:py-20" style={{ background: "hsl(var(--sw-paper))" }}>
-          <div className="container mx-auto max-w-6xl px-6">
-            <div className="flex items-center gap-4">
-              <img
-                src={justinImage}
-                alt="Justin Slok"
-                width="64"
-                height="64"
-                loading="lazy"
-                className="h-16 w-16 shrink-0 rounded-full object-cover"
-              />
-              <div>
-                <h2 className="text-2xl font-semibold">Justin Slok, Nieuwblik</h2>
-                <p className="text-sm font-light text-muted-foreground">
-                  Je aanvraag komt bij Justin in Enkhuizen. Hij is ook je aanspreekpunt bij vragen.
-                </p>
-              </div>
-            </div>
-            <ul className="mt-8 grid gap-4 md:grid-cols-3">
-              {reviews.map((review) => (
-                <li
-                  key={review.naam}
-                  className="rounded-2xl border bg-background p-5"
-                  style={{ borderColor: "hsl(var(--sw-rule) / 0.1)" }}
-                >
-                  <Sterren />
-                  <p className="mt-3 text-sm font-light leading-relaxed">{review.tekst}</p>
-                  <p className="mt-3 text-sm font-semibold">{review.naam}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="py-14 md:py-20">
-          <div className="container mx-auto max-w-3xl px-6">
-            <h2 className="text-2xl font-semibold">Veelgestelde vragen</h2>
-            <div className="mt-6 divide-y border-y" style={{ borderColor: "hsl(var(--sw-rule) / 0.1)" }}>
-              {vragen.map(({ q, a }) => (
-                <details key={q} className="group py-4">
-                  <summary className="cursor-pointer list-none font-medium [&::-webkit-details-marker]:hidden">
-                    {q}
-                  </summary>
-                  <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground">{a}</p>
-                </details>
-              ))}
-            </div>
-            <div className="mt-10 text-center">
-              <Button
-                type="button"
-                size="lg"
-                onClick={naarFormulier}
-                className="bg-accent text-accent-foreground hover:bg-accent/90"
-              >
-                Ontvang mijn gratis analyse
-              </Button>
-            </div>
-          </div>
-        </section>
+        <GroenPaneel
+          titel="Benieuwd wat er beter kan?"
+          tekst="Vul je website in en je krijgt binnen 1 werkdag een PDF met concrete verbeterpunten."
+          knop={{ label: "Ontvang mijn gratis analyse", onClick: naarFormulier }}
+        />
       </main>
 
-      <footer className="border-t pb-24 pt-6 lg:pb-6" style={{ borderColor: "hsl(var(--sw-rule) / 0.1)" }}>
-        <div className="container mx-auto flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 text-xs text-muted-foreground">
-          <span>
-            {companyInfo.name}, Enkhuizen. KvK {companyInfo.kvk}
-          </span>
-          <span className="flex gap-4">
-            <Link to="/privacy" className="underline underline-offset-2">
-              Privacy
-            </Link>
-            <Link to="/algemene-voorwaarden" className="underline underline-offset-2">
-              Voorwaarden
-            </Link>
-            <Link to="/cookies" className="underline underline-offset-2">
-              Cookies
-            </Link>
-          </span>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Op de telefoon blijft de knop bereikbaar; rechts staan de zwevende knoppen. */}
       {!formInBeeld && (
         <div className="fixed bottom-4 left-4 right-[136px] z-50 md:bottom-6 lg:hidden">
-          <Button
-            type="button"
-            size="lg"
-            onClick={naarFormulier}
-            className="h-[52px] w-full bg-accent px-3 text-accent-foreground hover:bg-accent/90"
-          >
+          <AnimatedButton onClick={naarFormulier} className="h-[52px] w-full px-3" showArrow={false}>
             Gratis analyse
-          </Button>
+          </AnimatedButton>
         </div>
       )}
     </div>
