@@ -363,32 +363,68 @@ export interface Pakket {
   uitgelicht?: boolean;
 }
 
+/**
+ * Prijzen als één strak blok in plaats van losse kaarten: drie kolommen met dunne
+ * scheidingslijnen, een grote prijs en per kolom een knop. Het uitgelichte pakket
+ * staat in het donkergroen. Op de telefoon onder elkaar.
+ */
 export function Pakketten({ items }: { items: Pakket[] }) {
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {items.map((p, i) => (
-        <Reveal key={p.naam} afstand={24} delay={i * 0.08} className="h-full">
+    <div
+      className="grid grid-cols-1 overflow-hidden rounded-3xl border bg-white md:grid-cols-3"
+      style={{ borderColor: RAND }}
+    >
+      {items.map((p, i) => {
+        const vanaf = /^vanaf\s+/i.test(p.prijs);
+        const bedrag = p.prijs.replace(/^vanaf\s+/i, "");
+        const donker = Boolean(p.uitgelicht);
+        return (
           <article
-            className="flex h-full flex-col rounded-2xl border bg-white p-7 md:p-8"
+            key={p.naam}
+            className={`relative flex flex-col p-8 md:p-10 ${i > 0 && !donker && !items[i - 1]?.uitgelicht ? "border-t md:border-l md:border-t-0" : ""}`}
             style={{
-              borderColor: p.uitgelicht ? GROEN : RAND,
-              boxShadow: p.uitgelicht ? "0 28px 60px -32px hsl(var(--sw-green) / 0.55)" : undefined,
+              borderColor: RAND,
+              background: donker ? "hsl(160 84% 16%)" : undefined,
+              color: donker ? "white" : undefined,
             }}
           >
-            <h3 className="text-lg font-bold tracking-tight sw-ink">{p.naam}</h3>
-            <p className="mt-3 text-4xl font-bold tracking-tight sw-ink">{p.prijs}</p>
-            <p className="mt-4 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
+            <h3 className={`text-lg font-semibold tracking-tight ${donker ? "" : "sw-ink"}`}>{p.naam}</h3>
+            <p className="mt-8 flex items-baseline gap-2">
+              {vanaf && (
+                <span className="text-base font-light" style={{ color: donker ? "rgba(255,255,255,0.7)" : INKT_65 }}>
+                  vanaf
+                </span>
+              )}
+              <span
+                className={`text-5xl font-normal md:text-6xl ${donker ? "" : "sw-ink"}`}
+                style={{ letterSpacing: "-0.035em", lineHeight: 1 }}
+              >
+                {bedrag}
+              </span>
+            </p>
+            <p
+              className="mt-6 text-[0.9375rem] font-light leading-relaxed md:text-base"
+              style={{ color: donker ? "rgba(255,255,255,0.78)" : INKT_65 }}
+            >
               {p.omschrijving}
             </p>
-            {p.levertijd && (
-              <p className="mt-auto flex items-center gap-2 pt-6 text-sm" style={{ color: INKT_65 }}>
-                <Clock className="h-4 w-4 shrink-0" style={{ color: GROEN }} aria-hidden="true" />
-                Levertijd: {p.levertijd}
-              </p>
-            )}
+            <div className="mt-auto pt-10">
+              {p.levertijd && (
+                <p
+                  className="mb-6 flex items-center gap-2 border-t pt-6 text-sm"
+                  style={{ color: donker ? "rgba(255,255,255,0.78)" : INKT_65, borderColor: donker ? "rgba(255,255,255,0.16)" : RAND }}
+                >
+                  <Clock className="h-4 w-4 shrink-0" style={{ color: donker ? "white" : GROEN }} aria-hidden="true" />
+                  Levertijd: {p.levertijd}
+                </p>
+              )}
+              <AnimatedButton to="/contact" variant={donker ? "white" : "outline"} className="h-12 w-full">
+                Start je project
+              </AnimatedButton>
+            </div>
           </article>
-        </Reveal>
-      ))}
+        );
+      })}
     </div>
   );
 }

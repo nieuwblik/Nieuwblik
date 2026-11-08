@@ -6,7 +6,6 @@ import SEOHead from "@/components/SEOHead";
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Globe, Palette, ShoppingBag, Pen, Check } from "lucide-react";
-import SocialContentSection from "@/components/SocialContentSection";
 
 /*
  * Dienstenpagina in de stijl van de homepage: grote, strakke koppen in
@@ -245,8 +244,6 @@ const Services = () => {
           </div>
         </div>
       </section>
-
-      <SocialContentSection />
 
       <Footer />
     </div>

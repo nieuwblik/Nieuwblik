@@ -3,14 +3,11 @@ import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import SEOHead from "@/components/SEOHead";
 import PortfolioCard from "@/components/PortfolioCard";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, staggerItem, scaleUp, easings } from "@/lib/motion";
 
-// Lazy load SocialContentSection voor betere performance
-const SocialContentSection = lazy(() => import("@/components/SocialContentSection"));
 
 import { projects } from "@/data/projects";
 
@@ -80,7 +77,6 @@ const Portfolio = () => {
     ? projects
     : projects.filter(project => project.filterCategory === activeFilter);
 
-  const showVideos = activeFilter === "all";
   const showEcommerce = activeFilter === "all" || activeFilter === "e-commerce";
   const showProjects = activeFilter !== "e-commerce";
 
@@ -371,27 +367,6 @@ const Portfolio = () => {
           </motion.section>
         )}
       </AnimatePresence>
-
-      {/* Social Content Section / Videos */}
-      {showVideos && (
-        <Suspense fallback={
-          <section className="py-20 px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16">
-                <Skeleton className="h-12 w-96 mx-auto mb-4" />
-                <Skeleton className="h-6 w-full max-w-3xl mx-auto" />
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Skeleton key={i} className="aspect-[9/16] rounded-2xl" />
-                ))}
-              </div>
-            </div>
-          </section>
-        }>
-          <SocialContentSection />
-        </Suspense>
-      )}
 
       {/* Image Modal */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
