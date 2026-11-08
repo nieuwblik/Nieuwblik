@@ -11,7 +11,8 @@ export type GolfPlek = "home" | "analyse";
  *   beeld er is, tot die tijd staat het terugvalbeeld er.
  * - De engine wordt pas na de eerste paint geladen, zodat hij niet in de
  *   hoofdbundel zit en de tekst (LCP) niet ophoudt.
- * - Afstelpaneel (toets p): in de ontwikkelomgeving altijd, elders met ?afstellen.
+ * - Afstelpaneel (toets p) en het mobiele voorbeeld: alleen in de ontwikkelomgeving.
+ *   In de productiebuild valt die code weg, dus live is er niets van te openen.
  */
 export function useGolf(
   heroRef: RefObject<HTMLElement | null>,
@@ -42,6 +43,7 @@ export function useGolf(
         if (!motor) return;
         opruimen.push(motor.stop);
 
+        if (!import.meta.env.DEV) return;
         if (zoek.has("golfvoorbeeld")) {
           // Mobiel voorbeeld in het afstelpaneel (iframe): instellingen komen van het paneel.
           const opBericht = (e: MessageEvent) => {
@@ -59,7 +61,7 @@ export function useGolf(
           addEventListener("message", opBericht);
           opruimen.push(() => removeEventListener("message", opBericht));
           parent.postMessage({ type: "golf-voorbeeld-klaar" }, location.origin);
-        } else if (import.meta.env.DEV || zoek.has("afstellen")) {
+        } else {
           import("@/components/golf/golfPaneel")
             .then(({ startPaneel }) => {
               if (!weg)

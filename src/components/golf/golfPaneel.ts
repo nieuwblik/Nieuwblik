@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- zie hieronder
 // @ts-nocheck -- Afsteltool, rechtstreeks overgezet uit het prototype
 // (_prototypes/hero-golf/golf.js). Werkt met losse DOM-elementen buiten React en
-// wordt alleen geladen in de ontwikkelomgeving of met ?afstellen in de url.
+// wordt alleen geladen in de ontwikkelomgeving, nooit op de live site.
 //
 // Toets p opent het paneel. "Opslaan in site" (alleen in de ontwikkelomgeving)
 // schrijft de instellingen van deze plek naar src/data en maakt de terugvalbeelden
