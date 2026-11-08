@@ -117,7 +117,7 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
         {/* Recent werk, de reviewmuur en de FAQ zoals op de rest van de site */}
         <Sectie>
           <div className="mb-12 md:mb-16">
-            <h2 className="pf-inleiding">
+            <h2 className="sectie-kop">
               Recent werk voor ondernemers in heel Nederland. Van dakdekker tot taxibedrijf: elke site op maat ontworpen,
               snel en goed vindbaar.
             </h2>

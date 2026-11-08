@@ -46,7 +46,7 @@ export const ProblemSolutionSection = ({ wit = false }: { wit?: boolean }) => {
 
                 {wit ? (
                     <div className="mb-12 max-w-4xl md:mb-16">
-                        <h2 className="pf-inleiding">Waar de meeste websites klanten laten liggen</h2>
+                        <h2 className="sectie-kop">Waar de meeste websites klanten laten liggen</h2>
                         <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">
                             De bekende fouten naast elkaar, en hoe Nieuwblik ze voorkomt.
                         </p>

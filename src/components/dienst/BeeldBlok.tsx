@@ -84,7 +84,7 @@ export function TekstBlok({ kop, children }: { kop: ReactNode; children: ReactNo
   return (
     <section className="bg-background py-20 md:py-28">
       <div className="container mx-auto grid grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16">
-        <h2 className="pf-inleiding lg:col-span-5">{kop}</h2>
+        <h2 className="sectie-kop lg:col-span-5">{kop}</h2>
         <div className="lg:col-span-7 lg:pt-3">
           <div className="max-w-[640px] space-y-5 text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
             {children}
@@ -96,7 +96,7 @@ export function TekstBlok({ kop, children }: { kop: ReactNode; children: ReactNo
 }
 
 /** Statementkop zoals op de homepage ("Recent werk voor ondernemers…"). */
-export const BlokKop = ({ children }: { children: ReactNode }) => <h2 className="pf-inleiding">{children}</h2>;
+export const BlokKop = ({ children }: { children: ReactNode }) => <h2 className="sectie-kop">{children}</h2>;
 
 export const BlokTekst = ({ children }: { children: ReactNode }) => (
   <div className="mt-6 space-y-5 text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>

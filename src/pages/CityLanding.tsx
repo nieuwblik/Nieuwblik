@@ -113,7 +113,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
       <section className="bg-background py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="mb-12 max-w-4xl md:mb-16">
-            <h2 className="pf-inleiding">{lokaal?.headings?.portfolio ?? city.section4.h2}</h2>
+            <h2 className="sectie-kop">{lokaal?.headings?.portfolio ?? city.section4.h2}</h2>
             <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">{city.section4.intro}</p>
           </div>
           <CaseGrid projects={featuredProjects} />

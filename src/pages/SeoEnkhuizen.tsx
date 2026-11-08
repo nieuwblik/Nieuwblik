@@ -140,10 +140,6 @@ const SeoEnkhuizen = () => {
                   h3: "Technische SEO",
                   text: "Snelheid, mobiel, structured data en schone code. De basis waarop alle andere SEO inspanningen rusten.",
                 },
-                {
-                  h3: "Lokale backlinks",
-                  text: "We bouwen samenwerkingen met WEEFF, lokale media en West-Friese ondernemersnetwerken om jouw autoriteit te vergroten.",
-                },
               ]}
             />
           </BeeldBlok>

@@ -768,6 +768,22 @@
   text-wrap: pretty;
 }
 
+/* Sectiekop van de dienst-, stads- en SEO-pagina's: dezelfde Epilogue als de hero,
+   maar zwaarder en groter dan .pf-inleiding, zodat ook een korte kop ("Een blik op
+   ons werk") als kop leest en niet als losse zin. */
+.sectie-kop {
+  max-width: 22ch;
+  margin: 0;
+  font-family: 'Epilogue', 'Epilogue Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* !important: de globale kopregel zet h1-h6 op 700 !important. */
+  font-weight: 600 !important;
+  font-size: clamp(1.75rem, 3.1vw, 2.875rem);
+  line-height: 1.07;
+  letter-spacing: -0.035em;
+  color: hsl(var(--sw-ink));
+  text-wrap: balance;
+}
+
 /* Vindbaarheid op de homepage (VindbaarSectie): een sticky kop met zwevende beelden
    erachter, daarna één alinea. */
 /* Lang genoeg om de kop een tijd vast te houden terwijl de beelden voorbijkomen. */

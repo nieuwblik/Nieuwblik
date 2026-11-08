@@ -247,7 +247,7 @@ const WerkgebiedDetail = () => {
         <section className="bg-background py-16 md:py-24">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="mb-12 max-w-4xl md:mb-16">
-              <h2 className="pf-inleiding">Bekijk websites die bezoekers omzetten in klanten</h2>
+              <h2 className="sectie-kop">Bekijk websites die bezoekers omzetten in klanten</h2>
               <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">
                 Een selectie van recente projecten waar we trots op zijn.
               </p>
