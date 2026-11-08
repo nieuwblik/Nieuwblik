@@ -198,11 +198,16 @@ export function vindScherm(F, W, H, sleutel = "groen") {
  * (homografie) en 4x supersampling. Afgeronde hoeken en het Dynamic Island blijven
  * staan omdat alleen groene pixels vervangen worden. Daarna glans op het glas
  * (zie GLANS) en de groene zweem van de randen. Geeft een PNG-buffer terug.
+ *  (optioneel, [lb, rb, ro, lo] in pixels) vervangt de gevonden hoeken.
  */
-export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm, sleutel = "groen") {
+export async function inTelefoon(fotoPad, schermPng, glans = GLANS.warm, sleutel = "groen", eigenHoeken = null) {
   const foto = await sharp(fotoPad).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const W = foto.info.width, H = foto.info.height, F = foto.data;
-  const { groen, grens: { minX, maxX, minY, maxY }, hoeken } = vindScherm(F, W, H, sleutel);
+  const gevonden = vindScherm(F, W, H, sleutel);
+  const { groen, grens: { minX, maxX, minY, maxY } } = gevonden;
+  // Eigen hoeken, als een deel van het scherm achter iets anders zit (de basis van een laptop):
+  // dan is de gevonden onderrand de rand van dat voorwerp en niet die van het scherm.
+  const hoeken = eigenHoeken ?? gevonden.hoeken;
   const { zweemWeg } = SLEUTELS[sleutel];
   console.log("  schermhoeken in de foto:", hoeken.map(([x, y]) => `${Math.round(x)},${Math.round(y)}`).join("  "));
 

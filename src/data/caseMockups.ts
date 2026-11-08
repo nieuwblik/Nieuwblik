@@ -22,6 +22,8 @@ import esveldInstallatie from "@/assets/cases/esveld-installatie-scherm.webp";
 import esveldInstallatieSet from "@/assets/cases/esveld-installatie-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
 import esveldInstallatieTelefoon from "@/assets/cases/esveld-installatie-telefoon.webp";
 import esveldInstallatieTelefoonSet from "@/assets/cases/esveld-installatie-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+import esveldInstallatieLaptop from "@/assets/cases/esveld-installatie-laptop.webp";
+import esveldInstallatieLaptopSet from "@/assets/cases/esveld-installatie-laptop.webp?w=800;1200;1600;2560&format=webp&as=srcset";
 import esveldInstallatieVoor from "@/assets/cases/esveld-installatie-voor.webp";
 import esveldInstallatieVoorSet from "@/assets/cases/esveld-installatie-voor.webp?w=720;1200;1800&format=webp&as=srcset";
 import esveldInstallatieNa from "@/assets/cases/esveld-installatie-na.webp";
@@ -164,5 +166,21 @@ export const caseVoorNa: Record<string, VoorNaBeelden & { toestel: ToestelNaam }
     naSet: esveldInstallatieNaSet,
     voorLabel: "2023",
     naLabel: "Nu",
+  },
+};
+
+/**
+ * Laptopfoto's met de site in het scherm (4:5), voor de tekstblokken op de dienstpagina's.
+ * Gemaakt zoals de telefoons (inTelefoon in scripts/mockups/telefoon.mjs), met eigen
+ * onderhoeken omdat de laptopbasis de onderrand van het scherm afdekt.
+ */
+export const caseLaptops: Record<string, TelefoonFoto> = {
+  "esveld-installatie": {
+    src: esveldInstallatieLaptop,
+    srcSet: esveldInstallatieLaptopSet,
+    breedte: 2560,
+    hoogte: 3200,
+    midden: 0.5,
+    telefoonHoogte: 0.5,
   },
 };

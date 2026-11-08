@@ -88,6 +88,17 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
   Screenshot: venster 1440×857.
 - **Licht:** achtergrond RGB ~217,218,220, 9% vignettering, geen glans, header donker.
 
+### Laptop op een baksteen (dienstpagina's)
+
+- **Foto:** `basis/laptop-steen-groen-4x5.webp` (2560×3200, job `e8de8572-31dc-46c0-99ba-4ff8b722ae07`):
+  open MacBook Pro op een rode baksteen tegen een crèmekleurige achtergrond, groen scherm met notch.
+- **Samenstellen:** `inTelefoon(basis, screenshot, GLANS.studio, "groen", eigenHoeken)`. De laptopbasis dekt de
+  onderrand van het scherm af: de automatische onderhoeken zijn dan de rand van de basis. Daarom eigen
+  onderhoeken net onder het laagste groen, langs de gevonden zijranden, en het schaduwgroen boven de
+  basis eerst puur groen maken (g > 1,5 × r en b). Screenshot: venster 1440 breed in de verhouding van
+  dat vlak (bij Esveld 1440×933), dpr 1,5.
+- **Gebruik:** `caseLaptops` in `src/data/caseMockups.ts`; op een dienstpagina `beelden: ["laptop:<slug>", …]`.
+
 ### Voor en na (`src/components/CaseVoorNa.tsx`)
 
 - 100vw × 100svh. In het scherm de huidige site, met de oude erover; een range-input over het scherm

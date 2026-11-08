@@ -55,7 +55,7 @@ export const installateur: DienstpaginaData = {
   ],
   contact: { h2: "Meer offerteaanvragen voor jouw installatiebedrijf?", body: "Vertel kort wat je doet en waar je werkt. Binnen 24 uur krijg je een vaste prijs en planning." },
   cases: ["esveld-installatie", "feigro-dakwerken"],
-  beelden: ["esveld-installatie", "feigro-dakwerken", "taxi-drechterland"],
+  beelden: ["laptop:esveld-installatie", "feigro-dakwerken", "taxi-drechterland"],
   prijsVanaf: PRIJZEN.starter,
 };
 

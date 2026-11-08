@@ -8,7 +8,7 @@ import DienstGolfHero from "@/components/dienst/DienstGolfHero";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Check } from "lucide-react";
 import { INKT_65, Linkjes, Pakketten, Sectie, SectieKop, type Pakket } from "@/components/dienst/DienstBlokken";
-import { caseTelefoons, type TelefoonFoto } from "@/data/caseMockups";
+import { caseLaptops, caseTelefoons, type TelefoonFoto } from "@/data/caseMockups";
 import { companyInfo } from "@/config/company";
 import { projects } from "@/data/projects";
 
@@ -47,7 +47,7 @@ const BeeldSectie = ({
       className={`grid grid-cols-1 lg:items-center ${links ? "lg:grid-cols-[minmax(0,44vw)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,44vw)]"}`}
     >
       <div
-        className={`relative z-10 aspect-[4/5] overflow-hidden ${links ? "lg:rounded-r-3xl" : "lg:order-2 lg:rounded-l-3xl"} ${eerste ? "lg:-mt-24" : "lg:-my-12"}`}
+        className={`relative z-10 aspect-[4/5] overflow-hidden ${links ? "lg:rounded-r-3xl" : "lg:order-2 lg:rounded-l-3xl"} ${eerste ? "" : "lg:-my-12"}`}
       >
         <img
           src={foto.src}
@@ -112,7 +112,10 @@ export type DienstpaginaData = {
   prijsVanaf: number;
   /** Slugs uit src/data/projects.ts voor "Recent werk"; zonder deze lijst de standaardcases. */
   cases?: string[];
-  /** Slugs van cases met een telefoonmockup (caseTelefoons) naast de tekstblokken, op volgorde. */
+  /**
+   * Cases naast de tekstblokken, op volgorde: een slug voor de telefoonmockup
+   * (caseTelefoons) of "laptop:<slug>" voor de laptopfoto (caseLaptops).
+   */
   beelden?: string[];
 };
 
@@ -157,16 +160,19 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
         />
 
         {data.secties.map((s, i) => {
-          const slugs = [...(data.beelden ?? []), ...STANDAARD_BEELDEN.filter((b) => !data.beelden?.includes(b))];
-          const slug = slugs[i % slugs.length]!;
-          const foto = caseTelefoons[slug];
+          const gekozen = (data.beelden ?? []).map((b) => b.replace(/^laptop:/, ""));
+          const slugs = [...(data.beelden ?? []), ...STANDAARD_BEELDEN.filter((b) => !gekozen.includes(b))];
+          const keuze = slugs[i % slugs.length]!;
+          const laptop = keuze.startsWith("laptop:");
+          const slug = laptop ? keuze.slice("laptop:".length) : keuze;
+          const foto = laptop ? caseLaptops[slug] : caseTelefoons[slug];
           const naam = projects.find((p) => p.slug === slug)?.title ?? "een klant";
           return foto ? (
             <BeeldSectie
               key={s.titel}
               sectie={s}
               foto={foto}
-              alt={`Mobiele website van ${naam} op een iPhone`}
+              alt={laptop ? `Website van ${naam} op een laptop` : `Mobiele website van ${naam} op een iPhone`}
               links={i % 2 === 0}
               papier={i % 2 === 0}
               eerste={i === 0}
