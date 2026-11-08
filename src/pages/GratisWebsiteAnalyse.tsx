@@ -171,38 +171,24 @@ const Onderkant = memo(({ onKnop }: { onKnop: () => void }) => (
 const Voet = memo(Footer);
 
 /**
- * Op de telefoon blijft de knop bereikbaar zodra het formulier uit beeld is;
- * rechts staan de zwevende knoppen. De state zit hier en niet in de pagina: anders
- * rendert de hele pagina opnieuw op het moment dat je voorbij het formulier scrolt.
+ * Zet de klasse form-in-beeld op <html> zolang het formulier in beeld is. Op de
+ * telefoon wijkt de zwevende knop dan, anders dekt hij de privacylink af (zie
+ * styles.css). Alleen een klasse en geen state: de pagina hoeft niet opnieuw te renderen.
  */
-const PlakKnop = ({ formRef, onKnop }: { formRef: RefObject<HTMLFormElement | null>; onKnop: () => void }) => {
-  const [formInBeeld, setFormInBeeld] = useState(true);
-
+const useFormInBeeld = (formRef: RefObject<HTMLFormElement | null>) => {
   useEffect(() => {
     const form = formRef.current;
     if (!form) return;
     const html = document.documentElement;
-    const waarnemer = new IntersectionObserver(([item]) => {
-      const inBeeld = Boolean(item?.isIntersecting);
-      setFormInBeeld(inBeeld);
-      // Op de telefoon ligt de zwevende knop anders over het formulier (zie styles.css).
-      html.classList.toggle("form-in-beeld", inBeeld);
-    });
+    const waarnemer = new IntersectionObserver(([item]) =>
+      html.classList.toggle("form-in-beeld", Boolean(item?.isIntersecting)),
+    );
     waarnemer.observe(form);
     return () => {
       waarnemer.disconnect();
       html.classList.remove("form-in-beeld");
     };
   }, [formRef]);
-
-  if (formInBeeld) return null;
-  return (
-    <div className="fixed bottom-4 left-4 right-[136px] z-50 md:bottom-6 lg:hidden">
-      <AnimatedButton onClick={onKnop} className="h-[52px] w-full px-3" showArrow={false}>
-        Gratis analyse
-      </AnimatedButton>
-    </div>
-  );
 };
 
 const GratisWebsiteAnalyse = () => {
@@ -211,6 +197,7 @@ const GratisWebsiteAnalyse = () => {
   const vlakRef = useRef<HTMLDivElement>(null);
   useGolf(heroRef, vlakRef, golfAnalyse, "analyse");
   const formRef = useRef<HTMLFormElement>(null);
+  useFormInBeeld(formRef);
   // Een ref en geen state: een dubbele tik valt binnen dezelfde render.
   const verstuurt = useRef(false);
   const [bezig, setBezig] = useState(false);
@@ -510,7 +497,6 @@ const GratisWebsiteAnalyse = () => {
       </main>
 
       <Voet />
-      <PlakKnop formRef={formRef} onKnop={naarFormulier} />
     </div>
   );
 };
