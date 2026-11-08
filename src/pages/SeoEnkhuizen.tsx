@@ -42,7 +42,7 @@ const graphJsonLd = {
     {
       "@type": "WebPage",
       "@id": `${url}#webpage`,
-      name: "SEO Enkhuizen | Lokale SEO specialist - Nieuwblik",
+      name: "SEO bureau Enkhuizen | Lokale SEO specialist - Nieuwblik",
       description: "SEO Enkhuizen voor lokale ondernemers. Beter vindbaar in Google met onze lokale aanpak, Google Business en sterke content. Vanaf 750 euro.",
       url,
       inLanguage: "nl-NL",
@@ -85,7 +85,7 @@ const SeoEnkhuizen = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="SEO Enkhuizen | Lokale SEO specialist - Nieuwblik"
+        title="SEO bureau Enkhuizen | Lokale SEO specialist - Nieuwblik"
         description="SEO Enkhuizen door lokale specialist. Meer klanten uit Enkhuizen en West-Friesland via Google. Lokale aanpak vanaf 750 euro, opzegbaar per maand."
         keywords="seo enkhuizen, lokale seo enkhuizen, seo specialist enkhuizen, google enkhuizen, vindbaarheid enkhuizen"
         canonicalUrl={url}
@@ -95,7 +95,7 @@ const SeoEnkhuizen = () => {
 
       <main>
         <LandingHero
-          h1="SEO Enkhuizen door een lokale specialist"
+          h1="SEO bureau Enkhuizen, lokaal en persoonlijk"
           subtitle="Nieuwblik is jouw lokale SEO partner in Enkhuizen. Wij zorgen dat klanten uit Enkhuizen, Bovenkarspel en de rest van West-Friesland jouw bedrijf vinden via Google, in plaats van de concurrent een straat verderop."
           knoppen={
             <>
