@@ -28,7 +28,7 @@ export const LASTMOD: Record<string, string> = {
   "/blog/zakelijk-emailadres-aanmaken-eigen-domein": "2026-10-18",
   "/blog/zelf-website-bouwen-of-laten-maken": "2026-10-18",
   "/contact": "2026-10-19",
-  "/cookies": "2026-11-07",
+  "/cookies": "2026-11-08",
   "/diensten": "2026-10-14",
   "/diensten/e-commerce": "2026-10-17",
   "/diensten/webshops": "2026-10-08",
