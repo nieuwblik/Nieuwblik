@@ -30,7 +30,7 @@ const LandingHero = ({ h1, subtitle, kruimels, knoppen, onderIntro }: LandingHer
     <div className="container mx-auto grid grid-cols-1 items-end gap-6 px-4 pt-[calc(var(--header-height)_+_2.5rem)] sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-height)_+_3.5rem)]">
       <div className="relative z-[3] pb-4 lg:col-span-7 lg:pb-20">
         {kruimels && <div className="-mt-4 mb-4">{kruimels}</div>}
-        <h1 className="golf-hero__titel golf-hero__titel--strak max-w-[12em]" style={{ fontSize: "clamp(2.3rem, 4.4vw, 4.6rem)" }}>
+        <h1 className="golf-hero__titel golf-hero__titel--strak golf-hero__titel--plat max-w-[15em]" style={{ fontSize: "clamp(2rem, 3.3vw, 3.5rem)", lineHeight: 1.15 }}>
           <span className="sw-mask">
             {/* Lange koppen lopen over meerdere regels; het masker blijft voor de inloopanimatie. */}
             <span className="sw-line-inner !whitespace-normal">{h1}</span>

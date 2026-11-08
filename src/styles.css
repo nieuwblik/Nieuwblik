@@ -715,6 +715,11 @@
   .golf-hero__titel--strak .sw-mask:last-child > .sw-line-inner { filter: none; }
 }
 
+/* Hero zonder golf (LandingHero): geen gloed achter de kop, die gaf op wit een
+   lichte rechthoek rond de tekst. */
+.golf-hero__titel--plat .sw-line-inner,
+.golf-hero__titel--plat .sw-mask:last-child > .sw-line-inner { filter: none; }
+
 /* Hand met telefoon (src/components/golf/HeroTelefoon.tsx), alleen vanaf 1024px:
    tussen golf en tekst, de arm loopt onder de balk door (die komt later in de DOM
    en ligt er met zijn blur overheen). Achter het doorzichtige scherm van de foto
