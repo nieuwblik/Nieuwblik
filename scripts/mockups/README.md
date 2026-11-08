@@ -180,7 +180,11 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
     een groen scherm in al dat groen zou wegvallen (`sleutel: "magenta"`). `midden`
     0,455, `telefoonHoogte` 0,387, glans `studio`.
   - `basis/telefoon-binnen-9x16.webp` (binnen): hand met een donkere iPhone recht van voren, wazig warm
-    interieur in daglicht (job `d37d4c46-e7c1-40e9-acb3-c1219ff3de12`). `midden` 0,48, `telefoonHoogte` 0,5, glans `studio`.
+    interieur in daglicht (job `5fb69025-c875-4b1d-9274-b913bd8ac23a`). `midden` 0,476, `telefoonHoogte` 0,48, glans `studio`.
+    Gegenereerde telefoons zijn vaak te lang (scherm 2,3-2,5 keer zo hoog als breed, echt is 2,17): dan
+    wordt de site uitgerekt. Deze foto is daarom 6,2% in de hoogte ingedrukt en aan de zijkanten
+    bijgesneden tot 9:16, waarna het scherm precies 2,17 is. Meet een nieuwe telefoonfoto altijd na
+    (hoogte/breedte van het groene vlak) voordat je hem gebruikt.
   - `basis/telefoon-bank-9x16.webp` (bank): iPhone plat en diagonaal op een groen
     metalen bankje in hard zonlicht. `midden` 0,5, `telefoonHoogte` 0,615. Glans `zon`:
     het scherm in de zon iets gedempt en warmer (gemeten in de referentie: beige

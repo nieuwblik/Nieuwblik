@@ -28,7 +28,7 @@ const TELEFOONS = {
   warm: { basis: join(HIER, "basis/telefoon-groen-9x16.webp"), midden: 0.44, telefoonHoogte: 0.44, glans: GLANS.warm },
   studio: { basis: join(HIER, "basis/telefoon-studio-9x16.webp"), midden: 0.47, telefoonHoogte: 0.52, glans: GLANS.studio },
   bank: { basis: join(HIER, "basis/telefoon-bank-9x16.webp"), midden: 0.5, telefoonHoogte: 0.615, glans: GLANS.zon },
-  binnen: { basis: join(HIER, "basis/telefoon-binnen-9x16.webp"), midden: 0.48, telefoonHoogte: 0.5, glans: GLANS.studio },
+  binnen: { basis: join(HIER, "basis/telefoon-binnen-9x16.webp"), midden: 0.476, telefoonHoogte: 0.48, glans: GLANS.studio },
   // Magenta scherm: de foto zit vol groene stof, een groen scherm zou daarin wegvallen.
   schoot: { basis: join(HIER, "basis/telefoon-schoot-9x16.webp"), midden: 0.455, telefoonHoogte: 0.387, glans: GLANS.studio, sleutel: "magenta" },
 };

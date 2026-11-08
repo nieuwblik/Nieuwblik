@@ -145,8 +145,8 @@ export const caseTelefoons: Record<string, TelefoonFoto> = {
     srcSet: esveldInstallatieTelefoonSet,
     breedte: 2160,
     hoogte: 3840,
-    midden: 0.48,
-    telefoonHoogte: 0.5,
+    midden: 0.476,
+    telefoonHoogte: 0.48,
   },
 };
 
