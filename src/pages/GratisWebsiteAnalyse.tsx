@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import GoogleReviewMuur, { GoogleG } from "@/components/GoogleReviewMuur";
 import SEOHead from "@/components/SEOHead";
 import { getLenis } from "@/components/SmoothScroll";
-import { INKT_65, Sectie } from "@/components/dienst/DienstBlokken";
+import { Sectie } from "@/components/dienst/DienstBlokken";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,7 +17,7 @@ import { REVIEWS } from "@/config/business";
 import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
 import { projects } from "@/data/projects";
-import { Link, useNavigate } from "@/lib/router-compat";
+import { useNavigate } from "@/lib/router-compat";
 import { golfAnalyse } from "@/data/golfAnalyse";
 import { useGolf } from "@/components/golf/useGolf";
 import terugvalDesktop from "@/assets/hero/analyse-desktop.webp";
@@ -105,15 +105,20 @@ const Veld = ({
   id,
   label,
   fout,
+  breed = false,
   children,
 }: {
   id: string;
   label: string;
   fout?: string | undefined;
+  /** Over de volle breedte, ook als het formulier op desktop twee kolommen heeft. */
+  breed?: boolean;
   children: React.ReactNode;
 }) => (
-  <div>
-    <Label htmlFor={id}>{label}</Label>
+  <div className={breed ? "md:col-span-2" : undefined}>
+    <Label htmlFor={id} className="text-[13px]" style={{ color: "hsl(var(--sw-ink) / 0.78)" }}>
+      {label}
+    </Label>
     {children}
     {fout && (
       <p id={`${id}-fout`} className="mt-1.5 text-sm text-destructive">
@@ -309,7 +314,8 @@ const GratisWebsiteAnalyse = () => {
     ],
   };
 
-  const invoerKlasse = "mt-1.5 bg-white";
+  const invoerKlasse =
+    "mt-1.5 h-11 border-[hsl(var(--sw-ink)/0.1)] bg-[hsl(var(--sw-ink)/0.025)] transition-colors placeholder:text-[hsl(var(--sw-ink)/0.4)] hover:border-[hsl(var(--sw-ink)/0.18)] focus-visible:border-[hsl(var(--sw-green))] focus-visible:bg-white focus-visible:ring-[3px] focus-visible:ring-[hsl(var(--sw-green)/0.15)] focus-visible:ring-offset-0 aria-[invalid=true]:border-destructive";
 
   return (
     <div className="min-h-screen bg-background">
@@ -389,11 +395,11 @@ const GratisWebsiteAnalyse = () => {
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="sw-cta relative z-[3] space-y-4 rounded-2xl border bg-white p-5 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] min-[400px]:p-6 md:p-7"
+              className="sw-cta relative z-[3] grid gap-3.5 rounded-2xl border bg-white p-5 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.3)] min-[400px]:p-6 md:grid-cols-2 md:gap-x-3"
               style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
             >
-              <h2 className="text-lg font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
-              <Veld id="website" label="Je website" fout={fouten.website}>
+              <h2 className="mb-0.5 text-lg font-semibold tracking-tight sw-ink md:col-span-2 md:text-xl">Vraag je gratis analyse aan</h2>
+              <Veld id="website" label="Je website" fout={fouten.website} breed>
                 <Input
                   id="website"
                   name="website"
@@ -438,7 +444,7 @@ const GratisWebsiteAnalyse = () => {
                   className={invoerKlasse}
                 />
               </Veld>
-              <Veld id="phone" label="Telefoonnummer (optioneel)" fout={fouten.phone}>
+              <Veld id="phone" label="Telefoonnummer (optioneel)" fout={fouten.phone} breed>
                 <Input
                   id="phone"
                   name="phone"
@@ -467,7 +473,7 @@ const GratisWebsiteAnalyse = () => {
               </div>
 
               {verzendFout && (
-                <p role="alert" className="text-sm text-destructive">
+                <p role="alert" className="text-sm text-destructive md:col-span-2">
                   {verzendFout}{" "}
                   <a href={companyInfo.whatsapp} target="_blank" rel="noopener noreferrer" className="underline">
                     Naar WhatsApp
@@ -478,17 +484,10 @@ const GratisWebsiteAnalyse = () => {
               <AnimatedButton
                 type="submit"
                 disabled={bezig}
-                className="h-11 w-full gap-2 whitespace-nowrap px-3 text-[15px] max-[359px]:[&>span:last-child]:hidden min-[400px]:gap-2.5 min-[400px]:px-4 min-[400px]:text-base md:h-12 md:text-lg"
+                className="mt-1 h-11 w-full gap-2 whitespace-nowrap md:col-span-2 px-3 text-[15px] max-[359px]:[&>span:last-child]:hidden min-[400px]:gap-2.5 min-[400px]:px-4 min-[400px]:text-base md:h-12 md:text-lg"
               >
                 {bezig ? "Versturen..." : "Ontvang mijn gratis analyse"}
               </AnimatedButton>
-              <p className="text-center text-xs" style={{ color: INKT_65 }}>
-                Gratis en zonder verplichtingen. Lees onze{" "}
-                <Link to="/privacy" className="underline underline-offset-2">
-                  privacyverklaring
-                </Link>
-                .
-              </p>
             </form>
           </div>
         </section>
