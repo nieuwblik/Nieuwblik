@@ -2,6 +2,7 @@ import type { ElementType, ReactNode } from "react";
 import { ArrowRight, Check, Clock, MessageCircle, Plus, Star } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import LandingHero from "@/components/LandingHero";
+import { Strook } from "@/components/dienst/Strook";
 import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
@@ -120,37 +121,14 @@ export interface Pijler {
 }
 
 export function Pijlers({ items }: { items: Pijler[] }) {
-  // Drie kolommen met een haarlijn erboven, zonder kaarten en iconen.
-  return (
-    <div className="grid grid-cols-1 gap-x-10 md:grid-cols-3">
-      {items.map((p) => (
-        <article key={p.title} className="border-t border-border py-7 md:py-8">
-          <h3 className="text-xl font-semibold leading-snug tracking-tight text-foreground md:text-2xl">{p.title}</h3>
-          {p.subtitle && (
-            <p className="mt-1 text-sm font-semibold" style={{ color: GROEN }}>
-              {p.subtitle}
-            </p>
-          )}
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">{p.description}</p>
-        </article>
-      ))}
-    </div>
-  );
+  // Zelfde strook als de kerncijfers op de analysepagina.
+  return <Strook items={items.map((p) => ({ titel: p.title, sub: p.subtitle, tekst: p.description }))} />;
 }
 
 // ── Stappen ──────────────────────────────────────────────────────
 
 export function Stappen({ items }: { items: { title: string; description: string }[] }) {
-  return (
-    <ol className="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:grid-cols-4">
-      {items.map((s) => (
-        <li key={s.title} className="border-t border-border py-7">
-          <h3 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">{s.title}</h3>
-          <p className="mt-2 text-base leading-relaxed text-muted-foreground">{s.description}</p>
-        </li>
-      ))}
-    </ol>
-  );
+  return <Strook items={items.map((s) => ({ titel: s.title, tekst: s.description }))} />;
 }
 
 // ── Inbegrepen / uitbreidingen ───────────────────────────────────

@@ -6,7 +6,6 @@ import SEOHead from "@/components/SEOHead";
 import KostenCalculator from "@/components/KostenCalculator";
 import {
   DienstHero,
-  GROEN,
   INKT_65,
   Pakketten,
   Pijlers,
@@ -16,6 +15,7 @@ import {
 } from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 import FAQSection from "@/components/FAQSection";
+import { Strook } from "@/components/dienst/Strook";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { BeeldSectie, BlokTekst } from "@/components/dienst/BeeldBlok";
 
@@ -170,21 +170,7 @@ const WatKostEenWebsite = () => {
             titel="Kosten waar je op moet letten"
             intro="Los van de bouwkosten zijn er een paar vaste uitgaven die bij elk bureau spelen. Wij zetten ze gewoon op tafel."
           />
-          <dl className="grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
-            {verborgenKosten.map((k) => (
-              <div key={k.kosten}>
-                <div className="h-full border-t border-border py-7">
-                  <dt className="text-lg font-semibold tracking-tight sw-ink">{k.kosten}</dt>
-                  <dd className="mt-2 text-[0.9375rem] font-semibold" style={{ color: GROEN }}>
-                    {k.prijs}
-                  </dd>
-                  <dd className="mt-3 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
-                    {k.toelichting}
-                  </dd>
-                </div>
-              </div>
-            ))}
-          </dl>
+          <Strook items={verborgenKosten.map((k) => ({ titel: k.kosten, sub: k.prijs, tekst: k.toelichting }))} />
         </Sectie>
 
         <Sectie>

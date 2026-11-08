@@ -18,6 +18,7 @@ import { LokaleSecties, TodoBlok } from "@/components/LokaleSecties";
 import { getWerkgebiedLokaal } from "@/data/werkgebiedLokaal";
 import LandingHero from "@/components/LandingHero";
 import { BlokVinkjes, TekstBlok } from "@/components/dienst/BeeldBlok";
+import { Strook } from "@/components/dienst/Strook";
 
 // Deze vier eerst, aangevuld tot zes met de nieuwste cases. Voor West-Friese
 // plaatsen eerst de klanten uit de regio zelf.
@@ -262,17 +263,17 @@ const WerkgebiedDetail = () => {
         </section>
 
         {!eigenOpbouw && (
-          <TekstBlok kop={`Binnen ${LEVERTIJD.standaard} live in vier heldere stappen`}>
-            <p>Van eerste gesprek tot live website in 4 stappen</p>
-            <ol className="!mt-8 border-t border-border">
-              {processSteps.map((step) => (
-                <li key={step.number} className="border-b border-border py-6">
-                  <h3 className="text-xl font-semibold leading-snug text-foreground md:text-2xl">{step.title}</h3>
-                  <p className="mt-2 text-base font-normal leading-relaxed text-muted-foreground">{step.description}</p>
-                </li>
-              ))}
-            </ol>
-          </TekstBlok>
+          <section className="bg-background py-16 md:py-24">
+            <div className="container mx-auto px-4 sm:px-6">
+              <div className="mb-10 max-w-4xl md:mb-14">
+                <h2 className="sectie-kop">Binnen {LEVERTIJD.standaard} live in vier heldere stappen</h2>
+                <p className="mt-5 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">
+                  Van eerste gesprek tot live website in 4 stappen
+                </p>
+              </div>
+              <Strook items={processSteps.map((step) => ({ titel: step.title, tekst: step.description }))} />
+            </div>
+          </section>
         )}
 
         {lokaal && (
