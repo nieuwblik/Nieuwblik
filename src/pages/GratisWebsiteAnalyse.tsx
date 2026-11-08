@@ -352,7 +352,7 @@ const GratisWebsiteAnalyse = () => {
           </picture>
           <div ref={vlakRef} className="golf-hero__vlak" />
 
-          <div className="golf-hero__inhoud container mx-auto grid flex-1 grid-cols-1 items-center gap-6 px-4 pb-28 pt-[calc(var(--header-height)_+_2rem)] sm:px-6 md:pb-28 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
+          <div className="golf-hero__inhoud container mx-auto grid flex-1 grid-cols-1 items-center gap-10 px-4 pb-28 pt-[calc(var(--header-height)_+_2rem)] sm:px-6 md:pb-28 lg:pb-32 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:gap-16 lg:pt-[calc(var(--header-height)_+_2rem)]">
             <div>
               <div className="relative z-[3] mb-8 hidden md:block">
                 <Breadcrumb items={[{ label: "Gratis website-analyse", path: "/gratis-website-analyse" }]} />
@@ -366,7 +366,7 @@ const GratisWebsiteAnalyse = () => {
                 </span>
               </h1>
               <p
-                className="sw-lead relative z-[3] mt-4 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
+                className="sw-lead relative z-[3] mt-5 max-w-[34rem] text-base leading-relaxed md:mt-5 md:text-lg"
                 style={{ color: "hsl(var(--sw-ink) / 0.7)", "--sw-delay": "0.1s" } as CSSProperties}
               >
                 Binnen 1 werkdag krijg je per mail een PDF met wat er beter kan aan je vindbaarheid, mobiele weergave,
@@ -376,7 +376,7 @@ const GratisWebsiteAnalyse = () => {
                 href={REVIEWS.profielUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="sw-cta group relative z-[3] mt-4 flex w-fit items-center gap-2.5 md:mt-6"
+                className="sw-cta group relative z-[3] mt-5 flex w-fit items-center gap-2.5 md:mt-6"
                 style={{ "--sw-delay": "0.55s" } as CSSProperties}
               >
                 <GoogleG className="h-[18px] w-[18px] shrink-0" />
@@ -402,10 +402,10 @@ const GratisWebsiteAnalyse = () => {
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="sw-cta relative z-[3] space-y-3 rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
+              className="sw-cta relative z-[3] space-y-4 rounded-2xl border bg-white p-6 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
               style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
             >
-              <h2 className="text-xl font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
+              <h2 className="text-lg font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
               <Veld id="website" label="Je website" fout={fouten.website}>
                 <Input
                   id="website"
@@ -491,8 +491,7 @@ const GratisWebsiteAnalyse = () => {
               <AnimatedButton
                 type="submit"
                 disabled={bezig}
-                size="lg"
-                className="h-12 w-full whitespace-nowrap px-4 max-sm:text-base"
+                className="h-11 w-full whitespace-nowrap px-4 md:h-12 md:text-lg"
               >
                 {bezig ? "Versturen..." : "Ontvang mijn gratis analyse"}
               </AnimatedButton>
