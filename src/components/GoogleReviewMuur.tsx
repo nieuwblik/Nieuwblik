@@ -1,11 +1,10 @@
 import { Star } from "lucide-react";
 
-import { useDarkNavSection } from "@/components/TabNav";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
 import { googleReviews, type GoogleReview } from "@/data/googleReviews";
 
-const RAND = "hsl(var(--sw-rule) / 0.08)";
+const RAND = "hsl(var(--sw-rule) / 0.1)";
 
 /** De G van Google in de vier merkkleuren. */
 export const GoogleG = ({ className }: { className?: string }) => (
@@ -27,7 +26,7 @@ const Sterren = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
 
 const ReviewKaart = ({ review }: { review: GoogleReview }) => (
   <li
-    className="rounded-2xl border bg-white p-5 shadow-[0_10px_30px_-22px_rgba(0,0,0,0.25)]"
+    className="sw-paper rounded-2xl border p-5"
     style={{ borderColor: RAND }}
   >
     <div className="flex items-center justify-between">
@@ -81,51 +80,33 @@ const KOLOMMEN = [
 
 /**
  * Vijftien letterlijke Google-reviews in kolommen die rustig voorbijschuiven,
- * met de score ernaast, op de donkergroene band van de homepage en precies één
+ * met de score ernaast, op een witte band tussen de lichte secties en precies één
  * scherm hoog. De muur loopt tot de randen van de sectie, zodat de kaarten er als
  * het ware doorheen schuiven.
  */
-const GoogleReviewMuur = () => {
-  // Donkere band: de vaste header keert om zolang hij eronder staat.
-  const donkereBand = useDarkNavSection<HTMLElement>();
-
-  return (
-    <section
-      ref={donkereBand}
-      className="relative h-[100svh] min-h-[640px] overflow-hidden"
-      style={{ background: "hsl(160 84% 12%)" }}
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, hsl(160 84% 60%) 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-[120px]"
-        style={{ background: "radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)" }}
-      />
-
+const GoogleReviewMuur = () => (
+    <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-white">
       <div className="container relative z-10 mx-auto flex h-full flex-col gap-8 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
         <div className="shrink-0 pt-[calc(var(--header-height)_+_1.5rem)] lg:pt-0">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
+          <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
             Wat onze klanten zeggen
           </h2>
           <div className="mt-5 flex items-center gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white">
+            <span className="sw-paper flex h-11 w-11 shrink-0 items-center justify-center rounded-full border" style={{ borderColor: RAND }}>
               <GoogleG className="h-6 w-6" />
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-white">{REVIEWS.scoreLabel}</span>
+                <span className="text-lg font-bold sw-ink">{REVIEWS.scoreLabel}</span>
                 <Sterren className="h-4 w-4" />
               </div>
-              <p className="text-sm text-white/70">Op basis van {REVIEWS.aantalLabel}reviews</p>
+              <p className="text-sm" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+                Op basis van {REVIEWS.aantalLabel}reviews
+              </p>
             </div>
           </div>
           <div className="mt-6">
-            <AnimatedButton href={REVIEWS.profielUrl} variant="outlineWhite">
+            <AnimatedButton href={REVIEWS.profielUrl} variant="outline">
               Bekijk op Google
             </AnimatedButton>
           </div>
@@ -142,7 +123,6 @@ const GoogleReviewMuur = () => {
         </div>
       </div>
     </section>
-  );
-};
+);
 
 export default GoogleReviewMuur;
