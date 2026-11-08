@@ -104,6 +104,18 @@ export const BlokTekst = ({ children }: { children: ReactNode }) => (
   </div>
 );
 
+/** Punten als regels met haarlijnen ertussen: een kopje en een zin. */
+export const BlokLijst = ({ items }: { items: { h3: string; text: ReactNode }[] }) => (
+  <ul className="mt-8 border-t border-border">
+    {items.map((item) => (
+      <li key={item.h3} className="border-b border-border py-6 md:py-7">
+        <h3 className="text-xl font-semibold leading-snug text-foreground md:text-2xl">{item.h3}</h3>
+        <p className="mt-2 max-w-[62ch] text-base font-normal leading-relaxed text-muted-foreground">{item.text}</p>
+      </li>
+    ))}
+  </ul>
+);
+
 export const BlokVinkjes = ({ items }: { items: ReactNode[] }) => (
   <ul className="mt-8 space-y-3.5">
     {items.map((item, i) => (

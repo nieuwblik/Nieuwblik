@@ -1,12 +1,13 @@
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
-import { MapPin, Search, TrendingUp, Star, CheckCircle2, Gauge } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import SeoPortfolio from "@/components/SeoPortfolio";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
+import LandingHero from "@/components/LandingHero";
+import { BeeldBlok, BlokKop, BlokLijst, BlokTekst, TekstBlok, fotoVoor } from "@/components/dienst/BeeldBlok";
 
 export type SeoStadData = {
   slug: string;
@@ -59,63 +60,72 @@ const SeoStad = ({ data }: { data: SeoStadData }) => {
   };
 
   const blokken = [
-    { icon: <Search className="w-5 h-5" />, title: "Zoekwoorden uit " + data.stad, text: `We zoeken uit waar klanten in ${data.stad} echt op zoeken. Geen aannames, alleen data.` },
-    { icon: <MapPin className="w-5 h-5" />, title: "Google Bedrijfsprofiel", text: "Juiste categorieën, foto's en vaste posts, zodat je opvalt in de kaart met drie bedrijven." },
-    { icon: <Star className="w-5 h-5" />, title: "Meer 5 sterren reviews", text: `Een simpel plan om structureel reviews te krijgen van klanten uit ${data.stad} en omgeving.` },
-    { icon: <TrendingUp className="w-5 h-5" />, title: "Lokale content", text: "Pagina's per dienst en per plaats die je klant echt helpen, en die Google begrijpt." },
-    { icon: <Gauge className="w-5 h-5" />, title: "Snelle, schone techniek", text: "Laadsnelheid, mobiel en gestructureerde data. De basis waarop alles rust." },
-    { icon: <CheckCircle2 className="w-5 h-5" />, title: "Maandelijks inzicht", text: "Een helder overzicht van posities, bezoekers en aanvragen. Je ziet wat het oplevert." },
+    { h3: "Zoekwoorden uit " + data.stad, text: `We zoeken uit waar klanten in ${data.stad} echt op zoeken. Geen aannames, alleen data.` },
+    { h3: "Google Bedrijfsprofiel", text: "Juiste categorieën, foto's en vaste posts, zodat je opvalt in de kaart met drie bedrijven." },
+    { h3: "Meer 5 sterren reviews", text: `Een simpel plan om structureel reviews te krijgen van klanten uit ${data.stad} en omgeving.` },
+    { h3: "Lokale content", text: "Pagina's per dienst en per plaats die je klant echt helpen, en die Google begrijpt." },
+    { h3: "Snelle, schone techniek", text: "Laadsnelheid, mobiel en gestructureerde data. De basis waarop alles rust." },
+    { h3: "Maandelijks inzicht", text: "Een helder overzicht van posities, bezoekers en aanvragen. Je ziet wat het oplevert." },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead title={data.title} description={data.description} keywords={data.keywords} canonicalUrl={url} structuredData={graphJsonLd} includeLocalBusinessSchema={true} />
       <main>
-        <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">{data.h1}</h1>
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">{data.intro}</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <AnimatedButton to="/gratis-website-analyse" size="lg">Gratis SEO-scan aanvragen</AnimatedButton>
-              <AnimatedButton to="/contact" size="lg" variant="outline">Direct contact</AnimatedButton>
-            </div>
-          </div>
-        </section>
+        <LandingHero
+          h1={data.h1}
+          subtitle={data.intro}
+          knoppen={
+            <>
+              <AnimatedButton to="/gratis-website-analyse" className="h-12 w-full sm:w-auto">
+                Gratis SEO-scan aanvragen
+              </AnimatedButton>
+              <AnimatedButton to="/contact" variant="outline" className="h-12 w-full sm:w-auto">
+                Direct contact
+              </AnimatedButton>
+            </>
+          }
+        />
 
-        <section className="py-16 md:py-24 bg-secondary">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-foreground">{data.waaromH2}</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-4 max-w-3xl mx-auto text-center">{data.waaromTekst}</p>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-center">{data.voorbeelden}</p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blokken.map((item) => (
-                <div key={item.title} className="bg-background rounded-2xl p-6 border border-border">
-                  <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-4 text-accent">{item.icon}</div>
-                  <h3 className="font-bold text-lg mb-2 text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {(() => {
+          const foto = fotoVoor(0, data.slug);
+          const inhoud = (
+            <>
+              <BlokKop>{data.waaromH2}</BlokKop>
+              <BlokTekst>
+                <p>{data.waaromTekst}</p>
+                <p>{data.voorbeelden}</p>
+              </BlokTekst>
+              <BlokLijst items={blokken} />
+            </>
+          );
+          return foto ? (
+            <BeeldBlok foto={foto.foto} alt={foto.alt} links>
+              {inhoud}
+            </BeeldBlok>
+          ) : (
+            <section className="bg-background py-20 md:py-28">
+              <div className="container mx-auto max-w-4xl px-4 sm:px-6">{inhoud}</div>
+            </section>
+          );
+        })()}
 
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">Wat kost SEO in {data.stad}?</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Een eenmalige lokale SEO-aanpak voor je site en Google Bedrijfsprofiel start vanaf <strong className="text-foreground">750 euro</strong>. Wil je blijven groeien, dan werken we met maandpakketten vanaf <strong className="text-foreground">350 euro per maand</strong>. Vaste prijs vooraf, geen verborgen kosten en maandelijks opzegbaar.
-            </p>
+        <TekstBlok kop={`Wat kost SEO in ${data.stad}?`}>
+          <p>
+            Een eenmalige lokale SEO-aanpak voor je site en Google Bedrijfsprofiel start vanaf <strong className="font-semibold text-foreground">750 euro</strong>. Wil je blijven groeien, dan werken we met maandpakketten vanaf <strong className="font-semibold text-foreground">350 euro per maand</strong>. Vaste prijs vooraf, geen verborgen kosten en maandelijks opzegbaar.
+          </p>
+          <div className="pt-3">
             <AnimatedButton to="/contact" size="lg">Vraag een offerte op maat</AnimatedButton>
           </div>
-        </section>
+        </TekstBlok>
 
         <SeoPortfolio stad={data.stad} />
 
         <LandingFaq h2={`Veelgestelde vragen over SEO in ${data.stad}`} items={data.faq} />
 
 
-        <section className="py-12 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+        <section className="bg-background py-16 md:py-20">
+          <div className="container mx-auto max-w-3xl px-4 sm:px-6">
             <p className="text-muted-foreground leading-relaxed">
               Nog geen goede website? Bekijk{" "}
               <Link to={data.stadspagina.to} className="text-accent hover:underline font-semibold">{data.stadspagina.label}</Link>

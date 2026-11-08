@@ -1,4 +1,4 @@
-import { BeeldBlok, BlokKop, BlokTekst, fotoVoor } from "@/components/dienst/BeeldBlok";
+import { BeeldBlok, BlokKop, BlokLijst, BlokTekst, fotoVoor } from "@/components/dienst/BeeldBlok";
 
 interface BenefitItem {
   h3: string;
@@ -35,14 +35,7 @@ const BenefitList = ({ h2, intro, items, children, beeld = 0, links = true }: Be
           <p>{intro}</p>
         </BlokTekst>
       )}
-      <ul className="mt-8 border-t border-border">
-        {items.map((item) => (
-          <li key={item.h3} className="border-b border-border py-6 md:py-7">
-            <h3 className="text-xl font-semibold leading-snug text-foreground md:text-2xl">{item.h3}</h3>
-            <p className="mt-2 max-w-[62ch] leading-relaxed text-muted-foreground">{item.text}</p>
-          </li>
-        ))}
-      </ul>
+      <BlokLijst items={items} />
       {children}
     </>
   );

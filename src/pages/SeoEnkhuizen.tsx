@@ -1,12 +1,15 @@
 import SeoPortfolio from "@/components/SeoPortfolio";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
-import { MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
+import LandingHero from "@/components/LandingHero";
+import { BeeldBlok, BlokKop, BlokLijst, BlokTekst, TekstBlok, kiesFoto } from "@/components/dienst/BeeldBlok";
+
+const waaromFoto = kiesFoto("vv-madjoe");
 
 const url = `${SITE_URL}/seo-enkhuizen`;
 
@@ -91,104 +94,81 @@ const SeoEnkhuizen = () => {
       />
 
       <main>
-        {/* Hero */}
-        <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              SEO Enkhuizen door een lokale specialist
-            </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-              Nieuwblik is jouw lokale SEO partner in Enkhuizen. Wij zorgen dat klanten uit Enkhuizen, Bovenkarspel en de rest van West-Friesland jouw bedrijf vinden via Google, in plaats van de concurrent een straat verderop.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <AnimatedButton to="/contact" size="lg">
+        <LandingHero
+          h1="SEO Enkhuizen door een lokale specialist"
+          subtitle="Nieuwblik is jouw lokale SEO partner in Enkhuizen. Wij zorgen dat klanten uit Enkhuizen, Bovenkarspel en de rest van West-Friesland jouw bedrijf vinden via Google, in plaats van de concurrent een straat verderop."
+          knoppen={
+            <>
+              <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
                 Gratis SEO scan aanvragen
               </AnimatedButton>
-              <AnimatedButton to="/werkgebied/west-friesland" size="lg" variant="outline">
+              <AnimatedButton to="/werkgebied/west-friesland" variant="outline" className="h-12 w-full sm:w-auto">
                 Werkgebied West-Friesland
               </AnimatedButton>
-            </div>
-          </div>
-        </section>
+            </>
+          }
+        />
 
         {/* Probleem / oplossing */}
-        <section className="py-16 md:py-24 bg-secondary">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-foreground">
-              Waarom lokale SEO in Enkhuizen het verschil maakt
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-center">
-              Zoekt iemand in Enkhuizen naar "kapper", "restaurant" of "loodgieter", dan toont Google een lokale kaart met drie bedrijven. Sta jij daar niet bij, dan ben je bijna onzichtbaar. Met onze lokale SEO aanpak zorgen we dat jouw bedrijf bovenaan staat voor de zoektermen die jouw klanten echt gebruiken.
-            </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
+        {waaromFoto && (
+          <BeeldBlok foto={waaromFoto.foto} alt={waaromFoto.alt} links>
+            <BlokKop>Waarom lokale SEO in Enkhuizen het verschil maakt</BlokKop>
+            <BlokTekst>
+              <p>
+                Zoekt iemand in Enkhuizen naar "kapper", "restaurant" of "loodgieter", dan toont Google een lokale kaart met drie bedrijven. Sta jij daar niet bij, dan ben je bijna onzichtbaar. Met onze lokale SEO aanpak zorgen we dat jouw bedrijf bovenaan staat voor de zoektermen die jouw klanten echt gebruiken.
+              </p>
+            </BlokTekst>
+            <BlokLijst
+              items={[
                 {
-                  icon: <Search className="w-5 h-5" />,
-                  title: "Lokaal zoekwoordenonderzoek",
+                  h3: "Lokaal zoekwoordenonderzoek",
                   text: "We zoeken precies uit waar jouw doelgroep in Enkhuizen op Google. Geen aannames, alleen data.",
                 },
                 {
-                  icon: <MapPin className="w-5 h-5" />,
-                  title: "Google Business optimalisatie",
+                  h3: "Google Business optimalisatie",
                   text: "Compleet profiel, juiste categorieën, foto's en wekelijkse posts zodat je opvalt in de lokale kaart.",
                 },
                 {
-                  icon: <Star className="w-5 h-5" />,
-                  title: "Recensie strategie",
+                  h3: "Recensie strategie",
                   text: "Een plan om structureel meer 5 sterren reviews te krijgen van klanten uit Enkhuizen en omgeving.",
                 },
                 {
-                  icon: <TrendingUp className="w-5 h-5" />,
-                  title: "Sterke lokale content",
+                  h3: "Sterke lokale content",
                   text: "Pagina's per dienst en per kern in West-Friesland die echt iets vertellen, voor Google én voor je klant.",
                 },
                 {
-                  icon: <CheckCircle2 className="w-5 h-5" />,
-                  title: "Technische SEO",
+                  h3: "Technische SEO",
                   text: "Snelheid, mobiel, structured data en schone code. De basis waarop alle andere SEO inspanningen rusten.",
                 },
                 {
-                  icon: <CheckCircle2 className="w-5 h-5" />,
-                  title: "Lokale backlinks",
+                  h3: "Lokale backlinks",
                   text: "We bouwen samenwerkingen met WEEFF, lokale media en West-Friese ondernemersnetwerken om jouw autoriteit te vergroten.",
                 },
-              ].map((item) => (
-                <div key={item.title} className="bg-background rounded-2xl p-6 border border-border">
-                  <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-4 text-accent">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-bold text-lg mb-2 text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              ]}
+            />
+          </BeeldBlok>
+        )}
 
         {/* Prijzen */}
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-              SEO Enkhuizen prijzen
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Onze lokale SEO aanpak begint bij <strong className="text-foreground">750 euro</strong> voor een eenmalige optimalisatie van je site en Google Business profiel. Voor doorlopende groei werken we met maandpakketten vanaf <strong className="text-foreground">350 euro per maand</strong>. Altijd transparant, geen verborgen kosten en opzegbaar per maand.
-            </p>
+        <TekstBlok kop="SEO Enkhuizen prijzen">
+          <p>
+            Onze lokale SEO aanpak begint bij <strong className="font-semibold text-foreground">750 euro</strong> voor een eenmalige optimalisatie van je site en Google Business profiel. Voor doorlopende groei werken we met maandpakketten vanaf <strong className="font-semibold text-foreground">350 euro per maand</strong>. Altijd transparant, geen verborgen kosten en opzegbaar per maand.
+          </p>
+          <div className="pt-3">
             <AnimatedButton to="/contact" size="lg">
               Vraag een offerte op maat
             </AnimatedButton>
           </div>
-        </section>
+        </TekstBlok>
 
         {/* FAQ */}
         <LandingFaq h2="Veelgestelde vragen over SEO in Enkhuizen" items={faqItems} />
 
-        {/* Contact */}
         <SeoPortfolio stad="Enkhuizen" />
 
         {/* Interne links */}
-        <section className="py-12 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+        <section className="bg-background py-16 md:py-20">
+          <div className="container mx-auto max-w-3xl px-4 sm:px-6">
             <p className="text-muted-foreground leading-relaxed">
               Lees meer over ons{" "}
               <Link to="/website-laten-maken-enkhuizen" className="text-accent hover:underline font-semibold">website laten maken in Enkhuizen</Link>
