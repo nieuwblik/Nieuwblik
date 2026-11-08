@@ -223,7 +223,7 @@ export function FeitKaarten() {
         <li
           key={f.icoon}
           data-feit={i}
-          className={`flex flex-col rounded-2xl border p-3 shadow-[0_24px_50px_-26px_rgba(0,0,0,0.5)] sm:p-4 lg:absolute lg:z-30 lg:w-[232px] lg:rounded-[22px] lg:p-5 ${PLEK[i]} ${STIJL[i]}`}
+          className={`flex flex-col rounded-2xl border p-3 sm:p-4 lg:absolute lg:z-30 lg:w-[232px] lg:rounded-[22px] lg:p-5 ${PLEK[i]} ${STIJL[i]}`}
           style={THEMA[i]}
         >
           {/* Getal groot, het icoon als infographic in een eigen rondje. */}

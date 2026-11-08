@@ -13,10 +13,9 @@ import justinImage from "@/assets/justin-slok.webp";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { easings } from "@/lib/motion";
 import { companyInfo } from "@/config/company";
-import { useDarkNavSection } from "@/components/TabNav";
 import { cn } from "@/lib/utils";
 
-const TestimonialsCarousel = lazy(() => import("@/components/TestimonialsCarousel"));
+const GoogleReviewMuur = lazy(() => import("@/components/GoogleReviewMuur"));
 
 const AnimatedSection = ({
   children,
@@ -131,7 +130,6 @@ const structuredData = {
 
 const About = () => {
   // Two dark bands (testimonials + CTA) — each needs its own ref.
-  const darkTestimonialsRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -347,28 +345,12 @@ const About = () => {
       </section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────────────────── */}
-      <section ref={darkTestimonialsRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: "hsl(160 84% 12%)" }}>
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
-          style={{ background: "radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)" }} />
-
-        <div className="container relative z-10 mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 md:mb-16">
-            <AnimatedText as="h2" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white" delay={0.1}>
-              Wat klanten zeggen
-            </AnimatedText>
-            <AnimatedText as="p" className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed" delay={0.2}>
-              Niet wij, maar onze klanten vertellen het beste wie we zijn.
-            </AnimatedText>
-          </div>
-
-          <AnimatedSection delay={0.2}>
-            <Suspense fallback={null}>
-              <TestimonialsCarousel />
-            </Suspense>
-          </AnimatedSection>
-        </div>
-      </section>
+      <Suspense fallback={<div className="min-h-[100svh]" />}>
+        <GoogleReviewMuur
+          kop="Wat klanten zeggen"
+          intro="Niet wij, maar onze klanten vertellen het beste wie we zijn."
+        />
+      </Suspense>
 
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
       <FAQSection />

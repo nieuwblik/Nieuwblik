@@ -6,78 +6,12 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { Phone, MessageCircle } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { companyInfo } from "@/config/company";
-import { useRef } from "react";
 import ContactForm from "@/components/ContactForm";
-import { motion, useReducedMotion, useInView } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer, slideInRight, easings } from "@/lib/motion";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import { useDarkNavSection } from "@/components/TabNav";
-
-// Animation component for scroll-triggered reveals
-const AnimatedSection = ({
-  children,
-  className = "",
-  delay = 0
-}: { children: React.ReactNode; className?: string; delay?: number; }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    margin: "-50px"
-  });
-  const shouldReduceMotion = useReducedMotion();
-  return <motion.div ref={ref} className={className} initial={{
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 80
-  }} animate={isInView ? {
-    opacity: 1,
-    y: 0
-  } : {
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 80
-  }} transition={{
-    duration: shouldReduceMotion ? 0.2 : 0.8,
-    delay: shouldReduceMotion ? 0 : delay,
-    ease: easings.easeOutExpo
-  }}>
-    {children}
-  </motion.div>;
-};
-
-// Animated text component
-const AnimatedText = ({
-  children,
-  className = "",
-  delay = 0,
-  as: Component = "div"
-}: { children: React.ReactNode; className?: string; delay?: number; as?: any; }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    margin: "-30px"
-  });
-  const shouldReduceMotion = useReducedMotion();
-  const MotionComponent = (motion as any)[Component];
-  return <MotionComponent ref={ref} className={className} initial={{
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 50
-  }} animate={isInView ? {
-    opacity: 1,
-    y: 0
-  } : {
-    opacity: 0,
-    y: shouldReduceMotion ? 0 : 50
-  }} transition={{
-    duration: shouldReduceMotion ? 0.2 : 0.8,
-    delay: shouldReduceMotion ? 0 : delay,
-    ease: easings.easeOutExpo
-  }}>
-    {children}
-  </MotionComponent>;
-};
+import GoogleReviewMuur from "@/components/GoogleReviewMuur";
 
 const Contact = () => {
-  // Dark CTA band: invert the fixed header while it's under it.
-  const darkNavRef = useDarkNavSection<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
   const structuredData = {
@@ -229,30 +163,10 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Testimonials Section - Brand Green Aesthetic */}
-      <section ref={darkNavRef} className="relative py-16 md:py-24 overflow-hidden" style={{ background: 'hsl(160 84% 12%)' }}>
-        {/* Subtle Texture Overlay */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
-
-        {/* Subtle Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-30 blur-[120px] rounded-full"
-          style={{ background: 'radial-gradient(circle, hsl(160 84% 45%) 0%, transparent 70%)' }} />
-
-        <div className="container relative z-10 mx-auto px-6">
-          <div className="text-center mb-12 md:mb-16">
-            <AnimatedText as="h2" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white" delay={0.1}>
-              Wat mensen zeggen
-            </AnimatedText>
-            <AnimatedText as="p" className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed" delay={0.2}>
-              Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik.
-            </AnimatedText>
-          </div>
-
-          <AnimatedSection delay={0.2}>
-            <TestimonialsCarousel />
-          </AnimatedSection>
-        </div>
-      </section>
+      <GoogleReviewMuur
+        kop="Wat mensen zeggen"
+        intro="Ontdek wat onze tevreden klanten te vertellen hebben over hun ervaring met Nieuwblik."
+      />
 
       <section className="py-10"><div className="container mx-auto px-6 max-w-3xl text-center"><p className="text-lg text-muted-foreground">Weet je nog niet precies wat je nodig hebt? <a href="/projectbriefing" className="text-accent underline underline-offset-2">Maak gratis je projectbriefing</a> en zie direct welke diensten en prijzen bij jou passen.</p></div></section>
       <Footer />

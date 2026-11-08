@@ -151,7 +151,7 @@ const GolfHero = () => {
             >
               {REVIEWS.scoreLabel} op Google,{" "}
               <span style={{ color: "hsl(var(--sw-ink) / 0.62)" }}>
-                op basis van {REVIEWS.aantalLabel} reviews
+                op basis van {REVIEWS.aantalLabel}reviews
               </span>
             </span>
           </Link>

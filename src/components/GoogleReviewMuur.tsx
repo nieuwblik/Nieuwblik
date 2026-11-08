@@ -84,13 +84,25 @@ const KOLOMMEN = [
  * scherm hoog. De muur loopt tot de randen van de sectie, zodat de kaarten er als
  * het ware doorheen schuiven.
  */
-const GoogleReviewMuur = () => (
+const GoogleReviewMuur = ({
+  kop = "Wat onze klanten zeggen",
+  intro,
+}: {
+  /** De kop van de sectie; stads- en branchepagina's hebben hun eigen kop. */
+  kop?: string;
+  intro?: string;
+}) => (
     <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-white">
       <div className="container relative z-10 mx-auto flex h-full flex-col gap-8 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
         <div className="shrink-0 pt-[calc(var(--header-height)_+_1.5rem)] lg:pt-0">
           <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
-            Wat onze klanten zeggen
+            {kop}
           </h2>
+          {intro && (
+            <p className="mt-4 max-w-sm text-base leading-relaxed md:text-lg" style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
+              {intro}
+            </p>
+          )}
           <div className="mt-5 flex items-center gap-3">
             <span className="sw-paper flex h-11 w-11 shrink-0 items-center justify-center rounded-full border" style={{ borderColor: RAND }}>
               <GoogleG className="h-6 w-6" />
