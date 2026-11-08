@@ -100,7 +100,7 @@ const SeoStad = ({ data }: { data: SeoStadData }) => {
             </>
           );
           return foto ? (
-            <BeeldBlok foto={foto.foto} alt={foto.alt} links>
+            <BeeldBlok foto={foto.foto} alt={foto.alt} slug={foto.slug} naam={foto.naam} links>
               {inhoud}
             </BeeldBlok>
           ) : (

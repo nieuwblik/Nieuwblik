@@ -29,7 +29,7 @@ export function LokaleSecties({
           );
         }
         return (
-          <BeeldBlok key={sectie.h2} foto={foto.foto} alt={foto.alt} links={(i / 2) % 2 === 1}>
+          <BeeldBlok key={sectie.h2} foto={foto.foto} alt={foto.alt} slug={foto.slug} naam={foto.naam} links={(i / 2) % 2 === 1}>
             <BlokKop>{sectie.h2}</BlokKop>
             <BlokTekst>{alineas}</BlokTekst>
           </BeeldBlok>

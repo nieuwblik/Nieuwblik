@@ -88,7 +88,7 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
           const beeld = kiesFoto(keuzes[i % keuzes.length]!);
           if (!beeld) return null;
           return (
-            <BeeldBlok key={s.titel} foto={beeld.foto} alt={beeld.alt} links={i % 2 === 0}>
+            <BeeldBlok key={s.titel} foto={beeld.foto} alt={beeld.alt} slug={beeld.slug} naam={beeld.naam} links={i % 2 === 0}>
               <BlokKop>{s.titel}</BlokKop>
               {s.intro && (
                 <BlokTekst>

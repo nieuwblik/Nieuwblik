@@ -47,7 +47,7 @@ const BenefitList = ({ h2, intro, items, children, beeld = 0, links = true }: Be
     );
   }
   return (
-    <BeeldBlok foto={foto.foto} alt={foto.alt} links={links}>
+    <BeeldBlok foto={foto.foto} alt={foto.alt} slug={foto.slug} naam={foto.naam} links={links}>
       {inhoud}
     </BeeldBlok>
   );

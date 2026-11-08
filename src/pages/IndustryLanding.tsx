@@ -113,7 +113,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
         const foto = fotoVoor(1, industry.section1.h2);
         if (!foto) return null;
         return (
-          <BeeldBlok foto={foto.foto} alt={foto.alt} links={false}>
+          <BeeldBlok foto={foto.foto} alt={foto.alt} slug={foto.slug} naam={foto.naam} links={false}>
             <BlokKop>Uitdagingen voor een {industry.name.toLowerCase()} online</BlokKop>
             <ul className="mt-8 border-t border-border">
               {extra.painpoints.map((punt, idx) => (

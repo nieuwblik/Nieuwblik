@@ -111,7 +111,7 @@ const SeoEnkhuizen = () => {
 
         {/* Probleem / oplossing */}
         {waaromFoto && (
-          <BeeldBlok foto={waaromFoto.foto} alt={waaromFoto.alt} links>
+          <BeeldBlok foto={waaromFoto.foto} alt={waaromFoto.alt} slug={waaromFoto.slug} naam={waaromFoto.naam} links>
             <BlokKop>Waarom lokale SEO in Enkhuizen het verschil maakt</BlokKop>
             <BlokTekst>
               <p>

@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useRef, type PointerEvent, type ReactNode } from "react";
+import { Link } from "@/lib/router-compat";
 import { Check } from "lucide-react";
 import { caseLaptops, caseTelefoons, type TelefoonFoto } from "@/data/caseMockups";
 import { projects } from "@/data/projects";
@@ -9,13 +10,13 @@ const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
 const STANDAARD = ["laptop:esveld-installatie", "feigro-dakwerken", "taxi-drechterland", "vv-madjoe", "een-bundel-geluk", "esveld-installatie"];
 
 /** Een casefoto: een slug voor de telefoonmockup of "laptop:<slug>" voor de laptopfoto. */
-export function kiesFoto(keuze: string): { foto: TelefoonFoto; alt: string } | null {
+export function kiesFoto(keuze: string): { foto: TelefoonFoto; alt: string; slug: string; naam: string } | null {
   const laptop = keuze.startsWith("laptop:");
   const slug = laptop ? keuze.slice("laptop:".length) : keuze;
   const foto = laptop ? caseLaptops[slug] : caseTelefoons[slug];
   if (!foto) return null;
   const naam = projects.find((p) => p.slug === slug)?.title ?? "een klant";
-  return { foto, alt: laptop ? `Website van ${naam} op een laptop` : `Mobiele website van ${naam} op een iPhone` };
+  return { foto, slug, naam, alt: laptop ? `Website van ${naam} op een laptop` : `Mobiele website van ${naam} op een iPhone` };
 }
 
 /**
@@ -41,32 +42,79 @@ export function BeeldBlok({
   foto,
   alt,
   links,
+  slug,
+  naam,
   children,
 }: {
   foto: TelefoonFoto;
   alt: string;
   links: boolean;
+  /** Case waar de foto naartoe linkt (/portfolio/<slug>). */
+  slug?: string | undefined;
+  naam?: string | undefined;
   children: ReactNode;
 }) {
+  const plekRef = useRef<HTMLSpanElement>(null);
+  const bolRef = useRef<HTMLSpanElement>(null);
+
+  // De "Bekijk"-bol loopt met de muis mee. Alleen met een muis: op een touchscherm
+  // is de foto gewoon een link.
+  const beweeg = (e: PointerEvent<HTMLElement>) => {
+    if (e.pointerType !== "mouse" || !plekRef.current || !bolRef.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    plekRef.current.style.transform = `translate3d(${e.clientX - r.left}px, ${e.clientY - r.top}px, 0)`;
+    bolRef.current.style.opacity = "1";
+    bolRef.current.style.transform = "translate(-50%, -50%) scale(1)";
+  };
+  const weg = () => {
+    if (!bolRef.current) return;
+    bolRef.current.style.opacity = "0";
+    bolRef.current.style.transform = "translate(-50%, -50%) scale(0.6)";
+  };
+
+  const beeld = (
+    <img
+      src={foto.src}
+      srcSet={foto.srcSet}
+      sizes="(min-width: 1024px) 44vw, 100vw"
+      width={foto.breedte}
+      height={foto.hoogte}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      className="absolute inset-0 h-full w-full object-cover"
+      style={{ objectPosition: `50% ${Math.round(foto.midden * 100)}%` }}
+    />
+  );
+  const vlak = `relative block aspect-[4/5] overflow-hidden ${links ? "lg:rounded-r-3xl" : "lg:order-2 lg:rounded-l-3xl"}`;
+
   return (
     <section className="relative bg-background">
       <div
         className={`grid grid-cols-1 lg:items-center ${links ? "lg:grid-cols-[minmax(0,44vw)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,44vw)]"}`}
       >
-        <div className={`relative aspect-[4/5] overflow-hidden ${links ? "lg:rounded-r-3xl" : "lg:order-2 lg:rounded-l-3xl"}`}>
-          <img
-            src={foto.src}
-            srcSet={foto.srcSet}
-            sizes="(min-width: 1024px) 44vw, 100vw"
-            width={foto.breedte}
-            height={foto.hoogte}
-            alt={alt}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: `50% ${Math.round(foto.midden * 100)}%` }}
-          />
-        </div>
+        {slug ? (
+          <Link
+            to={`/portfolio/${slug}`}
+            aria-label={`${naam ?? "Case"}: bekijk de case`}
+            className={`${vlak} [@media(pointer:fine)]:cursor-none`}
+            onPointerMove={beweeg}
+            onPointerLeave={weg}
+          >
+            {beeld}
+            <span ref={plekRef} aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-10 transition-transform duration-150 ease-out">
+              <span
+                ref={bolRef}
+                className="flex h-[112px] w-[112px] items-center justify-center rounded-full bg-white text-sm font-semibold uppercase tracking-[0.15em] text-black shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)] transition-[opacity,transform] duration-300 ease-out"
+                style={{ opacity: 0, transform: "translate(-50%, -50%) scale(0.6)" }}
+              >
+                Bekijk
+              </span>
+            </span>
+          </Link>
+        ) : (
+          <div className={vlak}>{beeld}</div>
+        )}
         <div className={`px-4 py-14 sm:px-6 lg:px-16 lg:py-28 xl:px-24 ${links ? "" : "lg:order-1"}`}>
           <div className="max-w-[640px]">{children}</div>
         </div>
@@ -165,7 +213,7 @@ export function BeeldSectie({
     );
   }
   return (
-    <BeeldBlok foto={foto.foto} alt={foto.alt} links={links}>
+    <BeeldBlok foto={foto.foto} alt={foto.alt} slug={foto.slug} naam={foto.naam} links={links}>
       {inhoud}
     </BeeldBlok>
   );
