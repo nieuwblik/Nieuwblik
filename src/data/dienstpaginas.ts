@@ -54,6 +54,7 @@ export const installateur: DienstpaginaData = {
     { label: "Wat kost een website", to: "/wat-kost-een-website" },
   ],
   contact: { h2: "Meer offerteaanvragen voor jouw installatiebedrijf?", body: "Vertel kort wat je doet en waar je werkt. Binnen 24 uur krijg je een vaste prijs en planning." },
+  cases: ["esveld-installatie", "feigro-dakwerken"],
   prijsVanaf: PRIJZEN.starter,
 };
 

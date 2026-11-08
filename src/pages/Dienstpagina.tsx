@@ -1,9 +1,19 @@
+import { lazy, Suspense } from "react";
 import { SITE_URL } from "@/config/site";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import ContactBlock from "@/components/ContactBlock";
-import { DienstHero, Linkjes, Pakketten, Sectie, SectieKop, Tekst, Vinkjes, Vragen, type Pakket } from "@/components/dienst/DienstBlokken";
+import CaseGrid from "@/components/CaseGrid";
+import GoogleReviewMuur from "@/components/GoogleReviewMuur";
+import DienstGolfHero from "@/components/dienst/DienstGolfHero";
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { Linkjes, Pakketten, Sectie, SectieKop, Tekst, Vinkjes, type Pakket } from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
+import { projects } from "@/data/projects";
+
+const FAQSection = lazy(() => import("@/components/FAQSection"));
+
+/** Cases onder "Recent werk" als een pagina zelf geen keuze maakt. */
+const STANDAARD_CASES = ["feigro-dakwerken", "taxi-drechterland"];
 
 export type DienstpaginaData = {
   slug: string;
@@ -20,6 +30,8 @@ export type DienstpaginaData = {
   links: { label: string; to: string }[];
   contact: { h2: string; body: string };
   prijsVanaf: number;
+  /** Slugs uit src/data/projects.ts voor "Recent werk"; zonder deze lijst de standaardcases. */
+  cases?: string[];
 };
 
 const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
@@ -54,10 +66,9 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
     <div className="min-h-screen bg-background">
       <SEOHead title={data.title} description={data.description} keywords={data.keywords} canonicalUrl={url} structuredData={jsonLd} includeLocalBusinessSchema={true} />
       <main>
-        <DienstHero
+        <DienstGolfHero
           kruimels={[{ label: data.dienst, path: `/${data.slug}` }]}
-          titel={data.titel}
-          {...(data.accent ? { accent: data.accent } : {})}
+          titel={data.accent ? `${data.titel} ${data.accent}` : data.titel}
           intro={data.intro}
           knop={{ label: "Gratis website-analyse", to: "/gratis-website-analyse" }}
           tweedeKnop={{ label: "Bereken je prijs", to: "/wat-kost-een-website" }}
@@ -84,12 +95,33 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
           </Sectie>
         )}
 
+        {/* Recent werk, de reviewmuur en de FAQ zoals op de rest van de site */}
         <Sectie papier={(data.secties.length + (data.pakketten ? 1 : 0)) % 2 === 0}>
-          <SectieKop titel={`Veelgestelde vragen`} />
-          <Vragen items={data.faq.map((f) => ({ question: f.q, answer: f.a }))} />
+          <div className="mb-12 md:mb-16">
+            <h2 className="pf-inleiding">
+              Recent werk voor ondernemers in heel Nederland. Van dakdekker tot taxibedrijf: elke site op maat ontworpen,
+              snel en goed vindbaar.
+            </h2>
+          </div>
+          <CaseGrid
+            projects={(data.cases ?? STANDAARD_CASES).flatMap((slug) => projects.filter((p) => p.slug === slug))}
+            zonderOmschrijving
+          />
         </Sectie>
 
-        <ContactBlock h2={data.contact.h2} body={data.contact.body} />
+        <GoogleReviewMuur />
+
+        <Suspense fallback={<div className="min-h-[420px]" />}>
+          <FAQSection
+            zonderAnimatie
+            vragen={data.faq.map((f) => ({ question: f.q, answer: f.a }))}
+            actie={
+              <AnimatedButton to="/gratis-website-analyse" size="lg">
+                Gratis website-analyse
+              </AnimatedButton>
+            }
+          />
+        </Suspense>
 
         <Sectie>
           <SectieKop titel="Ook interessant" />

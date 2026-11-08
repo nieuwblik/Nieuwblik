@@ -2,7 +2,7 @@ import { useEffect, type RefObject } from "react";
 import type { GolfInstellingen } from "@/components/golf/golfMotor";
 
 /** Waar de golf staat. Het afstelpaneel slaat per plek apart op. */
-export type GolfPlek = "home" | "analyse";
+export type GolfPlek = "home" | "analyse" | "dienst";
 
 /**
  * Start de zijden golf (WebGL) in een hero met de klasse golf-hero.

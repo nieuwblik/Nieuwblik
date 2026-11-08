@@ -44,6 +44,13 @@ const PLEKKEN = {
     desktop: "analyse-desktop.webp",
     mobiel: "analyse-mobiel.webp",
   },
+  dienst: {
+    bestand: "src/data/golfDienst.ts",
+    naam: "golfDienst",
+    omschrijving: "de hero van de dienstpagina's (Dienstpagina.tsx)",
+    desktop: "dienst-desktop.webp",
+    mobiel: "dienst-mobiel.webp",
+  },
 };
 
 export function golfAfstellen(): Plugin {

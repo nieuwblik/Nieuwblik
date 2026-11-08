@@ -14,7 +14,7 @@ type Opties = {
   motor: GolfMotor;
   hero: HTMLElement;
   site: GolfInstellingen;
-  plek: "home" | "analyse";
+  plek: "home" | "analyse" | "dienst";
 };
 
 export function startPaneel({ motor, hero, site, plek }: Opties): () => void {
