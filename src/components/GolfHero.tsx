@@ -109,11 +109,11 @@ const GolfHero = () => {
                   Start je project
                 </AnimatedButton>
                 <AnimatedButton
-                  to="/portfolio"
+                  to="/gratis-website-analyse"
                   variant="outline"
                   className="h-12 w-full sm:w-auto"
                 >
-                  Ontdek portfolio
+                  Gratis website-analyse
                 </AnimatedButton>
               </div>
             </div>

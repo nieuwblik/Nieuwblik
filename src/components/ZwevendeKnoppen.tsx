@@ -29,6 +29,7 @@ const vertraging = (open: boolean, i: number) => ({
 
 // Pagina's waar het analysedeel niets toevoegt: al aan het converteren, of de
 // pagina waar het zelf naartoe linkt. Daar blijven naar boven en WhatsApp over.
+// Ook niet op de homepage: daar staat de analyse al als knop in de hero.
 const HIDDEN_ON = ["/gratis-website-analyse", "/bedankt-analyse", "/contact", "/bedankt", "/admin"];
 
 // Dezelfde vier onderdelen als op /gratis-website-analyse.
@@ -82,7 +83,7 @@ const ZwevendeKnoppen = () => {
   const [bovenaan, setBovenaan] = useState(true);
   const [open, setOpen] = useState(false);
 
-  const metAnalyse = !HIDDEN_ON.some((pad) => pathname.startsWith(pad));
+  const metAnalyse = pathname !== "/" && !HIDDEN_ON.some((pad) => pathname.startsWith(pad));
 
   useEffect(() => {
     const opScroll = () => setBovenaan(window.scrollY < 300);
