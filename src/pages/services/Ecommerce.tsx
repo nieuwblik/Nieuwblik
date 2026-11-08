@@ -11,11 +11,11 @@ import {
   GroenPaneel,
   INKT_65,
   Inbegrepen,
-  Pijlers,
   Quote,
   Sectie,
   SectieKop,
-  Stappen } from "@/components/dienst/DienstBlokken";
+  Stappen,
+} from "@/components/dienst/DienstBlokken";
 
 // Import e-commerce listing images
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
@@ -25,6 +25,7 @@ import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp"
 import compressorListingImg from "@/assets/projects/compressor-listing.webp";
 import FAQSection from "@/components/FAQSection";
 import { AnimatedButton } from "@/components/ui/animated-button";
+import { BeeldSectie, BlokLijst, BlokTekst } from "@/components/dienst/BeeldBlok";
 
 const Ecommerce = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -153,10 +154,12 @@ const Ecommerce = () => {
         knop={{ label: "Bespreek je groeikansen", to: "/contact" }}
       />
 
-      <Sectie papier>
-        <SectieKop titel="Waarom onze e-commerce aanpak werkt" intro="Geen losse projecten, maar een strategie voor duurzame groei" />
-        <Pijlers items={usps} />
-      </Sectie>
+      <BeeldSectie keuze="een-bundel-geluk" kop="Waarom onze e-commerce aanpak werkt">
+        <BlokTekst>
+          <p>Geen losse projecten, maar een strategie voor duurzame groei</p>
+        </BlokTekst>
+        <BlokLijst items={usps.map((u) => ({ h3: u.title, sub: u.subtitle, text: u.description }))} />
+      </BeeldSectie>
 
       <Sectie>
         <SectieKop titel="Onze e-commerce projecten" intro="Professionele listings die daadwerkelijk verkopen" />
@@ -215,7 +218,7 @@ const Ecommerce = () => {
         </DialogContent>
       </Dialog>
 
-      <Sectie papier>
+      <Sectie>
         <SectieKop titel="Onze e-commerce aanpak" intro="Gestructureerd naar meetbare resultaten" />
         <Stappen items={steps} />
       </Sectie>
@@ -248,7 +251,7 @@ const Ecommerce = () => {
         }
       />
 
-      <Sectie papier>
+      <Sectie>
         <Quote
           tekst="Door de multichannel aanpak van Nieuwblik zijn we nu ook succesvol op Bol.com en Amazon. Onze omzet is in 6 maanden met 140% gestegen!"
           naam="Maarten, Kitchenz"

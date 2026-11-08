@@ -7,11 +7,13 @@ import heroTeamImage from "@/assets/justin-job-compressed.webp";
 
 interface LandingHeroProps {
   h1: string;
-  subtitle: string;
+  subtitle: ReactNode;
   /** Kruimelpad boven de kop (werkgebiedpagina's). */
   kruimels?: ReactNode;
   /** Eigen knoppen in plaats van "Start nu" en "Ontdek portfolio". */
   knoppen?: ReactNode;
+  /** Optioneel blokje tussen de intro en de knoppen. */
+  onderIntro?: ReactNode;
 }
 
 const GROEN = "hsl(var(--sw-green))";
@@ -21,7 +23,7 @@ const GROEN = "hsl(var(--sw-green))";
  * links de kop in het groene verloop, de intro, twee knoppen en de reviewscore, rechts
  * Justin en Job. Zonder de golf; die is voor de homepage en de dienstpagina's.
  */
-const LandingHero = ({ h1, subtitle, kruimels, knoppen }: LandingHeroProps) => (
+const LandingHero = ({ h1, subtitle, kruimels, knoppen, onderIntro }: LandingHeroProps) => (
   <section className="sw-ink sw-hero-anim relative overflow-hidden bg-background">
     <div className="container mx-auto grid grid-cols-1 items-end gap-6 px-4 pt-[calc(var(--header-height)_+_2.5rem)] sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-height)_+_3.5rem)]">
       <div className="relative z-[3] pb-4 lg:col-span-7 lg:pb-24">
@@ -38,6 +40,11 @@ const LandingHero = ({ h1, subtitle, kruimels, knoppen }: LandingHeroProps) => (
         >
           {subtitle}
         </p>
+        {onderIntro && (
+          <div className="sw-lead mt-5 max-w-[36rem]" style={{ "--sw-delay": "0.2s" } as CSSProperties}>
+            {onderIntro}
+          </div>
+        )}
         <div className="sw-cta mt-7 flex flex-col gap-3 sm:flex-row" style={{ "--sw-delay": "0.3s" } as CSSProperties}>
           {knoppen ?? (
             <>

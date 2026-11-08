@@ -105,11 +105,16 @@ export const BlokTekst = ({ children }: { children: ReactNode }) => (
 );
 
 /** Punten als regels met haarlijnen ertussen: een kopje en een zin. */
-export const BlokLijst = ({ items }: { items: { h3: string; text: ReactNode }[] }) => (
+export const BlokLijst = ({ items }: { items: { h3: string; sub?: string | undefined; text: ReactNode }[] }) => (
   <ul className="mt-8 border-t border-border">
     {items.map((item) => (
       <li key={item.h3} className="border-b border-border py-6 md:py-7">
         <h3 className="text-xl font-semibold leading-snug text-foreground md:text-2xl">{item.h3}</h3>
+        {item.sub && (
+          <p className="mt-1 text-sm font-semibold" style={{ color: "hsl(var(--sw-green))" }}>
+            {item.sub}
+          </p>
+        )}
         <p className="mt-2 max-w-[62ch] text-base font-normal leading-relaxed text-muted-foreground">{item.text}</p>
       </li>
     ))}
@@ -128,3 +133,40 @@ export const BlokVinkjes = ({ items }: { items: ReactNode[] }) => (
     ))}
   </ul>
 );
+
+/**
+ * Een sectie met kop en tekst naast een casefoto (BeeldBlok). Zonder foto valt hij
+ * terug op een gewone witte sectie, zodat er nooit een leeg vlak staat.
+ */
+export function BeeldSectie({
+  keuze,
+  links = true,
+  kop,
+  children,
+}: {
+  /** Slug van de telefoonmockup of "laptop:<slug>". */
+  keuze: string;
+  links?: boolean;
+  kop: ReactNode;
+  children: ReactNode;
+}) {
+  const foto = kiesFoto(keuze);
+  const inhoud = (
+    <>
+      <BlokKop>{kop}</BlokKop>
+      {children}
+    </>
+  );
+  if (!foto) {
+    return (
+      <section className="bg-background py-20 md:py-28">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6">{inhoud}</div>
+      </section>
+    );
+  }
+  return (
+    <BeeldBlok foto={foto.foto} alt={foto.alt} links={links}>
+      {inhoud}
+    </BeeldBlok>
+  );
+}

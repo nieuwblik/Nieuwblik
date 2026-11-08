@@ -3,12 +3,21 @@ import { SITE_URL } from "@/config/site";
 import { Calculator, Shield, Clock } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import Reveal from "@/components/Reveal";
 import KostenCalculator from "@/components/KostenCalculator";
-import { DienstHero, GROEN, INKT_65, Pakketten, Pijlers, RAND, Sectie, SectieKop, Tekst, Vinkjes } from "@/components/dienst/DienstBlokken";
+import {
+  DienstHero,
+  GROEN,
+  INKT_65,
+  Pakketten,
+  Pijlers,
+  Sectie,
+  SectieKop,
+  Vinkjes,
+} from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 import FAQSection from "@/components/FAQSection";
 import { AnimatedButton } from "@/components/ui/animated-button";
+import { BeeldSectie, BlokTekst } from "@/components/dienst/BeeldBlok";
 
 const url = `${SITE_URL}/wat-kost-een-website`;
 
@@ -98,9 +107,8 @@ const WatKostEenWebsite = () => {
           tweedeKnop={{ label: "Bekijk alle pakketten", to: "/prijzen" }}
         />
 
-        <Sectie papier>
-          <SectieKop titel="Het korte antwoord" />
-          <Tekst>
+        <BeeldSectie keuze="taxi-drechterland" kop="Het korte antwoord">
+          <BlokTekst>
             <p>
               Een website laten maken kost bij een betrouwbaar Nederlands bureau in 2026 gemiddeld tussen de {euroTeken(PRIJZEN.starter)} en {euroTeken(PRIJZEN.professional)}. Onder de {euroTeken(500)} kom je alleen terecht bij bouwpakketten waar je zelf alles moet doen, of bij partijen die een template in tien minuten neerzetten en daarna verdwijnen.
             </p>
@@ -110,8 +118,8 @@ const WatKostEenWebsite = () => {
             <p>
               Onze aanpak zit daar tussenin: vaste prijzen, geen tussenpersonen, en je spreekt rechtstreeks met degene die bouwt.
             </p>
-          </Tekst>
-        </Sectie>
+          </BlokTekst>
+        </BeeldSectie>
 
         <Sectie>
           <SectieKop
@@ -127,7 +135,7 @@ const WatKostEenWebsite = () => {
           />
         </Sectie>
 
-        <Sectie papier>
+        <Sectie>
           <SectieKop
             titel="Bereken je prijsindicatie in 30 seconden"
             intro="Kies wat je nodig hebt en zie direct een indicatie. Stuur hem door via WhatsApp of mail en je krijgt binnen 24 uur een vaste prijs."
@@ -143,9 +151,8 @@ const WatKostEenWebsite = () => {
           <Pijlers items={prijsFactoren.map((f) => ({ icon: f.icon, title: f.title, description: f.text }))} />
         </Sectie>
 
-        <Sectie>
-          <SectieKop titel="Vaste prijs of uurtarief: wat is slimmer?" />
-          <Tekst>
+        <BeeldSectie keuze="vv-madjoe" links={false} kop="Vaste prijs of uurtarief: wat is slimmer?">
+          <BlokTekst>
             <p>
               Veel bureaus rekenen een uurtarief van 75 tot 150 euro en sturen daarna een offerte "indicatief". In de praktijk betekent dat: een bodemprijs bij de start en een rekening die meegroeit met elke e-mail die je verstuurt. Het gemiddelde MKB-project loopt op die manier vaak een paar honderd euro over de oorspronkelijke schatting heen.
             </p>
@@ -155,19 +162,19 @@ const WatKostEenWebsite = () => {
             <p>
               Het nadeel van een vaste prijs is dat je precies moet weten wat je wilt. Daarom nemen we bij elk project een uitgebreide kennismaking, zodat er geen discussie kan ontstaan over wat er wel en niet in zit.
             </p>
-          </Tekst>
-        </Sectie>
+          </BlokTekst>
+        </BeeldSectie>
 
-        <Sectie papier>
+        <Sectie>
           <SectieKop
             titel="Kosten waar je op moet letten"
             intro="Los van de bouwkosten zijn er een paar vaste uitgaven die bij elk bureau spelen. Wij zetten ze gewoon op tafel."
           />
-          <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {verborgenKosten.map((k, i) => (
-              <Reveal key={k.kosten} afstand={24} delay={i * 0.06} className="h-full">
-                <div className="h-full rounded-2xl border bg-white p-6 md:p-7" style={{ borderColor: RAND }}>
-                  <dt className="text-lg font-bold tracking-tight sw-ink">{k.kosten}</dt>
+          <dl className="grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
+            {verborgenKosten.map((k) => (
+              <div key={k.kosten}>
+                <div className="h-full border-t border-border py-7">
+                  <dt className="text-lg font-semibold tracking-tight sw-ink">{k.kosten}</dt>
                   <dd className="mt-2 text-[0.9375rem] font-semibold" style={{ color: GROEN }}>
                     {k.prijs}
                   </dd>
@@ -175,7 +182,7 @@ const WatKostEenWebsite = () => {
                     {k.toelichting}
                   </dd>
                 </div>
-              </Reveal>
+              </div>
             ))}
           </dl>
         </Sectie>

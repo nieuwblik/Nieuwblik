@@ -12,7 +12,6 @@ import {
   GroenPaneel,
   INKT_65,
   Inbegrepen,
-  Pijlers,
   Quote,
   RAND,
   Sectie,
@@ -30,6 +29,7 @@ import geminiLogo from "@/assets/tools/gemini-logo.webp";
 import wordpressLogo from "@/assets/tools/wordpress.svg";
 import elementorLogo from "@/assets/tools/elementor.svg";
 import woocommerceLogo from "@/assets/tools/woocommerce.svg";
+import { BeeldSectie, BlokLijst, BlokTekst } from "@/components/dienst/BeeldBlok";
 
 const WebsiteOpMaat = () => {
   const usps = [{
@@ -123,17 +123,19 @@ const WebsiteOpMaat = () => {
         knop={{ label: "Start je website project", to: "/contact" }}
       />
 
-      <Sectie papier>
-        <SectieKop titel="Waarom Nieuwblik?" intro="Drie pilaren die jouw website onderscheiden van de rest" />
-        <Pijlers items={usps} />
-      </Sectie>
+      <BeeldSectie keuze="laptop:esveld-installatie" kop="Waarom Nieuwblik?">
+        <BlokTekst>
+          <p>Drie pilaren die jouw website onderscheiden van de rest</p>
+        </BlokTekst>
+        <BlokLijst items={usps.map((u) => ({ h3: u.title, sub: u.subtitle, text: u.description }))} />
+      </BeeldSectie>
 
       <Sectie>
         <SectieKop titel="Het website project stappenplan" intro="Transparant en efficiënt: zo bouwen wij jouw website" />
         <Stappen items={steps} />
       </Sectie>
 
-      <Sectie papier>
+      <Sectie>
         <SectieKop titel="Wat is inbegrepen?" intro="Heldere scope en verwachtingen voor jouw project" />
         <Inbegrepen
           standaardTitel="Inbegrepen standaard"
@@ -161,7 +163,7 @@ const WebsiteOpMaat = () => {
         </div>
       </Sectie>
 
-      <Sectie papier>
+      <Sectie>
         <Quote
           tekst="Nieuwblik heeft onze website binnen een week live gezet. De snelheid en professionaliteit zijn ongekend. We krijgen nu dagelijks nieuwe aanvragen via de site!"
           naam="Niels van Esveld, Esveld Installatie"

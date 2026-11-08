@@ -1,6 +1,7 @@
 import type { ElementType, ReactNode } from "react";
 import { ArrowRight, Check, Clock, MessageCircle, Plus, Star } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
+import LandingHero from "@/components/LandingHero";
 import { Link } from "@/lib/router-compat";
 import Reveal from "@/components/Reveal";
 import { AnimatedButton } from "@/components/ui/animated-button";
@@ -8,11 +9,10 @@ import { companyInfo } from "@/config/company";
 
 /*
  * Bouwblokken voor de dienstpagina's (website op maat, webshops, e-commerce),
- * in de stijl van de homepage en /diensten: grote koppen in --sw-ink met een
- * groen accent, lichte lopende tekst, witte kaarten op --sw-paper en een
- * donkergroen paneel voor het prijsblok. Animatie alleen via Reveal (CSS,
- * één keer); de hero speelt een CSS-animatie bij het laden af, zodat de kop
- * meteen zichtbaar is.
+ * in de stijl van de installateurspagina: witte secties, sectiekoppen links,
+ * punten met haarlijnen in plaats van kaarten en een effen donkergroen paneel
+ * voor het prijsblok. Geen inloopanimaties tijdens het scrollen; de hero speelt
+ * alleen bij het laden.
  */
 
 export const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
@@ -34,9 +34,9 @@ export function DienstHero({
   tweedeKnop,
 }: {
   kruimels: { label: string; path: string }[];
-  /** Eerste deel van de kop, in inkt. */
+  /** Eerste deel van de kop. */
   titel: string;
-  /** Laatste deel van de kop, in het groen (optioneel). */
+  /** Laatste deel van de kop (optioneel). */
   accent?: string;
   intro: ReactNode;
   /** Optioneel kadertje onder de intro. */
@@ -45,54 +45,38 @@ export function DienstHero({
   /** Tweede knop (outline). Zonder deze prop: WhatsApp. */
   tweedeKnop?: { label: string; to: string };
 }) {
+  // Zelfde hero als de stads-, branche- en werkgebiedpagina's: kop, intro en
+  // knoppen links, Justin en Job rechts.
   return (
-    <section className="pt-32 pb-16 md:pb-24">
-      <div className="container mx-auto px-4 sm:px-6">
-        <Breadcrumb items={kruimels} />
-        <div className={`mt-10 md:mt-14 ${LADEN}`}>
-          <h1
-            className="max-w-5xl text-4xl font-bold tracking-tight sw-ink md:text-6xl lg:text-7xl"
-            style={{ lineHeight: 1.02 }}
-          >
-            {titel}
-            {accent && (
-              <>
-                {" "}
-                <span>{accent}</span>
-              </>
-            )}
-          </h1>
-        </div>
-        <div className={`${LADEN} delay-100`}>
-          <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed md:text-xl" style={{ color: INKT_65 }}>
-            {intro}
-          </p>
-          {kader && (
-            <div
-              className="mt-6 max-w-2xl rounded-xl border bg-white px-5 py-4 text-[0.9375rem] leading-relaxed"
-              style={{ borderColor: RAND, color: INKT_65 }}
-            >
-              {kader}
-            </div>
-          )}
-        </div>
-        <div className={`mt-10 flex flex-col gap-3 sm:flex-row ${LADEN} delay-200`}>
-          <AnimatedButton to={knop.to} size="lg">
+    <LandingHero
+      h1={accent ? `${titel} ${accent}` : titel}
+      subtitle={intro}
+      kruimels={<Breadcrumb items={kruimels} />}
+      onderIntro={
+        kader ? (
+          <div className="rounded-xl border bg-white px-5 py-4 text-[0.9375rem] leading-relaxed" style={{ borderColor: RAND, color: INKT_65 }}>
+            {kader}
+          </div>
+        ) : undefined
+      }
+      knoppen={
+        <>
+          <AnimatedButton to={knop.to} className="h-12 w-full sm:w-auto">
             {knop.label}
           </AnimatedButton>
           {tweedeKnop ? (
-            <AnimatedButton to={tweedeKnop.to} size="lg" variant="outline">
+            <AnimatedButton to={tweedeKnop.to} variant="outline" className="h-12 w-full sm:w-auto">
               {tweedeKnop.label}
             </AnimatedButton>
           ) : (
-            <AnimatedButton href={companyInfo.whatsapp} size="lg" variant="outline" showArrow={false}>
-              <MessageCircle className="mr-2 inline h-5 w-5" />
+            <AnimatedButton href={companyInfo.whatsapp} variant="outline" showArrow={false} className="h-12 w-full sm:w-auto">
+              <MessageCircle className="mr-2 inline h-4 w-4" />
               WhatsApp direct
             </AnimatedButton>
           )}
-        </div>
-      </div>
-    </section>
+        </>
+      }
+    />
   );
 }
 
@@ -115,21 +99,12 @@ export function Sectie({
 
 export function SectieKop({ titel, intro }: { titel: string; intro?: string }) {
   return (
-    <div className="mb-10 md:mb-14">
-      <Reveal afstand={20}>
-        <h2
-          className="max-w-4xl text-3xl font-bold tracking-tight sw-ink md:text-5xl"
-          style={{ lineHeight: 1.04 }}
-        >
-          {titel}
-        </h2>
-      </Reveal>
+    <div className="mb-10 max-w-4xl md:mb-14">
+      <h2 className="sectie-kop">{titel}</h2>
       {intro && (
-        <Reveal afstand={20} delay={0.06}>
-          <p className="mt-4 max-w-2xl text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
-            {intro}
-          </p>
-        </Reveal>
+        <p className="mt-5 max-w-2xl text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
+          {intro}
+        </p>
       )}
     </div>
   );
@@ -145,32 +120,20 @@ export interface Pijler {
 }
 
 export function Pijlers({ items }: { items: Pijler[] }) {
+  // Drie kolommen met een haarlijn erboven, zonder kaarten en iconen.
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {items.map((p, i) => {
-        const Icon = p.icon;
-        return (
-          <Reveal key={p.title} afstand={24} delay={i * 0.08} className="h-full">
-            <article className="h-full rounded-2xl border bg-white p-7 md:p-8" style={{ borderColor: RAND }}>
-              <span
-                className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-xl"
-                style={{ background: "hsl(var(--sw-green) / 0.08)" }}
-              >
-                <Icon className="h-5 w-5" style={{ color: GROEN }} aria-hidden="true" />
-              </span>
-              <h3 className="text-xl font-bold tracking-tight sw-ink">{p.title}</h3>
-              {p.subtitle && (
-                <p className="mt-1 text-sm font-semibold" style={{ color: GROEN }}>
-                  {p.subtitle}
-                </p>
-              )}
-              <p className="mt-4 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
-                {p.description}
-              </p>
-            </article>
-          </Reveal>
-        );
-      })}
+    <div className="grid grid-cols-1 gap-x-10 md:grid-cols-3">
+      {items.map((p) => (
+        <article key={p.title} className="border-t border-border py-7 md:py-8">
+          <h3 className="text-xl font-semibold leading-snug tracking-tight text-foreground md:text-2xl">{p.title}</h3>
+          {p.subtitle && (
+            <p className="mt-1 text-sm font-semibold" style={{ color: GROEN }}>
+              {p.subtitle}
+            </p>
+          )}
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">{p.description}</p>
+        </article>
+      ))}
     </div>
   );
 }
@@ -179,19 +142,12 @@ export function Pijlers({ items }: { items: Pijler[] }) {
 
 export function Stappen({ items }: { items: { title: string; description: string }[] }) {
   return (
-    <ol className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
-      {items.map((s, i) => (
-        <Reveal key={s.title} as="li" afstand={20} delay={i * 0.08}>
-          <span
-            aria-hidden="true"
-            className="mb-5 block h-2.5 w-2.5 rounded-full"
-            style={{ background: GROEN, boxShadow: "0 0 0 5px hsl(var(--sw-green) / 0.12)" }}
-          />
-          <h3 className="text-lg font-bold tracking-tight sw-ink">{s.title}</h3>
-          <p className="mt-2 text-[0.9375rem] font-light leading-relaxed" style={{ color: INKT_65 }}>
-            {s.description}
-          </p>
-        </Reveal>
+    <ol className="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:grid-cols-4">
+      {items.map((s) => (
+        <li key={s.title} className="border-t border-border py-7">
+          <h3 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">{s.title}</h3>
+          <p className="mt-2 text-base leading-relaxed text-muted-foreground">{s.description}</p>
+        </li>
       ))}
     </ol>
   );
@@ -210,37 +166,23 @@ export function Inbegrepen({
   extraTitel: string;
   extra: string[];
 }) {
+  const kolom = (titel: string, punten: string[], Icon: ElementType) => (
+    <div className="border-t border-border pt-7">
+      <h3 className="mb-6 text-xl font-semibold tracking-tight text-foreground md:text-2xl">{titel}</h3>
+      <ul className="grid gap-3.5 sm:grid-cols-2 sm:gap-x-6">
+        {punten.map((item) => (
+          <li key={item} className="flex items-start gap-3">
+            <Icon className="mt-1 h-4 w-4 shrink-0" style={{ color: GROEN }} strokeWidth={2.6} aria-hidden="true" />
+            <span className="text-base leading-relaxed" style={{ color: INKT_65 }}>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-      <Reveal afstand={24}>
-        <div className="h-full rounded-2xl border bg-white p-7 md:p-9" style={{ borderColor: RAND }}>
-          <h3 className="mb-6 text-xl font-bold tracking-tight sw-ink">{standaardTitel}</h3>
-          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-x-6">
-            {standaard.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: GROEN }} strokeWidth={2.6} aria-hidden="true" />
-                <span className="text-[0.9375rem]" style={{ color: INKT_65 }}>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Reveal>
-      <Reveal afstand={24} delay={0.08}>
-        <div
-          className="h-full rounded-2xl border p-7 md:p-9"
-          style={{ borderColor: RAND, background: "hsl(var(--sw-green) / 0.04)" }}
-        >
-          <h3 className="mb-6 text-xl font-bold tracking-tight sw-ink">{extraTitel}</h3>
-          <ul className="grid gap-3 sm:grid-cols-2 sm:gap-x-6">
-            {extra.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <Plus className="mt-0.5 h-4 w-4 shrink-0" style={{ color: GROEN }} strokeWidth={2.4} aria-hidden="true" />
-                <span className="text-[0.9375rem]" style={{ color: INKT_65 }}>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Reveal>
+    <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-2">
+      {kolom(standaardTitel, standaard, Check)}
+      {kolom(extraTitel, extra, Plus)}
     </div>
   );
 }
@@ -257,38 +199,25 @@ export function GroenPaneel({
   /** to voor een interne pagina, href voor een externe link (nieuw tabblad). */
   knop: { label: string; to?: string; href?: string };
 }) {
+  // Effen donkergroen, zoals de uitgelichte kolom van de pakketten.
   return (
-    <section className="py-8 md:py-12">
+    <section className="bg-background py-8 md:py-12">
       <div className="container mx-auto px-4 sm:px-6">
-        <Reveal afstand={30}>
-          <div
-            className="relative overflow-hidden rounded-2xl border p-8 text-white md:p-12"
-            style={{
-              borderColor: "hsl(160 70% 58% / 0.14)",
-              background: "linear-gradient(165deg, hsl(160 84% 11%) 0%, hsl(160 84% 8%) 100%)",
-              boxShadow: "0 30px 70px -30px rgba(0,0,0,0.55)",
-            }}
-          >
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{ background: "radial-gradient(ellipse 80% 70% at 15% 0%, hsl(160 70% 45% / 0.22) 0%, transparent 60%)" }}
-            />
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
-                <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl" style={{ lineHeight: 1.04 }}>
-                  {titel}
-                </h2>
-                <p className="mt-4 text-base font-light leading-relaxed text-white/75 md:text-lg">{tekst}</p>
-              </div>
-              <div className="shrink-0">
-                <AnimatedButton {...(knop.href ? { href: knop.href } : { to: knop.to ?? "/contact" })} size="lg" variant="white">
-                  {knop.label}
-                </AnimatedButton>
-              </div>
+        <div className="rounded-3xl p-8 text-white md:p-12" style={{ background: "hsl(160 84% 16%)" }}>
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <h2 className="sectie-kop" style={{ color: "white" }}>
+                {titel}
+              </h2>
+              <p className="mt-4 text-base font-light leading-relaxed text-white/75 md:text-lg">{tekst}</p>
+            </div>
+            <div className="shrink-0">
+              <AnimatedButton {...(knop.href ? { href: knop.href } : { to: knop.to ?? "/contact" })} size="lg" variant="white">
+                {knop.label}
+              </AnimatedButton>
             </div>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

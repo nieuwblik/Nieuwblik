@@ -4,10 +4,19 @@ import { Link } from "@/lib/router-compat";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { DienstHero, INKT_65, Linkjes, Pakketten, Sectie, SectieKop, Stappen, Tekst, Vinkjes } from "@/components/dienst/DienstBlokken";
+import {
+  DienstHero,
+  INKT_65,
+  Linkjes,
+  Pakketten,
+  Sectie,
+  SectieKop,
+  Stappen,
+} from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 import { industryLinks } from "@/data/industryLinks";
 import FAQSection from "@/components/FAQSection";
+import { BeeldSectie, BlokTekst, BlokVinkjes } from "@/components/dienst/BeeldBlok";
 
 const url = `${SITE_URL}/website-laten-maken`;
 
@@ -91,9 +100,8 @@ const WebsiteLatenMaken = () => {
           tweedeKnop={{ label: "Bekijk portfolio", to: "/portfolio" }}
         />
 
-        <Sectie papier>
-          <SectieKop titel="Wat maakt een website een goede investering" />
-          <Tekst>
+        <BeeldSectie keuze="laptop:esveld-installatie" kop="Wat maakt een website een goede investering">
+          <BlokTekst>
             <p>
               De meeste websites worden gebouwd zoals folders vroeger werden gedrukt: eenmalig, mooi gepolijst en daarna vergeten. Dat werkt niet meer. Een goede website in 2026 is een systeem dat blijft werken voor je bedrijf: aantrekkelijk voor bezoekers, snel voor Google en simpel voor jou om aan te passen.
             </p>
@@ -103,15 +111,15 @@ const WebsiteLatenMaken = () => {
             <p>
               Wij bouwen sites in React met een schone codebase, WebP-afbeeldingen, correcte structured data en aandacht voor micro-interacties. Het resultaat is een site die niet alleen bij oplevering goed voelt, maar ook drie jaar later nog snel en stabiel is.
             </p>
-          </Tekst>
-        </Sectie>
+          </BlokTekst>
+        </BeeldSectie>
 
         <Sectie>
           <SectieKop titel="Zo werken wij" />
           <Stappen items={proces.map((s) => ({ title: s.title, description: s.text }))} />
         </Sectie>
 
-        <Sectie papier>
+        <Sectie>
           <SectieKop
             titel="Wat kost een website in 2026"
             intro="Drie duidelijke pakketten. Geen verborgen kosten, geen vage uurtarieven. Je weet vooraf wat je krijgt en wat je betaalt."
@@ -130,20 +138,19 @@ const WebsiteLatenMaken = () => {
           </div>
         </Sectie>
 
-        <Sectie>
-          <SectieKop titel="Wat zit er in elk project" />
-          <Vinkjes
+        <BeeldSectie keuze="feigro-dakwerken" links={false} kop="Wat zit er in elk project">
+          <BlokVinkjes
             items={[
-              "Uniek design op maat, geen template",
-              "Volledig responsive voor mobiel, tablet en desktop",
-              "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
-              "Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
-              "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
-              "WhatsApp, contactformulier en Google Maps integratie",
-              "Google Analytics en Search Console koppeling",
-            ]}
+                "Uniek design op maat, geen template",
+                "Volledig responsive voor mobiel, tablet en desktop",
+                "Technische SEO-basis: sitemap, robots, structured data, meta-tags",
+                "Ons streven is een PageSpeed-score van 90 of hoger op mobiel.",
+                "Basisonderhoud inbegrepen bij de hosting. Op aanvraag een eenvoudig CMS om zelf aan te passen.",
+                "WhatsApp, contactformulier en Google Maps integratie",
+                "Google Analytics en Search Console koppeling",
+              ]}
           />
-        </Sectie>
+        </BeeldSectie>
 
         {/* Alle branchepagina's: de footer linkt hiernaartoe (#branches). */}
         <section id="branches" className="sw-paper scroll-mt-24 py-16 md:py-24">

@@ -26,7 +26,7 @@ const VERSCHUIVING: Record<Richting, (n: number) => string> = {
 };
 
 /**
- * Verschijnt zodra hij in beeld komt: opdoemen en op zijn plek schuiven, één
+ * Verschijnt bij het laden: opdoemen en op zijn plek schuiven, één
  * keer.
  *
  * Dit patroon stond overal met framer-motion (`initial` plus `whileInView`),
@@ -49,31 +49,21 @@ const Reveal = ({
   const [zichtbaar, setZichtbaar] = useState(false);
   const reduced = useReducedMotion();
 
+  // Alleen wat bij het laden al in beeld staat, schuift binnen. Wat verderop staat,
+  // is er gewoon zodra je erlangs scrollt: geen inloopanimaties tijdens het scrollen.
+  const [stil, setStil] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    // Zonder IntersectionObserver (of met reduced motion) meteen tonen: beter
-    // zichtbaar zonder animatie dan onzichtbaar.
-    if (typeof IntersectionObserver === "undefined") {
-      setZichtbaar(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        setZichtbaar(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -80px 0px" },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
+    const r = el.getBoundingClientRect();
+    const inBeeld = r.top < window.innerHeight - 80 && r.bottom > 0;
+    if (!inBeeld) setStil(true);
+    const frame = requestAnimationFrame(() => setZichtbaar(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
-  const beweegt = !reduced && !zichtbaar;
+  const beweegt = !reduced && !stil && !zichtbaar;
 
   return (
     <Tag
@@ -85,7 +75,7 @@ const Reveal = ({
       style={{
         opacity: beweegt ? 0 : 1,
         transform: beweegt ? VERSCHUIVING[from](afstand) : "none",
-        transition: reduced
+        transition: reduced || stil
           ? undefined
           : `opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
         willChange: beweegt ? "opacity, transform" : undefined,

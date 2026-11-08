@@ -13,12 +13,12 @@ import {
   DienstHero,
   GroenPaneel,
   Inbegrepen,
-  Pijlers,
   Quote,
   Sectie,
   SectieKop,
   Stappen,
 } from "@/components/dienst/DienstBlokken";
+import { BeeldSectie, BlokLijst, BlokTekst } from "@/components/dienst/BeeldBlok";
 
 // De webshopcases uit het portfolio, met het caseraster van de homepage.
 const cases = kiesCases(["kyodai-originals", "bushido-shop", "een-bundel-geluk", "puur-in-harmonie"], 4);
@@ -153,17 +153,19 @@ const Webshops = () => {
         knop={{ label: "Start jouw webshop", to: "/contact" }}
       />
 
-      <Sectie papier>
-        <SectieKop titel="Waarom kiezen voor onze webshops?" intro="Alles wat je nodig hebt om succesvol online te verkopen" />
-        <Pijlers items={usps} />
-      </Sectie>
+      <BeeldSectie keuze="een-bundel-geluk" kop="Waarom kiezen voor onze webshops?">
+        <BlokTekst>
+          <p>Alles wat je nodig hebt om succesvol online te verkopen</p>
+        </BlokTekst>
+        <BlokLijst items={usps.map((u) => ({ h3: u.title, sub: u.subtitle, text: u.description }))} />
+      </BeeldSectie>
 
       <Sectie>
         <SectieKop titel="Zo bouwen wij jouw webshop" intro="Van idee tot verkopende webshop in vier stappen" />
         <Stappen items={steps} />
       </Sectie>
 
-      <Sectie papier>
+      <Sectie>
         <SectieKop titel="Wat zit er in jouw webshop?" intro="Complete webshop oplossing zonder verborgen kosten" />
         <Inbegrepen
           standaardTitel="Standaard inbegrepen"
