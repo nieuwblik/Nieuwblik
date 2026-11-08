@@ -15,9 +15,7 @@ import {
   Quote,
   Sectie,
   SectieKop,
-  Stappen,
-  Vragen,
-} from "@/components/dienst/DienstBlokken";
+  Stappen } from "@/components/dienst/DienstBlokken";
 
 // Import e-commerce listing images
 import kattenbakListingImg from "@/assets/projects/kattenbak-listing.webp";
@@ -25,6 +23,8 @@ import hamburgerPressListingImg from "@/assets/projects/hamburger-press-listing.
 import schoenenWolListingImg from "@/assets/projects/schoenen-wol-listing.webp";
 import pastamachineListingImg from "@/assets/projects/pastamachine-listing.webp";
 import compressorListingImg from "@/assets/projects/compressor-listing.webp";
+import FAQSection from "@/components/FAQSection";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 const Ecommerce = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -236,10 +236,17 @@ const Ecommerce = () => {
         knop={{ label: "Plan een strategiegesprek", to: "/contact" }}
       />
 
-      <Sectie>
-        <SectieKop titel="Veelgestelde vragen" intro="Antwoorden op de meest voorkomende e-commerce vragen" />
-        <Vragen items={faqs} />
-      </Sectie>
+      <FAQSection
+        zonderAnimatie
+        kop="Veelgestelde vragen"
+        intro="Antwoorden op de meest voorkomende e-commerce vragen"
+        vragen={faqs}
+        actie={
+          <AnimatedButton to="/gratis-website-analyse" size="lg">
+            Gratis website-analyse
+          </AnimatedButton>
+        }
+      />
 
       <Sectie papier>
         <Quote

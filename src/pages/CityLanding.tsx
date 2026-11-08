@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
-import ContactBlock from "@/components/ContactBlock";
 import CaseGrid from "@/components/CaseGrid";
 import BenefitList from "@/components/BenefitList";
 import LandingFaq from "@/components/LandingFaq";
@@ -137,8 +136,6 @@ const CityLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 5: FAQ — alleen bij steden met eigen, plaatsgebonden vragen */}
       {lokaal && <LandingFaq h2={`Veelgestelde vragen over een website in ${city.name}`} items={lokaal.faq} />}
 
-      {/* Sectie 6: Contactblok */}
-      <ContactBlock h2={lokaal?.headings?.contact ?? meta?.headings?.contact ?? city.contactBlock.h2} body={city.contactBlock.body} />
 
       {/* Interne linksectie */}
       <section className="py-12 bg-background">

@@ -4,7 +4,6 @@ import { MapPin, Search, TrendingUp, Star, CheckCircle2, Gauge } from "lucide-re
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
-import ContactBlock from "@/components/ContactBlock";
 import SeoPortfolio from "@/components/SeoPortfolio";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
@@ -114,10 +113,6 @@ const SeoStad = ({ data }: { data: SeoStadData }) => {
 
         <LandingFaq h2={`Veelgestelde vragen over SEO in ${data.stad}`} items={data.faq} />
 
-        <ContactBlock
-          h2={`Klaar om bovenaan Google te staan in ${data.stad}?`}
-          body={`Vraag een gratis SEO-scan aan. We laten zien waar de snelle winst zit en hoe je zichtbaarder wordt voor klanten in ${data.stad} en ${data.regio}.`}
-        />
 
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">

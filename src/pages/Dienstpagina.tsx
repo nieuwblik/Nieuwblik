@@ -6,9 +6,8 @@ import CaseGrid from "@/components/CaseGrid";
 import GoogleReviewMuur from "@/components/GoogleReviewMuur";
 import DienstGolfHero from "@/components/dienst/DienstGolfHero";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { Check } from "lucide-react";
-import { INKT_65, Linkjes, Pakketten, Sectie, SectieKop, type Pakket } from "@/components/dienst/DienstBlokken";
-import { caseLaptops, caseTelefoons, type TelefoonFoto } from "@/data/caseMockups";
+import { Linkjes, Pakketten, Sectie, SectieKop, type Pakket } from "@/components/dienst/DienstBlokken";
+import { BeeldBlok, BlokKop, BlokTekst, BlokVinkjes, kiesFoto } from "@/components/dienst/BeeldBlok";
 import { companyInfo } from "@/config/company";
 import { projects } from "@/data/projects";
 
@@ -18,82 +17,6 @@ const FAQSection = lazy(() => import("@/components/FAQSection"));
 const STANDAARD_CASES = ["feigro-dakwerken", "taxi-drechterland"];
 /** Telefoonmockups naast de tekstblokken, op volgorde; een pagina kan er zelf een kiezen. */
 const STANDAARD_BEELDEN = ["feigro-dakwerken", "taxi-drechterland", "vv-madjoe", "een-bundel-geluk", "esveld-installatie"];
-
-type Sectiedata = DienstpaginaData["secties"][number];
-
-/**
- * Tekstblok in de stijl van de homepage en de analysepagina: een statementkop met de
- * tekst ernaast en een casefoto (telefoon in de hand) die tot de rand van het scherm
- * doorloopt, om en om links en rechts. De foto loopt boven en onder iets over de rand
- * van de sectie heen, de eerste ook over de hero.
- */
-const BeeldSectie = ({
-  sectie,
-  foto,
-  alt,
-  links,
-  papier,
-  eerste,
-}: {
-  sectie: Sectiedata;
-  foto: TelefoonFoto;
-  alt: string;
-  links: boolean;
-  papier: boolean;
-  eerste: boolean;
-}) => (
-  <section className={`relative ${papier ? "sw-paper" : "bg-background"}`}>
-    <div
-      className={`grid grid-cols-1 lg:items-center ${links ? "lg:grid-cols-[minmax(0,44vw)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,44vw)]"}`}
-    >
-      <div
-        className={`relative z-10 aspect-[4/5] overflow-hidden ${links ? "lg:rounded-r-3xl" : "lg:order-2 lg:rounded-l-3xl"} ${eerste ? "" : "lg:-my-12"}`}
-      >
-        <img
-          src={foto.src}
-          srcSet={foto.srcSet}
-          sizes="(min-width: 1024px) 44vw, 100vw"
-          width={foto.breedte}
-          height={foto.hoogte}
-          alt={alt}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: `50% ${Math.round(foto.midden * 100)}%` }}
-        />
-      </div>
-      <div className={`px-4 py-14 sm:px-6 lg:py-28 ${links ? "lg:px-16 xl:px-24" : "lg:order-1 lg:px-16 xl:px-24"}`}>
-        <div className="max-w-[640px]">
-          <h2 className="pf-inleiding">{sectie.titel}</h2>
-          {sectie.intro && (
-            <p className="mt-6 text-lg font-light leading-relaxed md:text-xl" style={{ color: INKT_65 }}>
-              {sectie.intro}
-            </p>
-          )}
-          {sectie.alineas && (
-            <div className="mt-6 space-y-5 text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
-              {sectie.alineas.map((a) => (
-                <p key={a}>{a}</p>
-              ))}
-            </div>
-          )}
-          {sectie.vinkjes && (
-            <ul className="mt-8 space-y-3.5">
-              {sectie.vinkjes.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <Check className="mt-1 h-4 w-4 shrink-0" style={{ color: "hsl(var(--sw-green))" }} strokeWidth={2.6} aria-hidden="true" />
-                  <span className="text-[0.9375rem] leading-relaxed md:text-base" style={{ color: INKT_65 }}>
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-    </div>
-  </section>
-);
 
 export type DienstpaginaData = {
   slug: string;
@@ -161,34 +84,38 @@ const Dienstpagina = ({ data }: { data: DienstpaginaData }) => {
 
         {data.secties.map((s, i) => {
           const gekozen = (data.beelden ?? []).map((b) => b.replace(/^laptop:/, ""));
-          const slugs = [...(data.beelden ?? []), ...STANDAARD_BEELDEN.filter((b) => !gekozen.includes(b))];
-          const keuze = slugs[i % slugs.length]!;
-          const laptop = keuze.startsWith("laptop:");
-          const slug = laptop ? keuze.slice("laptop:".length) : keuze;
-          const foto = laptop ? caseLaptops[slug] : caseTelefoons[slug];
-          const naam = projects.find((p) => p.slug === slug)?.title ?? "een klant";
-          return foto ? (
-            <BeeldSectie
-              key={s.titel}
-              sectie={s}
-              foto={foto}
-              alt={laptop ? `Website van ${naam} op een laptop` : `Mobiele website van ${naam} op een iPhone`}
-              links={i % 2 === 0}
-              papier={i % 2 === 0}
-              eerste={i === 0}
-            />
-          ) : null;
+          const keuzes = [...(data.beelden ?? []), ...STANDAARD_BEELDEN.filter((b) => !gekozen.includes(b))];
+          const beeld = kiesFoto(keuzes[i % keuzes.length]!);
+          if (!beeld) return null;
+          return (
+            <BeeldBlok key={s.titel} foto={beeld.foto} alt={beeld.alt} links={i % 2 === 0}>
+              <BlokKop>{s.titel}</BlokKop>
+              {s.intro && (
+                <BlokTekst>
+                  <p className="md:text-xl">{s.intro}</p>
+                </BlokTekst>
+              )}
+              {s.alineas && (
+                <BlokTekst>
+                  {s.alineas.map((a) => (
+                    <p key={a}>{a}</p>
+                  ))}
+                </BlokTekst>
+              )}
+              {s.vinkjes && <BlokVinkjes items={s.vinkjes} />}
+            </BeeldBlok>
+          );
         })}
 
         {data.pakketten && (
-          <Sectie papier={data.secties.length % 2 === 0}>
+          <Sectie>
             <SectieKop titel={data.pakketten.titel} {...(data.pakketten.intro ? { intro: data.pakketten.intro } : {})} />
             <Pakketten items={data.pakketten.items} />
           </Sectie>
         )}
 
         {/* Recent werk, de reviewmuur en de FAQ zoals op de rest van de site */}
-        <Sectie papier={(data.secties.length + (data.pakketten ? 1 : 0)) % 2 === 0}>
+        <Sectie>
           <div className="mb-12 md:mb-16">
             <h2 className="pf-inleiding">
               Recent werk voor ondernemers in heel Nederland. Van dakdekker tot taxibedrijf: elke site op maat ontworpen,

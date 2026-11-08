@@ -5,7 +5,6 @@ import { Zap, Smartphone, MessageCircle, MapPin, Plane, CheckCircle2 } from "luc
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
-import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { useDarkNavSection } from "@/components/TabNav";
@@ -308,11 +307,6 @@ const TaxiWebsite = () => {
         {/* FAQ */}
         <LandingFaq h2="Veelgestelde vragen over een taxi website" items={faqItems} />
 
-        {/* Contact */}
-        <ContactBlock
-          h2="Klaar om jouw taxibedrijf online te laten groeien?"
-          body="Vraag een vrijblijvend voorstel aan. We denken mee over het boekingsproces, de lokale SEO en de luchthavens waar jij op rijdt, en leveren binnen enkele weken een site die aanvragen oplevert."
-        />
 
         {/* Interne links */}
         <section className="py-12 bg-background">

@@ -3,11 +3,11 @@ import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { DienstHero, INKT_65, Linkjes, Pakketten, Sectie, SectieKop, Stappen, Tekst, Vinkjes, Vragen } from "@/components/dienst/DienstBlokken";
+import { DienstHero, INKT_65, Linkjes, Pakketten, Sectie, SectieKop, Stappen, Tekst, Vinkjes } from "@/components/dienst/DienstBlokken";
 import { companyInfo } from "@/config/company";
 import { industryLinks } from "@/data/industryLinks";
+import FAQSection from "@/components/FAQSection";
 
 const url = `${SITE_URL}/website-laten-maken`;
 
@@ -177,12 +177,17 @@ const WebsiteLatenMaken = () => {
           </p>
         </Sectie>
 
-        <Sectie papier>
-          <SectieKop titel="Veelgestelde vragen over een website laten maken" />
-          <Vragen items={faqItems.map((f) => ({ question: f.q, answer: f.a }))} />
-        </Sectie>
+        <FAQSection
+          zonderAnimatie
+          kop="Veelgestelde vragen over een website laten maken"
+          vragen={faqItems.map((f) => ({ question: f.q, answer: f.a }))}
+          actie={
+            <AnimatedButton to="/gratis-website-analyse" size="lg">
+              Gratis website-analyse
+            </AnimatedButton>
+          }
+        />
 
-        <ContactBlock h2="Klaar om te starten?" body="Vertel over jouw project. Binnen 24 uur een reactie met een concrete offerte." />
       </main>
       <Footer />
     </div>

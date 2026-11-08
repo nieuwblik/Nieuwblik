@@ -8,6 +8,7 @@ import CaseGrid from "@/components/CaseGrid";
 import { kiesCases } from "@/lib/cases";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { ShoppingCart, CreditCard, BarChart3 } from "lucide-react";
+import FAQSection from "@/components/FAQSection";
 import {
   DienstHero,
   GroenPaneel,
@@ -17,7 +18,6 @@ import {
   Sectie,
   SectieKop,
   Stappen,
-  Vragen,
 } from "@/components/dienst/DienstBlokken";
 
 // De webshopcases uit het portfolio, met het caseraster van de homepage.
@@ -191,10 +191,17 @@ const Webshops = () => {
         </div>
       </Sectie>
 
-      <Sectie papier>
-        <SectieKop titel="Veelgestelde vragen" intro="Alles wat je wilt weten over onze webshops" />
-        <Vragen items={faqs} />
-      </Sectie>
+      <FAQSection
+        zonderAnimatie
+        kop="Veelgestelde vragen"
+        intro="Alles wat je wilt weten over onze webshops"
+        vragen={faqs}
+        actie={
+          <AnimatedButton to="/gratis-website-analyse" size="lg">
+            Gratis website-analyse
+          </AnimatedButton>
+        }
+      />
 
       <Sectie>
         <Quote

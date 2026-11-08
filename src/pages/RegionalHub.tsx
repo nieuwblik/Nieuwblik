@@ -7,7 +7,6 @@ import { ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
-import ContactBlock from "@/components/ContactBlock";
 import CaseGrid from "@/components/CaseGrid";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
@@ -311,7 +310,6 @@ const RegionalHub = () => {
           </div>
         </section>
 
-        <ContactBlock h2={`Start jouw website in ${hub.name} vanaf €${PRIJZEN.starter}`} body="Vertel over jouw bedrijf en plan. Binnen 24 uur een reactie met een concreet voorstel." />
       </main>
       <Footer />
     </div>

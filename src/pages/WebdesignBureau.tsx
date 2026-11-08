@@ -5,7 +5,6 @@ import { CheckCircle2, Award, Users, Zap, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
-import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
@@ -136,7 +135,6 @@ const WebdesignBureau = () => {
         </section>
 
         <LandingFaq h2="Veelgestelde vragen over ons webdesign bureau" items={faqItems} />
-        <ContactBlock h2="Laten we samenwerken" body="Vertel over jouw project. Binnen 24 uur een persoonlijk antwoord." />
       </main>
       <Footer />
     </div>

@@ -208,8 +208,11 @@ const FAQSection = ({
   intro = "Duidelijke, eerlijke antwoorden zodat je precies weet waar je aan toe bent. Geen verrassingen, alleen resultaat.",
   actie,
   zonderAnimatie = false,
+  kop = "Veelgestelde vragen",
 }: {
   vragen?: typeof faqs;
+  /** Kop van de sectie; stads- en branchepagina's houden hun eigen kop. */
+  kop?: string;
   intro?: string;
   /** Onder de intro, bijvoorbeeld een knop. */
   actie?: ReactNode;
@@ -242,7 +245,7 @@ const FAQSection = ({
           {/* Links: kop en tekst */}
           <div className="lg:col-span-4">
             <h2 className={`${reveal} text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight mb-5 leading-[1.05]`} style={{ color: "hsl(var(--sw-ink))" }}>
-              Veelgestelde vragen
+              {kop}
             </h2>
             <p className={`${reveal} text-base md:text-lg font-light leading-relaxed max-w-sm`} style={{ color: "hsl(var(--sw-ink) / 0.65)" }}>
               {intro}

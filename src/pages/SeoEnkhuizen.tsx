@@ -5,7 +5,6 @@ import { MapPin, Search, TrendingUp, Star, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
-import ContactBlock from "@/components/ContactBlock";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
 
@@ -186,10 +185,6 @@ const SeoEnkhuizen = () => {
 
         {/* Contact */}
         <SeoPortfolio stad="Enkhuizen" />
-        <ContactBlock
-          h2="Klaar om bovenaan Google te staan in Enkhuizen?"
-          body="Vraag een gratis SEO scan aan van jouw huidige site. We laten zien waar de quick wins liggen en hoe we jouw bedrijf zichtbaarder maken voor klanten in Enkhuizen en West-Friesland."
-        />
 
         {/* Interne links */}
         <section className="py-12 bg-background">

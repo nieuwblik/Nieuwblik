@@ -8,11 +8,11 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingHero from "@/components/LandingHero";
 import LandingFaq from "@/components/LandingFaq";
-import ContactBlock from "@/components/ContactBlock";
 import CaseGrid from "@/components/CaseGrid";
 import BenefitList from "@/components/BenefitList";
 import { ProblemSolutionSection } from "@/components/ProblemSolutionSectionNew";
 import GoogleReviewMuur from "@/components/GoogleReviewMuur";
+import { BeeldBlok, BlokKop, BlokVinkjes, fotoVoor } from "@/components/dienst/BeeldBlok";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { getIndustryBySlug } from "@/data/industries";
 import { getIndustryExtra, getRelatedIndustrySlugs } from "@/data/industryExtras";
@@ -94,9 +94,9 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       <LandingHero h1={industry.h1} subtitle={industry.heroSubtitle} />
 
       {/* Intro paragraaf voor extra keyword context */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
-          <p className="text-muted-foreground text-lg leading-relaxed text-center">
+      <section className="bg-background pb-16 pt-8 md:pb-24 md:pt-12">
+        <div className="container mx-auto px-4 sm:px-6">
+          <p className="max-w-3xl text-xl font-light leading-relaxed md:text-2xl" style={{ color: "hsl(var(--sw-ink) / 0.75)" }}>
             {industry.intro}
           </p>
         </div>
@@ -106,41 +106,29 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 1: Wat heeft deze branche nodig.
           section1.body wordt hier bewust niet gerenderd — die is woord voor
           woord gelijk aan industry.intro, die hierboven al één keer staat. */}
-      <BenefitList h2={industry.section1.h2} items={industry.section1.needs} className="bg-secondary" />
+      <BenefitList h2={industry.section1.h2} items={industry.section1.needs} />
 
       {/* Sectie 1b: Uitdagingen & functies specifiek voor deze branche */}
-      {extra && (
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-                Uitdagingen voor een {industry.name.toLowerCase()} online
-              </h2>
-              <ul className="space-y-4">
-                {extra.painpoints.map((p, idx) => (
-                  <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
-                    <span className="text-accent font-bold">-</span>
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-                Functies die voor een {industry.name.toLowerCase()} website het verschil maken
-              </h2>
-              <ul className="space-y-4">
-                {extra.features.map((f, idx) => (
-                  <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
-                    <span className="text-accent font-bold">✓</span>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-      )}
+      {extra && (() => {
+        const foto = fotoVoor(1, industry.section1.h2);
+        if (!foto) return null;
+        return (
+          <BeeldBlok foto={foto.foto} alt={foto.alt} links={false}>
+            <BlokKop>Uitdagingen voor een {industry.name.toLowerCase()} online</BlokKop>
+            <ul className="mt-8 border-t border-border">
+              {extra.painpoints.map((punt, idx) => (
+                <li key={idx} className="border-b border-border py-5 leading-relaxed text-muted-foreground">
+                  {punt}
+                </li>
+              ))}
+            </ul>
+            <h2 className="mt-14 text-2xl font-semibold leading-snug tracking-tight sw-ink md:text-3xl">
+              Functies die voor een {industry.name.toLowerCase()} website het verschil maken
+            </h2>
+            <BlokVinkjes items={extra.features} />
+          </BeeldBlok>
+        );
+      })()}
 
       {/* Sectie 2: Vergelijking */}
       <ProblemSolutionSection />
@@ -149,14 +137,14 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       <GoogleReviewMuur kop={industry.section3H2} />
 
       {/* Sectie 4: Portfolio */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{industry.section4.h2}</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">{industry.section4.intro}</p>
+      <section className="bg-background py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="mb-12 max-w-4xl md:mb-16">
+            <h2 className="pf-inleiding">{industry.section4.h2}</h2>
+            <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">{industry.section4.intro}</p>
           </div>
           <CaseGrid projects={branchProjects} />
-          <div className="text-center mt-12">
+          <div className="mt-12">
             <AnimatedButton to="/portfolio" size="lg" variant="outline">
               Alle projecten bekijken
             </AnimatedButton>
@@ -167,12 +155,10 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       {/* Sectie 5: FAQ */}
       <LandingFaq h2={industry.faq.h2} items={industry.faq.items} />
 
-      {/* Sectie 6: Contactblok */}
-      <ContactBlock h2={industry.contactBlock.h2} body={industry.contactBlock.body} />
 
       {/* Interne linksectie */}
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+      <section className="bg-background py-16 md:py-20">
+        <div className="container mx-auto max-w-3xl px-4 sm:px-6">
           <p className="text-muted-foreground leading-relaxed">
             {industry.internalLinks.split(/(diensten|portfolio|over ons pagina)/).map((part, i) => {
               if (part === "diensten") return <Link key={i} to="/diensten" className="text-accent hover:underline font-semibold">diensten</Link>;
@@ -191,7 +177,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
           {relatedIndustries.length > 0 && (
             <div className="mt-8 pt-8 border-t border-border">
               <p className="text-sm text-muted-foreground mb-3">Ook interessant:</p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap gap-3">
                 {relatedIndustries.map((i) => (
                   <Link
                     key={i.slug}
