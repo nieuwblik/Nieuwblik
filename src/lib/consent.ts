@@ -1,8 +1,9 @@
 /**
- * De cookiekeuze van de bezoeker. Google Analytics en Google Ads laden alleen
- * na "Accepteren": zonder keuze of na "Weigeren" gaat er niets naar Google.
- * Het script zelf staat in routes/__root.tsx (GA_SCRIPT) en leest dezelfde
- * sleutel, zodat een eerdere keuze ook bij het eerste laden geldt.
+ * De cookiekeuze van de bezoeker. Google Analytics en Google Ads plaatsen alleen
+ * na "Accepteren" cookies. Zonder keuze of na "Weigeren" draait het script in
+ * Consent Mode op geweigerd: geen cookies, alleen anonieme pings. Het script zelf
+ * staat in routes/__root.tsx (GA_SCRIPT) en leest dezelfde sleutel, zodat een
+ * eerdere keuze ook bij het eerste laden geldt.
  */
 const SLEUTEL = "cookieConsent";
 const GA_ID = "G-8DLGZ42KPP";
@@ -12,6 +13,7 @@ export const OPEN_COOKIEKEUZE = "nieuwblik:cookiekeuze";
 
 type GoogleVenster = Window & {
   laadGoogle?: () => void;
+  laadGoogleScript?: () => void;
   gtag?: (...args: unknown[]) => void;
 } & Record<string, unknown>;
 
@@ -40,12 +42,12 @@ export function accepteerCookies() {
 }
 
 /**
- * Ook voor wie eerder accepteerde: het script stopt met meten en de
- * Analytics-cookies gaan weg, op het hoofddomein waar ze zijn gezet.
+ * Ook voor wie eerder accepteerde: de toestemming gaat terug naar geweigerd, zodat
+ * er alleen nog anonieme pings zonder cookies gaan, en de Analytics-cookies gaan
+ * weg, op het hoofddomein waar ze zijn gezet.
  */
 export function weigerCookies() {
   bewaar("declined");
-  venster()[`ga-disable-${GA_ID}`] = true;
   venster().gtag?.("consent", "update", {
     ad_storage: "denied",
     ad_user_data: "denied",
@@ -61,11 +63,15 @@ export function weigerCookies() {
   }
 }
 
-/** Een aanvraag als conversie, alleen voor wie toestemming gaf. */
+/**
+ * Een aanvraag als conversie. Met toestemming als gewone meting, zonder
+ * toestemming als anonieme ping zonder cookies, waarmee Google Ads de gemiste
+ * conversies kan schatten.
+ */
 export function meetAanvraag(formulier: string) {
-  if (leesCookiekeuze() !== "accepted") return;
   // Wie snel is, was er eerder dan het uitgestelde script: eerst laden, dan
-  // staat de toestemming in de wachtrij vóór deze meting.
-  venster().laadGoogle?.();
+  // staat de toestemming (of de weigering) in de wachtrij vóór deze meting.
+  if (leesCookiekeuze() === "accepted") venster().laadGoogle?.();
+  else venster().laadGoogleScript?.();
   venster().gtag?.("event", "generate_lead", { formulier });
 }

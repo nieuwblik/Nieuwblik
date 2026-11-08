@@ -30,12 +30,16 @@ import epilogueLatin from "../assets/fonts/epilogue-latin.woff2?url";
 
 // Google Analytics, uitgesteld tot de browser niets te doen heeft.
 //
-// Alleen na toestemming: zonder keuze of na "Weigeren" laadt er niets van
-// Google. De keuze staat in localStorage (zie src/lib/consent.ts); wie in de
-// cookiemelding accepteert, roept window.laadGoogle aan. Consent Mode staat
-// standaard op geweigerd en gaat pas om vlak voordat het script laadt. De
-// router voert dit script bij een routewissel opnieuw uit, vandaar de vlag: een
-// tweede "default" mag een gegeven toestemming niet terugdraaien.
+// Uitgebreide Consent Mode: het script laadt voor iedereen, maar Consent Mode
+// staat standaard op geweigerd. Zonder toestemming plaatst Google geen cookies en
+// stuurt het alleen anonieme pings zonder identificatie, zodat Google Ads kan
+// schatten hoeveel conversies het mist. Pas na "Accepteren" gaat de toestemming
+// om (window.laadGoogle); de keuze staat in localStorage (zie src/lib/consent.ts).
+// ads_data_redaction haalt advertentiegegevens uit de pings zolang ad_storage
+// geweigerd is; url_passthrough geeft de klik-id via de URL door als er geen
+// cookie mag zijn. De router voert dit script bij een routewissel opnieuw uit,
+// vandaar de vlaggen: een tweede "default" mag een gegeven toestemming niet
+// terugdraaien en het script laadt maar één keer.
 //
 // Niet in het portaal: daar zou het externe script op dezelfde origin draaien
 // als de inlogsessie, en elke portaal-URL (met klant-id's) naar Google gaan.
@@ -48,12 +52,13 @@ function gtag(){dataLayer.push(arguments);}
 if (!window.gaStandaardGezet) {
   window.gaStandaardGezet = true;
   gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);
 }
-function loadGA() {
+function laadScript() {
   if (window.gaLoaded) return;
   if (/^\\/admin(\\/|$)/.test(location.pathname)) return;
   window.gaLoaded = true;
-  gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
   gtag('js', new Date());
   gtag('config', 'G-8DLGZ42KPP', /^\\/afmelden/.test(location.pathname)
     ? { send_page_view: true, page_location: location.origin + location.pathname }
@@ -63,15 +68,24 @@ function loadGA() {
   script.async = true;
   document.head.appendChild(script);
 }
-window.laadGoogle = loadGA;
-function whenIdle() {
-  if ('requestIdleCallback' in window) requestIdleCallback(loadGA, { timeout: 5000 });
-  else setTimeout(loadGA, 2000);
+function geefToestemming() {
+  gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+  laadScript();
 }
+window.laadGoogle = geefToestemming;
+window.laadGoogleScript = laadScript;
 function heeftToestemming() {
   try { return localStorage.getItem('cookieConsent') === 'accepted'; } catch (e) { return false; }
 }
-if (heeftToestemming()) {
+function start() {
+  if (heeftToestemming()) geefToestemming();
+  else laadScript();
+}
+function whenIdle() {
+  if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 5000 });
+  else setTimeout(start, 2000);
+}
+if (!window.gaLoaded) {
   if (document.readyState === 'complete') whenIdle();
   else window.addEventListener('load', whenIdle, { once: true });
 }

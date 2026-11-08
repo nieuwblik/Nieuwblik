@@ -86,7 +86,8 @@ function controleer(data: FormState): Fouten {
 /** De herkomst uit de advertentielink, zodat je in Aanvragen ziet waar iemand vandaan komt. */
 function bronUitUrl(): string {
   const params = new URLSearchParams(window.location.search);
-  return ["utm_source", "utm_medium", "utm_campaign", "utm_term", "gclid"]
+  // gbraid en wbraid: de klik-id's die Google Ads op iPhones gebruikt in plaats van gclid.
+  return ["utm_source", "utm_medium", "utm_campaign", "utm_term", "gclid", "gbraid", "wbraid"]
     .flatMap((sleutel) => {
       const waarde = params.get(sleutel);
       return waarde ? [`${sleutel}=${waarde.slice(0, 120)}`] : [];
