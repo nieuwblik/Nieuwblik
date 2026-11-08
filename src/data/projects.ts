@@ -57,6 +57,13 @@ export interface ProjectDetail {
   goal: string;
   idea: string;
   details: string;
+  /**
+   * Optioneel: blokjes met een tussenkop naast de telefoonfoto, na de losse alinea's.
+   * Tussenkoppen met de zoekwoorden van de case wegen zwaarder dan alleen lopende tekst.
+   */
+  secties?: { kop: string; tekst: string }[];
+  /** Optioneel: interne link onder de blokjes, naar een dienstpagina die bij de case past. */
+  link?: { intro: string; label: string; naar: string };
 }
 
 export interface ProjectCredits {
@@ -382,7 +389,30 @@ export const projects: Project[] = [
       year: "2024",
       goal: "Een website die laat zien hoe breed Esveld Installatie werkt, voor particulieren en voor bedrijven, en die in de regio Dordrecht goed te vinden is.",
       idea: "Elke dienst een eigen pagina, de nooddienst bovenaan elke pagina en een aparte ingang voor zakelijke klanten. Zo vindt iedere bezoeker snel wat bij zijn vraag past.",
-      details: "Nieuwblik bouwde de website van Esveld Installatie, een installatiebedrijf in Dordrecht en Lage Zwaluwe voor particulieren en bedrijven. Van cv-ketels en warmtepompen tot proceswater en perslucht in productiehallen.\n\nDe vorige website stond nog onder de naam Van Esveld installatie: vier menu-items en een fotoslider op de homepage. Met de nieuwe site laat Esveld zien hoe breed het werk is, met een helder verhaal voor elke klant.\n\nIn de nieuwe site heeft elke dienst een eigen pagina: cv-ketel, airco, warmtepomp, installatiewerk, rioolwerk, dakwerk, loodgieterswerk en zinkwerk, met aparte pagina's voor installeren, onderhoud en storingen. Zakelijke klanten hebben een eigen ingang voor procesinstallaties, klimaattechniek en leidingwerk, met cases van onder meer Quooker en Pelican Rouge.\n\nWie met spoed iemand nodig heeft, ziet het nummer van de 24/7 nooddienst bovenaan elke pagina. Een offerte aanvragen kan vanaf elke pagina, en de tarieven staan gewoon op de site.\n\nVoor de vindbaarheid staan beide vestigingen, Dordrecht en Lage Zwaluwe, met adres en openingstijden in de gestructureerde gegevens voor Google. Een pagina over het werkgebied en een pagina voor installatiebedrijf Dordrecht vangen de lokale zoekopdrachten op, en projecten en nieuwsberichten laten zien welk werk Esveld in de regio uitvoert."
+      details: "Nieuwblik bouwde de website van Esveld Installatie, een installatiebedrijf in Dordrecht en Lage Zwaluwe voor particulieren en bedrijven. Van cv-ketels en warmtepompen tot proceswater en perslucht in productiehallen.\n\nDe vorige website stond nog onder de naam Van Esveld installatie: vier menu-items en een fotoslider op de homepage. Met de nieuwe site laat Esveld zien hoe breed het werk is, met een helder verhaal voor elke klant.",
+      secties: [
+        {
+          kop: "Een website voor installateurs die op mobiel werkt",
+          tekst: "Wie een lekkage of een kapotte cv-ketel heeft, zoekt vaak op de telefoon. Op de mobiele site van Esveld Installatie is het nummer van de nooddienst daarom direct klikbaar en is het bedrijf met één tik via WhatsApp bereikbaar. Elke pagina past zich aan het scherm aan, zonder inzoomen of opzij scrollen.",
+        },
+        {
+          kop: "Een pagina per dienst, goed vindbaar in Google",
+          tekst: "Elke dienst heeft een eigen pagina, van cv-ketel onderhoud en warmtepomp installeren tot riool verstopt en lekkend dak. Zo sluit elke pagina aan op waar mensen in de regio Dordrecht naar zoeken, in plaats van één algemene dienstenpagina.",
+        },
+        {
+          kop: "Lokale SEO voor Dordrecht en Lage Zwaluwe",
+          tekst: "Beide vestigingen staan met adres, telefoonnummer en openingstijden in de gestructureerde gegevens voor Google. Een pagina over het werkgebied en een pagina voor installatiebedrijf Dordrecht vangen de lokale zoekopdrachten op, en de projecten laten zien welk werk er in de buurt is gedaan.",
+        },
+        {
+          kop: "Snel contact, ook voor bedrijven",
+          tekst: "Particulieren vragen een offerte aan via het formulier en zien de tarieven gewoon op de site. Zakelijke klanten hebben een eigen pagina over procesinstallaties, luchtbehandeling en leidingwerk, met cases van Quooker en Pelican Rouge.",
+        },
+      ],
+      link: {
+        intro: "Ook een website voor je installatiebedrijf?",
+        label: "Website laten maken voor installateurs",
+        naar: "/website-laten-maken-installateur",
+      },
     }
   },
   {

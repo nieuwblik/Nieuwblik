@@ -190,6 +190,29 @@ const PortfolioDetail = () => {
                                 </motion.div>
                             )}
 
+                            {/* Blokjes met een tussenkop en een interne link (optioneel per case) */}
+                            {project.detail?.secties && project.detail.secties.length > 0 && (
+                                <motion.div variants={fadeUp} className="space-y-10">
+                                    {project.detail.secties.map((sectie) => (
+                                        <div key={sectie.kop} className="space-y-3">
+                                            <h3 className="text-2xl font-bold font-display leading-tight">{sectie.kop}</h3>
+                                            <p className="text-lg text-muted-foreground font-light leading-relaxed">{sectie.tekst}</p>
+                                        </div>
+                                    ))}
+                                    {project.detail.link && (
+                                        <p className="text-lg font-light leading-relaxed">
+                                            {project.detail.link.intro}{" "}
+                                            <Link
+                                                to={project.detail.link.naar}
+                                                className="font-medium text-[hsl(var(--sw-green))] underline underline-offset-4 transition-colors hover:text-foreground"
+                                            >
+                                                {project.detail.link.label}
+                                            </Link>
+                                        </p>
+                                    )}
+                                </motion.div>
+                            )}
+
                             {project.detail?.goal && (
                                 <motion.div variants={fadeUp} className="space-y-4 border-t border-border/60 pt-12">
                                     <h3 className="text-2xl font-bold font-display leading-tight">Het doel</h3>
