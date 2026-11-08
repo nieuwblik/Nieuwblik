@@ -63,14 +63,14 @@ const Cookies = () => {
               Wij gebruiken Google Analytics om bij te houden hoe bezoekers onze website gebruiken. De informatie die hiermee verzameld wordt, wordt gebruikt om rapporten op te stellen over het gebruik van de website. Google kan deze informatie aan derden verschaffen indien Google hiertoe wettelijk wordt verplicht, of voor zover derden de informatie namens Google verwerken.
             </p>
             <p className="text-muted-foreground mt-4">
-              Analytische cookies plaatsen wij alleen als u daarvoor toestemming geeft.
+              Analytische cookies plaatsen wij alleen als u daarvoor toestemming geeft. Zonder toestemming stuurt Google Analytics alleen anonieme metingen zonder cookies, zoals een paginabezoek, zonder dat u daarbij herkenbaar bent.
             </p>
           </div>
 
           <div>
             <h3 className="text-xl font-semibold mb-2">Advertentiecookies</h3>
             <p className="text-muted-foreground">
-              Wij kunnen Google Ads gebruiken om te meten of onze advertenties werken. Ook deze cookies plaatsen wij alleen als u daarvoor toestemming geeft.
+              Wij kunnen Google Ads gebruiken om te meten of onze advertenties werken. Ook deze cookies plaatsen wij alleen als u daarvoor toestemming geeft. Zonder toestemming telt Google een aanvraag alleen anoniem mee, zonder cookies.
             </p>
           </div>
         </div>
