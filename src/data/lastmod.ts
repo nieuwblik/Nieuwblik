@@ -2,7 +2,7 @@
 // Laatste inhoudelijke wijziging per pagina: dezelfde datums als de lastmod in
 // public/sitemap.xml. Gebruikt voor dateModified en article:modified_time.
 export const LASTMOD: Record<string, string> = {
-  "/": "2026-11-07",
+  "/": "2026-11-08",
   "/algemene-voorwaarden": "2026-10-22",
   "/blog": "2026-10-18",
   "/blog/brand-storytelling-van-pixel-tot-voordeur": "2026-10-18",
@@ -27,14 +27,14 @@ export const LASTMOD: Record<string, string> = {
   "/blog/website-vernieuwen-wanneer-tijd-voor-redesign": "2026-10-18",
   "/blog/zakelijk-emailadres-aanmaken-eigen-domein": "2026-10-18",
   "/blog/zelf-website-bouwen-of-laten-maken": "2026-10-18",
-  "/contact": "2026-10-19",
+  "/contact": "2026-11-08",
   "/cookies": "2026-11-08",
   "/diensten": "2026-10-14",
   "/diensten/e-commerce": "2026-10-17",
   "/diensten/webshops": "2026-10-08",
   "/diensten/website-op-maat": "2026-10-19",
   "/gratis-website-analyse": "2026-11-08",
-  "/over-ons": "2026-10-14",
+  "/over-ons": "2026-11-08",
   "/overstappen-van-wordpress": "2026-10-18",
   "/portfolio": "2026-10-13",
   "/portfolio/aardingsbedrijf-west-friesland": "2026-08-28",
