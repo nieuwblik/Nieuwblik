@@ -34,27 +34,43 @@ const solutions = [
     "SEO-geoptimaliseerd, razendsnel en perfect op elk apparaat (mobile-first)."
 ];
 
-export const ProblemSolutionSection = () => {
+/**
+ * `wit`: de variant voor de stads- en branchepagina's, in de stijl van de
+ * installateurspagina (witte achtergrond, statementkop links). De homepage houdt
+ * de grijze, gecentreerde versie.
+ */
+export const ProblemSolutionSection = ({ wit = false }: { wit?: boolean }) => {
     return (
-        <section className="py-20 md:py-32 bg-secondary overflow-hidden">
-            <div className="container mx-auto px-6">
+        <section className={`py-20 md:py-32 overflow-hidden ${wit ? "bg-background" : "bg-secondary"}`}>
+            <div className={`container mx-auto ${wit ? "px-4 sm:px-6" : "px-6"}`}>
 
-                {/* Main Title */}
-                <AnimatedSection delay={0.1} className="text-center mb-4">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.15] tracking-tight max-w-4xl mx-auto">
-                        Waar de meeste websites klanten laten liggen
-                    </h2>
-                </AnimatedSection>
+                {wit ? (
+                    <div className="mb-12 max-w-4xl md:mb-16">
+                        <h2 className="pf-inleiding">Waar de meeste websites klanten laten liggen</h2>
+                        <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">
+                            De bekende fouten naast elkaar, en hoe Nieuwblik ze voorkomt.
+                        </p>
+                    </div>
+                ) : (
+                    <>
+                        {/* Main Title */}
+                        <AnimatedSection delay={0.1} className="text-center mb-4">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.15] tracking-tight max-w-4xl mx-auto">
+                                Waar de meeste websites klanten laten liggen
+                            </h2>
+                        </AnimatedSection>
 
-                {/* Subtitle */}
-                <AnimatedSection delay={0.15} className="text-center mb-12 md:mb-16">
-                    <p className="text-lg md:text-xl text-muted-foreground font-light max-w-3xl mx-auto leading-relaxed">
-                        De bekende fouten naast elkaar, en hoe Nieuwblik ze voorkomt.
-                    </p>
-                </AnimatedSection>
+                        {/* Subtitle */}
+                        <AnimatedSection delay={0.15} className="text-center mb-12 md:mb-16">
+                            <p className="text-lg md:text-xl text-muted-foreground font-light max-w-3xl mx-auto leading-relaxed">
+                                De bekende fouten naast elkaar, en hoe Nieuwblik ze voorkomt.
+                            </p>
+                        </AnimatedSection>
+                    </>
+                )}
 
                 {/* Two Columns */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 ${wit ? "" : "max-w-6xl mx-auto"}`}>
                     {/* Left Column - Problems */}
                     <AnimatedSection delay={0.2}>
                         <div className="pt-6 md:pt-8 lg:pt-10 space-y-0">

@@ -22,7 +22,9 @@ export function kiesFoto(keuze: string): { foto: TelefoonFoto; alt: string } | n
  * De n-de casefoto voor een pagina. `seed` verschuift de volgorde (bijvoorbeeld per
  * stad of branche), zodat niet elke pagina met dezelfde foto begint.
  */
-export function fotoVoor(n: number, seed = "", eigen: string[] = []) {
+export function fotoVoor(n: number, seed = "", eigenKeuze: string[] = []) {
+  // Alleen cases waar een mockup van is; de rest vult aan met de standaardvolgorde.
+  const eigen = eigenKeuze.filter((s) => kiesFoto(s));
   const basis = [...eigen, ...STANDAARD.filter((s) => !eigen.includes(s))];
   let verschuiving = 0;
   for (const teken of seed) verschuiving = (verschuiving * 31 + teken.charCodeAt(0)) >>> 0;
@@ -67,6 +69,26 @@ export function BeeldBlok({
         </div>
         <div className={`px-4 py-14 sm:px-6 lg:px-16 lg:py-28 xl:px-24 ${links ? "" : "lg:order-1"}`}>
           <div className="max-w-[640px]">{children}</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Tekstblok zonder foto: de statementkop links en de tekst rechts ernaast, wit. Zo
+ * wisselen de blokken met en zonder foto elkaar af en wordt een lange pagina geen
+ * rij gelijke beelden.
+ */
+export function TekstBlok({ kop, children }: { kop: ReactNode; children: ReactNode }) {
+  return (
+    <section className="bg-background py-20 md:py-28">
+      <div className="container mx-auto grid grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16">
+        <h2 className="pf-inleiding lg:col-span-5">{kop}</h2>
+        <div className="lg:col-span-7 lg:pt-3">
+          <div className="max-w-[640px] space-y-5 text-lg font-light leading-relaxed" style={{ color: INKT_65 }}>
+            {children}
+          </div>
         </div>
       </div>
     </section>

@@ -1,25 +1,13 @@
 import { kiesCases } from "@/lib/cases";
 import BenefitList from "@/components/BenefitList";
 import { LEVERTIJD, PRIJZEN } from "@/config/business";
-import { motion, useReducedMotion } from "framer-motion";
 import { Link, useParams } from "@/lib/router-compat";
-import {
-  MapPin,
-  CheckCircle2,
-  Phone,
-  Users,
-  TrendingUp,
-  Target,
-  Zap,
-  Building2,
-  ShoppingBag,
-} from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 import Footer from "@/components/Footer";
 import Breadcrumb from "@/components/Breadcrumb";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { getWerkgebiedRegionBySlug, regions } from "@/data/regions";
 import { cityLinks } from "@/data/cityLinks";
-import { easings } from "@/lib/motion";
 import SEOHead from "@/components/SEOHead";
 import { companyInfo } from "@/config/company";
 import CaseGrid from "@/components/CaseGrid";
@@ -28,7 +16,8 @@ import LandingFaq from "@/components/LandingFaq";
 import { dienstInPlaats, faqPage } from "@/lib/structured-data";
 import { LokaleSecties, TodoBlok } from "@/components/LokaleSecties";
 import { getWerkgebiedLokaal } from "@/data/werkgebiedLokaal";
-import heroTeamImage from "@/assets/justin-job-compressed.webp";
+import LandingHero from "@/components/LandingHero";
+import { BlokVinkjes, TekstBlok } from "@/components/dienst/BeeldBlok";
 
 // Deze vier eerst, aangevuld tot zes met de nieuwste cases. Voor West-Friese
 // plaatsen eerst de klanten uit de regio zelf.
@@ -43,7 +32,6 @@ const WEST_FRIESLAND_KERNEN = [
 
 const WerkgebiedDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const shouldReduceMotion = useReducedMotion();
   const region = slug ? getWerkgebiedRegionBySlug(slug) : undefined;
 
   if (!region) {
@@ -100,22 +88,18 @@ const WerkgebiedDetail = () => {
 
   const services = [
     {
-      icon: <Building2 className="w-5 h-5" />,
       title: `Websites`,
       description: `Professionele websites die perfect aansluiten bij bedrijven in ${region.name}.`,
     },
     {
-      icon: <ShoppingBag className="w-5 h-5" />,
       title: "Webshops",
       description: `E-commerce oplossingen waarmee je 24/7 online kunt verkopen.`,
     },
     {
-      icon: <TrendingUp className="w-5 h-5" />,
       title: "Lokale SEO",
       description: `Beter vindbaar in Google voor "${region.name}" en omgeving.`,
     },
     {
-      icon: <Zap className="w-5 h-5" />,
       title: "Supersnel & mobiel",
       description: `Razendsnel ladende websites die perfect werken op elk apparaat.`,
     },
@@ -123,19 +107,16 @@ const WerkgebiedDetail = () => {
 
   const whyPoints = [
     {
-      icon: <MapPin className="w-5 h-5" />,
       title: isLocal ? "Lokaal en dichtbij" : "Snelle communicatie",
       text: isLocal
         ? `We zitten vlakbij ${region.name} en werken met korte lijnen.`
         : `Via videobellen, e-mail en telefoon blijven we nauw in contact.`,
     },
     {
-      icon: <Users className="w-5 h-5" />,
       title: "Persoonlijke aandacht",
       text: `Je bent geen nummer. We nemen de tijd om jouw bedrijf echt te begrijpen.`,
     },
     {
-      icon: <Target className="w-5 h-5" />,
       title: isLocal ? "Lokale kennis" : "Scherpe prijzen",
       text: isLocal
         ? // Op de West-Friesland-pagina zelf stond hier "in West-Friesland en
@@ -175,245 +156,123 @@ const WerkgebiedDetail = () => {
       />
 
 
-      <main className="min-h-screen bg-background pt-32 pb-12 sm:pb-20">
-        {/* Hero */}
-        <section className="container mx-auto px-4 sm:px-6 pb-12 sm:pb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easings.easeOutExpo }}
-            className="max-w-3xl mx-auto text-center"
-          >
+      <main className="min-h-screen bg-background">
+        <LandingHero
+          h1={`Website laten maken in ${region.name} vanaf €${PRIJZEN.starter}`}
+          subtitle={lokaal?.intro ?? getIntroText()}
+          kruimels={
             <Breadcrumb
               items={[
                 { label: "Werkgebied", path: "/werkgebied" },
                 { label: region.name, path: `/werkgebied/${region.slug}` },
               ]}
             />
-
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              Website laten maken in {region.name}
-              {` vanaf €${PRIJZEN.starter}`}
-            </h1>
-
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
-              {lokaal?.intro ?? getIntroText()}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <AnimatedButton to="/contact" size="lg">
+          }
+          knoppen={
+            <>
+              <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
                 Gratis kennismaken
               </AnimatedButton>
-              <AnimatedButton href={`tel:${companyInfo.phone.replace(/\s/g, "")}`} size="lg" variant="outline" showArrow={false}>
-                <Phone className="mr-2 w-5 h-5 inline" />
+              <AnimatedButton
+                href={`tel:${companyInfo.phone.replace(/\s/g, "")}`}
+                variant="outline"
+                showArrow={false}
+                className="h-12 w-full sm:w-auto"
+              >
+                <Phone className="mr-2 inline h-4 w-4" />
                 {companyInfo.phone}
               </AnimatedButton>
-            </div>
-          </motion.div>
-        </section>
+            </>
+          }
+        />
 
         {/* West-Friesland hub: de dorpen zonder eigen pagina (hun oude
             /werkgebied-pagina's 301'en hierheen) en de plaatsen met een eigen pagina. */}
-        {region.slug === 'west-friesland' && (
-          <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Websites in elke West-Friese kern
-              </h2>
-              <div className="space-y-4">
-                <Alinea tekst="Ons werkgebied omvat ook de dorpen: Bovenkarspel, Hoogkarspel, Andijk, Venhuizen, Hem, Hauwert en Zwaagdijk. Voor ondernemers daar gelden dezelfde prijzen, dezelfde werkwijze en dezelfde levertijd als op deze pagina. We werken voornamelijk online. Spreken we elkaar liever in het echt? Dan komen we bij je langs." />
-                <Alinea tekst="Voor de grotere plaatsen in en rond West-Friesland is er een uitgebreide pagina met prijzen, werkwijze en voorbeelden: [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard) en [website laten maken in Alkmaar](/website-laten-maken-alkmaar). Ons eigen kantoor staat in Enkhuizen: lees over [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen)." />
-              </div>
-            </div>
-          </section>
+        {region.slug === "west-friesland" && (
+          <TekstBlok kop="Websites in elke West-Friese kern">
+            <Alinea tekst="Ons werkgebied omvat ook de dorpen: Bovenkarspel, Hoogkarspel, Andijk, Venhuizen, Hem, Hauwert en Zwaagdijk. Voor ondernemers daar gelden dezelfde prijzen, dezelfde werkwijze en dezelfde levertijd als op deze pagina. We werken voornamelijk online. Spreken we elkaar liever in het echt? Dan komen we bij je langs." />
+            <Alinea tekst="Voor de grotere plaatsen in en rond West-Friesland is er een uitgebreide pagina met prijzen, werkwijze en voorbeelden: [website laten maken in Hoorn](/werkgebied/hoorn), [website laten maken in Medemblik](/website-laten-maken-medemblik), [website laten maken in Heerhugowaard](/website-laten-maken-heerhugowaard) en [website laten maken in Alkmaar](/website-laten-maken-alkmaar). Ons eigen kantoor staat in Enkhuizen: lees over [website laten maken in Enkhuizen](/website-laten-maken-enkhuizen)." />
+          </TekstBlok>
         )}
-
 
         {/* Lokaal blok: handgeschreven per plaats (src/data/werkgebiedLokaal.ts) */}
         {lokaal && (
-          <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                {lokaal.lokaal.h2}
-              </h2>
-              <div className="space-y-4">
-                {lokaal.lokaal.alineas.map((alinea, idx) => (
-                  <Alinea key={idx} tekst={alinea} />
-                ))}
-              </div>
-            </div>
-          </section>
+          <TekstBlok kop={lokaal.lokaal.h2}>
+            {lokaal.lokaal.alineas.map((alinea, idx) => (
+              <Alinea key={idx} tekst={alinea} />
+            ))}
+          </TekstBlok>
         )}
 
-        {lokaal?.secties && <LokaleSecties secties={lokaal.secties} />}
+        {lokaal?.secties && <LokaleSecties secties={lokaal.secties} seed={region.slug} cases={lokaal.cases} />}
         <TodoBlok items={lokaal?.todo} />
-
-        {/* Team foto */}
-        <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="aspect-[16/9] rounded-2xl overflow-hidden">
-              <img
-                src={heroTeamImage}
-                alt="Justin en Job van Nieuwblik"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </motion.div>
-        </section>
 
         {!eigenOpbouw && (
           <>
-        {/* Services */}
-        <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              Meer klanten met een website die werkt in {region.name}
-            </h2>
-            <p className="text-muted-foreground mb-10 sm:mb-12 max-w-xl mx-auto">
-              Complete webdesign oplossingen voor ondernemers in {region.name}.
-            </p>
+            {/* Diensten */}
+            <BenefitList
+              h2={`Meer klanten met een website die werkt in ${region.name}`}
+              intro={`Complete webdesign oplossingen voor ondernemers in ${region.name}.`}
+              items={services.map((service) => ({ h3: service.title, text: service.description }))}
+              beeld={0}
+              links={false}
+            />
 
-            <div className="grid sm:grid-cols-2 gap-6">
-              {services.map((service, index) => (
-                <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-secondary/50 rounded-2xl p-6 sm:p-8 text-left"
-                >
-                  <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-4 text-accent">
-                    {service.icon}
-                  </div>
-                  <h3 className="font-bold text-lg mb-2 text-foreground">{service.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Waarom Nieuwblik */}
-        <BenefitList
-          h2={`Waarom ondernemers in ${region.name} voor Nieuwblik kiezen`}
-          intro={
-            isLocal
-              ? `We zijn lokaal gevestigd en kennen de regio ${region.name} goed.`
-              : `Ook vanuit ${region.name} kun je rekenen op onze expertise.`
-          }
-          items={whyPoints.map((point) => ({ h3: point.title, text: point.text }))}
-          className="bg-secondary/30"
-        >
-          <div className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-3">
-            {[
-              `Binnen ${LEVERTIJD.standaard} live met je nieuwe website`,
-              isLocal ? `Persoonlijk contact - we zitten vlakbij` : `Persoonlijke service, ook op afstand`,
-              `Transparante prijzen zonder verborgen kosten`,
-              `Mobiel-geoptimaliseerd voor al je klanten`,
-              `Gratis SEO-scan van je huidige website`,
-              `Continue ondersteuning na oplevering`,
-            ].map((benefit, idx) => (
-              <motion.div
-                key={benefit}
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.05 }}
-                className="flex items-center gap-3"
-              >
-                <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
-                <p className="text-sm text-foreground">{benefit}</p>
-              </motion.div>
-            ))}
-          </div>
-        </BenefitList>
-
+            {/* Waarom Nieuwblik */}
+            <BenefitList
+              h2={`Waarom ondernemers in ${region.name} voor Nieuwblik kiezen`}
+              intro={
+                isLocal
+                  ? `We zijn lokaal gevestigd en kennen de regio ${region.name} goed.`
+                  : `Ook vanuit ${region.name} kun je rekenen op onze expertise.`
+              }
+              items={whyPoints.map((point) => ({ h3: point.title, text: point.text }))}
+              beeld={1}
+            >
+              <BlokVinkjes
+                items={[
+                  `Binnen ${LEVERTIJD.standaard} live met je nieuwe website`,
+                  isLocal ? `Persoonlijk contact - we zitten vlakbij` : `Persoonlijke service, ook op afstand`,
+                  `Transparante prijzen zonder verborgen kosten`,
+                  `Mobiel-geoptimaliseerd voor al je klanten`,
+                  `Gratis SEO-scan van je huidige website`,
+                  `Continue ondersteuning na oplevering`,
+                ]}
+              />
+            </BenefitList>
           </>
         )}
 
         {/* Portfolio */}
-        <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-5xl mx-auto"
-          >
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Bekijk websites die bezoekers omzetten in klanten
-              </h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
+        <section className="bg-background py-16 md:py-24">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="mb-12 max-w-4xl md:mb-16">
+              <h2 className="pf-inleiding">Bekijk websites die bezoekers omzetten in klanten</h2>
+              <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">
                 Een selectie van recente projecten waar we trots op zijn.
               </p>
             </div>
-
             <CaseGrid projects={featuredProjects} />
-
-            <div className="text-center mt-10">
+            <div className="mt-12">
               <AnimatedButton to="/portfolio" size="lg" variant="outline">
                 Bekijk alle projecten
               </AnimatedButton>
             </div>
-          </motion.div>
-        </section>
-
-        {!eigenOpbouw && (
-          <>
-        {/* Proces */}
-        <section className="bg-secondary/30 py-16 sm:py-24">
-          <div className="container mx-auto px-4 sm:px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="max-w-3xl mx-auto text-center"
-            >
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Binnen {LEVERTIJD.standaard} live in vier heldere stappen
-              </h2>
-              <p className="text-muted-foreground mb-10 sm:mb-12">
-                Van eerste gesprek tot live website in 4 stappen
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                {processSteps.map((step, idx) => (
-                  <motion.div
-                    key={step.number}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="bg-background rounded-2xl p-6 text-left"
-                  >
-                    <span className="text-4xl font-bold text-accent/20">{step.number}</span>
-                    <h3 className="font-bold text-lg mt-2 mb-1 text-foreground">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground">{step.description}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
           </div>
         </section>
 
-          </>
+        {!eigenOpbouw && (
+          <TekstBlok kop={`Binnen ${LEVERTIJD.standaard} live in vier heldere stappen`}>
+            <p>Van eerste gesprek tot live website in 4 stappen</p>
+            <ol className="!mt-8 border-t border-border">
+              {processSteps.map((step) => (
+                <li key={step.number} className="border-b border-border py-6">
+                  <h3 className="text-xl font-semibold leading-snug text-foreground md:text-2xl">{step.title}</h3>
+                  <p className="mt-2 text-base font-normal leading-relaxed text-muted-foreground">{step.description}</p>
+                </li>
+              ))}
+            </ol>
+          </TekstBlok>
         )}
 
         {lokaal && (
@@ -424,19 +283,17 @@ const WerkgebiedDetail = () => {
             is (werkgebied of landelijke stadspagina). Zonder dit blok waren
             sommige werkgebiedpagina's alleen via /werkgebied te vinden. */}
         {buren.length > 0 && (
-          <section className="container mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
-                In de buurt
-              </h2>
+          <section className="bg-background py-16 md:py-20">
+            <div className="container mx-auto px-4 sm:px-6">
+              <h2 className="mb-6 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">In de buurt</h2>
               <div className="flex flex-wrap gap-3">
                 {buren.map((b) => (
                   <Link
                     key={b.to}
                     to={b.to}
-                    className="group inline-flex items-center gap-2 bg-secondary/50 hover:bg-accent/10 border border-border hover:border-accent/30 rounded-xl px-4 py-3 transition-colors"
+                    className="group inline-flex items-center gap-2 rounded-xl border border-border px-4 py-3 transition-colors hover:border-accent/40 hover:bg-accent/5"
                   >
-                    <MapPin className="w-4 h-4 text-accent opacity-70 group-hover:opacity-100" />
+                    <MapPin className="h-4 w-4 text-accent opacity-70 group-hover:opacity-100" />
                     <span className="text-sm font-semibold text-foreground">{b.naam}</span>
                   </Link>
                 ))}
@@ -444,32 +301,6 @@ const WerkgebiedDetail = () => {
             </div>
           </section>
         )}
-
-        {/* CTA */}
-        <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: easings.easeOutExpo }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground leading-tight">
-              Start jouw website in {region.name} vanaf €{PRIJZEN.starter}
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
-              Neem vrijblijvend contact op en ontdek wat een professionele website voor jouw bedrijf kan betekenen.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <AnimatedButton to="/contact" size="lg">
-                Start je project
-              </AnimatedButton>
-              <AnimatedButton to="/portfolio" size="lg" variant="outline">
-                Bekijk voorbeelden
-              </AnimatedButton>
-            </div>
-          </motion.div>
-        </section>
       </main>
 
       <Footer />

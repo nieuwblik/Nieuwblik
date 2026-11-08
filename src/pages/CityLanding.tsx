@@ -9,6 +9,7 @@ import CaseGrid from "@/components/CaseGrid";
 import BenefitList from "@/components/BenefitList";
 import LandingFaq from "@/components/LandingFaq";
 import Alinea from "@/components/Alinea";
+import { TekstBlok } from "@/components/dienst/BeeldBlok";
 import { dienstInPlaats, faqPage } from "@/lib/structured-data";
 import { LokaleSecties, TodoBlok } from "@/components/LokaleSecties";
 import { getCityLokaal } from "@/data/cityLokaal";
@@ -72,43 +73,36 @@ const CityLanding = ({ slug }: { slug: string }) => {
       <LandingHero h1={lokaal?.h1 ?? meta?.h1 ?? city.h1} subtitle={lokaal?.intro ?? city.heroSubtitle} />
 
       {/* Lokaal blok: handgeschreven per stad, anders de gegenereerde intro */}
-      <section className="py-12 md:py-16 bg-background">
-        <div
-          className={`container mx-auto px-4 sm:px-6 max-w-3xl ${lokaal ? "" : "text-center"}`}
-        >
-          {lokaal ? (
-            <>
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-                {lokaal.lokaal.h2}
-              </h2>
-              <div className="space-y-4">
-                {lokaal.lokaal.alineas.map((alinea, idx) => (
-                  <Alinea key={idx} tekst={alinea} />
-                ))}
-              </div>
-            </>
-          ) : (
-            <p className="text-muted-foreground text-lg leading-relaxed">
+      {lokaal ? (
+        <TekstBlok kop={lokaal.lokaal.h2}>
+          {lokaal.lokaal.alineas.map((alinea, idx) => (
+            <Alinea key={idx} tekst={alinea} />
+          ))}
+        </TekstBlok>
+      ) : (
+        <section className="bg-background pb-16 pt-8 md:pb-24 md:pt-12">
+          <div className="container mx-auto px-4 sm:px-6">
+            <p className="max-w-3xl text-xl font-light leading-relaxed md:text-2xl" style={{ color: "hsl(var(--sw-ink) / 0.75)" }}>
               {city.intro}
             </p>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* Sectie 1: Waarom een professionele website.
           section1.body wordt hier bewust niet gerenderd — die is woord voor
           woord gelijk aan city.intro, die hierboven al één keer staat. */}
       {/* Eigen secties en plaatshouders (handgeschreven steden) */}
-      {lokaal?.secties && <LokaleSecties secties={lokaal.secties} />}
+      {lokaal?.secties && <LokaleSecties secties={lokaal.secties} seed={city.slug} cases={lokaal.cases} />}
       <TodoBlok items={lokaal?.todo} />
 
       {/* Sjabloonblokken: alleen zonder eigen opbouw */}
       {!eigenOpbouw && (
         <>
-          <BenefitList h2={lokaal?.headings?.benefits ?? meta?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} className="bg-secondary" />
+          <BenefitList h2={lokaal?.headings?.benefits ?? meta?.headings?.benefits ?? city.section1.h2} items={city.section1.benefits} />
 
           {/* Sectie 2: Vergelijking */}
-          <ProblemSolutionSection />
+          <ProblemSolutionSection wit />
         </>
       )}
 
@@ -116,16 +110,14 @@ const CityLanding = ({ slug }: { slug: string }) => {
       <GoogleReviewMuur kop={lokaal?.headings?.reviews ?? city.section3H2} />
 
       {/* Sectie 4: Portfolio */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              {lokaal?.headings?.portfolio ?? city.section4.h2}
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">{city.section4.intro}</p>
+      <section className="bg-background py-16 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="mb-12 max-w-4xl md:mb-16">
+            <h2 className="pf-inleiding">{lokaal?.headings?.portfolio ?? city.section4.h2}</h2>
+            <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">{city.section4.intro}</p>
           </div>
           <CaseGrid projects={featuredProjects} />
-          <div className="text-center mt-12">
+          <div className="mt-12">
             <AnimatedButton to="/portfolio" size="lg" variant="outline">
               Alle projecten bekijken
             </AnimatedButton>
@@ -138,8 +130,8 @@ const CityLanding = ({ slug }: { slug: string }) => {
 
 
       {/* Interne linksectie */}
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+      <section className="bg-background py-16 md:py-20">
+        <div className="container mx-auto max-w-3xl px-4 sm:px-6">
           {!eigenOpbouw && (<>
           <p className="text-muted-foreground leading-relaxed">
             {city.internalLinks.split(/(diensten|portfolio|contactpagina)/).map((part, i) => {
@@ -160,7 +152,7 @@ const CityLanding = ({ slug }: { slug: string }) => {
           {nearbyCities.length > 0 && (
             <div className="mt-8 pt-8 border-t border-border">
               <p className="text-sm text-muted-foreground mb-3">Ook actief in de buurt:</p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap gap-3">
                 {nearbyCities.map((c) => (
                   <Link
                     key={c.slug}

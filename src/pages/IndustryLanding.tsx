@@ -131,7 +131,7 @@ const IndustryLanding = ({ slug }: { slug: string }) => {
       })()}
 
       {/* Sectie 2: Vergelijking */}
-      <ProblemSolutionSection />
+      <ProblemSolutionSection wit />
 
       {/* Sectie 3: Reviews */}
       <GoogleReviewMuur kop={industry.section3H2} />

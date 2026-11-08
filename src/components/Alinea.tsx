@@ -2,7 +2,7 @@ import { Link } from "@/lib/router-compat";
 
 /** Alinea met [tekst](/pad) als interne link (cityLokaal, werkgebiedLokaal); [tekst](/) is de homepage. */
 const Alinea = ({ tekst }: { tekst: string }) => (
-  <p className="text-muted-foreground leading-relaxed">
+  <p>
     {tekst.split(/\[([^\]]+)\]\((\/[^)]*)\)/).map((deel, i, delen) => {
       // De split levert om en om: tekst, linktekst, pad, tekst, ...
       if (i % 3 === 1) {

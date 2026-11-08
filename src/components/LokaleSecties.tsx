@@ -1,25 +1,40 @@
 import Alinea from "@/components/Alinea";
+import { BeeldBlok, BlokKop, BlokTekst, TekstBlok, fotoVoor } from "@/components/dienst/BeeldBlok";
 import type { LokaleSectie } from "@/data/lokaleInhoud";
 
-/** Eigen secties van een stads- of werkgebiedpagina. */
-export function LokaleSecties({ secties }: { secties: LokaleSectie[] }) {
+/**
+ * Eigen secties van een stads- of werkgebiedpagina, in de stijl van de
+ * installateurspagina: om en om een blok met casefoto (afwisselend links en rechts)
+ * en een tekstblok met de kop ernaast. `seed` en `cases` bepalen welke foto's.
+ */
+export function LokaleSecties({
+  secties,
+  seed = "",
+  cases = [],
+}: {
+  secties: LokaleSectie[];
+  seed?: string;
+  cases?: string[] | undefined;
+}) {
   return (
     <>
-      {secties.map((sectie, i) => (
-        <section
-          key={sectie.h2}
-          className={`py-12 md:py-16 ${i % 2 === 0 ? "bg-secondary/40" : "bg-background"}`}
-        >
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">{sectie.h2}</h2>
-            <div className="space-y-4">
-              {sectie.alineas.map((alinea, idx) => (
-                <Alinea key={idx} tekst={alinea} />
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
+      {secties.map((sectie, i) => {
+        const alineas = sectie.alineas.map((alinea, idx) => <Alinea key={idx} tekst={alinea} />);
+        const foto = i % 2 === 0 ? fotoVoor(i / 2, seed, cases) : null;
+        if (!foto) {
+          return (
+            <TekstBlok key={sectie.h2} kop={sectie.h2}>
+              {alineas}
+            </TekstBlok>
+          );
+        }
+        return (
+          <BeeldBlok key={sectie.h2} foto={foto.foto} alt={foto.alt} links={(i / 2) % 2 === 1}>
+            <BlokKop>{sectie.h2}</BlokKop>
+            <BlokTekst>{alineas}</BlokTekst>
+          </BeeldBlok>
+        );
+      })}
     </>
   );
 }

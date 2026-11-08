@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Star } from "lucide-react";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { GoogleG } from "@/components/GoogleReviewMuur";
@@ -8,6 +8,10 @@ import heroTeamImage from "@/assets/justin-job-compressed.webp";
 interface LandingHeroProps {
   h1: string;
   subtitle: string;
+  /** Kruimelpad boven de kop (werkgebiedpagina's). */
+  kruimels?: ReactNode;
+  /** Eigen knoppen in plaats van "Start nu" en "Ontdek portfolio". */
+  knoppen?: ReactNode;
 }
 
 const GROEN = "hsl(var(--sw-green))";
@@ -17,10 +21,11 @@ const GROEN = "hsl(var(--sw-green))";
  * links de kop in het groene verloop, de intro, twee knoppen en de reviewscore, rechts
  * Justin en Job. Zonder de golf; die is voor de homepage en de dienstpagina's.
  */
-const LandingHero = ({ h1, subtitle }: LandingHeroProps) => (
+const LandingHero = ({ h1, subtitle, kruimels, knoppen }: LandingHeroProps) => (
   <section className="sw-ink sw-hero-anim relative overflow-hidden bg-background">
     <div className="container mx-auto grid grid-cols-1 items-end gap-6 px-4 pt-[calc(var(--header-height)_+_2.5rem)] sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-height)_+_3.5rem)]">
       <div className="relative z-[3] pb-4 lg:col-span-7 lg:pb-24">
+        {kruimels && <div className="-mt-4 mb-4">{kruimels}</div>}
         <h1 className="golf-hero__titel golf-hero__titel--strak max-w-[12em]" style={{ fontSize: "clamp(2.3rem, 4.4vw, 4.6rem)" }}>
           <span className="sw-mask">
             {/* Lange koppen lopen over meerdere regels; het masker blijft voor de inloopanimatie. */}
@@ -34,12 +39,16 @@ const LandingHero = ({ h1, subtitle }: LandingHeroProps) => (
           {subtitle}
         </p>
         <div className="sw-cta mt-7 flex flex-col gap-3 sm:flex-row" style={{ "--sw-delay": "0.3s" } as CSSProperties}>
-          <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
-            Start nu
-          </AnimatedButton>
-          <AnimatedButton to="/portfolio" variant="outline" className="h-12 w-full sm:w-auto">
-            Ontdek portfolio
-          </AnimatedButton>
+          {knoppen ?? (
+            <>
+              <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
+                Start nu
+              </AnimatedButton>
+              <AnimatedButton to="/portfolio" variant="outline" className="h-12 w-full sm:w-auto">
+                Ontdek portfolio
+              </AnimatedButton>
+            </>
+          )}
         </div>
         <a
           href={REVIEWS.profielUrl}
