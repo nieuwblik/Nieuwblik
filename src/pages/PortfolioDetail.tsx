@@ -12,7 +12,8 @@ import CaseMockup from "@/components/CaseMockup";
 import CaseToestel from "@/components/CaseToestel";
 import { toestellen } from "@/data/toestellen";
 import CaseTelefoon from "@/components/CaseTelefoon";
-import { caseMockups, caseTelefoons } from "@/data/caseMockups";
+import CaseVoorNa from "@/components/CaseVoorNa";
+import { caseMockups, caseTelefoons, caseVoorNa } from "@/data/caseMockups";
 import { caseAfbeelding, caseBeschrijving } from "@/lib/caseMeta";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
@@ -27,6 +28,7 @@ const PortfolioDetail = () => {
     const project = projects.find((p) => p.slug === slug);
     const mockup = project ? caseMockups[project.slug] : undefined;
     const telefoon = project ? caseTelefoons[project.slug] : undefined;
+    const voorNa = project ? caseVoorNa[project.slug] : undefined;
     // Bij de telefoonopzet staan de eerste twee alinea's boven de foto en de rest ernaast.
     const alineas = (project?.detail?.details ?? "").split("\n\n");
     const alineasBoven = alineas.slice(0, 2);
@@ -157,6 +159,14 @@ const PortfolioDetail = () => {
                         </div>
                     </div>
                 </motion.section>
+            )}
+            {/* Voor en na: oude en nieuwe site in één scherm, met een schuif ertussen */}
+            {voorNa && (
+                <CaseVoorNa
+                    toestel={toestellen[voorNa.toestel]}
+                    beelden={voorNa}
+                    alt={`De oude en de nieuwe website van ${project.title}`}
+                />
             )}
             {telefoon && (
                 <section className="lg:flex">

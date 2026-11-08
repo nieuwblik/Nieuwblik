@@ -13,6 +13,16 @@ import werkplekLiggendSet from "@/assets/mockup/werkplek-liggend.webp?w=1280;192
 import werkplekStaandSet from "@/assets/mockup/werkplek-staand.webp?w=720;1080;1440;2160&format=webp&as=srcset";
 import werkplekMaskerLiggend from "@/assets/mockup/werkplek-liggend-masker.png";
 import werkplekMaskerStaand from "@/assets/mockup/werkplek-staand-masker.png";
+import studiomonitorLiggend from "@/assets/mockup/studiomonitor-liggend.webp";
+import studiomonitorLiggendSet from "@/assets/mockup/studiomonitor-liggend.webp?w=1280;1920;2880;3840&format=webp&as=srcset";
+import studiomonitorStaandSet from "@/assets/mockup/studiomonitor-staand.webp?w=720;1080;1440;2160&format=webp&as=srcset";
+import studiomonitorMaskerLiggend from "@/assets/mockup/studiomonitor-liggend-masker.png";
+import studiomonitorMaskerStaand from "@/assets/mockup/studiomonitor-staand-masker.png";
+import blauwekamerLiggend from "@/assets/mockup/blauwekamer-liggend.webp";
+import blauwekamerLiggendSet from "@/assets/mockup/blauwekamer-liggend.webp?w=1280;1920;2880;3840&format=webp&as=srcset";
+import blauwekamerStaandSet from "@/assets/mockup/blauwekamer-staand.webp?w=720;1080;1440;2160&format=webp&as=srcset";
+import blauwekamerMaskerLiggend from "@/assets/mockup/blauwekamer-liggend-masker.png";
+import blauwekamerMaskerStaand from "@/assets/mockup/blauwekamer-staand-masker.png";
 
 /** Eén mockupfoto met een scherm in perspectief, opgemeten met schermUit() in scripts/mockups/telefoon.mjs. */
 export interface ToestelFoto {
@@ -55,6 +65,11 @@ export interface Toestel {
   aan?: "zacht" | "gsap";
   /** Inzoomen op de liggende foto (1 = cover, 1.15 = 15% ingezoomd), rond het midden van de hero; staand blijft cover. */
   zoom?: number;
+  /**
+   * Alleen CaseVoorNa: de staande foto staat daar op volle breedte zonder bijsnijden;
+   * erboven en eronder deze randkleuren uit de foto.
+   */
+  staandRand?: { boven: string; onder: string };
 }
 
 export const toestellen = {
@@ -149,6 +164,64 @@ export const toestellen = {
     donker: true,
     aan: "gsap",
     zoom: 1.15,
+  },
+  /*
+   * Studiomonitor (Esveld Installatie): een dunne monitor met zilveren zijkant, schuin
+   * naar links, op een zilveren voet en een zwart blok, in een zwart-wit grijze studio.
+   * Gemeten: achtergrond boven RGB ~217,218,220, naast de monitor ~200,203,204, blok
+   * ~12,12,12. Zacht licht van boven, het scherm geeft zelf licht: lichte vignettering
+   * naar de hoeken en geen glans.
+   */
+  studiomonitor: {
+    naam: "studiomonitor",
+    src: studiomonitorLiggend,
+    srcSet: studiomonitorLiggendSet,
+    srcSetStaand: studiomonitorStaandSet,
+    liggend: {
+      masker: studiomonitorMaskerLiggend,
+      ar: 3840 / 2160,
+      hoeken: [[0.24513, 0.10141], [0.71976, 0.18197], [0.75795, 0.6551], [0.27937, 0.63081]],
+      verhouding: 1.6805,
+      radius: 0.002,
+    },
+    staand: {
+      masker: studiomonitorMaskerStaand,
+      ar: 2160 / 3840,
+      hoeken: [[0.17873, 0.3094], [0.82759, 0.34851], [0.8825, 0.59841], [0.22841, 0.58632]],
+      verhouding: 1.3868,
+      radius: 0,
+    },
+    achtergrond: "rgb(217, 218, 220)",
+    licht: "radial-gradient(ellipse 85% 80% at 50% 45%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.09) 100%)",
+  },
+  /*
+   * Donkere kamer in blauw licht met twee silhouetten voor een monitor (voor en na bij
+   * Esveld Installatie, CaseVoorNa). Monitor recht van voren. Gemeten: muur boven
+   * RGB ~26,76,149 (liggend) en 9,60,141 (staand), onderrand bijna zwart (0,1,6).
+   */
+  blauwekamer: {
+    naam: "monitor",
+    src: blauwekamerLiggend,
+    srcSet: blauwekamerLiggendSet,
+    srcSetStaand: blauwekamerStaandSet,
+    liggend: {
+      masker: blauwekamerMaskerLiggend,
+      ar: 3840 / 2160,
+      hoeken: [[0.26797, 0.17815], [0.73229, 0.17647], [0.73229, 0.61806], [0.26797, 0.61806]],
+      verhouding: 1.8729,
+      radius: 0,
+    },
+    staand: {
+      masker: blauwekamerMaskerStaand,
+      ar: 2160 / 3840,
+      hoeken: [[0.06574, 0.26589], [0.9338, 0.26589], [0.9338, 0.53551], [0.06574, 0.53597]],
+      verhouding: 1.8094,
+      radius: 0.001,
+    },
+    achtergrond: "rgb(14, 34, 72)",
+    licht: "radial-gradient(ellipse 85% 80% at 50% 50%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.12) 100%)",
+    donker: true,
+    staandRand: { boven: "rgb(9, 60, 141)", onder: "rgb(0, 1, 6)" },
   },
 } satisfies Record<string, Toestel>;
 

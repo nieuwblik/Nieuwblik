@@ -10,6 +10,7 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
 | Studio | tablet (tegenlicht, grijze studio) | `studio`: lichte studio, schuin perspectief | Feigro Dakwerken |
 | Natuur | bureau (monitor voor raam met groen, warm zonlicht) | `bank`: plat op een groen bankje in de zon | Een Bundel Geluk |
 | Avond | werkplek (monitor, warme lamp erachter, GSAP-aanzet) | `schoot`: in twee handen op schoot, groene kleding (magenta sleutel) | VV Madjoe |
+| Zwart-wit | studiomonitor (schuin, zilveren voet, grijze studio) + voor en na in de blauwe kamer | `binnen`: hand met iPhone recht van voren, wazig warm interieur | Esveld Installatie |
 
 ## Nieuwe case in drie stappen
 
@@ -30,8 +31,9 @@ instellingen staan hier, zodat elke nieuwe case er precies zo uitziet.
      het scherm dan naar de tekst rechts; mobiel houdt het origineel (`srcSetDesktop`
      in `caseTelefoons`). Gebruikt bij Feigro.
    - De cookiemelding wordt altijd geweigerd, nooit geaccepteerd.
-   - Vlak voor de opname staan alle CSS-overgangen op 0 s, zodat een slider of
-     fade nooit half in beeld komt (feigro.nl heeft een overvloeiende hero-slider).
+   - Vlak voor de opname staan alle CSS-overgangen op 0 s en duren animaties 1 ms, zodat een slider,
+     fade of inloopanimatie nooit half in beeld komt (feigro.nl heeft een overvloeiende hero-slider,
+     esveldinstallatie.nl Elementor-fade-ins).
 
 2. De regels die het script print toevoegen aan `src/data/caseMockups.ts`
    (`caseMockups` voor de monitor, `caseTelefoons` voor de telefoon).
@@ -73,6 +75,32 @@ toestel: foto's met groen scherm genereren, `schermUit()` draaien (geeft de zwar
 foto, het masker, de hoeken, de verhouding en de afronding), een entry in
 `toestellen.ts` en een venster in `HEROS` in `nieuwe-case.mjs` (zelfde verhouding
 als het scherm). `donker: true` maakt de vaste header boven de foto licht.
+
+### Studiomonitor (Esveld Installatie)
+
+- **Foto's:** `src/assets/mockup/studiomonitor-liggend.webp` en `-staand.webp`: dunne monitor met zilveren
+  zijkant, schuin naar links, op een zilveren voet en een zwart blok in een grijze studio.
+  Groene originelen in `basis/studiomonitor-groen-*.webp` (gpt_image_2_5, 4k, high; liggend job
+  `e2caf6b5-02cf-4ecc-aae4-80641bf511bc`, staand `28428b88-40f1-46d6-8af2-865a738ec28a`). De staande
+  monitor is bewust smaller (ca. 70% van de breedte), anders valt hij op een telefoon buiten beeld.
+- **Opgemeten:** liggend 0,2451/0,1014 · 0,7198/0,1820 · 0,7580/0,6551 · 0,2794/0,6308, verhouding 1,68;
+  staand 0,1787/0,3094 · 0,8276/0,3485 · 0,8825/0,5984 · 0,2284/0,5863, verhouding 1,39.
+  Screenshot: venster 1440×857.
+- **Licht:** achtergrond RGB ~217,218,220, 9% vignettering, geen glans, header donker.
+
+### Voor en na (`src/components/CaseVoorNa.tsx`)
+
+- 100vw × 100svh. In het scherm de huidige site, met de oude erover; een range-input over het scherm
+  is de schuif (slepen, tikken, pijltjestoetsen). Eén keer zwaait de schuif kort heen en weer als hint.
+- **Foto's:** `blauwekamer-liggend.webp` en `-staand.webp`: donkere kamer in blauw licht, twee
+  silhouetten voor een monitor recht van voren (jobs `cdff2ac3-970a-4e22-ae94-8de5b242e11c` en
+  `2527fa89-ec25-43c8-844b-954aa1ffaad9`). Staand staat de foto op volle breedte zonder bijsnijden,
+  met erboven en eronder de randkleuren (`staandRand` in `toestellen.ts`).
+- **Opgemeten:** liggend 0,2680/0,1782 · 0,7323/0,1765 · 0,7323/0,6181 · 0,2680/0,6181, verhouding 1,87;
+  staand 0,0657/0,2659 · 0,9338/0,2659 · 0,9338/0,5355 · 0,0657/0,5360, verhouding 1,81.
+- **Beelden:** bovenaan de homepage, venster 1440×769, dpr 1,25, 1800 breed. De oude site uit de
+  Wayback Machine (werkbalk weg, bij Esveld `ul.carrousel > li:not(.active)` verborgen), in
+  `caseVoorNa` in `src/data/caseMockups.ts`.
 
 ### Werkplek (VV Madjoe)
 
@@ -151,6 +179,8 @@ als het scherm). `donker: true` maakt de vaste header boven de foto licht.
     saliegroen hoesje op schoot, groene kleding. Het scherm is magenta (#FF00FF), omdat
     een groen scherm in al dat groen zou wegvallen (`sleutel: "magenta"`). `midden`
     0,455, `telefoonHoogte` 0,387, glans `studio`.
+  - `basis/telefoon-binnen-9x16.webp` (binnen): hand met een donkere iPhone recht van voren, wazig warm
+    interieur in daglicht (job `d37d4c46-e7c1-40e9-acb3-c1219ff3de12`). `midden` 0,48, `telefoonHoogte` 0,5, glans `studio`.
   - `basis/telefoon-bank-9x16.webp` (bank): iPhone plat en diagonaal op een groen
     metalen bankje in hard zonlicht. `midden` 0,5, `telefoonHoogte` 0,615. Glans `zon`:
     het scherm in de zon iets gedempt en warmer (gemeten in de referentie: beige

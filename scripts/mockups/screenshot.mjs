@@ -53,8 +53,14 @@ export async function maakScreenshot({ url, breedte, hoogte, dpr, mobiel = false
     await page.evaluate(() => window.scrollTo(0, 0));
     await wacht(1500);
     // Geen half afgeronde overgangen in beeld (bijv. een hero-slider die tussen twee
-    // foto's overvloeit): alle CSS-transities direct naar hun eindstand.
-    await page.addStyleTag({ content: "*, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }" });
+    // foto's overvloeit): alle CSS-transities direct naar hun eindstand. Inloopanimaties
+    // (zoals de fade-ins van Elementor op esveldinstallatie.nl) ook: een animatie van
+    // 1 ms eindigt meteen in haar eindstand, waar animation: none het element juist in
+    // de beginstand (onzichtbaar) zou laten staan.
+    await page.addStyleTag({
+      content:
+        "*, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; animation-duration: 1ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; }",
+    });
     await wacht(400);
     return await page.screenshot({ fullPage: volledig });
   } finally {

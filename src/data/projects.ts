@@ -371,18 +371,18 @@ export const projects: Project[] = [
   {
     slug: "esveld-installatie",
     title: "Esveld Installatie",
-    category: "Installatiediensten",
+    category: "Installatiebedrijf",
     filterCategory: "websites",
-    description: "Professionele HVAC en installatiediensten website met klant portal.",
-    tags: ["Web Design", "Dienstverlening", "Contact Formulieren"],
+    description: "Website voor een installatiebedrijf in Dordrecht en Lage Zwaluwe, met een eigen pagina per dienst en de 24/7 nooddienst altijd in beeld.",
+    tags: ["Website installatiebedrijf", "Webdesign", "Lokale SEO", "Dordrecht"],
     image: esveldinstallatieImg,
     imageSet: esveldinstallatieImgSet,
     url: "https://esveldinstallatie.nl",
     detail: {
       year: "2024",
-      goal: "Een traditioneel bedrijf transformeren naar een digitaal modern platform waarbij serviceaanvragen en projecten centraal staan.",
-      idea: "Focus op heldere communicatie en betrouwbaarheid. Door de projecten visueel te ondersteunen met voor-en-na situaties, wordt de kwaliteit van het werk direct duidelijk.",
-      details: "Esveld Installatie had behoefte aan een heldere online structuur voor hun diverse diensten. We hebben een modulaire website gebouwd die meegroeit met hun aanbod. \n\nHet contact- en offerteproces is volledig gestroomlijnd, waardoor de interne doorlooptijd van lead naar klus is verkort."
+      goal: "Een website die laat zien hoe breed Esveld Installatie werkt, voor particulieren en voor bedrijven, en die in de regio Dordrecht goed te vinden is.",
+      idea: "Elke dienst een eigen pagina, de nooddienst bovenaan elke pagina en een aparte ingang voor zakelijke klanten. Zo vindt iedere bezoeker snel wat bij zijn vraag past.",
+      details: "Nieuwblik bouwde de website van Esveld Installatie, een installatiebedrijf in Dordrecht en Lage Zwaluwe voor particulieren en bedrijven. Van cv-ketels en warmtepompen tot proceswater en perslucht in productiehallen.\n\nDe vorige website stond nog onder de naam Van Esveld installatie: vier menu-items en een fotoslider op de homepage. Met de nieuwe site laat Esveld zien hoe breed het werk is, met een helder verhaal voor elke klant.\n\nIn de nieuwe site heeft elke dienst een eigen pagina: cv-ketel, airco, warmtepomp, installatiewerk, rioolwerk, dakwerk, loodgieterswerk en zinkwerk, met aparte pagina's voor installeren, onderhoud en storingen. Zakelijke klanten hebben een eigen ingang voor procesinstallaties, klimaattechniek en leidingwerk, met cases van onder meer Quooker en Pelican Rouge.\n\nWie met spoed iemand nodig heeft, ziet het nummer van de 24/7 nooddienst bovenaan elke pagina. Een offerte aanvragen kan vanaf elke pagina, en de tarieven staan gewoon op de site.\n\nVoor de vindbaarheid staan beide vestigingen, Dordrecht en Lage Zwaluwe, met adres en openingstijden in de gestructureerde gegevens voor Google. Een pagina over het werkgebied en een pagina voor installatiebedrijf Dordrecht vangen de lokale zoekopdrachten op, en projecten en nieuwsberichten laten zien welk werk Esveld in de regio uitvoert."
     }
   },
   {

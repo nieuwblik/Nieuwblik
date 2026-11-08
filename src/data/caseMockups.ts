@@ -1,4 +1,6 @@
 import type { MockupScherm } from "@/components/CaseMockup";
+import type { VoorNaBeelden } from "@/components/CaseVoorNa";
+import type { ToestelNaam } from "@/data/toestellen";
 import taxiDrechterland from "@/assets/cases/taxi-drechterland-scherm.webp";
 import taxiDrechterlandSet from "@/assets/cases/taxi-drechterland-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
 import taxiDrechterlandTelefoon from "@/assets/cases/taxi-drechterland-telefoon.webp";
@@ -16,6 +18,14 @@ import vvMadjoe from "@/assets/cases/vv-madjoe-scherm.webp";
 import vvMadjoeSet from "@/assets/cases/vv-madjoe-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
 import vvMadjoeTelefoon from "@/assets/cases/vv-madjoe-telefoon.webp";
 import vvMadjoeTelefoonSet from "@/assets/cases/vv-madjoe-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+import esveldInstallatie from "@/assets/cases/esveld-installatie-scherm.webp";
+import esveldInstallatieSet from "@/assets/cases/esveld-installatie-scherm.webp?w=720;1440;1800&format=webp&as=srcset";
+import esveldInstallatieTelefoon from "@/assets/cases/esveld-installatie-telefoon.webp";
+import esveldInstallatieTelefoonSet from "@/assets/cases/esveld-installatie-telefoon.webp?w=800;1200;1600;2160&format=webp&as=srcset";
+import esveldInstallatieVoor from "@/assets/cases/esveld-installatie-voor.webp";
+import esveldInstallatieVoorSet from "@/assets/cases/esveld-installatie-voor.webp?w=720;1200;1800&format=webp&as=srcset";
+import esveldInstallatieNa from "@/assets/cases/esveld-installatie-na.webp";
+import esveldInstallatieNaSet from "@/assets/cases/esveld-installatie-na.webp?w=720;1200;1800&format=webp&as=srcset";
 
 /**
  * Full-page screenshots per case voor de mockup in de hero (sleutel = slug
@@ -51,6 +61,13 @@ export const caseMockups: Record<string, MockupScherm> = {
     breedte: 1800,
     hoogte: 10990,
     toestel: "werkplek",
+  },
+  "esveld-installatie": {
+    src: esveldInstallatie,
+    srcSet: esveldInstallatieSet,
+    breedte: 1800,
+    hoogte: 9234,
+    toestel: "studiomonitor",
   },
 };
 
@@ -122,5 +139,30 @@ export const caseTelefoons: Record<string, TelefoonFoto> = {
     hoogte: 3840,
     midden: 0.455,
     telefoonHoogte: 0.387,
+  },
+  "esveld-installatie": {
+    src: esveldInstallatieTelefoon,
+    srcSet: esveldInstallatieTelefoonSet,
+    breedte: 2160,
+    hoogte: 3840,
+    midden: 0.48,
+    telefoonHoogte: 0.5,
+  },
+};
+
+/**
+ * Voor en na (CaseVoorNa): de oude site (via de Wayback Machine) en de huidige,
+ * allebei bovenaan de homepage in de schermverhouding van het toestel (venster 1440×769
+ * voor de blauwe kamer), dpr 1,25 en 1800 breed.
+ */
+export const caseVoorNa: Record<string, VoorNaBeelden & { toestel: ToestelNaam }> = {
+  "esveld-installatie": {
+    toestel: "blauwekamer",
+    voor: esveldInstallatieVoor,
+    voorSet: esveldInstallatieVoorSet,
+    na: esveldInstallatieNa,
+    naSet: esveldInstallatieNaSet,
+    voorLabel: "2023",
+    naLabel: "Nu",
   },
 };
