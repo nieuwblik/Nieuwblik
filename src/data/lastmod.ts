@@ -46,7 +46,7 @@ export const LASTMOD: Record<string, string> = {
   "/portfolio/edventure-boats": "2026-08-28",
   "/portfolio/een-bundel-geluk": "2026-08-28",
   "/portfolio/erica-van-dijk": "2026-08-28",
-  "/portfolio/esveld-installatie": "2026-08-28",
+  "/portfolio/esveld-installatie": "2026-11-08",
   "/portfolio/feigro-dakwerken": "2026-10-09",
   "/portfolio/feitsma-dakwerken": "2026-08-28",
   "/portfolio/green-profit": "2026-08-28",
