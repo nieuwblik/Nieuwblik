@@ -10,7 +10,9 @@ import LandingFaq from "@/components/LandingFaq";
 import CaseGrid from "@/components/CaseGrid";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
-import justinJobImg from "@/assets/justin-job-compressed.webp";
+import LandingHero from "@/components/LandingHero";
+import { TekstBlok } from "@/components/dienst/BeeldBlok";
+import { Sectie, SectieKop } from "@/components/dienst/DienstBlokken";
 import NotFound from "./NotFound";
 
 // Deze drie eerst, aangevuld tot zes met de nieuwste cases.
@@ -224,91 +226,69 @@ const RegionalHub = () => {
         ]}
       />
       <main>
-        <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              {hub.h1}
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">{hub.intro}</p>
-            <AnimatedButton to="/contact">Vraag een offerte aan</AnimatedButton>
-          </div>
-        </section>
+        <LandingHero
+          h1={hub.h1}
+          subtitle={hub.intro}
+          knoppen={
+            <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
+              Vraag een offerte aan
+            </AnimatedButton>
+          }
+        />
 
         <BenefitList
           h2={`Waarom ondernemers in ${hub.name} voor Nieuwblik kiezen`}
           items={hub.strengths.map((s) => ({ h3: s.title, text: s.text }))}
-          className="bg-muted/30"
         />
 
-        <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-              Vind jouw lokale websitepartner in {hub.name}
-            </h2>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {hub.cities.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/website-laten-maken-${c.slug}`}
-                  className="group bg-background border border-border rounded-xl p-5 hover:border-accent transition-colors"
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-semibold text-foreground">{c.name}</span>
-                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
-                  </div>
-                  <span className="text-xs text-muted-foreground">{c.note}</span>
-                </Link>
-              ))}
-            </div>
+        <Sectie>
+          <SectieKop titel={`Vind jouw lokale websitepartner in ${hub.name}`} />
+          <div className="grid grid-cols-1 gap-x-10 sm:grid-cols-2 md:grid-cols-3">
+            {hub.cities.map((c) => (
+              <Link
+                key={c.slug}
+                to={`/website-laten-maken-${c.slug}`}
+                className="group block border-t border-border py-5"
+              >
+                <span className="flex items-center justify-between gap-3">
+                  <span className="text-lg font-semibold text-foreground transition-colors group-hover:text-accent">{c.name}</span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
+                </span>
+                <span className="mt-1 block text-sm text-muted-foreground">{c.note}</span>
+              </Link>
+            ))}
           </div>
-        </section>
+        </Sectie>
 
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">
-                Websites die bezoekers omzetten in klanten
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">Een greep uit websites die we recent opleverden. Van webshop tot leadgeneratie, elke case gebouwd voor snelheid, conversie en lokale vindbaarheid.</p>
+        <section className="bg-background py-16 md:py-24">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="mb-12 max-w-4xl md:mb-16">
+              <h2 className="sectie-kop">Websites die bezoekers omzetten in klanten</h2>
+              <p className="mt-6 max-w-2xl text-lg font-light leading-relaxed text-muted-foreground">Een greep uit websites die we recent opleverden. Van webshop tot leadgeneratie, elke case gebouwd voor snelheid, conversie en lokale vindbaarheid.</p>
             </div>
             <CaseGrid projects={hubCases} />
-            <div className="text-center mt-10">
-              <Link to="/portfolio" className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
-                Bekijk het volledige portfolio <ArrowRight className="w-4 h-4" />
-              </Link>
+            <div className="mt-12">
+              <AnimatedButton to="/portfolio" size="lg" variant="outline">
+                Bekijk het volledige portfolio
+              </AnimatedButton>
             </div>
           </div>
         </section>
 
         <LandingFaq h2={`Veelgestelde vragen over website laten maken in ${hub.name}`} items={hub.faq} />
 
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <div className="grid md:grid-cols-2 gap-10 items-center">
-              <div className="order-2 md:order-1">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">Justin & Job achter Nieuwblik</h2>
-                <p className="text-muted-foreground mb-4">
-                  Wij zijn Justin en Job, twee gedreven ontwerpers en developers uit Enkhuizen. Geen groot bureau met accountmanagers en tussenlagen, maar een klein team met korte lijnen. Je spreekt altijd degene die ook daadwerkelijk aan jouw website bouwt.
-                </p>
-                <p className="text-muted-foreground mb-6">
-                  Ook voor ondernemers in {hub.name} werken we persoonlijk. We plannen graag een videocall om jouw plan door te nemen; spreek je elkaar liever in het echt, dan komen we in overleg bij je langs. Je spreekt altijd één van ons, en binnen 24 uur heb je een duidelijk voorstel.
-                </p>
-                <AnimatedButton to="/over-ons">Meer over ons</AnimatedButton>
-              </div>
-              <div className="order-1 md:order-2">
-                <img
-                  src={justinJobImg}
-                  alt="Justin Slok en Job, oprichters van Nieuwblik uit Enkhuizen"
-                  loading="lazy"
-                  decoding="async"
-                  width={1200}
-                  height={900}
-                  className="w-full h-auto rounded-2xl shadow-lg"
-                />
-              </div>
-            </div>
+        {/* De teamfoto staat al in de hero; hier alleen het verhaal. */}
+        <TekstBlok kop="Justin & Job achter Nieuwblik">
+          <p>
+            Wij zijn Justin en Job, twee gedreven ontwerpers en developers uit Enkhuizen. Geen groot bureau met accountmanagers en tussenlagen, maar een klein team met korte lijnen. Je spreekt altijd degene die ook daadwerkelijk aan jouw website bouwt.
+          </p>
+          <p>
+            Ook voor ondernemers in {hub.name} werken we persoonlijk. We plannen graag een videocall om jouw plan door te nemen; spreek je elkaar liever in het echt, dan komen we in overleg bij je langs. Je spreekt altijd één van ons, en binnen 24 uur heb je een duidelijk voorstel.
+          </p>
+          <div className="pt-3">
+            <AnimatedButton to="/over-ons">Meer over ons</AnimatedButton>
           </div>
-        </section>
+        </TekstBlok>
 
       </main>
       <Footer />

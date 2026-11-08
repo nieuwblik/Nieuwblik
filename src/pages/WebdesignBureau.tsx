@@ -1,12 +1,14 @@
 import { PRIJZEN, LEVERTIJD } from "@/config/business";
 import { SITE_URL } from "@/config/site";
-import { Link } from "@/lib/router-compat";
-import { CheckCircle2, Award, Users, Zap, ArrowRight } from "lucide-react";
+import { Award, Users, Zap } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { companyInfo } from "@/config/company";
+import LandingHero from "@/components/LandingHero";
+import { BeeldSectie, BlokTekst } from "@/components/dienst/BeeldBlok";
+import { Linkjes, Pijlers, Sectie, SectieKop } from "@/components/dienst/DienstBlokken";
 
 const url = `${SITE_URL}/webdesign-bureau`;
 
@@ -67,72 +69,54 @@ const WebdesignBureau = () => {
       />
 
       <main>
-        <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              Het webdesign bureau dat werk maakt van jouw groei
-            </h1>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Wij zijn Nieuwblik. Een klein, snel webdesign bureau uit Enkhuizen dat conversiegerichte websites bouwt voor MKB in heel Nederland. Geen dikke laag management, geen vage uurtarieven. Wel korte lijnen en tastbare resultaten.
-            </p>
-            <AnimatedButton to="/contact">Plan een kennismaking</AnimatedButton>
-          </div>
-        </section>
+        <LandingHero
+          h1="Het webdesign bureau dat werk maakt van jouw groei"
+          subtitle="Wij zijn Nieuwblik. Een klein, snel webdesign bureau uit Enkhuizen dat conversiegerichte websites bouwt voor MKB in heel Nederland. Geen dikke laag management, geen vage uurtarieven. Wel korte lijnen en tastbare resultaten."
+          knoppen={
+            <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
+              Plan een kennismaking
+            </AnimatedButton>
+          }
+        />
 
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Waarom Nederlandse ondernemers voor ons kiezen</h2>
-            <p className="text-muted-foreground mb-4">
+        <BeeldSectie keuze="laptop:esveld-installatie" kop="Waarom Nederlandse ondernemers voor ons kiezen">
+          <BlokTekst>
+            <p>
               De keuze voor een webdesign bureau is een keuze voor een langere samenwerking. Een site is niet klaar bij livegang, hij groeit mee met jouw bedrijf. Daarom werken wij vanaf de eerste minuut aan een basis die vier of vijf jaar mee kan.
             </p>
-            <p className="text-muted-foreground mb-4">
+            <p>
               We investeren in de dingen die echt tellen: een schone codebase, sterke SEO-fundamenten en een design dat past bij jouw merk. We schrijven de teksten zelf, samen met jou, in de tone-of-voice die klopt bij jouw doelgroep. Geen algemene stockzinnen, geen gekopieerde blokken uit een template.
             </p>
-            <p className="text-muted-foreground">
+            <p>
               Onze klanten zijn kappers, restaurants, taxibedrijven, advocaten, bouwbedrijven en creatieve merken. Wat ze delen is de wens om online zichtbaar te zijn zonder een half jaar aan een traject vast te zitten.
             </p>
-          </div>
-        </section>
+          </BlokTekst>
+        </BeeldSectie>
 
-        <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">Wat je van ons mag verwachten</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { icon: Zap, title: "Snel", text: `${LEVERTIJD.standaard} van briefing naar livegang. Geen eindeloze feedbackrondes, wel duidelijke deadlines.` },
-                { icon: Users, title: "Persoonlijk", text: "Je hebt direct contact met de mensen die aan jouw project werken. Geen account manager tussen jou en het werk." },
-                { icon: Award, title: "Vakwerk", text: "Elke site is uniek gebouwd in React. Geen templates, geen page builders, wel schone code die snel laadt." },
-              ].map((s) => (
-                <div key={s.title} className="bg-background border border-border rounded-2xl p-6">
-                  <s.icon className="w-8 h-8 text-accent mb-4" />
-                  <h3 className="font-semibold mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground">{s.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Sectie>
+          <SectieKop titel="Wat je van ons mag verwachten" />
+          <Pijlers
+            items={[
+              { icon: Zap, title: "Snel", description: `${LEVERTIJD.standaard} van briefing naar livegang. Geen eindeloze feedbackrondes, wel duidelijke deadlines.` },
+              { icon: Users, title: "Persoonlijk", description: "Je hebt direct contact met de mensen die aan jouw project werken. Geen account manager tussen jou en het werk." },
+              { icon: Award, title: "Vakwerk", description: "Elke site is uniek gebouwd in React. Geen templates, geen page builders, wel schone code die snel laadt." },
+            ]}
+          />
+        </Sectie>
 
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Onze diensten in het kort</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {[
-                { label: "Website op maat", to: "/diensten/website-op-maat" },
-                { label: "Webshops", to: "/diensten/webshops" },
-                { label: "E-commerce", to: "/diensten/e-commerce" },
-                { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
-                { label: "Website laten maken", to: "/website-laten-maken" },
-                { label: "Taxi website", to: "/taxi-website-laten-maken" },
-              ].map((s) => (
-                <Link key={s.to} to={s.to} className="bg-background border border-border rounded-xl p-4 hover:border-accent transition-colors flex items-center justify-between">
-                  <span className="font-medium">{s.label}</span>
-                  <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Sectie>
+          <SectieKop titel="Onze diensten in het kort" />
+          <Linkjes
+            items={[
+              { label: "Website op maat", to: "/diensten/website-op-maat" },
+              { label: "Webshops", to: "/diensten/webshops" },
+              { label: "E-commerce", to: "/diensten/e-commerce" },
+              { label: "SEO Enkhuizen", to: "/seo-enkhuizen" },
+              { label: "Website laten maken", to: "/website-laten-maken" },
+              { label: "Taxi website", to: "/taxi-website-laten-maken" },
+            ]}
+          />
+        </Sectie>
 
         <LandingFaq h2="Veelgestelde vragen over ons webdesign bureau" items={faqItems} />
       </main>

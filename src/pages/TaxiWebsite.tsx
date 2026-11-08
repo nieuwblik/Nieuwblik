@@ -1,14 +1,15 @@
 import { PRIJZEN } from "@/config/business";
 import { SITE_URL } from "@/config/site";
 import { Link } from "@/lib/router-compat";
-import { Zap, Smartphone, MessageCircle, MapPin, Plane, CheckCircle2 } from "lucide-react";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import LandingFaq from "@/components/LandingFaq";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import { useDarkNavSection } from "@/components/TabNav";
 import { companyInfo } from "@/config/company";
+import LandingHero from "@/components/LandingHero";
+import { BeeldSectie, BlokLijst, BlokTekst, BlokVinkjes, TekstBlok } from "@/components/dienst/BeeldBlok";
+import { Sectie, SectieKop } from "@/components/dienst/DienstBlokken";
 import taxiImg from "@/assets/taxidrechterland.webp";
 import { laatstGewijzigd } from "@/lib/lastmod";
 
@@ -79,22 +80,18 @@ const graphJsonLd = {
 
 const buildBlocks = [
   {
-    icon: <Zap className="w-5 h-5" />,
     title: "Maatwerk zonder CMS-overhead",
     text: "Gebouwd in React met een statische build. De site laadt snel en heeft geen plugins die bijgewerkt moeten worden: schone code die precies doet wat nodig is.",
   },
   {
-    icon: <MessageCircle className="w-5 h-5" />,
     title: "WhatsApp boekingsformulier",
     text: "In een paar tikken geeft de klant zijn rit door. Het formulier zet alles om in een compleet WhatsApp-bericht dat direct bij de chauffeur landt, klaar om te bevestigen.",
   },
   {
-    icon: <Smartphone className="w-5 h-5" />,
     title: "Mobile-first ontwerp",
     text: "Plus- en minknoppen in plaats van dropdowns, een zwevende bel- en app-widget, en een sticky actiebalk. Alles bedient met één duim, ook onderweg of in de auto.",
   },
   {
-    icon: <MapPin className="w-5 h-5" />,
     title: "Ritme van het bedrijf uitgelegd",
     text: "Overdag lokaal, vanaf de middag luchthavens. Dat staat expliciet op de site, zodat bezoekers direct zien of ze op het juiste moment aanvragen. Geen valse beloftes.",
   },
@@ -122,8 +119,6 @@ const localCores = [
 ];
 
 const TaxiWebsite = () => {
-  const darkNavRef = useDarkNavSection<HTMLElement>();
-
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -143,38 +138,33 @@ const TaxiWebsite = () => {
       />
 
       <main>
-        {/* Hero */}
-        <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight">
-              Taxi website laten maken die ritten oplevert
-            </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-              Van boekingsformulier tot luchthaven-SEO. Zo bouwde Nieuwblik voor Taxi Drechterland een razendsnelle website die klanten uit West-Friesland en heel Noord-Holland naar de juiste chauffeur brengt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <AnimatedButton to="/contact" size="lg">
+        <LandingHero
+          h1="Taxi website laten maken die ritten oplevert"
+          subtitle="Van boekingsformulier tot luchthaven-SEO. Zo bouwde Nieuwblik voor Taxi Drechterland een razendsnelle website die klanten uit West-Friesland en heel Noord-Holland naar de juiste chauffeur brengt."
+          knoppen={
+            <>
+              <AnimatedButton to="/contact" className="h-12 w-full sm:w-auto">
                 Vraag een voorstel aan
               </AnimatedButton>
-              <AnimatedButton href="https://taxidrechterland.nl" size="lg" variant="outline">
+              <AnimatedButton href="https://taxidrechterland.nl" variant="outline" className="h-12 w-full sm:w-auto">
                 Bekijk de live site
               </AnimatedButton>
-            </div>
-          </div>
-        </section>
+            </>
+          }
+        />
 
         {/* Featured image + intro */}
-        <section className="pb-16 md:pb-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <div className="rounded-3xl overflow-hidden mb-12 border border-border">
+        <section className="bg-background pb-16 pt-8 md:pb-24 md:pt-12">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="mb-12 overflow-hidden rounded-3xl border border-border md:mb-16">
               <OptimizedImage
                 src={taxiImg}
                 alt="Taxi Drechterland website case door Nieuwblik"
                 type="hero"
-                className="w-full h-auto"
+                className="h-auto w-full"
               />
             </div>
-            <div className="max-w-3xl mx-auto space-y-6 text-lg text-muted-foreground leading-relaxed">
+            <div className="max-w-3xl space-y-6 text-xl font-light leading-relaxed md:text-2xl" style={{ color: "hsl(var(--sw-ink) / 0.75)" }}>
               <p>
                 Taxi Drechterland uit Hoogkarspel is geen centrale met een callcenter, maar één vaste chauffeur die zijn eigen ritten rijdt. Precies dat is de kracht van het bedrijf, en precies dat maakte een klassiek boekingssysteem ongeschikt. De opdracht was om de aanvraag zo kort mogelijk te maken zonder de chauffeur zijn regie af te nemen.
               </p>
@@ -186,131 +176,71 @@ const TaxiWebsite = () => {
         </section>
 
         {/* Hoe is de site gebouwd */}
-        <section className="py-16 md:py-24 bg-secondary">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-foreground">
-              Zo is de site gebouwd
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-3xl mx-auto text-center">
+        <BeeldSectie keuze="taxi-drechterland" kop="Zo is de site gebouwd">
+          <BlokTekst>
+            <p>
               Vier bouwstenen die samen bepalen waarom deze taxi website werkt in de praktijk, in plaats van alleen op papier goed lijkt.
             </p>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {buildBlocks.map((item) => (
-                <div key={item.title} className="bg-background rounded-2xl p-6 border border-border">
-                  <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-4 text-accent">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-bold text-lg mb-2 text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+          </BlokTekst>
+          <BlokLijst items={buildBlocks.map((b) => ({ h3: b.title, text: b.text }))} />
+        </BeeldSectie>
 
         {/* Waarom hij snel is */}
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                Waarom deze taxi website zo snel is
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
-                Voor een taxi is snelheid geen luxe. Klanten boeken op hun telefoon, vaak met haast, soms met slecht bereik. Een halve seconde vertraging kost letterlijk ritten. Daarom is elke laag van de site gebouwd rond performance.
-              </p>
-            </div>
-            <ul className="space-y-4 max-w-2xl mx-auto">
-              {speedPoints.map((point) => (
-                <li key={point} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-foreground leading-relaxed">{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+        <TekstBlok kop="Waarom deze taxi website zo snel is">
+          <p>
+            Voor een taxi is snelheid geen luxe. Klanten boeken op hun telefoon, vaak met haast, soms met slecht bereik. Een halve seconde vertraging kost letterlijk ritten. Daarom is elke laag van de site gebouwd rond performance.
+          </p>
+          <BlokVinkjes items={speedPoints} />
+        </TekstBlok>
 
         {/* Airport SEO */}
-        <section className="py-16 md:py-24 bg-secondary">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                Gevonden worden op elke luchthavenrit
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
-                Iemand die een taxi naar Schiphol zoekt, typt bijna nooit alleen 'taxi' in Google. Hij typt 'taxi naar Schiphol vanuit West-Friesland', of 'taxi Hoogkarspel Eindhoven Airport'. Daarom kreeg elke luchthaven een eigen landingspagina met eigen copy, structured data en interne linkstructuur.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-              {airports.map((a) => (
-                <div key={a.slug} className="bg-background rounded-2xl p-5 border border-border flex items-center gap-3">
-                  <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center text-accent flex-shrink-0">
-                    <Plane className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground">Taxi naar {a.name}</h3>
-                    <p className="text-xs text-muted-foreground">Eigen landingspagina met route en tarief</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto text-center">
-              Elke pagina is geschreven op de zoekintentie van de klant, met een duidelijke prijsindicatie, reistijd en een directe boekingsknop. Google ziet dat de site echt over die specifieke rit gaat, en beloont dat met betere posities in de zoekresultaten.
-            </p>
+        <Sectie>
+          <SectieKop
+            titel="Gevonden worden op elke luchthavenrit"
+            intro="Iemand die een taxi naar Schiphol zoekt, typt bijna nooit alleen 'taxi' in Google. Hij typt 'taxi naar Schiphol vanuit West-Friesland', of 'taxi Hoogkarspel Eindhoven Airport'. Daarom kreeg elke luchthaven een eigen landingspagina met eigen copy, structured data en interne linkstructuur."
+          />
+          <div className="mb-10 grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+            {airports.map((a) => (
+              <div key={a.slug} className="border-t border-border py-5">
+                <h3 className="text-lg font-semibold text-foreground">Taxi naar {a.name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">Eigen landingspagina met route en tarief</p>
+              </div>
+            ))}
           </div>
-        </section>
+          <p className="max-w-3xl text-lg font-light leading-relaxed text-muted-foreground">
+            Elke pagina is geschreven op de zoekintentie van de klant, met een duidelijke prijsindicatie, reistijd en een directe boekingsknop. Google ziet dat de site echt over die specifieke rit gaat, en beloont dat met betere posities in de zoekresultaten.
+          </p>
+        </Sectie>
 
         {/* Lokale keywords West-Friesland */}
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
-                Sterk in elke kern van West-Friesland
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
-                In West-Friesland zoekt bijna niemand op alleen 'taxi'. Mensen zoeken op hun eigen dorp: taxi Hoogkarspel, taxi Enkhuizen, taxi Bovenkarspel. Voor elke kern in het werkgebied is de site afgestemd op precies die lokale zoektermen.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-10 max-w-3xl mx-auto">
-              {localCores.map((c) => (
-                <div key={c} className="bg-secondary rounded-xl px-4 py-3 text-center text-sm font-medium text-foreground border border-border">
-                  Taxi {c}
-                </div>
-              ))}
-            </div>
-            <div className="max-w-3xl mx-auto space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                De site is gekoppeld aan een geoptimaliseerd Google Business profiel met de juiste categorieën, foto's en openingstijden. Klantrecensies uit de regio versterken de positie in de lokale kaart, en per kern zijn de pagina's opgebouwd rond concrete vragen: van 'taxi naar het station Hoorn' tot 'taxi naar het ziekenhuis in Enkhuizen'.
-              </p>
-              <p>
-                Zo wordt Taxi Drechterland gevonden op precies de zoekopdrachten waar de klant op dat moment mee bezig is. Geen algemene concurrentie met de grote centrales, maar sterke posities op de zoektermen die tot een echte rit leiden.
-              </p>
-            </div>
+        <Sectie>
+          <SectieKop
+            titel="Sterk in elke kern van West-Friesland"
+            intro="In West-Friesland zoekt bijna niemand op alleen 'taxi'. Mensen zoeken op hun eigen dorp: taxi Hoogkarspel, taxi Enkhuizen, taxi Bovenkarspel. Voor elke kern in het werkgebied is de site afgestemd op precies die lokale zoektermen."
+          />
+          <div className="mb-10 flex max-w-4xl flex-wrap gap-2.5">
+            {localCores.map((c) => (
+              <span key={c} className="rounded-md border border-border px-4 py-2.5 text-sm font-medium text-foreground">
+                Taxi {c}
+              </span>
+            ))}
           </div>
-        </section>
-
-        {/* CTA band */}
-        <section ref={darkNavRef} className="py-20 md:py-28" style={{ background: "hsl(160 84% 12%)" }}>
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Ook een taxi website die echt werkt?
-            </h2>
-            <p className="text-lg text-white/70 mb-8 leading-relaxed">
-              Of je nu één chauffeur bent of een klein team runt, wij bouwen de website die past bij hoe jij daadwerkelijk rijdt. Snel, gevonden en direct bereikbaar.
+          <div className="max-w-3xl space-y-4 text-lg font-light leading-relaxed text-muted-foreground">
+            <p>
+              De site is gekoppeld aan een geoptimaliseerd Google Business profiel met de juiste categorieën, foto's en openingstijden. Klantrecensies uit de regio versterken de positie in de lokale kaart, en per kern zijn de pagina's opgebouwd rond concrete vragen: van 'taxi naar het station Hoorn' tot 'taxi naar het ziekenhuis in Enkhuizen'.
             </p>
-            <AnimatedButton to="/contact" size="lg" variant="white">
-              Start je project
-            </AnimatedButton>
+            <p>
+              Zo wordt Taxi Drechterland gevonden op precies de zoekopdrachten waar de klant op dat moment mee bezig is. Geen algemene concurrentie met de grote centrales, maar sterke posities op de zoektermen die tot een echte rit leiden.
+            </p>
           </div>
-        </section>
+        </Sectie>
 
         {/* FAQ */}
         <LandingFaq h2="Veelgestelde vragen over een taxi website" items={faqItems} />
 
-
         {/* Interne links */}
-        <section className="py-12 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
+        <section className="bg-background py-16 md:py-20">
+          <div className="container mx-auto max-w-3xl px-4 sm:px-6">
             <p className="text-muted-foreground leading-relaxed">
               Bekijk ook de{" "}
               <Link to="/portfolio/taxi-drechterland" className="text-accent hover:underline font-semibold">volledige case van Taxi Drechterland</Link>
