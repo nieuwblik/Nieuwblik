@@ -389,7 +389,7 @@ const GratisWebsiteAnalyse = () => {
               ref={formRef}
               onSubmit={(e) => void handleSubmit(e)}
               noValidate
-              className="sw-cta relative z-[3] space-y-4 rounded-2xl border bg-white p-6 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] md:p-7"
+              className="sw-cta relative z-[3] space-y-4 rounded-2xl border bg-white p-5 shadow-[0_24px_60px_-18px_rgba(0,0,0,0.28)] min-[400px]:p-6 md:p-7"
               style={{ borderColor: RAND, "--sw-delay": "0.3s" } as CSSProperties}
             >
               <h2 className="text-lg font-bold tracking-tight sw-ink md:text-2xl">Vraag je gratis analyse aan</h2>
@@ -478,7 +478,7 @@ const GratisWebsiteAnalyse = () => {
               <AnimatedButton
                 type="submit"
                 disabled={bezig}
-                className="h-11 w-full whitespace-nowrap px-4 md:h-12 md:text-lg"
+                className="h-11 w-full gap-2 whitespace-nowrap px-3 text-[15px] max-[359px]:[&>span:last-child]:hidden min-[400px]:gap-2.5 min-[400px]:px-4 min-[400px]:text-base md:h-12 md:text-lg"
               >
                 {bezig ? "Versturen..." : "Ontvang mijn gratis analyse"}
               </AnimatedButton>
