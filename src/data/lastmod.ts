@@ -33,7 +33,7 @@ export const LASTMOD: Record<string, string> = {
   "/diensten/e-commerce": "2026-10-17",
   "/diensten/webshops": "2026-10-08",
   "/diensten/website-op-maat": "2026-10-19",
-  "/gratis-website-analyse": "2026-11-07",
+  "/gratis-website-analyse": "2026-11-08",
   "/over-ons": "2026-10-14",
   "/overstappen-van-wordpress": "2026-10-18",
   "/portfolio": "2026-10-13",
