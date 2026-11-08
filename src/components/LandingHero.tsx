@@ -2,6 +2,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { Star } from "lucide-react";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { GoogleG } from "@/components/GoogleReviewMuur";
+import { Link } from "@/lib/router-compat";
+import { HERO_DIENSTEN } from "@/components/heroDiensten";
 import { REVIEWS } from "@/config/business";
 import heroTeamImage from "@/assets/justin-job-compressed.webp";
 
@@ -26,7 +28,7 @@ const GROEN = "hsl(var(--sw-green))";
 const LandingHero = ({ h1, subtitle, kruimels, knoppen, onderIntro }: LandingHeroProps) => (
   <section className="sw-ink sw-hero-anim relative overflow-hidden bg-background">
     <div className="container mx-auto grid grid-cols-1 items-end gap-6 px-4 pt-[calc(var(--header-height)_+_2.5rem)] sm:px-6 lg:grid-cols-12 lg:gap-10 lg:pt-[calc(var(--header-height)_+_3.5rem)]">
-      <div className="relative z-[3] pb-4 lg:col-span-7 lg:pb-24">
+      <div className="relative z-[3] pb-4 lg:col-span-7 lg:pb-20">
         {kruimels && <div className="-mt-4 mb-4">{kruimels}</div>}
         <h1 className="golf-hero__titel golf-hero__titel--strak max-w-[12em]" style={{ fontSize: "clamp(2.3rem, 4.4vw, 4.6rem)" }}>
           <span className="sw-mask">
@@ -57,13 +59,23 @@ const LandingHero = ({ h1, subtitle, kruimels, knoppen, onderIntro }: LandingHer
             </>
           )}
         </div>
-        <a
-          href={REVIEWS.profielUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="sw-cta group mt-6 flex w-fit items-center gap-2.5"
-          style={{ "--sw-delay": "0.45s" } as CSSProperties}
-        >
+      </div>
+
+      <div className="sw-cta relative lg:col-span-5" style={{ "--sw-delay": "0.2s" } as CSSProperties}>
+        <img
+          src={heroTeamImage}
+          alt="Justin & Job van Nieuwblik"
+          className="mx-auto block h-auto w-full max-w-[460px] lg:ml-auto lg:mr-0 lg:max-w-none"
+          fetchPriority="high"
+        />
+      </div>
+    </div>
+
+    {/* Balk onderin, zoals op de homepage: de foto staat erop, reviews links en de
+        diensten rechts als echte links. */}
+    <div className="golf-hero__balk sw-cta" style={{ "--sw-delay": "0.45s" } as CSSProperties}>
+      <div className="container mx-auto flex flex-col gap-3 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-8 md:py-0">
+        <a href={REVIEWS.profielUrl} target="_blank" rel="noopener noreferrer" className="group flex w-fit shrink-0 items-center gap-2.5">
           <GoogleG className="h-[18px] w-[18px] shrink-0" />
           <span className="flex items-center gap-1" aria-hidden="true">
             {[...Array(5)].map((_, i) => (
@@ -78,15 +90,18 @@ const LandingHero = ({ h1, subtitle, kruimels, knoppen, onderIntro }: LandingHer
             </span>
           </span>
         </a>
-      </div>
-
-      <div className="sw-cta relative lg:col-span-5" style={{ "--sw-delay": "0.2s" } as CSSProperties}>
-        <img
-          src={heroTeamImage}
-          alt="Justin & Job van Nieuwblik"
-          className="mx-auto block h-auto w-full max-w-[460px] lg:ml-auto lg:mr-0 lg:max-w-none"
-          fetchPriority="high"
-        />
+        <nav aria-label="Diensten" className="golf-hero__diensten">
+          <ul>
+            {HERO_DIENSTEN.map((d) => (
+              <li key={d.to}>
+                <Link to={d.to}>
+                  <d.Icoon className="golf-hero__icoon" strokeWidth={1.75} aria-hidden="true" />
+                  {d.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </div>
   </section>

@@ -1,14 +1,9 @@
 import { useRef, type CSSProperties } from "react";
-import {
-  PencilRuler,
-  Search,
-  ShoppingBag,
-  Star,
-  TrendingUp,
-} from "lucide-react";
+import { Star } from "lucide-react";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Link } from "@/lib/router-compat";
 import { REVIEWS } from "@/config/business";
+import { HERO_DIENSTEN } from "@/components/heroDiensten";
 import { golfHero } from "@/data/golfHero";
 import terugvalDesktop from "@/assets/hero/golf-desktop.webp";
 import terugvalMobiel from "@/assets/hero/golf-mobiel.webp";
@@ -27,17 +22,7 @@ import { useGolf } from "@/components/golf/useGolf";
  *   zo inkt met een groen "Enkhuizen", waar de golf erachter loopt kleurt de kop
  *   diepgroen mee.
  */
-// Diensten in de balk onderin de hero (bestaande pagina's, zie ook de footer).
-const DIENSTEN = [
-  {
-    label: "Website op maat",
-    to: "/diensten/website-op-maat",
-    Icoon: PencilRuler,
-  },
-  { label: "Webshops", to: "/diensten/webshops", Icoon: ShoppingBag },
-  { label: "E-commerce", to: "/diensten/e-commerce", Icoon: TrendingUp },
-  { label: "SEO", to: "/seo-enkhuizen", Icoon: Search },
-];
+const DIENSTEN = HERO_DIENSTEN;
 
 const GolfHero = () => {
   const heroRef = useRef<HTMLElement>(null);

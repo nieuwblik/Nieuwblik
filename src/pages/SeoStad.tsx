@@ -21,6 +21,8 @@ export type SeoStadData = {
   waaromH2: string;
   waaromTekst: string;
   voorbeelden: string;
+  /** Zes eigen punten per plaats onder "Waarom lokale SEO in …". */
+  blokken: { h3: string; text: string }[];
   faq: { q: string; a: string }[];
   stadspagina: { label: string; to: string };
   buren: { label: string; to: string }[];
@@ -59,15 +61,6 @@ const SeoStad = ({ data }: { data: SeoStadData }) => {
     ],
   };
 
-  const blokken = [
-    { h3: "Zoekwoorden uit " + data.stad, text: `We zoeken uit waar klanten in ${data.stad} echt op zoeken. Geen aannames, alleen data.` },
-    { h3: "Google Bedrijfsprofiel", text: "Juiste categorieën, foto's en vaste posts, zodat je opvalt in de kaart met drie bedrijven." },
-    { h3: "Meer 5 sterren reviews", text: `Een simpel plan om structureel reviews te krijgen van klanten uit ${data.stad} en omgeving.` },
-    { h3: "Lokale content", text: "Pagina's per dienst en per plaats die je klant echt helpen, en die Google begrijpt." },
-    { h3: "Snelle, schone techniek", text: "Laadsnelheid, mobiel en gestructureerde data. De basis waarop alles rust." },
-    { h3: "Maandelijks inzicht", text: "Een helder overzicht van posities, bezoekers en aanvragen. Je ziet wat het oplevert." },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <SEOHead title={data.title} description={data.description} keywords={data.keywords} canonicalUrl={url} structuredData={graphJsonLd} includeLocalBusinessSchema={true} />
@@ -96,7 +89,7 @@ const SeoStad = ({ data }: { data: SeoStadData }) => {
                 <p>{data.waaromTekst}</p>
                 <p>{data.voorbeelden}</p>
               </BlokTekst>
-              <BlokLijst items={blokken} />
+              <BlokLijst items={data.blokken} />
             </>
           );
           return foto ? (
