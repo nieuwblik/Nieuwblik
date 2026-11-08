@@ -29,7 +29,6 @@ const vertraging = (open: boolean, i: number) => ({
 
 // Pagina's waar het analysedeel niets toevoegt: al aan het converteren, of de
 // pagina waar het zelf naartoe linkt. Daar blijven naar boven en WhatsApp over.
-// Ook niet op de homepage: daar staat de analyse al als knop in de hero.
 const HIDDEN_ON = ["/gratis-website-analyse", "/bedankt-analyse", "/contact", "/bedankt", "/admin"];
 
 // Dezelfde vier onderdelen als op /gratis-website-analyse.
@@ -73,7 +72,8 @@ const WhatsAppIcoon = () => (
  * website-analyse, los van de rest zodat hij opvalt; het plusje klapt de uitleg
  * omhoog open. Rechtsonder terug naar boven en WhatsApp naast elkaar.
  *
- * Terug naar boven schuift pas in beeld na wat scrollen. Alles is fixed, dus
+ * De analysekaart en terug naar boven komen pas samen in beeld na wat scrollen,
+ * met dezelfde beweging; bovenaan staat het aanbod al in de pagina. Alles is fixed, dus
  * geen verschuiving van de pagina. Op smalle schermen houdt de dichte
  * analysekaart ruimte vrij voor de knoppen rechts; opengeklapt wordt hij zo
  * breed als het scherm en ligt hij over die knoppen heen.
@@ -83,7 +83,7 @@ const ZwevendeKnoppen = () => {
   const [bovenaan, setBovenaan] = useState(true);
   const [open, setOpen] = useState(false);
 
-  const metAnalyse = pathname !== "/" && !HIDDEN_ON.some((pad) => pathname.startsWith(pad));
+  const metAnalyse = !HIDDEN_ON.some((pad) => pathname.startsWith(pad));
 
   useEffect(() => {
     const opScroll = () => setBovenaan(window.scrollY < 300);
@@ -92,8 +92,11 @@ const ZwevendeKnoppen = () => {
     return () => window.removeEventListener("scroll", opScroll);
   }, []);
 
-  // Op een nieuwe pagina dicht beginnen.
+  // Op een nieuwe pagina dicht beginnen, en dicht als de kaart weer wegschuift.
   useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (bovenaan) setOpen(false);
+  }, [bovenaan]);
 
   const naarBoven = () => {
     const reduced = window.matchMedia(
@@ -108,8 +111,9 @@ const ZwevendeKnoppen = () => {
     <>
       {metAnalyse && (
         <div
-          className={`fixed bottom-4 left-4 max-w-[400px] overflow-hidden rounded-2xl border bg-white transition-[width,box-shadow] duration-500 motion-reduce:transition-none md:bottom-6 md:left-6 md:w-[340px] ${open ? "z-[60] w-[calc(100vw-2rem)] shadow-[0_24px_60px_-18px_rgba(0,0,0,0.38)]" : "z-50 w-[calc(100vw-2rem-112px-0.5rem)] shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)]"}`}
+          className={`fixed bottom-4 left-4 max-w-[400px] overflow-hidden rounded-2xl border bg-white transition-[width,box-shadow,transform,opacity] duration-500 motion-reduce:transition-none md:bottom-6 md:left-6 md:w-[340px] ${bovenaan ? "pointer-events-none translate-y-4 opacity-0" : "translate-y-0 opacity-100"} ${open ? "z-[60] w-[calc(100vw-2rem)] shadow-[0_24px_60px_-18px_rgba(0,0,0,0.38)]" : "z-50 w-[calc(100vw-2rem-112px-0.5rem)] shadow-[0_12px_32px_-14px_rgba(0,0,0,0.3)]"}`}
           style={{ borderColor: RAND, transitionTimingFunction: VLOEIEND }}
+          inert={bovenaan}
         >
           <div
             id="analyse-meer"
