@@ -45,12 +45,29 @@ const SmoothScroll = () => {
       if (opgeruimd) return;
       gsap.registerPlugin(ScrollTrigger);
 
-      const lenis = new Lenis({
+      // Een trackpad (Windows-precisietouchpad) geeft zelf al vloeiende stappen met
+      // eigen naloop. Lenis speelt die nog eens af over ruim een seconde, en dan
+      // loopt de pagina achter je vingers aan. Herkennen we een trackpad, dan laten
+      // we het scrollen verder aan de browser; een muiswiel blijft vloeiend.
+      // Muiswiel: vaste stappen van ~100 px (of regels, deltaMode 1). Trackpad:
+      // kleine of gebroken pixelstappen, vaak ook zijwaarts.
+      const isTrackpad = (e: WheelEvent) =>
+        e.deltaMode === 0 &&
+        (e.deltaX !== 0 || !Number.isInteger(e.deltaY) || (e.deltaY !== 0 && Math.abs(e.deltaY) < 50));
+
+      const lenis: import("lenis").default = new Lenis({
         duration: 1.15,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         wheelMultiplier: 1.0,
         touchMultiplier: 1.4,
+        virtualScroll: ({ event }) => {
+          if (lenis.options.smoothWheel && event instanceof WheelEvent && !event.ctrlKey && isTrackpad(event)) {
+            // Voor de rest van het bezoek native; Lenis stopt dan zelf een lopende animatie.
+            lenis.options.smoothWheel = false;
+          }
+          return true;
+        },
       });
       lenisInstance = lenis;
 
