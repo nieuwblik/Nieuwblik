@@ -1717,6 +1717,35 @@ html.tn-vast { overflow: hidden; }
   }
 }
 
+/* Cookiemelding (CookieConsent): komt van onderen binnen en schuift weer weg. */
+.cookie-balk {
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), translate 0.5s cubic-bezier(0.16, 1, 0.3, 1), scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  @starting-style {
+    opacity: 0;
+    translate: 0 100px;
+    scale: 0.95;
+  }
+}
+.cookie-balk[data-weg] {
+  opacity: 0;
+  translate: 0 50px;
+  scale: 0.98;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cookie-icoon { animation: cookie-wiebel 0.5s ease-in-out 0.5s; }
+}
+@keyframes cookie-wiebel {
+  0%, 100% { rotate: 0deg; }
+  25%, 75% { rotate: -10deg; }
+  50% { rotate: 10deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cookie-balk, .cookie-balk[data-weg] { translate: none; scale: none; transition-duration: 0.2s; }
+  .cookie-balk { @starting-style { translate: none; scale: none; } }
+}
+
 /* Lopende reviewkolommen (GoogleReviewMuur). De lijst staat er twee keer in, dus
    een verschuiving van de halve hoogte sluit naadloos. De kaarten lossen over een
    flinke hoogte op in de achtergrond, zodat er geen harde band ontstaat. */
@@ -1744,11 +1773,30 @@ html.tn-vast { overflow: hidden; }
 @media (min-width: 1024px) {
   .review-muur { --review-start: var(--header-height); }
 }
-.review-kolom {
+/* Alleen met de kopie eronder (--lus) loopt de kolom; anders sluit het rondje niet. */
+.review-kolom--lus {
   animation: review-loop 60s linear infinite;
   will-change: transform;
 }
 .review-kolom--omgekeerd { animation-direction: reverse; }
+/* Stilzetten: met de knop, bij aanwijzen en als de toetsenbordfocus in de muur staat. */
+.review-muur[data-gepauzeerd] .review-kolom--lus,
+.review-muur:hover .review-kolom--lus,
+.review-muur:focus-within .review-kolom--lus { animation-play-state: paused; }
+/* Vijf sterren en de G van Google als achtergrond: geen SVG's per kaart. */
+.review-sterren {
+  display: block;
+  width: 78px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26.6 24'%3E%3Cpath fill='%23FBBC05' d='M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z'/%3E%3C/svg%3E") 0 0 / 15.5px 14px repeat-x;
+}
+.review-g {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 @media (prefers-reduced-motion: reduce) {
   .review-muur { overflow-y: auto; -webkit-mask-image: none; mask-image: none; }
   .review-kolom { animation: none; }

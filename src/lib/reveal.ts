@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from "react";
+import { koppelScrollTrigger } from "@/components/SmoothScroll";
 
 /**
  * Consistent, professional scroll reveal for section headings + subheadings.
@@ -24,6 +25,7 @@ export function useReveal(scope: RefObject<HTMLElement | null>) {
       // eerst weer om daarna opnieuw binnen te komen.
       if (root.getBoundingClientRect().top < window.innerHeight * 0.8) return;
       gsap.registerPlugin(ScrollTrigger);
+      koppelScrollTrigger(gsap, ScrollTrigger);
       const ctx = gsap.context(() => {
         gsap.from(items, {
           y: 26,

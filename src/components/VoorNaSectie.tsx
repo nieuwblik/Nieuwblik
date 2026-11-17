@@ -11,8 +11,13 @@ import oud1200 from "@/assets/voorna/scherm-oud-1200.webp";
 import oud2400 from "@/assets/voorna/scherm-oud-2400.webp";
 import nieuw1200 from "@/assets/voorna/scherm-nieuw-1200.webp";
 import nieuw2400 from "@/assets/voorna/scherm-nieuw-2400.webp";
+import { koppelScrollTrigger } from "@/components/SmoothScroll";
 
-if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  // Lenis op de GSAP-klok, zodat de scroll-animaties gelijk lopen met het scrollen.
+  koppelScrollTrigger(gsap, ScrollTrigger);
+}
 
 /*
  * Voor en na: een Studio Display (Higgsfield-mockup in 4K) met in het scherm

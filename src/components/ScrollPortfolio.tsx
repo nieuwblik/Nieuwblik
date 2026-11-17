@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import PortfolioCard from "@/components/PortfolioCard";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import taxiDrechterlandImg from "@/assets/taxidrechterland.webp";
@@ -40,10 +39,8 @@ const ITEMS = [
   { title: "Kyodai Originals",      category: "Japanse Kunst & Antiek",  meta: "E-commerce · Luxe Branding", image: kyodaiOriginalsImg, imageSet: kyodaiOriginalsImgSet,   slug: "kyodai-originals",      url: "https://www.kyodaioriginals.nl" },
 ];
 
-const EASE = [0.25, 0.1, 0.25, 1] as const;
 
 const ScrollPortfolio = () => {
-  const shouldReduceMotion = useReducedMotion();
 
   /* Staat onder de hero (niet meer eroverheen getrokken), zodat de golf-hero
      vrij in beeld staat. */
@@ -69,16 +66,10 @@ const ScrollPortfolio = () => {
           </h2>
         </div>
 
-        {/* Card grid: verschijnt bij het scrollen. */}
+        {/* Raster met de cases; geen inloop bij het scrollen. */}
         <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20">
-          {ITEMS.map((item, i) => (
-            <motion.div
-              key={item.slug}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7, delay: (i % 2) * 0.08, ease: EASE }}
-            >
+          {ITEMS.map((item) => (
+            <div key={item.slug}>
               <PortfolioCard
                 title={item.title}
                 category={item.category}
@@ -87,7 +78,7 @@ const ScrollPortfolio = () => {
                 slug={item.slug}
                 meta={item.meta}
               />
-            </motion.div>
+            </div>
           ))}
         </div>
 

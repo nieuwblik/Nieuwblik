@@ -11,6 +11,25 @@ let lenisInstance: import("lenis").default | null = null;
  */
 export const getLenis = (): import("lenis").default | null => lenisInstance;
 
+type Gsap = typeof import("gsap").default;
+type ScrollTriggerType = typeof import("gsap/ScrollTrigger").ScrollTrigger;
+
+let gsapKoppeling: { gsap: Gsap; ScrollTrigger: ScrollTriggerType } | null = null;
+let koppelNu: (() => void) | null = null;
+
+/**
+ * Voor componenten met ScrollTrigger (homepage, cases, analyse): zet Lenis op
+ * de klok van GSAP en werk ScrollTrigger bij met elke Lenis-stap, zodat
+ * scroll-animaties in hetzelfde frame lopen als het scrollen. Zonder deze
+ * koppeling draait Lenis op een eigen requestAnimationFrame en hoeven GSAP en
+ * ScrollTrigger niet te laden op pagina's die ze niet gebruiken.
+ */
+export function koppelScrollTrigger(gsap: Gsap, ScrollTrigger: ScrollTriggerType) {
+  if (gsapKoppeling) return;
+  gsapKoppeling = { gsap, ScrollTrigger };
+  koppelNu?.();
+}
+
 /**
  * Global smooth-scroll. Lenis is position-based (it sets scrollTop rather than
  * transforming content), so position:fixed elements and ScrollTrigger keep
@@ -36,14 +55,8 @@ const SmoothScroll = () => {
     let stop: (() => void) | null = null;
 
     void (async () => {
-      const [{ default: Lenis }, { default: gsap }, { ScrollTrigger }] = await Promise.all([
-        import("lenis"),
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-        import("lenis/dist/lenis.css"),
-      ]);
+      const [{ default: Lenis }] = await Promise.all([import("lenis"), import("lenis/dist/lenis.css")]);
       if (opgeruimd) return;
-      gsap.registerPlugin(ScrollTrigger);
 
       // Een trackpad (Windows-precisietouchpad) geeft zelf al vloeiende stappen met
       // eigen naloop. Lenis speelt die nog eens af over ruim een seconde, en dan
@@ -71,14 +84,30 @@ const SmoothScroll = () => {
       });
       lenisInstance = lenis;
 
-      lenis.on("scroll", ScrollTrigger.update);
+      // Eigen klok, tot een pagina met ScrollTrigger om de GSAP-klok vraagt.
+      let frame = 0;
+      const eigenTick = (tijd: number) => {
+        lenis.raf(tijd);
+        frame = requestAnimationFrame(eigenTick);
+      };
+      frame = requestAnimationFrame(eigenTick);
 
-      const tick = (time: number) => lenis.raf(time * 1000);
-      gsap.ticker.add(tick);
-      gsap.ticker.lagSmoothing(0);
+      let gsapTick: ((tijd: number) => void) | null = null;
+      koppelNu = () => {
+        if (!gsapKoppeling || gsapTick) return;
+        const { gsap, ScrollTrigger } = gsapKoppeling;
+        cancelAnimationFrame(frame);
+        lenis.on("scroll", ScrollTrigger.update);
+        gsapTick = (tijd: number) => lenis.raf(tijd * 1000);
+        gsap.ticker.add(gsapTick);
+        gsap.ticker.lagSmoothing(0);
+      };
+      koppelNu();
 
       stop = () => {
-        gsap.ticker.remove(tick);
+        cancelAnimationFrame(frame);
+        if (gsapTick && gsapKoppeling) gsapKoppeling.gsap.ticker.remove(gsapTick);
+        koppelNu = null;
         lenis.destroy();
         lenisInstance = null;
       };

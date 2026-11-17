@@ -291,6 +291,11 @@ function Duim({
         src={pagina.beeld}
         alt=""
         draggable={false}
+        // Staat in een dicht menu: niet voorladen. Zonder lazy zet React er een
+        // preload voor in de kop, en dan wacht het hero-beeld op deze miniaturen.
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
       />
     );
   }

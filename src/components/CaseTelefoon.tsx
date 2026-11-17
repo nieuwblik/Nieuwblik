@@ -3,8 +3,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import type { TelefoonFoto } from "@/data/caseMockups";
+import { koppelScrollTrigger } from "@/components/SmoothScroll";
 
-if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  // Lenis op de GSAP-klok, zodat de scroll-animaties gelijk lopen met het scrollen.
+  koppelScrollTrigger(gsap, ScrollTrigger);
+}
 
 /**
  * Standaard scroll-animatie: eindstand 118% ingezoomd en 6% naar rechts (in

@@ -1,4 +1,5 @@
-import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Pause, Play, Star } from "lucide-react";
 
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
@@ -24,14 +25,20 @@ const Sterren = ({ className = "h-3.5 w-3.5" }: { className?: string }) => (
   </span>
 );
 
+/**
+ * Een reviewkaart. De sterren en de G zijn CSS-achtergronden (.review-sterren,
+ * .review-g in styles.css) in plaats van zes SVG's per kaart: de muur telt
+ * tientallen kaarten, en elke SVG is een stuk DOM dat opgebouwd en
+ * gehydrateerd moet worden.
+ */
 const ReviewKaart = ({ review }: { review: GoogleReview }) => (
   <li
     className="sw-paper rounded-2xl border p-5"
     style={{ borderColor: RAND }}
   >
     <div className="flex items-center justify-between">
-      <Sterren />
-      <GoogleG className="h-4 w-4 shrink-0" />
+      <span className="review-sterren" role="img" aria-label="5 sterren op Google" />
+      <span className="review-g" aria-hidden="true" />
     </div>
     <p className="mt-3 text-[0.9375rem] leading-relaxed" style={{ color: "hsl(var(--sw-ink) / 0.78)" }}>
       {review.tekst}
@@ -41,21 +48,24 @@ const ReviewKaart = ({ review }: { review: GoogleReview }) => (
 );
 
 /**
- * Een lopende kolom: de lijst staat er twee keer onder elkaar en schuift een
- * halve hoogte op, zodat het rondje naadloos sluit. De tweede lijst is alleen
- * beeld. Zonder beweging (reduced motion) vervalt hij en scrolt de kolom zelf.
+ * Een lopende kolom: met `lus` staat de lijst er twee keer onder elkaar en
+ * schuift hij een halve hoogte op, zodat het rondje naadloos sluit. De kopie is
+ * alleen beeld en komt pas in de browser, niet in de server-HTML. Zonder kopie
+ * (op de server, of bij "minder beweging") staat de kolom stil.
  */
 const LopendeKolom = ({
   reviews,
   duur,
   omgekeerd = false,
+  lus,
 }: {
   reviews: GoogleReview[];
   duur: number;
   omgekeerd?: boolean;
+  lus: boolean;
 }) => (
   <div
-    className={`review-kolom${omgekeerd ? " review-kolom--omgekeerd" : ""}`}
+    className={`review-kolom${lus ? " review-kolom--lus" : ""}${omgekeerd ? " review-kolom--omgekeerd" : ""}`}
     style={{ animationDuration: `${duur}s` }}
   >
     <ul className="space-y-4 pb-4">
@@ -63,11 +73,13 @@ const LopendeKolom = ({
         <ReviewKaart key={r.naam} review={r} />
       ))}
     </ul>
-    <ul className="review-kolom__kopie space-y-4 pb-4" aria-hidden="true">
-      {reviews.map((r) => (
-        <ReviewKaart key={r.naam} review={r} />
-      ))}
-    </ul>
+    {lus && (
+      <ul className="review-kolom__kopie space-y-4 pb-4" aria-hidden="true">
+        {reviews.map((r) => (
+          <ReviewKaart key={r.naam} review={r} />
+        ))}
+      </ul>
+    )}
   </div>
 );
 
@@ -78,11 +90,44 @@ const KOLOMMEN = [
   ["Jesse Huisman", "Danique Kwakman", "Thijs Peerdeman", "Niels van Esveld", "Stefan Harlaar"],
 ].map((namen) => namen.flatMap((naam) => googleReviews.filter((r) => r.naam === naam)));
 
+type Scherm = "desktop" | "mobiel";
+
+/**
+ * Welke muur er in de browser staat. Op de server en bij de eerste render null:
+ * dan staan beide muren er zonder kopie (elke review één keer per muur) en
+ * kiest CSS welke zichtbaar is. Daarna blijft alleen de muur voor dit scherm
+ * over, met de kopie voor de lus als beweging mag.
+ */
+function useScherm() {
+  const [scherm, setScherm] = useState<Scherm | null>(null);
+  const [beweging, setBeweging] = useState(false);
+  useEffect(() => {
+    const breed = window.matchMedia("(min-width: 1024px)");
+    const rustig = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const zet = () => {
+      setScherm(breed.matches ? "desktop" : "mobiel");
+      setBeweging(!rustig.matches);
+    };
+    zet();
+    breed.addEventListener("change", zet);
+    rustig.addEventListener("change", zet);
+    return () => {
+      breed.removeEventListener("change", zet);
+      rustig.removeEventListener("change", zet);
+    };
+  }, []);
+  return { scherm, beweging };
+}
+
 /**
  * Vijftien letterlijke Google-reviews in kolommen die rustig voorbijschuiven,
  * met de score ernaast, op een witte band tussen de lichte secties en precies één
  * scherm hoog. De muur loopt tot de randen van de sectie, zodat de kaarten er als
  * het ware doorheen schuiven.
+ *
+ * De beweging stopt bij aanwijzen en bij toetsenbordfocus in de muur, en met de
+ * knop Pauzeren (WCAG 2.2.2: beweging die vanzelf start en langer dan vijf
+ * seconden duurt, moet je kunnen stoppen).
  */
 const GoogleReviewMuur = ({
   kop = "Wat onze klanten zeggen",
@@ -91,8 +136,14 @@ const GoogleReviewMuur = ({
   /** De kop van de sectie; stads- en branchepagina's hebben hun eigen kop. */
   kop?: string;
   intro?: string;
-}) => (
-    <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-white">
+}) => {
+  const { scherm, beweging } = useScherm();
+  const [gepauzeerd, setGepauzeerd] = useState(false);
+  const lus = beweging && scherm !== null;
+  const status = gepauzeerd ? { "data-gepauzeerd": "" } : {};
+
+  return (
+    <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-white [contain-intrinsic-size:auto_100svh] [content-visibility:auto]">
       <div className="container relative z-10 mx-auto flex h-full flex-col gap-8 px-4 sm:px-6 lg:grid lg:grid-cols-[minmax(0,390px)_minmax(0,1fr)] lg:items-center lg:gap-12">
         <div className="shrink-0 pt-[calc(var(--header-height)_+_1.5rem)] lg:pt-0">
           <h2 className="text-3xl font-bold tracking-tight sw-ink md:text-[2.75rem]" style={{ lineHeight: 1.06 }}>
@@ -117,24 +168,40 @@ const GoogleReviewMuur = ({
               </p>
             </div>
           </div>
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
             <AnimatedButton href={REVIEWS.profielUrl} variant="outline">
               Bekijk op Google
             </AnimatedButton>
+            {lus && (
+              <button
+                type="button"
+                onClick={() => setGepauzeerd((p) => !p)}
+                className="inline-flex items-center gap-1.5 rounded-md px-1 py-1 text-sm transition-colors hover:text-[hsl(var(--sw-green))] focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ color: "hsl(var(--sw-ink) / 0.7)" }}
+              >
+                {gepauzeerd ? <Play className="h-3.5 w-3.5" aria-hidden="true" /> : <Pause className="h-3.5 w-3.5" aria-hidden="true" />}
+                {gepauzeerd ? "Afspelen" : "Pauzeren"}
+              </button>
+            )}
           </div>
         </div>
 
-        <div className="review-muur hidden h-full grid-cols-3 items-start gap-4 lg:grid">
-          <LopendeKolom reviews={KOLOMMEN[0]!} duur={62} />
-          <LopendeKolom reviews={KOLOMMEN[1]!} duur={74} omgekeerd />
-          <LopendeKolom reviews={KOLOMMEN[2]!} duur={56} />
-        </div>
+        {scherm !== "mobiel" && (
+          <div className="review-muur hidden h-full grid-cols-3 items-start gap-4 lg:grid" {...status}>
+            <LopendeKolom reviews={KOLOMMEN[0]!} duur={62} lus={lus} />
+            <LopendeKolom reviews={KOLOMMEN[1]!} duur={74} omgekeerd lus={lus} />
+            <LopendeKolom reviews={KOLOMMEN[2]!} duur={56} lus={lus} />
+          </div>
+        )}
         {/* Op de telefoon alle vijftien in één kolom. */}
-        <div className="review-muur min-h-0 flex-1 lg:hidden">
-          <LopendeKolom reviews={KOLOMMEN.flat()} duur={150} />
-        </div>
+        {scherm !== "desktop" && (
+          <div className="review-muur min-h-0 flex-1 lg:hidden" {...status}>
+            <LopendeKolom reviews={KOLOMMEN.flat()} duur={150} lus={lus} />
+          </div>
+        )}
       </div>
     </section>
-);
+  );
+};
 
 export default GoogleReviewMuur;

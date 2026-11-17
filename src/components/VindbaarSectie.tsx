@@ -14,8 +14,13 @@ import straal from "@/assets/vindbaar/foto-straal.webp";
 import straalSet from "@/assets/vindbaar/foto-straal.webp?w=400;700;1000&format=webp&as=srcset";
 import pil from "@/assets/vindbaar/justin-job-pil.webp";
 import pilSet from "@/assets/vindbaar/justin-job-pil.webp?w=400;820&format=webp&as=srcset";
+import { koppelScrollTrigger } from "@/components/SmoothScroll";
 
-if (typeof window !== "undefined") gsap.registerPlugin(useGSAP, ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
+  // Lenis op de GSAP-klok, zodat de scroll-animaties gelijk lopen met het scrollen.
+  koppelScrollTrigger(gsap, ScrollTrigger);
+}
 
 /*
  * Vindbaarheid: één groot moment in plaats van een blok uitleg.

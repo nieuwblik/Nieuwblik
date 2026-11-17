@@ -1,13 +1,11 @@
 import { useState, useRef, useId, useLayoutEffect, useEffect, type ReactNode } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-import { easings } from "@/lib/motion";
-import { useReveal } from "@/lib/reveal";
+import { useReducedMotion } from "@/lib/reduced-motion";
 import { useCollapse } from "@/lib/collapse";
 import { ALGEMENE_FAQ } from "@/data/algemeneFaq";
 
 const ANTWOORD_MS = 400;
-const ANTWOORD_EASE = `cubic-bezier(${easings.easeOutExpo.join(",")})`;
+const ANTWOORD_EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 /** Ruimte tussen vraag en antwoord als het open is (px). */
 const ANTWOORD_MARGE = 10;
 
@@ -16,22 +14,40 @@ const faqs = ALGEMENE_FAQ;
 // Op de server bestaat useLayoutEffect niet; daar is meten ook niet nodig.
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpen: boolean, onClick: () => void, index: number }) => {
+const FAQCard = ({ item, isOpen, onClick }: { item: typeof faqs[0], isOpen: boolean, onClick: () => void }) => {
   const shouldReduceMotion = useReducedMotion();
   const id = useId();
   const triggerId = `${id}-vraag`;
   const panelId = `${id}-antwoord`;
-  // Antwoord blijft altijd in de DOM (ook dicht, met `hidden`), zodat het in
-  // de server-HTML staat voor crawlers die geen JavaScript uitvoeren.
+  const paneelRef = useRef<HTMLDivElement>(null);
+  // Antwoord blijft altijd in de DOM (ook dicht), zodat het in de server-HTML
+  // staat voor crawlers die geen JavaScript uitvoeren.
   const { hidden, expanded } = useCollapse(isOpen, shouldReduceMotion ? 0 : ANTWOORD_MS);
 
+  // Dicht staat het antwoord op hidden="until-found": niet zichtbaar, maar wel te
+  // vinden met zoeken in de pagina. Vindt de browser er iets, dan haalt hij hidden
+  // eraf en meldt dat met beforematch; dan zetten we de vraag ook echt open.
+  // Safari kent until-found nog niet en behandelt het als gewoon hidden.
+  // React kent de waarde until-found niet en schrijft er hidden="" van; daarom
+  // zetten we hem zelf, na elke render waarin het paneel dicht is. React raakt
+  // het attribuut pas weer aan als het paneel opengaat.
+  useEffect(() => {
+    const paneel = paneelRef.current;
+    if (paneel && hidden) paneel.setAttribute("hidden", "until-found");
+  }, [hidden]);
+
+  useEffect(() => {
+    const paneel = paneelRef.current;
+    if (!paneel) return;
+    const gevonden = () => {
+      if (!isOpen) onClick();
+    };
+    paneel.addEventListener("beforematch", gevonden);
+    return () => paneel.removeEventListener("beforematch", gevonden);
+  }, [isOpen, onClick]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.05, duration: 0.5, ease: easings.easeOutExpo }}
-    >
+    <div>
       <div
         data-faq-kaart=""
         onClick={onClick}
@@ -45,17 +61,10 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
             : 'rgb(255, 255, 255)'
         }}
       >
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="absolute inset-0 pointer-events-none bg-gradient-to-br from-white/[0.03] via-transparent to-black/20"
-            />
-          )}
-        </AnimatePresence>
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 pointer-events-none bg-gradient-to-br from-white/[0.03] via-transparent to-black/20 transition-opacity duration-400 ${isOpen ? "opacity-100" : "opacity-0"}`}
+        />
 
         <div data-faq-binnen="" className="relative z-10 px-5 py-4 md:px-6 md:py-5">
           {/* De vraag is een echte knop in de kop: bedienbaar met toetsenbord en
@@ -79,23 +88,21 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
             >
               <span>{item.question}</span>
 
-              <motion.span
+              <span
                 aria-hidden="true"
-                className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-full border transition-colors duration-300 ${isOpen
-                  ? "bg-white/10 border-white/20 text-white"
+                className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-full border transition-[color,background-color,border-color,rotate] duration-300 motion-reduce:transition-colors ${isOpen
+                  ? "rotate-180 bg-white/10 border-white/20 text-white"
                   : "bg-secondary border-transparent text-foreground group-hover:bg-accent group-hover:text-white"
                   }`}
-                animate={{ rotate: isOpen ? 180 : 0 }}
               >
                 {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-              </motion.span>
+              </span>
             </button>
           </h3>
 
           <div
+            ref={paneelRef}
             id={panelId}
-            role="region"
-            aria-labelledby={triggerId}
             hidden={hidden}
             data-faq-paneel=""
             className="grid"
@@ -116,7 +123,7 @@ const FAQCard = ({ item, isOpen, onClick, index }: { item: typeof faqs[0], isOpe
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -219,12 +226,13 @@ const FAQSection = ({
   /** Kop en tekst staan er meteen, zonder binnenkomst. */
   zonderAnimatie?: boolean;
 }) => {
-  const reveal = zonderAnimatie ? "" : "sw-reveal";
+  // Geen inloop bij het scrollen meer; de prop blijft voor bestaande aanroepen.
+  void zonderAnimatie;
+  const reveal = "";
   // Hooguit één vraag tegelijk open; de eerste staat open bij binnenkomst.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
   const blokRef = useRef<HTMLDivElement>(null);
-  useReveal(sectionRef);
   const minHoogte = useVasteHoogte(blokRef);
 
   const handleToggle = (index: number) => {
@@ -266,7 +274,6 @@ const FAQSection = ({
                   return (
                     <FAQCard
                       key={index}
-                      index={i}
                       item={faq}
                       isOpen={openIndex === index}
                       onClick={() => handleToggle(index)}
