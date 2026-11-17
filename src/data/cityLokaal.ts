@@ -503,7 +503,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
 
   "den-helder": {
     title: `Website laten maken Den Helder vanaf €${PRIJZEN.starter} | Nieuwblik`,
-    metaDescription: `Website laten maken in Den Helder? Maatwerk vanaf €${PRIJZEN.starter}, binnen 2 tot 4 weken live, vaste prijs. Vraag vrijblijvend een offerte aan.`,
+    metaDescription: `Website laten maken in Den Helder? Een eigen ontwerp, een vaste prijs vooraf en binnen ${LEVERTIJD.standaard} live. Bekijk ons werk en vraag een offerte aan.`,
     h1: `Website laten maken in Den Helder vanaf €${PRIJZEN.starter}`,
     headings: {
       benefits: "Waarom ondernemers uit Den Helder kiezen voor Nieuwblik",
@@ -914,7 +914,7 @@ export const cityLokaal: Record<string, CityLokaal> = {
 
   enkhuizen: {
     title: `Website laten maken Enkhuizen vanaf ${STARTER} | Nieuwblik`,
-    metaDescription: `Website laten maken in Enkhuizen bij een webbureau uit Enkhuizen. Vaste prijs vanaf ${STARTER}, één aanspreekpunt en gebouwd om gevonden te worden.`,
+    metaDescription: `Je website laten maken bij Justin en Job, gewoon uit Enkhuizen. Vaste prijs vanaf ${STARTER}, binnen ${LEVERTIJD.standaard} live. Langskomen op De Trompet kan ook.`,
     h1: "Website laten maken in Enkhuizen",
     eigenOpbouw: true,
     intro: `Een website laten maken in Enkhuizen, bij het webbureau dat hier zelf zit. Vaste prijs vanaf ${STARTER}, één aanspreekpunt en een site die in Enkhuizen en omgeving gevonden wordt.`,

@@ -96,9 +96,9 @@ const WebsiteOpMaat = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Website op Maat Enkhuizen | Webdesign West-Friesland - Nieuwblik"
-        description={`Website laten maken in Enkhuizen? Wij bouwen snelle, SEO-geoptimaliseerde websites op maat. Webdesign bureau West-Friesland. Live in ${LEVERTIJD.standaard}!`}
-        keywords="website op maat Enkhuizen, webdesign West-Friesland, website laten maken, SEO website, snelle website, webdesign bureau Enkhuizen"
+        title="Website op maat laten maken | Snel en vindbaar - Nieuwblik"
+        description={`Een website op maat, ontworpen en gebouwd door Justin en Job. Snel, vindbaar in Google en binnen ${LEVERTIJD.standaard} live. Vanaf ${euroTeken(PRIJZEN.starter)}.`}
+        keywords="website op maat, website op maat laten maken, maatwerk website, SEO website, snelle website"
         canonicalUrl={`${SITE_URL}/diensten/website-op-maat`}
         structuredData={structuredData}
         breadcrumbs={[
