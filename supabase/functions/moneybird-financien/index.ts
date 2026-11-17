@@ -643,6 +643,109 @@ async function voerUit(actie: string, body: Record<string, unknown>, userId: str
     throw new Melding("Onbekende actie op de offerte.");
   }
 
+  if (actie === "documenten") {
+    // Alle verstuurde facturen of offertes van een periode (of alles), om in te zien.
+    const soort = body.soort === "offertes" ? "offertes" : "facturen";
+    const isDatum = (v: unknown): v is string =>
+      typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v));
+    const alles = body.alles === true;
+    let van = !alles && isDatum(body.van) ? body.van : null;
+    let tot = !alles && isDatum(body.tot) ? body.tot : null;
+    if (!alles && !van && !tot) {
+      // Zonder periode: dit jaar.
+      tot = vandaag();
+      van = `${tot.slice(0, 4)}-01-01`;
+    }
+    if (van && tot && van > tot) throw new Melding("De begindatum ligt na de einddatum.");
+    // Moneybird wil bij een eigen periode een begin en een eind, en hooguit tien
+    // jaar ertussen. Zonder periode beperkt het filter de datums niet: dat is "alles".
+    const code = (d: string) => d.replaceAll("-", "");
+    const verschuif = (d: string, jaren: number, dagen: number) => {
+      const x = new Date(`${d}T00:00:00Z`);
+      x.setUTCFullYear(x.getUTCFullYear() + jaren);
+      x.setUTCDate(x.getUTCDate() + dagen);
+      return x.toISOString().slice(0, 10);
+    };
+    let periodeFilter = "";
+    if (van || tot) {
+      // Een open kant: tot vandaag (plus een jaar voor vooruitgedateerde documenten), of tien jaar terug.
+      const begin = van ?? verschuif(tot!, -10, 1);
+      const eindRuim = tot ?? verschuif(vandaag(), 1, 0);
+      const eind = tot ?? (eindRuim < verschuif(begin, 10, -1) ? eindRuim : verschuif(begin, 10, -1));
+      if (eind > verschuif(begin, 10, -1)) throw new Melding("Kies een periode van hooguit tien jaar, of Alles.");
+      periodeFilter = `,period:${code(begin)}..${code(eind)}`;
+    }
+
+    if (soort === "facturen") {
+      // Alles behalve concepten: verstuurd, ingepland, betaald of oninbaar.
+      const filter = encodeURIComponent(`state:open|scheduled|pending_payment|late|reminded|paid|uncollectible${periodeFilter}`);
+      const lijst = await allePaginas<
+        MoneybirdFactuur & {
+          total_price_excl_tax: unknown;
+          paid_at: string | null;
+          sent_at?: string | null;
+          reference?: string | null;
+        }
+      >(`sales_invoices.json?filter=${filter}`, 20);
+      const documenten = lijst
+        .map((f) => ({
+          id: f.id,
+          nummer: f.invoice_id,
+          klant: klantNaam(f),
+          status: f.state,
+          datum: f.invoice_date,
+          vervaldatum: f.due_date,
+          verstuurd: f.sent_at ?? null,
+          betaaldOp: f.paid_at,
+          excl: getal(f.total_price_excl_tax),
+          incl: getal(f.total_price_incl_tax),
+          open: getal(f.total_unpaid),
+          credit: Boolean(f.original_sales_invoice_id) || getal(f.total_price_incl_tax) < 0,
+          kenmerk: f.reference?.trim() || null,
+          url: `https://moneybird.com/${ADMINISTRATIE}/sales_invoices/${f.id}`,
+        }))
+        .sort((a, b) => (b.datum ?? "").localeCompare(a.datum ?? "") || (b.nummer ?? "").localeCompare(a.nummer ?? ""));
+      return { ok: true, soort, van, tot, documenten };
+    }
+
+    // Offertes die de deur uit zijn: uitstaand, verlopen, geaccepteerd, afgewezen,
+    // gefactureerd of gearchiveerd. Een gearchiveerd concept is nooit verstuurd.
+    const filter = encodeURIComponent(`state:open|late|accepted|rejected|billed|archived${periodeFilter}`);
+    const lijst = await allePaginas<{
+      id: string;
+      estimate_id: string | null;
+      state: string;
+      estimate_date: string | null;
+      due_date: string | null;
+      sent_at: string | null;
+      accepted_at: string | null;
+      rejected_at?: string | null;
+      total_price_excl_tax: unknown;
+      total_price_incl_tax: unknown;
+      reference?: string | null;
+      contact?: MoneybirdContact | null;
+    }>(`estimates.json?filter=${filter}`, 20);
+    const documenten = lijst
+      .filter((o) => o.state !== "archived" || o.sent_at)
+      .map((o) => ({
+        id: o.id,
+        nummer: o.estimate_id,
+        klant: o.contact ? contactNaam(o.contact) : "Onbekende klant",
+        status: o.state,
+        datum: o.estimate_date,
+        vervaldatum: o.due_date,
+        verstuurd: o.sent_at,
+        geaccepteerd: o.accepted_at,
+        afgewezen: o.rejected_at ?? null,
+        excl: getal(o.total_price_excl_tax),
+        incl: getal(o.total_price_incl_tax),
+        kenmerk: o.reference?.trim() || null,
+        url: `https://moneybird.com/${ADMINISTRATIE}/estimates/${o.id}`,
+      }))
+      .sort((a, b) => (b.datum ?? "").localeCompare(a.datum ?? "") || (b.nummer ?? "").localeCompare(a.nummer ?? ""));
+    return { ok: true, soort, van, tot, documenten };
+  }
+
   if (actie === "moneybird-contacten") {
     // Alle contacten, om een klant zelf aan het juiste contact te koppelen.
     const contacten = await allePaginas<MoneybirdContact>("contacts.json");

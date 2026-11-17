@@ -427,6 +427,53 @@ export function useTransacties(periode: TransactiePeriode) {
   });
 }
 
+export type DocumentSoort = "facturen" | "offertes";
+
+/** Een verstuurde factuur of offerte, om in te zien. */
+export interface VerstuurdDocument {
+  id: string;
+  nummer: string | null;
+  klant: string;
+  /**
+   * Facturen: open, scheduled, pending_payment, late, reminded, paid, uncollectible.
+   * Offertes: open, late, accepted, rejected, billed, archived.
+   */
+  status: string;
+  datum: string | null;
+  vervaldatum: string | null;
+  verstuurd: string | null;
+  /** Alleen facturen. */
+  betaaldOp?: string | null;
+  open?: number;
+  credit?: boolean;
+  /** Alleen offertes. */
+  geaccepteerd?: string | null;
+  afgewezen?: string | null;
+  excl: number;
+  incl: number;
+  /** Het kenmerk op het document, zoals een projectnaam. */
+  kenmerk: string | null;
+  url: string;
+}
+
+export interface Documenten {
+  soort: DocumentSoort;
+  van: string | null;
+  tot: string | null;
+  documenten: VerstuurdDocument[];
+}
+
+/** Alle verstuurde facturen of offertes van een periode, of alle, uit Moneybird. */
+export function useDocumenten(soort: DocumentSoort, periode: TransactiePeriode) {
+  const sleutel = "alles" in periode ? "alles" : `${periode.van ?? ""}..${periode.tot ?? ""}`;
+  return useQuery({
+    queryKey: [...FINANCIEN_KEY, "documenten", soort, sleutel],
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+    queryFn: () => roepAan<Documenten & { ok: true }>({ actie: "documenten", soort, ...periode }),
+  });
+}
+
 export type HostingResultaat =
   | { ok: true; gemaakt: { naam: string; url: string }[]; overgeslagen: { naam: string; reden: string }[] }
   | { ok: false; kiesContact: MoneybirdContact[] };

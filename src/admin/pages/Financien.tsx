@@ -45,6 +45,7 @@ import {
   OuderdomPanel,
 } from "@/admin/components/FinancienPanelen";
 import TransactiesTab from "@/admin/components/TransactiesTab";
+import DocumentenTab from "@/admin/components/DocumentenTab";
 import OffertesPanel from "@/admin/components/OffertesPanel";
 import DocumentOpstellen from "@/admin/components/DocumentOpstellen";
 import BonUploaden from "@/admin/components/BonUploaden";
@@ -65,6 +66,7 @@ const TABBLADEN = [
   { waarde: "omzet", label: "Omzet", icon: TrendingUp },
   { waarde: "btw", label: "Btw", icon: Percent },
   { waarde: "transacties", label: "Transacties", icon: ArrowLeftRight },
+  { waarde: "documenten", label: "Documenten", icon: FileText },
 ];
 
 const maandLabel = (maand: string, lang = false) =>
@@ -517,6 +519,11 @@ const Financien = () => {
             {...(data.uitgaven ? { uitgaven: data.uitgaven } : {})}
             moneybirdUrl={data.moneybirdUrl}
           />
+        </TabsContent>
+
+        {/* Documenten: alle verstuurde facturen en offertes, om terug te kijken. */}
+        <TabsContent value="documenten" className="mt-5">
+          <DocumentenTab />
         </TabsContent>
 
         <TabsContent value="overzicht" className="mt-5 space-y-5">
