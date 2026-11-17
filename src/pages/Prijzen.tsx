@@ -4,9 +4,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import PricingPackages from "@/components/PricingPackages";
 import { DienstHero } from "@/components/dienst/DienstBlokken";
+import { PRIJZEN_OMSCHRIJVING, PRIJZEN_TITEL } from "@/data/prijzenMeta";
 
-export const PRIJZEN_TITEL = `Prijzen website laten maken | Vanaf ${euroTeken(PRIJZEN.starter)} - Nieuwblik`;
-export const PRIJZEN_OMSCHRIJVING = `Prijzen van Nieuwblik: Starter ${euroTeken(PRIJZEN.starter)}, Professional vanaf ${euroTeken(PRIJZEN.professional)} of maatwerk op aanvraag. Vaste prijs vooraf, levertijd vanaf ${LEVERTIJD.starter}.`;
 
 /**
  * Prijzenpagina: de pakketten die eerst op de homepage stonden, met een eigen

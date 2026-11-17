@@ -1,7 +1,8 @@
 import { SITE_URL } from "@/config/site";
 import { createFileRoute } from "@tanstack/react-router";
 
-import Prijzen, { PRIJZEN_OMSCHRIJVING, PRIJZEN_TITEL } from "@/pages/Prijzen";
+import Prijzen from "@/pages/Prijzen";
+import { PRIJZEN_OMSCHRIJVING, PRIJZEN_TITEL } from "@/data/prijzenMeta";
 import { buildHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/_public/prijzen")({
