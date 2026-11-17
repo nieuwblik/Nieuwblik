@@ -61,7 +61,7 @@ export const LASTMOD: Record<string, string> = {
   "/portfolio/rrs-royal": "2026-08-28",
   "/portfolio/taxi-drechterland": "2026-09-01",
   "/portfolio/vv-madjoe": "2026-09-14",
-  "/prijzen": "2026-10-12",
+  "/prijzen": "2026-11-17",
   "/privacy": "2026-08-28",
   "/projectbriefing": "2026-10-19",
   "/regio/noord-holland": "2026-10-09",
