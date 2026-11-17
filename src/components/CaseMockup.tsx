@@ -217,10 +217,8 @@ const CaseMockup = ({ scherm, alt }: { scherm: MockupScherm; alt: string }) => {
           </div>
         </div>
 
-        {/* data-lenis-prevent: het muiswiel hoort hier bij het scherm, niet bij de smooth scroll van de pagina. */}
         <div
           ref={schermRef}
-          data-lenis-prevent=""
           className="absolute overflow-hidden rounded-[0.2%] bg-black [@media(hover:hover)_and_(pointer:fine)]:cursor-none"
           style={{ left: "var(--l)", top: "var(--t)", width: "var(--w)", height: "var(--h)" }}
         >

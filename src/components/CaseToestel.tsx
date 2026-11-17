@@ -165,11 +165,9 @@ const CaseToestel = ({ toestel, scherm, alt }: { toestel: Toestel; scherm: Mocku
 
         {/* Masker in fotocoördinaten: het scherm alleen waar in de foto echt scherm was. */}
         <div data-toestel-masker="" className="pointer-events-none absolute inset-0">
-          {/* data-lenis-prevent: het muiswiel hoort hier bij het scherm, niet bij de smooth scroll van de pagina. */}
           <div
             ref={schermRef}
             data-toestel-scherm=""
-            data-lenis-prevent=""
             className="pointer-events-auto absolute left-0 top-0 origin-top-left overflow-hidden bg-black [@media(hover:hover)_and_(pointer:fine)]:cursor-none"
           >
             <div ref={beeldRef} data-toestel-beeld="" data-aan="nee" className="absolute inset-0 overflow-hidden">

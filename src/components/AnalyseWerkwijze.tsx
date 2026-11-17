@@ -4,7 +4,6 @@ import { AnimatedButton } from "@/components/ui/animated-button";
 import { REVIEWS } from "@/config/business";
 import samenLaptop from "@/assets/analyse/samen-laptop.webp";
 import samenLaptopSet from "@/assets/analyse/samen-laptop.webp?w=480;800;1200&format=webp&as=srcset";
-import { koppelScrollTrigger } from "@/components/SmoothScroll";
 
 const RAND = "hsl(var(--sw-rule) / 0.14)";
 
@@ -33,10 +32,6 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
   const [vast, setVast] = useState(false);
   const [wisselt, setWisselt] = useState(false);
 
-  // ScrollTrigger hangt aan dezelfde klok als Lenis (zie SmoothScroll), dus de foto
-  // beweegt in hetzelfde frame als de pagina. Een eigen scroll-luisteraar liep daar
-  // een frame achteraan, en dat voelde hakkelig.
-  //
   // De beweging begint op 0 bij scrollpositie 0: dat is ook de stand uit de
   // server-HTML, dus er verspringt niets bij het laden. Scrub zonder naloop,
   // anders schuift de foto na een refresh zichtbaar naar zijn plek.
@@ -59,7 +54,6 @@ const AnalyseWerkwijze = ({ onKnop }: { onKnop: () => void }) => {
     void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ default: gsap }, { ScrollTrigger }]) => {
       if (weg) return;
       gsap.registerPlugin(ScrollTrigger);
-      koppelScrollTrigger(gsap, ScrollTrigger);
       const ctx = gsap.context(() => {
         gsap.fromTo(
           foto,

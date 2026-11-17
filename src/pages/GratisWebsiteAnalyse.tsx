@@ -8,7 +8,6 @@ import CaseGrid from "@/components/CaseGrid";
 import Footer from "@/components/Footer";
 import GoogleReviewMuur, { GoogleG } from "@/components/GoogleReviewMuur";
 import SEOHead from "@/components/SEOHead";
-import { getLenis } from "@/components/SmoothScroll";
 import { Sectie } from "@/components/dienst/DienstBlokken";
 import { AnimatedButton } from "@/components/ui/animated-button";
 import { Input } from "@/components/ui/input";
@@ -226,10 +225,7 @@ const GratisWebsiteAnalyse = () => {
   const naarFormulier = useCallback(() => {
     const form = formRef.current;
     if (!form) return;
-    // Via Lenis: die houdt de scrollpositie vast en negeert een gewone scrollIntoView.
-    const lenis = getLenis();
-    if (lenis) lenis.scrollTo(form, { offset: -96 });
-    else form.scrollIntoView({ behavior: "smooth", block: "center" });
+    form.scrollIntoView({ behavior: "smooth", block: "center" });
     form.querySelector<HTMLInputElement>("#website")?.focus({ preventScroll: true });
   }, []);
 

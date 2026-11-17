@@ -1,7 +1,6 @@
 import { ClientOnly, Outlet, createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
-import SmoothScroll from "@/components/SmoothScroll";
 import ZwevendeKnoppen from "@/components/ZwevendeKnoppen";
 import TabNav from "@/components/TabNav";
 
@@ -14,13 +13,12 @@ export const Route = createFileRoute("/_public")({
 });
 
 /**
- * De publieke site: nav, smooth scroll en de bezoekerswidgets horen hier.
+ * De publieke site: nav en de bezoekerswidgets horen hier.
  * Het portaal valt hier bewust buiten — dat draait in zijn eigen brug.
  */
 function PublicLayout() {
   return (
     <>
-      <SmoothScroll />
       <ZwevendeKnoppen />
       <ClientOnly fallback={null}>
         <Suspense fallback={null}>

@@ -686,8 +686,6 @@ export function startPaneel({ motor, hero, site, plek }: Opties): () => void {
 
   const paneel = document.createElement("div");
   paneel.className = "golf-paneel";
-  // Het muiswiel hoort bij het paneel, niet bij de smooth scroll (Lenis) van de pagina.
-  paneel.setAttribute("data-lenis-prevent", "");
   paneel.setAttribute("role", "dialog");
   paneel.setAttribute("aria-label", "Golf afstellen");
   paneel.innerHTML = `

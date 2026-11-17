@@ -3,7 +3,6 @@ import { ArrowUp, FileText, Gauge, Palette, Plus, Search, Smartphone } from "luc
 import { useLocation } from "@/lib/router-compat";
 import { companyInfo } from "@/config/company";
 import { AnimatedButton } from "@/components/ui/animated-button";
-import { getLenis } from "@/components/SmoothScroll";
 
 const GROEN = "hsl(var(--sw-green))";
 const INKT_65 = "hsl(var(--sw-ink) / 0.65)";
@@ -102,9 +101,7 @@ const ZwevendeKnoppen = () => {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const lenis = getLenis();
-    if (lenis) lenis.scrollTo(0, { immediate: reduced });
-    else window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
   };
 
   return (

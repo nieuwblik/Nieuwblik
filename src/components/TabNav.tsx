@@ -32,7 +32,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "@/lib/router-compat";
-import { getLenis } from "@/components/SmoothScroll";
 import { companyInfo } from "@/config/company";
 import { SITE_URL } from "@/config/site";
 import logoSrc from "@/assets/logo.webp";
@@ -413,18 +412,12 @@ export default function TabNav({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("scroll", zet);
   }, []);
 
-  // Menu of overzicht open: de pagina eronder scrolt niet mee. Lenis stuurt het
-  // scrollen op desktop, dus overflow alleen is niet genoeg.
+  // Menu of overzicht open: de pagina eronder scrolt niet mee.
   const vergrendeld = allesOpen || mobielOpen;
   useEffect(() => {
     const html = document.documentElement;
     html.classList.toggle("tn-vast", vergrendeld);
-    if (vergrendeld) getLenis()?.stop();
-    else getLenis()?.start();
-    return () => {
-      html.classList.remove("tn-vast");
-      getLenis()?.start();
-    };
+    return () => html.classList.remove("tn-vast");
   }, [vergrendeld]);
 
   // Escape sluit alles; klikken buiten het overzicht of het uitklapmenu ook.
