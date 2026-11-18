@@ -3,6 +3,7 @@ import { faqPage } from "@/lib/structured-data";
 import { algemeneFaqParen } from "@/data/algemeneFaq";
 import { SITE_URL } from "@/config/site";
 import { lazy, Suspense, useRef } from "react";
+import { Link } from "@/lib/router-compat";
 import Footer from "@/components/Footer";
 import FAQSection from "@/components/FAQSection";
 import SEOHead from "@/components/SEOHead";
@@ -180,7 +181,9 @@ const About = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3, ease: easings.easeOutExpo }}
               >
-                Wij zijn Justin en Job, twee gedreven ontwerpers en developers uit Enkhuizen die geloven dat een goede website het verschil maakt tussen opgemerkt worden of onzichtbaar blijven.
+                Wij zijn Justin en Job, twee gedreven{" "}
+                <Link to="/website-laten-maken-enkhuizen" className="stille-link">ontwerpers en developers uit Enkhuizen</Link>{" "}
+                die geloven dat een goede website het verschil maakt tussen opgemerkt worden of onzichtbaar blijven.
               </motion.p>
 
               <motion.div

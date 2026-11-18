@@ -163,6 +163,12 @@ const BlogPost = () => {
     }
   }, [post]);
 
+  // [tekst](/pad "stil"): een interne link die eruitziet als gewone tekst.
+  const leesLink = (doel: string) => {
+    const stil = / "stil"$/.test(doel);
+    return { href: stil ? doel.replace(/ "stil"$/, "") : doel, className: stil ? "stille-link" : "text-accent hover:underline" };
+  };
+
   const formatInlineMarkdown = (text: string): (string | JSX.Element)[] => {
     // Process markdown: **bold**, *italic*, [links](url)
     const regex = /(\*\*(.+?)\*\*)|(\*(.+?)\*)|(\[([^\]]+)\]\(([^)]+)\))/g;
@@ -182,7 +188,7 @@ const BlogPost = () => {
         parts.push(<em key={match.index}>{match[4]}</em>);
       } else if (match[5]) {
         // [link](url)
-        const href = match[7] ?? "";
+        const { href, className } = leesLink(match[7] ?? "");
         // Interne links en ankers in hetzelfde tabblad; alleen externe bronnen
         // openen apart.
         const isAnchor = href.startsWith('#') || href.startsWith('/');
@@ -191,7 +197,7 @@ const BlogPost = () => {
             key={match.index}
             href={href}
             {...(!isAnchor ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="text-accent hover:underline"
+            className={className}
           >
             {match[6]}
           </a>
@@ -478,12 +484,13 @@ const BlogPost = () => {
           if (match.index > lastIndex) {
             parts.push(text.slice(lastIndex, match.index));
           }
+          const { href, className } = leesLink(match[2] ?? "");
           parts.push(
             <a
               key={match.index}
-              href={match[2]}
-              {...(/^[/#]/.test(match[2] ?? "") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-              className="text-accent hover:underline"
+              href={href}
+              {...(/^[/#]/.test(href) ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+              className={className}
             >
               {match[1]}
             </a>

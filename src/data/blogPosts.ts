@@ -1001,7 +1001,7 @@ Kijk eens goed naar de kuip. Dat zwart-rood-gele kunstwerk is niet zomaar een mo
 
 We staan op die motor in een rijtje waar we trots op zijn. De hoofdpartner is **Nelon Racing**, die Kevin het hele seizoen door ondersteunt. Daarnaast staan **Mobu Tuning**, **MWAY Motorsport Stickers**, **Willemse**, **CAT** en **Motul** op de kuip.
 
-Het is bijzonder om als **webdesignbureau uit Enkhuizen** in dat rijtje te staan. Het laat zien dat sponsoring niet alleen draait om grote bedragen, maar vooral om geloof in de rijder.
+Het is bijzonder om als **[webdesignbureau uit Enkhuizen](/website-laten-maken-enkhuizen "stil")** in dat rijtje te staan. Het laat zien dat sponsoring niet alleen draait om grote bedragen, maar vooral om geloof in de rijder.
 
 ## Justin en Kevin, vrienden voor het leven
 
@@ -1133,7 +1133,7 @@ Het is bijzonder om als **webdesignbureau** tussen deze gevestigde namen te staa
 
 ## Waarom lokaal sponsoren belangrijk is
 
-Als ondernemer in Enkhuizen voelen we ons verbonden met de gemeenschap. **Lokaal sponsoren** is voor ons meer dan een logo op een shirt. Het is:
+Als [webdesignbureau in Enkhuizen](/website-laten-maken-enkhuizen "stil") voelen we ons verbonden met de gemeenschap. **Lokaal sponsoren** is voor ons meer dan een logo op een shirt. Het is:
 
 - **Investeren in de gemeenschap**: Sport verbindt mensen. Door een lokaal team te steunen, dragen we bij aan sociale cohesie
 - **Zichtbaarheid op de juiste plek**: Bij elke thuiswedstrijd zien honderden toeschouwers ons logo. Dat is lokale marketing op zijn best

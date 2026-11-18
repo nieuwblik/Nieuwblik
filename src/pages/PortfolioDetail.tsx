@@ -18,6 +18,22 @@ import { caseAfbeelding, caseBeschrijving } from "@/lib/caseMeta";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, easings } from "@/lib/motion";
 import { ExternalLink, ArrowLeft, Calendar, Target, Lightbulb } from "lucide-react";
+import type { ReactNode } from "react";
+import type { Project } from "@/data/projects";
+
+/** Zet de eerste keer dat project.stadLink.tekst voorkomt om in een stille link. */
+function metStadLink(tekst: string, project: Project): ReactNode {
+    const link = project.stadLink;
+    const plek = link ? tekst.indexOf(link.tekst) : -1;
+    if (!link || plek < 0) return tekst;
+    return (
+        <>
+            {tekst.slice(0, plek)}
+            <Link to={link.naar} className="stille-link">{link.tekst}</Link>
+            {tekst.slice(plek + link.tekst.length)}
+        </>
+    );
+}
 import { cn } from "@/lib/utils";
 
 const PortfolioDetail = () => {
@@ -152,7 +168,7 @@ const PortfolioDetail = () => {
                             <motion.div variants={fadeUp} className="space-y-6">
                                 {alineasBoven.map((alinea, i) => (
                                     <p key={i} className="text-lg text-muted-foreground font-light leading-relaxed">
-                                        {alinea || "Gegevens volgen nog..."}
+                                        {alinea ? metStadLink(alinea, project) : "Gegevens volgen nog..."}
                                     </p>
                                 ))}
                             </motion.div>
@@ -184,7 +200,7 @@ const PortfolioDetail = () => {
                                 <motion.div variants={fadeUp} className="space-y-6">
                                     {overigeAlineas.map((alinea, i) => (
                                         <p key={i} className="text-lg text-muted-foreground font-light leading-relaxed">
-                                            {alinea}
+                                            {metStadLink(alinea, project)}
                                         </p>
                                     ))}
                                 </motion.div>
@@ -216,7 +232,7 @@ const PortfolioDetail = () => {
                             {project.detail?.goal && (
                                 <motion.div variants={fadeUp} className="space-y-4 border-t border-border/60 pt-12">
                                     <h3 className="text-2xl font-bold font-display leading-tight">Het doel</h3>
-                                    <p className="text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">{project.detail.goal}</p>
+                                    <p className="text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">{metStadLink(project.detail.goal, project)}</p>
                                 </motion.div>
                             )}
 
@@ -268,7 +284,7 @@ const PortfolioDetail = () => {
                                     Over {project.title}
                                 </h2>
                                 <p className="text-lg text-muted-foreground font-light leading-relaxed whitespace-pre-wrap">
-                                    {project.detail?.details || "Gegevens volgen nog..."}
+                                    {project.detail?.details ? metStadLink(project.detail.details, project) : "Gegevens volgen nog..."}
                                 </p>
                             </div>
 
@@ -290,7 +306,7 @@ const PortfolioDetail = () => {
                                     <div>
                                         <h4 className="text-lg font-bold mb-2 uppercase text-sm tracking-wide">Het Doel</h4>
                                         <p className="text-muted-foreground font-light leading-relaxed">
-                                            {project.detail?.goal || "Gegevens volgen nog..."}
+                                            {project.detail?.goal ? metStadLink(project.detail.goal, project) : "Gegevens volgen nog..."}
                                         </p>
                                     </div>
                                 </div>

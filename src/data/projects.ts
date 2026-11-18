@@ -84,6 +84,11 @@ export interface Project {
   /** Varianten per breedte, voor het srcset-attribuut. */
   imageSet?: string;
   url: string;
+  /**
+   * Optioneel: een woordgroep uit het doel of de beschrijving van de case die een
+   * stille link wordt (zie .stille-link), bijvoorbeeld naar de stadspagina van de klant.
+   */
+  stadLink?: { tekst: string; naar: string };
   detail?: ProjectDetail;
   gallery?: string[];
   credits?: ProjectCredits;
@@ -109,6 +114,7 @@ export const projects: Project[] = [
   },
   {
     slug: "feigro-dakwerken",
+    stadLink: { tekst: "uit Enkhuizen", naar: "/website-laten-maken-enkhuizen" },
     title: "Feigro Dakwerken",
     category: "Dakdekkersdiensten",
     filterCategory: "websites",
@@ -126,6 +132,7 @@ export const projects: Project[] = [
   },
   {
     slug: "een-bundel-geluk",
+    stadLink: { tekst: "uit Enkhuizen", naar: "/website-laten-maken-enkhuizen" },
     title: "Een Bundel Geluk",
     category: "E-commerce, Gezondheid & Persoonlijke Branding",
     filterCategory: "e-commerce",
@@ -160,6 +167,7 @@ export const projects: Project[] = [
   },
   {
     slug: "vv-madjoe",
+    stadLink: { tekst: "in Enkhuizen", naar: "/website-laten-maken-enkhuizen" },
     title: "VV Madjoe",
     category: "Sportvereniging",
     filterCategory: "websites",
@@ -451,6 +459,7 @@ export const projects: Project[] = [
   },
   {
     slug: "kyodai-originals",
+    stadLink: { tekst: "uit Enkhuizen", naar: "/website-laten-maken-enkhuizen" },
     title: "Kyodai Originals",
     category: "Galerie voor Japanse Zwaarden & Antiek",
     filterCategory: "websites",
